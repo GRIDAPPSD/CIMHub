@@ -1,4 +1,4 @@
-package gov.pnnl.goss.cim2glm.queryhandler.impl;
+package gov.pnnl.goss.cimhub.queryhandler.impl;
 
 import java.util.Date;
 
@@ -9,8 +9,8 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetCloseable;
 
-import gov.pnnl.goss.cim2glm.components.DistComponent;
-import gov.pnnl.goss.cim2glm.queryhandler.QueryHandler;
+import gov.pnnl.goss.cimhub.components.DistComponent;
+import gov.pnnl.goss.cimhub.queryhandler.QueryHandler;
 
 public class HTTPBlazegraphQueryHandler implements QueryHandler {
 	

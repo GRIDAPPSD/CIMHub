@@ -1,4 +1,4 @@
-package gov.pnnl.goss.cim2glm.queryhandler.impl;
+package gov.pnnl.goss.cimhub.queryhandler.impl;
 
 import java.io.File;
 
@@ -16,7 +16,7 @@ import org.apache.jena.query.ResultSet;
 //import com.bigdata.rdf.sail.BigdataSailRepository;
 import org.apache.jena.query.ResultSetCloseable;
 
-import gov.pnnl.goss.cim2glm.queryhandler.QueryHandler;
+import gov.pnnl.goss.cimhub.queryhandler.QueryHandler;
 
 public class InternalBlazegraphQueryHandler implements QueryHandler{
 //	Repository repo;

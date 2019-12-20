@@ -1,9 +1,9 @@
-package gov.pnnl.goss.cim2glm.queryhandler;
+package gov.pnnl.goss.cimhub.queryhandler;
 
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetCloseable;
 
-import gov.pnnl.goss.cim2glm.components.DistComponent;
+import gov.pnnl.goss.cimhub.components.DistComponent;
 
 public interface QueryHandler {
 	public final String Q_PREFIX = "PREFIX r: <" + DistComponent.nsRDF + "> PREFIX c: <" + DistComponent.nsCIM + "> PREFIX rdf: <" + DistComponent.nsRDF + "> PREFIX cim: <" + DistComponent.nsCIM + "> PREFIX xsd:<" + DistComponent.nsXSD + "> ";

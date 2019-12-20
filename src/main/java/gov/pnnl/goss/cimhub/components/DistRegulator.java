@@ -1,4 +1,4 @@
-package gov.pnnl.goss.cim2glm.components;
+package gov.pnnl.goss.cimhub.components;
 //	----------------------------------------------------------
 //	Copyright (c) 2017, Battelle Memorial Institute
 //	All rights reserved.
@@ -6,7 +6,7 @@ package gov.pnnl.goss.cim2glm.components;
 
 import org.apache.jena.query.*;
 
-import gov.pnnl.goss.cim2glm.queryhandler.QueryHandler;
+import gov.pnnl.goss.cimhub.queryhandler.QueryHandler;
 
 import java.util.HashMap;
 

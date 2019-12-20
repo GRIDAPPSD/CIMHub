@@ -1,4 +1,4 @@
-package gov.pnnl.goss.cim2glm;
+package gov.pnnl.goss.cimhub;
 // ----------------------------------------------------------
 // Copyright (c) 2017-2019, Battelle Memorial Institute
 // All rights reserved.
@@ -16,51 +16,51 @@ import java.util.UUID;
 
 import org.apache.jena.query.*;
 
-import gov.pnnl.goss.cim2glm.CIMImporter;
+import gov.pnnl.goss.cimhub.CIMImporter;
 
-import gov.pnnl.goss.cim2glm.components.DistBaseVoltage;
-import gov.pnnl.goss.cim2glm.components.DistBreaker;
-import gov.pnnl.goss.cim2glm.components.DistCapacitor;
-import gov.pnnl.goss.cim2glm.components.DistComponent;
-import gov.pnnl.goss.cim2glm.components.DistConcentricNeutralCable;
-import gov.pnnl.goss.cim2glm.components.DistCoordinates;
-import gov.pnnl.goss.cim2glm.components.DistDisconnector;
-import gov.pnnl.goss.cim2glm.components.DistFeeder;
-import gov.pnnl.goss.cim2glm.components.DistFuse;
-import gov.pnnl.goss.cim2glm.components.DistGroundDisconnector;
-import gov.pnnl.goss.cim2glm.components.DistHouse;
-import gov.pnnl.goss.cim2glm.components.DistJumper;
-import gov.pnnl.goss.cim2glm.components.DistLineSegment;
-import gov.pnnl.goss.cim2glm.components.DistLineSpacing;
-import gov.pnnl.goss.cim2glm.components.DistLinesCodeZ;
-import gov.pnnl.goss.cim2glm.components.DistLinesInstanceZ;
-import gov.pnnl.goss.cim2glm.components.DistLinesSpacingZ;
-import gov.pnnl.goss.cim2glm.components.DistLoad;
-import gov.pnnl.goss.cim2glm.components.DistLoadBreakSwitch;
-import gov.pnnl.goss.cim2glm.components.DistMeasurement;
-import gov.pnnl.goss.cim2glm.components.DistOverheadWire;
-import gov.pnnl.goss.cim2glm.components.DistPhaseMatrix;
-import gov.pnnl.goss.cim2glm.components.DistPowerXfmrCore;
-import gov.pnnl.goss.cim2glm.components.DistPowerXfmrMesh;
-import gov.pnnl.goss.cim2glm.components.DistPowerXfmrWinding;
-import gov.pnnl.goss.cim2glm.components.DistRecloser;
-import gov.pnnl.goss.cim2glm.components.DistRegulator;
-import gov.pnnl.goss.cim2glm.components.DistSectionaliser;
-import gov.pnnl.goss.cim2glm.components.DistSequenceMatrix;
-import gov.pnnl.goss.cim2glm.components.DistSolar;
-import gov.pnnl.goss.cim2glm.components.DistStorage;
-import gov.pnnl.goss.cim2glm.components.DistSubstation;
-import gov.pnnl.goss.cim2glm.components.DistSwitch;
-import gov.pnnl.goss.cim2glm.components.DistSyncMachine;
-import gov.pnnl.goss.cim2glm.components.DistTapeShieldCable;
-import gov.pnnl.goss.cim2glm.components.DistXfmrBank;
-import gov.pnnl.goss.cim2glm.components.DistXfmrCodeOCTest;
-import gov.pnnl.goss.cim2glm.components.DistXfmrCodeRating;
-import gov.pnnl.goss.cim2glm.components.DistXfmrCodeSCTest;
-import gov.pnnl.goss.cim2glm.components.DistXfmrTank;
+import gov.pnnl.goss.cimhub.components.DistBaseVoltage;
+import gov.pnnl.goss.cimhub.components.DistBreaker;
+import gov.pnnl.goss.cimhub.components.DistCapacitor;
+import gov.pnnl.goss.cimhub.components.DistComponent;
+import gov.pnnl.goss.cimhub.components.DistConcentricNeutralCable;
+import gov.pnnl.goss.cimhub.components.DistCoordinates;
+import gov.pnnl.goss.cimhub.components.DistDisconnector;
+import gov.pnnl.goss.cimhub.components.DistFeeder;
+import gov.pnnl.goss.cimhub.components.DistFuse;
+import gov.pnnl.goss.cimhub.components.DistGroundDisconnector;
+import gov.pnnl.goss.cimhub.components.DistHouse;
+import gov.pnnl.goss.cimhub.components.DistJumper;
+import gov.pnnl.goss.cimhub.components.DistLineSegment;
+import gov.pnnl.goss.cimhub.components.DistLineSpacing;
+import gov.pnnl.goss.cimhub.components.DistLinesCodeZ;
+import gov.pnnl.goss.cimhub.components.DistLinesInstanceZ;
+import gov.pnnl.goss.cimhub.components.DistLinesSpacingZ;
+import gov.pnnl.goss.cimhub.components.DistLoad;
+import gov.pnnl.goss.cimhub.components.DistLoadBreakSwitch;
+import gov.pnnl.goss.cimhub.components.DistMeasurement;
+import gov.pnnl.goss.cimhub.components.DistOverheadWire;
+import gov.pnnl.goss.cimhub.components.DistPhaseMatrix;
+import gov.pnnl.goss.cimhub.components.DistPowerXfmrCore;
+import gov.pnnl.goss.cimhub.components.DistPowerXfmrMesh;
+import gov.pnnl.goss.cimhub.components.DistPowerXfmrWinding;
+import gov.pnnl.goss.cimhub.components.DistRecloser;
+import gov.pnnl.goss.cimhub.components.DistRegulator;
+import gov.pnnl.goss.cimhub.components.DistSectionaliser;
+import gov.pnnl.goss.cimhub.components.DistSequenceMatrix;
+import gov.pnnl.goss.cimhub.components.DistSolar;
+import gov.pnnl.goss.cimhub.components.DistStorage;
+import gov.pnnl.goss.cimhub.components.DistSubstation;
+import gov.pnnl.goss.cimhub.components.DistSwitch;
+import gov.pnnl.goss.cimhub.components.DistSyncMachine;
+import gov.pnnl.goss.cimhub.components.DistTapeShieldCable;
+import gov.pnnl.goss.cimhub.components.DistXfmrBank;
+import gov.pnnl.goss.cimhub.components.DistXfmrCodeOCTest;
+import gov.pnnl.goss.cimhub.components.DistXfmrCodeRating;
+import gov.pnnl.goss.cimhub.components.DistXfmrCodeSCTest;
+import gov.pnnl.goss.cimhub.components.DistXfmrTank;
 
-import gov.pnnl.goss.cim2glm.queryhandler.QueryHandler;
-import gov.pnnl.goss.cim2glm.queryhandler.impl.HTTPBlazegraphQueryHandler;
+import gov.pnnl.goss.cimhub.queryhandler.QueryHandler;
+import gov.pnnl.goss.cimhub.queryhandler.impl.HTTPBlazegraphQueryHandler;
 
 public class CIMWriter extends Object {
 	QueryHandler queryHandler;

@@ -1,4 +1,4 @@
-package gov.pnnl.goss.cim2glm.components;
+package gov.pnnl.goss.cimhub.components;
 
 import java.util.EnumMap;
 import java.util.Random;

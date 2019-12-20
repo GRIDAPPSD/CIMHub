@@ -1,4 +1,4 @@
-package gov.pnnl.goss.cim2glm.components;
+package gov.pnnl.goss.cimhub.components;
 //	----------------------------------------------------------
 //	Copyright (c) 2018, Battelle Memorial Institute
 //	All rights reserved.

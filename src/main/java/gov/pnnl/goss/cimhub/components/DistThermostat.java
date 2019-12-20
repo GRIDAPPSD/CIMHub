@@ -1,11 +1,11 @@
-package gov.pnnl.goss.cim2glm.components;
+package gov.pnnl.goss.cimhub.components;
 
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
-import gov.pnnl.goss.cim2glm.components.DistHouse.HouseCooling;
-import gov.pnnl.goss.cim2glm.components.DistHouse.HouseHeating;
-import gov.pnnl.goss.cim2glm.components.DistHouse.HouseThermalIntegrity;
+import gov.pnnl.goss.cimhub.components.DistHouse.HouseCooling;
+import gov.pnnl.goss.cimhub.components.DistHouse.HouseHeating;
+import gov.pnnl.goss.cimhub.components.DistHouse.HouseThermalIntegrity;
 
 import org.apache.jena.query.*;
 

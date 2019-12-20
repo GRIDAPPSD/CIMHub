@@ -1,4 +1,4 @@
-package gov.pnnl.goss.cim2glm.dto;
+package gov.pnnl.goss.cimhub.dto;
 
 import java.util.ArrayList;
 import java.util.List;

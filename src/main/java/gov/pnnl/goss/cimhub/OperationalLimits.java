@@ -1,4 +1,4 @@
-package gov.pnnl.goss.cim2glm;
+package gov.pnnl.goss.cimhub;
 // ----------------------------------------------------------
 // Copyright (c) 2017-2019, Battelle Memorial Institute
 // All rights reserved.
@@ -11,9 +11,9 @@ import java.text.DecimalFormat;
 
 import org.apache.jena.query.*;
 
-import gov.pnnl.goss.cim2glm.CIMImporter;
-import gov.pnnl.goss.cim2glm.queryhandler.QueryHandler;
-import gov.pnnl.goss.cim2glm.queryhandler.impl.HTTPBlazegraphQueryHandler;
+import gov.pnnl.goss.cimhub.CIMImporter;
+import gov.pnnl.goss.cimhub.queryhandler.QueryHandler;
+import gov.pnnl.goss.cimhub.queryhandler.impl.HTTPBlazegraphQueryHandler;
 
 public class OperationalLimits extends Object {
 	QueryHandler queryHandler;
