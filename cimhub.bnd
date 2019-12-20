@@ -1,0 +1,8 @@
+Bundle-Version: 17.0.0
+Private-Package: \
+	gov.pnnl.goss.cimhub.components,\
+	gov.pnnl.goss.cimhub.queryhandler.impl
+Export-Package: \
+	gov.pnnl.goss.cimhub.queryhandler,\
+	gov.pnnl.goss.cimhub,\
+	gov.pnnl.goss.cimhub.dto
