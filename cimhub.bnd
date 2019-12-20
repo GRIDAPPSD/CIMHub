@@ -1,8 +1,8 @@
 Bundle-Version: 17.0.0
 Private-Package: \
-	gov.pnnl.goss.cimhub.components,\
-	gov.pnnl.goss.cimhub.queryhandler.impl
+	gov.pnnl.gridappsd.cimhub.components,\
+	gov.pnnl.gridappsd.cimhub.queryhandler.impl
 Export-Package: \
-	gov.pnnl.goss.cimhub.queryhandler,\
-	gov.pnnl.goss.cimhub,\
-	gov.pnnl.goss.cimhub.dto
+	gov.pnnl.gridappsd.cimhub.queryhandler,\
+	gov.pnnl.gridappsd.cimhub,\
+	gov.pnnl.ggridappsd.cimhub.dto
