@@ -538,7 +538,9 @@ SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat 
  ?eq c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
- ?acp c:ACLineSegmentPhase.WireInfo ?w.
+ ?ast c:Asset.PowerSystemResources ?acp.
+ ?ast c:Asset.AssetInfo ?w.
+# ?acp c:ACLineSegmentPhase.WireInfo ?w.
  ?w r:type c:OverheadWireInfo.
  ?w c:IdentifiedObject.name ?name.
  ?w c:WireInfo.radius ?rad.
@@ -553,6 +555,46 @@ SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat 
      bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
  OPTIONAL {?w c:WireInfo.insulated ?ins.}
  OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+}
+ORDER BY ?name
+
+# concentric neutrals actually used - DistConcentricNeutralCable
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/2012/CIM-schema-cim17#>
+SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?diacore ?diains ?diascreen ?diajacket ?dianeut ?sheathneutral 
+       ?strand_cnt ?strand_rad ?strand_gmr ?strand_rdc
+WHERE {
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
+ ?ast c:Asset.PowerSystemResources ?acp.
+ ?ast c:Asset.AssetInfo ?w.
+# ?acp c:ACLineSegmentPhase.WireInfo ?w.
+ ?w r:type c:ConcentricNeutralCableInfo.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:WireInfo.radius ?rad.
+ ?w c:WireInfo.gmr ?gmr.
+ OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}
+ OPTIONAL {?w c:WireInfo.rAC25 ?r25.}
+ OPTIONAL {?w c:WireInfo.rAC50 ?r50.}
+ OPTIONAL {?w c:WireInfo.rAC75 ?r75.}
+ OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}
+ OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}
+ OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw.
+     bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
+ OPTIONAL {?w c:WireInfo.insulated ?ins.}
+ OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+ OPTIONAL {?w c:CableInfo.diameterOverCore ?diacore.}
+ OPTIONAL {?w c:CableInfo.diameterOverJacket ?diajacket.}
+ OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}
+ OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}
+ OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.diameterOverNeutral ?dianeut.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandCount ?strand_cnt.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandGmr ?strand_gmr.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandRadius ?strand_rad.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandRDC20 ?strand_rdc.}
 }
 ORDER BY ?name
 
@@ -600,12 +642,13 @@ ORDER BY ?name ?phs
 # line segments with individual phase wire assignments, ordered by phase - DistLinesSpacingZ granular format
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/2012/CIM-schema-cim17#>
-SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?phs ?phname
+SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?phs ?phname ?phclass
     WHERE {
  ?s r:type c:ACLineSegment.
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
  ?s c:Conductor.length ?len.
@@ -624,10 +667,12 @@ SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?phs ?phname
  ?acp c:ACLineSegmentPhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
  ?phasset c:Asset.PowerSystemResources ?acp.
-# ?phasset c:Asset.AssetInfo ?phinf.
- ?phasset c:IdentifiedObject.name ?phname.
+ ?phasset c:Asset.AssetInfo ?phinf.
+ ?phinf c:IdentifiedObject.name ?phname.
+ ?phinf a ?phclassraw.
+   bind(strafter(str(?phclassraw),"cim17#") as ?phclass)
 }
-ORDER BY ?name # ?phs
+ORDER BY ?name ?phs
 
 # transformer banks containing tanks - DistXfmrBank
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
