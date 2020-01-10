@@ -8,7 +8,7 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistFeeder extends DistComponent {
-	public static final String szQUERY = 
+/*	public static final String szQUERY = 
 		"SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {"+
 		"?s r:type c:Feeder."+
 		"?s c:IdentifiedObject.name ?feeder."+
@@ -24,6 +24,17 @@ public class DistFeeder extends DistComponent {
 		"?rgn c:IdentifiedObject.mRID ?rgnid."+
 		"}"+
 		" ORDER by ?station ?feeder";
+*/
+	public static final String szQUERY = 
+		"SELECT ?feeder ?fid ?region ?rgnid WHERE {"+
+		"?s r:type c:Line."+
+		"?s c:IdentifiedObject.name ?feeder."+
+		"?s c:IdentifiedObject.mRID ?fid."+
+		"?s c:Line.Region ?rgn."+
+		"?rgn c:IdentifiedObject.name ?region."+
+		"?rgn c:IdentifiedObject.mRID ?rgnid."+
+		"}"+
+		" ORDER by ?feeder";
 
 	public String feederName;
 	public String feederID;
@@ -54,12 +65,12 @@ public class DistFeeder extends DistComponent {
 			QuerySolution soln = results.next();
 			feederName = SafeName (soln.get("?feeder").toString());
 			feederID = soln.get("?fid").toString();
-			substationName = SafeName (soln.get("?station").toString());
-			substationID = soln.get("?sid").toString();
-			subregionName = SafeName (soln.get("?subregion").toString());
-			subregionID = soln.get("?sgrid").toString();
 			regionName = SafeName (soln.get("?region").toString());
 			regionID = soln.get("?rgnid").toString();
+			substationName = SafeName (OptionalString (soln, "?station", null));
+			substationID = OptionalString (soln, "?sid", null);
+			subregionName = SafeName (OptionalString (soln, "?subregion", null));
+			subregionID = OptionalString (soln, "?sgrid", null);
 		}		
 	}
 

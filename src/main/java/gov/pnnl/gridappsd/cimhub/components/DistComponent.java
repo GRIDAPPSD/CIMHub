@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2019, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -11,7 +11,8 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public abstract class DistComponent {
-	public static final String nsCIM = "http://iec.ch/TC57/CIM100#";
+//	public static String nsCIM = "http://iec.ch/TC57/CIM100#";
+	public static String nsCIM = "http://iec.ch/TC57/2012/CIM-schema-cim17#";
 	public static final String nsRDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	public static final String nsXSD = "http://www.w3.org/2001/XMLSchema#";
 
@@ -93,7 +94,10 @@ public abstract class DistComponent {
  	 *	@return the compatible name for GridLAB-D or OpenDSS
  	 */  
  	public static String SafeName (String arg) {			// GLD conversion
- 		String s = arg.replace (' ', '_');
+		if (arg == null) {
+			return null;
+		}
+		String s = arg.replace(' ', '_');
  		s = s.replace ('.', '_');
  		s = s.replace ('=', '_');
  		s = s.replace ('+', '_');
