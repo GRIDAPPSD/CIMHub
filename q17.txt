@@ -1,6 +1,24 @@
 
-# this needs to be in the properties file for Blazegraph to work on Windows
-com.bigdata.rwstore.RWStore.readBlobsAsync=false
+
+#@ nsCIM
+http://iec.ch/TC57/2012/CIM-schema-cim17#
+#@
+
+
+#@ DistFeeder
+# list all the feeders, with substations and regions
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/2012/CIM-schema-cim17#>
+SELECT ?feeder ?fid ?region ?rgnid WHERE {
+ ?s r:type c:Line.
+ ?s c:IdentifiedObject.name ?feeder.
+ ?s c:IdentifiedObject.mRID ?fid.
+ ?s c:Line.Region ?rgn.
+ ?rgn c:IdentifiedObject.name ?region.
+ ?rgn c:IdentifiedObject.mRID ?rgnid.
+}
+ORDER by ?feeder
+#@
 
 # deletes everything
 DROP ALL
@@ -108,19 +126,6 @@ SELECT DISTINCT ?vnom WHERE {
  ?lev c:BaseVoltage.nominalVoltage ?vnom.
 }
 ORDER by ?vnom
-
-# list all the feeders, with substations and regions - DistFeeder
-PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX c:  <http://iec.ch/TC57/2012/CIM-schema-cim17#>
-SELECT ?feeder ?fid ?region ?rgnid WHERE {
- ?s r:type c:Line.
- ?s c:IdentifiedObject.name ?feeder.
- ?s c:IdentifiedObject.mRID ?fid.
- ?s c:Line.Region ?rgn.
- ?rgn c:IdentifiedObject.name ?region.
- ?rgn c:IdentifiedObject.mRID ?rgnid.
-}
-ORDER by ?feeder
 
 # substation source - DistSubstation
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
