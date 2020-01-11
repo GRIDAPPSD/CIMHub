@@ -8,7 +8,7 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistXfmrBank extends DistComponent {
-	public static final String szQUERY =
+	public static String szQUERY =
 		"SELECT ?pname ?id ?vgrp ?tname ?fdrid WHERE {"+
 		" ?p r:type c:PowerTransformer."+
 		" ?p c:Equipment.EquipmentContainer ?fdr."+
@@ -20,7 +20,7 @@ public class DistXfmrBank extends DistComponent {
 		" ?t c:IdentifiedObject.name ?tname"+
 		"} ORDER BY ?pname ?tname";
 
-	public static final String szCountQUERY =
+	public static String szCountQUERY =
 		"SELECT ?key (count(?tank) as ?count) WHERE {"+
 		" ?pxf c:Equipment.EquipmentContainer ?fdr."+
 		" ?fdr c:IdentifiedObject.mRID ?fdrid."+

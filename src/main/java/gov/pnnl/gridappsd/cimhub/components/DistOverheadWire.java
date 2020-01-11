@@ -7,7 +7,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistOverheadWire extends DistWire {
-	public static final String szQUERY =  
+	public static String szQUERY =  
 		"SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?id WHERE {"+
 		" ?eq r:type c:ACLineSegment."+
 		" ?eq c:Equipment.EquipmentContainer ?fdr."+

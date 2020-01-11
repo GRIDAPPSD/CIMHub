@@ -8,7 +8,7 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistXfmrCodeSCTest extends DistComponent {
-	public static final String szQUERY = 
+	public static String szQUERY = 
 		"SELECT DiSTINCT ?pname ?tname ?enum ?gnum ?z ?ll WHERE {"+
 		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 		" ?xft c:TransformerTank.PowerTransformer ?eq."+
@@ -28,7 +28,7 @@ public class DistXfmrCodeSCTest extends DistComponent {
 		" ?grnd c:TransformerEndInfo.endNumber ?gnum."+
 		"} ORDER BY ?pname ?tname ?enum ?gnum";
 
-	public static final String szCountQUERY =
+	public static String szCountQUERY =
 		"SELECT ?key (count(?sct) as ?count) WHERE {"+
 		" SELECT DISTINCT ?key ?sct WHERE {"+
 		" ?fdr c:IdentifiedObject.mRID ?fdrid."+

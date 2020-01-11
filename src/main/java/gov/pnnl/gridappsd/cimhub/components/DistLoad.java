@@ -7,7 +7,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistLoad extends DistComponent {
-	public static final String szQUERY = 
+	public static String szQUERY = 
 	 	"SELECT ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid "+
 		"(group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 		"WHERE {"+

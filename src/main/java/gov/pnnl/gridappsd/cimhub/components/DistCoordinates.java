@@ -7,7 +7,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistCoordinates extends DistComponent {
-	public static final String szQUERY =
+	public static String szQUERY =
 		"SELECT ?class ?name ?seq ?x ?y WHERE {"+
 		" ?eq c:Equipment.EquipmentContainer ?fdr."+
 		" ?fdr c:IdentifiedObject.mRID ?fdrid."+

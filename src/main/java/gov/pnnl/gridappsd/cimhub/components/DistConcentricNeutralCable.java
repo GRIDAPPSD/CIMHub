@@ -7,7 +7,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistConcentricNeutralCable extends DistCable {
-	public static final String szQUERY = 
+	public static String szQUERY = 
 		"SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?id"+
 		" ?insthick ?diacore ?diains ?diascreen ?diajacket ?sheathneutral"+
 		" ?strand_cnt ?strand_rad ?strand_gmr ?strand_rdc WHERE {"+

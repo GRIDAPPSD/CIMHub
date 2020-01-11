@@ -7,7 +7,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistBaseVoltage extends DistComponent {
-	public static final String szQUERY = "SELECT DISTINCT ?vnom WHERE {"+
+	public static String szQUERY = "SELECT DISTINCT ?vnom WHERE {"+
 																	" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 		                              " ?s c:Equipment.EquipmentContainer ?fdr."+
 	                              	" {?s c:ConductingEquipment.BaseVoltage ?lev.}"+

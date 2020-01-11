@@ -7,7 +7,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistXfmrCodeOCTest extends DistComponent {
-	public static final String szQUERY = 
+	public static String szQUERY = 
 		"SELECT DISTINCT ?pname ?tname ?nll ?iexc WHERE {"+
 		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 		" ?xft c:TransformerTank.PowerTransformer ?eq."+

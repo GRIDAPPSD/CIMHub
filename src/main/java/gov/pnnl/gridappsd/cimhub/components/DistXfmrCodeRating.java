@@ -9,7 +9,7 @@ import java.util.HashMap;
 import org.apache.commons.math3.complex.Complex;
 
 public class DistXfmrCodeRating extends DistComponent {
-	public static final String szQUERY = 
+	public static String szQUERY = 
 		"SELECT DISTINCT ?pname ?tname ?enum ?ratedS ?ratedU ?conn ?ang ?res ?id ?eid ?ename WHERE {"+
 		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 		" ?xft c:TransformerTank.PowerTransformer ?eq."+
@@ -33,7 +33,7 @@ public class DistXfmrCodeRating extends DistComponent {
 		"       		bind(strafter(str(?connraw),\"WindingConnection.\") as ?conn)"+
 		"} ORDER BY ?pname ?tname ?enum";
 
-	public static final String szCountQUERY =
+	public static String szCountQUERY =
 		"SELECT ?key (count(?enum) as ?count) WHERE {"+
 		" SELECT DISTINCT ?key ?enum WHERE {"+
 		" ?fdr c:IdentifiedObject.mRID ?fdrid."+

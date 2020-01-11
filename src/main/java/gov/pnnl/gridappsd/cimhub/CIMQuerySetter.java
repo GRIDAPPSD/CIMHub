@@ -11,7 +11,20 @@ import org.w3c.dom.*;
 
 import gov.pnnl.gridappsd.cimhub.CIMImporter;
 import gov.pnnl.gridappsd.cimhub.components.DistComponent;
+import gov.pnnl.gridappsd.cimhub.components.DistBaseVoltage;
+import gov.pnnl.gridappsd.cimhub.components.DistCapacitor;
+import gov.pnnl.gridappsd.cimhub.components.DistConcentricNeutralCable;
+import gov.pnnl.gridappsd.cimhub.components.DistCoordinates;
 import gov.pnnl.gridappsd.cimhub.components.DistFeeder;
+import gov.pnnl.gridappsd.cimhub.components.DistLineSpacing;
+import gov.pnnl.gridappsd.cimhub.components.DistLinesSpacingZ;
+import gov.pnnl.gridappsd.cimhub.components.DistLoad;
+import gov.pnnl.gridappsd.cimhub.components.DistOverheadWire;
+import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeOCTest;
+import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeRating;
+import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeSCTest;
+import gov.pnnl.gridappsd.cimhub.components.DistXfmrBank;
+import gov.pnnl.gridappsd.cimhub.components.DistXfmrTank;
 
 public class CIMQuerySetter extends Object {
 	String obj = "";
@@ -83,12 +96,86 @@ public class CIMQuerySetter extends Object {
 				String id = getCharacterDataFromElement (elmId);
 				Element elmVal = (Element) ((Element) queries.item(i)).getElementsByTagName("value").item(0);
 				String val = condenseQuery (getCharacterDataFromElement (elmVal));
-				System.out.println (id + ":" + val);
-				DistFeeder.szQUERY = val; // todo - use reflection on id
+				boolean used = applyNewQuery (id, val);
+				if (!used) {
+					System.out.println(id + ":" + Boolean.toString(used));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private boolean applyNewQuery (String id, String val) {
+		if (id.equals ("DistBaseVoltage")) {
+			DistBaseVoltage.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistCapacitor")) {
+			DistCapacitor.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistConcentricNeutralCable")) {
+			DistConcentricNeutralCable.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistCoordinates")) {
+			DistCoordinates.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistFeeder")) {
+			DistFeeder.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistLineSpacing")) {
+			DistLineSpacing.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistLinesSpacingZ")) {
+			DistLinesSpacingZ.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistLoad")) {
+			DistLoad.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistOverheadWire")) {
+			DistOverheadWire.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistXfmrBank")) {
+			DistXfmrBank.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("CountTanksInBank")) {
+			DistXfmrBank.szCountQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistXfmrCodeRating")) {
+			DistXfmrCodeRating.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistXfmrCodeOCTest")) {
+			DistXfmrCodeOCTest.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistXfmrCodeSCTest")) {
+			DistXfmrCodeSCTest.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("CountShortCircuitTests")) {
+			DistXfmrCodeSCTest.szCountQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistXfmrTank")) {
+			DistXfmrTank.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("CountTankEnds")) {
+			DistXfmrTank.szCountQUERY = val;
+			return true;
+		}
+		return false;
 	}
 
 	public void setQueriesFromTextFile (String fname) {

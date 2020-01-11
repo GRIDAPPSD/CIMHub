@@ -8,7 +8,7 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistLinesSpacingZ extends DistLineSegment {
-	public static final String szQUERY =
+	public static String szQUERY =
 		"SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?phclass"+
 		" WHERE {"+
 		" ?s r:type c:ACLineSegment."+

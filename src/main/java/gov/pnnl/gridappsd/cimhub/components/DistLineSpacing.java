@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class DistLineSpacing extends DistComponent {
-	public static final String szQUERY = 
+	public static String szQUERY = 
 		"SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y"+
 		" WHERE {"+
 		" ?eq r:type c:ACLineSegment."+
@@ -30,7 +30,7 @@ public class DistLineSpacing extends DistComponent {
 		"   bind(strafter(str(?useraw),\"WireUsageKind.\") as ?usage)"+
 		"} ORDER BY ?name ?seq";
 
-	public static final String szCountQUERY =
+	public static String szCountQUERY =
 		"SELECT ?key (count(?seq) as ?count) WHERE {"+
 		" SELECT DISTINCT ?key ?seq WHERE {"+
 		" ?eq r:type c:ACLineSegment."+
