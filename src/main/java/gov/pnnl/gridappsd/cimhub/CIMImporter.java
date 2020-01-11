@@ -2096,7 +2096,11 @@ public class CIMImporter extends Object {
 					blazegraphURI = optVal;
 				} else if (opt == 'q') {
 					CIMQuerySetter qset = new CIMQuerySetter();
-					qset.setQueriesFromFile (optVal);
+					if (optVal.contains(".txt")) {
+						qset.setQueriesFromTextFile(optVal);
+					} else {
+						qset.setQueriesFromXMLFile (optVal);
+					}
 				}
 			} else {
 				if (fTarget.equals("glm")) {

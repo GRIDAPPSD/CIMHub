@@ -5,6 +5,9 @@ package gov.pnnl.gridappsd.cimhub;
 // ----------------------------------------------------------
 
 import java.io.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.*;
 
 import gov.pnnl.gridappsd.cimhub.CIMImporter;
 import gov.pnnl.gridappsd.cimhub.components.DistComponent;
@@ -34,11 +37,65 @@ public class CIMQuerySetter extends Object {
 		return true;
 	}
 
-	public void setQueriesFromFile (String fname) {
+	private String getCharacterDataFromElement(Element e) {
+    NodeList list = e.getChildNodes();
+    String data;
+    for(int index = 0; index < list.getLength(); index++){
+      if(list.item(index) instanceof CharacterData){
+        CharacterData child = (CharacterData) list.item(index);
+        data = child.getData();
+        if (data != null && data.trim().length() > 0) {
+          return child.getData();
+				}
+      }
+    }
+    return "";
+	}
+
+	private String condenseQuery (String root) {
+		String lines[] = root.split("\\r?\\n");
+		buf = new StringBuilder("");
+		for (String ln : lines) {
+			if (wantThisLine (ln)) buf.append (ln);
+		}
+		return buf.toString();
+	}
+
+	public void setQueriesFromXMLFile (String fname) {
+		System.out.println ("Reading queries from XML file " + fname);
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse (new File (fname));
+			Element elm = doc.getDocumentElement();
+
+			NodeList namespaces = elm.getElementsByTagName ("nsCIM");
+			for (int i = 0; i < namespaces.getLength(); i++) {
+				Element nsElm = (Element) namespaces.item(i);
+				String val = condenseQuery (getCharacterDataFromElement (nsElm));
+				System.out.println ("nsCIM:" + val);
+				DistComponent.nsCIM = val;
+			}
+
+			NodeList queries = elm.getElementsByTagName ("query");
+			for (int i = 0; i < queries.getLength(); i++) {
+				Element elmId = (Element) ((Element) queries.item(i)).getElementsByTagName("id").item(0);
+				String id = getCharacterDataFromElement (elmId);
+				Element elmVal = (Element) ((Element) queries.item(i)).getElementsByTagName("value").item(0);
+				String val = condenseQuery (getCharacterDataFromElement (elmVal));
+				System.out.println (id + ":" + val);
+				DistFeeder.szQUERY = val; // todo - use reflection on id
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setQueriesFromTextFile (String fname) {
 		String ln;
 		boolean inQuery = false;
 
-		System.out.println ("Reading queries from " + fname);
+		System.out.println ("Reading queries from text file " + fname);
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fname));
@@ -58,6 +115,7 @@ public class CIMQuerySetter extends Object {
 			}
 			updateQuery();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

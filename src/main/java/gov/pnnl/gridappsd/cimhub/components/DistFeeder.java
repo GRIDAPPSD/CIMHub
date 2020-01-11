@@ -24,18 +24,7 @@ public class DistFeeder extends DistComponent {
 		"?rgn c:IdentifiedObject.mRID ?rgnid."+
 		"}"+
 		" ORDER by ?station ?feeder";
-/*
-	public static final String szQUERY = 
-		"SELECT ?feeder ?fid ?region ?rgnid WHERE {"+
-		"?s r:type c:Line."+
-		"?s c:IdentifiedObject.name ?feeder."+
-		"?s c:IdentifiedObject.mRID ?fid."+
-		"?s c:Line.Region ?rgn."+
-		"?rgn c:IdentifiedObject.name ?region."+
-		"?rgn c:IdentifiedObject.mRID ?rgnid."+
-		"}"+
-		" ORDER by ?feeder";
-*/
+
 	public String feederName;
 	public String feederID;
 	public String substationName;

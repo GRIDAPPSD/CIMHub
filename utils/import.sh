@@ -2,7 +2,7 @@
 mvn clean install
 
 java -classpath "target/*:/Users/mcde601/src/apache-jena-3.6.0/lib/*:/Users/mcde601/src/commons-math3-3.6.1/*" \
-   gov.pnnl.gridappsd.cimhub.CIMImporter -q=q17.txt -o=idx test
+   gov.pnnl.gridappsd.cimhub.CIMImporter -q=q17.xml -o=idx test
 
 #java -classpath "target/*:/Users/mcde601/src/apache-jena-3.6.0/lib/*:/Users/mcde601/src/commons-math3-3.6.1/*" \
 #     gov.pnnl.goss.cim2glm.CIMImporter \

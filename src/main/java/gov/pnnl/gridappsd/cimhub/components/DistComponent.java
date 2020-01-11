@@ -12,7 +12,6 @@ import java.util.HashMap;
 
 public abstract class DistComponent {
 	public static String nsCIM = "http://iec.ch/TC57/CIM100#";
-//	public static String nsCIM = "http://iec.ch/TC57/2012/CIM-schema-cim17#";
 	public static final String nsRDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	public static final String nsXSD = "http://www.w3.org/2001/XMLSchema#";
 
