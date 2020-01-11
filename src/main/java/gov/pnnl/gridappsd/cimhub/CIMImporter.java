@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub;
 //      		----------------------------------------------------------
-//      		Copyright (c) 2017-2019, Battelle Memorial Institute
+//      		Copyright (c) 2017-2020, Battelle Memorial Institute
 //      		All rights reserved.
 //      		----------------------------------------------------------
 
@@ -18,6 +18,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetCloseable;
 
+import gov.pnnl.gridappsd.cimhub.CIMQuerySetter;
 import gov.pnnl.gridappsd.cimhub.components.DistBaseVoltage;
 import gov.pnnl.gridappsd.cimhub.components.DistBreaker;
 import gov.pnnl.gridappsd.cimhub.components.DistCapacitor;
@@ -2093,6 +2094,9 @@ public class CIMImporter extends Object {
 					bSelectFeeder = true;
 				} else if (opt == 'u') {
 					blazegraphURI = optVal;
+				} else if (opt == 'q') {
+					CIMQuerySetter qset = new CIMQuerySetter();
+					qset.setQueriesFromFile (optVal);
 				}
 			} else {
 				if (fTarget.equals("glm")) {
@@ -2117,18 +2121,11 @@ public class CIMImporter extends Object {
 			HTTPBlazegraphQueryHandler qh = new HTTPBlazegraphQueryHandler(blazegraphURI);
 			if (bSelectFeeder) {
 				qh.addFeederSelection (feeder_mRID);
-				//				System.out.println ("Selecting only feeder " + feeder_mRID);
 			}
 			qh.setTiming (bTiming);
 
 			List<SyncMachine> machinesToUpdate = new ArrayList<>();
 			List<Switch> switchesToUpdate = new ArrayList<>();
-//			switchesToUpdate.add(new DistSwitch("2002200004641085_sw",true));//2002200004641085_sw, "normalOpen":false
-//			switchesToUpdate.add(new DistSwitch("2002200004868472_sw",true));//2002200004641085_sw, "normalOpen":false
-//			switchesToUpdate.add(new DistSwitch("2002200004991174_sw",true));//2002200004641085_sw, "normalOpen":false
-//			machinesToUpdate.add(new SyncMachine("diesel590", 1000.000, 140.000));
-//			machinesToUpdate.add(new SyncMachine("diesel620", 150.000, 500.000));
-//			switchesToUpdate.add(new Switch("g9343_48332_sw", true));
 			ModelState ms = new ModelState(machinesToUpdate, switchesToUpdate);
 
 			new CIMImporter().start(qh, fTarget, fRoot, fSched, load_scale,
@@ -2138,7 +2135,6 @@ public class CIMImporter extends Object {
 			System.out.println ("Can not produce a model: " + e.getMessage());
 			e.printStackTrace();
 		}
-
 	}
 }
 

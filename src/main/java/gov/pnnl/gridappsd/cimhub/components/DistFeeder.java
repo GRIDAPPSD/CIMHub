@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2020, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -8,7 +8,7 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistFeeder extends DistComponent {
-/*	public static final String szQUERY = 
+	public static String szQUERY = 
 		"SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {"+
 		"?s r:type c:Feeder."+
 		"?s c:IdentifiedObject.name ?feeder."+
@@ -24,7 +24,7 @@ public class DistFeeder extends DistComponent {
 		"?rgn c:IdentifiedObject.mRID ?rgnid."+
 		"}"+
 		" ORDER by ?station ?feeder";
-*/
+/*
 	public static final String szQUERY = 
 		"SELECT ?feeder ?fid ?region ?rgnid WHERE {"+
 		"?s r:type c:Line."+
@@ -35,7 +35,7 @@ public class DistFeeder extends DistComponent {
 		"?rgn c:IdentifiedObject.mRID ?rgnid."+
 		"}"+
 		" ORDER by ?feeder";
-
+*/
 	public String feederName;
 	public String feederID;
 	public String substationName;
