@@ -9,10 +9,14 @@ import java.util.HashMap;
 
 public class DistSwitch extends DistComponent {
 
-	protected static final String szSELECT = 
+//	public static String szQUERY () {
+//		return szSELECT + " ?s r:type c:" + CIMClass() + "." + szWHERE;
+//	}
+
+	public static String szSELECT = 
 		"SELECT ?name ?id ?bus1 ?bus2 ?basev ?rated ?breaking (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?open ?fdrid WHERE {";
 
-	protected static final String szWHERE = 
+	public static String szWHERE = 
 		" ?s c:Equipment.EquipmentContainer ?fdr."+
 		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 		" ?s c:IdentifiedObject.name ?name."+

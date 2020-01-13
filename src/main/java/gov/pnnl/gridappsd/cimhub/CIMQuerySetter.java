@@ -20,6 +20,8 @@ import gov.pnnl.gridappsd.cimhub.components.DistLineSpacing;
 import gov.pnnl.gridappsd.cimhub.components.DistLinesSpacingZ;
 import gov.pnnl.gridappsd.cimhub.components.DistLoad;
 import gov.pnnl.gridappsd.cimhub.components.DistOverheadWire;
+import gov.pnnl.gridappsd.cimhub.components.DistSubstation;
+import gov.pnnl.gridappsd.cimhub.components.DistSwitch;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeOCTest;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeRating;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeSCTest;
@@ -98,7 +100,7 @@ public class CIMQuerySetter extends Object {
 				String val = condenseQuery (getCharacterDataFromElement (elmVal));
 				boolean used = applyNewQuery (id, val);
 				if (!used) {
-					System.out.println(id + ":" + Boolean.toString(used));
+					System.out.println(id + ":not matched");
 				}
 			}
 		} catch (Exception e) {
@@ -141,6 +143,18 @@ public class CIMQuerySetter extends Object {
 		}
 		if (id.equals ("DistOverheadWire")) {
 			DistOverheadWire.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistSubstation")) {
+			DistSubstation.szQUERY = val;
+			return true;
+		}
+		if (id.equals ("DistSwitchSelect")) {
+			DistSwitch.szSELECT = val;
+			return true;
+		}
+		if (id.equals ("DistSwitchWhere")) {
+			DistSwitch.szWHERE = val;
 			return true;
 		}
 		if (id.equals ("DistXfmrBank")) {

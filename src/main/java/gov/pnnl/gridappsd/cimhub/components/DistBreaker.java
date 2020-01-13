@@ -9,6 +9,9 @@ import java.util.HashMap;
 
 public class DistBreaker extends DistSwitch {
 	public static final String szQUERY = szSELECT + " ?s r:type c:Breaker." + szWHERE;
+//	public String szQUERY () {
+//		return szSELECT + " ?s r:type c:" + CIMClass() + "." + szWHERE;
+//	}
 
 	public DistBreaker (ResultSet results) {
 		super (results);
