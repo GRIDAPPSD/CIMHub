@@ -8,12 +8,14 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistGroundDisconnector extends DistSwitch {
+	public static final String szCIMClass = "GroundDisconnector";
+
 	public DistGroundDisconnector (ResultSet results) {
 		super (results);
 	}
 
 	public String CIMClass() {
-		return "GroundDisconnector";
+		return szCIMClass;
 	}
 }
 

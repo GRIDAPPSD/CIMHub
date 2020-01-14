@@ -12,15 +12,30 @@ import java.util.HashMap;
 
 import gov.pnnl.gridappsd.cimhub.CIMImporter;
 import gov.pnnl.gridappsd.cimhub.components.DistComponent;
-
-//	public static final String szQUERY = szSELECT + " ?s r:type c:LoadBreakSwitch." + szWHERE;
-
+import gov.pnnl.gridappsd.cimhub.components.DistBreaker;
+import gov.pnnl.gridappsd.cimhub.components.DistDisconnector;
+import gov.pnnl.gridappsd.cimhub.components.DistFuse;
+import gov.pnnl.gridappsd.cimhub.components.DistGroundDisconnector;
+import gov.pnnl.gridappsd.cimhub.components.DistJumper;
+import gov.pnnl.gridappsd.cimhub.components.DistLoadBreakSwitch;
+import gov.pnnl.gridappsd.cimhub.components.DistRecloser;
+import gov.pnnl.gridappsd.cimhub.components.DistSectionaliser;
 
 public class CIMQuerySetter extends Object {
 
 	HashMap<String,String> mapQueries = new HashMap<>();
+	HashMap<String,String> mapSwitchClasses = new HashMap<>();
 
 	public CIMQuerySetter () {
+
+		mapSwitchClasses.put ("DistBreaker", DistBreaker.szCIMClass);
+		mapSwitchClasses.put ("DistDisconnector", DistDisconnector.szCIMClass);
+		mapSwitchClasses.put ("DistFuse", DistFuse.szCIMClass);
+		mapSwitchClasses.put ("DistGroundDisconnector", DistGroundDisconnector.szCIMClass);
+		mapSwitchClasses.put ("DistJumper", DistJumper.szCIMClass);
+		mapSwitchClasses.put ("DistLoadBreakSwitch", DistLoadBreakSwitch.szCIMClass);
+		mapSwitchClasses.put ("DistRecloser", DistRecloser.szCIMClass);
+		mapSwitchClasses.put ("DistSectionaliser", DistSectionaliser.szCIMClass);
 
 		mapQueries.put ("DistBaseVoltage",
 			"SELECT DISTINCT ?vnom WHERE {"+		  
@@ -901,9 +916,18 @@ public class CIMQuerySetter extends Object {
 
 		System.out.println ("Created Default SPARQL for: " + mapQueries.keySet());
 	}
+//	public static final String szQUERY = szSELECT + " ?s r:type c:LoadBreakSwitch." + szWHERE;
+
+
 
 	public String getSelectionQuery (String id) {
-		return mapQueries.get (id);
+		if (mapSwitchClasses.containsKey (id)) {
+			return mapQueries.get("DistSwitchSelect") + " ?s r:type c:" + 
+				mapSwitchClasses.get(id) + ". " + mapQueries.get("DistSwitchWhere");
+		} else if (mapQueries.containsKey(id)) {
+			return mapQueries.get(id);
+		}
+		return "***:" + id + ": not found ***";
 	}
 
 	String obj = "";

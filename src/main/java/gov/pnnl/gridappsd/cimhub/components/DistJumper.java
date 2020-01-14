@@ -8,12 +8,14 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistJumper extends DistSwitch {
+	public static final String szCIMClass = "Jumper";
+
 	public DistJumper (ResultSet results) {
 		super (results);
 	}
 
 	public String CIMClass() {
-		return "Jumper";
+		return szCIMClass;
 	}
 }
 

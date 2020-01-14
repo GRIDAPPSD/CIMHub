@@ -154,4 +154,10 @@ hs_err_pid*
 
 # CIMHub specifics
 *feeder_index.json
+*_dict.json
+*_limits.json
+*_symbols.json
+*.glm
+*.dss
+
 

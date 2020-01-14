@@ -8,12 +8,14 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistBreaker extends DistSwitch {
+	public static final String szCIMClass = "Breaker";
+
 	public DistBreaker (ResultSet results) {
 		super (results);
 	}
 
 	public String CIMClass() {
-		return "Breaker";
+		return szCIMClass;
 	}
 
 	public String GetDSS () {

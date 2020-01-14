@@ -157,7 +157,7 @@ public class CIMImporter extends Object {
 		LoadOneCountMap (mapCountCodeSCTest, "CountXfmrCodeSCTests");
 		LoadOneCountMap (mapCountLinePhases, "CountLinePhases");
 		LoadOneCountMap (mapCountSpacingXY, "CountSpacingXY");
-		//		PrintOneCountMap (mapCountSpacingXY, "Line Spacing Position Counts");
+//		PrintAllCountMaps ();
 	}
 
 	void LoadBaseVoltages() {
@@ -520,6 +520,17 @@ public class CIMImporter extends Object {
 		for (String key : keys) {
 			System.out.println (key + ":" + Integer.toString (map.get(key)));
 		}
+	}
+
+	public void PrintAllCountMaps () {
+		PrintOneCountMap (mapCountBank, "Count of Bank Tanks");
+		PrintOneCountMap (mapCountTank, "Count of Tank Ends");
+		PrintOneCountMap (mapCountMesh, "Count of Xfmr Meshes");
+		PrintOneCountMap (mapCountWinding, "Count of Xfmr Windings");
+		PrintOneCountMap (mapCountCodeRating, "Count of XfmrCode Ratings");
+		PrintOneCountMap (mapCountCodeSCTest, "Count of XfmrCode SCTests");
+		PrintOneCountMap (mapCountLinePhases, "Count of Line Phases");
+		PrintOneCountMap (mapCountSpacingXY, "Count of Spacing XY Positions");
 	}
 
 	public void PrintAllMaps() {

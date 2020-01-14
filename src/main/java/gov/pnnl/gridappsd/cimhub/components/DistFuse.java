@@ -8,12 +8,14 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistFuse extends DistSwitch {
+	public static final String szCIMClass = "Fuse";
+
 	public DistFuse (ResultSet results) {
 		super (results);
 	}
 
 	public String CIMClass() {
-		return "Fuse";
+		return szCIMClass;
 	}
 
 	public String GetGLM () {

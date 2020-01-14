@@ -8,12 +8,14 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistRecloser extends DistSwitch {
+	public static final String szCIMClass = "Recloser";
+
 	public DistRecloser (ResultSet results) {
 		super (results);
 	}
 
 	public String CIMClass() {
-		return "Recloser";
+		return szCIMClass;
 	}
 
 	public String GetGLM () {

@@ -8,8 +8,14 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistSectionaliser extends DistSwitch {
+	public static final String szCIMClass = "Sectionaliser";
+
 	public DistSectionaliser (ResultSet results) {
 		super (results);
+	}
+
+	public String CIMClass() {
+		return szCIMClass;
 	}
 
 	public String GetGLM () {
@@ -27,10 +33,6 @@ public class DistSectionaliser extends DistSwitch {
 		AppendGLMRatings (buf, glm_phases, normalCurrentLimit, emergencyCurrentLimit);
 		buf.append("}\n");
 		return buf.toString();
-	}
-
-	public String CIMClass() {
-		return "Sectionaliser";
 	}
 }
 
