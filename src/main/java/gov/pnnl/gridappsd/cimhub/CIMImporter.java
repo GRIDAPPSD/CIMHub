@@ -1765,7 +1765,7 @@ public class CIMImporter extends Object {
 			fDict = fRoot + "_dict.json";
 			fOut = fRoot + "_base.dss";
 			fXY = fRoot + "_busxy.dss";
-			fID = fRoot + "_guid.dss";
+			fID = fRoot + "_uuid.dss";
 			PrintWriter pOut = new PrintWriter(fOut);
 			PrintWriter pID = new PrintWriter(fID);
 			WriteDSSFile (pOut, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff);
