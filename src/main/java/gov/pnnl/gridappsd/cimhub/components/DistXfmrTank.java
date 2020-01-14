@@ -8,48 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistXfmrTank extends DistComponent {
-	public static String szQUERY =
-		"SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?grounded ?rground ?xground ?id ?infoid ?fdrid ?ename ?eid WHERE {"+
-		" ?p r:type c:PowerTransformer."+
-		" ?p c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?p c:PowerTransformer.vectorGroup ?vgrp."+
-		" ?t c:TransformerTank.PowerTransformer ?p."+
-		" ?t c:IdentifiedObject.name ?tname."+
-		" ?asset c:Asset.PowerSystemResources ?t."+
-		" ?asset c:Asset.AssetInfo ?inf."+
-		" ?inf c:IdentifiedObject.name ?xfmrcode."+
-		" ?inf c:IdentifiedObject.mRID ?infoid."+
-		" ?end c:TransformerTankEnd.TransformerTank ?t."+
-		" ?end c:TransformerTankEnd.phases ?phsraw."+
-		"  bind(strafter(str(?phsraw),\"PhaseCode.\") as ?phs)"+
-		" ?end c:TransformerEnd.endNumber ?enum."+
-		" ?end c:TransformerEnd.grounded ?grounded."+
-		" ?end c:IdentifiedObject.name ?ename."+
-		" ?end c:IdentifiedObject.mRID ?eid."+
-		" OPTIONAL {?end c:TransformerEnd.rground ?rground.}"+
-		" OPTIONAL {?end c:TransformerEnd.xground ?xground.}"+
-		" ?end c:TransformerEnd.Terminal ?trm."+
-		" ?trm c:Terminal.ConnectivityNode ?cn."+ 
-		" ?cn c:IdentifiedObject.name ?bus."+
-		" bind(strafter(str(?t),\"#\") as ?id)."+
-		" ?end c:TransformerEnd.BaseVoltage ?bv."+
-		" ?bv c:BaseVoltage.nominalVoltage ?basev"+
-		"}"+
-		" ORDER BY ?pname ?tname ?enum";
-
-	public static String szCountQUERY =
-		"SELECT ?key (count(?end) as ?count) WHERE {"+
-		" ?p c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?p r:type c:PowerTransformer."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?t c:TransformerTank.PowerTransformer ?p."+
-		" ?t c:IdentifiedObject.name ?key."+
-		" ?end c:TransformerTankEnd.TransformerTank ?t"+
-		"} GROUP BY ?key ORDER BY ?key";
-
 	public String id;
 	public String pname;
 	public String vgrp;

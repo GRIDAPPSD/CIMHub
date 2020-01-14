@@ -8,46 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistCapacitor extends DistComponent {
-    public static String szQUERY = "SELECT ?name ?basev ?nomu ?bsection ?bus ?conn ?grnd ?phs"+
-			 " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {"+
-			 " ?s c:Equipment.EquipmentContainer ?fdr."+
-			 " ?fdr c:IdentifiedObject.mRID ?fdrid."+
-       " ?s r:type c:LinearShuntCompensator."+
-       " ?s c:IdentifiedObject.name ?name."+
-			 " ?s c:ConductingEquipment.BaseVoltage ?bv."+
-			 " ?bv c:BaseVoltage.nominalVoltage ?basev."+
-       " ?s c:ShuntCompensator.nomU ?nomu."+
-       " ?s c:LinearShuntCompensator.bPerSection ?bsection."+ 
-       " ?s c:ShuntCompensator.phaseConnection ?connraw."+
-       " 	bind(strafter(str(?connraw),\"PhaseShuntConnectionKind.\") as ?conn)"+
-       " ?s c:ShuntCompensator.grounded ?grnd."+
-       " OPTIONAL {?scp c:ShuntCompensatorPhase.ShuntCompensator ?s."+
-       " 	?scp c:ShuntCompensatorPhase.phase ?phsraw."+
-       " 	bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-       " OPTIONAL {?ctl c:RegulatingControl.RegulatingCondEq ?s."+
-       " 	?ctl c:RegulatingControl.discrete ?discrete."+
-       " 	?ctl c:RegulatingControl.enabled ?ctrlenabled."+
-       " 	?ctl c:RegulatingControl.mode ?moderaw."+
-       " 		bind(strafter(str(?moderaw),\"RegulatingControlModeKind.\") as ?mode)"+
-       " 	?ctl c:RegulatingControl.monitoredPhase ?monraw."+
-       " 		bind(strafter(str(?monraw),\"PhaseCode.\") as ?monphs)"+
-       " 	?ctl c:RegulatingControl.targetDeadband ?deadband."+
-       " 	?ctl c:RegulatingControl.targetValue ?setpoint."+
-       "  ?s c:ShuntCompensator.aVRDelay ?delay."+
-       " 	?ctl c:RegulatingControl.Terminal ?trm."+
-       " 	?trm c:Terminal.ConductingEquipment ?eq."+
-       " 	?eq a ?classraw."+
-       " 		bind(strafter(str(?classraw),\"CIM100#\") as ?monclass)"+
-       " 	?eq c:IdentifiedObject.name ?moneq."+
-       " 	?trm c:Terminal.ConnectivityNode ?moncn."+
-       " 	?moncn c:IdentifiedObject.name ?monbus."+
-       "  }" +
-			 " bind(strafter(str(?s),\"#\") as ?id)."+
-       " ?t c:Terminal.ConductingEquipment ?s."+
-       " ?t c:Terminal.ConnectivityNode ?cn."+ 
-       " ?cn c:IdentifiedObject.name ?bus" + 
-       "}";
-
 	public String id;
 	public String name;
 	public String bus;

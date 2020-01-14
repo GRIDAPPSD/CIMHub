@@ -8,39 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistSwitch extends DistComponent {
-
-//	public static String szQUERY () {
-//		return szSELECT + " ?s r:type c:" + CIMClass() + "." + szWHERE;
-//	}
-
-	public static String szSELECT = 
-		"SELECT ?name ?id ?bus1 ?bus2 ?basev ?rated ?breaking (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?open ?fdrid WHERE {";
-
-	public static String szWHERE = 
-		" ?s c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?s c:IdentifiedObject.name ?name."+
-		" ?s c:ConductingEquipment.BaseVoltage ?bv."+
-		" ?bv c:BaseVoltage.nominalVoltage ?basev."+
-		" ?s c:Switch.normalOpen ?open."+
-		" ?s c:Switch.ratedCurrent ?rated."+
-		" OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}"+
-		" ?t1 c:Terminal.ConductingEquipment ?s."+
-		" ?t1 c:Terminal.ConnectivityNode ?cn1."+
-		" ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
-		" ?cn1 c:IdentifiedObject.name ?bus1."+
-		" ?t2 c:Terminal.ConductingEquipment ?s."+
-		" ?t2 c:Terminal.ConnectivityNode ?cn2."+
-		" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
-		" ?cn2 c:IdentifiedObject.name ?bus2."+
-		" bind(strafter(str(?s),\"#\") as ?id)."+
-		" OPTIONAL {?swp c:SwitchPhase.Switch ?s."+
-		" ?swp c:SwitchPhase.phaseSide1 ?phsraw."+
-		"   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-		"}"+
-		" GROUP BY ?name ?basev ?bus1 ?bus2 ?rated ?breaking ?open ?id ?fdrid"+
-		" ORDER BY ?name";
-
 	public String id;
 	public String name;
 	public String bus1;

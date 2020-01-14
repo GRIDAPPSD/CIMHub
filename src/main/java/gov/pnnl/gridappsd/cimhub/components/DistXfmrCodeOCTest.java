@@ -7,23 +7,6 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistXfmrCodeOCTest extends DistComponent {
-	public static String szQUERY = 
-		"SELECT DISTINCT ?pname ?tname ?nll ?iexc WHERE {"+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?xft c:TransformerTank.PowerTransformer ?eq."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?asset c:Asset.PowerSystemResources ?xft."+
-		" ?asset c:Asset.AssetInfo ?t."+
-		" ?p r:type c:PowerTransformerInfo."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?t c:TransformerTankInfo.PowerTransformerInfo ?p."+
-		" ?t c:IdentifiedObject.name ?tname."+
-		" ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
-		" ?nlt c:NoLoadTest.EnergisedEnd ?e."+
-		" ?nlt c:NoLoadTest.loss ?nll."+
-		" ?nlt c:NoLoadTest.excitingCurrent ?iexc."+
-		"} ORDER BY ?pname ?tname";
-
 	public String pname;
 	public String tname;
 	public double nll;

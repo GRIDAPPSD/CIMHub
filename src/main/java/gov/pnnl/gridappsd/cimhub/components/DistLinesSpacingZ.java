@@ -8,38 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistLinesSpacingZ extends DistLineSegment {
-	public static String szQUERY =
-		"SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?phclass"+
-		" WHERE {"+
-		" ?s r:type c:ACLineSegment."+
-		" ?s c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?s c:IdentifiedObject.name ?name."+
-		"   bind(strafter(str(?s),\"#\") as ?id)."+
-		" ?s c:ConductingEquipment.BaseVoltage ?bv."+
-		" ?bv c:BaseVoltage.nominalVoltage ?basev."+
-		" ?s c:Conductor.length ?len."+
-		" ?s c:ACLineSegment.WireSpacingInfo ?inf."+
-		"   bind(strafter(str(?inf),\"#\") as ?spcid)."+
-		" ?inf c:IdentifiedObject.name ?spacing."+
-		" ?t1 c:Terminal.ConductingEquipment ?s."+
-		" ?t1 c:Terminal.ConnectivityNode ?cn1."+
-		" ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
-		" ?cn1 c:IdentifiedObject.name ?bus1."+
-		" ?t2 c:Terminal.ConductingEquipment ?s."+
-		" ?t2 c:Terminal.ConnectivityNode ?cn2."+
-		" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
-		" ?cn2 c:IdentifiedObject.name ?bus2."+
-		" ?acp c:ACLineSegmentPhase.ACLineSegment ?s."+
-		" ?acp c:ACLineSegmentPhase.phase ?phsraw."+
-		"   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs)."+
-		" ?acp c:ACLineSegmentPhase.WireInfo ?phinf."+
-		" ?phinf c:IdentifiedObject.name ?phname."+
-		" ?phinf a ?phclassraw."+
-		"   bind(strafter(str(?phclassraw),\"CIM100#\") as ?phclass)"+
-		" }"+
-		" ORDER BY ?id ?name ?phs";
-
 	public String spacing;
 	public String spcid;
 	public int nwires;

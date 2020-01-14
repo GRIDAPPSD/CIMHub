@@ -8,30 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistSolar extends DistComponent {
-	public static final String szQUERY = 
-	 	"SELECT ?name ?bus ?ratedS ?ratedU ?ipu ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
-		"WHERE {"+
-	 	" ?s r:type c:PhotovoltaicUnit."+
-		"	?s c:IdentifiedObject.name ?name."+
-		"	?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s."+
-		" ?pec c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		"	?pec c:PowerElectronicsConnection.ratedS ?ratedS."+
-		"	?pec c:PowerElectronicsConnection.ratedU ?ratedU."+
-		"	?pec c:PowerElectronicsConnection.p ?p."+
-		"	?pec c:PowerElectronicsConnection.q ?q."+
-		" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
-		"	OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec."+
-		"	?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw."+
-		"		bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-		" bind(strafter(str(?s),\"#\") as ?id)."+
-		"	?t c:Terminal.ConductingEquipment ?pec."+
-		"	?t c:Terminal.ConnectivityNode ?cn."+ 
-		"	?cn c:IdentifiedObject.name ?bus"+
-	 	"} "+
-		"GROUP by ?name ?bus ?ratedS ?ratedU ?ipu ?p ?q ?id ?fdrid "+
-		"ORDER BY ?name";
-
 	public String id;
 	public String name;
 	public String bus;

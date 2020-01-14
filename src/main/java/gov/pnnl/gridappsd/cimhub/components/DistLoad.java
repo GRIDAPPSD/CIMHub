@@ -7,41 +7,6 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistLoad extends DistComponent {
-	public static String szQUERY = 
-	 	"SELECT ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid "+
-		"(group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
-		"WHERE {"+
-	 	" ?s r:type c:EnergyConsumer."+
-		" ?s c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-	 	" ?s c:IdentifiedObject.name ?name."+
-	   " ?s c:ConductingEquipment.BaseVoltage ?bv."+
-	   " ?bv c:BaseVoltage.nominalVoltage ?basev."+
-	 	" ?s c:EnergyConsumer.p ?p."+
-	 	" ?s c:EnergyConsumer.q ?q."+
-		" ?s c:EnergyConsumer.customerCount ?cnt."+
-	 	" ?s c:EnergyConsumer.phaseConnection ?connraw."+
-	 	" 			bind(strafter(str(?connraw),\"PhaseShuntConnectionKind.\") as ?conn)"+
-	 	" ?s c:EnergyConsumer.LoadResponse ?lr."+
-	 	" ?lr c:LoadResponseCharacteristic.pConstantImpedance ?pz."+
-	 	" ?lr c:LoadResponseCharacteristic.qConstantImpedance ?qz."+
-	 	" ?lr c:LoadResponseCharacteristic.pConstantCurrent ?pi."+
-	 	" ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi."+
-	 	" ?lr c:LoadResponseCharacteristic.pConstantPower ?pp."+
-	 	" ?lr c:LoadResponseCharacteristic.qConstantPower ?qp."+
-	 	" ?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe."+
-	 	" ?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe."+
-	 	" OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s."+
-	 	" ?ecp c:EnergyConsumerPhase.phase ?phsraw."+
-	 	" 			bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-	 	" bind(strafter(str(?s),\"#\") as ?id)."+
-	 	" ?t c:Terminal.ConductingEquipment ?s."+
-	 	" ?t c:Terminal.ConnectivityNode ?cn."+
-	 	" ?cn c:IdentifiedObject.name ?bus"+
-	 	"} "+
-		"GROUP BY ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid "+
-		"ORDER BY ?name";
-
 	public String id;
 	public String name;
 	public String bus;

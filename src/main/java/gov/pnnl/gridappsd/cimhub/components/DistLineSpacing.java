@@ -10,38 +10,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class DistLineSpacing extends DistComponent {
-	public static String szQUERY = 
-		"SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y"+
-		" WHERE {"+
-		" ?eq r:type c:ACLineSegment."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?eq c:ACLineSegment.WireSpacingInfo ?w."+
-		" ?w c:IdentifiedObject.name ?name."+
-		"   bind(strafter(str(?w),\"#\") as ?id)."+
-		" ?pos c:WirePosition.WireSpacingInfo ?w."+
-		" ?pos c:WirePosition.xCoord ?x."+
-		" ?pos c:WirePosition.yCoord ?y."+
-		" ?pos c:WirePosition.sequenceNumber ?seq."+
-		" ?w c:WireSpacingInfo.isCable ?cable."+
-		" ?w c:WireSpacingInfo.phaseWireCount ?bundle_count."+
-		" ?w c:WireSpacingInfo.phaseWireSpacing ?bundle_sep."+
-		" ?w c:WireSpacingInfo.usage ?useraw."+
-		"   bind(strafter(str(?useraw),\"WireUsageKind.\") as ?usage)"+
-		"} ORDER BY ?name ?seq";
-
-	public static String szCountQUERY =
-		"SELECT ?key (count(?seq) as ?count) WHERE {"+
-		" SELECT DISTINCT ?key ?seq WHERE {"+
-		" ?eq r:type c:ACLineSegment."+
-    " ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-    " ?eq c:ACLineSegment.WireSpacingInfo ?w."+
-    " ?w c:IdentifiedObject.name ?key."+
-    " ?pos c:WirePosition.WireSpacingInfo ?w."+
-    " ?pos c:WirePosition.sequenceNumber ?seq."+
-		"}} GROUP BY ?key ORDER BY ?key";
-
 	public String name;
 	public String id;
 	public double[] xarray;

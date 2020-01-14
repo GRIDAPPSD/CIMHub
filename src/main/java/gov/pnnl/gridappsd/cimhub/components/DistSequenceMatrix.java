@@ -8,23 +8,6 @@ import org.apache.jena.query.*;
 import org.apache.commons.math3.complex.Complex;
 
 public class DistSequenceMatrix extends DistComponent {
-	public static final String szQUERY = 
-		"SELECT DISTINCT ?name ?r1 ?x1 ?b1 ?r0 ?x0 ?b0 ?id WHERE {"+
-		" ?eq r:type c:ACLineSegment."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?eq c:ACLineSegment.PerLengthImpedance ?s."+
-		" ?s r:type c:PerLengthSequenceImpedance."+
-		" ?s c:IdentifiedObject.name ?name."+
-		" bind(strafter(str(?s),\"#\") as ?id)."+
-		" ?s c:PerLengthSequenceImpedance.r ?r1."+
-		" ?s c:PerLengthSequenceImpedance.x ?x1."+
-		" ?s c:PerLengthSequenceImpedance.bch ?b1."+
-		" ?s c:PerLengthSequenceImpedance.r0 ?r0."+
-		" ?s c:PerLengthSequenceImpedance.x0 ?x0."+
-		" ?s c:PerLengthSequenceImpedance.b0ch ?b0"+
-		"} ORDER BY ?name";
-
 	public String name;
 	public String id;
 	public double r1;

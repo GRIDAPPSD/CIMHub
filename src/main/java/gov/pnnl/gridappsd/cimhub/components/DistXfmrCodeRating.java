@@ -9,46 +9,6 @@ import java.util.HashMap;
 import org.apache.commons.math3.complex.Complex;
 
 public class DistXfmrCodeRating extends DistComponent {
-	public static String szQUERY = 
-		"SELECT DISTINCT ?pname ?tname ?enum ?ratedS ?ratedU ?conn ?ang ?res ?id ?eid ?ename WHERE {"+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?xft c:TransformerTank.PowerTransformer ?eq."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?asset c:Asset.PowerSystemResources ?xft."+
-		" ?asset c:Asset.AssetInfo ?t."+
-		" ?p r:type c:PowerTransformerInfo."+
-		" ?t c:TransformerTankInfo.PowerTransformerInfo ?p."+
-		" ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
-		" ?e c:IdentifiedObject.mRID ?eid."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?t c:IdentifiedObject.name ?tname."+
-		"	?e c:IdentifiedObject.name ?ename."+
-		" bind(strafter(str(?t),\"#\") as ?id)."+
-		" ?e c:TransformerEndInfo.endNumber ?enum."+
-		" ?e c:TransformerEndInfo.ratedS ?ratedS."+
-		" ?e c:TransformerEndInfo.ratedU ?ratedU."+
-		" ?e c:TransformerEndInfo.r ?res."+
-		" ?e c:TransformerEndInfo.phaseAngleClock ?ang."+
-		" ?e c:TransformerEndInfo.connectionKind ?connraw."+
-		"       		bind(strafter(str(?connraw),\"WindingConnection.\") as ?conn)"+
-		"} ORDER BY ?pname ?tname ?enum";
-
-	public static String szCountQUERY =
-		"SELECT ?key (count(?enum) as ?count) WHERE {"+
-		" SELECT DISTINCT ?key ?enum WHERE {"+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?xft c:TransformerTank.PowerTransformer ?eq."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?asset c:Asset.PowerSystemResources ?xft."+
-		" ?asset c:Asset.AssetInfo ?t."+
-		" ?p r:type c:PowerTransformerInfo."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?t c:TransformerTankInfo.PowerTransformerInfo ?p."+
-		" ?t c:IdentifiedObject.name ?key."+
-		" ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
-		" ?e c:TransformerEndInfo.endNumber ?enum."+
-		"}} GROUP BY ?key ORDER BY ?key";
-
 	public String pname;
 	public String tname;
 	public String id;

@@ -12,32 +12,7 @@ import org.apache.jena.query.*;
 public class DistThermostat extends DistComponent{
 	public static enum ThermostatControlMode{COOLING,HEATING};
 	public static ThermostatControlMode[] thermostatControlModeList = ThermostatControlMode.values();
-	public static final String szQUERY = 
-	 	"SELECT ?name ?aggregatorName ?baseSetpoint ?controlMode ?priceCap ?rampHigh ?rampLow ?rangeHigh ?rangeLow ?useOverride ?usePredictive ?id ?fdrid "+
-		"WHERE {"+
-	 	" ?s r:type c:EnergyConsumer."+
-		" ?s c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-	 	" ?s c:IdentifiedObject.name ?name."+
-	 	" ?s c:IdentifiedObject.mRID ?id."+
-	   " ?s c:Thermostat.aggregatorName ?aggregatorName."+
-	   " ?bv c:Thermostat.baseSetpoint ?baseSetpoint."+
-	 	" ?s c:Thermostat.controlMode ?controlMode."+
-	 	" ?s c:Thermostat.priceCap ?priceCap."+
-	 	" ?s c:Thermostat.rampHigh ?rampHigh."+
-	 	" ?s c:Thermostat.rampLow ?rampLow."+
-	 	" ?lr c:Thermostat.rangeHigh ?rangeHigh."+
-	 	" ?lr c:Thermostat.rangeLow ?rangeLow."+
-	 	" ?lr c:Thermostat.useOverride ?useOverride."+
-	 	" ?lr c:Thermostat.usePredictive ?usePredictive."+
-	 	" ?lr c:LoadResponseCharacteristic.pConstantPower ?pp."+
-	 	" ?lr c:LoadResponseCharacteristic.qConstantPower ?qp."+
-	 	" ?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe."+
-	 	" ?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe."+
-	 	" OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s"+
-	 	"} "+
-		"GROUP BY ?name ?aggregatorName ?baseSetpoint ?controlMode ?priceCap ?rampHigh ?rampLow ?rangeHigh ?rangeLow ?useOverride ?usePredictive ?id ?fdrid "+
-		"ORDER BY ?name";
+
 	public String id;
 	public String name;
 	public String aggregatorName;

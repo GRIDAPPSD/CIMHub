@@ -11,66 +11,6 @@ import gov.pnnl.gridappsd.cimhub.queryhandler.QueryHandler;
 import java.util.HashMap;
 
 public class DistRegulator extends DistComponent {
-	public static final String szQUERYprefix =
-		"SELECT ?rname ?pname ?tname ?wnum ?phs ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep"+
-		" ?normalStep ?neutralU ?step ?initDelay ?subDelay ?ltc ?vlim"+
-		" ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode"+
-		" ?monphs ?ctRating ?ctRatio ?ptRatio ?id ?fdrid ?pxfid"+
-		" WHERE {"+
-		" ?pxf c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?rtc r:type c:RatioTapChanger."+
-		" ?rtc c:IdentifiedObject.name ?rname."+
-		" ?rtc c:RatioTapChanger.TransformerEnd ?end."+
-		" ?end c:TransformerEnd.endNumber ?wnum.";
-	public static final String szQUERYbanked =
-		"	?end c:PowerTransformerEnd.PowerTransformer ?pxf.";
-	public static final String szQUERYtanked =
-		" ?end c:TransformerTankEnd.TransformerTank ?tank."+
-		" ?tank c:IdentifiedObject.name ?tname."+
-		"  OPTIONAL {?end c:TransformerTankEnd.phases ?phsraw."+
-		"  bind(strafter(str(?phsraw),\"PhaseCode.\") as ?phs)}"+
-		" ?tank c:TransformerTank.PowerTransformer ?pxf.";
-	public static final String szQUERYsuffix =
-		" ?pxf c:IdentifiedObject.name ?pname."+
-		" ?pxf c:IdentifiedObject.mRID ?pxfid."+
-		" ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr."+
-		" ?rtc c:RatioTapChanger.tculControlMode ?moderaw."+
-		"  bind(strafter(str(?moderaw),\"TransformerControlMode.\") as ?mode)"+
-		" ?rtc c:TapChanger.controlEnabled ?enabled."+
-		" ?rtc c:TapChanger.highStep ?highStep."+
-		" ?rtc c:TapChanger.initialDelay ?initDelay."+
-		" ?rtc c:TapChanger.lowStep ?lowStep."+
-		" ?rtc c:TapChanger.ltcFlag ?ltc."+
-		" ?rtc c:TapChanger.neutralStep ?neutralStep."+
-		" ?rtc c:TapChanger.neutralU ?neutralU."+
-		" ?rtc c:TapChanger.normalStep ?normalStep."+
-		" ?rtc c:TapChanger.step ?step."+
-		" ?rtc c:TapChanger.subsequentDelay ?subDelay."+
-		" ?rtc c:TapChanger.TapChangerControl ?ctl."+
-		" ?ctl c:TapChangerControl.limitVoltage ?vlim."+
-		" ?ctl c:TapChangerControl.lineDropCompensation ?ldc."+
-		" ?ctl c:TapChangerControl.lineDropR ?fwdR."+
-		" ?ctl c:TapChangerControl.lineDropX ?fwdX."+
-		" ?ctl c:TapChangerControl.reverseLineDropR ?revR."+
-		" ?ctl c:TapChangerControl.reverseLineDropX ?revX."+
-		" ?ctl c:RegulatingControl.discrete ?discrete."+
-		" ?ctl c:RegulatingControl.enabled ?ctl_enabled."+
-		" ?ctl c:RegulatingControl.mode ?ctlmoderaw."+
-		"  bind(strafter(str(?ctlmoderaw),\"RegulatingControlModeKind.\") as ?ctlmode)"+
-		" ?ctl c:RegulatingControl.monitoredPhase ?monraw."+
-		"  bind(strafter(str(?monraw),\"PhaseCode.\") as ?monphs)"+
-		" ?ctl c:RegulatingControl.targetDeadband ?vbw."+
-		" ?ctl c:RegulatingControl.targetValue ?vset."+
-		" ?asset c:Asset.PowerSystemResources ?rtc."+
-		" ?asset c:Asset.AssetInfo ?inf."+
-		" ?inf c:TapChangerInfo.ctRating ?ctRating."+
-		" ?inf c:TapChangerInfo.ctRatio ?ctRatio."+
-		" ?inf c:TapChangerInfo.ptRatio ?ptRatio."+
-		" bind(strafter(str(?rtc),\"#\") as ?id)"+
-		"}"+
-		" ORDER BY ?pname ?rname ?tname ?wnum";
-
 	public String pname;
 	public String bankphases;
 

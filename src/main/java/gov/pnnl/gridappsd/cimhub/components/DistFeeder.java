@@ -8,23 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistFeeder extends DistComponent {
-	public static String szQUERY = 
-		"SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {"+
-		"?s r:type c:Feeder."+
-		"?s c:IdentifiedObject.name ?feeder."+
-		"?s c:IdentifiedObject.mRID ?fid."+
-		"?s c:Feeder.NormalEnergizingSubstation ?sub."+
-		"?sub c:IdentifiedObject.name ?station."+
-		"?sub c:IdentifiedObject.mRID ?sid."+
-		"?sub c:Substation.Region ?sgr."+
-		"?sgr c:IdentifiedObject.name ?subregion."+
-		"?sgr c:IdentifiedObject.mRID ?sgrid."+
-		"?sgr c:SubGeographicalRegion.Region ?rgn."+
-		"?rgn c:IdentifiedObject.name ?region."+
-		"?rgn c:IdentifiedObject.mRID ?rgnid."+
-		"}"+
-		" ORDER by ?station ?feeder";
-
 	public String feederName;
 	public String feederID;
 	public String substationName;

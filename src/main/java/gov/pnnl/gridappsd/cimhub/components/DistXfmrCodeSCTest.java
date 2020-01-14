@@ -8,42 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistXfmrCodeSCTest extends DistComponent {
-	public static String szQUERY = 
-		"SELECT DiSTINCT ?pname ?tname ?enum ?gnum ?z ?ll WHERE {"+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?xft c:TransformerTank.PowerTransformer ?eq."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?asset c:Asset.PowerSystemResources ?xft."+
-		" ?asset c:Asset.AssetInfo ?t."+
-		" ?p r:type c:PowerTransformerInfo."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?t c:TransformerTankInfo.PowerTransformerInfo ?p."+
-		" ?t c:IdentifiedObject.name ?tname."+
-		" ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
-		" ?e c:TransformerEndInfo.endNumber ?enum."+
-		" ?sct c:ShortCircuitTest.EnergisedEnd ?e."+
-		" ?sct c:ShortCircuitTest.leakageImpedance ?z."+
-		" ?sct c:ShortCircuitTest.loss ?ll."+
-		" ?sct c:ShortCircuitTest.GroundedEnds ?grnd."+
-		" ?grnd c:TransformerEndInfo.endNumber ?gnum."+
-		"} ORDER BY ?pname ?tname ?enum ?gnum";
-
-	public static String szCountQUERY =
-		"SELECT ?key (count(?sct) as ?count) WHERE {"+
-		" SELECT DISTINCT ?key ?sct WHERE {"+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?xft c:TransformerTank.PowerTransformer ?eq."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?asset c:Asset.PowerSystemResources ?xft."+
-		" ?asset c:Asset.AssetInfo ?t."+
-		" ?p r:type c:PowerTransformerInfo."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?t c:TransformerTankInfo.PowerTransformerInfo ?p."+
-		" ?t c:IdentifiedObject.name ?key."+
-		" ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
-		" ?sct c:ShortCircuitTest.EnergisedEnd ?e."+
-		"}} GROUP BY ?key ORDER BY ?key";
-
 	public String pname;
 	public String tname;
 	public int[] fwdg;

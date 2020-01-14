@@ -8,8 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistFuse extends DistSwitch {
-	public static final String szQUERY = szSELECT + " ?s r:type c:Fuse." + szWHERE;
-
 	public DistFuse (ResultSet results) {
 		super (results);
 	}

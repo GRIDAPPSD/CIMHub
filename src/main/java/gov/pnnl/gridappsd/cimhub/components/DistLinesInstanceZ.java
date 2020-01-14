@@ -9,34 +9,6 @@ import org.apache.commons.math3.complex.Complex;
 import java.util.HashMap;
 
 public class DistLinesInstanceZ extends DistLineSegment {
-	public static final String szQUERY = 
-		"SELECT ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid WHERE {"+
-		" ?s r:type c:ACLineSegment."+
-		" ?s c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?s c:IdentifiedObject.name ?name."+
-		" bind(strafter(str(?s),\"#\") as ?id)."+
-		" ?s c:ConductingEquipment.BaseVoltage ?bv."+
-		" ?bv c:BaseVoltage.nominalVoltage ?basev."+
-		" ?s c:Conductor.length ?len."+
-		" ?s c:ACLineSegment.r ?r."+
-		" ?s c:ACLineSegment.x ?x."+
-		" OPTIONAL {?s c:ACLineSegment.bch ?b.}"+
-		" OPTIONAL {?s c:ACLineSegment.r0 ?r0.}"+
-		" OPTIONAL {?s c:ACLineSegment.x0 ?x0.}"+
-		" OPTIONAL {?s c:ACLineSegment.b0ch ?b0.}"+
-		" ?t1 c:Terminal.ConductingEquipment ?s."+
-		" ?t1 c:Terminal.ConnectivityNode ?cn1."+
-		" ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
-		" ?cn1 c:IdentifiedObject.name ?bus1."+
-		" ?t2 c:Terminal.ConductingEquipment ?s."+
-		" ?t2 c:Terminal.ConnectivityNode ?cn2."+
-		" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
-		" ?cn2 c:IdentifiedObject.name ?bus2"+
-		"}"+
-		" GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid"+
-		" ORDER BY ?name";
-
 	public double r1; 
 	public double x1; 
 	public double b1; 

@@ -81,6 +81,7 @@ import gov.pnnl.gridappsd.cimhub.queryhandler.impl.HTTPBlazegraphQueryHandler;
 
 public class CIMImporter extends Object {
 	QueryHandler queryHandler;
+	CIMQuerySetter querySetter;
 	OperationalLimits oLimits;
 
 	HashMap<String,GldNode> mapNodes = new HashMap<>();
@@ -135,7 +136,8 @@ public class CIMImporter extends Object {
 
 	boolean allMapsLoaded = false;
 
-	void LoadOneCountMap (String szQuery, HashMap<String,Integer> map, String szTag) {
+	void LoadOneCountMap (HashMap<String,Integer> map, String szTag) {
+		String szQuery = querySetter.getSelectionQuery (szTag);
 		ResultSet results = queryHandler.query (szQuery, szTag);
 		while (results.hasNext()) {
 			QuerySolution soln = results.next();
@@ -147,19 +149,19 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadCountMaps() {
-		LoadOneCountMap (DistXfmrBank.szCountQUERY, mapCountBank, "count banks");
-		LoadOneCountMap (DistXfmrTank.szCountQUERY, mapCountTank, "count tanks");
-		LoadOneCountMap (DistPowerXfmrMesh.szCountQUERY, mapCountMesh, "count mesh Z");
-		LoadOneCountMap (DistPowerXfmrWinding.szCountQUERY, mapCountWinding, "count windings");
-		LoadOneCountMap (DistXfmrCodeRating.szCountQUERY, mapCountCodeRating, "count XfmrCode Ratings");
-		LoadOneCountMap (DistXfmrCodeSCTest.szCountQUERY, mapCountCodeSCTest, "count SC test");
-		LoadOneCountMap (DistLineSegment.szCountQUERY, mapCountLinePhases, "count line phases");
-		LoadOneCountMap (DistLineSpacing.szCountQUERY, mapCountSpacingXY, "count spacing XY");
+		LoadOneCountMap (mapCountBank, "CountBankTanks");
+		LoadOneCountMap (mapCountTank, "CountTankEnds");
+		LoadOneCountMap (mapCountMesh, "CountXfmrMeshes");
+		LoadOneCountMap (mapCountWinding, "CountXfmrWindings");
+		LoadOneCountMap (mapCountCodeRating, "CountXfmrCodeRatings");
+		LoadOneCountMap (mapCountCodeSCTest, "CountXfmrCodeSCTests");
+		LoadOneCountMap (mapCountLinePhases, "CountLinePhases");
+		LoadOneCountMap (mapCountSpacingXY, "CountSpacingXY");
 		//		PrintOneCountMap (mapCountSpacingXY, "Line Spacing Position Counts");
 	}
 
 	void LoadBaseVoltages() {
-		ResultSet results = queryHandler.query (DistBaseVoltage.szQUERY, "base v");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistBaseVoltage"), "BaseVoltage");
 		while (results.hasNext()) {
 			DistBaseVoltage obj = new DistBaseVoltage (results);
 			mapBaseVoltages.put (obj.GetKey(), obj);
@@ -168,7 +170,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadSubstations() {
-		ResultSet results = queryHandler.query (DistSubstation.szQUERY, "subs");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistSubstation"), "Substation");
 		while (results.hasNext()) {
 			DistSubstation obj = new DistSubstation (results);
 			mapSubstations.put (obj.GetKey(), obj);
@@ -177,7 +179,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadSolars() {
-		ResultSet results = queryHandler.query (DistSolar.szQUERY, "solar");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistSolar"), "Solar");
 		while (results.hasNext()) {
 			DistSolar obj = new DistSolar (results);
 			mapSolars.put (obj.GetKey(), obj);
@@ -186,7 +188,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadMeasurements(boolean useHouses) {
-		ResultSet results = queryHandler.query (DistMeasurement.szQUERY, "meas");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistMeasurement"), "Measurement");
 		while (results.hasNext()) {
 			DistMeasurement obj = new DistMeasurement (results, useHouses);
 			mapMeasurements.put (obj.GetKey(), obj);
@@ -195,7 +197,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadStorages() {
-		ResultSet results = queryHandler.query (DistStorage.szQUERY, "storage");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistStorage"), "Storage");
 		while (results.hasNext()) {
 			DistStorage obj = new DistStorage (results);
 			mapStorages.put (obj.GetKey(), obj);
@@ -204,7 +206,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadCapacitors() {
-		ResultSet results = queryHandler.query (DistCapacitor.szQUERY, "caps");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistCapacitor"), "Capacitor");
 		while (results.hasNext()) {
 			DistCapacitor obj = new DistCapacitor (results);
 			mapCapacitors.put (obj.GetKey(), obj);
@@ -213,7 +215,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadLoads() {
-		ResultSet results = queryHandler.query (DistLoad.szQUERY, "loads");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistLoad"), "Load");
 		while (results.hasNext()) {
 			DistLoad obj = new DistLoad (results);
 			mapLoads.put (obj.GetKey(), obj);
@@ -222,7 +224,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadPhaseMatrices() {
-		ResultSet results = queryHandler.query (DistPhaseMatrix.szQUERY, "phase matrix");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistPhaseMatrix"), "PhaseMatrix");
 		while (results.hasNext()) {
 			DistPhaseMatrix obj = new DistPhaseMatrix (results);
 			mapPhaseMatrices.put (obj.GetKey(), obj);
@@ -231,7 +233,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadSequenceMatrices() {
-		ResultSet results = queryHandler.query (DistSequenceMatrix.szQUERY, "sequence matrix");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistSequenceMatrix"), "SequenceMatrix");
 		while (results.hasNext()) {
 			DistSequenceMatrix obj = new DistSequenceMatrix (results);
 			mapSequenceMatrices.put (obj.GetKey(), obj);
@@ -240,7 +242,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadXfmrCodeRatings() {
-		ResultSet results = queryHandler.query (DistXfmrCodeRating.szQUERY, "xfmr code ratings");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistXfmrCodeRating"), "XfmrCodeRating");
 		while (results.hasNext()) {
 			DistXfmrCodeRating obj = new DistXfmrCodeRating (results, mapCountCodeRating);
 			mapCodeRatings.put (obj.GetKey(), obj);
@@ -249,7 +251,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadXfmrCodeOCTests() {
-		ResultSet results = queryHandler.query (DistXfmrCodeOCTest.szQUERY, "xfmr code OC test");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistXfmrCodeOCTest"), "XfmrCodeOCTest");
 		while (results.hasNext()) {
 			DistXfmrCodeOCTest obj = new DistXfmrCodeOCTest (results);
 			mapCodeOCTests.put (obj.GetKey(), obj);
@@ -258,7 +260,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadXfmrCodeSCTests() {
-		ResultSet results = queryHandler.query (DistXfmrCodeSCTest.szQUERY, "xfmr code SC test");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistXfmrCodeSCTest"), "XfmrCodeSCTest");
 		while (results.hasNext()) {
 			DistXfmrCodeSCTest obj = new DistXfmrCodeSCTest (results, mapCountCodeSCTest);
 			mapCodeSCTests.put (obj.GetKey(), obj);
@@ -267,7 +269,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadPowerXfmrCore() {
-		ResultSet results = queryHandler.query (DistPowerXfmrCore.szQUERY, "xfmr core");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistPowerXfmrCore"), "PowerXfmrCore");
 		while (results.hasNext()) {
 			DistPowerXfmrCore obj = new DistPowerXfmrCore (results);
 			mapXfmrCores.put (obj.GetKey(), obj);
@@ -276,7 +278,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadPowerXfmrMesh() {
-		ResultSet results = queryHandler.query (DistPowerXfmrMesh.szQUERY, "xfmr mesh");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistPowerXfmrMesh"), "PowerXfmrMesh");
 		while (results.hasNext()) {
 			DistPowerXfmrMesh obj = new DistPowerXfmrMesh (results, mapCountMesh);
 			mapXfmrMeshes.put (obj.GetKey(), obj);
@@ -285,7 +287,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadOverheadWires() {
-		ResultSet results = queryHandler.query (DistOverheadWire.szQUERY, "wires");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistOverheadWire"), "OverheadWire");
 		while (results.hasNext()) {
 			DistOverheadWire obj = new DistOverheadWire (results);
 			mapWires.put (obj.GetKey(), obj);
@@ -294,7 +296,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadTapeShieldCables() {
-		ResultSet results = queryHandler.query (DistTapeShieldCable.szQUERY, "TS cables");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistTapeShieldCable"), "TSCable");
 		while (results.hasNext()) {
 			DistTapeShieldCable obj = new DistTapeShieldCable (results);
 			mapTSCables.put (obj.GetKey(), obj);
@@ -303,7 +305,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadConcentricNeutralCables() {
-		ResultSet results = queryHandler.query (DistConcentricNeutralCable.szQUERY, "CN cables");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistConcentricNeutralCable"), "CNCable");
 		while (results.hasNext()) {
 			DistConcentricNeutralCable obj = new DistConcentricNeutralCable (results);
 			mapCNCables.put (obj.GetKey(), obj);
@@ -312,7 +314,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadLineSpacings() {
-		ResultSet results = queryHandler.query (DistLineSpacing.szQUERY, "spacings");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistLineSpacing"), "LineSpacing");
 		while (results.hasNext()) {
 			DistLineSpacing obj = new DistLineSpacing (results, mapCountSpacingXY);
 			mapSpacings.put (obj.GetKey(), obj);
@@ -321,7 +323,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadLoadBreakSwitches() {
-		ResultSet results = queryHandler.query (DistLoadBreakSwitch.szQUERY, "switches");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistLoadBreakSwitch"), "LoadBreakSwitch");
 		while (results.hasNext()) {
 			DistLoadBreakSwitch obj = new DistLoadBreakSwitch (results);
 			mapLoadBreakSwitches.put (obj.GetKey(), obj);
@@ -330,7 +332,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadFuses() {
-		ResultSet results = queryHandler.query (DistFuse.szQUERY, "fuses");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistFuse"), "Fuse");
 		while (results.hasNext()) {
 			DistFuse obj = new DistFuse (results);
 			mapFuses.put (obj.GetKey(), obj);
@@ -339,7 +341,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadDisconnectors() {
-		ResultSet results = queryHandler.query (DistDisconnector.szQUERY, "disconnectors");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistDisconnector"), "Disconnector");
 		while (results.hasNext()) {
 			DistDisconnector obj = new DistDisconnector (results);
 			mapDisconnectors.put (obj.GetKey(), obj);
@@ -348,7 +350,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadGroundDisconnectors() {
-		ResultSet results = queryHandler.query (DistGroundDisconnector.szQUERY, "ground disconnectors");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistGroundDisconnector"), "GroundDisconnector");
 		while (results.hasNext()) {
 			DistGroundDisconnector obj = new DistGroundDisconnector (results);
 			mapGroundDisconnectors.put (obj.GetKey(), obj);
@@ -357,7 +359,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadJumpers() {
-		ResultSet results = queryHandler.query (DistJumper.szQUERY, "jumpers");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistJumper"), "Jumper");
 		while (results.hasNext()) {
 			DistJumper obj = new DistJumper (results);
 			mapJumpers.put (obj.GetKey(), obj);
@@ -366,7 +368,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadBreakers() {
-		ResultSet results = queryHandler.query (DistBreaker.szQUERY, "breakers");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistBreaker"), "Breaker");
 		while (results.hasNext()) {
 			DistBreaker obj = new DistBreaker (results);
 			mapBreakers.put (obj.GetKey(), obj);
@@ -375,7 +377,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadReclosers() {
-		ResultSet results = queryHandler.query (DistRecloser.szQUERY, "reclosers");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistRecloser"), "Recloser");
 		while (results.hasNext()) {
 			DistRecloser obj = new DistRecloser (results);
 			mapReclosers.put (obj.GetKey(), obj);
@@ -384,7 +386,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadSectionalisers() {
-		ResultSet results = queryHandler.query (DistSectionaliser.szQUERY, "sectionalisers");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistSectionaliser"), "Sectionaliser");
 		while (results.hasNext()) {
 			DistSectionaliser obj = new DistSectionaliser (results);
 			mapSectionalisers.put (obj.GetKey(), obj);
@@ -393,7 +395,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadLinesInstanceZ() {
-		ResultSet results = queryHandler.query (DistLinesInstanceZ.szQUERY, "lines with instance Z");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistLinesInstanceZ"), "LinesInstanceZ");
 		while (results.hasNext()) {
 			DistLinesInstanceZ obj = new DistLinesInstanceZ (results, mapCountLinePhases);
 			mapLinesInstanceZ.put (obj.GetKey(), obj);
@@ -402,7 +404,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadLinesCodeZ() {
-		ResultSet results = queryHandler.query (DistLinesCodeZ.szQUERY, "lines with code Z");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistLinesCodeZ"), "LinesCodeZ");
 		while (results.hasNext()) {
 			DistLinesCodeZ obj = new DistLinesCodeZ (results, mapCountLinePhases);
 			mapLinesCodeZ.put (obj.GetKey(), obj);
@@ -411,7 +413,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadLinesSpacingZ() {
-		ResultSet results = queryHandler.query (DistLinesSpacingZ.szQUERY, "lines with spacing");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistLinesSpacingZ"), "LinesSpacingZ");
 		while (results.hasNext()) {
 			DistLinesSpacingZ obj = new DistLinesSpacingZ (results, mapCountLinePhases);
 			mapLinesSpacingZ.put (obj.GetKey(), obj);
@@ -420,7 +422,9 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadRegulators() {
-		ResultSet results = queryHandler.query (DistRegulator.szQUERYprefix + DistRegulator.szQUERYbanked + DistRegulator.szQUERYsuffix, "regulators (banked)");
+		String szQuery = querySetter.getSelectionQuery ("DistRegulatorPrefix") +
+			querySetter.getSelectionQuery ("DistRegulatorBanked") + querySetter.getSelectionQuery ("DistRegulatorSuffix");
+		ResultSet results = queryHandler.query (szQuery, "DistRegulatorBanked");
 		while (results.hasNext()) {
 			DistRegulator obj = new DistRegulator (results, queryHandler);
 			mapRegulators.put (obj.GetKey(), obj);
@@ -428,7 +432,9 @@ public class CIMImporter extends Object {
 		((ResultSetCloseable)results).close();
 //		System.out.format ("%d Banked Regulators\n", mapRegulators.size());
 
-		results = queryHandler.query (DistRegulator.szQUERYprefix + DistRegulator.szQUERYtanked + DistRegulator.szQUERYsuffix, "regulators (tanked)");
+		szQuery = querySetter.getSelectionQuery ("DistRegulatorPrefix") +
+			querySetter.getSelectionQuery ("DistRegulatorTanked") + querySetter.getSelectionQuery ("DistRegulatorSuffix");
+		results = queryHandler.query (szQuery, "DistRegulatorTanked");
 		while (results.hasNext()) {
 			DistRegulator obj = new DistRegulator (results, queryHandler);
 			mapRegulators.put (obj.GetKey(), obj);
@@ -438,7 +444,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadXfmrTanks() {
-		ResultSet results = queryHandler.query (DistXfmrTank.szQUERY, "xfmr tanks");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistXfmrTank"), "XfmrTank");
 		while (results.hasNext()) {
 			DistXfmrTank obj = new DistXfmrTank (results, mapCountTank);
 			mapTanks.put (obj.GetKey(), obj);
@@ -447,7 +453,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadXfmrBanks() {
-		ResultSet results = queryHandler.query (DistXfmrBank.szQUERY, "xfmr banks");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistXfmrBank"), "XfmrBank");
 		while (results.hasNext()) {
 			DistXfmrBank obj = new DistXfmrBank (results, mapCountBank);
 			mapBanks.put (obj.GetKey(), obj);
@@ -456,7 +462,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadPowerXfmrWindings() {
-		ResultSet results = queryHandler.query (DistPowerXfmrWinding.szQUERY, "xfmr windings");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistPowerXfmrWinding"), "PowerXfmrWinding");
 		while (results.hasNext()) {
 			DistPowerXfmrWinding obj = new DistPowerXfmrWinding (results, mapCountWinding);
 			mapXfmrWindings.put (obj.GetKey(), obj);
@@ -465,7 +471,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadCoordinates() {
-		ResultSet results = queryHandler.query (DistCoordinates.szQUERY, "coordinates");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistCoordinates"), "Coordinate");
 		while (results.hasNext()) {
 			DistCoordinates obj = new DistCoordinates (results);
 			mapCoordinates.put (obj.GetKey(), obj);
@@ -474,7 +480,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadFeeders() {
-		ResultSet results = queryHandler.query (DistFeeder.szQUERY, "feeders");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistFeeder"), "Feeder");
 		while (results.hasNext()) {
 			DistFeeder obj = new DistFeeder (results);
 			mapFeeders.put (obj.GetKey(), obj);
@@ -483,7 +489,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadHouses() {
-		ResultSet results = queryHandler.query (DistHouse.szQUERY, "houses");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistHouse"), "House");
 		while (results.hasNext()) {
 			DistHouse obj = new DistHouse (results);
 			mapHouses.put (obj.GetKey(), obj);
@@ -492,7 +498,7 @@ public class CIMImporter extends Object {
 	}
 
 	void LoadSyncMachines() {
-		ResultSet results = queryHandler.query (DistSyncMachine.szQUERY, "sync mach");
+		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistSyncMachine"), "SyncMach");
 		while (results.hasNext()) {
 			DistSyncMachine obj = new DistSyncMachine (results);
 			mapSyncMachines.put (obj.GetKey(), obj);
@@ -1690,10 +1696,11 @@ public class CIMImporter extends Object {
 		out.close();
 	}
 
-	public void start(QueryHandler queryHandler, String fTarget, String fRoot, String fSched, double load_scale,
-			boolean bWantSched, boolean bWantZIP, boolean randomZIP, boolean useHouses, double Zcoeff,
-			double Icoeff, double Pcoeff, boolean bHaveEventGen, ModelState ms, boolean bTiming) throws FileNotFoundException{
-		start(queryHandler, fTarget, fRoot, fSched, load_scale, bWantSched, bWantZIP, randomZIP, useHouses,
+	public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, 
+			String fSched, double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP, 
+			boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, boolean bHaveEventGen, ModelState ms, 
+			boolean bTiming) throws FileNotFoundException{
+		start(queryHandler, querySetter, fTarget, fRoot, fSched, load_scale, bWantSched, bWantZIP, randomZIP, useHouses,
 				Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming);
 	}
 
@@ -1711,11 +1718,13 @@ public class CIMImporter extends Object {
 	 * @param fXY
 	 * @throws FileNotFoundException
 	 */
-	public void start(QueryHandler queryHandler, String fTarget, String fRoot, String fSched,
+	public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, String fSched,
 			double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP,
 			boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff,
 			int maxMeasurements, boolean bHaveEventGen, ModelState ms, boolean bTiming) throws FileNotFoundException{
+
 		this.queryHandler = queryHandler;
+		this.querySetter = querySetter;
 		String fOut, fXY, fID, fDict;
 
 		if (fTarget.equals("glm")) {
@@ -1912,7 +1921,8 @@ public class CIMImporter extends Object {
 	 * @param Icoeff
 	 * @param Pcoeff
 	 */
-	public void generateGLMFile(QueryHandler queryHandler, PrintWriter out, String fSched,
+	public void generateGLMFile(QueryHandler queryHandler, CIMQuerySetter querySetter, 
+			PrintWriter out, String fSched,
 			double load_scale, boolean bWantSched, boolean bWantZIP,
 			boolean randomZIP, boolean useHouses, double Zcoeff,
 			double Icoeff, double Pcoeff, boolean bHaveEventGen) {
@@ -1941,7 +1951,7 @@ public class CIMImporter extends Object {
 
 
 	public void generateDictionaryFile(QueryHandler queryHandler, PrintWriter out, boolean useHouses, ModelState modelState){
-		generateDictionaryFile(queryHandler, out, -1, useHouses,modelState);
+		generateDictionaryFile(queryHandler, out, -1, useHouses, modelState);
 	}
 	/**
 	 *
@@ -2015,11 +2025,13 @@ public class CIMImporter extends Object {
 		boolean bWantSched = false, bWantZIP = false, bSelectFeeder = false, randomZIP = false, useHouses = false;
 		boolean bHaveEventGen = false;
 		boolean bTiming = false;
+		boolean bReadSPARQL = false;
 		String fSched = "";
 		String fTarget = "dss";
 		String feeder_mRID = "";
 		double Zcoeff = 0.0, Icoeff = 0.0, Pcoeff = 0.0;
 		String blazegraphURI = "http://localhost:8889/bigdata/namespace/kb/sparql";
+		String fSPARQL = "";
 		if (args.length < 1) {
 			System.out.println ("Usage: java CIMImporter [options] output_root");
 			System.out.println ("       -q={queries_file}  // optional file with CIM namespace and component queries (defaults to CIM100)");
@@ -2095,12 +2107,8 @@ public class CIMImporter extends Object {
 				} else if (opt == 'u') {
 					blazegraphURI = optVal;
 				} else if (opt == 'q') {
-					CIMQuerySetter qset = new CIMQuerySetter();
-					if (optVal.contains(".txt")) {
-						qset.setQueriesFromTextFile(optVal);
-					} else {
-						qset.setQueriesFromXMLFile (optVal);
-					}
+					fSPARQL = optVal;
+					bReadSPARQL = true;
 				}
 			} else {
 				if (fTarget.equals("glm")) {
@@ -2123,6 +2131,10 @@ public class CIMImporter extends Object {
 
 		try {
 			HTTPBlazegraphQueryHandler qh = new HTTPBlazegraphQueryHandler(blazegraphURI);
+			CIMQuerySetter qs = new CIMQuerySetter();
+			if (bReadSPARQL) {
+				qs.setQueriesFromXMLFile (fSPARQL);
+			}
 			if (bSelectFeeder) {
 				qh.addFeederSelection (feeder_mRID);
 			}
@@ -2132,7 +2144,7 @@ public class CIMImporter extends Object {
 			List<Switch> switchesToUpdate = new ArrayList<>();
 			ModelState ms = new ModelState(machinesToUpdate, switchesToUpdate);
 
-			new CIMImporter().start(qh, fTarget, fRoot, fSched, load_scale,
+			new CIMImporter().start(qh, qs, fTarget, fRoot, fSched, load_scale,
 					bWantSched, bWantZIP, randomZIP, useHouses,
 					Zcoeff, Icoeff, Pcoeff, bHaveEventGen, ms, bTiming);
 		} catch (RuntimeException e) {

@@ -7,30 +7,6 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistOverheadWire extends DistWire {
-	public static String szQUERY =  
-		"SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?id WHERE {"+
-		" ?eq r:type c:ACLineSegment."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?acp c:ACLineSegmentPhase.ACLineSegment ?eq."+
-		" ?acp c:ACLineSegmentPhase.WireInfo ?w."+
-		" ?w r:type c:OverheadWireInfo."+
-		" ?w c:IdentifiedObject.name ?name."+
-		"   bind(strafter(str(?w),\"#\") as ?id)."+
-		" ?w c:WireInfo.radius ?rad."+
-		" ?w c:WireInfo.gmr ?gmr."+
-		" OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}"+
-		" OPTIONAL {?w c:WireInfo.rAC25 ?r25.}"+
-		" OPTIONAL {?w c:WireInfo.rAC50 ?r50.}"+
-		" OPTIONAL {?w c:WireInfo.rAC75 ?r75.}"+
-		" OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}"+
-		" OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}"+
-		" OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw."+
-		"       bind(strafter(str(?insraw),\"WireInsulationKind.\") as ?insmat)}"+
-		" OPTIONAL {?w c:WireInfo.insulated ?ins.}"+
-		" OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}"+
-		"} ORDER BY ?name";
-
 	public String GetJSONEntry () {
 		StringBuilder buf = new StringBuilder ();
 

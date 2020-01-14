@@ -8,8 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistLoadBreakSwitch extends DistSwitch {
-	public static final String szQUERY = szSELECT + " ?s r:type c:LoadBreakSwitch." + szWHERE;
-
 	public DistLoadBreakSwitch (ResultSet results) {
 		super (results);
 	}

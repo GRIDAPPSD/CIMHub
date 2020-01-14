@@ -8,8 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistSectionaliser extends DistSwitch {
-	public static String szQUERY = szSELECT + " ?s r:type c:Sectionaliser." + szWHERE;
-
 	public DistSectionaliser (ResultSet results) {
 		super (results);
 	}

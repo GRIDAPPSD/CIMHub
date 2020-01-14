@@ -8,31 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistPowerXfmrMesh extends DistComponent {
-	public static final String szQUERY = 
-		"SELECT ?pname ?fnum ?tnum ?r ?x WHERE {"+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?p r:type c:PowerTransformer."+
-		" ?p c:Equipment.EquipmentContainer ?fdr."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?from c:PowerTransformerEnd.PowerTransformer ?p."+
-		" ?imp c:TransformerMeshImpedance.FromTransformerEnd ?from."+
-		" ?imp c:TransformerMeshImpedance.ToTransformerEnd ?to."+
-		" ?imp c:TransformerMeshImpedance.r ?r."+
-		" ?imp c:TransformerMeshImpedance.x ?x."+
-		" ?from c:TransformerEnd.endNumber ?fnum."+
-		" ?to c:TransformerEnd.endNumber ?tnum."+
-		"} ORDER BY ?pname ?fnum ?tnum";
-
-	public static final String szCountQUERY =
-		"SELECT ?key (count(?imp) as ?count) WHERE {"+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?p r:type c:PowerTransformer."+
-		" ?p c:Equipment.EquipmentContainer ?fdr."+
-		" ?p c:IdentifiedObject.name ?key."+
-		" ?from c:PowerTransformerEnd.PowerTransformer ?p."+
-		" ?imp c:TransformerMeshImpedance.FromTransformerEnd ?from."+
-		"} GROUP BY ?key ORDER BY ?key";
-
 	public String name;
 	public int[] fwdg;
 	public int[] twdg;

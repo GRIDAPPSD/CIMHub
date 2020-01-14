@@ -8,44 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistPowerXfmrWinding extends DistComponent {
-	public static final String szQUERY = 
-		"SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?id ?fdrid ?ename ?eid WHERE {"+
-		" ?p r:type c:PowerTransformer."+
-		" ?p c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?p c:IdentifiedObject.name ?pname."+
-		" ?p c:PowerTransformer.vectorGroup ?vgrp."+
-		" bind(strafter(str(?p),\"#\") as ?id)."+
-		" ?end c:PowerTransformerEnd.PowerTransformer ?p."+
-		" ?end c:TransformerEnd.endNumber ?enum."+
-		" ?end c:PowerTransformerEnd.ratedS ?ratedS."+
-		" ?end c:PowerTransformerEnd.ratedU ?ratedU."+
-		" ?end c:PowerTransformerEnd.r ?r."+
-		" ?end c:PowerTransformerEnd.phaseAngleClock ?ang."+
-		" ?end c:IdentifiedObject.name ?ename."+
-		" ?end c:IdentifiedObject.mRID ?eid."+
-		" ?end c:PowerTransformerEnd.connectionKind ?connraw."+  
-		"  bind(strafter(str(?connraw),\"WindingConnection.\") as ?conn)"+
-		" ?end c:TransformerEnd.grounded ?grounded."+
-		" OPTIONAL {?end c:TransformerEnd.rground ?rground.}"+
-		" OPTIONAL {?end c:TransformerEnd.xground ?xground.}"+
-		" ?end c:TransformerEnd.Terminal ?trm."+
-		" ?trm c:Terminal.ConnectivityNode ?cn. "+
-		" ?cn c:IdentifiedObject.name ?bus."+
-		" ?end c:TransformerEnd.BaseVoltage ?bv."+
-		" ?bv c:BaseVoltage.nominalVoltage ?basev"+
-		"}"+
-		" ORDER BY ?pname ?enum"		;
-
-	public static final String szCountQUERY =
-		"SELECT ?key (count(?p) as ?count) WHERE {"+
-		" ?p r:type c:PowerTransformer."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?p c:Equipment.EquipmentContainer ?fdr."+
-		" ?p c:IdentifiedObject.name ?key."+
-		" ?end c:PowerTransformerEnd.PowerTransformer ?p."+
-		"} GROUP BY ?key ORDER BY ?key";
-
 	public String name;
 	public String id;
 	public String vgrp;

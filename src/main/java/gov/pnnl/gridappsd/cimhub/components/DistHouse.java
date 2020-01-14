@@ -32,27 +32,6 @@ public class DistHouse extends DistComponent {
 		gldHouseThermalIntegrity.put (HouseThermalIntegrity.little, "LITTLE");
 	}
 
-	public static final String szQUERY = 
-		"SELECT ?name ?parent ?coolingSetpoint ?coolingSystem ?floorArea ?heatingSetpoint ?heatingSystem ?hvacPowerFactor ?numberOfStories ?thermalIntegrity ?id ?fdrid WHERE {" + 
-				"?h r:type c:House. " + 
-				"?h c:IdentifiedObject.name ?name. " + 
-				"?h c:IdentifiedObject.mRID ?id. " + 
-				"?h c:House.floorArea ?floorArea. " + 
-				"?h c:House.numberOfStories ?numberOfStories. " + 
-				"OPTIONAL{?h c:House.coolingSetpoint ?coolingSetpoint.} " + 
-				"OPTIONAL{?h c:House.heatingSetpoint ?heatingSetpoint.} " + 
-				"OPTIONAL{?h c:House.hvacPowerFactor ?hvacPowerFactor.} " + 
-				"?h c:House.coolingSystem ?coolingSystemRaw. " + 
-					"bind(strafter(str(?coolingSystemRaw),\"HouseCooling.\") as ?coolingSystem) " + 
-				"?h c:House.heatingSystem ?heatingSystemRaw. " + 
-					"bind(strafter(str(?heatingSystemRaw),\"HouseHeating.\") as ?heatingSystem) " + 
-				"?h c:House.thermalIntegrity ?thermalIntegrityRaw " + 
-					"bind(strafter(str(?thermalIntegrityRaw),\"HouseThermalIntegrity.\") as ?thermalIntegrity) " + 
-				"?h c:House.EnergyConsumer ?econ. " + 
-				"?econ c:IdentifiedObject.name ?parent. " +
-				"?fdr c:IdentifiedObject.mRID ?fdrid. " +
-				"?econ c:Equipment.EquipmentContainer ?fdr. " +
-		"} ORDER BY ?name";
 	public String id;
 	public String name;
 	public String parent;

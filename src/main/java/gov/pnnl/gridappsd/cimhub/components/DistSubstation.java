@@ -8,27 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistSubstation extends DistComponent {
-	public static String szQUERY = 
-		"SELECT ?name ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?id WHERE {" +
-		" ?s r:type c:EnergySource." +
-		" ?s c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?s c:IdentifiedObject.name ?name." +
-  	" ?s c:ConductingEquipment.BaseVoltage ?bv."+
-		" ?bv c:BaseVoltage.nominalVoltage ?basev."+
-		" ?s c:EnergySource.nominalVoltage ?nomv." + 
-		" ?s c:EnergySource.voltageMagnitude ?vmag." + 
-		" ?s c:EnergySource.voltageAngle ?vang." + 
-		" ?s c:EnergySource.r ?r1." + 
-		" ?s c:EnergySource.x ?x1." + 
-		" ?s c:EnergySource.r0 ?r0." + 
-		" ?s c:EnergySource.x0 ?x0." + 
-		" ?t c:Terminal.ConductingEquipment ?s." +
-		" bind(strafter(str(?s),\"#\") as ?id)."+
-		" ?t c:Terminal.ConnectivityNode ?cn." + 
-		" ?cn c:IdentifiedObject.name ?bus" +
-		"}";
-
 	public String id;
 	public String name;
 	public String bus;

@@ -8,24 +8,6 @@ import org.apache.jena.query.*;
 import org.apache.commons.math3.complex.Complex;
 
 public class DistPhaseMatrix extends DistComponent {
-	public static final String szQUERY = 
-		"SELECT DISTINCT ?name ?cnt ?row ?col ?r ?x ?b ?id WHERE {"+
-		" ?eq r:type c:ACLineSegment."+
-		" ?eq c:Equipment.EquipmentContainer ?fdr."+
-		" ?fdr c:IdentifiedObject.mRID ?fdrid."+
-		" ?eq c:ACLineSegment.PerLengthImpedance ?s."+
-		" ?s r:type c:PerLengthPhaseImpedance."+
-		" ?s c:IdentifiedObject.name ?name."+
-		" ?s c:PerLengthPhaseImpedance.conductorCount ?cnt."+
-		" bind(strafter(str(?s),\"#\") as ?id)."+
-		" ?elm c:PhaseImpedanceData.PhaseImpedance ?s."+
-		" ?elm c:PhaseImpedanceData.row ?row."+
-		" ?elm c:PhaseImpedanceData.column ?col."+
-		" ?elm c:PhaseImpedanceData.r ?r."+
-		" ?elm c:PhaseImpedanceData.x ?x."+
-		" ?elm c:PhaseImpedanceData.b ?b"+
-		"} ORDER BY ?name ?row ?col";
-
 	public String id;
 	public String name;
 	public int cnt; 

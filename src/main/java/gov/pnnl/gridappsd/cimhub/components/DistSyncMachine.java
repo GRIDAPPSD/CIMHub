@@ -8,26 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistSyncMachine extends DistComponent {
-    public static final String szQUERY = "SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?ratedS ?ratedU ?p ?q ?id ?fdrid WHERE {"+
-			 " ?s c:Equipment.EquipmentContainer ?fdr."+
-			 " ?fdr c:IdentifiedObject.mRID ?fdrid."+
-       " ?s r:type c:SynchronousMachine."+
-       " ?s c:IdentifiedObject.name ?name."+
-			 " ?s c:SynchronousMachine.ratedS ?ratedS."+
-			 " ?s c:SynchronousMachine.ratedU ?ratedU."+
-			 " ?s c:SynchronousMachine.p ?p."+
-			 " ?s c:SynchronousMachine.q ?q."+
-			 " bind(strafter(str(?s),\"#\") as ?id)."+
-			 " OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s."+
-			 "  ?smp c:SynchronousMachinePhase.phase ?phsraw."+
-				" bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-       " ?t c:Terminal.ConductingEquipment ?s."+
-       " ?t c:Terminal.ConnectivityNode ?cn."+ 
-       " ?cn c:IdentifiedObject.name ?bus" + 
-       "} " +
-       "GROUP by ?name ?bus ?ratedS ?ratedU ?p ?q ?id ?fdrid " +
-       "ORDER by ?name";
-
 	public String id;
 	public String name;
 	public String bus;

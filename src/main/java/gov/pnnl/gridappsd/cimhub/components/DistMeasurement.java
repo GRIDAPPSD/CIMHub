@@ -8,29 +8,6 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistMeasurement extends DistComponent {
-	public static final String szQUERY = 
-		"SELECT ?class ?type ?name ?bus ?phases ?eqtype ?eqname ?eqid ?trmid ?id WHERE {"+
-    " ?eq c:Equipment.EquipmentContainer ?fdr."+
-    " ?fdr c:IdentifiedObject.mRID ?fdrid."+ 
-		" { ?s r:type c:Discrete. bind (\"Discrete\" as ?class)}"+
-		"   UNION"+
-		" { ?s r:type c:Analog. bind (\"Analog\" as ?class)}"+
-		"  ?s c:IdentifiedObject.name ?name ."+
-		"  ?s c:IdentifiedObject.mRID ?id ."+
-		"  ?s c:Measurement.PowerSystemResource ?eq ."+
-		"  ?s c:Measurement.Terminal ?trm ."+
-		"  ?s c:Measurement.measurementType ?type ."+
-		"  ?trm c:IdentifiedObject.mRID ?trmid."+
-		"  ?eq c:IdentifiedObject.mRID ?eqid."+
-		"  ?eq c:IdentifiedObject.name ?eqname."+
-		"  ?eq r:type ?typeraw."+
-		"   bind(strafter(str(?typeraw),\"#\") as ?eqtype)"+
-		"  ?trm c:Terminal.ConnectivityNode ?cn."+
-		"  ?cn c:IdentifiedObject.name ?bus."+
-		"  ?s c:Measurement.phases ?phsraw ."+
-		"    {bind(strafter(str(?phsraw),\"PhaseCode.\") as ?phases)}"+
-		" } ORDER BY ?class ?type ?name";
-
 	public String id;
 	public String eqid;
 	public String trmid;
