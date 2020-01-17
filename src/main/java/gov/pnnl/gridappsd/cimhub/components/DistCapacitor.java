@@ -90,7 +90,7 @@ public class DistCapacitor extends DistComponent {
 		return "time";
 	}
 
-	private void SetDerivedParameters() {
+	public void SetDerivedParameters() {
 		int bA = 0, bB = 0, bC = 0;
 		if (phs.contains ("A")) bA = 1;
 		if (phs.contains ("B")) bB = 1;

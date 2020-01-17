@@ -620,6 +620,13 @@ public class CIMImporter extends Object {
 
 	public boolean CheckMaps() {
 		int nLinks, nNodes;
+		CIMPatching patch = new CIMPatching();
+		patch.FixLoads (mapLoads);
+		patch.FixOverheadWires (mapWires);
+		patch.FixCapacitors (mapCapacitors);
+		patch.FixLineSpacings (mapSpacings);
+		patch.FixTransformerKVA (mapCodeRatings);
+		patch.FixShortCircuitTests (mapCodeSCTests, mapCodeRatings);  // must do this after FixTransformerKVA
 
 		if (mapSubstations.size() < 1) {
 			throw new RuntimeException ("no substation source");
