@@ -625,6 +625,7 @@ public class CIMImporter extends Object {
 		patch.FixOverheadWires (mapWires);
 		patch.FixCapacitors (mapCapacitors);
 		patch.FixLineSpacings (mapSpacings);
+		patch.FixLinesSpacingZ (mapLinesSpacingZ);
 		patch.FixTransformerKVA (mapCodeRatings);
 		patch.FixShortCircuitTests (mapCodeSCTests, mapCodeRatings);  // must do this after FixTransformerKVA
 

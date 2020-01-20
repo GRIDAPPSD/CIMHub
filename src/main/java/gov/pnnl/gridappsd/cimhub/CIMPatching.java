@@ -16,6 +16,7 @@ import gov.pnnl.gridappsd.cimhub.components.DistComponent;
 
 import gov.pnnl.gridappsd.cimhub.components.DistCapacitor;
 import gov.pnnl.gridappsd.cimhub.components.DistLineSpacing;
+import gov.pnnl.gridappsd.cimhub.components.DistLinesSpacingZ;
 import gov.pnnl.gridappsd.cimhub.components.DistLoad;
 import gov.pnnl.gridappsd.cimhub.components.DistOverheadWire;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeRating;
@@ -150,7 +151,28 @@ public class CIMPatching extends Object {
 				obj.xarray[0] = -0.1651;
 				obj.xarray[1] = 0.00;
 				obj.xarray[2] = 0.1651;
-				obj.yarray[0] = obj.yarray[1] = obj.yarray[2] = -0.762;
+				obj.yarray[0] = obj.yarray[1] = obj.yarray[2] = 0.762; // these are really depths
+			}
+		}
+	}
+
+	public void FixLinesSpacingZ (HashMap<String,DistLinesSpacingZ> mapLines) {
+		for (HashMap.Entry<String,DistLinesSpacingZ> pair : mapLines.entrySet()) {
+			DistLinesSpacingZ obj = pair.getValue();
+			if (obj.spacing.equals("OH_Wire_Spacing") && obj.phases.equals("ABC") && obj.nwires < 4) { // needs a neutral conductor
+				obj.nwires = 4;
+			  String wire_phase = obj.wire_phases[0];
+				String wire_name = obj.wire_names[0];
+				String wire_class = obj.wire_classes[0];
+				System.out.println ("Adding neutral to " + obj.name);
+				obj.wire_phases = new String[obj.nwires];
+				obj.wire_names = new String[obj.nwires];
+				obj.wire_classes = new String[obj.nwires];
+				for (int i = 0; i < obj.nwires; i++) {
+					obj.wire_phases[i] = wire_phase;
+					obj.wire_names[i] = wire_name;
+					obj.wire_classes[i] = wire_class;
+				}
 			}
 		}
 	}
