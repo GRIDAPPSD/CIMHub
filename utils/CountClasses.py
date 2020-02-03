@@ -26,8 +26,17 @@ def count_classes():
 
 xml_path = '../model_output_tests/'
 xml_files = {'ACEP_PSIL':{}, 
+             'EPRI_DPV_J1':{}, 
+             'IEEE123':{}, 
+             'IEEE123_PV':{}, 
              'IEEE13':{}, 
-             'IEEE13_Assets':{}}
+             'IEEE13_Assets':{},
+             'IEEE37':{}, 
+             'IEEE8500':{}, 
+             'IEEE8500_3subs':{}, 
+             'R2_12_47_2':{}, 
+             'Transactive':{}
+             }
 all_classes = []
 
 for fname in xml_files:
