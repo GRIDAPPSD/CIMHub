@@ -1,9 +1,13 @@
 # CIMHub
 
-Copyright (c) 2017-2019, Battelle Memorial Institute
+Copyright (c) 2017-2020, Battelle Memorial Institute
 
 This is a tool set for translating electric power distribution system models between
 various formats, using the IEC Standard 61970/61968 Common Information Model (CIM) as the "Hub".
+
+Please make sure that GIT LFS is installed before checking out or cloning this repository.
+
+Python scripts depend on "pip install sparqlwrapper"
 
 ## Blazegraph Setup
 
