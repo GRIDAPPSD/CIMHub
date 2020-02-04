@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub;
 //      ----------------------------------------------------------
-//      Copyright (c) 2017, Battelle Memorial Institute
+//      Copyright (c) 2017-2020, Battelle Memorial Institute
 //      All rights reserved.
 //      ----------------------------------------------------------
 
@@ -24,7 +24,7 @@ import org.apache.jena.query.*;
  */
 
 public class EndpointTest extends Object {
-  static final String szEND = "http://localhost:9999/blazegraph/namespace/kb/sparql";
+  static final String szEND = "http://localhost:8889/bigdata/namespace/kb/sparql";
   static final String nsCIM = "http://iec.ch/TC57/CIM100#";
   static final String nsRDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
@@ -55,8 +55,8 @@ public class EndpointTest extends Object {
 //      String id = soln.get("?s").toString();
       String name = soln.get("?name").toString();
       String bus = soln.get("?bus").toString();
-      double nomu = new Double (soln.get("?nomu").toString()).doubleValue();
-      double bsection = new Double (soln.get("?bsection").toString()).doubleValue();
+      double nomu = Double.parseDouble (soln.get("?nomu").toString());
+      double bsection = Double.parseDouble (soln.get("?bsection").toString());
       double kvar = nomu * nomu * bsection / 1000.0;
 
       System.out.println (name + " @ " + bus + "  " + 
