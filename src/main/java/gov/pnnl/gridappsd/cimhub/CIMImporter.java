@@ -585,6 +585,7 @@ public class CIMImporter extends Object {
 		LoadCoordinates();
 		LoadDisconnectors();
 		LoadFuses();
+		LoadJumpers();
 		LoadLinesCodeZ();
 		LoadLinesInstanceZ();
 		LoadLineSpacings();
@@ -634,7 +635,7 @@ public class CIMImporter extends Object {
 		}
 		nLinks = mapLoadBreakSwitches.size() + mapLinesCodeZ.size() + mapLinesSpacingZ.size() + mapLinesInstanceZ.size() +
 				mapXfmrWindings.size() + mapTanks.size() + mapFuses.size() + mapDisconnectors.size() + mapBreakers.size() +
-				mapReclosers.size() + mapSectionalisers.size(); // standalone regulators not allowed in CIM
+				mapReclosers.size() + mapSectionalisers.size() + mapJumpers.size(); // standalone regulators not allowed in CIM
 		if (nLinks < 1) {
 			throw new RuntimeException ("no lines, transformers or switches");
 		}
@@ -664,6 +665,7 @@ public class CIMImporter extends Object {
 		HashMap<String,DistSwitch> mapSwitches = new HashMap<>();
 		mapSwitches.putAll (mapLoadBreakSwitches);
 		mapSwitches.putAll (mapFuses);
+		mapSwitches.putAll (mapJumpers);
 		mapSwitches.putAll (mapBreakers);
 		mapSwitches.putAll (mapReclosers);
 		mapSwitches.putAll (mapSectionalisers);
@@ -773,6 +775,7 @@ public class CIMImporter extends Object {
 		WriteMapDictionary (mapStorages, "batteries", false, out);
 		WriteMapDictionary (mapLoadBreakSwitches, "switches", false, out);
 		WriteMapDictionary (mapFuses, "fuses", false, out);
+		WriteMapDictionary (mapJumpers, "jumpers", false, out);
 		WriteMapDictionary (mapSectionalisers, "sectionalisers", false, out);
 		WriteMapDictionary (mapBreakers, "breakers", false, out);
 		WriteMapDictionary (mapReclosers, "reclosers", false, out);
@@ -879,6 +882,7 @@ public class CIMImporter extends Object {
 
 		WriteMapSymbols (mapLoadBreakSwitches, "switches", false, out);
 		WriteMapSymbols (mapFuses, "fuses", false, out);
+		WriteMapSymbols (mapJumpers, "jumpers", false, out);
 		WriteMapSymbols (mapBreakers, "breakers", false, out);
 		WriteMapSymbols (mapReclosers, "reclosers", false, out);
 		WriteMapSymbols (mapSectionalisers, "sectionalisers", false, out);
@@ -1000,6 +1004,7 @@ public class CIMImporter extends Object {
 		HashMap<String,DistSwitch> mapSwitches = new HashMap<>();
 		mapSwitches.putAll (mapLoadBreakSwitches);
 		mapSwitches.putAll (mapFuses);
+		mapSwitches.putAll (mapJumpers);
 		mapSwitches.putAll (mapBreakers);
 		mapSwitches.putAll (mapReclosers);
 		mapSwitches.putAll (mapSectionalisers);
@@ -1455,6 +1460,13 @@ public class CIMImporter extends Object {
 			mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
 			mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
 		}
+		for (HashMap.Entry<String,DistJumper> pair : mapJumpers.entrySet()) {
+			DistJumper obj = pair.getValue();
+			pt1 = mapCoordinates.get("Jumper:" + obj.name + ":1");
+			pt2 = mapCoordinates.get("Jumper:" + obj.name + ":2");
+			mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+			mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+		}
 		for (HashMap.Entry<String,DistRecloser> pair : mapReclosers.entrySet()) {
 			DistRecloser obj = pair.getValue();
 			pt1 = mapCoordinates.get("Recloser:" + obj.name + ":1");
@@ -1606,6 +1618,11 @@ public class CIMImporter extends Object {
 		}
 		out.println();
 		for (HashMap.Entry<String,DistDisconnector> pair : mapDisconnectors.entrySet()) { // TODO - polymorphic mapSwitches
+			out.print (pair.getValue().GetDSS());
+			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+		}
+		out.println();
+		for (HashMap.Entry<String,DistJumper> pair : mapJumpers.entrySet()) {
 			out.print (pair.getValue().GetDSS());
 			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
 		}
@@ -1864,6 +1881,7 @@ public class CIMImporter extends Object {
 		HashMap<String,DistSwitch> mapSwitches = new HashMap<>();
 		mapSwitches.putAll (mapLoadBreakSwitches);
 		mapSwitches.putAll (mapFuses);
+		mapSwitches.putAll (mapJumpers);
 		mapSwitches.putAll (mapBreakers);
 		mapSwitches.putAll (mapReclosers);
 		mapSwitches.putAll (mapSectionalisers);

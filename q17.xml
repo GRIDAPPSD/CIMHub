@@ -33,6 +33,7 @@ PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/2012/CIM-schema-cim17#>
 SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
 # ?s r:type c:Breaker.
+# ?s r:type c:Disconnector.
 # ?s r:type c:Fuse.
 # ?s r:type c:Jumper.
 # ?s r:type c:LoadBreakSwitch.
@@ -53,7 +54,7 @@ SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
  ?s c:Switch.normalOpen ?open.
- ?s c:Switch.ratedCurrent ?rated.
+ OPTIONAL {?s c:Switch.ratedCurrent ?rated.}
  OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
  ?t1 c:Terminal.ConductingEquipment ?s.
  ?t1 c:Terminal.ConnectivityNode ?cn1.

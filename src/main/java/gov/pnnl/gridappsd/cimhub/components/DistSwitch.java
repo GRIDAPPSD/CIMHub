@@ -52,7 +52,7 @@ public class DistSwitch extends DistComponent {
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
 			basev = Double.parseDouble (soln.get("?basev").toString());
-			rated = Double.parseDouble (soln.get("?rated").toString());
+			rated = OptionalDouble (soln, "?rated", 0.0);
 			breaking = OptionalDouble (soln, "?breaking", 0.0);
 			bus1 = SafeName (soln.get("?bus1").toString()); 
 			bus2 = SafeName (soln.get("?bus2").toString()); 

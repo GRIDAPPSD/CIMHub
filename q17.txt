@@ -66,7 +66,7 @@ SELECT ?name ?basev ?open ?continuous ?breaking ?fdrid (group_concat(distinct ?b
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
  ?s c:Switch.normalOpen ?open.
- ?s c:Switch.ratedCurrent ?continuous.
+ OPTIONAL {?s c:Switch.ratedCurrent ?continuous.}
  OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
  ?t c:Terminal.ConductingEquipment ?s.
  ?t c:Terminal.ConnectivityNode ?cn. 
