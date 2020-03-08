@@ -8,8 +8,11 @@ Created on Apr 24, 2018
 # URL from inside the docker container:
 # blazegraph_url = "http://blazegraph:8080/bigdata/sparql"
 
-# URL from outside the docker container:
-blazegraph_url = "http://localhost:8889/bigdata/namespace/kb/sparql"
+# URL from outside the docker container, to insert measurements:
+blazegraph_url = "http://localhost:8889/bigdata/sparql"
+
+# URL for the lyrasis Blazegraph container, i.e., not part of GridAPPS-D:
+# blazegraph_url = "http://localhost:8889/bigdata/namespace/kb/sparql"
 
 #******************************************************************************
 # Prefix for blazegraph queries; canonical version is now CIM100
