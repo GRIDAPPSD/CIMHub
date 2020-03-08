@@ -9,7 +9,7 @@ Created on Apr 24, 2018
 # blazegraph_url = "http://blazegraph:8080/bigdata/sparql"
 
 # URL from outside the docker container:
-blazegraph_url = "http://localhost:8889/bigdata/sparql"
+blazegraph_url = "http://localhost:8889/bigdata/namespace/kb/sparql"
 
 #******************************************************************************
 # Prefix for blazegraph queries; canonical version is now CIM100

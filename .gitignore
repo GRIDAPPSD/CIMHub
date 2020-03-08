@@ -159,5 +159,6 @@ hs_err_pid*
 *_symbols.json
 *.glm
 *.dss
-
+*.csv
+*.CSV
 

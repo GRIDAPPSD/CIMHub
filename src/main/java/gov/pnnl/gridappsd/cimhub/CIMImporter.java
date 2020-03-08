@@ -621,7 +621,7 @@ public class CIMImporter extends Object {
 
 	public boolean CheckMaps() {
 		int nLinks, nNodes;
-		CIMPatching patch = new CIMPatching();
+/*		CIMPatching patch = new CIMPatching();
 		patch.FixLoads (mapLoads);
 		patch.FixOverheadWires (mapWires);
 		patch.FixCapacitors (mapCapacitors);
@@ -629,7 +629,7 @@ public class CIMImporter extends Object {
 		patch.FixLinesSpacingZ (mapLinesSpacingZ);
 		patch.FixTransformerKVA (mapCodeRatings);
 		patch.FixShortCircuitTests (mapCodeSCTests, mapCodeRatings);  // must do this after FixTransformerKVA
-
+*/
 		if (mapSubstations.size() < 1) {
 			throw new RuntimeException ("no substation source");
 		}
@@ -1507,7 +1507,7 @@ public class CIMImporter extends Object {
 		out.close();
 	}
 
-	protected String GUIDfromCIMmRID (String id) {
+	protected String UUIDfromCIMmRID (String id) {
 		int idx = id.indexOf ("_");
 		if (idx >= 0) {
 			return id.substring(idx+1);
@@ -1521,23 +1521,23 @@ public class CIMImporter extends Object {
 
 		for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Circuit." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Circuit." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 
 		out.println();
 		for (HashMap.Entry<String,DistOverheadWire> pair : mapWires.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Wiredata." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Wiredata." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistConcentricNeutralCable> pair : mapCNCables.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("CNData." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("CNData." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistTapeShieldCable> pair : mapTSCables.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("TSData." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("TSData." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		// DistLineSpacing can be transposed, so mark the permutations (i.e. transpositions) actually neede
@@ -1550,17 +1550,17 @@ public class CIMImporter extends Object {
 		}
 		for (HashMap.Entry<String,DistLineSpacing> pair : mapSpacings.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("LineSpacing." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("LineSpacing." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistPhaseMatrix> pair : mapPhaseMatrices.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Linecode." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Linecode." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistSequenceMatrix> pair : mapSequenceMatrices.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Linecode." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Linecode." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
@@ -1568,78 +1568,78 @@ public class CIMImporter extends Object {
 			DistXfmrCodeSCTest sct = mapCodeSCTests.get (obj.tname);
 			DistXfmrCodeOCTest oct = mapCodeOCTests.get (obj.tname);
 			out.print (obj.GetDSS(sct, oct));
-			outID.println ("Xfmrcode." + obj.tname + "\t" + GUIDfromCIMmRID (obj.id));
+			outID.println ("Xfmrcode." + obj.tname + "\t" + UUIDfromCIMmRID (obj.id));
 		}
 
 		out.println();
 		for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("PVSystem." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("PVSystem." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Storage." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Storage." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Generator." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Generator." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistLoad> pair : mapLoads.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Load." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Load." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistLoadBreakSwitch> pair : mapLoadBreakSwitches.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistFuse> pair : mapFuses.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistRecloser> pair : mapReclosers.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistSectionaliser> pair : mapSectionalisers.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistBreaker> pair : mapBreakers.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistDisconnector> pair : mapDisconnectors.entrySet()) { // TODO - polymorphic mapSwitches
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistJumper> pair : mapJumpers.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistLinesCodeZ> pair : mapLinesCodeZ.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistLinesSpacingZ> pair : mapLinesSpacingZ.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistLinesInstanceZ> pair : mapLinesInstanceZ.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Line." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistPowerXfmrWinding> pair : mapXfmrWindings.entrySet()) {
@@ -1647,25 +1647,25 @@ public class CIMImporter extends Object {
 			DistPowerXfmrMesh mesh = mapXfmrMeshes.get (obj.name);
 			DistPowerXfmrCore core = mapXfmrCores.get (obj.name);
 			out.print (obj.GetDSS(mesh, core));
-			outID.println ("Transformer." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Transformer." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistXfmrTank> pair : mapTanks.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Transformer." + pair.getValue().tname + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Transformer." + pair.getValue().tname + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
 		for (HashMap.Entry<String,DistRegulator> pair : mapRegulators.entrySet()) {
 			DistRegulator obj = pair.getValue();
 			out.print(obj.GetDSS());
 			for (int i = 0; i < obj.size; i++) {
-				outID.println("RegControl." + obj.rname[i] + "\t" + GUIDfromCIMmRID (obj.id[i]));
+				outID.println("RegControl." + obj.rname[i] + "\t" + UUIDfromCIMmRID (obj.id[i]));
 			}
 		}
 		out.println(); // capacitors last in case the capcontrols reference a preceeding element
 		for (HashMap.Entry<String,DistCapacitor> pair : mapCapacitors.entrySet()) {
 			out.print (pair.getValue().GetDSS());
-			outID.println ("Capacitor." + pair.getValue().name + "\t" + GUIDfromCIMmRID (pair.getValue().id));
+			outID.println ("Capacitor." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 
 		out.println();
@@ -1695,7 +1695,7 @@ public class CIMImporter extends Object {
 		// removed the local Docker paths, relying on cwd instead
 
 		//		buscoords model_busxy.dss
-		//		uuids model_guid.dss
+		//		uuids model_uuid.dss
 
 		//Only use local names for fXY and FID
 		File fXYFile = new File(fXY);
@@ -1814,7 +1814,7 @@ public class CIMImporter extends Object {
 			long t5 = System.nanoTime();
 			// write OpenDSS first, before GridLAB-D can modify the phases
 			fXY = fRoot + "_busxy.dss";
-			fID = fRoot + "_guid.dss";
+			fID = fRoot + "_uuid.dss";
 			PrintWriter pDss = new PrintWriter(fRoot + "_base.dss");
 			PrintWriter pID = new PrintWriter(fID);
 			WriteDSSFile (pDss, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff);
@@ -2103,7 +2103,7 @@ public class CIMImporter extends Object {
 			System.out.println ("   1) ieee8500_base.dss with OpenDSS components for the CIM LoadResponseCharacteristic at peak load");
 			System.out.println ("      It should be invoked from a separate OpenDSS file that sets up the solution and options.");
 			System.out.println ("   2) ieee8500_busxy.dss with node xy coordinates");
-			System.out.println ("   3) ieee8500_guid.dss with CIM mRID values for the components");
+			System.out.println ("   3) ieee8500_uuid.dss with CIM mRID values for the components");
 			System.exit (0);
 		}
 

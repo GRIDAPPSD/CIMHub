@@ -87,7 +87,6 @@ public class HTTPBlazegraphQueryHandler implements QueryHandler {
 			query = QueryFactory.create (Q_PREFIX + szQuery);
 		}
 		QueryExecution qexec = QueryExecutionFactory.sparqlService(endpoint, query);
-//		qexec.
 		ResultSet rs=  qexec.execSelect();
 		return rs;
 	}
