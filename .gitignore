@@ -161,4 +161,5 @@ hs_err_pid*
 *.dss
 *.csv
 *.CSV
+distrib
 
