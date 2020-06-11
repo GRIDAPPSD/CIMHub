@@ -1,10 +1,10 @@
 Bundle-Version: 1.0
 Private-Package: \
-	gov.pnnl.goss.cim2glm.queryhandler.impl,\
-	gov.pnnl.goss.cim2glm.components
+	gov.pnnl.gridappsd.cimhub.queryhandler.impl,\
+	gov.pnnl.gridappsd.cimhub.components
 Export-Package: \
-	gov.pnnl.goss.cim2glm.queryhandler,\
-	gov.pnnl.goss.cim2glm
+	gov.pnnl.gridappsd.cimhub.queryhandler,\
+	gov.pnnl.gridappsd.cimhub
 Service-Component: *
 -sub: *.bnd
 src: src/main/java

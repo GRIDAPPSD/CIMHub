@@ -1538,7 +1538,7 @@ VALUES ?fdrid {"_803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # 13 bus assets
 }
 ORDER BY ?name
 
-# count wire spacings - DistLineSpacing
+# count wires on wire spacings that are used - DistLineSpacing
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT ?key (count(?seq) as ?count) WHERE {

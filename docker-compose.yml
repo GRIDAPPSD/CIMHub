@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  blazegraph:
+    image: lyrasis/blazegraph:2.1.5
+    logging:
+      driver: none
+    ports:
+      - 8889:8080
+
+  hub:
+    image: gridappsd/cimhub:0.0.1
+    stdin_open: true
+    tty: true
+    depends_on:
+      - blazegraph
