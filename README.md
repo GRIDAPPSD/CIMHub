@@ -22,7 +22,7 @@ Blazegraph requires Java 8, which is no longer widely available for new installa
 
 To convert files from OpenDSS to CIM and GridLAB-D, without writing code:
 
-1. Install the converter with _docker pull temcderm/cimhub:0.0.1_
+1. Install the converter with _docker pull gridappsd/cimhub:0.0.1_
 2. From a Terminal, start the converter and Blazegraph with _./start.sh_
 3. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
    * _cd example_
@@ -33,9 +33,12 @@ To convert files from OpenDSS to CIM and GridLAB-D, without writing code:
    * _exit_ from inside the Docker Terminal
    * _./stop.sh_ from the host Terminal
 
-You may re-run the example starting from step 2.  You may also wish to modify 
-_docker-compose.yml_ so that it mounts a local directory inside the 
-converter, for transferring your own files between the host and Docker.
+The example script may produce error messages upon first invocation, 
+because the Blazegraph engine doesn't start immediately.  However, the 
+example does complete successfully.  You may re-run the example starting 
+from step 2.  You may also wish to modify _docker-compose.yml_ so that it 
+mounts a local directory inside the converter, for transferring your own 
+files between the host and Docker.  
 
 ## Developer Instructions
 
@@ -68,5 +71,6 @@ use existing Python code under _./utils_ for guidance.
 In order to modify the CIMHub Java code, you will need to install [Apache Maven](https://maven.apache.org) and then use _mvn clean install_.
 
 In order to build the cimhub docker container, use the _./build.sh_ script. However, that script assumes
-that opendsscmd and liblinenoise have been built in sibling directories to this one.
+that opendsscmd and liblinenoise have been built in sibling directories to this one. When finished, an
+authorized developer can push the new image to DockerHub, e.g., _docker push gridappsd/cimhub:0.0.1_
 
