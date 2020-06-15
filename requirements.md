@@ -15,11 +15,12 @@ model conversions for selected open-source analysis software.
 3. Input model conversions:
   * OpenDSS to CIM
   * GridLAB-D to OpenDSS
-4. Manage addition, removal and updates of components attached to the power system network model, with persistent IdentifiedObject.mRID attributes:
+4. Compare power flow solutions from GridLAB-D and OpenDSS
+5. Manage addition, removal and updates of components attached to the power system network model, with persistent IdentifiedObject.mRID attributes:
   * [Houses](http://gridlab-d.shoutwiki.com/wiki/Residential_module_user%27s_guide), comprising controlled Heating, Ventilating and Air Conditioning (HVAC) Models attached to CIM EnergyConsumer
   * Distributed Energy Resources (DER), including photovoltaic, storage and synchronous generator, attached to CIM ConnectivityNode
   * Measurements, attached to measurable components like ACLineSegment, EnergyConsumer, PowerElectronicsConnection, LinearShuntCompensator, PowerTransformer and Switch
-5. Support different CIM versions through [SPARQL](https://www.w3.org/TR/sparql11-query/) queries stored in separate XML files
+6. Support different CIM versions through [SPARQL](https://www.w3.org/TR/sparql11-query/) queries stored in separate XML files
 
 
 
