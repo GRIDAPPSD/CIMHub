@@ -10,7 +10,7 @@ model conversions for selected open-source analysis software.
 1. Containerization for use within GridAPPS-D and also standalone use.
 2. Output model conversions:
   * CIM to [GridLAB-D](https://github.com/gridlab-d/gridlab-d)
-  * CIM to [GridPack](https://github.com/GridOPTICS/GridPACK)
+  * CIM to [GridPACK](https://github.com/GridOPTICS/GridPACK)
   * CIM to [OpenDSS](https://sourceforge.net/projects/electricdss/)
 3. Input model conversions:
   * OpenDSS to CIM
