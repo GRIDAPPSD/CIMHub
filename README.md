@@ -3,7 +3,7 @@
 Copyright (c) 2017-2020, Battelle Memorial Institute
 
 This is a tool set for translating electric power distribution system models between
-various formats, using the IEC Standard 61970/61968 Common Information Model (CIM) as the "Hub".
+various formats, using the IEC Standard 61970/61968 Common Information Model (CIM) as the "Hub". [Requirements](requirements.md)
 
 The CIM data is stored in an open-source triple-store called Blazegraph.  
 Python 3 scripts depend on SPARQLWrapper.  The Java code uses 
