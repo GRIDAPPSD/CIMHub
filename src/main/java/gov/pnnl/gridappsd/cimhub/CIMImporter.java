@@ -1846,6 +1846,13 @@ public class CIMImporter extends Object {
     }
     out.close();
 
+    out =  new PrintWriter(fRoot + "_SyncGen.csv");
+    out.println(DistSyncMachine.szCSVHeader);
+    for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
     out =  new PrintWriter(fRoot + "_Source.csv");
     out.println(DistSubstation.szCSVHeader);
     for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
