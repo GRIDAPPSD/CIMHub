@@ -448,6 +448,18 @@ public class DistRegulator extends DistComponent {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = "Name,Bus1,Phase,Bus2,Phase,Vreg,PTRatio,CTRating,Band,R,X";
+
+  public String GetCSV (String bus1, String phs1, String bus2, String phs2) {
+    StringBuilder buf = new StringBuilder ("");
+    for (int i = 0; i < size; i++) {
+      buf.append(rname[i] + "," + bus1 + "," + phs1 + "," + bus2 + "," + phs2 + ",");
+      buf.append(df2.format(vset[i]) + "," + df2.format(ptRatio[i]) + "," + df2.format(ctRating[i]) + ",");
+      buf.append(df2.format(vbw[i]) + "," + df2.format(fwdR[i])  + "," + df2.format(fwdX[i]) + "\n");
+    }
+    return buf.toString();
+  }
+
 	public String GetKey() {
 		return pname;
 	}

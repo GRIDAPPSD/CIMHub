@@ -151,10 +151,14 @@ public class DistStorage extends DistComponent {
 		if (nphases < 2) { // 2-phase wye load should be line-line for secondary?
 			kv /= Math.sqrt(3.0);
 		}
-		double pf = p / Math.sqrt(p*p + q*q);
-		if (p*q < 0.0) {
-			pf *= -1.0;
-		}
+    double s = Math.sqrt(p*p + q*q);
+    double pf = 1.0;
+    if (s > 0.0) {
+      pf = p / s;
+    }
+    if (q < 0.0) {
+      pf *= -1.0;
+    }
 
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
 								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + " kv=" + df3.format(kv) +
@@ -165,6 +169,33 @@ public class DistStorage extends DistComponent {
 
 		return buf.toString();
 	}
+
+  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,kVA,Capacity,Connection,kW,pf,kWh,State";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder (name + ",");
+
+    int nphases = DSSPhaseCount(phases, bDelta);
+    double kv = 0.001 * ratedU;
+    double kva = 0.001 * ratedS;
+    if (nphases < 2) { // 2-phase wye load should be line-line for secondary?
+      kv /= Math.sqrt(3.0);
+    }
+    double s = Math.sqrt(p*p + q*q);
+    double pf = 1.0;
+    if (s > 0.0) {
+      pf = p / s;
+    }
+    if (q < 0.0) {
+      pf *= -1.0;
+    }
+
+    buf.append (Integer.toString(nphases) + "," + bus + "," + CSVPhaseString (phases) + "," + df3.format(kv) + "," + 
+                df3.format(kva) + "," + df3.format(0.001 * ratedE) + "," + DSSConn(bDelta) + "," + df3.format(0.001 + p) + "," + 
+                df4.format(pf) + "," + df3.format(0.001 * storedE) + "," + DSSBatteryState(state) + "\n");
+
+    return buf.toString();
+  }
 
 	public String GetKey() {
 		return name;

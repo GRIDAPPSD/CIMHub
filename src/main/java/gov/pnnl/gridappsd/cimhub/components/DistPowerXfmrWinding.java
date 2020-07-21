@@ -242,6 +242,52 @@ public class DistPowerXfmrWinding extends DistComponent {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = "Name,NumPhases,NumWindings,Bus1,kV1,Conn1,kVA1,Bus2,kV2,Conn2,kVA2,Bus3,kV3,Conn3,kVA3,%x12,%x13,%x23,%loadloss,%imag,%noloadloss";
+
+  public String GetCSV (DistPowerXfmrMesh mesh, DistPowerXfmrCore core) {
+    boolean bDelta;
+    int i, fwdg, twdg;
+    double zbase, xpct;
+    double x12 = 0.0, x13 = 0.0, x23 = 0.0, loadloss = 0.0;
+
+    StringBuilder buf = new StringBuilder (name + ",3," + Integer.toString(size));
+
+    // mesh impedance - valid only up to 3 windings, and use winding instead of mesh resistances
+    for (i = 0; i < mesh.size; i++) {
+      fwdg = mesh.fwdg[i];
+      twdg = mesh.twdg[i];
+      zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
+      xpct = 100.0 * mesh.x[i] / zbase;
+      if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
+        x12 = xpct;
+      } else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
+        x13 = xpct;
+      } else if ((fwdg == 2 && twdg == 3) || (fwdg == 3 && twdg == 2)) {
+        x23 = xpct;
+      }
+    }
+
+    // winding connections and ratings
+    for (i = 0; i < size; i++) {
+      if (conn[i].contains("D")) {
+        bDelta = true;
+      } else {
+        bDelta = false;
+      }
+      zbase = ratedU[i] * ratedU[i] / ratedS[i];
+      loadloss += 100.0 * r[i] / zbase;
+      buf.append("," + bus[i] + "," + df3.format(0.001 * ratedU[i]) + "," + DSSConn(bDelta)  + "," + df1.format(0.001 * ratedS[i]));
+    }
+    if (i < 3) buf.append (",,,,");
+    buf.append ("," + df4.format (x12) +"," + df4.format (x13) +"," + df4.format (x23));
+    // load loss and core admittance
+    i = core.wdg;
+    zbase = ratedU[i] * ratedU[i] / ratedS[i];
+    buf.append("," + df3.format(loadloss) + "," + df3.format(core.b * zbase * 100.0) + "," + df3.format(core.b * zbase * 100.0) + "\n");
+
+    return buf.toString();
+  }
+
 	public String GetKey() {
 		return name;
 	}

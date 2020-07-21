@@ -38,6 +38,8 @@ public class DistCoordinates extends DistComponent {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = "Busname,X,Y";
+
 	public String GetKey() {
 		return cname + ":" + name + ":" + Integer.toString(seq);
 	}

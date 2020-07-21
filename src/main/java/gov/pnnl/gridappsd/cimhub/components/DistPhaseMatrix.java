@@ -185,6 +185,27 @@ public class DistPhaseMatrix extends DistComponent {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = "Name,NumPhases,Units,r11,r21,r22,r31,r32,r33,x11,x21,x22,x31,x32,x33,c11,c21,c22,c31,c32,c33";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder (name + "," + Integer.toString(cnt) + ",mi");
+    StringBuilder rBuf = new StringBuilder ("");
+    StringBuilder xBuf = new StringBuilder ("");
+    StringBuilder cBuf = new StringBuilder ("");
+    for (int i = 0; i < size; i++) {
+      rBuf.append ("," + df6.format(r[i] * gMperMILE));
+      xBuf.append ("," + df6.format(x[i] * gMperMILE));
+      cBuf.append ("," + df6.format(b[i] * gMperMILE * 1.0e9 / gOMEGA));
+    }
+    for (int i = size; i < 6; i++) {
+      rBuf.append (",0");
+      xBuf.append (",0");
+      cBuf.append (",0");
+    }
+    buf.append (rBuf.toString() + xBuf.toString() + cBuf.toString() + "\n");
+    return buf.toString();
+  }
+
 	public String GetKey() {
 		return name;
 	}
