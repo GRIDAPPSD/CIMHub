@@ -1,7 +1,10 @@
 # updated process: build a jar file using Apache Maven with pom.xml
-mvn clean install
+#mvn clean install
+
+#java -cp "target/libs/*:target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
+#  -s=_AAE94E4A-2465-6F5E-37B1-3E72183A4E44 -o=csv test9500/ieee9500
 java -cp "target/libs/*:target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
-  -s=_AAE94E4A-2465-6F5E-37B1-3E72183A4E44 -o=csv test9500/ieee9500
+  -s=_AAE94E4A-2465-6F5E-37B1-3E72183A4E44 -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 test9500/ieee9500
 
 #java -cp "target/libs/*:target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter -q=q17.xml -o=idx test
 #java -cp "target/libs/*:target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
