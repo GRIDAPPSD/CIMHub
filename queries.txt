@@ -199,18 +199,30 @@ delete {?s ?attr ?val} where {
 # step 3 AssetInfo descendants that are targets of Asset.AssetInfo
 delete {?s ?attr ?val} where {
 #  ?s a c:TapChangerInfo.
+#  ?s a c:ConcentricNeutralCableInfo.
+#  ?s a c:TapeShieldCableInfo.
+#  ?s a c:OverheadWireInfo.
   ?s a c:PowerTransformerInfo.
   ?s ?attr ?val.
   FILTER NOT EXISTS {?asset c:Asset.AssetInfo ?s}
 }
-# TODO - Asset => leaf ConcentricNeutralCableInfo, TapeShieldCableInfo, OverheadWireInfo
-# TODO - Asset => WireSpacingInfo and then cascade to WirePosition.WireSpacingInfo
 # steps 4 - cascading deletes from an AssetInfo leaf
 delete {?s ?attr ?val} where {
 #  ?s c:TransformerTankInfo.PowerTransformerInfo ?targ.
 #  ?s c:TransformerEndInfo.TransformerTankInfo ?targ.
 #  ?s c:NoLoadTest.EnergisedEnd ?targ.
   ?s c:ShortCircuitTest.EnergisedEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+# steps 5 => WireSpacingInfo from ACLineSegment and then cascade to WirePosition.WireSpacingInfo
+delete {?s ?attr ?val} where {
+  ?s a c:WireSpacingInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegment.WireSpacingInfo ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s c:WirePosition.WireSpacingInfo ?targ.
   ?s ?attr ?val.
   FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
 }

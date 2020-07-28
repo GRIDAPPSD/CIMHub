@@ -162,14 +162,19 @@ run_query ('VoltageLimit and CurrentLimit', no_parent_template.format(target='Op
 run_query ('OperationalLimitType', remove_oplimit_type)
 
 # flush unused catalog entries
-# TODO - Asset => leaf ConcentricNeutralCableInfo, TapeShieldCableInfo, OverheadWireInfo
-# TODO - Asset => WireSpacingInfo and then cascade to WirePosition.WireSpacingInfo
 run_query ('Asset=>PSR', remove_asset_links)
 run_query ('Asset', remove_asset_objects)
+run_query ('ConcentricNeutralCableInfo', asset_leaf_template.format(cls='ConcentricNeutralCableInfo'))
+run_query ('TapeShieldCableInfo', asset_leaf_template.format(cls='TapeShieldCableInfo'))
+run_query ('OverheadWireInfo', asset_leaf_template.format(cls='OverheadWireInfo'))
 run_query ('TapChangerInfo', asset_leaf_template.format(cls='TapChangerInfo'))
 run_query ('PowerTransformerInfo', asset_leaf_template.format(cls='PowerTransformerInfo'))
 run_query ('TransformerTankInfo', no_parent_template.format(target='TransformerTankInfo.PowerTransformerInfo'))
 run_query ('TransformerEndInfo', no_parent_template.format(target='TransformerEndInfo.TransformerTankInfo'))
 run_query ('NoLoadTest', no_parent_template.format(target='NoLoadTest.EnergisedEnd'))
 run_query ('ShortCircuitTest', no_parent_template.format(target='ShortCircuitTest.EnergisedEnd'))
+
+# TODO - Asset => WireSpacingInfo and then cascade to WirePosition.WireSpacingInfo
+run_query ('WireSpacingInfo', not_used_template.format(cls='WireSpacingInfo', usage='ACLineSegment.WireSpacingInfo'))
+run_query ('WirePosition', no_parent_template.format(target='WirePosition.WireSpacingInfo'))
 
