@@ -115,6 +115,16 @@ delete {?s ?attr ?val} where {
   ?s ?attr ?val.
   FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
 }
+delete {?s ?attr ?val} where {
+  ?s c:House.EnergyConsumer ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:Measurement.PowerSystemResource ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
 
 # remove Locations and others that are not referenced by anything ###########################################
 delete {?s ?attr ?val} where {
@@ -199,22 +209,24 @@ delete {?s ?attr ?val} where {
 # step 3 AssetInfo descendants that are targets of Asset.AssetInfo
 delete {?s ?attr ?val} where {
 #  ?s a c:TapChangerInfo.
-#  ?s a c:ConcentricNeutralCableInfo.
-#  ?s a c:TapeShieldCableInfo.
-#  ?s a c:OverheadWireInfo.
-  ?s a c:PowerTransformerInfo.
+  ?s a c:TransformerTankInfo.
   ?s ?attr ?val.
   FILTER NOT EXISTS {?asset c:Asset.AssetInfo ?s}
 }
 # steps 4 - cascading deletes from an AssetInfo leaf
 delete {?s ?attr ?val} where {
-#  ?s c:TransformerTankInfo.PowerTransformerInfo ?targ.
 #  ?s c:TransformerEndInfo.TransformerTankInfo ?targ.
 #  ?s c:NoLoadTest.EnergisedEnd ?targ.
   ?s c:ShortCircuitTest.EnergisedEnd ?targ.
   ?s ?attr ?val.
   FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
 }
+delete {?s ?attr ?val} where {
+  ?s a c:PowerTransformerInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:TransformerTankInfo.PowerTransformerInfo ?s}
+}
+
 # steps 5 => WireSpacingInfo from ACLineSegment and then cascade to WirePosition.WireSpacingInfo
 delete {?s ?attr ?val} where {
   ?s a c:WireSpacingInfo.
@@ -225,6 +237,14 @@ delete {?s ?attr ?val} where {
   ?s c:WirePosition.WireSpacingInfo ?targ.
   ?s ?attr ?val.
   FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+# steps 6 => WireInfo leaf classes from ACLineSegmentPhase
+delete {?s ?attr ?val} where {
+#  ?s a c:ConcentricNeutralCableInfo.
+#  ?s a c:TapeShieldCableInfo.
+  ?s a c:OverheadWireInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegmentPhase.WireInfo ?s}
 }
 
 # remove BaseVoltage not used by either ConductingEquipment or TransformerEnd

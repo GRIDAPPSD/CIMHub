@@ -161,20 +161,25 @@ run_query ('OperationalLimitSet', remove_oplimit_set)
 run_query ('VoltageLimit and CurrentLimit', no_parent_template.format(target='OperationalLimit.OperationalLimitSet'))
 run_query ('OperationalLimitType', remove_oplimit_type)
 
-# flush unused catalog entries
+# flush unused catalog entries linked via Asset
 run_query ('Asset=>PSR', remove_asset_links)
 run_query ('Asset', remove_asset_objects)
-run_query ('ConcentricNeutralCableInfo', asset_leaf_template.format(cls='ConcentricNeutralCableInfo'))
-run_query ('TapeShieldCableInfo', asset_leaf_template.format(cls='TapeShieldCableInfo'))
-run_query ('OverheadWireInfo', asset_leaf_template.format(cls='OverheadWireInfo'))
 run_query ('TapChangerInfo', asset_leaf_template.format(cls='TapChangerInfo'))
-run_query ('PowerTransformerInfo', asset_leaf_template.format(cls='PowerTransformerInfo'))
-run_query ('TransformerTankInfo', no_parent_template.format(target='TransformerTankInfo.PowerTransformerInfo'))
+run_query ('TransformerTankInfo', asset_leaf_template.format(cls='TransformerTankInfo'))
+run_query ('PowerTransformerInfo', not_used_template.format(cls='PowerTransformerInfo', usage='TransformerTankInfo.PowerTransformerInfo'))
 run_query ('TransformerEndInfo', no_parent_template.format(target='TransformerEndInfo.TransformerTankInfo'))
 run_query ('NoLoadTest', no_parent_template.format(target='NoLoadTest.EnergisedEnd'))
 run_query ('ShortCircuitTest', no_parent_template.format(target='ShortCircuitTest.EnergisedEnd'))
 
-# TODO - Asset => WireSpacingInfo and then cascade to WirePosition.WireSpacingInfo
+# ACLineSegment => WireSpacingInfo and then cascade to WirePosition.WireSpacingInfo
 run_query ('WireSpacingInfo', not_used_template.format(cls='WireSpacingInfo', usage='ACLineSegment.WireSpacingInfo'))
 run_query ('WirePosition', no_parent_template.format(target='WirePosition.WireSpacingInfo'))
+# ACLineSegmentPhase => WireInfo
+run_query ('ConcentricNeutralCableInfo', not_used_template.format(cls='ConcentricNeutralCableInfo', usage='ACLineSegmentPhase.WireInfo'))
+run_query ('TapeShieldCableInfo', not_used_template.format(cls='TapeShieldCableInfo', usage='ACLineSegmentPhase.WireInfo'))
+run_query ('OverheadWireInfo', not_used_template.format(cls='OverheadWireInfo', usage='ACLineSegmentPhase.WireInfo'))
+
+# measurements and houses
+run_query ('Measurement', no_parent_template.format(target='Measurement.PowerSystemResource'))
+run_query ('House', no_parent_template.format(target='House.EnergyConsumer'))
 
