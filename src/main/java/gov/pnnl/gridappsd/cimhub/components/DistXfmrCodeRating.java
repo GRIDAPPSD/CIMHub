@@ -220,7 +220,57 @@ public class DistXfmrCodeRating extends DistComponent {
 		return buf.toString();
 	}
 
-	public String GetKey() {
+  public static String szCSVHeader = "Name,NumWindings,NumPhases,Wdg1kV,Wdg1kVA,Wdg1Conn,Wdg1R,Wdg2kV,Wdg2kVA,Wdg2Conn,Wdg2R,Wdg3kV,Wdg3kVA,Wdg3Conn,Wdg3R,%x12,%x13,%x23,%imag,%NoLoadLoss";
+
+  public String GetCSV (DistXfmrCodeSCTest sct, DistXfmrCodeOCTest oct) {
+    boolean bDelta;
+    int phases = 3;
+    double zbase, xpct;
+    int fwdg, twdg, i;
+
+    for (i = 0; i < size; i++) {
+      if (conn[i].contains("I")) {
+        phases = 1;
+      }
+    }
+    StringBuilder buf = new StringBuilder(tname + "," + Integer.toString(size) + "," + Integer.toString(phases));
+
+    // winding ratings: kV, kVA, Conn, R
+    for (i = 0; i < size; i++) {
+      if (conn[i].contains("D")) {
+        bDelta = true;
+      } else {
+        bDelta = false;
+      }
+      zbase = ratedU[i] * ratedU[i] / ratedS[i];
+      buf.append ("," + df3.format(0.001 * ratedU[i]) + "," + df1.format(0.001 * ratedS[i]) + "," + DSSConn(bDelta) +
+                 "," + df6.format(100.0 * r[i] / zbase));
+    }
+    if (size < 3) buf.append (",,,");
+
+    // short circuit tests - valid only up to 3 windings
+    double x12 = 0.0, x13 = 0.0, x23 = 0.0;
+    for (i = 0; i < sct.size; i++) {
+      fwdg = sct.fwdg[i];
+      twdg = sct.twdg[i];
+      zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
+      xpct = 100.0 * sct.z[i] / zbase; // not accounting for ll
+      if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
+        x12 = xpct;
+      } else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
+        x13 = xpct;
+      } else if ((fwdg == 2 && twdg == 3) || (fwdg == 3 && twdg == 2)) {
+        x23 = xpct;
+      }
+    }
+    buf.append ("," + df6.format(x12) + "," + df6.format(x13) + "," + df6.format(x23));
+
+    // open circuit test
+    buf.append ("," + df3.format(oct.iexc) + "," + df3.format(0.001 * oct.nll / ratedS[0]) + "\n");
+    return buf.toString();
+  }
+
+  public String GetKey() {
 		return tname;
 	}
 }

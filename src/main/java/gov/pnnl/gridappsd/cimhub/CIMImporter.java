@@ -134,6 +134,8 @@ public class CIMImporter extends Object {
 	HashMap<String,DistMeasurement> mapMeasurements = new HashMap<>();
 	HashMap<String,DistHouse> mapHouses = new HashMap<>();
 
+  HashMap<String,DistSwitch> mapSwitches = new HashMap<>(); // polymorphic
+
 	boolean allMapsLoaded = false;
 
 	void LoadOneCountMap (HashMap<String,Integer> map, String szTag) {
@@ -614,6 +616,9 @@ public class CIMImporter extends Object {
 		LoadFeeders();
 		LoadHouses();
 		LoadSyncMachines();
+
+    MakeSwitchMap();
+
 		oLimits = new OperationalLimits();
 		oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
 		allMapsLoaded = true;
@@ -661,15 +666,7 @@ public class CIMImporter extends Object {
 			}
 		}
 
-		// ... to a polymorphic map of switches  (TODO: we make the same map in writing a GLM)
-		HashMap<String,DistSwitch> mapSwitches = new HashMap<>();
-		mapSwitches.putAll (mapLoadBreakSwitches);
-		mapSwitches.putAll (mapFuses);
-		mapSwitches.putAll (mapJumpers);
-		mapSwitches.putAll (mapBreakers);
-		mapSwitches.putAll (mapReclosers);
-		mapSwitches.putAll (mapSectionalisers);
-		mapSwitches.putAll (mapDisconnectors);
+		// ... to a polymorphic map of switches
 		for (HashMap.Entry<String,DistSwitch> pair : mapSwitches.entrySet()) {
 			DistSwitch obj = pair.getValue();
 			if (oLimits.mapCurrentLimits.containsKey (obj.id)) {
@@ -997,19 +994,20 @@ public class CIMImporter extends Object {
 		return config_name;
 	}
 
+  protected void MakeSwitchMap () {
+    // build a polymorphic map of switches
+    mapSwitches.putAll (mapLoadBreakSwitches);
+    mapSwitches.putAll (mapFuses);
+    mapSwitches.putAll (mapJumpers);
+    mapSwitches.putAll (mapBreakers);
+    mapSwitches.putAll (mapReclosers);
+    mapSwitches.putAll (mapSectionalisers);
+    mapSwitches.putAll (mapDisconnectors);
+  }
+
 	protected void WriteGLMFile (PrintWriter out, double load_scale, boolean bWantSched, String fSched,
 			boolean bWantZIP, boolean randomZIP, boolean useHouses, double Zcoeff,
 			double Icoeff, double Pcoeff, boolean bHaveEventGen) {
-
-		// build a polymorphic map of switches
-		HashMap<String,DistSwitch> mapSwitches = new HashMap<>();
-		mapSwitches.putAll (mapLoadBreakSwitches);
-		mapSwitches.putAll (mapFuses);
-		mapSwitches.putAll (mapJumpers);
-		mapSwitches.putAll (mapBreakers);
-		mapSwitches.putAll (mapReclosers);
-		mapSwitches.putAll (mapSectionalisers);
-		mapSwitches.putAll (mapDisconnectors);
 
 		// preparatory steps to build the list of nodes
 		ResultSet results = queryHandler.query (
@@ -1498,7 +1496,6 @@ public class CIMImporter extends Object {
 		}
 
 		// The bus locations in mapBusXY should now be unique, and topologically consistent, so write them.
-		out.println("// bus locations - after");
 		for (HashMap.Entry<String,Double[]> pair : mapBusXY.entrySet()) {
 			Double[] xy = pair.getValue();
 			bus = pair.getKey();
@@ -1618,7 +1615,7 @@ public class CIMImporter extends Object {
 			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
-		for (HashMap.Entry<String,DistDisconnector> pair : mapDisconnectors.entrySet()) { // TODO - polymorphic mapSwitches
+		for (HashMap.Entry<String,DistDisconnector> pair : mapDisconnectors.entrySet()) { // TODO: use mapSwitches?
 			out.print (pair.getValue().GetDSS());
 			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
@@ -1732,6 +1729,137 @@ public class CIMImporter extends Object {
 		out.println("]}");
 		out.close();
 	}
+
+  protected void WriteCsvFiles (String fRoot) throws FileNotFoundException {
+    PrintWriter out =  new PrintWriter(fRoot + "_Buscoords.csv");
+    out.println(DistCoordinates.szCSVHeader);
+    WriteDSSCoordinates (out);  // this function closes out
+
+    out =  new PrintWriter(fRoot + "_Capacitors.csv");
+    out.println(DistCapacitor.szCSVCapHeader);
+    for (HashMap.Entry<String,DistCapacitor> pair : mapCapacitors.entrySet()) {
+      out.print (pair.getValue().GetCapCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_CapControls.csv");
+    out.println(DistCapacitor.szCSVCapControlHeader);
+    for (HashMap.Entry<String,DistCapacitor> pair : mapCapacitors.entrySet()) {
+      if (pair.getValue().ctrl.equals("true")) out.print (pair.getValue().GetCapControlCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Lines.csv");
+    out.println(DistLinesCodeZ.szCSVHeader);
+    for (HashMap.Entry<String,DistLinesCodeZ> pair : mapLinesCodeZ.entrySet()) {
+      if (!pair.getValue().phases.contains("s")) out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Loads.csv");
+    out.println(DistLoad.szCSVHeader);
+    for (HashMap.Entry<String,DistLoad> pair : mapLoads.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Regulators.csv");
+    out.println(DistRegulator.szCSVHeader);
+    for (HashMap.Entry<String,DistRegulator> pair : mapRegulators.entrySet()) {
+      DistRegulator reg = pair.getValue();
+      if (reg.hasTanks) {
+        DistXfmrTank tank = mapTanks.get(reg.tname[0]); // TODO: revisit if GridLAB-D can model un-banked regulator tanks
+        out.print (pair.getValue().GetCSV(tank.bus[0], tank.phs[0], tank.bus[1], tank.phs[1]));
+        tank.glmUsed = false;  // don't write these as separate transformers to CSV
+      } else {
+        DistPowerXfmrWinding xfmr = mapXfmrWindings.get(reg.pname);
+        out.print (pair.getValue().GetCSV(xfmr.bus[0], "ABC", xfmr.bus[1], "ABC"));
+        xfmr.glmUsed = false;  // don't write these as separate transformers to CSV
+      }
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_XfmrCodes.csv");
+    out.println(DistXfmrCodeRating.szCSVHeader);
+    for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
+      DistXfmrCodeRating obj = pair.getValue();
+      DistXfmrCodeSCTest sct = mapCodeSCTests.get (obj.tname);
+      DistXfmrCodeOCTest oct = mapCodeOCTests.get (obj.tname);
+      out.print (obj.GetCSV(sct, oct));
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_XfmrTanks.csv");
+    out.println(DistXfmrTank.szCSVHeader);
+    for (HashMap.Entry<String,DistXfmrTank> pair : mapTanks.entrySet()) {
+      DistXfmrTank obj = pair.getValue();
+      if (obj.glmUsed) {
+        out.print (obj.GetCSV());
+      }
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Transformers.csv");
+    out.println(DistPowerXfmrWinding.szCSVHeader);
+    for (HashMap.Entry<String,DistPowerXfmrWinding> pair : mapXfmrWindings.entrySet()) {
+      DistPowerXfmrWinding obj = pair.getValue();
+      if (obj.glmUsed) {
+        DistPowerXfmrMesh mesh = mapXfmrMeshes.get(obj.name);
+        DistPowerXfmrCore core = mapXfmrCores.get (obj.name);
+        out.print (obj.GetCSV(mesh, core));
+      }
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_TriplexLines.csv");
+    out.println(DistLinesCodeZ.szCSVHeader);
+    for (HashMap.Entry<String,DistLinesCodeZ> pair : mapLinesCodeZ.entrySet()) {
+      if (pair.getValue().phases.contains("s")) out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_LineCodes.csv");
+    out.println(DistPhaseMatrix.szCSVHeader);
+    for (HashMap.Entry<String,DistPhaseMatrix> pair : mapPhaseMatrices.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Switches.csv");
+    out.println(DistSwitch.szCSVHeader);
+    for (HashMap.Entry<String,DistSwitch> pair : mapSwitches.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Solar.csv");
+    out.println(DistSolar.szCSVHeader);
+    for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Storage.csv");
+    out.println(DistStorage.szCSVHeader);
+    for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_SyncGen.csv");
+    out.println(DistSyncMachine.szCSVHeader);
+    for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Source.csv");
+    out.println(DistSubstation.szCSVHeader);
+    for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+  }
 
 	public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, 
 			String fSched, double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP, 
@@ -1848,6 +1976,12 @@ public class CIMImporter extends Object {
 				System.out.format ("WriteDictionaryFile: %7.4f\n", (double) (t10 - t9) / 1.0e9);
 				System.out.format ("WriteLimitsFile:     %7.4f\n", (double) (t11 - t10) / 1.0e9);
 			}
+    } else if (fTarget.equals("csv")) {
+      LoadAllMaps();
+      CheckMaps();
+      UpdateModelState(ms);
+      ApplyCurrentLimits();
+      WriteCsvFiles (fRoot);
 		}	else if (fTarget.equals("idx")) {
 			fOut = fRoot + "_feeder_index.json";
 			PrintWriter pOut = new PrintWriter(fOut);
@@ -2074,7 +2208,7 @@ public class CIMImporter extends Object {
 			System.out.println ("Usage: java CIMImporter [options] output_root");
 			System.out.println ("       -q={queries_file}  // optional file with CIM namespace and component queries (defaults to CIM100)");
 			System.out.println ("       -s={mRID}          // select one feeder by CIM mRID; selects all feeders if not specified");
-			System.out.println ("       -o={glm|dss|both|idx|cim} // output format; defaults to glm");
+			System.out.println ("       -o={glm|dss|both|idx|cim|csv} // output format; defaults to glm");
 			System.out.println ("       -l={0..1}          // load scaling factor; defaults to 1");
 			System.out.println ("       -f={50|60}         // system frequency; defaults to 60");
 			System.out.println ("       -n={schedule_name} // root filename for scheduled ZIP loads (defaults to none)");
@@ -2159,6 +2293,8 @@ public class CIMImporter extends Object {
 					fRoot = args[i];
 				} else if (fTarget.equals("both")) {
 					fRoot = args[i];
+        } else if (fTarget.equals("csv")) {
+          fRoot = args[i];
 				} else {
 					System.out.println ("Unknown target type " + fTarget);
 					System.exit(0);

@@ -237,6 +237,17 @@ public abstract class DistComponent {
 		return ret.toString();
 	}
 
+	static String CSVPhaseString (String cim_phases) {
+		StringBuilder ret = new StringBuilder();
+		if (cim_phases.contains ("A")) ret.append ("A");
+		if (cim_phases.contains ("B")) ret.append ("B");
+		if (cim_phases.contains ("C")) ret.append ("C");
+		if (cim_phases.contains ("s1")) ret.append ("s1");
+    if (cim_phases.contains ("s2")) ret.append ("s2");
+    if (cim_phases.contains ("s12")) ret.append ("s12");
+		return ret.toString();
+	}
+
 	/** 
 	 *  Rotates a phasor +120 degrees by multiplication
 		 */

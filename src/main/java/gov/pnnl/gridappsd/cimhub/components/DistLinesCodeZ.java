@@ -75,5 +75,14 @@ public class DistLinesCodeZ extends DistLineSegment {
 
 		return buf.toString();
 	}
+
+  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,LineCode,Length,Units";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder (name + "," + bus1 + "," + CSVPhaseString(phases) + "," +
+                                           bus2 + "," + CSVPhaseString(phases) + "," + lname + "," +
+                                           df3.format(len * gFTperM) + ",ft\n");
+    return buf.toString();
+  }
 }
 

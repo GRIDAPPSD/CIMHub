@@ -84,6 +84,14 @@ public class DistSubstation extends DistComponent {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = "Name,Bus,kV,pu,X";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder (name + "," + bus + "," + df3.format(0.001 * nomv) + "," +
+                                           df5.format(vmag/nomv) + "," + df5.format(x1) + "\n");
+    return buf.toString();
+  }
+
 	public String GetKey() {
 		return name;
 	}

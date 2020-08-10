@@ -1,0 +1,35 @@
+clock {
+  timezone EST+5EDT;
+  starttime '2000-01-01 0:00:00';
+  stoptime '2000-01-01 0:00:00';
+};
+#set relax_naming_rules=1
+#set profiler=1
+module powerflow {
+  solver_method NR;
+  line_capacitance TRUE;
+};
+module generators;
+module tape;
+module residential;
+module reliability {
+	report_event_log false;
+}
+schedule responsive_loads {
+    * * * * * 1000.0;
+}
+schedule unresponsive_loads {
+    * * * * * 1500.0;
+}
+#define VSOURCE=66395.3
+#include "ieee13houses_base.glm";
+
+object voltdump {
+  filename test_houses_volt.csv;
+  mode POLAR;
+};
+object currdump {
+  filename test_houses_curr.csv;
+  mode POLAR;
+};
+

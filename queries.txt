@@ -11,8 +11,314 @@ WHERE {
   ?s a ?class .
 } group by ?class order by ?class
 
+# lists all triples; should be only 3 for CIM version after clearing all circuits
+SELECT ?s ?attr ?val where {
+  ?s ?attr ?val.
+} order by ?s ?attr
 
-#############################
+#############################################################################################
+
+# working on selective DELETE by feeder
+
+#remove the feeder itself
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+delete {?s ?attr ?val} where {
+  values ?fdrid {"_AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+  ?s a c:Feeder.
+  ?s c:IdentifiedObject.mRID ?fdrid.
+  ?s ?attr ?val.
+}
+
+# remove objects that reference the feeder directly ##########################################
+delete {?s ?attr ?val} where {
+  values ?fdrid {"_AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+  ?fdr c:IdentifiedObject.mRID ?fdrid.
+#  ?s c:Equipment.EquipmentContainer ?fdr.
+  ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+  ?s ?attr ?val.
+}
+
+# remove objects that don't have a valid parent reference ####################################
+delete {?s ?attr ?val} where {
+  ?s c:ShuntCompensatorPhase.ShuntCompensator ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:LinearShuntCompensator}
+}
+delete {?s ?attr ?val} where {
+  ?s c:ACLineSegmentPhase.ACLineSegment ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:ACLineSegment}
+}
+delete {?s ?attr ?val} where {
+  ?s c:EnergyConsumerPhase.EnergyConsumer ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:EnergyConsumer}
+}
+delete {?s ?attr ?val} where {
+  ?s c:SwitchPhase.Switch ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:Switch}
+}
+delete {?s ?attr ?val} where {
+  ?s c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:PowerElectronicsConnection}
+}
+delete {?s ?attr ?val} where {
+  ?s c:PowerTransformerEnd.PowerTransformer ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:PowerTransformer}
+}
+delete {?s ?attr ?val} where {
+  ?s c:TransformerTankEnd.TransformerTank ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:RatioTapChanger.TransformerEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:RegulatingControl.RegulatingCondEq ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:Terminal.ConductingEquipment ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:PositionPoint.Location ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:PhaseImpedanceData.PhaseImpedance ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:TransformerMeshImpedance.FromTransformerEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:TransformerCoreAdmittance.TransformerEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:OperationalLimit.OperationalLimitSet ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:House.EnergyConsumer ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:Measurement.PowerSystemResource ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+
+# remove Locations and others that are not referenced by anything ###########################################
+delete {?s ?attr ?val} where {
+  ?s a c:Location.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:PowerSystemResource.Location ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:PhotovoltaicUnit.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:PowerElectronicsConnection.PowerElectronicsUnit ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:BatteryUnit.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:PowerElectronicsConnection.PowerElectronicsUnit ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:TopologicalNode.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ConnectivityNode.TopologicalNode ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:TopologicalIsland.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:TopologicalNode.TopologicalIsland ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:TapChangerControl.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:TapChanger.TapChangerControl ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:Substation.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:Feeder.NormalEnergizingSubstation ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:SubGeographicalRegion.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:Substation.Region ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:GeographicalRegion.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:SubGeographicalRegion.Region ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:LoadResponseCharacteristic.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:EnergyConsumer.LoadResponse ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:PerLengthSequenceImpedance.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegment.PerLengthImpedance ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:PerLengthPhaseImpedance.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegment.PerLengthImpedance ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:CoordinateSystem.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:Location.CoordinateSystem ?s}
+}
+
+# Step 1 AssetInfo cleanup - remove the dangling Asset associations to PSR
+delete {?s ?attr ?psr} where {
+  ?s a c:Asset.
+  ?s c:Asset.PowerSystemResources ?psr.
+  ?s ?attr ?psr.
+  FILTER NOT EXISTS {?psr c:IdentifiedObject.mRID ?id}
+}
+# Step 2 AssetInfo cleanup - remove Asset objects that don't have any PSR links
+delete {?s ?attr ?val} where {
+  ?s a c:Asset.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?s c:Asset.PowerSystemResources ?psr}
+}
+# step 3 AssetInfo descendants that are targets of Asset.AssetInfo
+delete {?s ?attr ?val} where {
+#  ?s a c:TapChangerInfo.
+  ?s a c:TransformerTankInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?asset c:Asset.AssetInfo ?s}
+}
+# steps 4 - cascading deletes from an AssetInfo leaf
+delete {?s ?attr ?val} where {
+#  ?s c:TransformerEndInfo.TransformerTankInfo ?targ.
+#  ?s c:NoLoadTest.EnergisedEnd ?targ.
+  ?s c:ShortCircuitTest.EnergisedEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:PowerTransformerInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:TransformerTankInfo.PowerTransformerInfo ?s}
+}
+
+# steps 5 => WireSpacingInfo from ACLineSegment and then cascade to WirePosition.WireSpacingInfo
+delete {?s ?attr ?val} where {
+  ?s a c:WireSpacingInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegment.WireSpacingInfo ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s c:WirePosition.WireSpacingInfo ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+# steps 6 => WireInfo leaf classes from ACLineSegmentPhase
+delete {?s ?attr ?val} where {
+#  ?s a c:ConcentricNeutralCableInfo.
+#  ?s a c:TapeShieldCableInfo.
+  ?s a c:OverheadWireInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegmentPhase.WireInfo ?s}
+}
+
+# remove BaseVoltage not used by either ConductingEquipment or TransformerEnd
+delete {?s ?attr ?val} where {
+  ?s a c:BaseVoltage.
+  ?s ?attr ?val.
+  FILTER (NOT EXISTS {?end c:TransformerEnd.BaseVoltage ?s} && NOT EXISTS {?eq c:ConductingEquipment.BaseVoltage ?s})
+}
+
+# remove OperationalLimitSet not used by either ConnectivityNode or ACDCTerminal
+delete {?s ?attr ?val} where {
+  ?s a c:OperationalLimitSet.
+  ?s ?attr ?val.
+  FILTER (NOT EXISTS {?end c:ACDCTerminal.OperationalLimitSet ?s} && NOT EXISTS {?eq c:ConnectivityNode.OperationalLimitSet ?s})
+}
+# remove OperationalLimitType not used by either CurrentLimit or VoltageLimit
+delete {?s ?attr ?val} where {
+  ?s a c:OperationalLimitType.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:OperationalLimit.OperationalLimitType ?s}
+}
+
+# checks for a dangling LinearShuntCompensatorPhase ####################################################
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+select ?s ?attr ?val where {
+  ?s c:ShuntCompensatorPhase.ShuntCompensator ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:LinearShuntCompensator}
+}
+
+# checks for unreferenced Location or others
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+select ?loc ?attr ?val where {
+  ?loc a c:Location.
+  ?loc ?attr ?val.
+  FILTER NOT EXISTS {?s c:PowerSystemResource.Location ?loc}
+}
+select ?s ?attr ?val where {
+  ?s a c:PhotovoltaicUnit.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?s c:PowerElectronicsConnection.PowerElectronicsUnit ?pec}
+}
+# checks for (multiple) Asset references to absent PSR
+select ?s ?attr ?psr where {
+  ?s a c:Asset.
+  ?s c:Asset.PowerSystemResources ?psr.
+  ?s ?attr ?psr.
+  FILTER NOT EXISTS {?psr c:IdentifiedObject.mRID ?id}
+}
+# then check for Asset objects that have no PSR assocations
+select ?s ?attr ?val where {
+  ?s a c:Asset.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?s c:Asset.PowerSystemResources ?psr}
+}
+
+# BaseVoltage has references ConductingEquipment.BaseVoltage and TransformerEnd.BaseVoltage
+#   we should select those for which neither exist; we don't require both to exist
+#   in practical cases, one with TransformerEnd.BaseVoltage should also have ConductingEquipment.BaseVoltage
+select ?s ?attr ?val where {
+  ?s a c:BaseVoltage.
+  ?s ?attr ?val.
+  FILTER (NOT EXISTS {?end c:TransformerEnd.BaseVoltage ?s} && NOT EXISTS {?eq c:ConductingEquipment.BaseVoltage ?s})
+}
+# OperationalLimitSet referenced by neither ConnectivityNode nor ACDCTerminal
+select ?s ?attr ?val where {
+  ?s a c:OperationalLimitSet.
+  ?s ?attr ?val.
+  FILTER (NOT EXISTS {?end c:ACDCTerminal.OperationalLimitSet ?s} && NOT EXISTS {?eq c:ConnectivityNode.OperationalLimitSet ?s})
+}
+
+##################################################
 
 # list all the connectivity node base voltages by feeder, for sensor service
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

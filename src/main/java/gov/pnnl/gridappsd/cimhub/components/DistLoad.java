@@ -131,5 +131,29 @@ public class DistLoad extends DistComponent {
 	public String GetKey() {
 		return name;
 	}
+
+  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,Model,Connection,kW,pf";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder (name + ",");
+    SetDSSLoadModel();
+    int nphases = DSSPhaseCount(phases, bDelta);
+    double kv = 0.001 * basev;
+    if (nphases < 2 && !bDelta) { // 2-phase wye load should be line-line for secondary?
+      kv /= Math.sqrt(3.0);
+    }
+    double s = Math.sqrt(p*p + q*q);
+    double pf = 1.0;
+    if (s > 0.0) {
+      pf = p / s;
+    }
+    if (q < 0.0) {
+      pf *= -1.0;
+    }
+    buf.append (Integer.toString(nphases) + "," + bus + "," + CSVPhaseString (phases) + "," + df3.format(kv) + "," + 
+                Integer.toString (dss_load_model) + "," + DSSConn(bDelta) + "," + df3.format(p) + "," + 
+                df4.format(pf) + "\n");
+    return buf.toString();
+  }
 }
 

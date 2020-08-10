@@ -265,7 +265,36 @@ public class DistCapacitor extends DistComponent {
 		return buf.toString();
 	}
 
-	public String GetKey() {
+  public static String szCSVCapHeader = "Name,Bus,Phases,kV,kVAR,NumPhases,Connection";
+
+  public static String szCSVCapControlHeader = "Name,Capacitor,MonitoredElement,ElementTerminal,Type,PTRatio,CTRatio,ONSetting,OFFSetting";
+
+  public String GetCapCSV () {
+    int nphases = DSSPhaseCount(phs, bDelta);
+    StringBuilder buf = new StringBuilder (name + "," + bus + "," + CSVPhaseString (phs) + ",");
+    buf.append (df2.format(0.001 * nomu) + "," + df2.format(kvar) + "," + Integer.toString (nphases) + "," + DSSConn(bDelta) + "\n");
+    return buf.toString();
+  }
+
+  public String GetCapControlCSV () {
+    if (ctrl.equals("false")) return "";
+
+    String dssClass = DSSClassPrefix(monclass);
+    double dOn = setpoint - 0.5 * deadband;
+    double dOff = setpoint + 0.5 * deadband;
+    if (mode.equals("reactivePower")) {
+      dOn /= 1000.0;
+      dOff /= 1000.0;
+    }
+    int nterm = 1;  // TODO: need to search for this
+
+    StringBuilder buf = new StringBuilder (name + "," + name + "," + dssClass + "." + moneq + ",");
+    buf.append (Integer.toString(nterm) + "," + DSSCapMode(mode) + ",1,1," + df2.format(dOn) + "," + df2.format(dOff) + "\n");
+
+    return buf.toString();
+  }
+
+  public String GetKey() {
 		return name;
 	}
 }
