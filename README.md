@@ -5,9 +5,9 @@ Copyright (c) 2017-2020, Battelle Memorial Institute
 This is a tool set for translating electric power distribution system models between
 various formats, using the IEC Standard 61970/61968 Common Information Model (CIM) as the "Hub". [Requirements](requirements.md)
 
-The CIM data is stored in an open-source triple-store called Blazegraph.  
+The CIM data is stored in an open-source triple-store called Blazegraph.
 Python 3 scripts depend on SPARQLWrapper.  The Java code uses 
-OpenJDK 11 and builds with Apache Maven.  
+OpenJDK 11 and builds with Apache Maven.
 
 Please make sure that GIT LFS is installed before checking out or cloning this repository.
 
@@ -18,9 +18,12 @@ Blazegraph requires Java 8, which is no longer widely available for new installa
 1. Install the [Docker Engine](https://docs.docker.com/install/)
 2. Install the Blazegraph engine with _docker pull lyrasis/blazegraph:2.1.5_
 
-## End User Instructions
+## Conversion Example
 
-To convert files from OpenDSS to CIM and GridLAB-D, without writing code:
+This example converts two versions of the IEEE 13-Bus case from OpenDSS to CIM and GridLAB-D,
+without writing code. One version uses phase impedance matrices for line segments. The other version,
+labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
+for the transformers.
 
 1. Install the converter with _docker pull gridappsd/cimhub:0.0.1_
 2. From a Terminal, start the converter and Blazegraph with _./start.sh_
@@ -38,7 +41,18 @@ because the Blazegraph engine doesn't start immediately.  However, the
 example does complete successfully.  You may re-run the example starting 
 from step 2.  You may also wish to modify _docker-compose.yml_ so that it 
 mounts a local directory inside the converter, for transferring your own 
-files between the host and Docker.  
+files between the host and Docker.
+
+## End User Instructions
+
+To convert your own circuits from OpenDSS to CIM and GridLAB-D, follow the IEEE 13-Bus
+example described above, with some changes:
+
+1. First read the [OpenDSS note on Common Information Model](doc/Common_Information_Model.pdf) for background on how the univeral unique identifiers (UUID) are managed for CIM.
+2. The first time you run the conversion process on a new circuit, OpenDSS must create random UUID values. To account for this:
+   * In the example [cim_test.dss](example/cim_test.dss) file, comment out (with //) any lines invoking the _uuids_ command
+   * In the [example.sh](example/example.sh) file, you have to replace the _-s_ parameter with a correct one for your new circuit. For example, __DFBF372D-4291-49EF-ACCA-53DAFDE0338F should be changed to a new value. The correct value will be found on line 1 of the generated _*UUIDS.dat_ file for your new circuit.
+   * To re-run the conversion process on the same circuit, you should first uncomment the _uuids_ command that you commented out in the first bullet. This way, OpenDSS will reuse the UUID values, including the first one for the circuit.
 
 ## Developer Instructions
 
