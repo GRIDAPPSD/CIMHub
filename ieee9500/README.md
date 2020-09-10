@@ -11,5 +11,6 @@ files into GridLAB-D, OpenDSS and CSV file format. Follow these steps:
 4. Use "gridlabd test\_ieee9500.glm" to check the converted GridLAB-D file. Results in test\_curr.csv and test\_volt.csv
 5. Use "opendsscmd ieee9500\_base.dss" to check the converted OpenDSS file
 6. the comma-separated files are named like "ieee9500*.csv" 
+7. Run zipall.sh to create 3 downloadable archives
 
 
