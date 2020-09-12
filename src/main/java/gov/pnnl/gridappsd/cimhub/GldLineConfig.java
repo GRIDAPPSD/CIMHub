@@ -14,8 +14,6 @@ public class GldLineConfig {
 	public String conductor_B;
 	public String conductor_C;
 	public String conductor_N;
-//	public boolean bCable;
-//	public boolean bTriplex;
 
 	public GldLineConfig (String name) {
 		this.name = name;
@@ -24,13 +22,15 @@ public class GldLineConfig {
 		conductor_B = "";
 		conductor_C = "";
 		conductor_N = "";
-//		bCable = false;
-//		bTriplex = false;
 	}
 
-	static String GetMatchWire (String wclass, String name) {
+	static String GetMatchWire (String wclass, String name, boolean buried) {
 		if (wclass.equals("OverheadWireInfo")) {
-			return "wire_" + name;
+      if (buried) {
+        return "ugwire_" + name;
+      } else {
+        return "wire_" + name;
+      }
 		} else if (wclass.equals("ConcentricNeutralCableInfo")) {
 			return "cncab_" + name;
 		} else if (wclass.equals("TapeShieldCableInfo")) {

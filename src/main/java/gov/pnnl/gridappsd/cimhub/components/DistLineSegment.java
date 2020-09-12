@@ -25,7 +25,7 @@ public abstract class DistLineSegment extends DistComponent {
 
 	public abstract String LabelString();
 
-	protected void AppendSharedGLMAttributes (StringBuilder buf, String config_root, boolean bSpacing) {
+	protected void AppendSharedGLMAttributes (StringBuilder buf, String config_root, boolean bSpacing, boolean bForceN) {
 
 		if (phases.contains ("s")) {
 			bTriplex = true;
@@ -48,7 +48,7 @@ public abstract class DistLineSegment extends DistComponent {
 		if (phases.contains ("B")) phs.append ("B");
 		if (phases.contains ("C")) phs.append ("C");
 		if (bTriplex) phs.append ("S");
-		if (phases.contains ("N")) phs.append ("N");
+		if (phases.contains ("N") || bForceN) phs.append ("N");
 		glm_phases = phs.toString();
 		buf.append ("  phases " + glm_phases + ";\n");
 		buf.append ("  length " + df4.format(len * gFTperM) + ";\n");

@@ -193,6 +193,7 @@ public class DistCapacitor extends DistComponent {
 			gld_nomu /= Math.sqrt(3.0);
 		}
 		buf.append("  cap_nominal_voltage " + df2.format(gld_nomu) + ";\n");
+    buf.append("  nominal_voltage " + df2.format(gld_nomu) + ";\n");
 		if (kvar_A > 0.0) {
 			buf.append ("  capacitor_A " + df2.format(kvar_A * 1000.0) + ";\n");
 			buf.append ("  switchA CLOSED;\n");

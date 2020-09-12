@@ -145,8 +145,8 @@ public class DistXfmrCodeRating extends DistComponent {
 			buf.append ("  secondary_voltage " + df3.format (ratedU[1] * Math.sqrt(3.0)) + ";\n");
 			sConnect = "WYE_WYE";
 		} else {
-			buf.append ("  primary_voltage " + df3.format (ratedU[0] / Math.sqrt(3.0)) + ";\n");
-			buf.append ("  secondary_voltage " + df3.format (ratedU[1] / Math.sqrt(3.0)) + ";\n");
+			buf.append ("  primary_voltage " + df3.format (ratedU[0]) + ";\n");
+			buf.append ("  secondary_voltage " + df3.format (ratedU[1]) + ";\n");
 		}
 		if (sConnect.equals ("Y_D")) {
 			buf.append("  connect_type WYE_WYE; // should be Y_D\n");

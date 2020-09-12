@@ -68,13 +68,17 @@ public class DistLinesSpacingZ extends DistLineSegment {
 	}
 
 	public String GetGLM() {
+    boolean bForceN = false;
 		StringBuilder buf = new StringBuilder ();
 		if (wire_classes[0].equals("OverheadWireInfo")) {
 			bCable = false;
 		} else {
 			bCable = true;
+      if (wire_classes[nwires-1].equals("OverheadWireInfo")) {
+        bForceN = true;
+      }
 		}
-		AppendSharedGLMAttributes(buf, glm_config, true);
+		AppendSharedGLMAttributes(buf, glm_config, true, bForceN);
 		return buf.toString();
 	}
 
