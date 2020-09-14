@@ -7,6 +7,8 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistOverheadWire extends DistWire {
+  public boolean canBury;
+
 	public String GetJSONEntry () {
 		StringBuilder buf = new StringBuilder ();
 
@@ -32,6 +34,7 @@ public class DistOverheadWire extends DistWire {
 			insthick = OptionalDouble (soln, "?insthick", 0.0);
 			ins = OptionalBoolean (soln, "?ins", false);
 			insmat = OptionalString (soln, "?insmat", "N/A");
+      canBury = false;
 		}		
 	}
 
@@ -49,14 +52,28 @@ public class DistOverheadWire extends DistWire {
 	}
 
 	public String GetGLM() {
-		StringBuilder buf = new StringBuilder("object overhead_line_conductor {\n");
+    double diaOut = 2.0 * rad * gFTperM * 12.0;
+    double resOut = r50 * gMperMILE;
+    double gmrOut = gmr * gFTperM;
 
+    StringBuilder buf = new StringBuilder("object overhead_line_conductor {\n");
 		buf.append ("  name \"wire_" + name + "\";\n");
-		buf.append ("  geometric_mean_radius " + df6.format (gmr * gFTperM) + ";\n");
-		buf.append ("  diameter " + df6.format (2.0 * rad * gFTperM * 12.0) + ";\n");
-		buf.append ("  resistance " + df6.format (r50 * gMperMILE) + ";\n");
+		buf.append ("  geometric_mean_radius " + df6.format (gmrOut) + ";\n");
+		buf.append ("  diameter " + df6.format (diaOut) + ";\n");
+		buf.append ("  resistance " + df6.format (resOut) + ";\n");
 		AppendGLMWireAttributes (buf);
 		buf.append("}\n");
+
+    if (canBury) {
+      buf.append ("object underground_line_conductor {\n");
+      buf.append ("  name \"ugwire_" + name + "\";\n");
+      buf.append ("  conductor_gmr " + df6.format (gmrOut) + ";\n");
+      buf.append ("  conductor_diameter " + df6.format (diaOut) + ";\n");
+      buf.append ("  outer_diameter " + df6.format (1.2 * diaOut) + ";\n");
+      buf.append ("  conductor_resistance " + df6.format (resOut) + ";\n");
+      AppendGLMWireAttributes (buf);
+      buf.append("}\n");
+    }
 		return buf.toString();
 	}
 

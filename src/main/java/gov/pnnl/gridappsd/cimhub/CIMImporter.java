@@ -943,23 +943,24 @@ public class CIMImporter extends Object {
 		}
 		for (int i = 0; i < ln.nwires; i++) {
 			if (ln.wire_phases[i].equals ("A")) {
-				match_A = GldLineConfig.GetMatchWire (ln.wire_classes[i], ln.wire_names[i]);
+				match_A = GldLineConfig.GetMatchWire (ln.wire_classes[i], ln.wire_names[i], bCable);
 				buf.append ("A");
 			}
 			if (ln.wire_phases[i].equals ("B")) {
-				match_B = GldLineConfig.GetMatchWire (ln.wire_classes[i], ln.wire_names[i]);
+				match_B = GldLineConfig.GetMatchWire (ln.wire_classes[i], ln.wire_names[i], bCable);
 				buf.append ("B");
 			}
 			if (ln.wire_phases[i].equals ("C")) {
-				match_C = GldLineConfig.GetMatchWire (ln.wire_classes[i], ln.wire_names[i]);
+				match_C = GldLineConfig.GetMatchWire (ln.wire_classes[i], ln.wire_names[i], bCable);
 				buf.append ("C");
 			}
 			if (ln.wire_phases[i].equals ("N")) {
-				if (bCable) {
-					match_N = GldLineConfig.GetMatchWire(ln.wire_classes[0], ln.wire_names[0]); // TODO: can we now use bare neutral wires in GLD cables
-				} else {
-					match_N = GldLineConfig.GetMatchWire(ln.wire_classes[i], ln.wire_names[i]);
-				}
+        match_N = GldLineConfig.GetMatchWire(ln.wire_classes[i], ln.wire_names[i], bCable);
+				// we may need to write this as an unshielded underground line conductor
+        if (bCable && ln.wire_classes[i].equals ("OverheadWireInfo")) {
+          DistOverheadWire oh_wire = mapWires.get (ln.wire_names[i]);
+          oh_wire.canBury = true;
+        }
 				buf.append ("N");
 			}
 		}
