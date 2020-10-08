@@ -81,6 +81,16 @@ public class DistConcentricNeutralCable extends DistCable {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = DistCable.szCSVHeader + ",DIAn,Ns,GMRs,DIAs,RESs";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder ("");
+    AppendCSVCableAttributes (buf);
+    buf.append ("," + df6.format(dneut) + "," + Integer.toString(strand_cnt) + "," + df6.format(strand_gmr) + "," +
+                df6.format(2.0 * strand_rad) + "," + df6.format(strand_rdc) + "\n");
+    return buf.toString();
+  }
+
 	public String GetKey() {
 		return name;
 	}

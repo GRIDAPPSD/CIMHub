@@ -27,7 +27,17 @@ public abstract class DistCable extends DistWire {
 								" DiaIns=" + df6.format(dins) + " DiaCable=" + df6.format(djacket));
 	}
 
-	protected void AppendGLMCableAttributes (StringBuilder buf) {
+  public static String szCSVHeader = DistWire.szCSVHeader + ",InsMat,EpsRel,InsThick,DIACore,DIAJacket,DIAIns,DIAScreen,SheathNeutral";
+
+  protected void AppendCSVCableAttributes (StringBuilder buf) {
+    AppendCSVWireAttributes (buf);
+    double dEps = 2.3; // TODO - should be a setting
+    buf.append ("," + insmat + "," + df2.format(dEps) + "," + df6.format(insthick) +
+                "," + df6.format(dcore) + "," + df6.format(djacket) + "," + df6.format(dins) + "," + df6.format(dscreen) +
+                "," + Boolean.toString (sheathNeutral));
+  }
+
+  protected void AppendGLMCableAttributes (StringBuilder buf) {
 		AppendGLMWireAttributes (buf);
 		double dEps = 2.3; // TODO - should be a setting
 		buf.append ("  conductor_gmr " + df6.format (gmr * gFTperM) + ";\n");

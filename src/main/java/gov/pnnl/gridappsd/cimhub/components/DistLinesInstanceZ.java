@@ -99,5 +99,19 @@ public class DistLinesInstanceZ extends DistLineSegment {
 
 		return buf.toString();
 	}
+  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,R1,X1,C1[nF],R0,X0,C0[nF],Length,Units";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder (name + "," + bus1 + "," + CSVPhaseString(phases) + "," +
+                                           bus2 + "," + CSVPhaseString(phases) + "," +
+                                           df6.format(r1) + "," +
+                                           df6.format(x1) + "," +
+                                           df6.format(1.0e9 * b1 / gOMEGA) + "," +
+                                           df6.format(r0) + "," +
+                                           df6.format(x0) + "," +
+                                           df6.format(1.0e9 * b0 / gOMEGA) + "," +
+                                           df3.format(len * gFTperM) + ",ft\n");
+    return buf.toString();
+  }
 }
 

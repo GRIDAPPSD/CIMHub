@@ -1750,10 +1750,35 @@ public class CIMImporter extends Object {
     }
     out.close();
 
-    out =  new PrintWriter(fRoot + "_Lines.csv");
+    out =  new PrintWriter(fRoot + "_LinesCodeZ.csv");
     out.println(DistLinesCodeZ.szCSVHeader);
     for (HashMap.Entry<String,DistLinesCodeZ> pair : mapLinesCodeZ.entrySet()) {
       if (!pair.getValue().phases.contains("s")) out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_LinesInstanceZ.csv");
+    out.println(DistLinesInstanceZ.szCSVHeader);
+    for (HashMap.Entry<String,DistLinesInstanceZ> pair : mapLinesInstanceZ.entrySet()) {
+      if (!pair.getValue().phases.contains("s")) out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_LinesSpacingZ.csv");
+    out.println(DistLinesSpacingZ.szCSVHeader);
+    for (HashMap.Entry<String,DistLinesSpacingZ> pair : mapLinesSpacingZ.entrySet()) {
+      DistLinesSpacingZ obj = pair.getValue();
+      DistLineSpacing spc = mapSpacings.get (obj.spacing);
+      if (spc != null) {
+        spc.MarkPermutationsUsed(obj.phases);
+      }
+      if (!obj.phases.contains("s")) out.print (obj.GetCSV());
+    }
+    out.close();
+    out =  new PrintWriter(fRoot + "_Spacings.csv");
+    out.println(DistLineSpacing.szCSVHeader);
+    for (HashMap.Entry<String,DistLineSpacing> pair : mapSpacings.entrySet()) {
+      out.print (pair.getValue().GetCSV());
     }
     out.close();
 
@@ -1819,9 +1844,37 @@ public class CIMImporter extends Object {
     }
     out.close();
 
-    out =  new PrintWriter(fRoot + "_LineCodes.csv");
+    out =  new PrintWriter(fRoot + "_PhaseLineCodes.csv");
     out.println(DistPhaseMatrix.szCSVHeader);
     for (HashMap.Entry<String,DistPhaseMatrix> pair : mapPhaseMatrices.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_SequenceLineCodes.csv");
+    out.println(DistSequenceMatrix.szCSVHeader);
+    for (HashMap.Entry<String,DistSequenceMatrix> pair : mapSequenceMatrices.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_Wires.csv");
+    out.println(DistOverheadWire.szCSVHeader);
+    for (HashMap.Entry<String,DistOverheadWire> pair : mapWires.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_CNCables.csv");
+    out.println(DistConcentricNeutralCable.szCSVHeader);
+    for (HashMap.Entry<String,DistConcentricNeutralCable> pair : mapCNCables.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_TSCables.csv");
+    out.println(DistTapeShieldCable.szCSVHeader);
+    for (HashMap.Entry<String,DistTapeShieldCable> pair : mapTSCables.entrySet()) {
       out.print (pair.getValue().GetCSV());
     }
     out.close();
@@ -1829,6 +1882,24 @@ public class CIMImporter extends Object {
     out =  new PrintWriter(fRoot + "_Switches.csv");
     out.println(DistSwitch.szCSVHeader);
     for (HashMap.Entry<String,DistSwitch> pair : mapSwitches.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    for (HashMap.Entry<String,DistFuse> pair : mapFuses.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    for (HashMap.Entry<String,DistRecloser> pair : mapReclosers.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    for (HashMap.Entry<String,DistBreaker> pair : mapBreakers.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    for (HashMap.Entry<String,DistSectionaliser> pair : mapSectionalisers.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    for (HashMap.Entry<String,DistJumper> pair : mapJumpers.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    for (HashMap.Entry<String,DistDisconnector> pair : mapDisconnectors.entrySet()) {
       out.print (pair.getValue().GetCSV());
     }
     out.close();
