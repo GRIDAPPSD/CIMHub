@@ -13,18 +13,18 @@ curl -D- -X POST $DB_URL --data-urlencode "update=drop all"
 opendsscmd tso_dso_bus.dss
 
 # upload the CDPSM combined file to Blazegraph
-curl -D- -H "Content-Type: application/xml" --upload-file ieee9500.xml -X POST $DB_URL
+curl -D- -H "Content-Type: application/xml" --upload-file tso_dso.xml -X POST $DB_URL
 
 # list feeders now in the Blazegraph repository; will need the feeder mRIDs from this output
 java -cp "../target/libs/*:../target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter -u=$DB_URL -o=idx test
 
 # create OpenDSS and GridLAB-D models
-#java -cp "../target/libs/*:../target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
-#  -s=_194AC68D-C4B3-4D93-A2B5-B1C195C49954 -u=$DB_URL -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee9500
+java -cp "../target/libs/*:../target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
+  -s=_1F81391A-E6DA-4119-8291-643ABC569144 -u=$DB_URL -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 tso_dso
 
 # create CSV files
-#java -cp "../target/libs/*:../target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
-#  -s=_194AC68D-C4B3-4D93-A2B5-B1C195C49954 -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee9500
+java -cp "../target/libs/*:../target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
+  -s=_1F81391A-E6DA-4119-8291-643ABC569144 -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 tso_dso
 
 
 
