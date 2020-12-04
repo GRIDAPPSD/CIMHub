@@ -118,5 +118,28 @@ public class DistLinesSpacingZ extends DistLineSegment {
 		buf.append("]\n");
 		return buf.toString();
 	}
+
+  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,Spacing,WireType,WireNames,Length,Units";
+
+  public String GetCSV () {
+    String WireType;
+    if (wire_classes[0].equals("TapeShieldCableInfo")) {
+      WireType = "TS";
+    } else if (wire_classes[0].equals("ConcentricNeutralCableInfo")) {
+      WireType = "CN";
+    } else {
+      WireType = "OHD";
+    }
+    StringBuilder WireNames = new StringBuilder ("[" + wire_names[0]);
+    for (int i = 1; i < nwires; i++) {
+      WireNames.append ("," + wire_names[i]);
+    }
+    WireNames.append ("]");
+    StringBuilder buf = new StringBuilder (name + "," + bus1 + "," + CSVPhaseString(phases) + "," +
+                                           bus2 + "," + CSVPhaseString(phases) + "," + spacing + "," +
+                                           WireType + "," + WireNames.toString() + "," +
+                                           df3.format(len * gFTperM) + ",ft\n");
+    return buf.toString();
+  }
 }
 

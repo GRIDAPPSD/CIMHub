@@ -1,0 +1,2 @@
+rm *.Txt
+rm *.txt

@@ -77,6 +77,15 @@ public class DistOverheadWire extends DistWire {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = DistWire.szCSVHeader;
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder ("");
+    AppendCSVWireAttributes (buf);
+    buf.append ("\n");
+    return buf.toString();
+  }
+
 	public String GetKey() {
 		return name;
 	}

@@ -97,6 +97,14 @@ public class DistSequenceMatrix extends DistComponent {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = "Name,NumPhases,Units,r1,x1,c1[nF],r0,x0,c0[nF]";
+
+  public String GetCSV () {
+    return name + ",3,mi," + 
+      df6.format(gMperMILE * r1) + "," + df6.format(gMperMILE * x1) + "," + df6.format(1.0e9 * gMperMILE * b1/ gOMEGA) + "," +
+      df6.format(gMperMILE * r0) + "," + df6.format(gMperMILE * x0) + "," + df6.format(1.0e9 * gMperMILE * b0/ gOMEGA) + "\n";
+  }
+
 	public String GetKey() {
 		return name;
 	}

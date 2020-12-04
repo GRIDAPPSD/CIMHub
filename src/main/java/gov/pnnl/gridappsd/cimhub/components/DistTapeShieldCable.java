@@ -77,6 +77,15 @@ public class DistTapeShieldCable extends DistCable {
 		return buf.toString();
 	}
 
+  public static String szCSVHeader = DistCable.szCSVHeader + ",Tlap,Tthick";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder ("");
+    AppendCSVCableAttributes (buf);
+    buf.append ("," + df3.format(tlap) + "," + df6.format(tthick) + "\n");
+    return buf.toString();
+  }
+
 	public String GetKey() {
 		return name;
 	}

@@ -128,6 +128,33 @@ public class DistLineSpacing extends DistComponent {
 		buf.append ("]\n");
 	}
 
+  private void AppendCSVPermutation(StringBuilder buf, String perm) {
+    int i;
+
+    int nphases = perm.length();
+    boolean has_neutral = false;
+    if (nwires > nphases) {
+      has_neutral = true;
+    }
+
+    buf.append (name + "_" + perm + "," + Integer.toString(nwires) + "," + Integer.toString(nphases) + ",m");
+    buf.append (",[");
+    for (i = 0; i < nwires; i++) {
+      buf.append (df4.format(xarray[i]));
+      if (i+1 < nwires) {
+        buf.append (",");
+      }
+    }
+    buf.append ("],[");
+    for (i = 0; i < nwires; i++) {
+      buf.append (df4.format(yarray[i]));
+      if (i+1 < nwires) {
+        buf.append (",");
+      }
+    }
+    buf.append ("]\n");
+  }
+
 	private double WireSeparation (int i, int j) {
 		double dx = xarray[i] - xarray[j];
 		double dy = yarray[i] - yarray[j];
@@ -213,7 +240,17 @@ public class DistLineSpacing extends DistComponent {
 		return buf.toString();
 	}
 
-	public String GetKey() {
+  public static String szCSVHeader = "Name,Ncond,Nphase,Units,Xvals,Yvals";
+
+  public String GetCSV () {
+    StringBuilder buf = new StringBuilder ("");
+    for (String phs: perms) {
+      AppendCSVPermutation(buf, phs);
+    }
+    return buf.toString();
+  }
+
+  public String GetKey() {
 		return name;
 	}
 }
