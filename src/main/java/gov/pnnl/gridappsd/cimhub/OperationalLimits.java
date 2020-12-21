@@ -4,14 +4,14 @@ package gov.pnnl.gridappsd.cimhub;
 // All rights reserved.
 // ----------------------------------------------------------
 
-import java.io.*;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.text.DecimalFormat;
 
-import org.apache.jena.query.*;
-
-import gov.pnnl.gridappsd.cimhub.CIMImporter;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetCloseable;
 import gov.pnnl.gridappsd.cimhub.components.DistCoordinates;
 import gov.pnnl.gridappsd.cimhub.queryhandler.QueryHandler;
 import gov.pnnl.gridappsd.cimhub.queryhandler.impl.HTTPBlazegraphQueryHandler;
@@ -239,6 +239,10 @@ public class OperationalLimits extends Object {
 		}
 	}
 
+	public void BuildLimitMaps (CIMImporter mdl, QueryHandler qH)  {
+		// Call BuildLimitMaps with blank coordinates if not provided
+		BuildLimitMaps(mdl, qH, new HashMap<String, DistCoordinates>());
+	}
 	public void BuildLimitMaps (CIMImporter mdl, QueryHandler qH, HashMap<String,DistCoordinates> mapCoordinates)  {
 		queryHandler = qH;
 		LoadVoltageMap(mapCoordinates);

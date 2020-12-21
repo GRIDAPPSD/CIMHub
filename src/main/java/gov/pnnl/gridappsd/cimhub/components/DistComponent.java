@@ -96,7 +96,7 @@ public abstract class DistComponent {
 		if (arg == null) {
 			return null;
 		}
-		String s = arg.replace(' ', '_');
+ 		String s = arg.replace (' ', '_');
  		s = s.replace ('.', '_');
  		s = s.replace ('=', '_');
  		s = s.replace ('+', '_');
