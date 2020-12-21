@@ -8,4 +8,4 @@ cp ../linenoise-ng/build/liblinenoise.so distrib
 
 ./stop.sh
 docker rmi gridappsd/cimhub:0.0.1
-docker build -t="gridappsd/cimhub:0.0.1" .
+docker build -t="gridappsd/cimhub:0.0.2" .
