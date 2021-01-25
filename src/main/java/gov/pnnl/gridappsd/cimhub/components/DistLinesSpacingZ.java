@@ -130,11 +130,11 @@ public class DistLinesSpacingZ extends DistLineSegment {
     } else {
       WireType = "OHD";
     }
-    StringBuilder WireNames = new StringBuilder ("[" + wire_names[0]);
+    StringBuilder WireNames = new StringBuilder ("\"" + wire_names[0]);
     for (int i = 1; i < nwires; i++) {
       WireNames.append ("," + wire_names[i]);
     }
-    WireNames.append ("]");
+    WireNames.append ("\"");
     StringBuilder buf = new StringBuilder (name + "," + bus1 + "," + CSVPhaseString(phases) + "," +
                                            bus2 + "," + CSVPhaseString(phases) + "," + spacing + "," +
                                            WireType + "," + WireNames.toString() + "," +
