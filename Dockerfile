@@ -12,6 +12,7 @@ RUN pip3 install SPARQLWrapper --upgrade
 
 COPY distrib/opendsscmd /usr/local/bin/opendsscmd
 COPY distrib/liblinenoise.so /usr/local/lib/liblinenoise.so
+COPY distrib/libklusolve.so /usr/local/lib/libklusolve.so
 RUN ldconfig
 
 WORKDIR /app
