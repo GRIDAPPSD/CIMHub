@@ -1,7 +1,0 @@
-.DS_Store
-.gradle/
-/generated/
-.metadata
-.recommenders/
-*.log
-/bin/
