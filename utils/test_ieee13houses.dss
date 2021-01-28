@@ -1,0 +1,6 @@
+redirect ieee13houses_base.dss
+set maxiterations=20
+solve
+export summary sumIEEE13houses.csv
+
+

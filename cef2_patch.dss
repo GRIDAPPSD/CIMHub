@@ -1,0 +1,45 @@
+// remove all "new LineSpacing" instances from cef2_base.dss,
+//  and replace with "redirect cef2_patch.dss"
+
+new LineSpacing.OH_Wire_Spacing_A nconds=2 nphases=1 units=m
+~ x=[0.0000,0.0000]
+~ h=[10.3632,7.6200]
+new LineSpacing.OH_Wire_Spacing_ABC nconds=4 nphases=3 units=m
+~ x=[-0.6096,0.0000,0.6096,0.0000]
+~ h=[9.1440,10.3632,9.1440,7.6200]
+new LineSpacing.OH_Wire_Spacing_AC nconds=3 nphases=2 units=m
+~ x=[-0.6096,0.6096,0.0000]
+~ h=[9.1440,9.1440,7.6200]
+new LineSpacing.UG_Wire_Spacing_A nconds=1 nphases=1 units=m
+~ x=[0.0000]
+~ h=[0.7620]
+new LineSpacing.UG_Wire_Spacing_B nconds=1 nphases=1 units=m
+~ x=[0.0000]
+~ h=[0.7620]
+new LineSpacing.UG_Wire_Spacing_ABC nconds=3 nphases=3 units=m
+~ x=[-0.1651,0.0000,0.1651]
+~ h=[0.7620,0.7620,0.7620]
+new LineSpacing.UG_Wire_Spacing_C nconds=1 nphases=1 units=m
+~ x=[-0.1651,0.0000,0.1651]
+~ h=[0.7620,0.7620,0.7620]
+new LineSpacing.SVC_OH_Wire_Spacing_s1s2 nconds=2 nphases=2 units=m
+~ x=[0.0500,0.0000]
+~ h=[9.1440,9.1440]
+
+// example new Line._389-3318736-0 uses spacing=SVC_OH_Wire_Spacing_ABC
+new LineSpacing.SVC_OH_Wire_Spacing_ABC like=OH_Wire_Spacing_ABC
+new LineSpacing.SVC_OH_Wire_Spacing_AC like=OH_Wire_Spacing_AC
+new LineSpacing.SVC_OH_Wire_Spacing_BC like=OH_Wire_Spacing_AC
+new LineSpacing.SVC_OH_Wire_Spacing_AB like=OH_Wire_Spacing_AC
+
+// these lines are missing neutrals:
+// LINE._401-355576-0 ~ wires=[556AAC,556AAC,556AAC]
+// LINE._401-148223-3 ~ wires=[556AAC,556AAC,556AAC]
+// LINE._401-387258-0 ~ wires=[556AAC,556AAC,556AAC]
+// LINE._401-16671-0 ~ wires=[556AAC,556AAC,556AAC]
+// LINE._401-355575-1 ~ wires=[556AAC,556AAC,556AAC]
+// LINE._401-16672-0 ~ wires=[556AAC,556AAC,556AAC]
+// LINE._401-387257-1 ~ wires=[556AAC,556AAC,556AAC]
+// Line._389-728181-0 spacing=OH_Wire_Spacing_ABC ~ CNCables=[750CUEPR,750CUEPR,750CUEPR]
+// Line._389-728182-0 spacing=OH_Wire_Spacing_ABC ~ CNCables=[750CUEPR,750CUEPR,750CUEPR]
+

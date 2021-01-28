@@ -1,0 +1,5 @@
+redirect ieee13assets_base.dss
+set maxiterations=20
+solve
+export summary sumIEEE13assets.csv
+

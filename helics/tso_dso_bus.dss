@@ -1,0 +1,20 @@
+// equivalent with substation transformer, delta/wye, 8% on 20 MVA plus a little more for transmission, X/R=10
+// Zbase = 4.16*4.16/20 = 0.865
+new circuit.tso_dso bus1=bus basekv=4.16 pu=1.0 phases=3 x1=0.10 x0=0.07 r1=0.01 r0=0.007
+// some 2400-volt loads
+new Load.load_a_const_p phases=1 bus1=bus.1 conn=wye model=1 kV=2.4 kW=100 pf=0.85
+new Load.load_b_const_z phases=1 bus1=bus.2 conn=wye model=2 kV=2.4 kW=200 pf=0.85
+new Load.load_c_const_i phases=1 bus1=bus.3 conn=wye model=5 kV=2.4 kW=300 pf=0.85
+
+set voltagebases=[4.16]
+calcv
+buscoords tso_dso_bus_xy.dss
+solve
+//show voltages ln nodes
+//show voltages seq
+//show currents elements
+//show powers kva elements
+uuids file=tso_dso_EXP_UUIDS.CSV
+export cim100 substation=tso geo=region subgeo=subregion file=tso_dso.xml
+export uuids
+

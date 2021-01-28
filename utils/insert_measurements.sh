@@ -1,0 +1,6 @@
+python3 InsertMeasurements.py cef2_der_lines_pq.txt
+python3 InsertMeasurements.py cef2_der_loads.txt
+python3 InsertMeasurements.py cef2_der_node_v.txt
+python3 InsertMeasurements.py cef2_der_special.txt
+python3 InsertMeasurements.py cef2_der_switch_i.txt
+python3 InsertMeasurements.py cef2_der_xfmr_pq.txt

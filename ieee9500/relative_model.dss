@@ -1,0 +1,6 @@
+redirect Master-bal-initial-config.dss
+solve
+uuids file=Test9500new_EXP_UUIDS.CSV
+export cim100 substation=subname geo=region subgeo=subregion file=ieee9500.xml
+export uuids
+
