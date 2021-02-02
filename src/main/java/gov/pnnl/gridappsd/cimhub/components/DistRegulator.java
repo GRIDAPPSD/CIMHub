@@ -455,7 +455,7 @@ public class DistRegulator extends DistComponent {
     for (int i = 0; i < size; i++) {
       buf.append(rname[i] + "," + bus1 + "," + phs1 + "," + bus2 + "," + phs2 + ",");
       buf.append(df2.format(vset[i]) + "," + df2.format(ptRatio[i]) + "," + df2.format(ctRating[i]) + ",");
-      buf.append(df2.format(vbw[i]) + "," + df2.format(fwdR[i])  + "," + df2.format(fwdX[i]) + 
+      buf.append(df2.format(vbw[i]) + "," + df2.format(fwdR[i])  + "," + df2.format(fwdX[i]) + ",");
       buf.append(df2.format(revR[i]) + "," + df2.format(revX[i]) + "\n");
     }
     return buf.toString();
