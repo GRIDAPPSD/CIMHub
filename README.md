@@ -107,7 +107,21 @@ Usage and options for ```java gov.pnnl.gridappsd.cimhub.CIMImporter [options] ou
 * ```-t={0, 1}          // request timing of top-level methods and SPARQL queries, requires -o=both for methods```
 * ```-u={http://localhost:8889/bigdata/namespace/kb/sparql} // blazegraph uri (if connecting over HTTP); defaults to http://localhost:8889/bigdata/namespace/kb/sparql```
 
+The output format options are:
+
+  * ```-o=cim```  creates a CIM14 model from CIM100
+  * ```-o=csv```  creates a set of comma-delimited text files from CIM100
+  * ```-o=dss```  creates an OpenDSS model from CIM100
+  * ```-o=glm```  creates a GridLAB-D model from CIM 100
+  * ```-o=both``` creates both OpenDSS and GridLAB-D models from CIM100 
+  * ```-o=idx```  creates a JSON index of all Feeders in the triple-store. Use this to obtain valid mRID values for the -s option
+
+If you will need both OpenDSS and GridLAB-D files, the ```-o=both``` option is much more efficient than generating them individually, 
+because over 90% of the execution time is taken up with SPARQL queries that are common to both.
+
 ## GridAPPS-D Circuit Validation Scripts
+
+If using the platform, latest versions are in [Powergrid-Models](https://github.com/GRIDAPPSD/Powergrid-Models).
 
 This is work in progress. The goal is to verify round-trip model translation
 and solution between the supported model formats. It also forms the basis for validing eleven feeder models including with GridAPPS-D.
@@ -129,17 +143,4 @@ The funcionality of these two scripts has been incorporated above, so they might
 	* Assumes the OpenDSS **source tree** has been checked out to _c:\opendss_
 	* Assumes the EPRI DPV models have been downloaded to directories like _c:\epri_dpv|J1_ or _~/src/epri_dpv/J1_
 	* After ```python MakeConversionScript.py``` invoke ```opendsscmd ConvertCDPSM.dss```
-
-## Deprecated
-
-Helper scripts on Windows (have not been updated for containerized Blazegraph):
-
-* _compile.bat_ recompiles the Java CIM Importer; this step can't be included within _import.bat_ on Windows
-* _drop\_all.bat_ empties the triple-store
-* _import.bat_ will run the Java importer against the triple-store. Within this file:
-  * the ```-o=dss``` option creates an OpenDSS model from CIM
-  * the ```-o=glm``` option creates a GridLAB-D model from CIM 
-  * the ```-o=both``` option creates both OpenDSS and GridLAB-D models from CIM 
-  * the ```-o=idx``` option creates a JSON index of all Feeders in the triple-store. Use this to obtain valid mRID values for the -s option
-
 
