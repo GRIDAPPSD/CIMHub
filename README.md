@@ -123,6 +123,8 @@ because over 90% of the execution time is taken up with SPARQL queries that are 
 
 If using the platform, latest versions are in [Powergrid-Models](https://github.com/GRIDAPPSD/Powergrid-Models).
 
+### Work in Progress
+
 This is work in progress. The goal is to verify round-trip model translation
 and solution between the supported model formats. It also forms the basis for validing eleven feeder models including with GridAPPS-D.
 
