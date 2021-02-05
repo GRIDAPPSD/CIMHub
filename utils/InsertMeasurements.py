@@ -37,6 +37,9 @@ if len(sys.argv) > 2:
 sparql = SPARQLWrapper2 (constants.blazegraph_url)
 sparql.method = 'POST'
 
+batch_size = 150
+qtriples = []
+
 def InsertMeasurement (meascls, measid, eqname, eqid, trmid, meastype, phases):
   #if not measid starts with _ then prepend it, this is here for consistency. otherwise the mrids are uploaded without the initial _
   if (not str(measid).startswith("_")):
@@ -52,14 +55,20 @@ def InsertMeasurement (meascls, measid, eqname, eqid, trmid, meastype, phases):
   ln5 = resource + ' c:Measurement.Terminal ' + terminal + '. '
   ln6 = (resource + ' c:Measurement.phases ' + constants.cim100
     + 'PhaseCode.' + phases + '>. ')
-  ln7 = resource + ' c:Measurement.measurementType \"' + meastype + '\"'
-  qstr = (constants.prefix + 'INSERT DATA { ' + ln1 + ln2 + ln3 + ln4 +
-    ln5 + ln6 + ln7 + '}')
+  ln7 = resource + ' c:Measurement.measurementType \"' + meastype + '\".'
+#  qstr = (constants.prefix + 'INSERT DATA { ' + ln1 + ln2 + ln3 + ln4 +
+#    ln5 + ln6 + ln7 + '}')
+  qtriples.append (ln1 + ln2 + ln3 + ln4 + ln5 + ln6 + ln7)
+  return
 
-# print (qstr)
+def PostMeasurements ():
+  print ('inserting', len(qtriples), 'measurements from', sys.argv[1])
+  qtriples.append ('}')
+  qstr = constants.prefix + 'INSERT DATA { ' + ''.join(qtriples)
+#  print (qstr)
   sparql.setQuery(qstr)
   ret = sparql.query()
-# print (ret)
+#  print (ret)
   return
 
 lines = fp.readlines()
@@ -169,6 +178,12 @@ for ln in lines:
       InsertMeasurement ('Analog', getMeasurementID (key + ':VA', uuidDict), name + '_Power', eqid, trmid, 'VA', phases)
     elif 'i' in what:
       InsertMeasurement ('Analog', getMeasurementID (key + ':A', uuidDict), name + '_Current', eqid, trmid, 'A', phases)
+  if len(qtriples) >= batch_size:
+    PostMeasurements()
+    qtriples = []
+
+if len(qtriples) > 0:
+  PostMeasurements()
 
 fp.close()
 if uuidfile is not None:
