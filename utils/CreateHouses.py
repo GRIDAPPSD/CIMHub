@@ -42,7 +42,7 @@ TYPEHUQ_REV = {v:k for k, v in TYPEHUQ.items()}
 #******************************************************************************
 # CLASS DEFINITION: createHouses
 #******************************************************************************
-class createHouses():
+class CreateHouses():
     """Class which uses data derived from EIA RECS to generate houses.
     
     EIA RECS data is used to create various distributions, and then house
@@ -67,7 +67,7 @@ class createHouses():
             A good rule of thumb could be 5x number of secondary transformers?
         
         OUTPUTS:
-        self: createHouses instance with the following properties:
+        self: CreateHouses instance with the following properties:
             log: logging.Logger instance for logging
             data: pandas DataFrame holding the derived EIA RECS data for the
                 given region.
@@ -427,7 +427,10 @@ class createHouses():
         # Map results to number of stories (see definition in housingData.py).
         # Notes: 'Four or more stories' is being mapped to 4, and 'Split-level'
         # is being mapped to 2.
-        numberOfStories = numberOfStories.map({10: 1, 20: 2, 31: 3, 32: 4,
+        numberOfStories = numberOfStories.map({10: 1, 
+                                               20: 2, 
+                                               31: 3, 
+                                               32: 4,
                                                40: 2})
         
         # Done.
@@ -775,7 +778,7 @@ class createHouses():
             
     
 if __name__ == '__main__':
-    obj = createHouses(region=1)
+    obj = CreateHouses(region=1)
     houseGuess = obj.estimateTotalHouses(6e6)
     '''
     for _ in range(20):
