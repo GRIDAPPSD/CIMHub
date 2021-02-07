@@ -81,6 +81,15 @@ public class DistMeasurement extends DistComponent {
 		}
 	}
 
+  public boolean LinkedToSimulatorObject () {
+    if (simobj != null) {
+      if (!simobj.contains ("UKNOWN")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 	public String GetJSONEntry () {
 		StringBuilder buf = new StringBuilder ();
 
@@ -106,7 +115,7 @@ public class DistMeasurement extends DistComponent {
 	public String DisplayString() {
 		StringBuilder buf = new StringBuilder ("");
 		buf.append (name + ":" + id + ":" + eqid + ":" + trmid + ":" + measType + ":" + phases
-								 + ":" + measClass + ":" + eqtype + ":" + eqname + ":" + bus);
+								 + ":" + measClass + ":" + eqtype + ":" + eqname + ":" + bus + ":" + useHouses);
 		return buf.toString();
 	}
 

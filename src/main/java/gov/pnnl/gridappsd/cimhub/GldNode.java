@@ -130,7 +130,13 @@ public class GldNode {
 		bTertiaryWinding = false;
 	}
 
-	/** accumulates phases present
+  public String DisplayString() {
+    StringBuilder buf = new StringBuilder ("");
+    buf.append (name + ":" + phases + ":" + loadname + ":" + bSecondary);
+    return buf.toString();
+  }
+
+  /** accumulates phases present
 	 *  @param phs phases to add, may contain ABCDSs
 	 *  @return always true */
 	public boolean AddPhases(String phs) {
