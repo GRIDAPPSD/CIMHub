@@ -31,6 +31,16 @@ qstr = constants.prefix + """DELETE {
   ?fdr c:IdentifiedObject.mRID ?fdrid. 
   ?econ c:Equipment.EquipmentContainer ?fdr.
   ?h a ?class.
+  ?h c:IdentifiedObject.mRID ?uuid.
+  ?h c:IdentifiedObject.name ?name.
+  ?h c:House.floorArea ?floorArea.
+  ?h c:House.numberOfStories ?numberOfStories.
+  OPTIONAL{?h c:House.coolingSetpoint ?coolingSetpoint.}
+  OPTIONAL{?h c:House.heatingSetpoint ?heatingSetpoint.}
+  OPTIONAL{?h c:House.hvacPowerFactor ?hvacPowerFactor.}
+  ?h c:House.coolingSystem ?coolingSystemRaw.
+  ?h c:House.heatingSystem ?heatingSystemRaw.
+  ?h c:House.thermalIntegrity ?thermalIntegrityRaw.
   ?h c:House.EnergyConsumer ?econ.
  }
 """

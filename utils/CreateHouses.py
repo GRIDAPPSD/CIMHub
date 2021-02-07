@@ -30,7 +30,7 @@ DATA_DIR = 'eia_recs'
 
 # Tuning parameter used in guessing how many houses there are per transformer.
 # This is a more or less "out of the air" guess at the moment.
-VA_PER_SQFT = 3
+VA_PER_SQFT = 3.0
 
 # We need to specify a power factor for the HVAC system. This could use a bit
 # more research, here's something that seems reasonable:
@@ -143,7 +143,7 @@ class CreateHouses():
             
         return regionStr
     
-    def genHousesForFeeder(self, loadDf, magS):
+    def genHousesForFeeder(self, loadDf, magS, scale):
         """'Main' function for class. Generates houses for a given set of loads
         
         NOTE: The intention is that this function is called by the insertHouses
@@ -152,7 +152,8 @@ class CreateHouses():
         INPUTS:
         loadDf: pandas dataframe, indices are names of loads, and column 'magS'
             indicates apaprent power magnitude under peak conditions
-        magS: total magnitude of all loads.
+        magS: total magnitude of all loads [MVA]
+        scale:  scaling factor on the number of houses placed, to mitigate overloads
         
         OUTPUT:
         housingDict: dictionary with nodes/loads (index from loadDf) as keys.
@@ -166,7 +167,8 @@ class CreateHouses():
             the key will have to be looked up every time.
         """
         # First, estimate how many houses we'll be placing.
-        guess = self.estimateTotalHouses(magS=magS)
+        guess = self.estimateTotalHouses(magS=magS, scale=scale)
+        print ('Estimating {:.2f} houses for {:.2f} kVA at {:.3f} VA/ft2'.format (guess, 0.001 * magS, VA_PER_SQFT/scale))
         
         # Create a pandas Series to be used for updating the distribution with
         # each housing type selection.
@@ -190,7 +192,7 @@ class CreateHouses():
             
             # Draw a housing type from the distribution and then draw square
             # footages for each house that will be added to the load/xfmr.
-            housingType, floorArea = self.typeAndSQFTForLoad(data.loc['magS'])
+            housingType, floorArea = self.typeAndSQFTForLoad(data.loc['magS'], scale)
             
             # Number of houses is the length of the floorArea
             n = len(floorArea)
@@ -597,11 +599,12 @@ class CreateHouses():
         
         return coolingSystem, coolingSetpoint
     
-    def typeAndSQFTForLoad(self, magS):
+    def typeAndSQFTForLoad(self, magS, scale):
         """Randomly draw a housing type, then choose number of housing units.
         
         INPUTS:
         magS: Magnitude of peak apparent power for load in question (VA).
+        scale: scaling factor on the number of houses placed, to mitigate overloads
         
         OUTPUTS:
         housingType: Selected housing type string.
@@ -652,7 +655,7 @@ class CreateHouses():
         # following the overall square footage distribution found in the data.
         # For consistency, I've decided to always follow distributions from the
         # EIA RECS data, but it doesn't have to be that way.
-        while totalSqft * VA_PER_SQFT < magS:
+        while totalSqft * VA_PER_SQFT / scale < magS:
             # Draw squarefootage and append.
             s = self.drawFromDist(\
                 pmf=self.data[housingType]['TOTSQFT_EN']['pmf'],
@@ -680,8 +683,9 @@ class CreateHouses():
             
         if cond1 or cond2 or cond3:
             # Warn.
-            self.log.warning(("Housing type '{}' chosen, but {} "
-                              + "units generated.").format(housingType, numUnits))
+            pass
+#            self.log.warning(("Housing type '{}' chosen, but {} "
+#                              + "units generated.").format(housingType, numUnits))
         
         if denom > 0:
             # Subtract the number of houses generated from the housing to
@@ -725,7 +729,7 @@ class CreateHouses():
         
         return value
     
-    def estimateTotalHouses(self, magS):
+    def estimateTotalHouses(self, magS, scale):
         """Estimate total number of housing units that will be generated.
         
         This is used to help ensure we're doing a good job tracking the housing
@@ -733,12 +737,13 @@ class CreateHouses():
             
         Rough flow:
             1) Compute mean square footage by housing type
-            2) Use factor (VA_PER_SQFT) to estimate peak power by housing type.
+            2) Use factor (VA_PER_SQFT/scale) to estimate peak power by housing type.
             3) Given distribution of housing types and associated average
                 power, estimate how many housing units will be generated.
         
         INPUTS:
         magS: Magnitude of apparent power for all the loads in the system.
+        scale:  scaling factor on the number of houses placed, to mitigate overloads
         
         OUTPUTS:
         num: Estimate of total number of housing units that will be generated.
@@ -765,7 +770,7 @@ class CreateHouses():
             meanSqft[housingInd] = np.sum((bin_centers * pmf))
             
         # Use our (maybe trash) constant to convert square footages to power.
-        meanPower = meanSqft * VA_PER_SQFT
+        meanPower = meanSqft * VA_PER_SQFT / scale
         
         # Compute the mean power for all housing types.
         totalMean = np.sum(meanPower * self.data['TYPEHUQ'])

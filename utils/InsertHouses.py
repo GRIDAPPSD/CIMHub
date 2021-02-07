@@ -72,7 +72,7 @@ LOG = logging.getLogger(__name__)
 #******************************************************************************
 # METHODS
 #******************************************************************************
-def main(fdrid, region, loglevel='INFO', logfile=None, seed=None, uuidfile=None):
+def main(fdrid, region, loglevel='INFO', logfile=None, seed=None, uuidfile=None, scale=1.0):
   """
   """
   global qtriples
@@ -93,17 +93,17 @@ def main(fdrid, region, loglevel='INFO', logfile=None, seed=None, uuidfile=None)
   # residential energy consumer loads.
   ec, no_houses, magS = getEnergyConsumers(fdrid=fdrid)
 
-  LOG.info('Total 120/240V split phase residential load apparent power '
-       'magnitude: {:.2f} MVA'.format(magS/10e06))
   LOG.info('Total EnergyConsumers: {}'.format(ec.shape[0]))
+  LOG.info('Total 120/240V split phase residential load apparent power '
+       'magnitude: {:.2f} kVA, scale by {:.2f}'.format(0.001 * magS, scale))
   
   # Alert user about loads which will not be converted.
-  if len(no_houses) > 0:
-    LOG.info('The following details loads, keyed by voltage level, which '
-         'will\n\tNOT have houses/buildings added to them '
-         'because they are not at the correct voltage\n\tlevel '
-         'and/or are not split phase:\n{}'.format(
-          json.dumps(no_houses, indent=2)))
+#  if len(no_houses) > 0:
+#    LOG.info('The following details loads, keyed by voltage level, which '
+#         'will\n\tNOT have houses/buildings added to them '
+#         'because they are not at the correct voltage\n\tlevel '
+#         'and/or are not split phase:\n{}'.format(
+#          json.dumps(no_houses, indent=2)))
 
   # If 'ec' is empty, exit the program.
   if ec.shape[0] < 1:
@@ -120,7 +120,7 @@ def main(fdrid, region, loglevel='INFO', logfile=None, seed=None, uuidfile=None)
   # objects were inserted into the triplstore CIM database 'on the fly' as
   # they're generated, but since this functionality doesn't particularly rely
   # on speed, we'll make things more modular and readable by "double-looping"
-  housingDict = obj.genHousesForFeeder(loadDf=ec, magS=magS)
+  housingDict = obj.genHousesForFeeder(loadDf=ec, magS=magS, scale=scale)
   
   LOG.info('All houses generated. Inserting into database.')
     
@@ -332,15 +332,20 @@ if __name__ == "__main__":
   parser.add_argument("uuid", help=("Specify a file to read (if available) and rewrite a file of mRID values. "
                     "This only makes sense if a seed value is also specified."), nargs='?', default=None)
 
-  # Get args
-  args = parser.parse_args()
+  parser.add_argument("scale", help=("Downscale the load before deciding number of houses to add. "
+                    "Use to avoid transformer overloads and excess voltage drop."), nargs='?', default=None)
 
+  # Get args
+  seed = None
+  scale = 1.0
+
+  args = parser.parse_args()
   if args.seed is not None:
     seed = int(args.seed)
-  else:
-    seed = None
+  if args.scale is not None:
+    scale = float(args.scale)
   
   # Call main function.
-  main(fdrid=args.fdrid, region=args.region, seed=seed, uuidfile=args.uuid)
+  main(fdrid=args.fdrid, region=args.region, seed=seed, uuidfile=args.uuid, scale=scale)
   
   
