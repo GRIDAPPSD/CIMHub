@@ -4,9 +4,7 @@ import re
 import uuid
 import os
 import json
-
-# constants.py is used for configuring blazegraph.
-import constants
+import CIMHubConfig
 
 # try to re-use the mRID, otherwise make a new one and save it
 def getMeasurementID (key, uuidDict):
@@ -20,21 +18,22 @@ def getMeasurementID (key, uuidDict):
   uuidDict[key] = idNew
   return idNew
 
-if len(sys.argv) < 2:
-  print ('usage: python InsertMeasurements.py fname uuidfile.json')
+if len(sys.argv) < 3:
+  print ('usage: python InsertMeasurements.py cimhubconfig.json fname [uuidfile.json]')
   print (' (Blazegraph server must already be started)')
   exit()
 
-fp = open (sys.argv[1], 'r')
+fp = open (sys.argv[2], 'r')
 uuidDict = {}
 uuidfile = None
-if len(sys.argv) > 2:
-  uuidfile = sys.argv[2]
+if len(sys.argv) > 3:
+  uuidfile = sys.argv[3]
   if os.path.exists (uuidfile):
       fp_uuid = open (uuidfile).read()
       uuidDict = json.loads(fp_uuid)
 
-sparql = SPARQLWrapper2 (constants.blazegraph_url)
+CIMHubConfig.ConfigFromJsonFile (sys.argv[1])
+sparql = SPARQLWrapper2 (CIMHubConfig.blazegraph_url)
 sparql.method = 'POST'
 
 batch_size = 150
@@ -45,26 +44,26 @@ def InsertMeasurement (meascls, measid, eqname, eqid, trmid, meastype, phases):
   if (not str(measid).startswith("_")):
     measid = "_"+str(measid)
 
-  resource = '<' + constants.blazegraph_url + '#' + str(measid) + '>'
-  equipment = '<' + constants.blazegraph_url + '#' + str(eqid) + '>'
-  terminal = '<' + constants.blazegraph_url + '#' + str(trmid) + '>'
+  resource = '<' + CIMHubConfig.blazegraph_url + '#' + str(measid) + '>'
+  equipment = '<' + CIMHubConfig.blazegraph_url + '#' + str(eqid) + '>'
+  terminal = '<' + CIMHubConfig.blazegraph_url + '#' + str(trmid) + '>'
   ln1 = resource + ' a c:' + meascls + '. ' 
   ln2 = resource + ' c:IdentifiedObject.mRID \"' + str(measid) + '\". '
   ln3 = resource + ' c:IdentifiedObject.name \"' + str(eqname) + '\". '
   ln4 = resource + ' c:Measurement.PowerSystemResource ' + equipment + '. '
   ln5 = resource + ' c:Measurement.Terminal ' + terminal + '. '
-  ln6 = (resource + ' c:Measurement.phases ' + constants.cim100
+  ln6 = (resource + ' c:Measurement.phases ' + CIMHubConfig.cim_ns
     + 'PhaseCode.' + phases + '>. ')
   ln7 = resource + ' c:Measurement.measurementType \"' + meastype + '\".'
-#  qstr = (constants.prefix + 'INSERT DATA { ' + ln1 + ln2 + ln3 + ln4 +
+#  qstr = (CIMHubConfig.prefix + 'INSERT DATA { ' + ln1 + ln2 + ln3 + ln4 +
 #    ln5 + ln6 + ln7 + '}')
   qtriples.append (ln1 + ln2 + ln3 + ln4 + ln5 + ln6 + ln7)
   return
 
 def PostMeasurements ():
-  print ('inserting', len(qtriples), 'measurements from', sys.argv[1])
+  print ('inserting', len(qtriples), 'measurements from', sys.argv[2])
   qtriples.append ('}')
-  qstr = constants.prefix + 'INSERT DATA { ' + ''.join(qtriples)
+  qstr = CIMHubConfig.prefix + 'INSERT DATA { ' + ''.join(qtriples)
 #  print (qstr)
   sparql.setQuery(qstr)
   ret = sparql.query()

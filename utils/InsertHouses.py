@@ -20,28 +20,25 @@ import os
 # Installed packages:
 import numpy as np
 import pandas as pd
-from SPARQLWrapper import SPARQLWrapper2
-
-# Add one level up to the path so we can import from 'Meas'
-sys.path.append("..")
-
-# Modules in this repository:
-#
-# constants.py is used for configuring blazegraph.
-from Meas import constants #@UnresolvedImport
 from CreateHouses import CreateHouses
+from SPARQLWrapper import SPARQLWrapper2
+import CIMHubConfig
 
 # insert groups of triples to minimize the number of queries
 batch_size = 100
 qtriples = []
-# connect to blazegraph, get sparql wrapper for queries.
-sparql = SPARQLWrapper2(constants.blazegraph_url)
-sparql.method = 'POST'
+
+sparql = None
+def ConfigureCIMHub (fname): # this is now required before initiating SPARQL engine
+  global sparql
+  CIMHubConfig.ConfigFromJsonFile (fname)
+  sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
+  sparql.method = 'POST'
 
 def PostHouses ():
   print ('inserting', len(qtriples), 'houses')
   qtriples.append ('}')
-  qstr = constants.prefix + 'INSERT DATA { ' + ''.join(qtriples)
+  qstr = CIMHubConfig.prefix + 'INSERT DATA { ' + ''.join(qtriples)
 #  print (qstr)
   sparql.setQuery(qstr)
   ret = sparql.query()
@@ -191,7 +188,7 @@ def getEnergyConsumers(fdrid):
   """
   
   query = \
-    (constants.prefix +
+    (CIMHubConfig.prefix +
     r'SELECT ?name ?mrid ?bus ?basev ?p ?q ?conn (group_concat(distinct ?phs;separator=",") as ?phases) '
     "WHERE {{ "
       "?s r:type c:EnergyConsumer. "
@@ -285,8 +282,8 @@ def insertHouse (ecName, ecID, houseNum, houseData, uuids):
     uuids[key] = hIDStr
 
   # Define strings for the house and energy consumer.
-  house = '<' + constants.blazegraph_url + '#' + hIDStr + '>'
-  ec = '<' + constants.blazegraph_url + '#' + ecIDStr + '>'
+  house = '<' + CIMHubConfig.blazegraph_url + '#' + hIDStr + '>'
+  ec = '<' + CIMHubConfig.blazegraph_url + '#' + ecIDStr + '>'
   
   # Define string for attaching house to energy consumer
   qdata = (house + ' a c:House. ' +
@@ -304,7 +301,7 @@ def insertHouse (ecName, ecID, houseNum, houseData, uuids):
      
     # Enumerations are handled differently
     try:
-      valStr = constants.cim100 + ENUM[name] + '.' + str(value) + '>. ' 
+      valStr = CIMHubConfig.cim_ns + ENUM[name] + '.' + str(value) + '>. ' 
     except KeyError:
       valStr = '\"' + str(value) + '\". '
 
@@ -317,6 +314,9 @@ if __name__ == "__main__":
   
   # Initialize parser
   parser = argparse.ArgumentParser(description="Add houses to a CIM model.")
+
+  # must lead off with CIMHub configuration file
+  parser.add_argument("config", help=("JSON file to define CIM namespace (cim_ns) and Blazegraph URL (blazegraph_url)."))
   
   # We'll need a fdrid
   parser.add_argument("fdrid", help=("Full UUID of the feeder "
@@ -340,6 +340,11 @@ if __name__ == "__main__":
   scale = 1.0
 
   args = parser.parse_args()
+  if args.config is not None:
+    ConfigureCIMHub (args.config)
+  else:
+    print ('cimhubconfig.json must be provided as the first argument, or named config argument')
+    quit()
   if args.seed is not None:
     seed = int(args.seed)
   if args.scale is not None:

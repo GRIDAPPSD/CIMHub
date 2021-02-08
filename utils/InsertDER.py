@@ -3,11 +3,7 @@ import sys
 import re
 import uuid
 import os.path
-
-prefix_template = """PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX c: <{cimURL}>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-"""
+import CIMHubConfig
 
 qbus_template = """# list the bus name, cn id, terminal id, sequence number, eq id and loc id
 SELECT ?bus ?cnid ?tid ?seq ?eqid ?locid WHERE {{
@@ -113,7 +109,7 @@ ins_pep_template = """
  <{url}#{res}> a c:PowerElectronicsConnectionPhase.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
- <{url}#{res}> c:PowerElectronicsConnectionPhase.phase <{ns}SinglePhaseKind.{phs}>.
+ <{url}#{res}> c:PowerElectronicsConnectionPhase.phase {ns}SinglePhaseKind.{phs}>.
  <{url}#{res}> c:PowerElectronicsConnectionPhase.PowerElectronicsConnection <{url}#{resPEC}>.
  <{url}#{res}> c:PowerElectronicsConnectionPhase.p \"{p}\".
  <{url}#{res}> c:PowerElectronicsConnectionPhase.q \"{q}\".
@@ -133,7 +129,7 @@ ins_bat_template = """
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
  <{url}#{res}> c:BatteryUnit.ratedE \"{ratedE}\".
  <{url}#{res}> c:BatteryUnit.storedE \"{storedE}\".
- <{url}#{res}> c:BatteryUnit.batteryState <{ns}BatteryState.{state}>.
+ <{url}#{res}> c:BatteryUnit.batteryState {ns}BatteryState.{state}>.
  <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
 """
 
@@ -152,47 +148,43 @@ def ParsePhases (sphs):
       lst.append(code)
   return lst
 
-if len(sys.argv) < 2:
-  print ('usage: python3 InsertDER.py fname')
+if len(sys.argv) < 3:
+  print ('usage: python3 InsertDER.py cimhubconfig.json fname')
   print (' Blazegraph server must already be started')
-  print (' fname must define blazegraph_url, cim_namespace and feederID')
-  print ('   before creating any DG')
+  print (' cimhubconfig.json must define blazegraph_url and cim_ns')
+  print (' fname must define feederID before creating any DG')
   exit()
 
-cim_ns = ''
-blz_url = ''
+CIMHubConfig.ConfigFromJsonFile (sys.argv[1])
+sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
+sparql.method = 'POST'
+
 fdr_id = ''
 crs_id = ''
-prefix = None
 qbus = None
 qloc = None
-sparql = None
 buses = {}
 locs = {}
 fuidname = None
 uuids = {}
-batch_size = 150
+batch_size = 100
 qtriples = []
 
 def PostDER ():
   print ('==> inserting', len(qtriples), 'instances for DER')
   qtriples.append ('}')
-  qstr = prefix + ' INSERT DATA { ' + ''.join(qtriples)
+  qstr = CIMHubConfig.prefix + ' INSERT DATA { ' + ''.join(qtriples)
 #  print (qstr)
   sparql.setQuery(qstr)
   ret = sparql.query()
 #  print (ret)
   return
 
-fp = open (sys.argv[1], 'r')
+fp = open (sys.argv[2], 'r')
 lines = fp.readlines()
 for ln in lines:
   toks = re.split('[,\s]+', ln)
-  if toks[0] == 'blazegraph_url':
-    blz_url = toks[1]
-  elif toks[0] == 'cim_namespace':
-    cim_ns = toks[1]
-  elif toks[0] == 'feederID':
+  if toks[0] == 'feederID':
     fdr_id = toks[1]
   elif toks[0] == 'uuid_file':
     fuidname = toks[1]
@@ -209,7 +201,7 @@ for ln in lines:
           uuids[key] = val
       fuid.close()
 
-  if sparql is not None:  # have created the query engine and retrieved essential circuit information
+  if qbus is not None:  # have retrieved essential circuit information
     if not toks[0].startswith('//') and len(toks[0]) > 0:
       name = toks[0]
       nmCN = toks[1]
@@ -242,12 +234,12 @@ for ln in lines:
 
       if unit == "SynchronousMachine":
         idSYN = GetCIMID('SynchronousMachine', name, uuids)
-        inssyn = ins_syn_template.format(url=blz_url, res=idSYN, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
+        inssyn = ins_syn_template.format(url=CIMHubConfig.blazegraph_url, res=idSYN, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
                                                   p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0)
         qtriples.append(inssyn)
       else:
         idPEC = GetCIMID('PowerElectronicsConnection', name, uuids)
-        inspec = ins_pec_template.format(url=blz_url, res=idPEC, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
+        inspec = ins_pec_template.format(url=CIMHubConfig.blazegraph_url, res=idPEC, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
                                                   p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0)
         qtriples.append(inspec)
 
@@ -259,7 +251,7 @@ for ln in lines:
           for phs in phase_list:
             nmPhs = '{:s}_{:s}'.format (name, phs)
             idPhs = GetCIMID('PowerElectronicsConnectionPhase', nmPhs, uuids)
-            inspep = ins_pep_template.format (url=blz_url, res=idPhs, nm=nmPhs, resPEC=idPEC, resLoc=idLoc, ns=cim_ns, phs=phs, p=p, q=q)
+            inspep = ins_pep_template.format (url=CIMHubConfig.blazegraph_url, res=idPhs, nm=nmPhs, resPEC=idPEC, resLoc=idLoc, ns=CIMHubConfig.cim_ns, phs=phs, p=p, q=q)
             qtriples.append(inspep)
 
         if unit == 'Battery':
@@ -268,63 +260,58 @@ for ln in lines:
             state = 'Discharging'
           elif kW < 0.0:
             state = 'Charging'
-          insunit = ins_bat_template.format(url=blz_url, res=idUnit, nm=nmUnit, resLoc=idLoc, ns=cim_ns,
+          insunit = ins_bat_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc, ns=CIMHubConfig.cim_ns,
                                                      ratedE=ratedkwh*1000.0, storedE=storedkwh*1000.0, state=state)
         elif unit == 'Photovoltaic':
-          insunit = ins_pv_template.format(url=blz_url, res=idUnit, nm=nmUnit, resLoc=idLoc)
+          insunit = ins_pv_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc)
         else:
           insunit = '** Unsupported Unit ' + unit
         qtriples.append(insunit)
 
       if unit == "SynchronousMachine":
-        instrm = ins_trm_template.format(url=blz_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idSYN)
+        instrm = ins_trm_template.format(url=CIMHubConfig.blazegraph_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idSYN)
       else:
-        instrm = ins_trm_template.format(url=blz_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idPEC)
+        instrm = ins_trm_template.format(url=CIMHubConfig.blazegraph_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idPEC)
       qtriples.append(instrm)
 
-      insloc = ins_loc_template.format(url=blz_url, res=idLoc, nm=nmLoc, resCrs=crs_id)
+      insloc = ins_loc_template.format(url=CIMHubConfig.blazegraph_url, res=idLoc, nm=nmLoc, resCrs=crs_id)
       qtriples.append(insloc)
 
-      inspt = ins_pt_template.format(url=blz_url, res=idPt, resLoc=idLoc, seq=1, x=x, y=y)
+      inspt = ins_pt_template.format(url=CIMHubConfig.blazegraph_url, res=idPt, resLoc=idLoc, seq=1, x=x, y=y)
       qtriples.append(inspt)
 
-  else: # need to create a query engine, retrieve buses and locations for this feeder
-    if len(blz_url) > 0 and len(cim_ns) > 0 and len(fdr_id) > 0:
-      prefix = prefix_template.format(cimURL=cim_ns)
-      qbus = prefix + qbus_template.format(fdr_id)
-      qloc = prefix + qloc_template.format(fdr_id)
-      sparql = SPARQLWrapper2 (blz_url)
-      sparql.method = 'POST'
+  elif len(fdr_id) > 0: # need to retrieve buses and locations for this feeder
+    qbus = CIMHubConfig.prefix + qbus_template.format(fdr_id)
+    qloc = CIMHubConfig.prefix + qloc_template.format(fdr_id)
 
-      sparql.setQuery(qbus)
-      ret = sparql.query()
-      for b in ret.bindings:
-        key = b['bus'].value
-        cnid = b['cnid'].value
-        tid = b['tid'].value
-        eqid = b['eqid'].value
-        locid = b['locid'].value
-        seq = b['seq'].value
-        buses[key] = {'cn':cnid, 'trm':tid, 'eq':eqid, 'seq': seq, 'loc': locid}
-      print ('Retrieved', len(buses), 'connectivity from circuit model')
+    sparql.setQuery(qbus)
+    ret = sparql.query()
+    for b in ret.bindings:
+      key = b['bus'].value
+      cnid = b['cnid'].value
+      tid = b['tid'].value
+      eqid = b['eqid'].value
+      locid = b['locid'].value
+      seq = b['seq'].value
+      buses[key] = {'cn':cnid, 'trm':tid, 'eq':eqid, 'seq': seq, 'loc': locid}
+    print ('Retrieved', len(buses), 'connectivity from circuit model')
 
-      sparql.setQuery(qloc)
-      ret = sparql.query()
-      for b in ret.bindings:
-        key = b['locid'].value + ':' + b['seq'].value
-        x = b['x'].value
-        y = b['y'].value
-        ppid = b['ptid'].value
-        locs[key] = {'x': x, 'y': y, 'ppid':ppid}
-      print ('Retrieved', len(locs), 'locations from circuit model')
+    sparql.setQuery(qloc)
+    ret = sparql.query()
+    for b in ret.bindings:
+      key = b['locid'].value + ':' + b['seq'].value
+      x = b['x'].value
+      y = b['y'].value
+      ppid = b['ptid'].value
+      locs[key] = {'x': x, 'y': y, 'ppid':ppid}
+    print ('Retrieved', len(locs), 'locations from circuit model')
 
-#      qcrs = prefix + crs_query.format(fdr_id)
-      sparql.setQuery(prefix + crs_query.format(fdr_id))
-      ret = sparql.query()
-      for b in ret.bindings:
-        crs_id = b['mrid'].value
-        print ('Retrieved Coordinate System', b['name'].value, crs_id, 'on Feeder', fdr_id)
-        break
+    sparql.setQuery(CIMHubConfig.prefix + crs_query.format(fdr_id))
+    ret = sparql.query()
+    for b in ret.bindings:
+      crs_id = b['mrid'].value
+      print ('Retrieved Coordinate System', b['name'].value, crs_id, 'on Feeder', fdr_id)
+      break
 
   if len(qtriples) >= batch_size:
     PostDER()

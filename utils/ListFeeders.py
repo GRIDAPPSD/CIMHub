@@ -1,9 +1,13 @@
 from SPARQLWrapper import SPARQLWrapper2
-import constants
+import sys
 
-sparql = SPARQLWrapper2(constants.blazegraph_url)
+import CIMHubConfig
+if len(sys.argv) > 1:
+  CIMHubConfig.ConfigFromJsonFile (sys.argv[1])
 
-sparql.setQuery(constants.prefix + 
+sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
+
+sparql.setQuery(CIMHubConfig.prefix + 
     """
     SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {
      ?s r:type c:Feeder.
@@ -26,4 +30,4 @@ ret = sparql.query()
 #print ('binding keys are:',ret.variables)
 print ('Feeder names and mRIDs:')
 for b in ret.bindings:
-    print (b['feeder'].value,b['fid'].value)
+  print (b['feeder'].value,b['fid'].value)
