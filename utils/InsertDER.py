@@ -242,14 +242,12 @@ for ln in lines:
                                                   p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0)
         sparql.setQuery(inssyn)
         ret = sparql.query()
-        print(inssyn)
       else:
         idPEC = GetCIMID('PowerElectronicsConnection', name, uuids)
         inspec = prefix + ins_pec_template.format(url=blz_url, res=idPEC, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
                                                   p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0)
         sparql.setQuery(inspec)
         ret = sparql.query()
-        print(inspec)
 
         if len(phases) > 0 and phases != 'ABC':
           phase_list = ParsePhases (phases)
@@ -262,7 +260,6 @@ for ln in lines:
             inspep = prefix + ins_pep_template.format (url=blz_url, res=idPhs, nm=nmPhs, resPEC=idPEC, resLoc=idLoc, ns=cim_ns, phs=phs, p=p, q=q)
             sparql.setQuery(inspep)
             ret = sparql.query()
-            print(inspep)
 
         if unit == 'Battery':
           state = 'Waiting'
@@ -278,7 +275,6 @@ for ln in lines:
           insunit = '** Unsupported Unit ' + unit
         sparql.setQuery(insunit)
         ret = sparql.query()
-        print(insunit)
 
       if unit == "SynchronousMachine":
         instrm = prefix + ins_trm_template.format(url=blz_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idSYN)
@@ -286,17 +282,14 @@ for ln in lines:
         instrm = prefix + ins_trm_template.format(url=blz_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idPEC)
       sparql.setQuery(instrm)
       ret = sparql.query()
-      print(instrm)
 
       insloc = prefix + ins_loc_template.format(url=blz_url, res=idLoc, nm=nmLoc, resCrs=crs_id)
       sparql.setQuery(insloc)
       ret = sparql.query()
-      print(insloc)
 
       inspt = prefix + ins_pt_template.format(url=blz_url, res=idPt, resLoc=idLoc, seq=1, x=x, y=y)
       sparql.setQuery(inspt)
       ret = sparql.query()
-      print(inspt)
 
   else:
     if len(blz_url) > 0 and len(cim_ns) > 0 and len(fdr_id) > 0:

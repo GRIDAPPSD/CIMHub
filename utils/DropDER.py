@@ -72,6 +72,31 @@ drop_pec_template = """DELETE {{
 }}
 """
 
+drop_syn_template = """DELETE {{
+ ?m a ?class.
+ ?m c:IdentifiedObject.mRID ?uuid.
+ ?m c:IdentifiedObject.name ?name.
+ ?m c:Equipment.EquipmentContainer ?fdr.
+ ?m c:PowerSystemResource.Location ?loc.
+ ?m c:SynchronousMachine.p ?p.
+ ?m c:SynchronousMachine.q ?q.
+ ?m c:SynchronousMachine.ratedS ?S.
+ ?m c:SynchronousMachine.ratedU ?U.
+}} WHERE {{
+ VALUES ?uuid {{\"{res}\"}}
+ VALUES ?class {{c:SynchronousMachine}}
+ ?m a ?class.
+ ?m c:IdentifiedObject.mRID ?uuid.
+ ?m c:IdentifiedObject.name ?name.
+ ?m c:Equipment.EquipmentContainer ?fdr.
+ ?m c:PowerSystemResource.Location ?loc.
+ ?m c:SynchronousMachine.p ?p.
+ ?m c:SynchronousMachine.q ?q.
+ ?m c:SynchronousMachine.ratedS ?S.
+ ?m c:SynchronousMachine.ratedU ?U.
+}}
+"""
+
 drop_pep_template = """DELETE {{
  ?m a ?class.
  ?m c:IdentifiedObject.mRID ?uuid.
@@ -172,6 +197,12 @@ for ln in fp.readlines():
     qstr = prefix + drop_pv_template.format(res=mRID)
   elif cls == 'BatteryUnit':
     qstr = prefix + drop_bat_template.format(res=mRID)
+  elif cls == 'SynchronousMachine':
+    qstr = prefix + drop_syn_template.format(res=mRID)
+  elif cls == 'SynchronousMachinePhase':
+    print ('*** ERROR: do not know how to drop SynchronousMachinePhase')
+    print ('          (only 3-phase machines are currently supported)')
+    quit()
 
   if qstr is not None:
 #    print (qstr)
