@@ -138,26 +138,3 @@ The actively maintained directories are:
 
 Unused code or data from the Powergrid-Models repository is now in ```archive```
 
-### Work in Progress
-
-This is work in progress. The goal is to verify round-trip model translation
-and solution between the supported model formats. It also forms the basis for validing eleven feeder models including with GridAPPS-D.
-
-There are currently three supporting Python files in the _utils_ subdirectory:
-
-* _MakeLoopScript.py_ loads the CIM XML files one at a time into Blazegraph, and then extracts a feeder model
-  * Use this after the CIM XML files have been created  
-  * Blazegraph must be set up
-  * Invoke ```python MakeLoopScript.py -b``` to make  _convert\_xml.sh_, which converts all CIM XML into DSS and GLM files
-  * Invoke ```python MakeLoopScript.py -d``` to make _check.dss_, after which invoke ```opendsscmd check.dss``` to batch-solve all converted DSS files
-* _MakeGlmTestScript.py_ creates _check\_glm.sh_ that will solve all supported test circuits in GridLAB-D
-* _Compare_Cases.py_ has been described in steps 8 and 9 above
-
-The funcionality of these two scripts has been incorporated above, so they might be removed:
-
-* _MakeTable.py_ gathers OpenDSS solution summary information from CSV files into _table.txt_
-* _MakeConversionScript.py_ creates _ConvertCDPSM.dss_ that will batch-load all supported test circuits into OpenDSS, and export CIM XML
-	* Assumes the OpenDSS **source tree** has been checked out to _c:\opendss_
-	* Assumes the EPRI DPV models have been downloaded to directories like _c:\epri_dpv|J1_ or _~/src/epri_dpv/J1_
-	* After ```python MakeConversionScript.py``` invoke ```opendsscmd ConvertCDPSM.dss```
-
