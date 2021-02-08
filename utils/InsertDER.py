@@ -59,34 +59,31 @@ crs_query = """SELECT DISTINCT ?name ?mrid WHERE {{
 ORDER by ?name
 """
 
-ins_pt_template = """INSERT DATA {{
+ins_pt_template = """
  <{url}#{res}> a c:PositionPoint.
  <{url}#{res}> c:PositionPoint.Location <{url}#{resLoc}>.
  <{url}#{res}> c:PositionPoint.sequenceNumber \"{seq}\".
  <{url}#{res}> c:PositionPoint.xPosition \"{x}\".
  <{url}#{res}> c:PositionPoint.yPosition \"{y}\".
-}}
 """
 
-ins_loc_template = """INSERT DATA {{
+ins_loc_template = """
  <{url}#{res}> a c:Location.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
  <{url}#{res}> c:Location.CoordinateSystem <{url}#{resCrs}>.
-}}
 """
 
-ins_trm_template = """INSERT DATA {{
+ins_trm_template = """
  <{url}#{res}> a c:Terminal.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
  <{url}#{res}> c:Terminal.ConductingEquipment <{url}#{resEQ}>.
  <{url}#{res}> c:ACDCTerminal.sequenceNumber \"1\".
  <{url}#{res}> c:Terminal.ConnectivityNode <{url}#{resCN}>.
-}}
 """
 
-ins_pec_template = """INSERT DATA {{
+ins_pec_template = """
  <{url}#{res}> a c:PowerElectronicsConnection.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
@@ -98,10 +95,9 @@ ins_pec_template = """INSERT DATA {{
  <{url}#{res}> c:PowerElectronicsConnection.q \"{q}\".
  <{url}#{res}> c:PowerElectronicsConnection.ratedS \"{ratedS}\".
  <{url}#{res}> c:PowerElectronicsConnection.ratedU \"{ratedU}\".
-}}
 """
 
-ins_syn_template = """INSERT DATA {{
+ins_syn_template = """
  <{url}#{res}> a c:SynchronousMachine.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
@@ -111,10 +107,9 @@ ins_syn_template = """INSERT DATA {{
  <{url}#{res}> c:SynchronousMachine.q \"{q}\".
  <{url}#{res}> c:SynchronousMachine.ratedS \"{ratedS}\".
  <{url}#{res}> c:SynchronousMachine.ratedU \"{ratedU}\".
-}}
 """
 
-ins_pep_template = """INSERT DATA {{
+ins_pep_template = """
  <{url}#{res}> a c:PowerElectronicsConnectionPhase.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
@@ -123,18 +118,16 @@ ins_pep_template = """INSERT DATA {{
  <{url}#{res}> c:PowerElectronicsConnectionPhase.p \"{p}\".
  <{url}#{res}> c:PowerElectronicsConnectionPhase.q \"{q}\".
  <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
-}}
 """
 
-ins_pv_template = """INSERT DATA {{
+ins_pv_template = """
  <{url}#{res}> a c:PhotovoltaicUnit.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
  <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
-}}
 """
 
-ins_bat_template = """INSERT DATA {{
+ins_bat_template = """
  <{url}#{res}> a c:BatteryUnit.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
@@ -142,7 +135,6 @@ ins_bat_template = """INSERT DATA {{
  <{url}#{res}> c:BatteryUnit.storedE \"{storedE}\".
  <{url}#{res}> c:BatteryUnit.batteryState <{ns}BatteryState.{state}>.
  <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
-}}
 """
 
 def GetCIMID (cls, nm, uuids):
@@ -179,6 +171,18 @@ buses = {}
 locs = {}
 fuidname = None
 uuids = {}
+batch_size = 150
+qtriples = []
+
+def PostDER ():
+  print ('==> inserting', len(qtriples), 'instances for DER')
+  qtriples.append ('}')
+  qstr = prefix + ' INSERT DATA { ' + ''.join(qtriples)
+#  print (qstr)
+  sparql.setQuery(qstr)
+  ret = sparql.query()
+#  print (ret)
+  return
 
 fp = open (sys.argv[1], 'r')
 lines = fp.readlines()
@@ -205,7 +209,7 @@ for ln in lines:
           uuids[key] = val
       fuid.close()
 
-  if sparql is not None:
+  if sparql is not None:  # have created the query engine and retrieved essential circuit information
     if not toks[0].startswith('//') and len(toks[0]) > 0:
       name = toks[0]
       nmCN = toks[1]
@@ -238,16 +242,14 @@ for ln in lines:
 
       if unit == "SynchronousMachine":
         idSYN = GetCIMID('SynchronousMachine', name, uuids)
-        inssyn = prefix + ins_syn_template.format(url=blz_url, res=idSYN, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
+        inssyn = ins_syn_template.format(url=blz_url, res=idSYN, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
                                                   p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0)
-        sparql.setQuery(inssyn)
-        ret = sparql.query()
+        qtriples.append(inssyn)
       else:
         idPEC = GetCIMID('PowerElectronicsConnection', name, uuids)
-        inspec = prefix + ins_pec_template.format(url=blz_url, res=idPEC, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
+        inspec = ins_pec_template.format(url=blz_url, res=idPEC, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
                                                   p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0)
-        sparql.setQuery(inspec)
-        ret = sparql.query()
+        qtriples.append(inspec)
 
         if len(phases) > 0 and phases != 'ABC':
           phase_list = ParsePhases (phases)
@@ -257,9 +259,8 @@ for ln in lines:
           for phs in phase_list:
             nmPhs = '{:s}_{:s}'.format (name, phs)
             idPhs = GetCIMID('PowerElectronicsConnectionPhase', nmPhs, uuids)
-            inspep = prefix + ins_pep_template.format (url=blz_url, res=idPhs, nm=nmPhs, resPEC=idPEC, resLoc=idLoc, ns=cim_ns, phs=phs, p=p, q=q)
-            sparql.setQuery(inspep)
-            ret = sparql.query()
+            inspep = ins_pep_template.format (url=blz_url, res=idPhs, nm=nmPhs, resPEC=idPEC, resLoc=idLoc, ns=cim_ns, phs=phs, p=p, q=q)
+            qtriples.append(inspep)
 
         if unit == 'Battery':
           state = 'Waiting'
@@ -267,31 +268,27 @@ for ln in lines:
             state = 'Discharging'
           elif kW < 0.0:
             state = 'Charging'
-          insunit = prefix + ins_bat_template.format(url=blz_url, res=idUnit, nm=nmUnit, resLoc=idLoc, ns=cim_ns,
+          insunit = ins_bat_template.format(url=blz_url, res=idUnit, nm=nmUnit, resLoc=idLoc, ns=cim_ns,
                                                      ratedE=ratedkwh*1000.0, storedE=storedkwh*1000.0, state=state)
         elif unit == 'Photovoltaic':
-          insunit = prefix + ins_pv_template.format(url=blz_url, res=idUnit, nm=nmUnit, resLoc=idLoc)
+          insunit = ins_pv_template.format(url=blz_url, res=idUnit, nm=nmUnit, resLoc=idLoc)
         else:
           insunit = '** Unsupported Unit ' + unit
-        sparql.setQuery(insunit)
-        ret = sparql.query()
+        qtriples.append(insunit)
 
       if unit == "SynchronousMachine":
-        instrm = prefix + ins_trm_template.format(url=blz_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idSYN)
+        instrm = ins_trm_template.format(url=blz_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idSYN)
       else:
-        instrm = prefix + ins_trm_template.format(url=blz_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idPEC)
-      sparql.setQuery(instrm)
-      ret = sparql.query()
+        instrm = ins_trm_template.format(url=blz_url, res=idTrm, nm=nmTrm, resCN=idCN, resEQ=idPEC)
+      qtriples.append(instrm)
 
-      insloc = prefix + ins_loc_template.format(url=blz_url, res=idLoc, nm=nmLoc, resCrs=crs_id)
-      sparql.setQuery(insloc)
-      ret = sparql.query()
+      insloc = ins_loc_template.format(url=blz_url, res=idLoc, nm=nmLoc, resCrs=crs_id)
+      qtriples.append(insloc)
 
-      inspt = prefix + ins_pt_template.format(url=blz_url, res=idPt, resLoc=idLoc, seq=1, x=x, y=y)
-      sparql.setQuery(inspt)
-      ret = sparql.query()
+      inspt = ins_pt_template.format(url=blz_url, res=idPt, resLoc=idLoc, seq=1, x=x, y=y)
+      qtriples.append(inspt)
 
-  else:
+  else: # need to create a query engine, retrieve buses and locations for this feeder
     if len(blz_url) > 0 and len(cim_ns) > 0 and len(fdr_id) > 0:
       prefix = prefix_template.format(cimURL=cim_ns)
       qbus = prefix + qbus_template.format(fdr_id)
@@ -309,7 +306,7 @@ for ln in lines:
         locid = b['locid'].value
         seq = b['seq'].value
         buses[key] = {'cn':cnid, 'trm':tid, 'eq':eqid, 'seq': seq, 'loc': locid}
-      print (len(buses), 'buses')
+      print ('Retrieved', len(buses), 'connectivity from circuit model')
 
       sparql.setQuery(qloc)
       ret = sparql.query()
@@ -319,17 +316,24 @@ for ln in lines:
         y = b['y'].value
         ppid = b['ptid'].value
         locs[key] = {'x': x, 'y': y, 'ppid':ppid}
-      print (len(locs), 'locations')
+      print ('Retrieved', len(locs), 'locations from circuit model')
 
 #      qcrs = prefix + crs_query.format(fdr_id)
       sparql.setQuery(prefix + crs_query.format(fdr_id))
       ret = sparql.query()
       for b in ret.bindings:
         crs_id = b['mrid'].value
-        print ('Coordinate System', b['name'].value, crs_id, 'Feeder', fdr_id)
+        print ('Retrieved Coordinate System', b['name'].value, crs_id, 'on Feeder', fdr_id)
         break
 
+  if len(qtriples) >= batch_size:
+    PostDER()
+    qtriples = []
+
 fp.close()
+
+if len(qtriples) > 0:
+  PostDER()
 
 if fuidname is not None:
   print ('saving identifiable instance mRIDs to', fuidname)
