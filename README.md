@@ -123,6 +123,21 @@ because over 90% of the execution time is taken up with SPARQL queries that are 
 
 If using the platform, latest versions are in [Powergrid-Models](https://github.com/GRIDAPPSD/Powergrid-Models).
 
+## Directories
+
+The actively maintained directories are:
+
+* ```converters``` CYMDist and Synergi conversion to OpenDSS
+* ```doc``` description of the CIM support in OpenDSS
+* ```example``` test CIMHub on the IEEE 13-bus model
+* ```helics``` illustration of a CIM-defined link between transmission and distribution simulators under [HELICS](https://helics.org/)
+* ```ieee9500``` CIM, OpenDSS, GridLAB-D and CSV versions of the IEEE 9500-node test feeder
+* ```model_output_tests``` scratch directory for model output tst results
+* ```src``` Java source for CIMHub
+* ```utils``` Python source, bash scripts and supporting data files
+
+Unused code or data from the Powergrid-Models repository is now in ```archive```
+
 ### Work in Progress
 
 This is work in progress. The goal is to verify round-trip model translation
