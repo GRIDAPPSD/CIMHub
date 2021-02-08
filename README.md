@@ -50,10 +50,6 @@ from step 2.  You may also wish to modify _docker-compose.yml_ so that it
 mounts a local directory inside the converter, for transferring your own 
 files between the host and Docker.
 
-### OpenDSS Converters
-
-If using the platform, latest versions are in [Powergrid-Models](https://github.com/GRIDAPPSD/Powergrid-Models/platform).
-
 ### Converting Other Circuits
 
 To convert your own circuits from OpenDSS to CIM and GridLAB-D, follow the IEEE 13-Bus
@@ -137,8 +133,8 @@ authorized developer can push the new image to DockerHub, e.g., _docker push gri
 If working on the platform:
 
 * ```mvn clean install``` from this repository to ensure you have the latest, branch-compatible CIMHub
-* Make sure you have the latest, branch-compatible opendsscmd from [GOSS-GridAPPS-D](https://github.com/GRIDAPPSD/GOSS-GridAPPS-D/opendss)
-* Perform the GridAPPS-D tests from the latest, branch-compatible [Powergrid-Models/platform](https://github.com/GRIDAPPSD/Powergrid-Models/platform).
+* Make sure you have the latest, branch-compatible opendsscmd from [GOSS-GridAPPS-D](https://github.com/GRIDAPPSD/GOSS-GridAPPS-D/tree/opendss/v1.2.16/opendss)
+* Perform the GridAPPS-D tests from the latest, branch-compatible [Powergrid-Models/platform](https://github.com/GRIDAPPSD/Powergrid-Models/tree/issue/1175/platform).
 
 ## Directories
 
