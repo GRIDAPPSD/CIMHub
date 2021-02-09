@@ -1,12 +1,16 @@
 from SPARQLWrapper import SPARQLWrapper2
-import constants
 import os
+import sys
+import CIMHubConfig
 
-sparql = SPARQLWrapper2(constants.blazegraph_url)
+if len(sys.argv) > 1:
+  CIMHubConfig.ConfigFromJsonFile (sys.argv[1])
+
+sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
 
 def clear_database():
     sparql.method = 'POST'
-    sparql.setQuery(constants.prefix + 
+    sparql.setQuery(CIMHubConfig.prefix + 
     """
     DROP ALL
     """)
@@ -14,7 +18,7 @@ def clear_database():
 
 def count_classes():
     sparql.method = 'GET'
-    sparql.setQuery(constants.prefix + 
+    sparql.setQuery(CIMHubConfig.prefix + 
     """
     SELECT ?class (COUNT(?class) as ?cnt)
     WHERE {
@@ -41,7 +45,7 @@ all_classes = []
 
 for fname in xml_files:
     clear_database()
-    cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + xml_path + fname + '.xml' + ' -X POST ' + constants.blazegraph_url
+    cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + xml_path + fname + '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
     os.system (cmd)
     ret = count_classes()
     for b in ret.bindings:

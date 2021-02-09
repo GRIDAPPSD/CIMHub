@@ -5,6 +5,7 @@ rm -rf distrib
 mkdir distrib
 cp ../OpenDSS/Source/CMD/test/opendsscmd distrib
 cp ../linenoise-ng/build/liblinenoise.so distrib
+cp ../KLUSolve/Lib/libklusolve.so distrib
 
 ./stop.sh
 docker rmi gridappsd/cimhub:0.0.1

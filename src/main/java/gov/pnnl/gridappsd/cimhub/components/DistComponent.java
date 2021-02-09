@@ -17,8 +17,8 @@ public abstract class DistComponent {
 
 	static final double gFREQ = 60.0;
 	static final double gOMEGA = 377.0;
-	static final double gMperMILE = 1609.344;
-	static final double gFTperM = 3.2809;
+	static final double gMperMILE = 1609.3; // 1609.344;
+	static final double gFTperM = 1.0 / 0.3048; // 3.2809;
 
 	static final DecimalFormat df1 = new DecimalFormat("#0.0");
 	static final DecimalFormat df2 = new DecimalFormat("#0.00");
@@ -96,7 +96,7 @@ public abstract class DistComponent {
 		if (arg == null) {
 			return null;
 		}
-		String s = arg.replace(' ', '_');
+ 		String s = arg.replace (' ', '_');
  		s = s.replace ('.', '_');
  		s = s.replace ('=', '_');
  		s = s.replace ('+', '_');
