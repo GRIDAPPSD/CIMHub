@@ -524,6 +524,14 @@ public class CIMImporter extends Object {
 		}
 	}
 
+  public void PrintGldNodeMap(HashMap<String,GldNode> map, String label) {
+    System.out.println(label);
+    SortedSet<String> keys = new TreeSet<String>(map.keySet());
+    for (String key : keys) {
+      System.out.println (map.get(key).DisplayString());
+    }
+  }
+
 	public void PrintAllCountMaps () {
 		PrintOneCountMap (mapCountBank, "Count of Bank Tanks");
 		PrintOneCountMap (mapCountTank, "Count of Tank Ends");
@@ -1371,11 +1379,25 @@ public class CIMImporter extends Object {
 		}
 
 		// try to link all CIM measurements to the GridLAB-D objects
+//    PrintGldNodeMap (mapNodes, "GldNode Map for Measurements");
+    int measurements_not_linked = 0;
 		for (HashMap.Entry<String,DistMeasurement> pair : mapMeasurements.entrySet()) {
 			DistMeasurement obj = pair.getValue();
+//      System.out.println (obj.DisplayString());
 			GldNode nd = mapNodes.get (obj.bus);
-			obj.FindSimObject (nd.loadname, nd.phases, nd.bStorageInverters, nd.bSolarInverters, nd.bSyncMachines);
+//      System.out.println (nd.DisplayString());
+      if (nd != null) {
+        obj.FindSimObject (nd.loadname, nd.phases, nd.bStorageInverters, nd.bSolarInverters, nd.bSyncMachines);
+        if (!obj.LinkedToSimulatorObject()) {
+          measurements_not_linked += 1;
+        }
+      } else {
+        measurements_not_linked += 1;
+      }
 		}
+    if (measurements_not_linked > 0) {
+      System.out.println ("*** Could not FindSimObject for " + Integer.toString (measurements_not_linked) + " Measurements");
+    }
 
 		out.close();
 	}
