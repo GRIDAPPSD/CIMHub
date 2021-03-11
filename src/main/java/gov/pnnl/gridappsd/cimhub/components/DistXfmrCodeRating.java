@@ -203,7 +203,7 @@ public class DistXfmrCodeRating extends DistComponent {
 			}
 		}
 		// open circuit test
-		buf.append (" %imag=" + df3.format(oct.iexc) + " %noloadloss=" + df3.format(0.001 * oct.nll / ratedS[0]) + "\n");
+		buf.append (" %imag=" + df3.format(oct.iexc) + " %noloadloss=" + df3.format(100.0 * 1000.0 * oct.nll / ratedS[0]) + "\n");
 
 		// winding ratings
 		for (i = 0; i < size; i++) {

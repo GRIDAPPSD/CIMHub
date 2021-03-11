@@ -222,9 +222,9 @@ public class DistPowerXfmrWinding extends DistComponent {
 		}
 
 		// core admittance
-		i = core.wdg;
+		i = core.wdg - 1;
 		zbase = ratedU[i] * ratedU[i] / ratedS[i];
-		buf.append(" %imag=" + df3.format(core.b * zbase * 100.0) + " %noloadloss=" + df3.format(core.b * zbase * 100.0) + "\n");
+		buf.append(" %imag=" + df3.format(core.b * zbase * 100.0) + " %noloadloss=" + df3.format(core.g * zbase * 100.0) + "\n");
 
 		// winding ratings
 		AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
