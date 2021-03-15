@@ -1,0 +1,8 @@
+Bundle-Version: 0.0.1
+Private-Package: \
+	gov.pnnl.gridappsd.cimhub.components,\
+	gov.pnnl.gridappsd.cimhub.queryhandler.impl
+Export-Package: \
+	gov.pnnl.gridappsd.cimhub.queryhandler,\
+	gov.pnnl.gridappsd.cimhub,\
+	gov.pnnl.ggridappsd.cimhub.dto
