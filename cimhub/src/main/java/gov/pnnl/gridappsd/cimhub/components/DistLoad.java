@@ -33,6 +33,7 @@ public class DistLoad extends DistComponent {
 
 		buf.append ("{\"name\":\"" + name +"\"");
 		buf.append (",\"mRID\":\"" + id +"\"");
+		buf.append (",\"phases\":\"" + phases +"\"");
 		buf.append ("}");
 		return buf.toString();
 	}
