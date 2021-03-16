@@ -153,4 +153,3 @@ To run the Python code, you may need to adjust the Blazegraph URL and CIM Namesp
 
 Unused code or data from the Powergrid-Models repository is now in ```archive```
 
-
