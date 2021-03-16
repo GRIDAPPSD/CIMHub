@@ -2193,6 +2193,9 @@ public class CIMImporter extends Object {
 			boolean randomZIP, boolean useHouses, double Zcoeff,
 			double Icoeff, double Pcoeff, boolean bHaveEventGen) {
 		this.queryHandler = queryHandler;
+		if(this.querySetter==null) {
+			this.querySetter = querySetter;
+		}
 		if(!allMapsLoaded){
 			LoadAllMaps();
 		}
@@ -2208,6 +2211,9 @@ public class CIMImporter extends Object {
 	 */
 	public void generateJSONSymbolFile(QueryHandler queryHandler, PrintWriter out){
 		this.queryHandler = queryHandler;
+		if(this.querySetter==null) {
+			this.querySetter=new CIMQuerySetter();
+		}
 		if(!allMapsLoaded){
 			LoadAllMaps();
 		}
@@ -2226,6 +2232,9 @@ public class CIMImporter extends Object {
 	 */
 	public void generateDictionaryFile(QueryHandler queryHandler, PrintWriter out, int maxMeasurements, boolean useHouses,ModelState ms){
 		this.queryHandler = queryHandler;
+		if(this.querySetter==null) {
+			this.querySetter=new CIMQuerySetter();
+		}
 		if(!allMapsLoaded){
 			LoadAllMaps(useHouses);
 		}
@@ -2251,6 +2260,9 @@ public class CIMImporter extends Object {
 			double load_scale, boolean bWantSched, String fSched, boolean bWantZIP,
 			double Zcoeff, double Icoeff, double Pcoeff){
 		this.queryHandler = queryHandler;
+		if(this.querySetter==null) {
+			this.querySetter=new CIMQuerySetter();
+		}
 		if(!allMapsLoaded){
 			LoadAllMaps();
 		}
@@ -2266,6 +2278,9 @@ public class CIMImporter extends Object {
 	 */
 	public void generateDSSCoordinates(QueryHandler queryHandler, PrintWriter out){
 		this.queryHandler = queryHandler;
+		if(this.querySetter==null) {
+			this.querySetter=new CIMQuerySetter();
+		}
 		if(!allMapsLoaded){
 			LoadAllMaps();
 		}
@@ -2281,7 +2296,9 @@ public class CIMImporter extends Object {
 	 */
 	public void generateFeederIndexFile(QueryHandler queryHandler, PrintWriter out){
 		this.queryHandler = queryHandler;
-
+		if(this.querySetter==null) {
+			this.querySetter=new CIMQuerySetter();
+		}
 		WriteIndexFile(out);
 	}
 
