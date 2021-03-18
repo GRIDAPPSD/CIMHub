@@ -1,0 +1,26 @@
+-buildpath: \
+	org.apache.felix.dependencymanager,\
+	org.apache.felix.dependencymanager.annotation,\
+	org.apache.felix.dependencymanager.runtime,\
+	biz.aQute.bnd.annotation,\
+	org.apache.jena.osgi;version=latest,\
+	org.apache.commons.math3,\
+	org.apache.servicemix.bundles.xerces,\
+	org.apache.servicemix.bundles.xmlresolver,\
+	com.fasterxml.jackson.core.jackson-core,\
+	com.fasterxml.jackson.core.jackson-databind,\
+	com.fasterxml.jackson.core.jackson-annotations,\
+	com.github.andrewoma.dexx.collection,\
+	com.github.jsonld-java,\
+	slf4j.api,\
+	slf4j.simple,\
+	org.apache.felix.http.bundle,\
+	org.apache.felix.http.servlet-api
+		
+-plugin org.apache.felix.dm.annotation.plugin.bnd.AnnotationPlugin;log=debug
+	
+-sub: *.bnd
+-runee: JavaSE-1.8
+-runfw: org.apache.felix.framework;version='5.4.0'
+-runbundles: org.apache.felix.log;version='[1.0.1,1.0.2)'
+-runrequires: osgi.identity;filter:='(osgi.identity=httpcore)'
