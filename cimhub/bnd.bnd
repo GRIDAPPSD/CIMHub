@@ -17,10 +17,18 @@
 	org.apache.felix.http.bundle,\
 	org.apache.felix.http.servlet-api
 		
--plugin org.apache.felix.dm.annotation.plugin.bnd.AnnotationPlugin;log=debug
+Bundle-Version: 1.0
+Private-Package: \
+	gov.pnnl.gridappsd.cimhub.queryhandler.impl,\
+	gov.pnnl.gridappsd.cimhub.components
+Export-Package: \
+	gov.pnnl.gridappsd.cimhub.queryhandler,\
+	gov.pnnl.gridappsd.cimhub,\
+	gov.pnnl.gridappsd.cimhub.dto
 	
+Service-Component: *
 -sub: *.bnd
--runee: JavaSE-1.8
--runfw: org.apache.felix.framework;version='5.4.0'
--runbundles: org.apache.felix.log;version='[1.0.1,1.0.2)'
--runrequires: osgi.identity;filter:='(osgi.identity=httpcore)'
+src: src/main/java,\
+     src/main/resources
+bin: target/classes
+target-dir: target
