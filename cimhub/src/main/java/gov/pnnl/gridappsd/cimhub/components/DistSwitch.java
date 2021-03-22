@@ -34,7 +34,7 @@ public class DistSwitch extends DistComponent {
 		buf.append (",\"mRID\":\"" + id +"\"");
 		buf.append (",\"CN1\":\"" + bus1 + "\"");
 		buf.append (",\"CN2\":\"" + bus2 + "\"");
-		buf.append (",\"phases\":\"" + phases + "\"");
+		buf.append (",\"phases\":\"" + phases.replace("\n", "") + "\"");
 		buf.append (",\"ratedCurrent\":" + df1.format(rated));
 		buf.append (",\"breakingCapacity\":" + df1.format(breaking));
 		if (open) {
