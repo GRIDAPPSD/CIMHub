@@ -1,4 +1,6 @@
+cd cimhub
 mvn clean install
+cd ..
 
 # opendsscmd build product from fpc
 rm -rf distrib

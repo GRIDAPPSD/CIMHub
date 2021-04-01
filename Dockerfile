@@ -17,7 +17,7 @@ RUN ldconfig
 
 WORKDIR /app
 COPY example example
-COPY target target
+COPY cimhub/target target
 
 VOLUME /data
 
