@@ -15,3 +15,5 @@ services:
     tty: true
     depends_on:
       - blazegraph
+    volumes:
+      - ../Powergrid-Models/platform:/platform

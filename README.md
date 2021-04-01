@@ -32,7 +32,7 @@ without writing code. One version uses phase impedance matrices for line segment
 labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
 for the transformers.
 
-1. Install the converter with _docker pull gridappsd/cimhub:0.0.1_
+1. Install the converter with _docker pull gridappsd/cimhub:0.0.2_
 2. From a Terminal, start the converter and Blazegraph with _./start.sh_
 3. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
    * _cd example_
@@ -71,8 +71,8 @@ Usage and options for ```java gov.pnnl.gridappsd.cimhub.CIMImporter [options] ou
 * ```-s={mRID}          // select one feeder by CIM mRID; selects all feeders if not specified```
 * ```-o={glm|dss|both|idx|cim|csv}   // output format; defaults to glm; currently cim supports only CIM14```
 * ```-l={0..1}          // load scaling factor; defaults to 1```
-* ```-f={50|60}         // system frequency; defaults to 60```                                                 
-* ```-n={schedule_name} // root filename for scheduled ZIP loads (defaults to none), valid only for -o=glm```      
+* ```-f={50|60}         // system frequency; defaults to 60```
+* ```-n={schedule_name} // root filename for scheduled ZIP loads (defaults to none), valid only for -o=glm```
 * ```-z={0..1}          // constant Z portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)```
 * ```-i={0..1}          // constant I portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)```
 * ```-p={0..1}          // constant P portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)```
@@ -126,7 +126,7 @@ In order to modify the CIMHub Java code, you will need to install [Apache Maven]
 
 In order to build the cimhub docker container, use the _./build.sh_ script. However, that script assumes
 that opendsscmd and liblinenoise have been built in sibling directories to this one. When finished, an
-authorized developer can push the new image to DockerHub, e.g., _docker push gridappsd/cimhub:0.0.1_
+authorized developer can push the new image to DockerHub, e.g., _docker push gridappsd/cimhub:0.0.2_
 
 ### GridAPPS-D Platform Circuit Validation
 
