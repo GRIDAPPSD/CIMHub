@@ -363,16 +363,16 @@ public class DistRegulator extends DistComponent {
 		}
 		if (vset[0] > 0.0 && vbw[0] > 0.0 && ltc[0]) {  // for GridAPPS-D, we don't actually use the control modes from CIM
 			if (ldc[0]) {
-				buf.append("	Control MANUAL; // LINE_DROP_COMP;\n");
+				buf.append("	Control OUTPUT_VOLTAGE; // LINE_DROP_COMP;\n");
 			} else {
-				buf.append("	Control MANUAL; // OUTPUT_VOLTAGE;\n");
+				buf.append("	Control OUTPUT_VOLTAGE; // OUTPUT_VOLTAGE;\n");
 			}
 		} else {
-			buf.append("	Control MANUAL;\n");
+			buf.append("	Control OUTPUT_VOLTAGE;\n");
 		}
 		buf.append ("  // use these for OUTPUT_VOLTAGE mode\n");
-		buf.append ("  // band_center " + df6.format(vset[0] * ptRatio[0]) + ";\n");
-		buf.append ("  // band_width " + df6.format(vbw[0] * ptRatio[0]) + ";\n");
+		buf.append ("  band_center " + df6.format(vset[0] * ptRatio[0]) + ";\n");
+		buf.append ("  band_width " + df6.format(vbw[0] * ptRatio[0]) + ";\n");
 		buf.append ("  // use these for LINE_DROP_COMP mode\n");
 		buf.append ("  // band_center " + df6.format(vset[0]) + ";\n");
 		buf.append ("  // band_width " + df6.format(vbw[0]) + ";\n");
@@ -394,7 +394,7 @@ public class DistRegulator extends DistComponent {
 				buf.append ("  compensator_r_setting_" + phs[i].substring(0,1) + " " + df6.format(fwdR[i]) + ";\n");
 				buf.append ("  compensator_x_setting_" + phs[i].substring(0,1) + " " + df6.format(fwdX[i]) + ";\n");
 				buf.append ("  // comment out the manual tap setting if using automatic control\n");
-				buf.append ("  tap_pos_" + phs[i].substring(0,1) + " " + Integer.toString(step[i]) + ";\n");
+				buf.append ("  // tap_pos_" + phs[i].substring(0,1) + " " + Integer.toString(step[i]) + ";\n");
 			}
 		} else {
 			buf.append ("  compensator_r_setting_A " + df6.format(fwdR[0]) + ";\n");
@@ -404,9 +404,9 @@ public class DistRegulator extends DistComponent {
 			buf.append ("  compensator_x_setting_B " + df6.format(fwdX[0]) + ";\n");
 			buf.append ("  compensator_x_setting_C " + df6.format(fwdX[0]) + ";\n");
 			buf.append ("  // comment out the manual tap settings if using automatic control\n");
-			buf.append ("  tap_pos_A " + Integer.toString(step[0]) + ";\n");
-			buf.append ("  tap_pos_B " + Integer.toString(step[0]) + ";\n");
-			buf.append ("  tap_pos_C " + Integer.toString(step[0]) + ";\n");
+			buf.append ("  // tap_pos_A " + Integer.toString(step[0]) + ";\n");
+			buf.append ("  // tap_pos_B " + Integer.toString(step[0]) + ";\n");
+			buf.append ("  // tap_pos_C " + Integer.toString(step[0]) + ";\n");
 		}
 		buf.append ("}\n");
 
