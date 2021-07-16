@@ -10,8 +10,11 @@
 curl -D- -X POST $DB_URL --data-urlencode "update=drop all"
 
 # copy the model files over here
-declare -r DSSDIR=../../Powergrid-Models/blazegraph/test/dss/WSU
+# declare -r DSSDIR=../../Powergrid-Models/blazegraph/test/dss/WSU
+declare -r DSSDIR=./original_dss
+
 cp $DSSDIR/Master-bal-initial-config.dss .
+# cp $DSSDIR/Master-unbal-initial-config.dss .
 cp $DSSDIR/WireData.dss .
 cp $DSSDIR/CableData.dss .
 cp $DSSDIR/LineGeometry.dss .
@@ -34,18 +37,19 @@ cp $DSSDIR/LatLongCoords.dss .
 opendsscmd relative_model.dss
 
 # upload the CDPSM combined file to Blazegraph
-curl -D- -H "Content-Type: application/xml" --upload-file ieee9500.xml -X POST $DB_URL
+curl -D- -H "Content-Type: application/xml" --upload-file 'final9500nodebalanced.xml' -X POST $DB_URL
+# curl -D- -H "Content-Type: application/xml" --upload-file 'final9500unbalanced.xml' -X POST $DB_URL
 
 # list feeders now in the Blazegraph repository; will need the feeder mRIDs from this output
-java -cp "../target/libs/*:../target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter -u=$DB_URL -o=idx test
+java -cp "../target/libs/*:../target/cimhub-0.0.2-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter -u=$DB_URL -o=idx test
 
 # create OpenDSS and GridLAB-D models
-java -cp "../target/libs/*:../target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
-  -s=_194AC68D-C4B3-4D93-A2B5-B1C195C49954 -u=$DB_URL -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee9500
+java -cp "../target/libs/*:../target/cimhub-0.0.2-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
+  -s=_EE71F6C9-56F0-4167-A14E-7F4C71F10EAA -u=$DB_URL -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee9500
 
 # create CSV files
-java -cp "../target/libs/*:../target/cimhub-0.0.1-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
-  -s=_194AC68D-C4B3-4D93-A2B5-B1C195C49954 -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee9500
+java -cp "../target/libs/*:../target/cimhub-0.0.2-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter \
+  -s=_EE71F6C9-56F0-4167-A14E-7F4C71F10EAA -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee9500
 
 
 
