@@ -38,7 +38,7 @@ opendsscmd relative_model.dss
 
 # upload the CDPSM combined file to Blazegraph
 curl -D- -H "Content-Type: application/xml" --upload-file 'final9500nodebalanced.xml' -X POST $DB_URL
-# curl -D- -H "Content-Type: application/xml" --upload-file 'final9500unbalanced.xml' -X POST $DB_URL
+# curl -D- -H "Content-Type: application/xml" --upload-file 'final9500nodeunbalanced.xml' -X POST $DB_URL
 
 # list feeders now in the Blazegraph repository; will need the feeder mRIDs from this output
 java -cp "../target/libs/*:../target/cimhub-0.0.2-SNAPSHOT.jar" gov.pnnl.gridappsd.cimhub.CIMImporter -u=$DB_URL -o=idx test
