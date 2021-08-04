@@ -1538,6 +1538,7 @@ public class CIMImporter extends Object {
 
 	protected void WriteDSSFile (PrintWriter out, PrintWriter outID, String fXY, String fID, double load_scale,
 			boolean bWantSched, String fSched, boolean bWantZIP, double Zcoeff, double Icoeff, double Pcoeff)  {
+
 		out.println ("clear");
 
 		for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
@@ -1712,6 +1713,8 @@ public class CIMImporter extends Object {
 			out.println("new loadshape.player npts=1440 sinterval=60 mult=(file=" + fSched + ".player,col=2,header=yes) action=normalize");
 			out.println ("batchedit load..* duty=player daily=player");
 		}
+
+    out.println ("set loadmult = " + Double.toString(load_scale));
 
 		// removed the local Docker paths, relying on cwd instead
 
