@@ -149,7 +149,7 @@ The actively maintained directories are:
 * ```src``` Java source for CIMHub
 * ```utils``` Python source, bash scripts and supporting data files
 
-To run the Python code, you may need to adjust the Blazegraph URL and CIM Namespace in ```cimhubconfig.json```
+To run the Python code, you may need to adjust the Blazegraph URL and CIM Namespace in ```cimhubconfig.json```. Set ```use_proxy: true``` in this file if your computer is running a proxy server, e.g., if you are connected to the PNNL VPN.
 
 Unused code or data from the Powergrid-Models repository is now in ```archive```
 
