@@ -3,6 +3,7 @@
 """Set the CIM namespace and Blazegraph URL
 """
 import json
+import urllib.request
 
 #******************************************************************************
 # Default URL for blazegraph
@@ -64,4 +65,9 @@ PREFIX c: {cimURL}>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 """.format(cimURL=cim_ns)
 #      print ('Configured CIM Namespace to', cim_ns)
+    if 'use_proxy' in cfg:
+      if cfg['use_proxy'] == True:
+        proxy_support = urllib.request.ProxyHandler({})
+        opener = urllib.request.build_opener(proxy_support)
+        urllib.request.install_opener(opener)
 
