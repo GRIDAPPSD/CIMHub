@@ -3,3 +3,4 @@
 /generated/
 enroute.zip
 .metadata
+__pycache__
