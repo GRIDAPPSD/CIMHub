@@ -30,3 +30,5 @@ from .InsertHouses import insert_houses
 from .DropHouses import drop_houses
 
 from .CountClasses import count_platform_circuit_classes
+
+from .CombineModelXMLFiles import combine_xml_files 

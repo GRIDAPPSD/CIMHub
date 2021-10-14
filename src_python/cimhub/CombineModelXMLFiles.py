@@ -203,6 +203,14 @@ class ModelCombiner(object):
             adict[k] = v
         return adict
 
+def combine_xml_files (input_root_name, output_filename):
+    md = ModelCombiner()
+    for ext in ['CAT', 'EP', 'FUN', 'GEO', 'SSH', 'TOPO']:
+      filename = '{:s}_{:s}.XML'.format (input_root_name, ext)
+      md.base_file_list.append(filename)
+    md.output_filename = output_filename
+    md.combine_files()
+
 if __name__ == '__main__':
     md = ModelCombiner()
     md.setup()
