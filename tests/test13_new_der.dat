@@ -1,5 +1,5 @@
 uuid_file,test13_new_der_uuid.txt
-feederID,_F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29
+feederID,_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62
 //name,bus,phases(ABCs1s2),type(Battery,Photovoltaic),RatedkVA,RatedkV,kW,kVAR,RatedkWH,StoredkWH
 PV1,671,ABC,Photovoltaic,100,4.16,75,0
 PV2,house,s1s2,Photovoltaic,5,0.208,3,0

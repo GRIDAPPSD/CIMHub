@@ -1,5 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper2
 import re
+import cimhub.CIMHubConfig as CIMHubConfig
 
 prefix_template = """PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c: <{cimURL}>
@@ -28,21 +29,11 @@ def run_query (sparql, prefix, lbl, qstr):
       print('  {:d} tuples'.format(int(b['cnt'].value)))
 
 def summarize_db (cfg_file):
-  cim_ns = ''
-  blz_url = ''
-  sparql = None
-
-  fp = open (cfg_file, 'r')
-  for ln in fp.readlines():
-    toks = re.split('[,\s]+', ln)
-    if toks[0] == 'blazegraph_url':
-      blz_url = toks[1]
-      sparql = SPARQLWrapper2 (blz_url)
-      sparql.method = 'POST'
-    elif toks[0] == 'cim_namespace':
-      cim_ns = toks[1]
-      prefix = prefix_template.format(cimURL=cim_ns)
-  fp.close()
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
+  sparql = SPARQLWrapper2 (CIMHubConfig.blazegraph_url)
+  sparql.method = 'GET'
+  prefix = CIMHubConfig.prefix
 
   run_query (sparql, prefix, 'Class Summary', count_classes)
   run_query (sparql, prefix, 'Tuple Summary', count_tuples)

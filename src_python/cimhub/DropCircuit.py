@@ -1,16 +1,11 @@
 from SPARQLWrapper import SPARQLWrapper2
-import sys
 import re
 import uuid
 import os.path
+import cimhub.CIMHubConfig as CIMHubConfig
 
 prefix = ''
 sparql = None
-
-prefix_template = """PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX c: <{cimURL}>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-"""
 
 feeder_template = """delete {{?s ?attr ?val}} where {{
   values ?fdrid {{\"{fdrid}\"}}
@@ -105,17 +100,11 @@ def drop_circuit (cfg_file, mRID):
   blz_url = ''
   global sparql, prefix
 
-  fp = open (cfg_file, 'r')
-  for ln in fp.readlines():
-    toks = re.split('[,\s]+', ln)
-    if toks[0] == 'blazegraph_url':
-      blz_url = toks[1]
-      sparql = SPARQLWrapper2 (blz_url)
-      sparql.method = 'POST'
-    elif toks[0] == 'cim_namespace':
-      cim_ns = toks[1]
-      prefix = prefix_template.format(cimURL=cim_ns)
-  fp.close()
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
+  sparql = SPARQLWrapper2 (CIMHubConfig.blazegraph_url)
+  sparql.method = 'POST'
+  prefix = CIMHubConfig.prefix
 
   # in general, the order of these deletion queries will matter
 
