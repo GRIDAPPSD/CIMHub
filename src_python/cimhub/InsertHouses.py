@@ -11,18 +11,18 @@ Created on Jun 1, 2018
 #******************************************************************************
 # Standard library:
 import logging
-import sys
 import math
 from uuid import uuid4
 import json
 import os
+import sys
 
 # Installed packages:
 import numpy as np
 import pandas as pd
-from CreateHouses import CreateHouses
+from cimhub.CreateHouses import CreateHouses
 from SPARQLWrapper import SPARQLWrapper2
-import CIMHubConfig
+import cimhub.CIMHubConfig as CIMHubConfig
 
 # insert groups of triples to minimize the number of queries
 batch_size = 100
@@ -307,6 +307,10 @@ def insertHouse (ecName, ecID, houseNum, houseData, uuids):
 
     atts += (house + ' c:House.' + name + ' ' + valStr)    
   qtriples.append (qdata + atts)
+
+def insert_houses (cfgfile, mRID, region, seed, uuidfile, scale):
+  ConfigureCIMHub (cfgfile)
+  main (fdrid=mRID, region=region, seed=seed, uuidfile=uuidfile, scale=scale)
 
 if __name__ == "__main__":
   # Get command line arguments

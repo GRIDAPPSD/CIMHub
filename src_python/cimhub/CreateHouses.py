@@ -17,7 +17,7 @@ import pandas as pd
 # Modules in this repository:
 #
 # Import some EIA RECS data constants from housingData.py.
-from eia_recs.housingData import OUTFILE, TYPEHUQ, CLIMATE_REGION_PUB
+from cimhub.eia_recs.housingData import OUTFILE, TYPEHUQ, CLIMATE_REGION_PUB
 
 # Get path to this directory
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))

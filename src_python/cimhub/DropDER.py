@@ -1,14 +1,8 @@
 from SPARQLWrapper import SPARQLWrapper2
-import sys
 import re
 import uuid
 import os.path
-import CIMHubConfig
-
-#prefix_template = """PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-#PREFIX c: <{cimURL}>
-#PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-#"""
+import cimhub.CIMHubConfig as CIMHubConfig
 
 drop_loc_template = """DELETE {{
  ?m a ?class.
@@ -157,62 +151,42 @@ drop_bat_template = """DELETE {{
 }}
 """
 
-if len(sys.argv) < 3:
-  print ('usage: python3 DropDER.py cimhubconfig.json uuidfname')
-  print (' cimhubconfig.json must define blazegraph_url and cim_ns')
-  print (' Blazegraph server must already be started')
-  exit()
+def drop_der (cfg_file, uuid_fname):
+  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+  sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
+  sparql.method = 'POST'
 
-CIMHubConfig.ConfigFromJsonFile (sys.argv[1])
-sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
-sparql.method = 'POST'
-#cim_ns = ''
-#blz_url = ''
-#sparql = None
+  fp = open (uuid_fname, 'r')
+  for ln in fp.readlines():
+    toks = re.split('[,\s]+', ln)
+    if len(toks) > 2 and not toks[0].startswith('//'):
+      cls = toks[0]
+      nm = toks[1]
+      mRID = toks[2]
+    qstr = None
+    if cls == 'PowerElectronicsConnection':
+      qstr = CIMHubConfig.prefix + drop_pec_template.format(res=mRID)
+    elif cls == 'PowerElectronicsConnectionPhase':
+      qstr = CIMHubConfig.prefix + drop_pep_template.format(res=mRID)
+    elif cls == 'Terminal':
+      qstr = CIMHubConfig.prefix + drop_trm_template.format(res=mRID)
+    elif cls == 'Location':
+      qstr = CIMHubConfig.prefix + drop_loc_template.format(res=mRID)
+    elif cls == 'PhotovoltaicUnit':
+      qstr = CIMHubConfig.prefix + drop_pv_template.format(res=mRID)
+    elif cls == 'BatteryUnit':
+      qstr = CIMHubConfig.prefix + drop_bat_template.format(res=mRID)
+    elif cls == 'SynchronousMachine':
+      qstr = CIMHubConfig.prefix + drop_syn_template.format(res=mRID)
+    elif cls == 'SynchronousMachinePhase':
+      print ('*** ERROR: do not know how to drop SynchronousMachinePhase')
+      print ('          (only 3-phase machines are currently supported)')
+      exit()
 
-#fp = open (sys.argv[1], 'r')
-#for ln in fp.readlines():
-#  toks = re.split('[,\s]+', ln)
-#  if toks[0] == 'blazegraph_url':
-#    blz_url = toks[1]
-#    sparql = SPARQLWrapper2 (blz_url)
-#    sparql.method = 'POST'
-#  elif toks[0] == 'cim_namespace':
-#    cim_ns = toks[1]
-#    prefix = prefix_template.format(cimURL=cim_ns)
-#fp.close()
-
-fp = open (sys.argv[2], 'r')
-for ln in fp.readlines():
-  toks = re.split('[,\s]+', ln)
-  if len(toks) > 2 and not toks[0].startswith('//'):
-    cls = toks[0]
-    nm = toks[1]
-    mRID = toks[2]
-  qstr = None
-  if cls == 'PowerElectronicsConnection':
-    qstr = CIMHubConfig.prefix + drop_pec_template.format(res=mRID)
-  elif cls == 'PowerElectronicsConnectionPhase':
-    qstr = CIMHubConfig.prefix + drop_pep_template.format(res=mRID)
-  elif cls == 'Terminal':
-    qstr = CIMHubConfig.prefix + drop_trm_template.format(res=mRID)
-  elif cls == 'Location':
-    qstr = CIMHubConfig.prefix + drop_loc_template.format(res=mRID)
-  elif cls == 'PhotovoltaicUnit':
-    qstr = CIMHubConfig.prefix + drop_pv_template.format(res=mRID)
-  elif cls == 'BatteryUnit':
-    qstr = CIMHubConfig.prefix + drop_bat_template.format(res=mRID)
-  elif cls == 'SynchronousMachine':
-    qstr = CIMHubConfig.prefix + drop_syn_template.format(res=mRID)
-  elif cls == 'SynchronousMachinePhase':
-    print ('*** ERROR: do not know how to drop SynchronousMachinePhase')
-    print ('          (only 3-phase machines are currently supported)')
-    exit()
-
-  if qstr is not None:
-#    print (qstr)
-    sparql.setQuery(qstr)
-    ret = sparql.query()
-    print('deleting', cls, nm, ret.response.msg)
-fp.close()
+    if qstr is not None:
+  #    print (qstr)
+      sparql.setQuery(qstr)
+      ret = sparql.query()
+      print('deleting', cls, nm, ret.response.msg)
+  fp.close()
 
