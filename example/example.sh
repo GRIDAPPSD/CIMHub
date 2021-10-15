@@ -1,3 +1,4 @@
+#!/bin/bash
 # Find the correct Blazegraph URL; defaults to running inside composed containers
 if (($# > 0)) 
 then
