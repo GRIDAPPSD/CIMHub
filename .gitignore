@@ -4,3 +4,5 @@
 enroute.zip
 .metadata
 __pycache__
+dist
+distrib
