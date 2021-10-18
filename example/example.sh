@@ -1,13 +1,14 @@
 #!/bin/bash
-source envars.sh
-
 # Find the correct Blazegraph URL; defaults to running inside composed containers
 if (($# > 0)) 
 then
   declare -r DB_URL="http://localhost:8889/bigdata/namespace/kb/sparql"
+  declare -r CIMHUB_PATH="../cimhub/target/libs/*:../cimhub/target/cimhub-0.0.3-SNAPSHOT.jar"
 else
   declare -r DB_URL="http://blazegraph:8080/bigdata/namespace/kb/sparql"
+  declare -r CIMHUB_PATH="../target/libs/*:../target/cimhub-0.0.3-SNAPSHOT.jar"
 fi
+declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
 
 # empty the Blazegraph repository; this is optional unless you are re-uploading the same circuit
 curl -D- -X POST $DB_URL --data-urlencode "update=drop all"

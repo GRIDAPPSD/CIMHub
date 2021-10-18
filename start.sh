@@ -1,3 +1,4 @@
+#!/bin/bash
 docker-compose up -d
 docker exec -it cimhub_hub_1 /bin/bash
 

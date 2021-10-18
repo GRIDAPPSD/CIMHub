@@ -15,7 +15,7 @@ compatible with Java 9 or newer versions. Therefore, we recommend using Blazegra
 
 1. Install the [Docker Engine](https://docs.docker.com/install/)
 2. Install the Blazegraph engine with _docker pull lyrasis/blazegraph:2.1.5_
-3. Install the CIMHub Java-based extensions with _docker pull gridappsd/cimhub:0.0.2_
+3. Install the CIMHub Java-based extensions with _docker pull gridappsd/cimhub_
 
 ## Examples
 
