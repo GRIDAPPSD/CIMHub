@@ -1,3 +1,4 @@
+#!/bin/bash
 if (($# > 0)) 
 then
   declare -r DB_URL="http://localhost:8889/bigdata/namespace/kb/sparql"
