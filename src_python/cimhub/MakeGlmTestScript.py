@@ -1,4 +1,6 @@
-import sys;
+import sys
+import os
+import stat
 
 def write_glm_case (c, v, fp):
   print('clock {', file=fp)
@@ -30,27 +32,30 @@ def write_glm_case (c, v, fp):
   print('};', file=fp)
   print('#endif', file=fp)
 
-def make_glmrun_script (casefiles, glmpath, scriptname):
+def make_glmrun_script (casefiles, inpath, outpath, scriptname):
   bp = open (scriptname, 'w')
   print ('#!/bin/bash', file=bp)
+  print('cd', inpath, file=bp)
   for row in casefiles:
     c = row['root']
     print('gridlabd -D WANT_VI_DUMP=1', c + '_run.glm >' + c + '.log', file=bp)
-    fp = open (glmpath + c + '_run.glm', 'w')
+    print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
+    fp = open (inpath + c + '_run.glm', 'w')
     write_glm_case (c, row['glmvsrc'], fp)
     fp.close()
   bp.close()
 
+# run the script this way for GridAPPS-D platform circuits
+# python3 -m cimhub.MakeGlmTestScript $SRC_PATH
 if __name__ == '__main__':
-  if sys.platform == 'win32':
-    glmpath = 'c:\\gridapps-d\\powergrid-models\\blazegraph\\glm\\'
-    bp = open (glmpath + 'check_glm.bat', 'w')
-  elif sys.platform == 'linux':
-    glmpath = '/home/mcde601/src/Powergrid-Models/blazegraph/glm/'
-    bp = open (glmpath + 'check_glm.sh', 'w')
-  else:
-    glmpath = '/Users/mcde601/src/GRIDAPPSD/Powergrid-Models/blazegraph/glm/'
-    bp = open (glmpath + 'check_glm.sh', 'w')
+  srcpath = '/home/tom/src/Powergrid-Models/platform/'
+  if len(sys.argv) > 1:
+    srcpath = sys.argv[1]
+
+  inpath = srcpath + 'both/'
+  bpname = 'check_glm.sh'
+  bp = open (bpname, 'w')
+  print ('#!/bin/bash', file=bp)
 
   #casefiles = [['IEEE13',66395.3],
   #             ['IEEE13_Assets',66395.3],
@@ -120,12 +125,15 @@ if __name__ == '__main__':
   #casefiles = [['Transactive',2401.8]]
 
   for c in casefiles:
-    if sys.platform == 'win32':
-      print('gridlabd -D WANT_VI_DUMP=1', c[0] + '_run.glm >' + c[0] + '.log 2>&1', file=bp)
-    else:
-      print('gridlabd -D WANT_VI_DUMP=1', c[0] + '_run.glm >' + c[0] + '.log', file=bp)
-    fp = open (glmpath + c[0] + '_run.glm', 'w')
+    print('cd', inpath, file=bp)
+    print('gridlabd -D WANT_VI_DUMP=1', c[0] + '_run.glm >../test/glm/' + c[0] + '.log', file=bp)
+    print('mv {:s}*.csv ../test/glm'.format (c[0]), file=bp)
+
+    fp = open (inpath + c[0] + '_run.glm', 'w')
     write_glm_case (c[0], c[1], fp)
     fp.close()
 
   bp.close()
+  st = os.stat (bpname)
+  os.chmod (bpname, st.st_mode | stat.S_IEXEC)
+

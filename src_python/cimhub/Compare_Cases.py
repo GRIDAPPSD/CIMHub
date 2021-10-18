@@ -25,9 +25,9 @@ casefiles = [{'root':'ACEP_PSIL',      'bases':[314.0,480.0]},
 
 #casefiles = [{'root':'Transactive',     'bases':[4160.0]}]
 
-dir1 = './test/'
-dir2 = './dss/'
-dir3 = './glm/'
+dir1 = './test/'     # baseline dss outputs
+dir2 = './test/dss/'   # converted dss output files
+dir3 = './test/glm/'   # converted gridlab-d output files
 
 def dss_phase(col):
   if col==1:
@@ -204,19 +204,44 @@ def load_summary(fname):
   fd.close()
   return summ
 
-def write_comparisons(path1, path2, path3, rootname, voltagebases):
-  dssroot = rootname.lower()
-  v1 = load_voltages (path1 + dssroot + '_v.csv')
-  v2 = load_voltages (path2 + dssroot + '_v.csv')
-  t1 = load_taps (path1 + dssroot + '_t.csv')
-  t2 = load_taps (path2 + dssroot + '_t.csv')
-  i1 = load_currents (path1 + dssroot + '_i.csv')
-  i2 = load_currents (path2 + dssroot + '_i.csv')
-  s1 = load_summary (path1 + dssroot + '_s.csv')
-  s2 = load_summary (path2 + dssroot + '_s.csv')
+def error_norm (diffs, limit=None):
+  cnt = 0
+  sum = 0.0
+  for row in diffs:
+    v = row[1]
+    if limit is None:
+      sum += v
+      cnt += 1
+    elif v <= limit:
+      sum += v
+      cnt += 1
+  if cnt < 1:
+    return 0.0
+  return sum/cnt
 
-  gldbus, gldv = load_glm_voltages (path3 + rootname + '_volt.csv', voltagebases)
-  gldlink, gldi = load_glm_currents (path3 + rootname + '_curr.csv')
+def error_norm_tuple (diffs):
+  cnt = len(diffs)
+  if cnt < 1:
+    return 0.0
+  sum = 0.0
+  for row in diffs:
+    v = row[1][0]
+    sum += v
+  return sum/cnt
+
+def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
+  dssroot = rootname.lower()
+  v1 = load_voltages (basepath + dssroot + '_v.csv')
+  v2 = load_voltages (dsspath + dssroot + '_v.csv')
+  t1 = load_taps (basepath + dssroot + '_t.csv')
+  t2 = load_taps (dsspath + dssroot + '_t.csv')
+  i1 = load_currents (basepath + dssroot + '_i.csv')
+  i2 = load_currents (dsspath + dssroot + '_i.csv')
+  s1 = load_summary (basepath + dssroot + '_s.csv')
+  s2 = load_summary (dsspath + dssroot + '_s.csv')
+
+  gldbus, gldv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
+  gldlink, gldi = load_glm_currents (glmpath + rootname + '_curr.csv')
 
 #  print (gldbus)
 #  print (gldv)
@@ -225,7 +250,7 @@ def write_comparisons(path1, path2, path3, rootname, voltagebases):
 #  print (gldi)
 #  print (i1)
 
-  flog = open (path2 + rootname + '_Summary.log', 'w')
+  flog = open (dsspath + rootname + '_Summary.log', 'w')
   print ('Quantity  Case1   Case2', file=flog)
   for key in ['Status', 'Mode', 'Number', 'LoadMult', 'NumDevices', 'NumBuses', 
           'NumNodes', 'Iterations', 'ControlMode', 'ControlIterations', 'MaxPuVoltage',
@@ -250,7 +275,8 @@ def write_comparisons(path1, path2, path3, rootname, voltagebases):
     if bus in v2:
       vdiff [bus] = abs(v1[bus] - v2[bus])
   sorted_vdiff = sorted(vdiff.items(), key=operator.itemgetter(1))
-  fcsv = open (path2 + rootname + '_Compare_Voltages_DSS.csv', 'w')
+  err_v_dss = error_norm (sorted_vdiff, 0.8)
+  fcsv = open (dsspath + rootname + '_Compare_Voltages_DSS.csv', 'w')
   print ('bus_phs,vbase,vdss,vdiff', file=fcsv)
   for row in sorted_vdiff:
     if row[1] < 0.8:
@@ -264,7 +290,8 @@ def write_comparisons(path1, path2, path3, rootname, voltagebases):
     if bus in gldv:
       vdiff [bus] = abs(v1[bus] - gldv[bus])
   sorted_vdiff = sorted(vdiff.items(), key=operator.itemgetter(1))
-  fcsv = open (path2 + rootname + '_Compare_Voltages_GLM.csv', 'w')
+  err_v_glm = error_norm (sorted_vdiff, 0.8)
+  fcsv = open (dsspath + rootname + '_Compare_Voltages_GLM.csv', 'w')
   print ('bus_phs,vbase,vglm,vdiff', file=fcsv)
   for row in sorted_vdiff:
     if row[1] < 0.8:
@@ -273,7 +300,7 @@ def write_comparisons(path1, path2, path3, rootname, voltagebases):
                '{:.5f}'.format(row[1]), sep=',', file=fcsv)
   fcsv.close()
 
-  ftxt = open (path2 + rootname + '_Missing_Nodes_DSS.txt', 'w')
+  ftxt = open (dsspath + rootname + '_Missing_Nodes_DSS.txt', 'w')
   nmissing_1 = 0
   nmissing_2 = 0
   for bus in v1:
@@ -294,7 +321,8 @@ def write_comparisons(path1, path2, path3, rootname, voltagebases):
     if link in i2:
       idiff [link] = abs(i1[link] - i2[link])
   sorted_idiff = sorted(idiff.items(), key=operator.itemgetter(1))
-  fcsv = open (path2 + rootname + '_Compare_Currents_DSS.csv', 'w')
+  err_i_dss = error_norm (sorted_idiff)
+  fcsv = open (dsspath + rootname + '_Compare_Currents_DSS.csv', 'w')
   print ('class.name.phs,ibase,idss,idiff', file=fcsv)
   for row in sorted_idiff:
     link = row[0]
@@ -326,7 +354,8 @@ def write_comparisons(path1, path2, path3, rootname, voltagebases):
           idiff [gldtarget] = [abs(i1[dsstarget] - gldi[gldtarget]), dsstarget]
           nextdssphase += 1
   sorted_idiff = sorted(idiff.items(), key=operator.itemgetter(1))
-  fcsv = open (path2 + rootname + '_Compare_Currents_GLM.csv', 'w')
+  err_i_glm = error_norm_tuple (sorted_idiff)
+  fcsv = open (dsspath + rootname + '_Compare_Currents_GLM.csv', 'w')
   print ('class_name_phs,ibase,iglm,idiff', file=fcsv)
   for row in sorted_idiff:
     gldtarget = row[0]
@@ -336,7 +365,7 @@ def write_comparisons(path1, path2, path3, rootname, voltagebases):
             '{:.3f}'.format(phsdiff), sep=',', file=fcsv)
   fcsv.close()
 
-  ftxt = open (path2 + rootname + '_Missing_Links_DSS.txt', 'w')
+  ftxt = open (dsspath + rootname + '_Missing_Links_DSS.txt', 'w')
   nmissing_1 = 0
   nmissing_2 = 0
   for link in i1:
@@ -350,6 +379,8 @@ def write_comparisons(path1, path2, path3, rootname, voltagebases):
   print (len(i1), 'Case 1 links,', nmissing_2, 'not in Case 2', file=ftxt)
   print (len(i2), 'Case 2 links,', nmissing_1, 'not in Case 1', file=ftxt)
   ftxt.close()
+  print ('{:16s} Nbus=[{:6d},{:6d},{:6d}] Nlink=[{:6d},{:6d},{:6d}] MAEv=[{:7.4f},{:7.4f}] MAEi=[{:9.4f},{:9.4f}]'.format (
+    rootname, len(v1), len(v2), len(gldv), len(i1), len(i2), len(gldi), err_v_dss, err_v_glm, err_i_dss, err_i_glm))
 
 def compare_cases (casefiles, basepath, dsspath, glmpath):
   global dir1, dir2, dir3
@@ -363,6 +394,7 @@ def compare_cases (casefiles, basepath, dsspath, glmpath):
       bases[i] /= math.sqrt(3.0)
     write_comparisons (dir1, dir2, dir3, root, bases)
 
+# run this from the command line for GridAPPS-D platform scripts
 if __name__ == "__main__":
   for row in casefiles:
     root = row['root']

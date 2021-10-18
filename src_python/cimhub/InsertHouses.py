@@ -312,6 +312,7 @@ def insert_houses (cfgfile, mRID, region, seed, uuidfile, scale):
   ConfigureCIMHub (cfgfile)
   main (fdrid=mRID, region=region, seed=seed, uuidfile=uuidfile, scale=scale)
 
+# run from command line for GridAPPS-D platform circuits
 if __name__ == "__main__":
   # Get command line arguments
   import argparse

@@ -1,5 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper2
 import cimhub.CIMHubConfig as CIMHubConfig
+import sys
 
 def list_feeders (cfg_file=None):
 
@@ -32,3 +33,10 @@ def list_feeders (cfg_file=None):
   print ('Feeder names and mRIDs:')
   for b in ret.bindings:
     print (b['feeder'].value,b['fid'].value)
+
+if __name__ == '__main__':
+  cfg_file = None
+  if len(sys.argv) > 1:
+    cfg_file = sys.argv[1]
+  list_feeders (cfg_file)
+

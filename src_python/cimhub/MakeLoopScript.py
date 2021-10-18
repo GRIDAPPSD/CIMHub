@@ -1,48 +1,27 @@
-import sys;
+import sys
+import os
+import stat
 
-def append_dss_case(casefiles, dsspath, fp):
+def append_dss_case(casefiles, inpath, outpath, fp):
   for c in casefiles:
     print('//', file=fp)
     print('clear', file=fp)
-    print('cd', dsspath, file=fp)
+    print('cd', inpath, file=fp)
     print('redirect', c + '_base.dss', file=fp)
     print('set maxiterations=80', file=fp)
     print('set controlmode=off', file=fp)
     print('solve', file=fp)
+    print('cd', outpath, file=fp)
     print('export summary ', c + '_s.csv', file=fp)
     print('export voltages', c + '_v.csv', file=fp)
     print('export currents', c + '_i.csv', file=fp)
     print('export taps    ', c + '_t.csv', file=fp)
 
-def append_xml_case(casefiles, xmlpath, dsspath, glmpath, fp):
+def append_xml_case (casefiles, xmlpath, outpath, fp):
   for c in casefiles:
-    if sys.platform == 'win32':
-      print('call drop_all.bat', file=fp)
-      print('curl -D- -H "Content-Type: application/xml" --upload-file', 
-            xmlpath + c + '.xml',
-            '-X POST "http://localhost:9999/blazegraph/sparql"', file=fp)
-      print('java gov.pnnl.goss.cim2glm.CIMImporter -o=dss -l=1.0 -i=1', 
-            dsspath + c, file=fp)
-      print('java gov.pnnl.goss.cim2glm.CIMImporter -o=glm -l=1.0 -i=1', 
-            glmpath + c, file=fp)
-    elif sys.platform == 'linux':
-      print('./drop_all.sh', file=fp)
-      print('curl -D- -H "Content-Type: application/xml" --upload-file', 
-            xmlpath + c + '.xml',
-            '-X POST "http://localhost:9999/blazegraph/sparql"', file=fp)
-      print('java -classpath "target/*:/home/mcde601/src/apache-jena-3.6.0/lib/*:/home/mcde601/src/commons-math3-3.6.1/*" gov.pnnl.goss.cim2glm.CIMImporter -o=dss -l=1.0 -i=1', 
-            dsspath + c, file=fp)
-      print('java -classpath "target/*:/home/mcde601/src/apache-jena-3.6.0/lib/*:/home/mcde601/src/commons-math3-3.6.1/*" gov.pnnl.goss.cim2glm.CIMImporter -o=glm -l=1.0 -i=1', 
-            glmpath + c, file=fp)
-    else:
-      print('./drop_all.sh', file=fp)
-      print('curl -D- -H "Content-Type: application/xml" --upload-file', 
-            xmlpath + c + '.xml',
-            '-X POST "http://localhost:9999/blazegraph/sparql"', file=fp)
-      print('java -classpath "target/*:/Users/mcde601/src/apache-jena-3.6.0/lib/*:/Users/mcde601/src/commons-math3-3.6.1/*" gov.pnnl.goss.cim2glm.CIMImporter -o=dss -l=1.0 -i=1', 
-            dsspath + c, file=fp)
-      print('java -classpath "target/*:/Users/mcde601/src/apache-jena-3.6.0/lib/*:/Users/mcde601/src/commons-math3-3.6.1/*" gov.pnnl.goss.cim2glm.CIMImporter -o=glm -l=1.0 -i=1', 
-            glmpath + c, file=fp)
+    print('curl -D- -X POST $DB_URL --data-urlencode "update=drop all"', file=fp) # print('./drop_all.sh', file=fp)
+    print('curl -D- -H "Content-Type: application/xml" --upload-file', xmlpath + c + '.xml', '-X POST $DB_URL', file=fp)
+    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=both -l=1.0 -i=1', outpath + c, file=fp)
 
 def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname):
   fp = open (scriptname, 'w')
@@ -53,7 +32,7 @@ def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname):
   print ('rm', dsspath + '*.*', file=fp)
   print ('rm', glmpath + '*.*', file=fp)
   for row in casefiles:
-    print('./drop_all.sh arg', file=fp)
+    print('curl -D- -X POST $DB_URL --data-urlencode "update=drop all"', file=fp) # print('./drop_all.sh arg', file=fp)
     print('curl -D- -H "Content-Type: application/xml" --upload-file', 
           xmlpath + row['root'] + '.xml', '-X POST $DB_URL', file=fp)
     print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss -l=1.0 -i=1', 
@@ -79,21 +58,17 @@ def make_dssrun_script (casefiles, scriptname):
     print('export taps    ', c + '_t.csv', file=fp)
   fp.close()
 
+# run the script this way for GridAPPS-D platform circuits
+# python3 -m cimhub.MakeLoopScript -b $SRC_PATH
 if __name__ == '__main__':
-  if sys.platform == 'win32':
-      xmlpath = 'c:\\gridapps-d\\powergrid-models\\blazegraph\\test\\'
-      dsspath = 'c:\\gridapps-d\\powergrid-models\\blazegraph\\dss\\'
-      glmpath = 'c:\\gridapps-d\\powergrid-models\\blazegraph\\glm\\'
-  elif sys.platform == 'linux':
-      srcpath = '/home/mcde601/src/Powergrid-Models/blazegraph/'
-      xmlpath = srcpath + 'test/'
-      dsspath = srcpath + 'dss/'
-      glmpath = srcpath + 'glm/'
-  else:
-      srcpath = '/Users/mcde601/src/GRIDAPPSD/Powergrid-Models/blazegraph/'
-      xmlpath = srcpath + 'test/'
-      dsspath = srcpath + 'dss/'
-      glmpath = srcpath + 'glm/'
+  srcpath = '/home/mcde601/src/Powergrid-Models/blazegraph/'
+  arg = sys.argv[1]
+  if len(sys.argv) > 2:
+    srcpath = sys.argv[2]
+  xmlpath = srcpath + 'cimxml/'
+  dsspath = srcpath + 'test/dss/'
+  glmpath = srcpath + 'test/glm/'
+  bothpath = srcpath + 'both/'
 
   #casefiles = ['IEEE13',
   #             'IEEE13_Assets',
@@ -162,28 +137,24 @@ if __name__ == '__main__':
 
   #casefiles = ['IEEE123_PV']
 
-  arg = sys.argv[1]
-
   if arg == '-b':
-    if sys.platform == 'win32':
-      fp = open ("convert_xml.bat", "w")
-      print ('mkdir', dsspath, file=fp)
-      print ('mkdir', glmpath, file=fp)
-      print ('del /q /y', dsspath + '*.*', file=fp)
-      print ('del /q /y', glmpath + '*.*', file=fp)
-      print ('set JENA_HOME=c:\\apache-jena-3.6.0', file=fp)
-      print ('set CLASSPATH=target/*;c:/apache-jena-3.6.0/lib/*;c:/commons-math3-3.6.1/*', file=fp)
-    else:
-      fp = open ("convert_xml.sh", "w")
-      print ('mkdir', dsspath, file=fp)
-      print ('mkdir', glmpath, file=fp)
-      print ('rm', dsspath + '*.*', file=fp)
-      print ('rm', glmpath + '*.*', file=fp)
-    append_xml_case(casefiles, xmlpath, dsspath, glmpath, fp)
+    fp = open ('convert_xml.sh', 'w')
+    print ('#!/bin/bash', file=fp)
+    print ('source envars.sh', file=fp)
+    print ('rm -rf', dsspath, file=fp)
+    print ('rm -rf', glmpath, file=fp)
+    print ('rm -rf', bothpath, file=fp)
+    print ('mkdir', dsspath, file=fp)
+    print ('mkdir', glmpath, file=fp)
+    print ('mkdir', bothpath, file=fp)
+    append_xml_case (casefiles, xmlpath, bothpath, fp)
     print ('', file=fp)
+    fp.close()
+    st = os.stat ('convert_xml.sh')
+    os.chmod ('convert_xml.sh', st.st_mode | stat.S_IEXEC)
 
   if arg == '-d':
-    fp = open ("check.dss", "w")
-    append_dss_case(casefiles, dsspath, fp)
+    fp = open ('check.dss', 'w')
+    append_dss_case (casefiles, bothpath, dsspath, fp)
+    fp.close()
 
-  fp.close()

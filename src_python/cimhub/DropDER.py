@@ -3,6 +3,7 @@ import re
 import uuid
 import os.path
 import cimhub.CIMHubConfig as CIMHubConfig
+import sys
 
 drop_loc_template = """DELETE {{
  ?m a ?class.
@@ -189,4 +190,10 @@ def drop_der (cfg_file, uuid_fname):
       ret = sparql.query()
       print('deleting', cls, nm, ret.response.msg)
   fp.close()
+
+# run from command line for GridAPPS-D platform circuits
+if __name__ == '__main__':
+  cfg_file = sys.argv[1]
+  uuid_fname = sys.argv[2]
+  drop_der (cfg_file, uuid_fname)
 

@@ -1,5 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper2
 import cimhub.CIMHubConfig as CIMHubConfig
+import sys
 
 def drop_measurements (cfg_file, mRID):
   CIMHubConfig.ConfigFromJsonFile (cfg_file)
@@ -35,3 +36,9 @@ def drop_measurements (cfg_file, mRID):
   ret = sparql.query()
   #print (ret.info)
   print(ret.response.msg)
+
+# run from command line for GridAPPS-D platform circuits
+if __name__ == '__main__':
+  cfg_file = sys.argv[1]
+  mRID = sys.argv[2]
+  drop_measurements (cfg_file, mRID)

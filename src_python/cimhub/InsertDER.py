@@ -3,6 +3,7 @@ import re
 import uuid
 import os.path
 import cimhub.CIMHubConfig as CIMHubConfig
+import sys
 
 qbus_template = """# list the bus name, cn id, terminal id, sequence number, eq id and loc id
 SELECT ?bus ?cnid ?tid ?seq ?eqid ?locid WHERE {{
@@ -322,4 +323,10 @@ def insert_der (cfg_file, fname):
     for key, val in uuids.items():
       print ('{:s},{:s}'.format (key.replace(':', ',', 1), val), file=fuid)
     fuid.close()
+
+# run from command line for GridAPPS-D platform circuits
+if __name__ == '__main__':
+  cfg_file = sys.argv[1]
+  fname = sys.argv[2]
+  insert_der (cfg_file, fname)
 

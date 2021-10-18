@@ -1,5 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper2#, JSON
 import cimhub.CIMHubConfig as CIMHubConfig
+import sys
 
 def FlatPhases (phases):
   if len(phases) < 1:
@@ -27,7 +28,6 @@ def FlatPhases (phases):
   if 's2' in phases:
     return ['s2']
   return []
-
 
 def list_measurables (cfg_file, froot, mRID, outpath=None):
   if outpath is not None:
@@ -385,3 +385,13 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
 
   op.close()
   np.close()
+
+# run from command line for GridAPPS-D platform circuits
+if __name__ == '__main__':
+  cfg_file = sys.argv[1]
+  froot = sys.argv[2]
+  mRID = sys.argv[3]
+  outpath = None
+  if len(sys.argv) > 4:
+    outpath = sys.argv[4]
+  list_measurables (cfg_file, froot, mRID, outpath)

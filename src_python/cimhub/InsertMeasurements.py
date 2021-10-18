@@ -2,6 +2,7 @@ from SPARQLWrapper import SPARQLWrapper2#, JSON
 import re
 import uuid
 import os
+import sys
 import json
 import cimhub.CIMHubConfig as CIMHubConfig
 
@@ -188,3 +189,12 @@ def insert_measurements (cfg_file, fname, uuidfile=None):
     json_fp = open (uuidfile, 'w')
     json.dump (uuidDict, json_fp, indent=2)
     json_fp.close()
+
+# run from command line for GridAPPS-D platform circuits
+if __name__ == '__main__':
+  cfg_file = sys.argv[1]
+  fname = sys.argv[2]
+  uuidfile = None
+  if len(sys.argv) > 3:
+    uuidfile = sys.argv[3]
+  insert_measurements (cfg_file, fname, uuidfile)
