@@ -36,7 +36,7 @@ without writing code. One version uses phase impedance matrices for line segment
 labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
 for the transformers.
 
-1. Install the converter with _docker pull gridappsd/cimhub:0.0.2_
+1. Install the converter with _docker pull gridappsd/cimhub:0.0.3_
 2. From a Terminal, start the converter and Blazegraph with _./start.sh_
 3. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
    * _cd example_
@@ -130,7 +130,24 @@ In order to modify the CIMHub Java code, you will need to install [Apache Maven]
 
 In order to build the cimhub docker container, use the _./build.sh_ script. However, that script assumes
 that opendsscmd and liblinenoise have been built in sibling directories to this one. When finished, an
-authorized developer can push the new image to DockerHub, e.g., _docker push gridappsd/cimhub:0.0.2_
+authorized developer can push the new image to DockerHub, e.g., _docker push gridappsd/cimhub:0.0.3_
+
+### cimhub Python Package Testing and Deployment
+
+The Python source code is now in ```src_python/cimhub```. To test it:
+
+1. ```cd tests```
+2. ```python3 test_cimhub.py``` checks the basic functionality of circuit conversion, measurements, houses and DER. Six tuples are left in the database; these are CIM version strings.
+3. ```python3 test_comparisons.py``` compares OpenDSS and GridLAB-D solutions, to the pre-conversion OpenDSS model
+3. ```./test_combiner.sh``` uses ```test_combiner.py``` to combine 6 CDPSM profiles into a single CIM XML file
+
+The steps for deployment to PyPi are:
+
+1. ```rm -rf dist```
+2. ```python3 setup.py sdist```
+3. ```python3 setup.py bdist_wheel```
+4. ```twine check dist/*``` should not show any errors
+5. ```python3 -m twine upload dist/*``` requires project credentials for cimhub on pypi.org
 
 ### GridAPPS-D Platform Circuit Validation
 
@@ -144,14 +161,14 @@ If working on the platform:
 
 The actively maintained directories are:
 
+* ```cimhub/src``` Java source for CIMHub
 * ```converters``` CYMDist and Synergi conversion to OpenDSS
 * ```doc``` description of the CIM support in OpenDSS
 * ```example``` test CIMHub on the IEEE 13-bus model
 * ```helics``` illustration of a CIM-defined link between transmission and distribution simulators under [HELICS](https://helics.org/)
 * ```ieee9500``` CIM, OpenDSS, GridLAB-D and CSV versions of the IEEE 9500-node test feeder
 * ```model_output_tests``` scratch directory for model output tst results
-* ```src``` Java source for CIMHub
-* ```utils``` Python source, bash scripts and supporting data files
+* ```src_python/cimhub``` Python source, bash scripts and supporting data files
 
 To run the Python code, you may need to adjust the Blazegraph URL and CIM Namespace in ```cimhubconfig.json```. Set ```use_proxy: true``` in this file if your computer is running a proxy server, e.g., if you are connected to the PNNL VPN.
 
