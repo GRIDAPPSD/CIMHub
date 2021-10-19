@@ -63,9 +63,9 @@ The two model files you must manually create for OpenDSS are:
 Please review any WARNING messages produced by this converter; they may cause incorrect power flow results or failure to solve the model in OpenDSS. Manual edits may be necessary to correct them.
 
 - _phases > 2 for a line that does not match its linecode_; you should manually create a valid linecode in *RootName*_catalog.dss
-- _inserting duplicate mid-section node_
+- _inserting duplicate mid-section node_; please report this as an issue.
 - _... will be a closed switch_; this just indicates where to find the recloser or breaker in the converted OpenDSS model. Further edits would be needed to represent protection settings.
-- _unhandled ReverseSensingMode/SettingOption for regulator_; manually create an OpenDSS _regcontrol_ in *RootName.edits*
+- _unhandled ReverseSensingMode_ or _SettingOption for regulator_; manually create an OpenDSS _regcontrol_ in *RootName.edits*
 - _line section lengths_, or _line code lengths_, or _DSSSection unit_ refers to choices of *CYMESectionUnit*, *CYMELineCodeUnit* or *DSSSectionUnut* that were not tested. You can choose a different *DSSSectionUnit* in the JSON configuration file. If you are able to provide the SXST for testing, it may be possible to support its length units in the converter.
 - _AverageGeometricalArrangment_ stores geometric mean distance in the SXST, but not the number of phases. The converter may guess wrong, and the result will be an error message from OpenDSS about _WireData_, because the phase counts don't match. To fix this, you should edit or create _LineSpacing_ entries in *RootName*_catalog.dss
 

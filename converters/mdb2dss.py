@@ -412,7 +412,7 @@ def ConvertMDB(cfg):
                   ' deadtime=0\n')
           else:
               # unrecognized control type: disable the controller
-              print('Warning: "'+row['control']+'" cap control not implemented')
+              print('WARNING: "'+row['control']+'" cap control not implemented')
               capf.write(' enabled=false\n')
   capf.close()
 
