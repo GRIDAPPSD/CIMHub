@@ -1,6 +1,6 @@
 """
 Created by Ahmad Tbaileh (ahmad.tbaileh@pnnl.gov)
-Copyright (c) 2018-2020 Battelle Memorial Institute.  The Government retains a paid-up non-exclusive, irrevocable
+Copyright (c) 2018-2021 Battelle Memorial Institute.  The Government retains a paid-up non-exclusive, irrevocable
 worldwide license to reproduce, prepare derivative works, perform publicly and display publicly by or for the
 Government, including the right to distribute to other Government contractors.
 """
