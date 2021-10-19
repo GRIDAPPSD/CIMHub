@@ -1,5 +1,5 @@
 # Copyright (C) 2021 Battelle Memorial Institute
-# file: test_4wire.py
+# file: test_xfmr.py
 
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
@@ -11,13 +11,17 @@ import os
 cwd = os.getcwd()
 
 cfg_json = 'cimhubconfig.json'
-cases = [{'root':'YYBal',    'mRID':'161B1872-2B5C-4CBF-9ED0-7193495CBE79','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-         {'root':'YDBal',    'mRID':'D09B6037-6236-42CA-AA11-811FE941AF5B','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-         {'root':'GYDBal',   'mRID':'0EC1B5A1-1EF7-4BDE-BA05-7391020BCE47','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-         {'root':'DYBal',    'mRID':'D9A6F0E3-DD90-46AD-9CB1-7EDF15C41F9F','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-         {'root':'YYD',      'mRID':'7319BD48-9C66-4038-B0AC-30DBD289A4A6','glmvsrc':39837.17,'bases':[69.0,13.2,2.4]}, 
-         {'root':'OYODBal',  'mRID':'AA782F4B-C424-4D54-AE39-9E6B108A7E0A','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-         {'root':'OYODUnbal','mRID':'088F22EA-893E-4ED5-BB7B-E74585EB3DA1','glmvsrc': 7200.00,'bases':[12.47,4.16]}]
+cases = [
+  {'root':'YYBal',    'mRID':'161B1872-2B5C-4CBF-9ED0-7193495CBE79','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
+  {'root':'YDBal',    'mRID':'D09B6037-6236-42CA-AA11-811FE941AF5B','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
+  {'root':'GYDBal',   'mRID':'0EC1B5A1-1EF7-4BDE-BA05-7391020BCE47','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
+#         {'root':'DYBal',    'mRID':'D9A6F0E3-DD90-46AD-9CB1-7EDF15C41F9F','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
+#         {'root':'YYD',      'mRID':'7319BD48-9C66-4038-B0AC-30DBD289A4A6','glmvsrc':39837.17,'bases':[69.0,13.2,2.4]}, 
+#         {'root':'OYODBal',  'mRID':'AA782F4B-C424-4D54-AE39-9E6B108A7E0A','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
+#         {'root':'OYODUnbal','mRID':'088F22EA-893E-4ED5-BB7B-E74585EB3DA1','glmvsrc': 7200.00,'bases':[12.47,4.16]}
+]
+
+#cases = [{'root':'YDBal',    'mRID':'D09B6037-6236-42CA-AA11-811FE941AF5B','glmvsrc': 7200.00,'bases':[12.47,4.16]}]
 
 # exluding cases with IndMotor: 4wire_lagging.dss, 4wire_leading.dss, 4wire_motor.dss
 

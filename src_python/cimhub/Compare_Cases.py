@@ -51,7 +51,6 @@ def glmVpu(v, bases):
   return 0.0 # indicates a problem
 
 def load_glm_voltages(fname, voltagebases):
-  print (fname)
   vglm = {}
   buses = []
   if not os.path.isfile (fname):
@@ -72,11 +71,11 @@ def load_glm_voltages(fname, voltagebases):
     magc = float(row[5])
     if magc > 0.0:
       vglm[bus+'_C'] = glmVpu (magc, voltagebases)
+#    print ('Found {:s} {:.4f} {:.4f} {:.4f}'.format (bus, maga, magb, magc))
   fd.close()
   return buses, vglm
     
 def load_glm_currents(fname):
-  print (fname)
   iglm = {}
   links = []
   if not os.path.isfile (fname):
@@ -142,6 +141,7 @@ def load_voltages(fname):
       vpu1 = float(row[5])
       vpu2 = float(row[9])
       vpu3 = float(row[13])
+#      print ('Found {:s} {:.4f} {:.4f} {:.4f}'.format (bus, vpu1, vpu2, vpu3))
       if float(vpu1) > 0:
         phs = dss_phase (int(row[2]))
         vdss[bus+phs] = vpu1
@@ -244,8 +244,8 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
   gldlink, gldi = load_glm_currents (glmpath + rootname + '_curr.csv')
 
 #  print (gldbus)
-#  print (gldv)
-#  print (v1)
+#  print ('**GLM**', gldv)
+#  print ('**BASE**', v1)
 #  print (gldlink)
 #  print (gldi)
 #  print (i1)

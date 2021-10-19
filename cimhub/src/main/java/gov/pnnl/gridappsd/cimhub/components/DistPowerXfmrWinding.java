@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2021, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -203,6 +203,7 @@ public class DistPowerXfmrWinding extends DistComponent {
 		boolean bDelta;
 		int i, fwdg, twdg;
 		double zbase, xpct;
+    String wdgBus;
 
 		StringBuilder buf = new StringBuilder ("new Transformer." + name + " phases=3 windings=" + Integer.toString(size));
 
@@ -229,13 +230,17 @@ public class DistPowerXfmrWinding extends DistComponent {
 		// winding ratings
 		AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
 		for (i = 0; i < size; i++) {
+      wdgBus = bus[i];
 			if (conn[i].contains("D")) {
 				bDelta = true;
 			} else {
 				bDelta = false;
+        if (!grounded[i]) {
+          wdgBus = bus[i] + ".1.2.3.4";
+        }
 			}
 			zbase = ratedU[i] * ratedU[i] / ratedS[i];
-			buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + bus[i] + " conn=" + DSSConn(bDelta) +
+			buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + wdgBus + " conn=" + DSSConn(bDelta) +
 								 " kv=" + df3.format(0.001 * ratedU[i]) + " kva=" + df1.format(0.001 * ratedS[i]) +
 								 " %r=" + df6.format(100.0 * r[i] / zbase) + "\n");
 		}
