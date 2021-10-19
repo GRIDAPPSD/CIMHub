@@ -249,7 +249,8 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
 #  print (gldlink)
 #  print (gldi)
 #  print (i1)
-
+#  print (basepath+dssroot+'_s.csv', s1)
+#  print (dsspath+dssroot+'_s.csv', s2)
   flog = open (dsspath + rootname + '_Summary.log', 'w')
   print ('Quantity  Case1   Case2', file=flog)
   for key in ['Status', 'Mode', 'Number', 'LoadMult', 'NumDevices', 'NumBuses', 
