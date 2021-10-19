@@ -2320,7 +2320,7 @@ public class CIMImporter extends Object {
 		String fSPARQL = "";
 		if (args.length < 1) {
 			System.out.println ("Usage: java CIMImporter [options] output_root");
-			System.out.println ("       -q={queries_file}  // optional file with CIM namespace and component queries (defaults to CIM100)");
+			System.out.println ("       -q={queries_file}  // optional file with CIM namespace and component queries (defaults to CIM100x)");
 			System.out.println ("       -s={mRID}          // select one feeder by CIM mRID; selects all feeders if not specified");
 			System.out.println ("       -o={glm|dss|both|idx|cim|csv} // output format; defaults to glm");
 			System.out.println ("       -l={0..1}          // load scaling factor; defaults to 1");

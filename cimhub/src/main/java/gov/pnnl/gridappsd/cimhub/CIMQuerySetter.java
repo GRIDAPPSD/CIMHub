@@ -535,10 +535,12 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?name");
 
 		mapQueries.put ("DistSolar",
-			"SELECT ?name ?bus ?ratedS ?ratedU ?ipu ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
+			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:PhotovoltaicUnit."+
 			"	?s c:IdentifiedObject.name ?name."+
+      " ?s c:PowerElectronicsUnit.maxP ?maxP."+
+      " ?s c:PowerElectronicsUnit.minP ?minP."+
 			"	?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s."+
 			" ?pec c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -555,11 +557,11 @@ public class CIMQuerySetter extends Object {
 			"	?t c:Terminal.ConnectivityNode ?cn."+ 
 			"	?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP by ?name ?bus ?ratedS ?ratedU ?ipu ?p ?q ?id ?fdrid "+
+			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistStorage",
-			"SELECT ?name ?bus ?ratedS ?ratedU ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
+			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:BatteryUnit."+
 			"	?s c:IdentifiedObject.name ?name."+
@@ -571,6 +573,8 @@ public class CIMQuerySetter extends Object {
 			"	?pec c:PowerElectronicsConnection.p ?p."+
 			"	?pec c:PowerElectronicsConnection.q ?q."+
 			" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
+      " ?s c:PowerElectronicsUnit.maxP ?maxP."+
+      " ?s c:PowerElectronicsUnit.minP ?minP."+
 			" ?s c:BatteryUnit.ratedE ?ratedE."+
 			" ?s c:BatteryUnit.storedE ?storedE."+
 			" ?s c:BatteryUnit.batteryState ?stateraw."+
@@ -583,7 +587,7 @@ public class CIMQuerySetter extends Object {
 			"	?t c:Terminal.ConnectivityNode ?cn."+ 
 			"	?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP by ?name ?bus ?ratedS ?ratedU ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid "+
+			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistSubstation",

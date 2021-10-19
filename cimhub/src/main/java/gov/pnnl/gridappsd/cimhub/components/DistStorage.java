@@ -17,6 +17,8 @@ public class DistStorage extends DistComponent {
 	public double q;
 	public double ratedU;
 	public double ratedS;
+  public double maxP;
+  public double minP;
 	public double ratedE;
 	public double storedE;
 	public double maxIFault;
@@ -62,6 +64,8 @@ public class DistStorage extends DistComponent {
 			q = Double.parseDouble (soln.get("?q").toString());
 			ratedU = Double.parseDouble (soln.get("?ratedU").toString());
 			ratedS = Double.parseDouble (soln.get("?ratedS").toString());
+      maxP = Double.parseDouble (soln.get("?maxP").toString());
+      minP = Double.parseDouble (soln.get("?minP").toString());
 			maxIFault = Double.parseDouble (soln.get("?ipu").toString());
 			bDelta = false;
 			ratedE = Double.parseDouble (soln.get("?ratedE").toString());
@@ -121,8 +125,8 @@ public class DistStorage extends DistComponent {
 		buf.append ("  inverter_efficiency 0.975;\n");
 		buf.append ("  V_base " + df3.format (ratedU) + ";\n");
 		buf.append ("  rated_power " + df3.format (ratedS) + ";\n");
-		buf.append ("  max_charge_rate " + df3.format (ratedS) + ";\n");
-		buf.append ("  max_discharge_rate " + df3.format (ratedS) + ";\n");
+		buf.append ("  max_charge_rate " + df3.format (-minP) + ";\n");
+		buf.append ("  max_discharge_rate " + df3.format (maxP) + ";\n");
 		buf.append ("  P_Out " + df3.format (p) + ";\n");
 		buf.append ("  Q_Out " + df3.format (q) + ";\n");
 		buf.append ("  object battery {\n");
@@ -133,7 +137,7 @@ public class DistStorage extends DistComponent {
 		buf.append ("    use_internal_battery_model true;\n");
 		buf.append ("    battery_type LI_ION;\n");
 		buf.append ("    round_trip_efficiency 0.86;\n");
-		buf.append ("    rated_power " + df3.format (ratedS) + ";\n");
+		buf.append ("    rated_power " + df3.format (Math.max(maxP, -minP)) + ";\n");
 		buf.append ("  };\n");
 		buf.append ("}\n");
 
@@ -158,11 +162,14 @@ public class DistStorage extends DistComponent {
       pf *= -1.0;
     }
 
+    // TODO: OpenDSS allowed a different kvaRated from kwRated, but CIM does not
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
-								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + " kv=" + df3.format(kv) +
-								" kwhrated=" + df3.format(0.001 * ratedE) + 
+								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + 
+                " kwrated=" + df3.format(0.001 * Math.max(maxP, Math.abs(minP))) + 
+                " kv=" + df3.format(kv) + " kwhrated=" + df3.format(0.001 * ratedE) + 
 								" kwhstored=" + df3.format(0.001 * storedE) + " state=" + DSSBatteryState(state) +
-								" vminpu=" + df4.format(1/maxIFault) + " LimitCurrent=yes kw=" + df2.format(p/1000.0));
+								" vminpu=" + df4.format(1/maxIFault) + " LimitCurrent=yes kw=" + df2.format(p/1000.0) +
+                " %charge=" + df2.format(-100.0 * minP / ratedS) + " %discharge=" + df2.format(100.0 * maxP / ratedS));
 		buf.append("\n");
 
 		return buf.toString();
