@@ -57,6 +57,7 @@ public class DistSwitch extends DistComponent {
 			bus1 = SafeName (soln.get("?bus1").toString()); 
 			bus2 = SafeName (soln.get("?bus2").toString()); 
 			phases = OptionalString (soln, "?phases", "ABC");
+      phases = phases.replace ('\n', ':');
 			open = Boolean.parseBoolean (soln.get("?open").toString());
 			StringBuilder glm_phs = new StringBuilder ();
 			if (phases.contains("A")) glm_phs.append("A");
