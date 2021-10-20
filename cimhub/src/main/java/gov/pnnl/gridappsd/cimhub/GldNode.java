@@ -85,7 +85,7 @@ public class GldNode {
 	public double qb_p;
 	/** reactive power on phase C, constant power portion */
 	public double qc_p;
-	/** will add N or D phasing, if not S */
+  /** for loads, will add N or D phasing, if not S */
 	public boolean bDelta;	
 	/** denotes the SWING bus, aka substation source bus */
 	public boolean bSwing;
@@ -160,9 +160,14 @@ public class GldNode {
 	}
 
 	/** @return phasing string for GridLAB-D with appropriate D, S or N suffix */
-	public String GetPhases() {
-		if (bDelta && !bSecondary) return phases + "D";
-		if (bSecondary) return phases + "S";
+	public String GetPhases(boolean bForLoad) {
+		if (bSecondary) {
+      return phases + "S";
+    } else {
+      if (bDelta && bForLoad) {
+        return phases + "D";
+      }
+    }
 		return phases + "N";
 	}
 
@@ -179,7 +184,7 @@ public class GldNode {
 	@param Pp real power constant-power percentage from a CIM LoadResponseCharacteristic 
 	@param Qp reactive power constant-power percentage from a CIM LoadResponseCharacteristic 
 	@return void */ 
-	public void AccumulateLoads (String ldname, String phs, double pL, double qL, double Pv, double Qv,
+	public void AccumulateLoads (String ldname, String phs, String conn, double pL, double qL, double Pv, double Qv,
 															 double Pz, double Pi, double Pp, double Qz, double Qi, double Qp, boolean randomZIP) {
 		double fa = 0.0, fb = 0.0, fc = 0.0, denom = 0.0;
 		loadname = "ld_" + ldname;
@@ -198,6 +203,9 @@ public class GldNode {
 		if (fa > 0.0) fa /= denom;
 		if (fb > 0.0) fb /= denom;
 		if (fc > 0.0) fc /= denom;
+    if (conn.equals("D")) {
+      bDelta = true;
+    }
 
 		// we also have to divide the total pL and qL among constant ZIP components
 		
@@ -386,10 +394,30 @@ public class GldNode {
 		buf.append ("object " + meter_class + " {\n");
 		buf.append ("  name \"" + name + suffix + "\";\n");
 		buf.append ("  parent \"" + name + "\";\n");
-		buf.append ("  phases " + GetPhases() + ";\n");
+		buf.append ("  phases " + GetPhases(false) + ";\n");
 		buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
 		buf.append ("}\n");
 	}
+
+  private boolean HasOpenDeltaLoad (double real_a, double imag_a, double real_b, double imag_b, double real_c, double imag_c) {
+    boolean ret = false;
+    if (bDelta) {
+      int nphs = 0;
+      if (real_a != 0.0 || imag_a != 0.0) {
+        ++nphs;
+      }
+      if (real_b != 0.0 || imag_b != 0.0) {
+        ++nphs;
+      }
+      if (real_c != 0.0 || imag_c != 0.0) {
+        ++nphs;
+      }
+      if (nphs < 3) {
+        ret = true;
+      }
+    }
+    return ret;
+  }
 
 	public String GetGLM (double load_scale, boolean bWantSched, String fSched, boolean bWantZIP, boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff) {
 		StringBuilder buf = new StringBuilder();
@@ -402,7 +430,7 @@ public class GldNode {
 			buf.append ("object substation {\n");
 			buf.append ("  name \"" + name + "\";\n");
 			buf.append ("  bustype SWING;\n");
-			buf.append ("  phases " + GetPhases() + ";\n");
+			buf.append ("  phases " + GetPhases(false) + ";\n");
 			buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
 			buf.append ("  base_power 12MVA;\n");
 			buf.append ("  power_convergence_value 100VA;\n");
@@ -411,7 +439,7 @@ public class GldNode {
 		} else if (bSecondary) {
 			buf.append ("object triplex_node {\n");
 			buf.append ("  name \"" + name + "\";\n");
-			buf.append ("  phases " + GetPhases() + ";\n");
+			buf.append ("  phases " + GetPhases(false) + ";\n");
 			buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
 //			if (bSyncMachines) {
 //				buf.append ("  bustype SWING_PQ;\n");
@@ -429,7 +457,7 @@ public class GldNode {
 		} else { // primary connected
 			buf.append ("object node {\n");
 			buf.append ("  name \"" + name + "\";\n");
-			buf.append ("  phases " + GetPhases() + ";\n");
+			buf.append ("  phases " + GetPhases(false) + ";\n");
 			buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
 			if (bSyncMachines || bStorageInverters) {
 				buf.append ("  bustype SWING_PQ;\n");
@@ -461,14 +489,14 @@ public class GldNode {
 					buf.append ("object triplex_meter {\n");
 					buf.append ("  name \"" + loadname + "_ldmtr\";\n");
 					buf.append ("  parent \"" + name + "\";\n");
-					buf.append ("  phases " + GetPhases() + ";\n");
+					buf.append ("  phases " + GetPhases(false) + ";\n");
 					buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
 					buf.append ("}\n");
 				} else {
 					buf.append ("object triplex_load {\n");
 					buf.append ("  name \"" + loadname + "\";\n");
 					buf.append ("  parent \"" + name + "\";\n");
-					buf.append ("  phases " + GetPhases() + ";\n");
+					buf.append ("  phases " + GetPhases(true) + ";\n");
 					buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
 					Complex base1 = new Complex (pa_z + pa_i + pa_p, qa_z + qa_i + qa_p);
 					Complex base2 = new Complex (pb_z + pb_i + pb_p, qb_z + qb_i + qb_p);
@@ -542,7 +570,7 @@ public class GldNode {
 				buf.append ("object load {\n");
 				buf.append ("  name \"" + loadname + "\";\n");
 				buf.append ("  parent \"" + name + "\";\n");
-				buf.append ("  phases " + GetPhases() + ";\n");
+				buf.append ("  phases " + GetPhases(true) + ";\n");
 				buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
 				if (pa_p != 0.0 || qa_p != 0.0)	{
 					buf.append ("  constant_power_A " + CFormat(new Complex(pa_p, qa_p)) + ";\n");
@@ -553,34 +581,43 @@ public class GldNode {
 				if (pc_p != 0.0 || qc_p != 0.0)	{
 					buf.append ("  constant_power_C " + CFormat(new Complex(pc_p, qc_p)) + ";\n");
 				}
+        double scaleVLL = 1.0;
+        if (HasOpenDeltaLoad (pa_z, qa_z, pb_z, qb_z, pc_z, qc_z)) {
+          scaleVLL = 3.0;
+        }
 				if (pa_z != 0.0 || qa_z != 0.0) {
 					Complex s = new Complex(pa_z, qa_z);
-					Complex z = vmagsq.divide(s.conjugate());
+					Complex z = vmagsq.divide(s.conjugate()).multiply(scaleVLL);
 					buf.append ("  constant_impedance_A " + CFormat(z) + ";\n");
 				}
 				if (pb_z != 0.0 || qb_z != 0.0) {
 					Complex s = new Complex(pb_z, qb_z);
-					Complex z = vmagsq.divide(s.conjugate());
+					Complex z = vmagsq.divide(s.conjugate()).multiply(scaleVLL);
 					buf.append ("  constant_impedance_B " + CFormat(z) + ";\n");
 				}
 				if (pc_z != 0.0 || qc_z != 0.0) {
 					Complex s = new Complex(pc_z, qc_z);
-					Complex z = vmagsq.divide(s.conjugate());
+					Complex z = vmagsq.divide(s.conjugate()).multiply(scaleVLL);
 					buf.append ("  constant_impedance_C " + CFormat(z) + ";\n");
 				}
-				if (pa_i != 0.0 || qa_i != 0.0) {
-					Complex s = new Complex(pa_i, qa_i);
-					amps = s.divide(va).conjugate();
-					buf.append ("  constant_current_A " + CFormat(amps) + ";\n");
-				}
+        if (HasOpenDeltaLoad (pa_i, qa_i, pb_i, qb_i, pc_i, qc_i)) {
+          scaleVLL = Math.sqrt(1.0 / 3.0);
+        } else {
+          scaleVLL = 1.0;
+        }
+        if (pa_i != 0.0 || qa_i != 0.0) {
+          Complex s = new Complex(pa_i, qa_i);
+          amps = s.divide(va).conjugate().multiply(scaleVLL);
+          buf.append ("  constant_current_A " + CFormat(amps) + ";\n");
+        }
 				if (pb_i != 0.0 || qb_i != 0.0) {
 					Complex s = new Complex(pb_i, qb_i);
-					amps = s.divide(va.multiply(neg120)).conjugate();
+					amps = s.divide(va.multiply(neg120)).conjugate().multiply(scaleVLL);
 					buf.append ("  constant_current_B " + CFormat(amps) + ";\n");
 				}
 				if (pc_i != 0.0 || qc_i != 0.0) {
 					Complex s = new Complex(pc_i, qc_i);
-					amps = s.divide(va.multiply(pos120)).conjugate();
+					amps = s.divide(va.multiply(pos120)).conjugate().multiply(scaleVLL);
 					buf.append ("  constant_current_C " + CFormat(amps) + ";\n");
 				}
 				buf.append ("}\n");

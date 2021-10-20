@@ -1110,7 +1110,7 @@ public class CIMImporter extends Object {
 			DistLoad obj = pair.getValue();
 			GldNode nd = mapNodes.get (obj.bus);
 			nd.nomvln = obj.basev / Math.sqrt(3.0);
-			nd.AccumulateLoads (obj.name, obj.phases, obj.p, obj.q, obj.pe, obj.qe, obj.pz, obj.pi, obj.pp, obj.qz, obj.qi, obj.qp, randomZIP);
+			nd.AccumulateLoads (obj.name, obj.phases, obj.conn, obj.p, obj.q, obj.pe, obj.qe, obj.pz, obj.pi, obj.pp, obj.qz, obj.qi, obj.qp, randomZIP);
 		}
 		for (HashMap.Entry<String,DistCapacitor> pair : mapCapacitors.entrySet()) {
 			DistCapacitor obj = pair.getValue();
@@ -1199,13 +1199,13 @@ public class CIMImporter extends Object {
 			GldNode nd1 = mapNodes.get (obj.bus1);
 			GldNode nd2 = mapNodes.get (obj.bus2);
 			if (obj.glm_phases.equals("S")) {  // TODO - we should be using a graph component like networkx (but for Java) to assign phasing
-				String phs1 = nd1.GetPhases();
-				String phs2 = nd2.GetPhases();
+				String phs1 = nd1.GetPhases(false);
+				String phs2 = nd2.GetPhases(false);
 				if (phs1.length() > 1 && phs1.contains ("S")) {
-					obj.glm_phases = nd1.GetPhases();
+					obj.glm_phases = nd1.GetPhases(false);
 					nd2.ResetPhases (phs1);
 				} else if (phs2.length() > 1 && phs2.contains ("S")) {
-					obj.glm_phases = nd2.GetPhases();
+					obj.glm_phases = nd2.GetPhases(false);
 					nd1.ResetPhases (phs2);
 				}
 			} else {
@@ -1239,7 +1239,7 @@ public class CIMImporter extends Object {
 			}
 			nd.AddPhases (obj.phases);
 			if (nd.bSecondary) {
-				obj.phases = nd.GetPhases();
+				obj.phases = nd.GetPhases(false);
 			}
 		}
 		for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
@@ -1255,7 +1255,7 @@ public class CIMImporter extends Object {
 			}
 			nd.AddPhases (obj.phases);
 			if (nd.bSecondary) {
-				obj.phases = nd.GetPhases();
+				obj.phases = nd.GetPhases(false);
 			}
 		}
 		for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) { // TODO: GridLAB-D doesn't actually support 1-phase generators
@@ -1271,7 +1271,7 @@ public class CIMImporter extends Object {
 			}
 			nd.AddPhases (obj.phases);
 			if (nd.bSecondary) {
-				obj.phases = nd.GetPhases();
+				obj.phases = nd.GetPhases(false);
 			}
 		}
 		for (HashMap.Entry<String,DistRegulator> pair : mapRegulators.entrySet()) {
