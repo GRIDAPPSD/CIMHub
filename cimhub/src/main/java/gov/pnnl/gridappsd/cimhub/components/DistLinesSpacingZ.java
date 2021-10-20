@@ -17,6 +17,8 @@ public class DistLinesSpacingZ extends DistLineSegment {
 
 	public String glm_config;
 
+  private boolean bSpacingHasNeutral = false;
+
 	public String GetJSONEntry () {
 		StringBuilder buf = new StringBuilder ();
 
@@ -48,7 +50,9 @@ public class DistLinesSpacingZ extends DistLineSegment {
 				wire_names[i] = soln.get("?phname").toString();
 				if (wire_phases[i].equals("N") == false) {
 					buf.append (wire_phases[i]);
-				}
+				} else {
+          bSpacingHasNeutral = true;
+        }
 				if ((i + 1) < nwires) {
 					soln = results.next();
 				}
@@ -68,7 +72,7 @@ public class DistLinesSpacingZ extends DistLineSegment {
 	}
 
 	public String GetGLM() {
-    boolean bForceN = false;
+    boolean bForceN = bSpacingHasNeutral;
 		StringBuilder buf = new StringBuilder ();
 		if (wire_classes[0].equals("OverheadWireInfo")) {
 			bCable = false;
