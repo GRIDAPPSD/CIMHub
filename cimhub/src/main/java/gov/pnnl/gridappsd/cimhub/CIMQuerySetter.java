@@ -293,6 +293,7 @@ public class CIMQuerySetter extends Object {
 			" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
 			" ?cn2 c:IdentifiedObject.name ?bus2."+
 			" ?acp c:ACLineSegmentPhase.ACLineSegment ?s."+
+      " ?acp c:ACLineSegmentPhase.sequenceNumber ?seq."+
 			" ?acp c:ACLineSegmentPhase.phase ?phsraw."+
 			"   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs)."+
 			" ?acp c:ACLineSegmentPhase.WireInfo ?phinf."+
@@ -300,7 +301,7 @@ public class CIMQuerySetter extends Object {
 			" ?phinf a ?phclassraw."+
 			"   bind(strafter(str(?phclassraw),\"CIM100#\") as ?phclass)"+
 			" }"+
-			" ORDER BY ?id ?name ?phs");
+			" ORDER BY ?id ?name ?seq ?phs");
 
 		mapQueries.put ("DistLineSpacing",
 			"SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y"+

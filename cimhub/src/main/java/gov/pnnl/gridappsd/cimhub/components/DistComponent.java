@@ -183,21 +183,31 @@ public abstract class DistComponent {
 	}
 
 	static String DSSBusPhases (String bus, String phs) {
-    if (phs.contains ("ABC")) {
+    if (phs.contains ("ABC") || phs.contains ("A:B:C")) {
       return bus + ".1.2.3";
+    } else if (phs.contains ("ACB") || phs.contains ("A:C:B")) {
+      return bus + ".1.3.2";
+    } else if (phs.contains ("BAC") || phs.contains ("B:A:C")) {
+      return bus + ".2.1.3";
+    } else if (phs.contains ("BCA") || phs.contains ("B:C:A")) {
+      return bus + ".2.3.1";
+    } else if (phs.contains ("CAB") || phs.contains ("C:A:B")) {
+      return bus + ".3.1.2";
+    } else if (phs.contains ("CBA") || phs.contains ("C:B:A")) {
+      return bus + ".3.2.1";
+    } else if (phs.contains ("12")) {  // secondary
+      return bus + ".1.2";
     } else if (phs.contains ("AB") || phs.contains ("A:B")) {
       return bus + ".1.2";
-		} else if (phs.contains ("12")) {
-			return bus + ".1.2";
     } else if (phs.contains ("AC") || phs.contains ("A:C")) {
       return bus + ".1.3";
     } else if (phs.contains ("BC") || phs.contains ("B:C")) {
       return bus + ".2.3";
-		} else if (phs.contains ("B:A")) {
+		} else if (phs.contains ("BA") || phs.contains ("B:A")) {
 			return bus + ".2.1";
-		} else if (phs.contains ("C:A")) {
+		} else if (phs.contains ("CA") || phs.contains ("C:A")) {
 			return bus + ".3.1";
-		} else if (phs.contains ("C:B")) {
+		} else if (phs.contains ("CB") || phs.contains ("C:B")) {
 			return bus + ".3.2";
 		} else if (phs.contains ("s1:s2") || phs.contains ("s1s2")) {
 			return bus + ".1.2";

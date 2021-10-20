@@ -1937,11 +1937,12 @@ VALUES ?fdrid {"_803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
  ?acp c:ACLineSegmentPhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
  ?acp c:ACLineSegmentPhase.WireInfo ?phinf.
+ ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
  ?phinf c:IdentifiedObject.name ?phname.
  ?phinf a ?phclassraw.
    bind(strafter(str(?phclassraw),"CIM100#") as ?phclass)
 }
-ORDER BY ?name ?phs
+ORDER BY ?name ?seq ?phs
 
 # line segments with individual phase wire assignments, ordered by phase - DistLinesSpacingZ concatenated format
 # deprecated - this doesn't execute the same way embedded in Java
