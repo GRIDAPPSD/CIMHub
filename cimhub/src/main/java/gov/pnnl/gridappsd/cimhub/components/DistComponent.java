@@ -16,9 +16,9 @@ public abstract class DistComponent {
 	public static final String nsXSD = "http://www.w3.org/2001/XMLSchema#";
 
 	static final double gFREQ = 60.0;
-	static final double gOMEGA = 377.0;
-	static final double gMperMILE = 1609.3; // 1609.344;
-	static final double gFTperM = 1.0 / 0.3048; // 3.2809;
+	static final double gOMEGA = gFREQ * 2.0 * Math.PI; // 376.9911
+	static final double gMperMILE = 1609.344;
+	static final double gFTperM = 1.0 / 0.3048;
 
 	static final DecimalFormat df1 = new DecimalFormat("#0.0");
 	static final DecimalFormat df2 = new DecimalFormat("#0.00");
