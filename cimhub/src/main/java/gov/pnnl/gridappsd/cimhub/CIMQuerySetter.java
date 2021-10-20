@@ -245,6 +245,31 @@ public class CIMQuerySetter extends Object {
 			" GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid"+
 			" ORDER BY ?name");
 
+    mapQueries.put ("DistSeriesCompensator",
+      "SELECT ?name ?id ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid WHERE {"+
+      " ?s r:type c:SeriesCompensator."+
+      " ?s c:Equipment.EquipmentContainer ?fdr."+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?s c:IdentifiedObject.name ?name."+
+      " bind(strafter(str(?s),\"#\") as ?id)."+
+      " ?s c:ConductingEquipment.BaseVoltage ?bv."+
+      " ?bv c:BaseVoltage.nominalVoltage ?basev."+
+      " ?s c:SeriesCompensator.r ?r."+
+      " ?s c:SeriesCompensator.x ?x."+
+      " OPTIONAL {?s c:SeriesCompensator.r0 ?r0.}"+
+      " OPTIONAL {?s c:SeriesCompensator.x0 ?x0.}"+
+      " ?t1 c:Terminal.ConductingEquipment ?s."+
+      " ?t1 c:Terminal.ConnectivityNode ?cn1."+
+      " ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
+      " ?cn1 c:IdentifiedObject.name ?bus1."+
+      " ?t2 c:Terminal.ConductingEquipment ?s."+
+      " ?t2 c:Terminal.ConnectivityNode ?cn2."+
+      " ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
+      " ?cn2 c:IdentifiedObject.name ?bus2"+
+      "}"+
+      " GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid"+
+      " ORDER BY ?name");
+
 		mapQueries.put ("DistLinesSpacingZ",
 			"SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?phclass"+
 			" WHERE {"+

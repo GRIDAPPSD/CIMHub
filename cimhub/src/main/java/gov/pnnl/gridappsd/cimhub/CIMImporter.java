@@ -48,6 +48,7 @@ import gov.pnnl.gridappsd.cimhub.components.DistRecloser;
 import gov.pnnl.gridappsd.cimhub.components.DistRegulator;
 import gov.pnnl.gridappsd.cimhub.components.DistSectionaliser;
 import gov.pnnl.gridappsd.cimhub.components.DistSequenceMatrix;
+import gov.pnnl.gridappsd.cimhub.components.DistSeriesCompensator;
 import gov.pnnl.gridappsd.cimhub.components.DistSolar;
 import gov.pnnl.gridappsd.cimhub.components.DistStorage;
 import gov.pnnl.gridappsd.cimhub.components.DistSubstation;
@@ -121,6 +122,7 @@ public class CIMImporter extends Object {
 	HashMap<String,DistRegulator> mapRegulators = new HashMap<>();
 	HashMap<String,DistSectionaliser> mapSectionalisers = new HashMap<>();
 	HashMap<String,DistSequenceMatrix> mapSequenceMatrices = new HashMap<>();
+  HashMap<String,DistSeriesCompensator> mapSeriesCompensators = new HashMap<>();
 	HashMap<String,DistSolar> mapSolars = new HashMap<>();
 	HashMap<String,DistStorage> mapStorages = new HashMap<>();
 	HashMap<String,DistSubstation> mapSubstations = new HashMap<>();
@@ -396,6 +398,15 @@ public class CIMImporter extends Object {
 		((ResultSetCloseable)results).close();
 	}
 
+  void LoadSeriesCompensators() {
+    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistSeriesCompensator"), "SeriesCompensator");
+    while (results.hasNext()) {
+      DistSeriesCompensator obj = new DistSeriesCompensator (results);
+      mapSeriesCompensators.put (obj.GetKey(), obj);
+    }
+    ((ResultSetCloseable)results).close();
+  }
+
 	void LoadLinesInstanceZ() {
 		ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistLinesInstanceZ"), "LinesInstanceZ");
 		while (results.hasNext()) {
@@ -550,6 +561,7 @@ public class CIMImporter extends Object {
 		PrintOneMap (mapCoordinates, "** COMPONENT XY COORDINATES");
 		PrintOneMap (mapLinesCodeZ, "** LINES REFERENCING MATRICES");
 		PrintOneMap (mapLinesInstanceZ, "** LINES WITH IMPEDANCE ATTRIBUTES");
+    PrintOneMap (mapSeriesCompensators, "** SERIES COMPENSATORS (Reactors only)");
 		PrintOneMap (mapSpacings, "** LINE SPACINGS");
 		PrintOneMap (mapLinesSpacingZ, "** LINES REFERENCING SPACINGS");
 		PrintOneMap (mapBreakers, "** BREAKERS");
@@ -596,6 +608,7 @@ public class CIMImporter extends Object {
 		LoadDisconnectors();
 		LoadFuses();
 		LoadJumpers();
+    LoadSeriesCompensators();
 		LoadLinesCodeZ();
 		LoadLinesInstanceZ();
 		LoadLineSpacings();
@@ -648,9 +661,9 @@ public class CIMImporter extends Object {
 		}
 		nLinks = mapLoadBreakSwitches.size() + mapLinesCodeZ.size() + mapLinesSpacingZ.size() + mapLinesInstanceZ.size() +
 				mapXfmrWindings.size() + mapTanks.size() + mapFuses.size() + mapDisconnectors.size() + mapBreakers.size() +
-				mapReclosers.size() + mapSectionalisers.size() + mapJumpers.size(); // standalone regulators not allowed in CIM
+				mapReclosers.size() + mapSectionalisers.size() + mapJumpers.size() + mapSeriesCompensators.size(); // standalone regulators not allowed in CIM
 		if (nLinks < 1) {
-			throw new RuntimeException ("no lines, transformers or switches");
+			throw new RuntimeException ("no lines, reactors, transformers or switches");
 		}
 		nNodes = mapLoads.size() + mapCapacitors.size() + mapSolars.size() + mapStorages.size() + mapSyncMachines.size();
 		if (nNodes < 1) {
@@ -712,6 +725,16 @@ public class CIMImporter extends Object {
 				obj.emergencyCurrentLimit = vals[1];
 			}
 		}
+
+    // to series compensators
+    for (HashMap.Entry<String,DistSeriesCompensator> pair : mapSeriesCompensators.entrySet()) {
+      DistSeriesCompensator obj = pair.getValue();
+      if (oLimits.mapCurrentLimits.containsKey (obj.id)) {
+        double[] vals = oLimits.mapCurrentLimits.get(obj.id);
+        obj.normalCurrentLimit = vals[0];
+        obj.emergencyCurrentLimit = vals[1];
+      }
+    }
 
 		return true;
 	}
@@ -784,6 +807,7 @@ public class CIMImporter extends Object {
 		WriteMapDictionary (mapSectionalisers, "sectionalisers", false, out);
 		WriteMapDictionary (mapBreakers, "breakers", false, out);
 		WriteMapDictionary (mapReclosers, "reclosers", false, out);
+    WriteMapDictionary (mapSeriesCompensators, "reactors", false, out);
 		WriteMapDictionary (mapDisconnectors, "disconnectors", false, out);
 		WriteMapDictionary (mapLoads, "energyconsumers", false, out);
 		WriteMapDictionary (mapMeasurements, "measurements", true, out, maxMeasurements);
@@ -893,6 +917,7 @@ public class CIMImporter extends Object {
 		WriteMapSymbols (mapReclosers, "reclosers", false, out);
 		WriteMapSymbols (mapSectionalisers, "sectionalisers", false, out);
 		WriteMapSymbols (mapDisconnectors, "disconnectors", false, out);
+    WriteMapSymbols (mapSeriesCompensators, "reactors", false, out);
 
 		out.println("\"transformers\":[");
 		count = 1;
@@ -1093,6 +1118,15 @@ public class CIMImporter extends Object {
 			nd.nomvln = obj.basev / Math.sqrt(3.0);
 			nd.AddPhases (obj.phs);
 		}
+    for (HashMap.Entry<String, DistSeriesCompensator> pair: mapSeriesCompensators.entrySet()) {
+      DistSeriesCompensator obj = pair.getValue();
+      GldNode nd1 = mapNodes.get (obj.bus1);
+      nd1.nomvln = obj.basev / Math.sqrt(3.0);
+      nd1.AddPhases (obj.phases);
+      GldNode nd2 = mapNodes.get (obj.bus2);
+      nd2.nomvln = nd1.nomvln;
+      nd2.AddPhases (obj.phases);
+    }
 		for (HashMap.Entry<String, DistLinesInstanceZ> pair: mapLinesInstanceZ.entrySet()) {
 			DistLinesInstanceZ obj = pair.getValue();
 			GldNode nd1 = mapNodes.get (obj.bus1);
@@ -1314,6 +1348,9 @@ public class CIMImporter extends Object {
 		for (HashMap.Entry<String,DistLinesInstanceZ> pair : mapLinesInstanceZ.entrySet()) {
 			out.print (pair.getValue().GetGLM());
 		}
+    for (HashMap.Entry<String,DistSeriesCompensator> pair : mapSeriesCompensators.entrySet()) {
+      out.print (pair.getValue().GetGLM());
+    }
 		for (HashMap.Entry<String,DistSwitch> pair : mapSwitches.entrySet()) {
 			DistSwitch obj = pair.getValue();
 			if (obj.glm_phases.contains ("S")) { // need to parent the nodes instead of writing a switch - TODO: this is hard-wired to PNNL taxonomy
@@ -1461,6 +1498,13 @@ public class CIMImporter extends Object {
 			mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
 			mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
 		}
+    for (HashMap.Entry<String,DistSeriesCompensator> pair : mapSeriesCompensators.entrySet()) {
+      DistSeriesCompensator obj = pair.getValue();
+      pt1 = mapCoordinates.get("SeriesCompensator:" + obj.name + ":1");
+      pt2 = mapCoordinates.get("SeriesCompensator:" + obj.name + ":2");
+      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+    }
 		for (HashMap.Entry<String,DistLinesSpacingZ> pair : mapLinesSpacingZ.entrySet()) {
 			DistLineSegment obj = pair.getValue();
 			pt1 = mapCoordinates.get("ACLineSegment:" + obj.name + ":1");
@@ -1664,6 +1708,11 @@ public class CIMImporter extends Object {
 			outID.println ("Line." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
 		out.println();
+    for (HashMap.Entry<String,DistSeriesCompensator> pair : mapSeriesCompensators.entrySet()) {
+      out.print (pair.getValue().GetDSS());
+      outID.println ("Reactor." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
+    }
+    out.println();
 		for (HashMap.Entry<String,DistPowerXfmrWinding> pair : mapXfmrWindings.entrySet()) {
 			DistPowerXfmrWinding obj = pair.getValue();
 			DistPowerXfmrMesh mesh = mapXfmrMeshes.get (obj.name);
@@ -1728,9 +1777,7 @@ public class CIMImporter extends Object {
 		out.println ("buscoords " + fXYFile.getName());
 		out.println ("uuids " + fIDFile.getName());
 
-
 		out.println();
-
 
 		out.close();
 		outID.close();
@@ -1785,6 +1832,13 @@ public class CIMImporter extends Object {
     out =  new PrintWriter(fRoot + "_LinesInstanceZ.csv");
     out.println(DistLinesInstanceZ.szCSVHeader);
     for (HashMap.Entry<String,DistLinesInstanceZ> pair : mapLinesInstanceZ.entrySet()) {
+      if (!pair.getValue().phases.contains("s")) out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_SeriesCompensator.csv");
+    out.println(DistSeriesCompensator.szCSVHeader);
+    for (HashMap.Entry<String,DistSeriesCompensator> pair : mapSeriesCompensators.entrySet()) {
       if (!pair.getValue().phases.contains("s")) out.print (pair.getValue().GetCSV());
     }
     out.close();
