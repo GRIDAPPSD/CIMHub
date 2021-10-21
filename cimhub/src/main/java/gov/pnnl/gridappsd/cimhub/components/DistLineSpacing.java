@@ -174,20 +174,37 @@ public class DistLineSpacing extends DistComponent {
 			buf.append("  name \"spc_" + name + "_" + perm + "\";\n");
 		}
 
-		int idxA = 0;
-		int idxB = 1;
-		int idxC = 2;
-		if (nphases == 1) {
-			idxB = 0;
-			idxC = 0;
-		} else if (nphases == 2) {
-			if (perm.contains ("AC")) {
-				idxC = 1;
-			} else if (perm.contains ("BC")) {
-				idxB = 0;
-				idxC = 1;
+		int idxA=0, idxB=0, idxC=0;
+    int idxN = nwires-1;
+    if (nphases == 2) {
+			if (perm.contains ("AB")) {
+				idxA = 0; idxB = 1;
+			} else if (perm.contains ("BA")) {
+        idxB = 0; idxA = 1;
+      } else if (perm.contains ("BC")) {
+        idxB = 0; idxC = 1;
+      } else if (perm.contains ("CB")) {
+        idxC = 0; idxB = 1;
+      } else if (perm.contains ("CA")) {
+        idxC = 0; idxA = 1;
+      } else if (perm.contains ("AC")) {
+        idxA = 0; idxC = 1;
 			}
-		}
+		} else if (nphases == 3) {
+      if (perm.contains ("ABC")) {
+        idxA = 0; idxB = 1; idxC = 2;
+      } else if (perm.contains ("ACB")) {
+        idxA = 0; idxB = 2; idxC = 1;
+      } else if (perm.contains ("BAC")) {
+        idxA = 1; idxB = 0; idxC = 2;
+      } else if (perm.contains ("BCA")) {
+        idxA = 2; idxB = 0; idxC = 1;
+      } else if (perm.contains ("CAB")) {
+        idxA = 1; idxB = 2; idxC = 0;
+      } else if (perm.contains ("CBA")) {
+        idxA = 2; idxB = 1; idxC = 0;
+      }
+    }
 
 		if (perm.contains("A")) {
 			if (perm.contains ("B")) {
@@ -197,7 +214,7 @@ public class DistLineSpacing extends DistComponent {
 				buf.append ("  distance_AC " + df4.format(gFTperM * WireSeparation (idxA, idxC)) + ";\n");
 			}
 			if (has_neutral) {
-				buf.append ("  distance_AN " + df4.format(gFTperM * WireSeparation (idxA, nwires-1)) + ";\n");
+				buf.append ("  distance_AN " + df4.format(gFTperM * WireSeparation (idxA, idxN)) + ";\n");
 			}
 			buf.append ("  distance_AE " + df4.format(gFTperM * yarray[idxA]) + ";\n");
 		}
@@ -206,18 +223,18 @@ public class DistLineSpacing extends DistComponent {
 				buf.append ("  distance_BC " + df4.format(gFTperM * WireSeparation (idxB, idxC)) + ";\n");
 			}
 			if (has_neutral) {
-				buf.append ("  distance_BN " + df4.format(gFTperM * WireSeparation (idxB, nwires-1)) + ";\n");
+				buf.append ("  distance_BN " + df4.format(gFTperM * WireSeparation (idxB, idxN)) + ";\n");
 			}
 			buf.append ("  distance_BE " + df4.format(gFTperM * yarray[idxB]) + ";\n");
 		}
 		if (perm.contains ("C")) {
 			if (has_neutral) {
-				buf.append ("  distance_CN " + df4.format(gFTperM * WireSeparation (idxC, nwires-1)) + ";\n");
+				buf.append ("  distance_CN " + df4.format(gFTperM * WireSeparation (idxC, idxN)) + ";\n");
 			}
 			buf.append ("  distance_CE " + df4.format(gFTperM * yarray[idxC]) + ";\n");
 		}
 		if (has_neutral) {
-			buf.append ("  distance_NE " + df4.format(gFTperM * yarray[nwires-1]) + ";\n");
+			buf.append ("  distance_NE " + df4.format(gFTperM * yarray[idxN]) + ";\n");
 		}
 		buf.append("}\n");
 	}
