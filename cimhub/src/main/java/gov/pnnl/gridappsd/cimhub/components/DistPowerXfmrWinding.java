@@ -235,14 +235,18 @@ public class DistPowerXfmrWinding extends DistComponent {
 				bDelta = true;
 			} else {
 				bDelta = false;
-        if (!grounded[i]) {
+        if (!grounded[i] || rg[i] > 0.0 || xg[i] > 0.0) {
           wdgBus = bus[i] + ".1.2.3.4";
         }
 			}
 			zbase = ratedU[i] * ratedU[i] / ratedS[i];
 			buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + wdgBus + " conn=" + DSSConn(bDelta) +
 								 " kv=" + df3.format(0.001 * ratedU[i]) + " kva=" + df1.format(0.001 * ratedS[i]) +
-								 " %r=" + df6.format(100.0 * r[i] / zbase) + "\n");
+								 " %r=" + df6.format(100.0 * r[i] / zbase));
+      if (rg[i] > 0.0 || xg[i] > 0.0) {
+        buf.append(" rneut=" + df3.format(rg[i]) + " xneut=" + df3.format(xg[i]));
+      }
+      buf.append("\n");
 		}
 		return buf.toString();
 	}

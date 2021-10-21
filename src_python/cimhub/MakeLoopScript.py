@@ -32,16 +32,20 @@ def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname):
   print ('rm', dsspath + '*.*', file=fp)
   print ('rm', glmpath + '*.*', file=fp)
   for row in casefiles:
+    if 'export_options' in row:
+      opts = row['export_options']
+    else:
+      opts = ' -l=1.0 -i=1.0'
     print('curl -D- -X POST $DB_URL --data-urlencode "update=drop all"', file=fp) # print('./drop_all.sh arg', file=fp)
     print('curl -D- -H "Content-Type: application/xml" --upload-file', 
           xmlpath + row['root'] + '.xml', '-X POST $DB_URL', file=fp)
-    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss -l=1.0 -i=1', 
+    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss {:s}'.format (opts), 
           dsspath + row['root'], file=fp)
-    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm -l=1.0 -i=1', 
+    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts),
           glmpath + row['root'], file=fp)
   fp.close()
 
-def make_dssrun_script (casefiles, scriptname):
+def make_dssrun_script (casefiles, scriptname, bControls=False):
   fp = open (scriptname, 'w')
 #  print('cd', dsspath, file=fp)
   for row in casefiles:
@@ -50,7 +54,10 @@ def make_dssrun_script (casefiles, scriptname):
     print('clear', file=fp)
     print('redirect', c + '_base.dss', file=fp)
     print('set maxiterations=80', file=fp)
-    print('set controlmode=off', file=fp)
+    if bControls:
+      print('set controlmode=static', file=fp)
+    else:
+      print('set controlmode=off', file=fp)
     print('solve', file=fp)
     print('export summary ', c + '_s.csv', file=fp)
     print('export voltages', c + '_v.csv', file=fp)

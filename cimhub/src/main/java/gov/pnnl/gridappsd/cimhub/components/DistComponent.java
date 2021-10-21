@@ -232,10 +232,16 @@ public abstract class DistComponent {
     }
   }
 
-	static String DSSXfmrBusPhases (String bus, String phs) {
+	static String DSSXfmrBusPhasesAndGround (String bus, String phs, double rg, double xg) {
 		if (phs.contains("s2")) return (bus + ".0.2");
 		if (phs.contains("s1")) return (bus + ".1.0");
-		return DSSBusPhases (bus, phs);
+    if (rg > 0.0 || xg > 0.0) {
+      StringBuilder buf = new StringBuilder (DSSBusPhases (bus, phs));
+      int idxN = phs.length() + 1;
+      buf.append("." + Integer.toString (idxN) + " rneut=" + df3.format(rg) + " xneut=" + df3.format(xg));
+      return buf.toString();
+    }
+    return DSSBusPhases (bus, phs);
 	}
 
 	static String GLMPhaseString (String cim_phases) {
