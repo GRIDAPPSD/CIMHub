@@ -1079,6 +1079,7 @@ public class CIMImporter extends Object {
 					bServiceTransformer = true;
 				} else {
 					primaryPhase = obj.phs[i];
+          code.AddGldPrimaryPhase (primaryPhase);
 					if (i > 1) {
 						nd.bTertiaryWinding = true; // unsupported primary node in GridLAB-D - TODO: throw some kind of warning
 					}

@@ -23,6 +23,9 @@ public class DistXfmrCodeRating extends DistComponent {
 	public int size;
 
 	public boolean glmUsed;
+  public boolean glmAUsed;
+  public boolean glmBUsed;
+  public boolean glmCUsed;
 
 	public String GetJSONEntry () {
 		StringBuilder buf = new StringBuilder ();
@@ -80,6 +83,28 @@ public class DistXfmrCodeRating extends DistComponent {
 		return buf.toString();
 	}
 
+  private void AppendGldPhaseRatings (StringBuilder buf, String sKVA) {
+    if (glmAUsed) {
+      buf.append ("  powerA_rating " + sKVA + ";\n");
+      buf.append ("  powerB_rating 0.0;\n");
+      buf.append ("  powerC_rating 0.0;\n");
+    } else if (glmBUsed) {
+      buf.append ("  powerA_rating 0.0;\n");
+      buf.append ("  powerB_rating " + sKVA + ";\n");
+      buf.append ("  powerC_rating 0.0;\n");
+    } else if (glmCUsed) {
+      buf.append ("  powerA_rating 0.0;\n");
+      buf.append ("  powerB_rating 0.0;\n");
+      buf.append ("  powerC_rating " + sKVA + ";\n");
+    }
+  }
+
+  public void AddGldPrimaryPhase (String phs) {
+    if (phs.contains("A")) glmAUsed = true;
+    if (phs.contains("B")) glmBUsed = true;
+    if (phs.contains("C")) glmCUsed = true;
+  }
+
 	public String GetGLM (DistXfmrCodeSCTest sct, DistXfmrCodeOCTest oct) {
 		StringBuilder buf = new StringBuilder("object transformer_configuration {\n");
 
@@ -104,7 +129,7 @@ public class DistXfmrCodeRating extends DistComponent {
 		}
 		double xpu = zpu;
 		if (zpu >= rpu) {
-//			xpu = Math.sqrt (zpu * zpu - rpu * rpu);  // TODO: this adjustment is correct, but was not done in RC1
+			xpu = Math.sqrt (zpu * zpu - rpu * rpu);
 		}
 
 		String sConnect = GetGldTransformerConnection (conn, size);
@@ -112,35 +137,11 @@ public class DistXfmrCodeRating extends DistComponent {
 		buf.append ("  name \"xcon_" + tname + "\";\n");
 		buf.append ("  power_rating " + sKVA + ";\n");
 		if (sConnect.equals("SINGLE_PHASE_CENTER_TAPPED")) {
-			if (tname.contains ("_as_")) { // TODO - this is hard-wired to PNNL taxonomy feeder import
-				buf.append ("  powerA_rating " + sKVA + ";\n");
-				buf.append ("  powerB_rating 0.0;\n");
-				buf.append ("  powerC_rating 0.0;\n");
-			} else if (tname.contains ("_bs_")) {
-				buf.append ("  powerA_rating 0.0;\n");
-				buf.append ("  powerB_rating " + sKVA + ";\n");
-				buf.append ("  powerC_rating 0.0;\n");
-			} else if (tname.contains ("_cs_")) {
-				buf.append ("  powerA_rating 0.0;\n");
-				buf.append ("  powerB_rating 0.0;\n");
-				buf.append ("  powerC_rating " + sKVA + ";\n");
-			}
+      AppendGldPhaseRatings (buf, sKVA);
 			buf.append ("  primary_voltage " + df3.format (ratedU[0]) + ";\n");
 			buf.append ("  secondary_voltage " + df3.format (ratedU[1]) + ";\n");
 		} else if (sConnect.equals("SINGLE_PHASE")) {
-			if (tname.contains ("_an_")) { // TODO - this is hard-wired to PNNL taxonomy feeder import
-				buf.append ("  powerA_rating " + sKVA + ";\n");
-				buf.append ("  powerB_rating 0.0;\n");
-				buf.append ("  powerC_rating 0.0;\n");
-			} else if (tname.contains ("_bn_")) {
-				buf.append ("  powerA_rating 0.0;\n");
-				buf.append ("  powerB_rating " + sKVA + ";\n");
-				buf.append ("  powerC_rating 0.0;\n");
-			} else if (tname.contains ("_cn_")) {
-				buf.append ("  powerA_rating 0.0;\n");
-				buf.append ("  powerB_rating 0.0;\n");
-				buf.append ("  powerC_rating " + sKVA + ";\n");
-			}
+      AppendGldPhaseRatings (buf, sKVA);
 			buf.append ("  primary_voltage " + df3.format (ratedU[0] * Math.sqrt(3.0)) + ";\n");
 			buf.append ("  secondary_voltage " + df3.format (ratedU[1] * Math.sqrt(3.0)) + ";\n");
 			sConnect = "WYE_WYE";
@@ -154,9 +155,41 @@ public class DistXfmrCodeRating extends DistComponent {
 			buf.append("  connect_type " + sConnect + ";\n");
 		}
 		if (sConnect.equals ("SINGLE_PHASE_CENTER_TAPPED")) {
-			String impedance = CFormat (new Complex (0.5 * rpu, 0.8 * xpu));
-			String impedance1 = CFormat (new Complex (rpu, 0.4 * xpu));
-			String impedance2 = CFormat (new Complex (rpu, 0.4 * xpu));
+      // the hard-wired interlace assumptions use 0.8*zpu, 0.4*zpu, 0.4*zpu for X values,
+      // which would match X12 and X13, but not X23 from the original short-circuit test data
+      double r1 = 0.5 * rpu;
+      double r2 = rpu;
+      double r3 = rpu;
+      double x1 = 0.8 * zpu;
+      double x2 = 0.4 * zpu;
+      double x3 = x2;
+      if (size == 3) { // use the OpenDSS approach, should match Z23, should also work for non-interlaced
+        double x12 = 0.0, x13 = 0.0, x23 = 0.0;
+        double zbase = ratedU[0] * ratedU[0] / ratedS[0];
+        r1 = r[0] / zbase;
+        zbase = ratedU[1] * ratedU[1] / ratedS[1];
+        r2 = r[1] / zbase;
+        zbase = ratedU[2] * ratedU[2] / ratedS[2];
+        r3 = r[2] / zbase;
+        for (int i = 0; i < sct.size; i++) {
+          int fwdg = sct.fwdg[i];
+          int twdg = sct.twdg[i];
+          zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
+          if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
+            x12 = sct.z[i] / zbase;
+          } else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
+            x13 = sct.z[i] / zbase;
+          } else if ((fwdg == 2 && twdg == 3) || (fwdg == 3 && twdg == 2)) {
+            x23 = sct.z[i] / zbase;
+          }
+        }
+        x1 = 0.5 * (x12 + x13 - x23);
+        x2 = 0.5 * (x12 + x23 - x13);
+        x3 = 0.5 * (x13 + x23 - x12);
+      }
+      String impedance = CFormat (new Complex (r1, x1));
+      String impedance1 = CFormat (new Complex (r2, x2));
+      String impedance2 = CFormat (new Complex (r3, x3));
 			buf.append ("  impedance " + impedance + ";\n");
 			buf.append ("  impedance1 " + impedance1 + ";\n");
 			buf.append ("  impedance2 " + impedance2 + ";\n");
@@ -164,12 +197,15 @@ public class DistXfmrCodeRating extends DistComponent {
 			buf.append ("  resistance " + df6.format (rpu) + ";\n");
 			buf.append ("  reactance " + df6.format (xpu) + ";\n");
 		}
-		if (oct.iexc > 0.0) {
-			buf.append ("  shunt_reactance " + df6.format (100.0 / oct.iexc) + ";\n");
-		}
-		if (oct.nll > 0.0) {
-			buf.append ("  shunt_resistance " + df6.format (ratedS[0] / oct.nll / 1000.0) + ";\n");
-		}
+    // as of v4.3, GridLAB-D implementing shunt_impedance for only two connection types
+    if (sConnect.equals ("SINGLE_PHASE_CENTER_TAPPED") || sConnect.equals ("WYE_WYE")) {
+      if (oct.iexc > 0.0) {
+        buf.append ("  shunt_reactance " + df6.format (100.0 / oct.iexc) + ";\n");
+      }
+      if (oct.nll > 0.0) {
+        buf.append ("  shunt_resistance " + df6.format (ratedS[0] / oct.nll / 1000.0) + ";\n");
+      }
+    }
 		buf.append("}\n");
 		return buf.toString();
 	}

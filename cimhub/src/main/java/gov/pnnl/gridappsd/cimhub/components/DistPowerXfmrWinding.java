@@ -155,12 +155,14 @@ public class DistPowerXfmrWinding extends DistComponent {
 		buf.append ("  reactance " + df6.format (xpu) + ";\n");
 		idx = core.wdg - 1;
 		Zbase = ratedU[idx] * ratedU[idx] / ratedS[idx];
-		if (core.b > 0.0) {
-			buf.append ("  shunt_reactance " + df6.format (1.0 / Zbase / core.b) + ";\n");
-		}
-		if (core.g > 0.0) {
-			buf.append ("  shunt_resistance " + df6.format (1.0 / Zbase / core.g) + ";\n");
-		}
+    if (sConnect.equals("WYE_WYE")) { // as of v4.3, GridLAB-D doesn't support shunt_impedance on other types
+      if (core.b > 0.0) {
+        buf.append ("  shunt_reactance " + df6.format (1.0 / Zbase / core.b) + ";\n");
+      }
+      if (core.g > 0.0) {
+        buf.append ("  shunt_resistance " + df6.format (1.0 / Zbase / core.g) + ";\n");
+      }
+    }
 		buf.append ("}\n");
 
 		buf.append ("object transformer {\n");
@@ -175,29 +177,6 @@ public class DistPowerXfmrWinding extends DistComponent {
 
 		return buf.toString();
 	}
-
-	/*
-
-		double rpu = 0.0;
-		double zpu = 0.0;
-		double zbase1 = ratedU[0] * ratedU[0] / ratedS[0];
-		double zbase2 = ratedU[1] * ratedU[1] / ratedS[1];
-		if (sct.ll[0] > 0.0) {
-			rpu = sct.ll[0] / ratedS[0];
-		} else {
-			rpu = (r[0] / zbase1) + (r[1] / zbase2);
-		}
-		if (sct.fwdg[0] == 1) {
-			zpu = sct.z[0] / zbase1;
-		} else if (sct.fwdg[0] == 2) {
-			zpu = sct.z[0] / zbase2;
-		}
-		double xpu = zpu;
-		if (zpu >= rpu) {
-//			xpu = Math.sqrt (zpu * zpu - rpu * rpu);  // TODO: this adjustment is correct, but was not done in RC1
-		}
-
-*/
 
 	public String GetDSS(DistPowerXfmrMesh mesh, DistPowerXfmrCore core) {
 		boolean bDelta;
