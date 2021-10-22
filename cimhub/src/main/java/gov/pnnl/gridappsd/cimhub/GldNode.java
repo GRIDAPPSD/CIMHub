@@ -1,12 +1,12 @@
 package gov.pnnl.gridappsd.cimhub;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2021, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
 import java.text.DecimalFormat;
-import org.apache.commons.math3.complex.Complex;
 import java.util.Random;
+import org.apache.commons.math3.complex.Complex;
 
 /** 
  Helper class to accumulate nodes and loads. 
@@ -40,6 +40,7 @@ public class GldNode {
 	}
 
 	static final DecimalFormat df2 = new DecimalFormat("#0.00");
+  static final DecimalFormat df6 = new DecimalFormat("#0.000000");
 
 	/** root name of the node or meter, will have `nd_` prepended */
 	public final String name;
@@ -419,6 +420,40 @@ public class GldNode {
     return ret;
   }
 
+  private void AppendPowerByFraction (StringBuilder buf, String phs, double pz, double pi, double pp, double qz, double qi, double qp) {
+    double sz = pz*pz + qz*qz;
+    double si = pi*pi + qi*qi;
+    double sp = pp*pp + qp*qp;
+    if (sz > 0.0 || si > 0.0 || sp > 0.0) {
+      double base_power = 0.0;
+      if (sz > 0.0) {
+        sz = Math.sqrt(sz);
+        base_power += sz;
+      }
+      if (si > 0.0) {
+        si = Math.sqrt(si);
+        base_power += si;
+      }
+      if (sp > 0.0) {
+        sp = Math.sqrt(sp);
+        base_power += sp;
+      }
+      buf.append ("  base_power_" + phs + " " + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
+      buf.append ("  impedance_fraction_" + phs + " " + df6.format(sz/base_power) + ";\n");
+      buf.append ("  current_fraction_" + phs + " " + df6.format(si/base_power) + ";\n");
+      buf.append ("  power_fraction_" + phs + " " + df6.format(sp/base_power) + ";\n");
+      if (sz > 0.0) {
+        buf.append ("  impedance_pf_" + phs + " " + df6.format(pz/sz) + ";\n");
+      }
+      if (si > 0.0) {
+        buf.append ("  current_pf_" + phs + " " + df6.format(pi/si) + ";\n");
+      }
+      if (sp > 0.0) {
+        buf.append ("  power_pf_" + phs + " " + df6.format(pp/sp) + ";\n");
+      }
+    }
+  }
+
 	public String GetGLM (double load_scale, boolean bWantSched, String fSched, boolean bWantZIP, boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff) {
 		StringBuilder buf = new StringBuilder();
 
@@ -572,6 +607,10 @@ public class GldNode {
 				buf.append ("  parent \"" + name + "\";\n");
 				buf.append ("  phases " + GetPhases(true) + ";\n");
 				buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
+        AppendPowerByFraction (buf, "A", pa_z, pa_i, pa_p, qa_z, qa_i, qa_p);
+        AppendPowerByFraction (buf, "B", pb_z, pb_i, pb_p, qb_z, qb_i, qb_p);
+        AppendPowerByFraction (buf, "C", pc_z, pc_i, pc_p, qc_z, qc_i, qc_p);
+        /*
 				if (pa_p != 0.0 || qa_p != 0.0)	{
 					buf.append ("  constant_power_A " + CFormat(new Complex(pa_p, qa_p)) + ";\n");
 				}
@@ -620,6 +659,7 @@ public class GldNode {
 					amps = s.divide(va.multiply(pos120)).conjugate().multiply(scaleVLL);
 					buf.append ("  constant_current_C " + CFormat(amps) + ";\n");
 				}
+        */
 				buf.append ("}\n");
 			}
 		}
