@@ -101,13 +101,19 @@ New CapControl.Cap2 capacitor=cap2 type=voltage on=115 off=125 ptratio=20 ptphas
 
 Set Voltagebases=[115, 4.16, .48]
 calcv
+// Set Controlmode=off // static
 Solve
 BusCoords IEEE13Node_BusXY.csv
 
+// For benchmarking, lock the taps, turn caps on, load models to constant current
 Transformer.Reg1.Taps=[1.0 1.0625]
 Transformer.Reg2.Taps=[1.0 1.0500]
 Transformer.Reg3.Taps=[1.0 1.06875]
-Set Controlmode=static
+Capacitor.Cap1.States=[1]
+Capacitor.Cap2.States=[1]
+CapControl.Cap1.Reset=yes
+CapControl.Cap2.Reset=yes
+Set Controlmode=off // static
 Set Tolerance=1e-8
 
 batchedit load..* model=5

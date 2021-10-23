@@ -63,7 +63,7 @@ st = os.stat (shfile)
 os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 p1 = subprocess.call (shfile, shell=True)
 
-cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss', bControls=True)
+cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss', bControls=False)
 os.chdir('./dss')
 p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
 p1.wait()

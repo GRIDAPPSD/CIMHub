@@ -129,7 +129,7 @@ BusCoords IEEE13NodeExtra_BusXY.dat
 Transformer.Reg1.Taps=[1.0 1.0625]
 Transformer.Reg2.Taps=[1.0 1.0500]
 Transformer.Reg3.Taps=[1.0 1.06875]
-Set Controlmode=static
+Set Controlmode=off // static
 Set Tolerance=1e-8
 
 Solve
