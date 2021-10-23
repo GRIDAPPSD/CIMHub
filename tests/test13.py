@@ -22,8 +22,8 @@ cases = [
     'substation':'sub2', 'region':'test_region', 'subregion':'test_subregion',
     'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 13200.0, 115000.0], 'export_options':' -l=1.0 -z=1.0'},
   {'dssname':'IEEE13_CDPSM_I', 'root':'IEEE13_CDPSM_I', 'mRID':'F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29',
-   'substation':'sub2', 'region':'test_region', 'subregion':'test_subregion',
-   'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 13200.0, 115000.0], 'export_options':' -l=1.0 -i=1.0'},
+    'substation':'sub2', 'region':'test_region', 'subregion':'test_subregion',
+    'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 13200.0, 115000.0], 'export_options':' -l=1.0 -i=1.0'},
   {'dssname':'IEEE13_CDPSM_P', 'root':'IEEE13_CDPSM_P', 'mRID':'F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29',
     'substation':'sub2', 'region':'test_region', 'subregion':'test_subregion',
     'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 13200.0, 115000.0], 'export_options':' -l=1.0 -p=1.0'},
@@ -43,10 +43,11 @@ for row in cases:
   print ('solve', file=fp)
   print ('cd ../tests', file=fp)
   print ('export cim100 fid={:s} substation=sub1 subgeo=subgeo1 geo=geo1 file={:s}.xml'.format (mRID, root), file=fp)
-  print ('export summary  {:s}_s.csv'.format (root), file=fp)
-  print ('export voltages {:s}_v.csv'.format (root), file=fp)
-  print ('export currents {:s}_i.csv'.format (root), file=fp)
-  print ('export taps     {:s}_t.csv'.format (root), file=fp)
+  print ('export summary   {:s}_s.csv'.format (root), file=fp)
+  print ('export voltages  {:s}_v.csv'.format (root), file=fp)
+  print ('export currents  {:s}_i.csv'.format (root), file=fp)
+  print ('export taps      {:s}_t.csv'.format (root), file=fp)
+  print ('export nodeorder {:s}_n.csv'.format (root), file=fp)
 fp.close ()
 p1 = subprocess.Popen ('opendsscmd cim_test.dss', shell=True)
 p1.wait()

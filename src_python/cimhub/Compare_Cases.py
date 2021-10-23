@@ -83,47 +83,60 @@ def load_glm_currents(fname):
   fd = open (fname, 'r')
   rd = csv.reader (fd, delimiter=',')
   next (rd)
+  itol = 0.0 # 0.001
   #link_name,currA_mag,currA_angle,currB_mag,currB_angle,currC_mag,currC_angle
   for row in rd:
     link = row[0].upper()
     if link.startswith ('LINE_') or link.startswith ('REG_') or link.startswith ('SWT_') or link.startswith ('XF_'):
       links.append(link)
       maga = float(row[1])
-      if maga > 0.001:
+      if maga >= itol:
         iglm[link+'_A'] = maga
       magb = float(row[3])
-      if magb > 0.001:
+      if magb >= itol:
         iglm[link+'_B'] = magb
       magc = float(row[5])
-      if magc > 0.001:
+      if magc >= itol:
         iglm[link+'_C'] = magc
   fd.close()
   return links, iglm
 
-def load_currents(fname):
+def load_currents(fname, ordname):
   idss = {}
   if not os.path.isfile (fname):
     return idss
+  if not os.path.isfile (ordname):
+    return idss
+
+  phases = {}
+  fd = open (ordname, 'r')
+  rd = csv.reader (fd, delimiter=',', skipinitialspace=True)
+  next (rd)
+  #Element, Nterminals, Nconductors, N1, N2, N3, ...
+  for row in rd:
+    link = row[0].strip('\"').upper()
+    nt = int(row[1])
+    nc = int(row[2])
+    phases[link] = []
+    for i in range(nc):
+      phases[link].append(int(row[3+i]))
+  fd.close()
+#  print ('Phase Map', phases)
+
   fd = open (fname, 'r')
   rd = csv.reader (fd, delimiter=',', skipinitialspace=True)
   next (rd)
-  itol = 1.0e-8  # if this is too high, the comparison may think a conductive branch is missing
+  itol = 0.0 # 1.0e-8  # if this is too high, the comparison may think a conductive branch is missing
   #Element, I1_1, Ang1_1, I1_2, Ang1_2, I1_3, Ang1_3, I1_4, Ang1_4, Iresid1, AngResid1, I2_1, Ang2_1, I2_2, Ang2_2, I2_3, Ang2_3, I2_4, Ang2_4, Iresid2, AngResid2
   for row in rd:
     link = row[0].strip('\"').upper()
-    i1 = float(row[1])
-    i2 = float(row[3])
-    i3 = float(row[5])
-    idx = 1
-    if i1 > itol:
-      idss[link+'.'+str(idx)] = i1
-      idx += 1
-    if i2 > itol:
-      idss[link+'.'+str(idx)] = i2
-      idx += 1
-    if i3 > itol:
-      idss[link+'.'+str(idx)] = i3
-      idx += 1
+    phs = phases[link]
+    for i in range(len(phs)):
+      idx = phs[i]
+      if idx > 0:
+        amps = float(row[1+2*i])
+        if amps >= itol:
+          idss[link+'.'+str(idx)] = amps
   fd.close()
   return idss
 
@@ -235,8 +248,8 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
   v2 = load_voltages (dsspath + dssroot + '_v.csv')
   t1 = load_taps (basepath + dssroot + '_t.csv')
   t2 = load_taps (dsspath + dssroot + '_t.csv')
-  i1 = load_currents (basepath + dssroot + '_i.csv')
-  i2 = load_currents (dsspath + dssroot + '_i.csv')
+  i1 = load_currents (basepath + dssroot + '_i.csv', basepath + dssroot + '_n.csv')
+  i2 = load_currents (dsspath + dssroot + '_i.csv', dsspath + dssroot + '_n.csv')
   s1 = load_summary (basepath + dssroot + '_s.csv')
   s2 = load_summary (dsspath + dssroot + '_s.csv')
 
@@ -244,11 +257,11 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
   gldlink, gldi = load_glm_currents (glmpath + rootname + '_curr.csv')
 
 #  print (gldbus)
-#  print ('**GLM**', gldv)
-#  print ('**BASE**', v1)
+#  print ('**GLM  V**', gldv)
+#  print ('**BASE V**', v1)
 #  print (gldlink)
-#  print (gldi)
-#  print (i1)
+#  print ('**GLM  I**', gldi)
+#  print ('**BASE I**', i1)
 #  print (basepath+dssroot+'_s.csv', s1)
 #  print (dsspath+dssroot+'_s.csv', s2)
   flog = open (dsspath + rootname + '_Summary.log', 'w')
@@ -349,10 +362,13 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
       dsslink = 'TRANSFORMER.' + link[len('REG_'):].upper() + '.'
     for phs in ['_A', '_B', '_C']:
       gldtarget = link + phs
+#      print ('Looking for', gldtarget)
       if gldtarget in gldi:
         dsstarget = dsslink + str(nextdssphase)
+#        print ('  dsstarget', dsstarget)
         if dsstarget in i1:
           idiff [gldtarget] = [abs(i1[dsstarget] - gldi[gldtarget]), dsstarget]
+#          print ('  found in i1, incrementing nextdssphase, differencing', i1[dsstarget], gldi[gldtarget])
           nextdssphase += 1
   sorted_idiff = sorted(idiff.items(), key=operator.itemgetter(1))
   err_i_glm = error_norm_tuple (sorted_idiff)

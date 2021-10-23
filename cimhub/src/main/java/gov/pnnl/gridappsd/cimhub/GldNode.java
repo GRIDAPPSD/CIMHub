@@ -439,16 +439,16 @@ public class GldNode {
         base_power += sp;
       }
       buf.append ("  base_power_" + phs + " " + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
-      buf.append ("  impedance_fraction_" + phs + " " + df6.format(sz/base_power) + ";\n");
-      buf.append ("  current_fraction_" + phs + " " + df6.format(si/base_power) + ";\n");
-      buf.append ("  power_fraction_" + phs + " " + df6.format(sp/base_power) + ";\n");
       if (sz > 0.0) {
+        buf.append ("  impedance_fraction_" + phs + " " + df6.format(sz/base_power) + ";\n");
         buf.append ("  impedance_pf_" + phs + " " + df6.format(pz/sz) + ";\n");
       }
       if (si > 0.0) {
+        buf.append ("  current_fraction_" + phs + " " + df6.format(si/base_power) + ";\n");
         buf.append ("  current_pf_" + phs + " " + df6.format(pi/si) + ";\n");
       }
       if (sp > 0.0) {
+        buf.append ("  power_fraction_" + phs + " " + df6.format(sp/base_power) + ";\n");
         buf.append ("  power_pf_" + phs + " " + df6.format(pp/sp) + ";\n");
       }
     }

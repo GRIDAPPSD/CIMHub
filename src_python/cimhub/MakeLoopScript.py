@@ -12,10 +12,11 @@ def append_dss_case(casefiles, inpath, outpath, fp):
     print('set controlmode=off', file=fp)
     print('solve', file=fp)
     print('cd', outpath, file=fp)
-    print('export summary ', c + '_s.csv', file=fp)
-    print('export voltages', c + '_v.csv', file=fp)
-    print('export currents', c + '_i.csv', file=fp)
-    print('export taps    ', c + '_t.csv', file=fp)
+    print('export summary  ', c + '_s.csv', file=fp)
+    print('export voltages ', c + '_v.csv', file=fp)
+    print('export currents ', c + '_i.csv', file=fp)
+    print('export taps     ', c + '_t.csv', file=fp)
+    print('export nodeorder', c + '_n.csv', file=fp)
 
 def append_xml_case (casefiles, xmlpath, outpath, fp):
   for c in casefiles:
@@ -59,10 +60,11 @@ def make_dssrun_script (casefiles, scriptname, bControls=False):
     else:
       print('set controlmode=off', file=fp)
     print('solve', file=fp)
-    print('export summary ', c + '_s.csv', file=fp)
-    print('export voltages', c + '_v.csv', file=fp)
-    print('export currents', c + '_i.csv', file=fp)
-    print('export taps    ', c + '_t.csv', file=fp)
+    print('export summary  ', c + '_s.csv', file=fp)
+    print('export voltages ', c + '_v.csv', file=fp)
+    print('export currents ', c + '_i.csv', file=fp)
+    print('export taps     ', c + '_t.csv', file=fp)
+    print('export nodeorder', c + '_n.csv', file=fp)
   fp.close()
 
 # run the script this way for GridAPPS-D platform circuits
