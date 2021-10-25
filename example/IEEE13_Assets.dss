@@ -7,6 +7,8 @@ new circuit.IEEE13NodecktAssets
 ~ Angle=30                     ! advance angle 30 deg so result agree with published angle
 ~ MVAsc3=20000 MVASC1=21000    ! stiffen the source to approximate inf source
 
+set earthmodel=carson
+
 New XfmrCode.SubXfmr Phases=3 Windings=2  XHL=(8 1000 /)
 ~ wdg=1 conn=delta kv=115  kva=5000  %r=(.5 1000 /)
 ~ wdg=2 conn=wye   kv=4.16 kva=5000  %r=(.5 1000 /) 

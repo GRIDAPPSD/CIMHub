@@ -14,7 +14,7 @@ cfg_json = 'cimhubconfig.json'
 cases = [
   {'dssname':'IEEE13_Assets', 'root':'IEEE13_Assets', 'mRID':'DFBF372D-4291-49EF-ACCA-53DAFDE0338F',
     'substation':'sub1', 'region':'test_region', 'subregion':'test_subregion',
-    'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 115000.0]},
+    'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 115000.0], 'export_options':' -l=1.0 -i=1.0 -e=carson'},
   {'dssname':'IEEE13_CDPSM', 'root':'IEEE13_CDPSM', 'mRID':'F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29',
     'substation':'sub2', 'region':'test_region', 'subregion':'test_subregion',
     'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 13200.0, 115000.0]},
