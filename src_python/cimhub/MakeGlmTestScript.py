@@ -13,6 +13,7 @@ def write_glm_case (c, v, fp):
   print('module powerflow {', file=fp)
   print('  solver_method NR;', file=fp)
   print('  line_capacitance TRUE;', file=fp)
+  print('//  maximum_voltage_error 1e-6;', file=fp)
   print('//  default_maximum_voltage_error 1e-6;', file=fp)
   print('};', file=fp)
   print('module generators;', file=fp)

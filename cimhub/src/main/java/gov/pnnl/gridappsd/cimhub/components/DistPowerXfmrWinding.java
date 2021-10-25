@@ -169,7 +169,11 @@ public class DistPowerXfmrWinding extends DistComponent {
 		buf.append ("  name \"xf_" + name + "\";\n");
 		buf.append ("  from \"" + bus[0] + "\";\n");
 		buf.append ("  to \"" + bus[1] + "\";\n");
-		buf.append ("  phases ABC;\n");
+    if (sConnect.equals("D_D")) {
+      buf.append ("  phases ABCD;\n");
+    } else {
+      buf.append ("  phases ABCN;\n");
+    }
 		buf.append ("  configuration \"xcon_" + name + "\";\n");
 		AppendGLMRatings (buf, "ABC", normalCurrentLimit, emergencyCurrentLimit);
 		buf.append ("  // vector group " + vgrp + ";\n");

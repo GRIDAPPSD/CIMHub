@@ -4,6 +4,8 @@ import math
 import sys
 import os
 
+DEG_TO_RAD = math.pi / 180.0
+
 # Do all of the name-matching in upper case!!
 
 # 208/120 is always used as a candidate base voltage
@@ -51,7 +53,9 @@ def glmVpu(v, bases):
   return 0.0 # indicates a problem
 
 def load_glm_voltages(fname, voltagebases):
-  vglm = {}
+  vpu = {}
+  vmag = {}
+  vrad = {}
   buses = []
   if not os.path.isfile (fname):
     return buses, vglm
@@ -64,19 +68,25 @@ def load_glm_voltages(fname, voltagebases):
     buses.append (bus)
     maga = float(row[1])
     if maga > 0.0:
-      vglm[bus+'_A'] = glmVpu (maga, voltagebases)
+      vmag[bus+'_A'] = maga
+      vrad[bus+'_A'] = float(row[2])
+      vpu[bus+'_A'] = glmVpu (maga, voltagebases)
     magb = float(row[3])
     if magb > 0.0:
-      vglm[bus+'_B'] = glmVpu (magb, voltagebases)
+      vmag[bus+'_B'] = magb
+      vrad[bus+'_B'] = float(row[4])
+      vpu[bus+'_B'] = glmVpu (magb, voltagebases)
     magc = float(row[5])
     if magc > 0.0:
-      vglm[bus+'_C'] = glmVpu (magc, voltagebases)
-#    print ('Found {:s} {:.4f} {:.4f} {:.4f}'.format (bus, maga, magb, magc))
+      vmag[bus+'_C'] = magc
+      vrad[bus+'_C'] = float(row[6])
+      vpu[bus+'_C'] = glmVpu (magc, voltagebases)
   fd.close()
-  return buses, vglm
+  return buses, vpu, vmag, vrad
     
 def load_glm_currents(fname):
   iglm = {}
+  irad = {}
   links = []
   if not os.path.isfile (fname):
     return links, iglm
@@ -92,17 +102,33 @@ def load_glm_currents(fname):
       maga = float(row[1])
       if maga >= itol:
         iglm[link+'_A'] = maga
+        irad[link+'_A'] = float(row[2])
       magb = float(row[3])
       if magb >= itol:
         iglm[link+'_B'] = magb
+        irad[link+'_B'] = float(row[4])
       magc = float(row[5])
       if magc >= itol:
         iglm[link+'_C'] = magc
+        irad[link+'_C'] = float(row[6])
   fd.close()
-  return links, iglm
+  return links, iglm, irad
+
+def print_glm_flow (vtag, itag, volts, vang, amps, iang):
+  print ('GridLAB-D branch flow in {:s} from {:s}'.format (vtag, itag))
+  print ('Phs     Volts     rad      Amps     rad         kW          kVAR')
+  for phs in ['A', 'B', 'C']:
+    vtarget = vtag + '_' + phs
+    itarget = itag + '_' + phs
+    if itarget in amps and vtarget in volts:
+      skva = amps[itarget] * volts[vtarget] * 0.001
+      pkw = skva * math.cos (vang[vtarget]-iang[itarget])
+      qkvar = skva * math.sin (vang[vtarget]-iang[itarget])
+      print ('  {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}'.format (phs, volts[vtarget], vang[vtarget], amps[itarget], iang[itarget], pkw, qkvar))
 
 def load_currents(fname, ordname):
   idss = {}
+  irad = {}
   if not os.path.isfile (fname):
     return idss
   if not os.path.isfile (ordname):
@@ -134,16 +160,19 @@ def load_currents(fname, ordname):
     for i in range(len(phs)):
       idx = phs[i]
       if idx > 0:
-        amps = float(row[1+2*i])
+        amps = float(row[1 + 2*i])
         if amps >= itol:
           idss[link+'.'+str(idx)] = amps
+          irad[link+'.'+str(idx)] = float(row[2 + 2*i]) * DEG_TO_RAD
   fd.close()
-  return idss
+  return idss, irad
 
 def load_voltages(fname):
-  vdss = {}
+  vpu = {}
+  vmag = {}
+  vrad = {}
   if not os.path.isfile (fname):
-    return vdss
+    return vpu
   fd = open (fname, 'r')
   rd = csv.reader (fd, delimiter=',', skipinitialspace=True)
   next (rd)
@@ -154,18 +183,35 @@ def load_voltages(fname):
       vpu1 = float(row[5])
       vpu2 = float(row[9])
       vpu3 = float(row[13])
-#      print ('Found {:s} {:.4f} {:.4f} {:.4f}'.format (bus, vpu1, vpu2, vpu3))
       if float(vpu1) > 0:
         phs = dss_phase (int(row[2]))
-        vdss[bus+phs] = vpu1
+        vpu[bus+phs] = vpu1
+        vmag[bus+phs] = float(row[3])
+        vrad[bus+phs] = float(row[4])*DEG_TO_RAD
       if float(vpu2) > 0:
         phs = dss_phase (int(row[6]))
-        vdss[bus+phs] = vpu2
+        vpu[bus+phs] = vpu2
+        vmag[bus+phs] = float(row[7])
+        vrad[bus+phs] = float(row[8])*DEG_TO_RAD
       if float(vpu3) > 0:
         phs = dss_phase (int(row[10]))
-        vdss[bus+phs] = vpu3
+        vpu[bus+phs] = vpu3
+        vmag[bus+phs] = float(row[11])
+        vrad[bus+phs] = float(row[12])*DEG_TO_RAD
   fd.close()
-  return vdss
+  return vpu, vmag, vrad
+
+def print_dss_flow (vtag, itag, volts, vang, amps, iang, label):
+  print ('OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (vtag, itag, label))
+  print ('Phs     Volts     rad      Amps     rad         kW          kVAR')
+  for num, phs in zip(['1', '2', '3'], ['A', 'B', 'C']):
+    vtarget = vtag + '_' + phs
+    itarget = itag + '.' + num
+    if itarget in amps and vtarget in volts:
+      skva = amps[itarget] * volts[vtarget] * 0.001
+      pkw = skva * math.cos (vang[vtarget]-iang[itarget])
+      qkvar = skva * math.sin (vang[vtarget]-iang[itarget])
+      print ('  {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}'.format (phs, volts[vtarget], vang[vtarget], amps[itarget], iang[itarget], pkw, qkvar))
 
 def load_taps(fname):
   vtap = {}
@@ -244,17 +290,21 @@ def error_norm_tuple (diffs):
 
 def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
   dssroot = rootname.lower()
-  v1 = load_voltages (basepath + dssroot + '_v.csv')
-  v2 = load_voltages (dsspath + dssroot + '_v.csv')
+  v1, magv1, angv1 = load_voltages (basepath + dssroot + '_v.csv')
+  v2, magv2, angv2 = load_voltages (dsspath + dssroot + '_v.csv')
   t1 = load_taps (basepath + dssroot + '_t.csv')
   t2 = load_taps (dsspath + dssroot + '_t.csv')
-  i1 = load_currents (basepath + dssroot + '_i.csv', basepath + dssroot + '_n.csv')
-  i2 = load_currents (dsspath + dssroot + '_i.csv', dsspath + dssroot + '_n.csv')
+  i1, angi1 = load_currents (basepath + dssroot + '_i.csv', basepath + dssroot + '_n.csv')
+  i2, angi2 = load_currents (dsspath + dssroot + '_i.csv', dsspath + dssroot + '_n.csv')
   s1 = load_summary (basepath + dssroot + '_s.csv')
   s2 = load_summary (dsspath + dssroot + '_s.csv')
 
-  gldbus, gldv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
-  gldlink, gldi = load_glm_currents (glmpath + rootname + '_curr.csv')
+  gldbus, gldv, gldmagv, gldangv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
+  gldlink, gldi, gldangi = load_glm_currents (glmpath + rootname + '_curr.csv')
+
+# print_dss_flow ('633', 'TRANSFORMER.XFM1', magv1, angv1, i1, angi1, 'Base')
+# print_dss_flow ('633', 'TRANSFORMER.XFM1', magv2, angv2, i2, angi2, 'Converted')
+# print_glm_flow ('633', 'XF_XFM1', gldmagv, gldangv, gldi, gldangi)
 
 #  print (gldbus)
 #  print ('**GLM  V**', gldv)
@@ -264,9 +314,12 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
 #  print ('**BASE I**', i1)
 #  print (basepath+dssroot+'_s.csv', s1)
 #  print (dsspath+dssroot+'_s.csv', s2)
-# print ('\n** BASE I**')
-# for key, val in i1.items():
-#   print ('{:24s} {:10.4f}'.format (key, val))
+#  print ('\n** BASE I**')
+#  for key, val in i1.items():
+#    print ('{:24s} {:10.4f}'.format (key, val))
+#  print ('\n** BASE V**')
+#  for key, val in v1.items():
+#    print ('{:24s} {:10.4f}'.format (key, val))
 # print ('\n** GLM I**')
 # for key, val in gldi.items():
 #   print ('{:24s} {:10.4f}'.format (key, val))

@@ -29,6 +29,9 @@ cases = [
     'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 13200.0, 115000.0], 'export_options':' -l=1.0 -p=1.0'},
 ]
 
+#cimhub.compare_cases (casefiles=cases, basepath='./', dsspath='./dss/', glmpath='./glm/')
+#quit()
+
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 cimhub.clear_db (cfg_json)
 
