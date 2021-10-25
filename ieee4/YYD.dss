@@ -67,6 +67,7 @@ New Load.B6 phases=3 Bus1=B6.1.2.3 Model=2 Conn=delta kV=2.4 kW=2250 kvar=1125
 
 Set voltagebases=[69, 13.2, 2.4]
 Calcvoltagebases
+set tolerance=1e-8
 
 solve
 

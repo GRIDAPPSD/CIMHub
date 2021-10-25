@@ -24,19 +24,16 @@ new linegeometry.4wire nconds=4 nphases=3 reduce=yes
 ! **** 12.47 KV LINE
 new line.line1 geometry=4wire length=2000 units=ft bus1=sourcebus bus2=n2
 
-! **** 3-PHASE STEP-DOWN TRANSFORMER 12.47/4.16 KV Y-Y
-new transformer.t1 xhl=6
-~ wdg=1 bus=n2 conn=wye kV=12.47 kVA=6000 %r=0.5 
-~ wdg=2 bus=n3 conn=wye kV=4.16  kVA=6000 %r=0.5 
+! **** 1-PHASE STEP-DOWN TRANSFORMER 12.47/4.16 KV Y-Y
+new transformer.t1 xhl=6 phases=1
+~ wdg=1 bus=n2.1 conn=wye kV=7.2      kVA=2000 %r=0.5 
+~ wdg=2 bus=n3.1 conn=wye kV=2.40178  kVA=2000 %r=0.5 
 
 ! **** 4.16 KV LINE
 new line.line2 bus1=n3 bus2=n4 geometry=4wire length=2500 units=ft  
 
 ! **** WYE-CONNECTED 4.16 KV LOAD
-new load.load1 phases=3 bus1=n4 conn=wye kV=4.16 kW=5400 pf=0.9  model=2 // 1
-! **** HAVE TO ALLOW P, Q TO REMAIN CONSTANT TO ABOUT .79 PU -- THIS IS ASSUMED IN TEST CASE
-! **** DEFAULT IN DSS IS .95, BELOW WHICH IT REVERTS TO LINEAR MODEL
-~ vminpu=0.75    ! model will remain const p,q down to 0.75 pu voltage    
+new load.load1 phases=1 bus1=n4.1 conn=wye kV=2.40178 kW=1800 pf=0.9  model=2 // 1
 
 set voltagebases=[12.47, 4.16] 
 calcvoltagebases     ! **** let DSS compute voltage bases

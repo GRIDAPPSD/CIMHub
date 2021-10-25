@@ -1582,7 +1582,7 @@ public class CIMImporter extends Object {
 	}
 
 	protected void WriteDSSFile (PrintWriter out, PrintWriter outID, String fXY, String fID, double load_scale,
-			boolean bWantSched, String fSched, boolean bWantZIP, double Zcoeff, double Icoeff, double Pcoeff)  {
+			boolean bWantSched, String fSched, boolean bWantZIP, double Zcoeff, double Icoeff, double Pcoeff, String fEarth)  {
 
 		out.println ("clear");
 
@@ -1590,6 +1590,7 @@ public class CIMImporter extends Object {
 			out.print (pair.getValue().GetDSS());
 			outID.println ("Circuit." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
 		}
+    out.println ("set earthmodel=" + fEarth);
 
 		out.println();
 		for (HashMap.Entry<String,DistOverheadWire> pair : mapWires.entrySet()) {
@@ -2016,9 +2017,9 @@ public class CIMImporter extends Object {
 	public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, 
 			String fSched, double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP, 
 			boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, boolean bHaveEventGen, ModelState ms, 
-			boolean bTiming) throws FileNotFoundException{
+			boolean bTiming, String fEarth) throws FileNotFoundException{
 		start(queryHandler, querySetter, fTarget, fRoot, fSched, load_scale, bWantSched, bWantZIP, randomZIP, useHouses,
-				Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming);
+				Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming, fEarth);
 	}
 
 
@@ -2038,7 +2039,7 @@ public class CIMImporter extends Object {
 	public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, String fSched,
 			double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP,
 			boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff,
-			int maxMeasurements, boolean bHaveEventGen, ModelState ms, boolean bTiming) throws FileNotFoundException{
+			int maxMeasurements, boolean bHaveEventGen, ModelState ms, boolean bTiming, String fEarth) throws FileNotFoundException{
 
 		this.queryHandler = queryHandler;
 		this.querySetter = querySetter;
@@ -2074,7 +2075,7 @@ public class CIMImporter extends Object {
 			fID = fRoot + "_uuid.dss";
 			PrintWriter pOut = new PrintWriter(fOut);
 			PrintWriter pID = new PrintWriter(fID);
-			WriteDSSFile (pOut, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff);
+			WriteDSSFile (pOut, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, fEarth);
 			PrintWriter pXY = new PrintWriter(fXY);
 			WriteDSSCoordinates (pXY);
 			PrintWriter pSym = new PrintWriter (fRoot + "_symbols.json");
@@ -2098,7 +2099,7 @@ public class CIMImporter extends Object {
 			fID = fRoot + "_uuid.dss";
 			PrintWriter pDss = new PrintWriter(fRoot + "_base.dss");
 			PrintWriter pID = new PrintWriter(fID);
-			WriteDSSFile (pDss, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff);
+			WriteDSSFile (pDss, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, fEarth);
 			long t6 = System.nanoTime();
 			PrintWriter pXY = new PrintWriter(fXY);
 			WriteDSSCoordinates (pXY);
@@ -2316,7 +2317,7 @@ public class CIMImporter extends Object {
 	 */
 	public void generateDSSFile(QueryHandler queryHandler, PrintWriter out, PrintWriter outID, String fXY, String fID,
 			double load_scale, boolean bWantSched, String fSched, boolean bWantZIP,
-			double Zcoeff, double Icoeff, double Pcoeff){
+			double Zcoeff, double Icoeff, double Pcoeff, String fEarth){
 		this.queryHandler = queryHandler;
 		if(this.querySetter==null) {
 			this.querySetter=new CIMQuerySetter();
@@ -2326,7 +2327,7 @@ public class CIMImporter extends Object {
 		}
 		CheckMaps();
 		ApplyCurrentLimits();
-		WriteDSSFile(out, outID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff);
+		WriteDSSFile(out, outID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, fEarth);
 	}
 
 	/**
@@ -2373,6 +2374,7 @@ public class CIMImporter extends Object {
 		double Zcoeff = 0.0, Icoeff = 0.0, Pcoeff = 0.0;
 		String blazegraphURI = "http://localhost:8889/bigdata/namespace/kb/sparql";
 		String fSPARQL = "";
+    String fEarth = "deri";
 		if (args.length < 1) {
 			System.out.println ("Usage: java CIMImporter [options] output_root");
 			System.out.println ("       -q={queries_file}  // optional file with CIM namespace and component queries (defaults to CIM100x)");
@@ -2380,6 +2382,7 @@ public class CIMImporter extends Object {
 			System.out.println ("       -o={glm|dss|both|idx|cim|csv} // output format; defaults to glm");
 			System.out.println ("       -l={0..1}          // load scaling factor; defaults to 1");
 			System.out.println ("       -f={50|60}         // system frequency; defaults to 60");
+      System.out.println ("       -e={Deri|Carson|FullCarson} // earth model for OpenDSS, defaults to Deri but GridLAB-D supports only Carson");
 			System.out.println ("       -n={schedule_name} // root filename for scheduled ZIP loads (defaults to none)");
 			System.out.println ("       -z={0..1}          // constant Z portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)");
 			System.out.println ("       -i={0..1}          // constant I portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)");
@@ -2450,7 +2453,9 @@ public class CIMImporter extends Object {
 				} else if (opt == 'q') {
 					fSPARQL = optVal;
 					bReadSPARQL = true;
-				}
+				} else if (opt == 'e') {
+          fEarth = optVal.toLowerCase();
+        }
 			} else {
 				if (fTarget.equals("glm")) {
 					fRoot = args[i];
@@ -2489,7 +2494,7 @@ public class CIMImporter extends Object {
 
 			new CIMImporter().start(qh, qs, fTarget, fRoot, fSched, load_scale,
 					bWantSched, bWantZIP, randomZIP, useHouses,
-					Zcoeff, Icoeff, Pcoeff, bHaveEventGen, ms, bTiming);
+					Zcoeff, Icoeff, Pcoeff, bHaveEventGen, ms, bTiming, fEarth);
 		} catch (RuntimeException e) {
 			System.out.println ("Can not produce a model: " + e.getMessage());
 			e.printStackTrace();

@@ -115,6 +115,8 @@ def load_glm_currents(fname):
   return links, iglm, irad
 
 def print_glm_flow (vtag, itag, volts, vang, amps, iang):
+  if vtag is None or itag is None:
+    return
   print ('GridLAB-D branch flow in {:s} from {:s}'.format (vtag, itag))
   print ('Phs     Volts     rad      Amps     rad         kW          kVAR')
   for phs in ['A', 'B', 'C']:
@@ -202,6 +204,8 @@ def load_voltages(fname):
   return vpu, vmag, vrad
 
 def print_dss_flow (vtag, itag, volts, vang, amps, iang, label):
+  if vtag is None or itag is None:
+    return
   print ('OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (vtag, itag, label))
   print ('Phs     Volts     rad      Amps     rad         kW          kVAR')
   for num, phs in zip(['1', '2', '3'], ['A', 'B', 'C']):
@@ -288,7 +292,7 @@ def error_norm_tuple (diffs):
     sum += v
   return sum/cnt
 
-def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
+def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_dss_link, check_dss_bus, check_glm_link, check_glm_bus):
   dssroot = rootname.lower()
   v1, magv1, angv1 = load_voltages (basepath + dssroot + '_v.csv')
   v2, magv2, angv2 = load_voltages (dsspath + dssroot + '_v.csv')
@@ -302,9 +306,9 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
   gldbus, gldv, gldmagv, gldangv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
   gldlink, gldi, gldangi = load_glm_currents (glmpath + rootname + '_curr.csv')
 
-# print_dss_flow ('633', 'TRANSFORMER.XFM1', magv1, angv1, i1, angi1, 'Base')
-# print_dss_flow ('633', 'TRANSFORMER.XFM1', magv2, angv2, i2, angi2, 'Converted')
-# print_glm_flow ('633', 'XF_XFM1', gldmagv, gldangv, gldi, gldangi)
+  print_dss_flow (check_dss_bus, check_dss_link, magv1, angv1, i1, angi1, 'Base')
+  print_dss_flow (check_dss_bus, check_dss_link, magv2, angv2, i2, angi2, 'Converted')
+  print_glm_flow (check_glm_bus, check_glm_link, gldmagv, gldangv, gldi, gldangi)
 
 #  print (gldbus)
 #  print ('**GLM  V**', gldv)
@@ -323,6 +327,9 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
 # print ('\n** GLM I**')
 # for key, val in gldi.items():
 #   print ('{:24s} {:10.4f}'.format (key, val))
+#  print ('\n** GLM V**')
+#  for key, val in gldv.items():
+#    print ('{:24s} {:10.4f}'.format (key, val))
   flog = open (dsspath + rootname + '_Summary.log', 'w')
   print ('Quantity  Case1   Case2', file=flog)
   for key in ['Status', 'Mode', 'Number', 'LoadMult', 'NumDevices', 'NumBuses', 
@@ -461,9 +468,21 @@ def compare_cases (casefiles, basepath, dsspath, glmpath):
   for row in casefiles:
     root = row['root']
     bases = row['bases']
+    check_dss_link = None
+    check_gld_link = None
+    check_dss_bus = None
+    check_gld_bus = None
+    if 'check_dss_link' in row:
+      check_dss_link = row['check_dss_link']
+    if 'check_gld_link' in row:
+      check_gld_link = row['check_gld_link']
+    if 'check_dss_bus' in row:
+      check_dss_bus = row['check_dss_bus']
+    if 'check_gld_bus' in row:
+      check_gld_bus = row['check_gld_bus']
     for i in range(len(bases)):
       bases[i] /= math.sqrt(3.0)
-    write_comparisons (dir1, dir2, dir3, root, bases)
+    write_comparisons (dir1, dir2, dir3, root, bases, check_dss_link, check_dss_bus, check_gld_link, check_gld_bus)
 
 # run this from the command line for GridAPPS-D platform scripts
 if __name__ == "__main__":

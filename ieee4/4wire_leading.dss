@@ -6,7 +6,7 @@ New Circuit.Kersting4wire_Lead
 ~ basekv=12.47  pu=1.00  MVAsc1=1e6  MVAsc3=1e6
 
 !Define Linecodes
-
+set earthmodel=carson
 
 New linecode.556MCM nphases=4 basefreq=60  ! ohms per 5 mile
 ~ rmatrix = (1.406 | 0.4765 1.406 | 0.4765 0.4765 1.406 | 0.4765 0.4765 0.4765 3.4365)
@@ -60,7 +60,7 @@ New Generator.Ind_Motor bus1=loadbus kv=0.24 kw=-18.65 kva=25 conn=delta model=6
 
 Set voltagebases=[12.47  .24]
 Calcvoltagebases
-
+set tolerance=1e-8
 Solve
 
 //Show V LN Nodes

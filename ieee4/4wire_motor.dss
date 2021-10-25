@@ -7,6 +7,8 @@ New Circuit.Kersting-4wire-IndMach
 !  define a really stiff source
 ~ basekv=12.47 pu=1.00 MVAsc1=1e6 MVAsc3=1e6
 
+set earthmodel=carson
+
 New linecode.556MCM nphases=4 basefreq=60 units=mi ! ohms per mile
 ~ rmatrix = (.281 | .095  .281  |  .095 .095 .281 | .095 .095 .095 .687 )
 ~ xmatrix = (1.383 | .727 1.383 | .852  .78  1.383 | .737  .749  .762  1.546 )
@@ -47,7 +49,7 @@ New Generator.Motor bus1=loadbus kv=0.24 kw=21.6 kva=25 conn=delta model=6 Userm
 
 Set voltagebases=[12.47  0.240]
 calcvoltagebases
-
+set tolerance=1e-8
 Solve
 
 //Show V LN Nodes

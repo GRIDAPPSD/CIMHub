@@ -610,56 +610,6 @@ public class GldNode {
         AppendPowerByFraction (buf, "A", pa_z, pa_i, pa_p, qa_z, qa_i, qa_p);
         AppendPowerByFraction (buf, "B", pb_z, pb_i, pb_p, qb_z, qb_i, qb_p);
         AppendPowerByFraction (buf, "C", pc_z, pc_i, pc_p, qc_z, qc_i, qc_p);
-        /*
-				if (pa_p != 0.0 || qa_p != 0.0)	{
-					buf.append ("  constant_power_A " + CFormat(new Complex(pa_p, qa_p)) + ";\n");
-				}
-				if (pb_p != 0.0 || qb_p != 0.0)	{
-					buf.append ("  constant_power_B " + CFormat(new Complex(pb_p, qb_p)) + ";\n");
-				}
-				if (pc_p != 0.0 || qc_p != 0.0)	{
-					buf.append ("  constant_power_C " + CFormat(new Complex(pc_p, qc_p)) + ";\n");
-				}
-        double scaleVLL = 1.0;
-        if (HasOpenDeltaLoad (pa_z, qa_z, pb_z, qb_z, pc_z, qc_z)) {
-          scaleVLL = 3.0;
-        }
-				if (pa_z != 0.0 || qa_z != 0.0) {
-					Complex s = new Complex(pa_z, qa_z);
-					Complex z = vmagsq.divide(s.conjugate()).multiply(scaleVLL);
-					buf.append ("  constant_impedance_A " + CFormat(z) + ";\n");
-				}
-				if (pb_z != 0.0 || qb_z != 0.0) {
-					Complex s = new Complex(pb_z, qb_z);
-					Complex z = vmagsq.divide(s.conjugate()).multiply(scaleVLL);
-					buf.append ("  constant_impedance_B " + CFormat(z) + ";\n");
-				}
-				if (pc_z != 0.0 || qc_z != 0.0) {
-					Complex s = new Complex(pc_z, qc_z);
-					Complex z = vmagsq.divide(s.conjugate()).multiply(scaleVLL);
-					buf.append ("  constant_impedance_C " + CFormat(z) + ";\n");
-				}
-        if (HasOpenDeltaLoad (pa_i, qa_i, pb_i, qb_i, pc_i, qc_i)) {
-          scaleVLL = Math.sqrt(1.0 / 3.0);
-        } else {
-          scaleVLL = 1.0;
-        }
-        if (pa_i != 0.0 || qa_i != 0.0) {
-          Complex s = new Complex(pa_i, qa_i);
-          amps = s.divide(va).conjugate().multiply(scaleVLL);
-          buf.append ("  constant_current_A " + CFormat(amps) + ";\n");
-        }
-				if (pb_i != 0.0 || qb_i != 0.0) {
-					Complex s = new Complex(pb_i, qb_i);
-					amps = s.divide(va.multiply(neg120)).conjugate().multiply(scaleVLL);
-					buf.append ("  constant_current_B " + CFormat(amps) + ";\n");
-				}
-				if (pc_i != 0.0 || qc_i != 0.0) {
-					Complex s = new Complex(pc_i, qc_i);
-					amps = s.divide(va.multiply(pos120)).conjugate().multiply(scaleVLL);
-					buf.append ("  constant_current_C " + CFormat(amps) + ";\n");
-				}
-        */
 				buf.append ("}\n");
 			}
 		}

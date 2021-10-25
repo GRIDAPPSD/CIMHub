@@ -55,6 +55,7 @@ def make_dssrun_script (casefiles, scriptname, bControls=False):
     print('clear', file=fp)
     print('redirect', c + '_base.dss', file=fp)
     print('set maxiterations=80', file=fp)
+    print('set tolerance=1e-8', file=fp)
     if bControls:
       print('set controlmode=static', file=fp)
     else:

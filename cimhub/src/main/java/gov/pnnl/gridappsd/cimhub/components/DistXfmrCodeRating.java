@@ -128,9 +128,9 @@ public class DistXfmrCodeRating extends DistComponent {
 			zpu = sct.z[0] / zbase2;
 		}
 		double xpu = zpu;
-		if (zpu >= rpu) {
-			xpu = Math.sqrt (zpu * zpu - rpu * rpu);
-		}
+//		if (zpu >= rpu) {
+//			xpu = Math.sqrt (zpu * zpu - rpu * rpu);
+//		}
 
 		String sConnect = GetGldTransformerConnection (conn, size);
 		String sKVA = df3.format (ratedS[0] * 0.001);
@@ -142,8 +142,8 @@ public class DistXfmrCodeRating extends DistComponent {
 			buf.append ("  secondary_voltage " + df3.format (ratedU[1]) + ";\n");
 		} else if (sConnect.equals("SINGLE_PHASE")) {
       AppendGldPhaseRatings (buf, sKVA);
-			buf.append ("  primary_voltage " + df3.format (ratedU[0] * Math.sqrt(3.0)) + ";\n");
-			buf.append ("  secondary_voltage " + df3.format (ratedU[1] * Math.sqrt(3.0)) + ";\n");
+			buf.append ("  primary_voltage " + df3.format (ratedU[0]) + ";\n");  // do not use Vll for single-phase wye impedance base
+			buf.append ("  secondary_voltage " + df3.format (ratedU[1]) + ";\n");
 			sConnect = "WYE_WYE";
 		} else {
 			buf.append ("  primary_voltage " + df3.format (ratedU[0]) + ";\n");

@@ -12,18 +12,25 @@ cwd = os.getcwd()
 
 cfg_json = 'cimhubconfig.json'
 cases = [
-  {'root':'YYBal',    'mRID':'161B1872-2B5C-4CBF-9ED0-7193495CBE79','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-  {'root':'YDBal',    'mRID':'D09B6037-6236-42CA-AA11-811FE941AF5B','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-  {'root':'GYDBal',   'mRID':'0EC1B5A1-1EF7-4BDE-BA05-7391020BCE47','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-#         {'root':'DYBal',    'mRID':'D9A6F0E3-DD90-46AD-9CB1-7EDF15C41F9F','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-#         {'root':'YYD',      'mRID':'7319BD48-9C66-4038-B0AC-30DBD289A4A6','glmvsrc':39837.17,'bases':[69.0,13.2,2.4]}, 
-#         {'root':'OYODBal',  'mRID':'AA782F4B-C424-4D54-AE39-9E6B108A7E0A','glmvsrc': 7200.00,'bases':[12.47,4.16]}, 
-#         {'root':'OYODUnbal','mRID':'088F22EA-893E-4ED5-BB7B-E74585EB3DA1','glmvsrc': 7200.00,'bases':[12.47,4.16]}
+  {'dssname':'YYBal',    'root':'YYBal',    'mRID':'161B1872-2B5C-4CBF-9ED0-7193495CBE79','glmvsrc': 7200.00,'bases':[4160.0, 12470.0], 'export_options':' -l=1.0 -z=1.0 -e=carson',
+   'check_dss_link': 'TRANSFORMER.T1', 'check_dss_bus': 'N2', 'check_gld_link': 'XF_T1', 'check_gld_bus': 'N2'}, 
+  {'dssname':'YDBal',    'root':'YDBal',    'mRID':'D09B6037-6236-42CA-AA11-811FE941AF5B','glmvsrc': 7200.00,'bases':[4160.0, 12470.0], 'export_options':' -l=1.0 -z=1.0 -e=carson',
+   'check_dss_link': 'TRANSFORMER.T1', 'check_dss_bus': 'N2', 'check_gld_link': 'XF_T1', 'check_gld_bus': 'N3'}, 
+  {'dssname':'GYDBal',   'root':'GYDBal',   'mRID':'0EC1B5A1-1EF7-4BDE-BA05-7391020BCE47','glmvsrc': 7200.00,'bases':[4160.0, 12470.0], 'export_options':' -l=1.0 -z=1.0 -e=carson',
+   'check_dss_link': 'TRANSFORMER.T1', 'check_dss_bus': 'N2', 'check_gld_link': 'XF_T1', 'check_gld_bus': 'N3'}, 
+  {'dssname':'DDBal',    'root':'DDBal',    'mRID':'D9A6F0E3-DD90-46AD-9CB1-7EDF15C41F9F','glmvsrc': 7200.00,'bases':[4160.0, 12470.0], 'export_options':' -l=1.0 -z=1.0 -e=carson',
+   'check_dss_link': 'TRANSFORMER.T1', 'check_dss_bus': 'N2', 'check_gld_link': 'XF_T1', 'check_gld_bus': 'N2'}, 
+  {'dssname':'DYBal',    'root':'DYBal',    'mRID':'7319BD48-9C66-4038-B0AC-30DBD289A4A6','glmvsrc': 7200.00,'bases':[4160.0, 12470.0], 'export_options':' -l=1.0 -z=1.0 -e=carson',
+   'check_dss_link': 'TRANSFORMER.T1', 'check_dss_bus': 'N2', 'check_gld_link': 'XF_T1', 'check_gld_bus': 'N2'}, 
+  {'dssname':'SCTUnBal', 'root':'SCTUnBal', 'mRID':'AA782F4B-C424-4D54-AE39-9E6B108A7E0A','glmvsrc': 7200.00,'bases':[4160.0, 12470.0], 'export_options':' -l=1.0 -z=1.0 -e=carson',
+   'check_dss_link': 'TRANSFORMER.T1', 'check_dss_bus': 'N2', 'check_gld_link': 'XF_T1', 'check_gld_bus': 'N2'}, 
+  {'dssname':'OnePh',    'root':'OnePh',    'mRID':'088F22EA-893E-4ED5-BB7B-E74585EB3DA1','glmvsrc': 7200.00,'bases':[4160.0, 12470.0], 'export_options':' -l=1.0 -z=1.0 -e=carson',
+   'check_dss_link': 'TRANSFORMER.T1', 'check_dss_bus': 'N2', 'check_gld_link': 'XF_T1', 'check_gld_bus': 'N2'}, 
 ]
 
-#cases = [{'root':'YDBal',    'mRID':'D09B6037-6236-42CA-AA11-811FE941AF5B','glmvsrc': 7200.00,'bases':[12.47,4.16]}]
-
-# exluding cases with IndMotor: 4wire_lagging.dss, 4wire_leading.dss, 4wire_motor.dss
+# exluding cases with IndMotor: 4wire_lagging.dss, 4wire_leading.dss, 4wire_motor.dss, the three-winding cases and the open wye/delta cases
+#cimhub.compare_cases (casefiles=cases, basepath='./', dsspath='./dss/', glmpath='./glm/')
+#quit()
 
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 cimhub.clear_db (cfg_json)
@@ -38,6 +45,7 @@ for row in cases:
   print ('export voltages {:s}_v.csv'.format (root), file=fp)
   print ('export currents {:s}_i.csv'.format (root), file=fp)
   print ('export taps     {:s}_t.csv'.format (root), file=fp)
+  print ('export nodeorder {:s}_n.csv'.format (root), file=fp)
 fp.close ()
 p1 = subprocess.Popen ('opendsscmd cim_test.dss', shell=True)
 p1.wait()

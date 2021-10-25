@@ -123,13 +123,20 @@ public class DistPowerXfmrWinding extends DistComponent {
 		StringBuilder buf = new StringBuilder ("object transformer_configuration {\n"); 
 		buf.append ("  name \"xcon_" + name + "\";\n");
 		String sConnect = GetGldTransformerConnection (conn, size);
+    boolean bSwap = false;
 		if (sConnect.equals ("Y_D")) {
-			buf.append ("  connect_type WYE_WYE; // should be Y_D\n");
+			buf.append ("  connect_type DELTA_GWYE; // Y_D swap to DELTA_GWYE\n");
+      bSwap = true;
 		} else {
 			buf.append ("  connect_type " + sConnect + ";\n");
 		}
-		buf.append ("  primary_voltage " + df3.format (ratedU[0]) + ";\n");
-		buf.append ("  secondary_voltage " + df3.format (ratedU[1]) + ";\n");
+    if (bSwap) {
+      buf.append ("  primary_voltage " + df3.format (ratedU[1]) + ";\n");
+      buf.append ("  secondary_voltage " + df3.format (ratedU[0]) + ";\n");
+    } else {
+      buf.append ("  primary_voltage " + df3.format (ratedU[0]) + ";\n");
+      buf.append ("  secondary_voltage " + df3.format (ratedU[1]) + ";\n");
+    }
 		buf.append ("  power_rating " + df3.format (ratedS[0] * 0.001) + ";\n");
 		int idx;
 		double Zbase;
@@ -167,8 +174,13 @@ public class DistPowerXfmrWinding extends DistComponent {
 
 		buf.append ("object transformer {\n");
 		buf.append ("  name \"xf_" + name + "\";\n");
-		buf.append ("  from \"" + bus[0] + "\";\n");
-		buf.append ("  to \"" + bus[1] + "\";\n");
+    if (bSwap) {
+      buf.append ("  from \"" + bus[1] + "\";\n");
+      buf.append ("  to \"" + bus[0] + "\";\n");
+    } else {
+      buf.append ("  from \"" + bus[0] + "\";\n");
+      buf.append ("  to \"" + bus[1] + "\";\n");
+    }
     if (sConnect.equals("D_D")) {
       buf.append ("  phases ABCD;\n");
     } else {
