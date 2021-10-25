@@ -264,6 +264,12 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
 #  print ('**BASE I**', i1)
 #  print (basepath+dssroot+'_s.csv', s1)
 #  print (dsspath+dssroot+'_s.csv', s2)
+# print ('\n** BASE I**')
+# for key, val in i1.items():
+#   print ('{:24s} {:10.4f}'.format (key, val))
+# print ('\n** GLM I**')
+# for key, val in gldi.items():
+#   print ('{:24s} {:10.4f}'.format (key, val))
   flog = open (dsspath + rootname + '_Summary.log', 'w')
   print ('Quantity  Case1   Case2', file=flog)
   for key in ['Status', 'Mode', 'Number', 'LoadMult', 'NumDevices', 'NumBuses', 
@@ -351,25 +357,20 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases):
   idiff = {}
   for link in gldlink:
     dsslink = ''
-    nextdssphase = 1
     if link.startswith('LINE_'):
-      dsslink = 'LINE.' + link[len('LINE_'):].upper() + '.'
+      dsslink = 'LINE.' + link[len('LINE_'):].upper()
     elif link.startswith('XF_'):
-      dsslink = 'TRANSFORMER.' + link[len('XF_'):].upper() + '.'
+      dsslink = 'TRANSFORMER.' + link[len('XF_'):].upper()
     elif link.startswith('SWT_'):
-      dsslink = 'LINE.' + link[len('SWT_'):].upper() + '.'
+      dsslink = 'LINE.' + link[len('SWT_'):].upper()
     elif link.startswith('REG_'):
-      dsslink = 'TRANSFORMER.' + link[len('REG_'):].upper() + '.'
-    for phs in ['_A', '_B', '_C']:
-      gldtarget = link + phs
-#      print ('Looking for', gldtarget)
-      if gldtarget in gldi:
-        dsstarget = dsslink + str(nextdssphase)
-#        print ('  dsstarget', dsstarget)
-        if dsstarget in i1:
-          idiff [gldtarget] = [abs(i1[dsstarget] - gldi[gldtarget]), dsstarget]
-#          print ('  found in i1, incrementing nextdssphase, differencing', i1[dsstarget], gldi[gldtarget])
-          nextdssphase += 1
+      dsslink = 'TRANSFORMER.' + link[len('REG_'):].upper()
+    for gldphs, dssphs in zip(['_A', '_B', '_C'], ['.1', '.2', '.3']):
+      gldtarget = link + gldphs
+      dsstarget = dsslink + dssphs
+#      print ('Looking for gld target {:s} matching dss target {:s}'.format (gldtarget, dsstarget))
+      if gldtarget in gldi and dsstarget in i1:
+        idiff [gldtarget] = [abs(i1[dsstarget] - gldi[gldtarget]), dsstarget]
   sorted_idiff = sorted(idiff.items(), key=operator.itemgetter(1))
   err_i_glm = error_norm_tuple (sorted_idiff)
   fcsv = open (dsspath + rootname + '_Compare_Currents_GLM.csv', 'w')
