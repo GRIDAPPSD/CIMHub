@@ -232,9 +232,14 @@ public abstract class DistComponent {
     }
   }
 
-	static String DSSXfmrBusPhasesAndGround (String bus, String phs, double rg, double xg) {
+	static String DSSXfmrBusPhasesAndGround (String vgrp, String bus, String phs, double rg, double xg) {
 		if (phs.contains("s2")) return (bus + ".0.2");
 		if (phs.contains("s1")) return (bus + ".1.0");
+    if (vgrp.contains ("I") && phs.length() > 1) {
+      StringBuilder buf = new StringBuilder (DSSBusPhases (bus, phs));
+      buf.append (" conn=d");
+      return buf.toString();
+    }
     if (rg > 0.0 || xg > 0.0) {
       StringBuilder buf = new StringBuilder (DSSBusPhases (bus, phs));
       int idxN = phs.length() + 1;
