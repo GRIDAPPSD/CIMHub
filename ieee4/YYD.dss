@@ -5,8 +5,7 @@ Clear
 ! Name changed to reflect that the OpenDSS model is YYD
 ! Includes scripts for SLG fault cases
 
-New Circuit.YYD
-~ BasekV=69  Bus1=B1 Isc3=1000000  Isc1=1100000  ! near-infinite source
+New Circuit.YYD BasekV=69  Bus1=B1 Isc3=1000000  Isc1=1100000  ! near-infinite source
 
 Set Earthmodel=Carson
 

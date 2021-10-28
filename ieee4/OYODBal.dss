@@ -11,6 +11,10 @@ new linegeometry.4wire nconds=4 nphases=3 reduce=yes
 ~ cond=2 wire=conductor units=ft x=-1.5 h=28 
 ~ cond=3 wire=conductor units=ft x=3    h=28 
 ~ cond=4 wire=neutral   units=ft x=0    h=24 
+new linegeometry.3wire nconds=3 nphases=3 reduce=no 
+~ cond=1 wire=conductor units=ft x=-4   h=28 
+~ cond=2 wire=conductor units=ft x=-1.5 h=28 
+~ cond=3 wire=conductor units=ft x=3    h=28 
 
 new line.line1 geometry=4wire length=2000 units=ft bus1=sourcebus bus2=n2
 
@@ -21,7 +25,7 @@ new transformer.t2 xhl=6 Phases=1
 ~ wdg=1 bus=n2.2.0     conn=wye     kV=7.2   kVA=2000 %r=0.5 
 ~ wdg=2 bus=n3.2.3     conn=Delta   kV=4.16  kVA=2000 %r=0.5 
 
-new line.line2 bus1=n3 bus2=n4 geometry=4wire length=2500 units=ft  
+new line.line2 bus1=n3 bus2=n4 geometry=3wire length=2500 units=ft  
 
 new load.load1 phases=3 bus1=n4 conn=Delta kV=4.16 kW=3600 pf=0.9  model=2 // 1
 ! Add 1-kvar Capacitor to stabilize the neutral point on the Delta Side

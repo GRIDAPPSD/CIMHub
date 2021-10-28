@@ -114,20 +114,6 @@ def load_glm_currents(fname):
   fd.close()
   return links, iglm, irad
 
-def print_glm_flow (vtag, itag, volts, vang, amps, iang):
-  if vtag is None or itag is None:
-    return
-  print ('GridLAB-D branch flow in {:s} from {:s}'.format (vtag, itag))
-  print ('Phs     Volts     rad      Amps     rad         kW          kVAR')
-  for phs in ['A', 'B', 'C']:
-    vtarget = vtag + '_' + phs
-    itarget = itag + '_' + phs
-    if itarget in amps and vtarget in volts:
-      skva = amps[itarget] * volts[vtarget] * 0.001
-      pkw = skva * math.cos (vang[vtarget]-iang[itarget])
-      qkvar = skva * math.sin (vang[vtarget]-iang[itarget])
-      print ('  {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}'.format (phs, volts[vtarget], vang[vtarget], amps[itarget], iang[itarget], pkw, qkvar))
-
 def load_currents(fname, ordname):
   idss = {}
   irad = {}
@@ -206,16 +192,79 @@ def load_voltages(fname):
 def print_dss_flow (vtag, itag, volts, vang, amps, iang, label):
   if vtag is None or itag is None:
     return
-  print ('OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (vtag, itag, label))
-  print ('Phs     Volts     rad      Amps     rad         kW          kVAR')
+  ptot = 0.0
+  qtot = 0.0
+  iline_mag = {}
+  vln_mag = {}
+  iline_ang = {}
+  vln_ang = {}
+  pkw = {}
+  qkvar = {}
+  print ('  OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (vtag, itag, label))
+  print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad')
   for num, phs in zip(['1', '2', '3'], ['A', 'B', 'C']):
     vtarget = vtag + '_' + phs
     itarget = itag + '.' + num
     if itarget in amps and vtarget in volts:
+      iline_mag[phs] = amps[itarget]
+      iline_ang[phs] = iang[itarget]
+      vln_mag[phs] = volts[vtarget]
+      vln_ang[phs] = vang[vtarget]
       skva = amps[itarget] * volts[vtarget] * 0.001
-      pkw = skva * math.cos (vang[vtarget]-iang[itarget])
-      qkvar = skva * math.sin (vang[vtarget]-iang[itarget])
-      print ('  {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}'.format (phs, volts[vtarget], vang[vtarget], amps[itarget], iang[itarget], pkw, qkvar))
+      pkw[phs] = skva * math.cos (vang[vtarget]-iang[itarget])
+      qkvar[phs] = skva * math.sin (vang[vtarget]-iang[itarget])
+      ptot += pkw[phs]
+      qtot += qkvar[phs]
+  for phs, llp in zip(['A', 'B', 'C'], ['B', 'C', 'A']):
+    vll_mag = 0.0
+    vll_ang = 0.0
+    if phs in vln_mag and llp in vln_mag:
+      realpart = vln_mag[phs] * math.cos(vln_ang[phs]) - vln_mag[llp] * math.cos(vln_ang[llp])
+      imagpart = vln_mag[phs] * math.sin(vln_ang[phs]) - vln_mag[llp] * math.sin(vln_ang[llp])
+      vll_mag = math.sqrt (realpart*realpart + imagpart*imagpart)
+      vll_ang = math.atan2 (imagpart, realpart)
+    if phs in vln_mag:
+      print ('    {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}     {:s}{:s}   {:9.2f} {:7.4f}'.format (phs, vln_mag[phs], 
+        vln_ang[phs], iline_mag[phs], iline_ang[phs], pkw[phs], qkvar[phs], phs, llp, vll_mag, vll_ang))
+  print ('    Total S = {:9.3f} + j {:9.3f}'.format (ptot, qtot))
+
+def print_glm_flow (vtag, itag, volts, vang, amps, iang):
+  if vtag is None or itag is None:
+    return
+  ptot = 0.0
+  qtot = 0.0
+  iline_mag = {}
+  vln_mag = {}
+  iline_ang = {}
+  vln_ang = {}
+  pkw = {}
+  qkvar = {}
+  print ('  GridLAB-D branch flow in {:s} from {:s}'.format (vtag, itag))
+  print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad')
+  for phs in ['A', 'B', 'C']:
+    vtarget = vtag + '_' + phs
+    itarget = itag + '_' + phs
+    if itarget in amps and vtarget in volts:
+      iline_mag[phs] = amps[itarget]
+      iline_ang[phs] = iang[itarget]
+      vln_mag[phs] = volts[vtarget]
+      vln_ang[phs] = vang[vtarget]
+      skva = amps[itarget] * volts[vtarget] * 0.001
+      pkw[phs] = skva * math.cos (vang[vtarget]-iang[itarget])
+      qkvar[phs] = skva * math.sin (vang[vtarget]-iang[itarget])
+      ptot += pkw[phs]
+      qtot += qkvar[phs]
+  for phs, llp in zip(['A', 'B', 'C'], ['B', 'C', 'A']):
+    vll_mag = 0.0
+    vll_ang = 0.0
+    if phs in vln_mag and llp in vln_mag:
+      realpart = vln_mag[phs] * math.cos(vln_ang[phs]) - vln_mag[llp] * math.cos(vln_ang[llp])
+      imagpart = vln_mag[phs] * math.sin(vln_ang[phs]) - vln_mag[llp] * math.sin(vln_ang[llp])
+      vll_mag = math.sqrt (realpart*realpart + imagpart*imagpart)
+      vll_ang = math.atan2 (imagpart, realpart)
+    print ('    {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}     {:s}{:s}   {:9.2f} {:7.4f}'.format (phs, vln_mag[phs], 
+      vln_ang[phs], iline_mag[phs], iline_ang[phs], pkw[phs], qkvar[phs], phs, llp, vll_mag, vll_ang))
+  print ('    Total S = {:9.3f} + j {:9.3f}'.format (ptot, qtot))
 
 def load_taps(fname):
   vtap = {}
