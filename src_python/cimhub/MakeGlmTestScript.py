@@ -40,6 +40,9 @@ def make_glmrun_script (casefiles, inpath, outpath, scriptname):
   print('cd', inpath, file=bp)
   for row in casefiles:
     c = row['root']
+    if 'skip_gld' in row:
+      if row['skip_gld']:
+        continue
     print('gridlabd -D WANT_VI_DUMP=1', c + '_run.glm >' + c + '.log', file=bp)
     print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
     fp = open (inpath + c + '_run.glm', 'w')

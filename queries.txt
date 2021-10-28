@@ -1487,7 +1487,7 @@ ORDER BY ?key
 # transformer tanks referencing the catalog - DistXfmrTank
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?grounded ?rground ?xground ?fdrid WHERE {
+SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?reversed ?grounded ?rground ?xground ?fdrid WHERE {
  ?p r:type c:PowerTransformer.
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"_C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
@@ -1510,6 +1510,7 @@ VALUES ?fdrid {"_E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}  # 123 PV/Triplex
  ?end c:TransformerTankEnd.TransformerTank ?t.
  ?end c:TransformerTankEnd.phases ?phsraw.
   bind(strafter(str(?phsraw),"PhaseCode.") as ?phs)
+ ?end c:TransformerTankEnd.reversed ?reversed.
  ?end c:TransformerEnd.endNumber ?enum.
  ?end c:TransformerEnd.grounded ?grounded.
  OPTIONAL {?end c:TransformerEnd.rground ?rground.}

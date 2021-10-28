@@ -42,6 +42,9 @@ def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname):
           xmlpath + row['root'] + '.xml', '-X POST $DB_URL', file=fp)
     print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss {:s}'.format (opts), 
           dsspath + row['root'], file=fp)
+    if 'skip_gld' in row:
+      if row['skip_gld']:
+        continue
     print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts),
           glmpath + row['root'], file=fp)
   fp.close()

@@ -292,7 +292,8 @@ def error_norm_tuple (diffs):
     sum += v
   return sum/cnt
 
-def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_dss_link, check_dss_bus, check_glm_link, check_glm_bus):
+def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, 
+                      check_dss_link=None, check_dss_bus=None, check_glm_link=None, check_glm_bus=None, do_gld=True):
   dssroot = rootname.lower()
   v1, magv1, angv1 = load_voltages (basepath + dssroot + '_v.csv')
   v2, magv2, angv2 = load_voltages (dsspath + dssroot + '_v.csv')
@@ -303,12 +304,18 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
   s1 = load_summary (basepath + dssroot + '_s.csv')
   s2 = load_summary (dsspath + dssroot + '_s.csv')
 
-  gldbus, gldv, gldmagv, gldangv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
-  gldlink, gldi, gldangi = load_glm_currents (glmpath + rootname + '_curr.csv')
+  if do_gld:
+    gldbus, gldv, gldmagv, gldangv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
+    gldlink, gldi, gldangi = load_glm_currents (glmpath + rootname + '_curr.csv')
+  else:
+    gldv = []
+    gldi = []
 
-  print_dss_flow (check_dss_bus, check_dss_link, magv1, angv1, i1, angi1, 'Base')
-  print_dss_flow (check_dss_bus, check_dss_link, magv2, angv2, i2, angi2, 'Converted')
-  print_glm_flow (check_glm_bus, check_glm_link, gldmagv, gldangv, gldi, gldangi)
+  if (check_dss_bus is not None) and (check_dss_link is not None):
+    print_dss_flow (check_dss_bus, check_dss_link, magv1, angv1, i1, angi1, 'Base')
+    print_dss_flow (check_dss_bus, check_dss_link, magv2, angv2, i2, angi2, 'Converted')
+  if (check_glm_bus is not None) and (check_glm_link is not None):
+    print_glm_flow (check_glm_bus, check_glm_link, gldmagv, gldangv, gldi, gldangi)
 
 #  print (gldbus)
 #  print ('**GLM  V**', gldv)
@@ -364,21 +371,24 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
       print (bus, '{:.5f}'.format(v1[bus]), '{:.5f}'.format(v2[bus]), 
                '{:.5f}'.format(row[1]), sep=',', file=fcsv)
   fcsv.close()
+
   # bus naming convention will be "bus name"_A, _B, or _C
-  vdiff = {}
-  for bus in v1:
-    if bus in gldv:
-      vdiff [bus] = abs(v1[bus] - gldv[bus])
-  sorted_vdiff = sorted(vdiff.items(), key=operator.itemgetter(1))
-  err_v_glm = error_norm (sorted_vdiff, 0.8)
-  fcsv = open (dsspath + rootname + '_Compare_Voltages_GLM.csv', 'w')
-  print ('bus_phs,vbase,vglm,vdiff', file=fcsv)
-  for row in sorted_vdiff:
-    if row[1] < 0.8:
-      bus = row[0]
-      print (bus, '{:.5f}'.format(v1[bus]), '{:.5f}'.format(gldv[bus]), 
-               '{:.5f}'.format(row[1]), sep=',', file=fcsv)
-  fcsv.close()
+  err_v_glm = -1.0
+  if do_gld:
+    vdiff = {}
+    for bus in v1:
+      if bus in gldv:
+        vdiff [bus] = abs(v1[bus] - gldv[bus])
+    sorted_vdiff = sorted(vdiff.items(), key=operator.itemgetter(1))
+    err_v_glm = error_norm (sorted_vdiff, 0.8)
+    fcsv = open (dsspath + rootname + '_Compare_Voltages_GLM.csv', 'w')
+    print ('bus_phs,vbase,vglm,vdiff', file=fcsv)
+    for row in sorted_vdiff:
+      if row[1] < 0.8:
+        bus = row[0]
+        print (bus, '{:.5f}'.format(v1[bus]), '{:.5f}'.format(gldv[bus]), 
+                 '{:.5f}'.format(row[1]), sep=',', file=fcsv)
+    fcsv.close()
 
   ftxt = open (dsspath + rootname + '_Missing_Nodes_DSS.txt', 'w')
   nmissing_1 = 0
@@ -414,34 +424,36 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
   # if there are non-zero magA, magB or magC values, 
   #   look for the next phase current 1, 2, or 3 from the matching OpenDSS branch name
   # for example, GridLAB-D line_632670_A corresponds to OpenDSS Line.632670.1
-  idiff = {}
-  for link in gldlink:
-    dsslink = ''
-    if link.startswith('LINE_'):
-      dsslink = 'LINE.' + link[len('LINE_'):].upper()
-    elif link.startswith('XF_'):
-      dsslink = 'TRANSFORMER.' + link[len('XF_'):].upper()
-    elif link.startswith('SWT_'):
-      dsslink = 'LINE.' + link[len('SWT_'):].upper()
-    elif link.startswith('REG_'):
-      dsslink = 'TRANSFORMER.' + link[len('REG_'):].upper()
-    for gldphs, dssphs in zip(['_A', '_B', '_C'], ['.1', '.2', '.3']):
-      gldtarget = link + gldphs
-      dsstarget = dsslink + dssphs
-#      print ('Looking for gld target {:s} matching dss target {:s}'.format (gldtarget, dsstarget))
-      if gldtarget in gldi and dsstarget in i1:
-        idiff [gldtarget] = [abs(i1[dsstarget] - gldi[gldtarget]), dsstarget]
-  sorted_idiff = sorted(idiff.items(), key=operator.itemgetter(1))
-  err_i_glm = error_norm_tuple (sorted_idiff)
-  fcsv = open (dsspath + rootname + '_Compare_Currents_GLM.csv', 'w')
-  print ('class_name_phs,ibase,iglm,idiff', file=fcsv)
-  for row in sorted_idiff:
-    gldtarget = row[0]
-    phsdiff = row[1][0]
-    dsstarget = row[1][1]
-    print (gldtarget, '{:.3f}'.format(i1[dsstarget]), '{:.3f}'.format(gldi[gldtarget]), 
-            '{:.3f}'.format(phsdiff), sep=',', file=fcsv)
-  fcsv.close()
+  err_i_glm = -1.0
+  if do_gld:
+    idiff = {}
+    for link in gldlink:
+      dsslink = ''
+      if link.startswith('LINE_'):
+        dsslink = 'LINE.' + link[len('LINE_'):].upper()
+      elif link.startswith('XF_'):
+        dsslink = 'TRANSFORMER.' + link[len('XF_'):].upper()
+      elif link.startswith('SWT_'):
+        dsslink = 'LINE.' + link[len('SWT_'):].upper()
+      elif link.startswith('REG_'):
+        dsslink = 'TRANSFORMER.' + link[len('REG_'):].upper()
+      for gldphs, dssphs in zip(['_A', '_B', '_C'], ['.1', '.2', '.3']):
+        gldtarget = link + gldphs
+        dsstarget = dsslink + dssphs
+  #      print ('Looking for gld target {:s} matching dss target {:s}'.format (gldtarget, dsstarget))
+        if gldtarget in gldi and dsstarget in i1:
+          idiff [gldtarget] = [abs(i1[dsstarget] - gldi[gldtarget]), dsstarget]
+    sorted_idiff = sorted(idiff.items(), key=operator.itemgetter(1))
+    err_i_glm = error_norm_tuple (sorted_idiff)
+    fcsv = open (dsspath + rootname + '_Compare_Currents_GLM.csv', 'w')
+    print ('class_name_phs,ibase,iglm,idiff', file=fcsv)
+    for row in sorted_idiff:
+      gldtarget = row[0]
+      phsdiff = row[1][0]
+      dsstarget = row[1][1]
+      print (gldtarget, '{:.3f}'.format(i1[dsstarget]), '{:.3f}'.format(gldi[gldtarget]), 
+              '{:.3f}'.format(phsdiff), sep=',', file=fcsv)
+    fcsv.close()
 
   ftxt = open (dsspath + rootname + '_Missing_Links_DSS.txt', 'w')
   nmissing_1 = 0
@@ -472,6 +484,9 @@ def compare_cases (casefiles, basepath, dsspath, glmpath):
     check_gld_link = None
     check_dss_bus = None
     check_gld_bus = None
+    do_gld = True
+    if 'skip_gld' in row:
+      do_gld = not row['skip_gld']      
     if 'check_dss_link' in row:
       check_dss_link = row['check_dss_link']
     if 'check_gld_link' in row:
@@ -482,7 +497,7 @@ def compare_cases (casefiles, basepath, dsspath, glmpath):
       check_gld_bus = row['check_gld_bus']
     for i in range(len(bases)):
       bases[i] /= math.sqrt(3.0)
-    write_comparisons (dir1, dir2, dir3, root, bases, check_dss_link, check_dss_bus, check_gld_link, check_gld_bus)
+    write_comparisons (dir1, dir2, dir3, root, bases, check_dss_link, check_dss_bus, check_gld_link, check_gld_bus, do_gld)
 
 # run this from the command line for GridAPPS-D platform scripts
 if __name__ == "__main__":

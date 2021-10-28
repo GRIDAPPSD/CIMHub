@@ -820,7 +820,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?pname ?tname ?enum ?gnum");
 
 		mapQueries.put ("DistXfmrTank",
-			"SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?grounded ?rground ?xground ?id ?infoid ?fdrid ?ename ?eid WHERE {"+
+			"SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?reversed ?grounded ?rground ?xground ?id ?infoid ?fdrid ?ename ?eid WHERE {"+
 			" ?p r:type c:PowerTransformer."+
 			" ?p c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -835,6 +835,7 @@ public class CIMQuerySetter extends Object {
 			" ?end c:TransformerTankEnd.TransformerTank ?t."+
 			" ?end c:TransformerTankEnd.phases ?phsraw."+
 			"  bind(strafter(str(?phsraw),\"PhaseCode.\") as ?phs)"+
+      " ?end c:TransformerTankEnd.reversed ?reversed."+
 			" ?end c:TransformerEnd.endNumber ?enum."+
 			" ?end c:TransformerEnd.grounded ?grounded."+
 			" ?end c:IdentifiedObject.name ?ename."+
