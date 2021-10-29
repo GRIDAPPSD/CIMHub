@@ -76,6 +76,7 @@ Usage and options for ```java gov.pnnl.gridappsd.cimhub.CIMImporter [options] ou
 * ```-o={glm|dss|both|idx|cim|csv}   // output format; defaults to glm; currently cim supports only CIM14```
 * ```-l={0..1}          // load scaling factor; defaults to 1```
 * ```-f={50|60}         // system frequency; defaults to 60```
+* ```-e={Deri|Carson|FullCarson} // earth model for OpenDSS, defaults to Deri but GridLAB-D supports only Carson```
 * ```-n={schedule_name} // root filename for scheduled ZIP loads (defaults to none), valid only for -o=glm```
 * ```-z={0..1}          // constant Z portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)```
 * ```-i={0..1}          // constant I portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)```

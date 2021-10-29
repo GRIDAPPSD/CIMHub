@@ -341,8 +341,7 @@ def error_norm_tuple (diffs):
     sum += v
   return sum/cnt
 
-def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, 
-                      check_dss_link=None, check_dss_bus=None, check_glm_link=None, check_glm_bus=None, do_gld=True):
+def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_branches=[], do_gld=True):
   dssroot = rootname.lower()
   v1, magv1, angv1 = load_voltages (basepath + dssroot + '_v.csv')
   v2, magv2, angv2 = load_voltages (dsspath + dssroot + '_v.csv')
@@ -360,11 +359,12 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases,
     gldv = []
     gldi = []
 
-  if (check_dss_bus is not None) and (check_dss_link is not None):
-    print_dss_flow (check_dss_bus, check_dss_link, magv1, angv1, i1, angi1, 'Base')
-    print_dss_flow (check_dss_bus, check_dss_link, magv2, angv2, i2, angi2, 'Converted')
-  if (check_glm_bus is not None) and (check_glm_link is not None):
-    print_glm_flow (check_glm_bus, check_glm_link, gldmagv, gldangv, gldi, gldangi)
+  for row in check_branches:
+    if (('dss_link' in row) and ('dss_bus' in row)):
+      print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, 'Base')
+      print_dss_flow (row['dss_bus'], row['dss_link'], magv2, angv2, i2, angi2, 'Converted')
+    if (('gld_link' in row) and ('gld_bus' in row)):
+      print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi)
 
 #  print (gldbus)
 #  print ('**GLM  V**', gldv)
@@ -529,24 +529,15 @@ def compare_cases (casefiles, basepath, dsspath, glmpath):
   for row in casefiles:
     root = row['root']
     bases = row['bases']
-    check_dss_link = None
-    check_gld_link = None
-    check_dss_bus = None
-    check_gld_bus = None
+    check_branches = []
     do_gld = True
     if 'skip_gld' in row:
       do_gld = not row['skip_gld']      
-    if 'check_dss_link' in row:
-      check_dss_link = row['check_dss_link']
-    if 'check_gld_link' in row:
-      check_gld_link = row['check_gld_link']
-    if 'check_dss_bus' in row:
-      check_dss_bus = row['check_dss_bus']
-    if 'check_gld_bus' in row:
-      check_gld_bus = row['check_gld_bus']
+    if 'check_branches' in row:
+      check_branches = row['check_branches']
     for i in range(len(bases)):
       bases[i] /= math.sqrt(3.0)
-    write_comparisons (dir1, dir2, dir3, root, bases, check_dss_link, check_dss_bus, check_gld_link, check_gld_bus, do_gld)
+    write_comparisons (dir1, dir2, dir3, root, bases, check_branches, do_gld)
 
 # run this from the command line for GridAPPS-D platform scripts
 if __name__ == "__main__":

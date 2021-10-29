@@ -5,7 +5,7 @@ Clear
 ! Name changed to reflect that the OpenDSS model is YYD
 ! Includes scripts for SLG fault cases
 
-New Circuit.YYD BasekV=69  Bus1=B1 Isc3=1000000  Isc1=1100000  ! near-infinite source
+New Circuit.YYDXn BasekV=69  Bus1=B1 Isc3=1000000  Isc1=1100000  ! near-infinite source
 
 Set Earthmodel=Carson
 
@@ -36,26 +36,10 @@ New Line.TLine1-2 Bus1=B1.1.2.3 Bus2=B2.1.2.3 Geometry=Line1-2 Length=10   units
 New Line.DLine3-4 Bus1=B3.1.2.3 Bus2=B4.1.2.3 Geometry=Line3-4 Length=1    units=mi
 New Line.DLine5-6 Bus1=B5.1.2.3 Bus2=B6.1.2.3 Geometry=Line5-6 Length=150  units=ft
 
-// The Transformer
-// Model as 3 1-phase transformers so we can see the delta currents
-
-New XfmrCode.YYD1Phase phases=1 windings=3 
-~ conns=[wye  wye delta ]
-~ kVs=[39.83, 7.62,  2.4]
-~ kVAs=[5000 5000 1666]    ! 15 MVA 3-phase
-~ XHL=7.5   XHT=36  XLT=28   
-~ %Rs = [0.11  0.11  0.275]   
-
-// Connect up the three 1-ph transformer in YYD
-New Transformer.YYDA XfmrCode=YYD1Phase ppm=0   !<------------ set ppm
-~ Buses=[B2.1.0 B3.1.0 B5.1.2]
-
-New Transformer.YYDB  XfmrCode=YYD1Phase  ppm=0   
-~ Buses=[B2.2.0 B3.2.0 B5.2.3]
-
-New Transformer.YYDC  XfmrCode=YYD1Phase ppm=0  
-~ Buses=[B2.3.0 B3.3.0 B5.3.1]
-
+New Transformer.YYD Phases=3 Windings=3  XHL=7.5 XHT=36 XLT=28
+~ wdg=1 bus=B2         conn=w  kv=69.0  kva=15000  %r=0.11
+~ wdg=2 bus=B3.1.2.3.4 conn=w  kv=13.2  kva=15000  %r=0.11   Rneut=0 Xneut=0.4
+~ wdg=3 bus=B5         conn=d  kv= 2.4  kva= 5000  %r=0.275
 
 // Loads
 New Load.B4a phases=1 Bus1=B4.1.0  kV=7.62 kW=1250 kvar=500 Model=1
