@@ -105,7 +105,7 @@ public class DistLoad extends DistComponent {
 
 	private String GetZIPV() {
 		return "[" + df4.format(pz) + "," + df4.format(pi) + "," + df4.format(pp) + "," + df4.format(qz)
-		 + "," + df4.format(qi) + "," + df4.format(pp) + ",0.8]";
+		 + "," + df4.format(qi) + "," + df4.format(qp) + ",0.8]";
 	}
 
 	public String GetDSS() {
@@ -114,8 +114,14 @@ public class DistLoad extends DistComponent {
 		SetDSSLoadModel();
 		int nphases = DSSPhaseCount(phases, bDelta);
 		double kv = 0.001 * basev;
-		if (nphases < 2 && !bDelta) { // 2-phase wye load should be line-line for secondary?
-			kv /= Math.sqrt(3.0);
+		if (nphases < 2 && !bDelta) { 
+      if (kv < 0.22) {
+        kv /= Math.sqrt(3.0);
+      } else if (kv < 0.26) {// this catches the 240-volt windings with center tap?
+        kv /= 2.0;
+      } else {
+        kv /= Math.sqrt(3.0);
+      }
 		}
 
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 

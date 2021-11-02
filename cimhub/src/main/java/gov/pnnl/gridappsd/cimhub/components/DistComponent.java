@@ -232,8 +232,8 @@ public abstract class DistComponent {
     }
   }
 
-  static String DSSXfmrBusPhasesAndGround (String vgrp, String bus, String phs, boolean reversed, double rg, double xg) {
-    if (phs.contains("s2")) return (bus + ".0.2"); // this is a built-in reversal
+  static String DSSXfmrTankPhasesAndGround (String vgrp, String bus, String phs, boolean reversed, boolean grounded, double rg, double xg) {
+    if (phs.contains("s2")) return (bus + ".0.2"); // TODO: this is a built-in reversal
     if (phs.contains("s1")) return (bus + ".1.0");
     String xphs;
     if (reversed) {
@@ -245,6 +245,14 @@ public abstract class DistComponent {
       StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));
       buf.append (" conn=d");
       return buf.toString();
+    }
+    if (!grounded && phs.length() == 1) {
+      StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));
+      buf.append (".4");
+      return buf.toString();
+    }
+    if (grounded && reversed) {
+      return DSSBusPhases (bus + ".0", xphs);
     }
     if (rg > 0.0 || xg > 0.0) {
       StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));

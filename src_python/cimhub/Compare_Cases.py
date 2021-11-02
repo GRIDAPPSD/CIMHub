@@ -200,7 +200,7 @@ def print_dss_flow (vtag, itag, volts, vang, amps, iang, label):
   vln_ang = {}
   pkw = {}
   qkvar = {}
-  print ('  OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (vtag, itag, label))
+  print ('  OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (itag, vtag, label))
   print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad')
   for num, phs in zip(['1', '2', '3'], ['A', 'B', 'C']):
     vtarget = vtag + '_' + phs
@@ -239,7 +239,7 @@ def print_glm_flow (vtag, itag, volts, vang, amps, iang):
   vln_ang = {}
   pkw = {}
   qkvar = {}
-  print ('  GridLAB-D branch flow in {:s} from {:s}'.format (vtag, itag))
+  print ('  GridLAB-D branch flow in {:s} from {:s}'.format (itag, vtag))
   print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad')
   for phs in ['A', 'B', 'C']:
     vtarget = vtag + '_' + phs

@@ -11,7 +11,7 @@ import os
 cwd = os.getcwd()
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
-# EF222C39-6F6C-44BC-9A11-26EAE5AA4EF0
+# 1D4B98E2-62AB-411A-813E-F125F29ABD48
 # 
 
 cfg_json = 'cimhubconfig.json'
@@ -70,18 +70,27 @@ cases = [
 #  {'dssname':'YYD1Tank',  'root':'YYD1Tank',  'mRID':'5F0B3FFA-C2D4-47D6-AB25-54231CEEA4B6','glmvsrc': 39837.17,'bases':[4160.0, 13200.0, 69000.0], 
 #   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
 #   'check_branches':[{'dss_link': 'LINE.DLINE3-4', 'dss_bus': 'B4'}]},
-  {'dssname':'AutoHLT',  'root':'AutoHLT',  'mRID':'94BEE3C7-5EF1-465A-B872-FF43E62AA81B','bases':[13800.0, 161000.0, 345000.0], 
-   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
-   'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
-  {'dssname':'Auto1bus',  'root':'Auto1bus',  'mRID':'7AE1360F-8A58-49FE-8716-8CF8794B9F9A','bases':[13800.0, 161000.0, 345000.0], 
-   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
-   'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
-  {'dssname':'Auto3bus',  'root':'Auto3bus',  'mRID':'7528323E-ABA2-420F-B8B8-DA51E172BB46','bases':[13800.0, 161000.0, 345000.0], 
-   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
-   'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
-  {'dssname':'AutoAuto',  'root':'AutoAuto',  'mRID':'7FCDAD02-036A-48BA-B71D-1FE988F665CF','bases':[13800.0, 161000.0, 345000.0], 
-   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
-   'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
+  {'dssname':'IMYD',  'root':'IMYD',  'mRID':'73BB36C0-6DB3-4480-A8B2-822B4AADD390','bases':[240.0, 12470.0], 
+   'export_options':' -l=1.0 -p=1.0 -e=carson', 'skip_gld': True,
+   'check_branches':[{'dss_link': 'LOAD.MOTOR', 'dss_bus': 'LOADBUS'}]},
+  {'dssname':'IMOYODlag', 'root':'IMOYODlag',  'mRID':'EF222C39-6F6C-44BC-9A11-26EAE5AA4EF0','bases':[240.0, 12470.0], 
+   'export_options':' -l=1.0 -p=1.0 -e=carson', 'skip_gld': True,
+   'check_branches':[{'dss_link': 'LOAD.MOTOR', 'dss_bus': 'LOADBUS'}]},
+  {'dssname':'IMOYODlead',  'root':'IMOYODlead',  'mRID':'083167E5-2729-4397-BCC5-6037C2E4E8F5','bases':[240.0, 12470.0], 
+   'export_options':' -l=1.0 -p=1.0 -e=carson', 'skip_gld': True,
+   'check_branches':[{'dss_link': 'LOAD.MOTOR', 'dss_bus': 'LOADBUS'}]},
+#  {'dssname':'AutoHLT',  'root':'AutoHLT',  'mRID':'94BEE3C7-5EF1-465A-B872-FF43E62AA81B','bases':[13800.0, 161000.0, 345000.0], 
+#   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
+#   'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
+#  {'dssname':'Auto1bus',  'root':'Auto1bus',  'mRID':'7AE1360F-8A58-49FE-8716-8CF8794B9F9A','bases':[13800.0, 161000.0, 345000.0], 
+#   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
+#   'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
+#  {'dssname':'Auto3bus',  'root':'Auto3bus',  'mRID':'7528323E-ABA2-420F-B8B8-DA51E172BB46','bases':[13800.0, 161000.0, 345000.0], 
+#   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
+#   'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
+#  {'dssname':'AutoAuto',  'root':'AutoAuto',  'mRID':'7FCDAD02-036A-48BA-B71D-1FE988F665CF','bases':[13800.0, 161000.0, 345000.0], 
+#   'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
+#   'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
 ]
 
 # exluding cases with IndMotor: 4wire_lagging.dss, 4wire_leading.dss, 4wire_motor.dss, the three-winding cases and the open wye/delta cases
