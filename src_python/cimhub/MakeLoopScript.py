@@ -24,7 +24,7 @@ def append_xml_case (casefiles, xmlpath, outpath, fp):
     print('curl -D- -H "Content-Type: application/xml" --upload-file', xmlpath + c + '.xml', '-X POST $DB_URL', file=fp)
     print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=both -l=1.0 -i=1', outpath + c, file=fp)
 
-def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname):
+def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, csvpath=None):
   fp = open (scriptname, 'w')
   print ('#!/bin/bash', file=fp)
   print ('source envars.sh', file=fp)
@@ -32,6 +32,9 @@ def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname):
   print ('mkdir', glmpath, file=fp)
   print ('rm', dsspath + '*.*', file=fp)
   print ('rm', glmpath + '*.*', file=fp)
+  if csvpath is not None:
+    print ('mkdir', csvpath, file=fp)
+    print ('rm', csvpath + '*.*', file=fp)
   for row in casefiles:
     if 'export_options' in row:
       opts = row['export_options']
@@ -40,13 +43,13 @@ def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname):
     print('curl -D- -X POST $DB_URL --data-urlencode "update=drop all"', file=fp) # print('./drop_all.sh arg', file=fp)
     print('curl -D- -H "Content-Type: application/xml" --upload-file', 
           xmlpath + row['root'] + '.xml', '-X POST $DB_URL', file=fp)
-    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss {:s}'.format (opts), 
-          dsspath + row['root'], file=fp)
+    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
+    if csvpath is not None:
+      print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=csv {:s}'.format (opts), csvpath + row['root'], file=fp)
     if 'skip_gld' in row:
       if row['skip_gld']:
         continue
-    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts),
-          glmpath + row['root'], file=fp)
+    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
   fp.close()
 
 def make_dssrun_script (casefiles, scriptname, bControls=False, tol=1e-8):
@@ -61,6 +64,7 @@ def make_dssrun_script (casefiles, scriptname, bControls=False, tol=1e-8):
     print('set tolerance={:g}'.format(tol), file=fp)
     if bControls:
       print('set controlmode=static', file=fp)
+      print('set maxcontroliter=50', file=fp)
     else:
       print('set controlmode=off', file=fp)
     print('solve', file=fp)
@@ -127,13 +131,6 @@ if __name__ == '__main__':
   #             'EPRI_DPV_K1',
   #             'EPRI_DPV_M1']
 
-  #casefiles = ['IEEE13',
-  #             'IEEE13_Assets',
-  #             'IEEE8500',
-  #             'IEEE123',
-  #             'R2_12_47_2',
-  #             'EPRI_DPV_J1']
-
   casefiles = ['ACEP_PSIL',
                'EPRI_DPV_J1',
                'IEEE123',
@@ -145,10 +142,6 @@ if __name__ == '__main__':
                'IEEE8500_3subs',
                'R2_12_47_2',
                'Transactive']
-
-  #casefiles = ['IEEE8500_3subs']
-
-  #casefiles = ['IEEE123_PV']
 
   if arg == '-b':
     fp = open ('convert_xml.sh', 'w')

@@ -60,7 +60,7 @@ for row in cases:
 cimhub.list_feeders (cfg_json)
 
 shfile = './go.sh'
-cimhub.make_blazegraph_script (cases, 'base/', 'dss/', 'glm/', shfile)
+cimhub.make_blazegraph_script (cases, 'base/', 'dss/', 'glm/', shfile, csvpath='csv/')
 st = os.stat (shfile)
 os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 p1 = subprocess.call (shfile, shell=True)
