@@ -1,10 +1,10 @@
 // Master file for 9500-Node IEEE Test Feeder Case
-// Unbalanced Load Case
+// Balanced Load Case
 // Line definitions can use either geometry or lineconstants matrices.
 
 Clear
 
-New Circuit.final9500node
+New Circuit.ieee9500bal
 
 ! Make the source stiff with small impedance
 ~ pu=1.05  r1=0  x1=0.001  r0=0  x0=0.001  
