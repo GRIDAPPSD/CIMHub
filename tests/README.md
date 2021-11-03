@@ -233,6 +233,7 @@ the comparison of solutions between them:
 5. Capacitor banks are always on in the converted GridLAB-D model; control parameters are translated but not activated.
 6. In a constant-current load model, the angle rotations are not exactly correct, especially for unbalanced loads or loads connected in Delta. See [GridLAB-D Issue 1312](https://github.com/gridlab-d/gridlab-d/issues/1312)
 7. GridLAB-D calculates line parameters with Carson's equations, as simplified in Kersting's book. OpenDSS defaults to Deri's method, but it offers Full Carson and Carson options. Specify ```Carson``` for compatibility. (Deri is the OpenDSS default because it's easy to calculate, and it closely matches Full Carson.)
+8. In GridLAB-D, wye/delta transformers have to be converted to delta/wye, swapping primary and secondary windings. With **check_branches**, choose an adjacent branch for proper comparisons.
 
 If these effects cannot be mitigated, one could either remove the unsupported feature from the test case, or
 use **skip_gld** for the test case.
