@@ -1,4 +1,5 @@
 rm base/*.csv
+rm -rf csv
 rm -rf dss
 rm -rf glm
 rm cim_test.dss

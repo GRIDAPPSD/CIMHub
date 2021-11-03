@@ -25,58 +25,58 @@ cases = [
                       ]},
 ]
 
-#CIMHubConfig.ConfigFromJsonFile (cfg_json)
-#cimhub.clear_db (cfg_json)
-#p1 = subprocess.call ('./clean.sh', shell=True)
-#
-#fp = open ('cim_test.dss', 'w')
-#for row in cases:
-#  root = row['root']
-#  mRID = row['mRID']
-#  sub = row['substation']
-#  geo = row['region']
-#  subgeo = row['subregion']
-#  print ('cd original_dss', file=fp)
-#  print ('redirect {:s}.dss'.format (root), file=fp)
-#  print ('uuids file=../base/{:s}_uuids.dat'.format (root), file=fp)
-#  print ('set maxiterations=20', file=fp)
-#  print ('set tolerance=1e-5', file=fp)
-#  print ('solve', file=fp)
-#  print ('cd ../base', file=fp)
-#  print ('export cim100 fid={:s} substation={:s} geo={:s} subgeo={:s} file={:s}.xml'.format (mRID, sub, geo, subgeo, root), file=fp)
-#  print ('export summary   {:s}_s.csv'.format (root), file=fp)
-#  print ('export voltages  {:s}_v.csv'.format (root), file=fp)
-#  print ('export currents  {:s}_i.csv'.format (root), file=fp)
-#  print ('export taps      {:s}_t.csv'.format (root), file=fp)
-#  print ('export nodeorder {:s}_n.csv'.format (root), file=fp)
-#  print ('export uuids {:s}_uuids.dat'.format (root), file=fp)
-#fp.close ()
-#p1 = subprocess.Popen ('opendsscmd cim_test.dss', shell=True)
-#p1.wait()
-#
-#for row in cases:
-#  cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + row['root']+ '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
-#  os.system (cmd)
-#cimhub.list_feeders (cfg_json)
-#
-#shfile = './go.sh'
-#cimhub.make_blazegraph_script (cases, 'base/', 'dss/', 'glm/', shfile)
-#st = os.stat (shfile)
-#os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-#p1 = subprocess.call (shfile, shell=True)
-#
-#cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss', bControls=False, tol=1e-5)
-#os.chdir('./dss')
-#p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
-#p1.wait()
-#
-#os.chdir(cwd)
+CIMHubConfig.ConfigFromJsonFile (cfg_json)
+cimhub.clear_db (cfg_json)
+p1 = subprocess.call ('./clean.sh', shell=True)
+
+fp = open ('cim_test.dss', 'w')
+for row in cases:
+  root = row['root']
+  mRID = row['mRID']
+  sub = row['substation']
+  geo = row['region']
+  subgeo = row['subregion']
+  print ('cd original_dss', file=fp)
+  print ('redirect {:s}.dss'.format (root), file=fp)
+  print ('uuids file=../base/{:s}_uuids.dat'.format (root), file=fp)
+  print ('set maxiterations=20', file=fp)
+  print ('set tolerance=1e-5', file=fp)
+  print ('solve', file=fp)
+  print ('cd ../base', file=fp)
+  print ('export cim100 fid={:s} substation={:s} geo={:s} subgeo={:s} file={:s}.xml'.format (mRID, sub, geo, subgeo, root), file=fp)
+  print ('export summary   {:s}_s.csv'.format (root), file=fp)
+  print ('export voltages  {:s}_v.csv'.format (root), file=fp)
+  print ('export currents  {:s}_i.csv'.format (root), file=fp)
+  print ('export taps      {:s}_t.csv'.format (root), file=fp)
+  print ('export nodeorder {:s}_n.csv'.format (root), file=fp)
+  print ('export uuids {:s}_uuids.dat'.format (root), file=fp)
+fp.close ()
+p1 = subprocess.Popen ('opendsscmd cim_test.dss', shell=True)
+p1.wait()
+
+for row in cases:
+  cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + row['root']+ '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
+  os.system (cmd)
+cimhub.list_feeders (cfg_json)
+
+shfile = './go.sh'
+cimhub.make_blazegraph_script (cases, 'base/', 'dss/', 'glm/', shfile)
+st = os.stat (shfile)
+os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile, shell=True)
+
+cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss', bControls=False, tol=1e-5)
+os.chdir('./dss')
+p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
+p1.wait()
+
+os.chdir(cwd)
 shfile = './checkglm.sh'
 cimhub.make_glmrun_script (casefiles=cases, inpath='glm/', outpath='./', scriptname=shfile)
 st = os.stat (shfile)
 os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 p1 = subprocess.call (shfile)
-quit()
+
 os.chdir(cwd)
 cimhub.compare_cases (casefiles=cases, basepath='./base/', dsspath='./dss/', glmpath='./glm/')
 

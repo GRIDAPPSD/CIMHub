@@ -120,6 +120,14 @@ public class DistXfmrTank extends DistComponent {
     return buf.toString();
   }
 
+  private String PhasedTankName () {
+    if (phs[0].contains ("ABC")) return tankinfo;
+    if (phs[0].contains ("A")) return tankinfo + "A";
+    if (phs[0].contains ("B")) return tankinfo + "B";
+    if (phs[0].contains ("C")) return tankinfo + "C";
+    return tankinfo;
+  }
+
   public String GetGLM () {
     StringBuilder buf = new StringBuilder ("object transformer {\n");
 
@@ -131,7 +139,7 @@ public class DistXfmrTank extends DistComponent {
     } else {
       buf.append("  phases " + phs[0] + ";\n");
     }
-    buf.append ("  configuration \"xcon_" + tankinfo + "\";\n");
+    buf.append ("  configuration \"xcon_" + PhasedTankName() + "\";\n");
     AppendGLMRatings (buf, phs[0], normalCurrentLimit, emergencyCurrentLimit);
     buf.append ("  // vector group " + vgrp + ";\n");
     buf.append("}\n");

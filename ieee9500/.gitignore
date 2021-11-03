@@ -1,6 +1,7 @@
 dss/
 glm/
+csv/
 base/*.csv
 go.sh
 cim_test.dss
-check_glm.sh
+checkglm.sh
