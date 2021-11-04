@@ -22,6 +22,7 @@ public class DistCapacitor extends DistComponent {
 	public double setpoint;
 	public double deadband;
 	public double delay;
+  public double sections_on;
 	public String moneq;
 	public String monclass;
 	public String monbus;
@@ -134,6 +135,7 @@ public class DistCapacitor extends DistComponent {
 			nomu = Double.parseDouble (soln.get("?nomu").toString());
 			double bsection = Double.parseDouble (soln.get("?bsection").toString());
 			kvar = nomu * nomu * bsection / 1000.0;
+      sections_on = Double.parseDouble (soln.get("?sections").toString());
 			if (ctrl.equals ("true")) {
 				mode = soln.get("?mode").toString();
 				setpoint = Double.parseDouble (soln.get("?setpoint").toString());
@@ -196,15 +198,27 @@ public class DistCapacitor extends DistComponent {
     buf.append("  nominal_voltage " + df2.format(gld_nomu) + ";\n");
 		if (kvar_A > 0.0) {
 			buf.append ("  capacitor_A " + df2.format(kvar_A * 1000.0) + ";\n");
-			buf.append ("  switchA CLOSED;\n");
+      if (sections_on > 0.0) {
+        buf.append ("  switchA CLOSED;\n");
+      } else {
+        buf.append ("  switchA OPEN;\n");
+      }
 		}
 		if (kvar_B > 0.0) {
 			buf.append ("  capacitor_B " + df2.format(kvar_B * 1000.0) + ";\n");
-			buf.append ("  switchB CLOSED;\n");
+      if (sections_on > 0.0) {
+        buf.append ("  switchB CLOSED;\n");
+      } else {
+        buf.append ("  switchB OPEN;\n");
+      }
 		}
 		if (kvar_C > 0.0) {
 			buf.append ("  capacitor_C " + df2.format(kvar_C * 1000.0) + ";\n");
-			buf.append ("  switchC CLOSED;\n");
+      if (sections_on > 0.0) {
+        buf.append ("  switchC CLOSED;\n");
+      } else {
+        buf.append ("  switchC OPEN;\n");
+      }
 		}
 		if (ctrl.equals("true")) {
 			String glmMode = GLMCapMode (mode);
@@ -246,6 +260,11 @@ public class DistCapacitor extends DistComponent {
 
 		buf.append (" phases=" + Integer.toString(DSSPhaseCount(phs, bDelta)) + " bus1=" + DSSShuntPhases (bus, phs, bDelta) + 
 								 " conn=" + DSSConn(bDelta) + " kv=" + df2.format(0.001 * nomu) + " kvar=" + df2.format(kvar));
+    if (sections_on > 0.0) {
+      buf.append (" states=[1]");
+    } else {
+      buf.append (" states=[0]");
+    }
 		buf.append("\n");
 
 		if (ctrl.equals("true")) {

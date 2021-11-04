@@ -50,7 +50,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?vnom");
 
 		mapQueries.put ("DistCapacitor",
-		   "SELECT ?name ?basev ?nomu ?bsection ?bus ?conn ?grnd ?phs"+
+		   "SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs"+
 			 " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {"+
 			 " ?s c:Equipment.EquipmentContainer ?fdr."+
 			 " ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -60,6 +60,7 @@ public class CIMQuerySetter extends Object {
 			 " ?bv c:BaseVoltage.nominalVoltage ?basev."+
 			 " ?s c:ShuntCompensator.nomU ?nomu."+
 			 " ?s c:LinearShuntCompensator.bPerSection ?bsection."+ 
+       " ?s c:ShuntCompensator.sections ?sections."+
 			 " ?s c:ShuntCompensator.phaseConnection ?connraw."+
 			 " 	bind(strafter(str(?connraw),\"PhaseShuntConnectionKind.\") as ?conn)"+
 			 " ?s c:ShuntCompensator.grounded ?grnd."+

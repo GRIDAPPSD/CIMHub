@@ -1085,7 +1085,7 @@ ORDER by ?name
 # capacitors (does not account for 2+ unequal phases on same LinearShuntCompensator) - DistCapacitor
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?basev ?nomu ?bsection ?bus ?conn ?grnd ?phs ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {
+SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {
  ?s r:type c:LinearShuntCompensator.
 # feeder selection options - if all commented out, query matches all feeders
 VALUES ?fdrid {"_C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
@@ -1101,6 +1101,7 @@ VALUES ?fdrid {"_C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
  ?bv c:BaseVoltage.nominalVoltage ?basev.
  ?s c:ShuntCompensator.nomU ?nomu. 
  ?s c:LinearShuntCompensator.bPerSection ?bsection. 
+ ?s c:ShuntCompensator.sections ?sections. 
  ?s c:ShuntCompensator.phaseConnection ?connraw.
    bind(strafter(str(?connraw),"PhaseShuntConnectionKind.") as ?conn)
  ?s c:ShuntCompensator.grounded ?grnd.
