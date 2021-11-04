@@ -77,6 +77,7 @@ def make_dss2xml_script (casefiles, inpath, outpath, outfile):
     print('export voltages', row['root'] + '_v.csv', file=fp)
     print('export currents', row['root'] + '_i.csv', file=fp)
     print('export taps    ', row['root'] + '_t.csv', file=fp)
+    print('export nodes   ', row['root'] + '_n.csv', file=fp)
     print('export cim100', 'file=' + row['root'] + '.xml', 
       'substation=' + row['substation'], 
       'geo=' + row['region'], 
