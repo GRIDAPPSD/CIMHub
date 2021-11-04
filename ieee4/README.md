@@ -428,7 +428,6 @@ Auto3bus         Nbus=[    12,    12,     0] Nlink=[    18,    15,     0] MAEv=[
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     Total S =     0.000 + j     0.000
 AutoAuto         Nbus=[    12,     6,     0] Nlink=[    12,     9,     0] MAEv=[ 0.0002,-1.0000] MAEi=[ 943.2180,  -1.0000]
-
 ```
 
 ## AutoTransformers
