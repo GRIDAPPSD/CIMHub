@@ -9,18 +9,18 @@ DEG_TO_RAD = math.pi / 180.0
 # Do all of the name-matching in upper case!!
 
 # 208/120 is always used as a candidate base voltage
-casefiles = [{'root':'ACEP_PSIL',      'do_gld':True,  'bases':[314.0,480.0]},
-             {'root':'EPRI_DPV_J1',    'do_gld':True,  'bases':[416.0,12470.0,69000.0]},
-             {'root':'IEEE123',        'do_gld':True,  'bases':[480.0,4160.0]},
-             {'root':'IEEE123_PV',     'do_gld':True,  'bases':[4160.0]},
-             {'root':'Transactive',    'do_gld':True,  'bases':[4160.0]},
-             {'root':'IEEE13',         'do_gld':True,  'bases':[480.0,4160.0,13200.0,115000.0]},
-             {'root':'IEEE13_Assets',  'do_gld':True,  'bases':[480.0,4160.0,115000.0]},
-             {'root':'IEEE13_OCHRE',   'do_gld':True,  'bases':[480.0,4160.0,115000.0]},
-             {'root':'IEEE37',         'do_gld':False, 'bases':[480.0,4800.0,230000.0]},
-             {'root':'IEEE8500',       'do_gld':True,  'bases':[12470.0,115000.0]},
-             {'root':'IEEE8500_3subs', 'do_gld':True,  'bases':[12480.0,69000.0,115000.0]},
-             {'root':'R2_12_47_2',     'do_gld':True,  'bases':[480.0,12470.0,100000.0]}]
+casefiles = [{'root':'ACEP_PSIL',      'do_gld':True,  'bases':[314.0,480.0], 'check_branches':[]},
+             {'root':'EPRI_DPV_J1',    'do_gld':True,  'bases':[416.0,12470.0,69000.0], 'check_branches':[]},
+             {'root':'IEEE123',        'do_gld':True,  'bases':[480.0,4160.0], 'check_branches':[]},
+             {'root':'IEEE123_PV',     'do_gld':True,  'bases':[4160.0], 'check_branches':[]},
+             {'root':'Transactive',    'do_gld':True,  'bases':[4160.0], 'check_branches':[]},
+             {'root':'IEEE13',         'do_gld':True,  'bases':[480.0,4160.0,13200.0,115000.0], 'check_branches':[]},
+             {'root':'IEEE13_Assets',  'do_gld':True,  'bases':[480.0,4160.0,115000.0], 'check_branches':[]},
+             {'root':'IEEE13_OCHRE',   'do_gld':True,  'bases':[480.0,4160.0,115000.0], 'check_branches':[]},
+             {'root':'IEEE37',         'do_gld':False, 'bases':[480.0,4800.0,230000.0], 'check_branches':[{'dss_link': 'LOAD.S728', 'dss_bus': '728'}]},
+             {'root':'IEEE8500',       'do_gld':True,  'bases':[12470.0,115000.0], 'check_branches':[]},
+             {'root':'IEEE8500_3subs', 'do_gld':True,  'bases':[12480.0,69000.0,115000.0], 'check_branches':[]},
+             {'root':'R2_12_47_2',     'do_gld':True,  'bases':[480.0,12470.0,100000.0], 'check_branches':[]}]
 
 dir1 = './test/'     # baseline dss outputs
 dir2 = './test/dss/'   # converted dss output files
@@ -541,5 +541,5 @@ if __name__ == "__main__":
     bases = row['bases']
     for i in range(len(bases)):
       bases[i] /= math.sqrt(3.0)
-    write_comparisons (dir1, dir2, dir3, root, bases, check_branches=[], do_gld=row['do_gld'])
+    write_comparisons (dir1, dir2, dir3, root, bases, check_branches=row['check_branches'], do_gld=row['do_gld'])
 
