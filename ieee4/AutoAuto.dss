@@ -16,7 +16,9 @@ new load.test phases=3 bus1=low conn=wye kv=161 kw=330000 pf=0.85
 set voltagebases=[345.0 161.0 13.8] 
 calcvoltagebases
 set tolerance=1e-8
-
+buscoords ieee4xy.dat
 solve
 
-// export uuids file=autoauto_uuids.dat
+uuids autoauto_uuids.dat
+export cim100 file=autoauto.xml
+export uuids file=autoauto_uuids.dat
