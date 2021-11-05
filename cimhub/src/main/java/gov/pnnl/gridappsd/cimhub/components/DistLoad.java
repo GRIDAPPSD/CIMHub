@@ -75,6 +75,11 @@ public class DistLoad extends DistComponent {
 	}
 
 	private void SetDSSLoadModel() {
+    if (conn.equals("D")) {
+      bDelta = true;
+    } else {
+      bDelta = false;
+    }
 		if (pe == 1 && qe == 2) {
 			dss_load_model = 4;
 			return;
@@ -95,11 +100,6 @@ public class DistLoad extends DistComponent {
 			dss_load_model = 1;
 		} else {
 			dss_load_model = 8;
-		}
-		if (conn.equals("D")) {
-			bDelta = true;
-		} else {
-			bDelta = false;
 		}
 	}
 
