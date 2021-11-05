@@ -18,3 +18,5 @@ calcvoltagebases
 set tolerance=1e-8
 
 solve
+
+// export uuids file=autoauto_uuids.dat

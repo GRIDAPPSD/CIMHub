@@ -1,0 +1,14 @@
+redirect AutoHLT.dss
+export cim100 fid=94BEE3C7-5EF1-465A-B872-FF43E62AA81B substation=sub1 subgeo=subgeo1 geo=geo1 file=AutoHLT.xml
+export summary  AutoHLT_s.csv
+export voltages AutoHLT_v.csv
+export currents AutoHLT_i.csv
+export taps     AutoHLT_t.csv
+export nodeorder AutoHLT_n.csv
+redirect AutoAuto.dss
+export cim100 fid=7FCDAD02-036A-48BA-B71D-1FE988F665CF substation=sub1 subgeo=subgeo1 geo=geo1 file=AutoAuto.xml
+export summary  AutoAuto_s.csv
+export voltages AutoAuto_v.csv
+export currents AutoAuto_i.csv
+export taps     AutoAuto_t.csv
+export nodeorder AutoAuto_n.csv
