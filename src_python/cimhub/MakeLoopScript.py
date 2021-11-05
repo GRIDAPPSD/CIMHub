@@ -2,8 +2,9 @@ import sys
 import os
 import stat
 
-def append_dss_case(casefiles, inpath, outpath, fp):
-  for c in casefiles:
+def append_dss_case(cases, inpath, outpath, fp):
+  for row in cases:
+    c = row['file']
     print('//', file=fp)
     print('clear', file=fp)
     print('cd', inpath, file=fp)
@@ -18,11 +19,13 @@ def append_dss_case(casefiles, inpath, outpath, fp):
     print('export taps     ', c + '_t.csv', file=fp)
     print('export nodeorder', c + '_n.csv', file=fp)
 
-def append_xml_case (casefiles, xmlpath, outpath, fp):
-  for c in casefiles:
-    print('curl -D- -X POST $DB_URL --data-urlencode "update=drop all"', file=fp) # print('./drop_all.sh', file=fp)
+def append_xml_case (cases, xmlpath, outpath, fp):
+  for row in cases:
+    c = row['file']
+    opts = row['opts']
+    print('curl -D- -X POST $DB_URL --data-urlencode "update=drop all"', file=fp)
     print('curl -D- -H "Content-Type: application/xml" --upload-file', xmlpath + c + '.xml', '-X POST $DB_URL', file=fp)
-    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=both -l=1.0 -i=1', outpath + c, file=fp)
+    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=both {:s}'.format (opts), outpath + c, file=fp)
 
 def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, csvpath=None):
   fp = open (scriptname, 'w')
@@ -87,18 +90,20 @@ if __name__ == '__main__':
   glmpath = srcpath + 'test/glm/'
   bothpath = srcpath + 'both/'
 
-  casefiles = ['ACEP_PSIL',
-               'EPRI_DPV_J1',
-               'IEEE123',
-               'IEEE123_PV',
-               'IEEE13',
-               'IEEE13_Assets',
-               'IEEE13_OCHRE',
-               'IEEE37',
-               'IEEE8500',
-               'IEEE8500_3subs',
-               'R2_12_47_2',
-               'Transactive']
+  casefiles = [
+    {'file':'ACEP_PSIL',      'opts':'-e=carson -p=1'},
+    {'file':'EPRI_DPV_J1',    'opts':'-e=carson -i=1'}, # closest to CVR
+    {'file':'IEEE123',        'opts':''},               # mixed loads, Deri
+    {'file':'IEEE123_PV',     'opts':'-e=carson -p=1'},
+    {'file':'IEEE13',         'opts':'-e=carson'},      # mixed loads
+    {'file':'IEEE13_Assets',  'opts':'-e=carson'},      # mixed loads
+    {'file':'IEEE13_OCHRE',   'opts':'-e=carson -p=1'},
+    {'file':'IEEE37',         'opts':'-e=carson -p=1'},
+    {'file':'IEEE8500',       'opts':'-e=carson -i=1'}, # needed to converge
+    {'file':'IEEE8500_3subs', 'opts':'-e=carson -p=1'},
+    {'file':'R2_12_47_2',     'opts':'-e=carson -p=1'},
+    {'file':'Transactive',    'opts':'-e=carson -p=1'},
+  ]
 
   if arg == '-b':
     fp = open ('convert_xml.sh', 'w')
