@@ -195,12 +195,19 @@ public class DistPowerXfmrWinding extends DistComponent {
 	}
 
 	public String GetDSS(DistPowerXfmrMesh mesh, DistPowerXfmrCore core) {
-		boolean bDelta;
+		boolean bDelta, bAuto;
 		int i, fwdg, twdg;
 		double zbase, xpct;
-    String wdgBus;
+    String wdgBus, wdgConn;
+    StringBuilder buf;
 
-		StringBuilder buf = new StringBuilder ("new Transformer." + name + " phases=3 windings=" + Integer.toString(size));
+    bAuto = false;
+    if (vgrp.contains("Na")) bAuto = true;
+    if (bAuto) {
+      buf = new StringBuilder ("new AutoTrans." + name + " phases=3 windings=" + Integer.toString(size));
+    } else {
+      buf = new StringBuilder ("new Transformer." + name + " phases=3 windings=" + Integer.toString(size));
+    }
 
 		// mesh impedance - valid only up to 3 windings, and use winding instead of mesh resistances
 		for (i = 0; i < mesh.size; i++) {
@@ -209,11 +216,19 @@ public class DistPowerXfmrWinding extends DistComponent {
 			zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
 			xpct = 100.0 * mesh.x[i] / zbase;
 			if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
-				buf.append(" xhl=" + df6.format(xpct));
+				if (bAuto) {
+          buf.append(" xhx=" + df6.format(xpct));
+        } else {
+          buf.append(" xhl=" + df6.format(xpct));
+        }
 			} else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
 				buf.append(" xht=" + df6.format(xpct));
 			} else if ((fwdg == 2 && twdg == 3) || (fwdg == 3 && twdg == 2)) {
-				buf.append(" xlt=" + df6.format(xpct));
+        if (bAuto) {
+          buf.append(" xxt=" + df6.format(xpct));
+        } else {
+          buf.append(" xlt=" + df6.format(xpct));
+        }
 			}
 		}
 
@@ -226,19 +241,30 @@ public class DistPowerXfmrWinding extends DistComponent {
 		AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
 		for (i = 0; i < size; i++) {
       wdgBus = bus[i];
-			if (conn[i].contains("D")) {
-				bDelta = true;
-			} else {
-				bDelta = false;
-        if (!grounded[i] || rg[i] > 0.0 || xg[i] > 0.0) {
-          wdgBus = bus[i] + ".1.2.3.4";
+      if (bAuto) {
+        if (i == 0) {
+          wdgConn = "s";
+        } else if (i == 1) {
+          wdgConn = "w";
+        } else {
+          wdgConn = "d";
         }
-			}
+      } else {
+        if (conn[i].contains("D")) {
+          bDelta = true;
+        } else {
+          bDelta = false;
+          if (!grounded[i] || rg[i] > 0.0 || xg[i] > 0.0) {
+            wdgBus = bus[i] + ".1.2.3.4";
+          }
+        }
+        wdgConn = DSSConn(bDelta);
+      }
 			zbase = ratedU[i] * ratedU[i] / ratedS[i];
-			buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + wdgBus + " conn=" + DSSConn(bDelta) +
+			buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + wdgBus + " conn=" + wdgConn +
 								 " kv=" + df3.format(0.001 * ratedU[i]) + " kva=" + df1.format(0.001 * ratedS[i]) +
 								 " %r=" + df6.format(100.0 * r[i] / zbase));
-      if (rg[i] > 0.0 || xg[i] > 0.0) {
+      if (rg[i] > 0.0 || xg[i] > 0.0 && !bAuto) {
         buf.append(" rneut=" + df3.format(rg[i]) + " xneut=" + df3.format(xg[i]));
       }
       buf.append("\n");

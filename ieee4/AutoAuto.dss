@@ -19,6 +19,3 @@ set tolerance=1e-8
 buscoords ieee4xy.dat
 solve
 
-uuids autoauto_uuids.dat
-export cim100 file=autoauto.xml
-export uuids file=autoauto_uuids.dat

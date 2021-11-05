@@ -426,8 +426,11 @@ Auto3bus         Nbus=[    12,    12,     0] Nlink=[    18,    15,     0] MAEv=[
     Total S = 328993.276 + j 204143.496
   OpenDSS branch flow in LOAD.TEST from LOW, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    Total S =     0.000 + j     0.000
-AutoAuto         Nbus=[    12,     6,     0] Nlink=[    12,     9,     0] MAEv=[ 0.0002,-1.0000] MAEi=[ 943.2180,  -1.0000]
+    A  88192.10 -0.0750   1463.41 -0.6304  109664.425 + j 68047.832     AB   152753.20  0.4485
+    B  88192.10 -2.1694   1463.41 -2.7248  109664.425 + j 68047.832     BC   152753.20 -1.6458
+    C  88192.10  2.0193   1463.41  1.4640  109664.425 + j 68047.832     CA   152753.20  2.5429
+    Total S = 328993.276 + j 204143.496
+AutoAuto         Nbus=[    12,    12,     0] Nlink=[    12,    12,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0000,  -1.0000]
 ```
 
 ## AutoTransformers
@@ -442,7 +445,7 @@ one of the options works properly for round-trip validation in OpenDSS.
 - **AutoHLT.dss** represents the autotransformer as a non-auto Yyd1. It replicates test data, except for the split of load losses between HT and LT tests. It also fails to show the MVA size reduction inherent in the autotransformer.
 - **Auto1bus.dss** represents the autotransformer as a bank of three single-phase, reduced-MVA tanks, connected YNad1. This is accurate, but does not translate through CIM because it uses a "9-phase bus" to represent the common node, which causes errors in connections and voltage ratings. This is "option 1" from the OpenDSS Tech Note on modeling autotransformers.
 - **Auto3bus.dss** represents the autotransformer as a bank of three single-phase, reduced-MVA tanks, connected YNad1. This is accurate, but does not translate through CIM because it uses a "6-phase bus" with jumper to represent the common node, which causes errors in connections and voltage ratings. This is "option 2" from the OpenDSS Tech Note on modeling autotransformers.
-- **AutoAuto.dss** uses the built-in "autotrans" component in OpenDSS. It uses test results directly as input, making the series-common winding connection internally. The CIM export for "autotrans" has to be implemented in OpenDSS. **This model option could be supported in CIM, based on specifying the vector group as YNad1**. 
+- **AutoAuto.dss** uses the built-in "autotrans" component in OpenDSS. It uses test results directly as input, making the series-common winding connection internally. CIM supports this by recognizing the vector group YNa or YNad1.
 
 
 
