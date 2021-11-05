@@ -17,6 +17,7 @@ public class DistStorage extends DistComponent {
 	public double q;
 	public double ratedU;
 	public double ratedS;
+  public double ratedP; // TODO: OpenDSS allowed a different kvaRated from kwRated, but CIM does not
   public double maxP;
   public double minP;
 	public double ratedE;
@@ -66,6 +67,7 @@ public class DistStorage extends DistComponent {
 			ratedS = Double.parseDouble (soln.get("?ratedS").toString());
       maxP = Double.parseDouble (soln.get("?maxP").toString());
       minP = Double.parseDouble (soln.get("?minP").toString());
+      ratedP = Math.max(maxP, Math.abs(minP));
 			maxIFault = Double.parseDouble (soln.get("?ipu").toString());
 			bDelta = false;
 			ratedE = Double.parseDouble (soln.get("?ratedE").toString());
@@ -137,7 +139,7 @@ public class DistStorage extends DistComponent {
 		buf.append ("    use_internal_battery_model true;\n");
 		buf.append ("    battery_type LI_ION;\n");
 		buf.append ("    round_trip_efficiency 0.86;\n");
-		buf.append ("    rated_power " + df3.format (Math.max(maxP, -minP)) + ";\n");
+		buf.append ("    rated_power " + df3.format (ratedP) + ";\n");
 		buf.append ("  };\n");
 		buf.append ("}\n");
 
@@ -161,15 +163,13 @@ public class DistStorage extends DistComponent {
     if (q < 0.0) {
       pf *= -1.0;
     }
-
-    // TODO: OpenDSS allowed a different kvaRated from kwRated, but CIM does not
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
 								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + 
-                " kwrated=" + df3.format(0.001 * Math.max(maxP, Math.abs(minP))) + 
+                " kwrated=" + df3.format(0.001 * ratedP) + 
                 " kv=" + df3.format(kv) + " kwhrated=" + df3.format(0.001 * ratedE) + 
 								" kwhstored=" + df3.format(0.001 * storedE) + " state=" + DSSBatteryState(state) +
 								" vminpu=" + df4.format(1/maxIFault) + " LimitCurrent=yes kw=" + df2.format(p/1000.0) +
-                " %charge=" + df2.format(-100.0 * minP / ratedS) + " %discharge=" + df2.format(100.0 * maxP / ratedS));
+                " %charge=" + df2.format(-100.0 * minP / ratedP) + " %discharge=" + df2.format(100.0 * maxP / ratedP));
 		buf.append("\n");
 
 		return buf.toString();
