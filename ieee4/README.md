@@ -440,12 +440,15 @@ included an actual test report from a 345/161/13.8 kV, 330/330/72 MVA, YNad1 aut
 archived in the OpenDSS repository, with scripts that verify losses, short-circuit currents and voltage
 regulation for the modeling options available in OpenDSS. GridLAB-D does not support 3-winding transformers, nor
 autotransformers, so GridLAB-D validation is skipped. The CIM support for autotransformers is incomplete, so only
-one of the options works properly for round-trip validation in OpenDSS.
+two of the four variants work properly for round-trip validation in OpenDSS.
 
 - **AutoHLT.dss** represents the autotransformer as a non-auto Yyd1. It replicates test data, except for the split of load losses between HT and LT tests. It also fails to show the MVA size reduction inherent in the autotransformer.
 - **Auto1bus.dss** represents the autotransformer as a bank of three single-phase, reduced-MVA tanks, connected YNad1. This is accurate, but does not translate through CIM because it uses a "9-phase bus" to represent the common node, which causes errors in connections and voltage ratings. This is "option 1" from the OpenDSS Tech Note on modeling autotransformers.
 - **Auto3bus.dss** represents the autotransformer as a bank of three single-phase, reduced-MVA tanks, connected YNad1. This is accurate, but does not translate through CIM because it uses a "6-phase bus" with jumper to represent the common node, which causes errors in connections and voltage ratings. This is "option 2" from the OpenDSS Tech Note on modeling autotransformers.
-- **AutoAuto.dss** uses the built-in "autotrans" component in OpenDSS. It uses test results directly as input, making the series-common winding connection internally. CIM supports this by recognizing the vector group YNa or YNad1.
+- **AutoAuto.dss** uses the built-in "autotrans" component in OpenDSS. It uses test results directly as input, making the series-common winding connection internally. 
+CIM can support this by recognizing the vector group YNa or YNad1. OpenDSS uses the PowerTransformer.vectorGroup to determine whether it's an autotransformer. 
+The choices of WindingConnectionKind include Y, Yn, and A for windings 1 and 2. A applies to winding 2 and Y can work for winding 1. A new enumeration should be considered
+for winding 1, i.e., S for series.
 
 
 
