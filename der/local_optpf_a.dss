@@ -1,0 +1,27 @@
+clear
+new circuit.local_optpf_a bus1=high basekv=13.2 pu=1.05 r1=1.210 x1=2.834 r0=3.961 x0=3.214 // no-load impedance
+// new circuit.local_optpf_a bus1=pcc basekv=13.2 pu=1.05 r1=1.744 x1=2.680 r0=3.706 x0=3.026 // full-load impedance
+
+// 1547-2018 default volt-var settings for category B
+New XYcurve.voltvar1547b npts=6 Yarray=[0.44,0.44,0,0,-0.44,-0.44] Xarray=[.5,0.92,0.98,1.02,1.08,1.5]
+// volt-watt settings to start limiting at 1.03 pu, can't absorb P (note that maximum V2 is 1.10)
+New XYcurve.voltwatt1547pv npts=4 Yarray=[1.0,1.0,0.0,0.0] Xarray=[0.0,1.03,1.06,2.00]
+
+// a zig-zag grounding transformer is omitted
+new transformer.der windings=2 buses=[high low] conns=[d,w] kvas=[7500,7500] kvs=[13.2,0.4] xhl=5.71 %loadloss=0.7 %imag=1.36 %noloadloss=0.35
+
+// PVSystem in parallel with BESS1, has 0.5 kW and 3600 kVA rating to superimpose volt-var on BESS1
+New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6316 pf=-0.95
+//New InvControl.der mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 eventlog=yes
+New InvControl.der combimode=VV_VW voltage_curvex_ref=rated vvc_curve1=voltvar1547b 
+~ voltwatt_curve=voltwatt1547pv deltaQ_factor=0.4 deltaP_factor=0.2 VV_RefReactivePower=VARMAX_VARS eventlog=yes
+
+//new storage.der bus1=low phases=3 kV=0.4 kWrated=6000 kva=7000 kWhrated=48000 kWhstored=24000 
+//~ %EffCharge=91.3455 %EffDischarge=91.3455 %reserve=0 %idlingkw=0 %r=0
+//~ state=discharging kw=6000
+
+Set Voltagebases=[13.2, 0.4]
+calcv
+set maxcontroliter=100
+Solve
+
