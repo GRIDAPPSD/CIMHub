@@ -1,4 +1,5 @@
 base/*.csv
+base/*.xml
 cim_base.dss
 go.sh
 checkglm.sh
