@@ -15,8 +15,8 @@ public abstract class DistComponent {
   public static final String nsRDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   public static final String nsXSD = "http://www.w3.org/2001/XMLSchema#";
 
-  static final double gFREQ = 60.0;
-  static final double gOMEGA = gFREQ * 2.0 * Math.PI; // 376.9911
+  static double gFREQ = 60.0;
+  static double gOMEGA = gFREQ * 2.0 * Math.PI; // 376.9911
   static final double gMperMILE = 1609.344;
   static final double gFTperM = 1.0 / 0.3048;
 
@@ -34,6 +34,15 @@ public abstract class DistComponent {
 //    QueryExecution qexec = QueryExecutionFactory.sparqlService (szEND, query);
 //    return qexec.execSelect();
 //  }
+
+  public static void SetSystemFrequency (double freq) {
+    gFREQ = freq;
+    gOMEGA = gFREQ * 2.0 * Math.PI;
+  }
+
+  public static double GetSystemFrequency () {
+    return gFREQ;
+  }
 
   static String OptionalString (QuerySolution soln, String parm, String def) {
     RDFNode nd = soln.get(parm);

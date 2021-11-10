@@ -29,7 +29,7 @@ public class DistLinesCodeZ extends DistLineSegment {
 			bus2 = SafeName (soln.get("?bus2").toString());
 			basev = Double.parseDouble (soln.get("?basev").toString());
 			len = Double.parseDouble (soln.get("?len").toString());
-			lname = soln.get("?lname").toString();
+			lname = SafeName (soln.get("?lname").toString());
 			codeid = soln.get("?codeid").toString();
 			int nphs = map.get (name);
 			if (nphs > 0) {

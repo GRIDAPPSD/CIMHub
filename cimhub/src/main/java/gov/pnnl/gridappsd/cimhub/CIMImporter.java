@@ -1585,6 +1585,7 @@ public class CIMImporter extends Object {
 			boolean bWantSched, String fSched, boolean bWantZIP, double Zcoeff, double Icoeff, double Pcoeff, String fEarth)  {
 
 		out.println ("clear");
+    out.println ("set defaultbasefrequency=" + String.valueOf (DistComponent.GetSystemFrequency()));
 
 		for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
 			out.print (pair.getValue().GetDSS());
@@ -2424,7 +2425,8 @@ public class CIMImporter extends Object {
 				} else if (opt == 'o') {
 					fTarget = optVal;
 				} else if (opt == 'f') {
-					freq = Double.parseDouble(optVal);  // TODO: set this into DistComponent
+					freq = Double.parseDouble(optVal);
+          DistComponent.SetSystemFrequency (freq);
 				} else if (opt == 'n') {
 					fSched = optVal;
 					bWantSched = true;

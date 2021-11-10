@@ -151,6 +151,7 @@ def load_currents(fname, ordname):
   return idss, irad
 
 def load_voltages(fname):
+#  print ('load_voltages from:', fname)
   vpu = {}
   vmag = {}
   vrad = {}
@@ -358,7 +359,7 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
     if (('dss_link' in row) and ('dss_bus' in row)):
       print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, 'Base')
       print_dss_flow (row['dss_bus'], row['dss_link'], magv2, angv2, i2, angi2, 'Converted')
-    if (('gld_link' in row) and ('gld_bus' in row)):
+    if (do_gld and ('gld_link' in row) and ('gld_bus' in row)):
       print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi)
 
 #  print (gldbus)
