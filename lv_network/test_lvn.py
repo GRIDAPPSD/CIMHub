@@ -33,15 +33,18 @@ cases = [
       {'dss_link': 'TRANSFORMER.2', 'dss_bus': 'P8', 'gld_link': 'XF_2', 'gld_bus': 'P8'},
     ]
   },
-  { 'dsspath':'/home/tom/src/OpenDSS/Distrib/IEEETestCases/LVTestCase', 'skip_gld':True,
+  { 'dsspath':'/home/tom/src/OpenDSS/Distrib/IEEETestCases/LVTestCase', 'skip_gld':False,
     'dssname':'Master', 'root':'LVTest', 'mRID':'2DD6F13C-58B8-4D3A-8DE7-67FDA0560293',
     'substation':'sub1', 'region':'Europe', 'subregion':'test_subregion',
     'glmvsrc': 6668.3956, 'bases':[416.0, 11000.0], 'export_options':' -e=carson -f=50.0',
     'check_branches':[
-      {'dss_link': 'LINE.LINE1', 'dss_bus': '1', 'gld_link': 'LN_LINE1', 'gld_bus': '1'},
+      {'dss_link': 'LINE.LINE1', 'dss_bus': '1', 'gld_link': 'LINE_LINE1', 'gld_bus': '1'},
     ]
   },
 ]
+
+#cimhub.compare_cases (casefiles=cases, basepath='./base/', dsspath='./dss/', glmpath='./glm/')
+#quit()
 
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 cimhub.clear_db (cfg_json)
