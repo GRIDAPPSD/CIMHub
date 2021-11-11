@@ -2,4 +2,5 @@ dss
 glm
 *.csv
 upload_1547.sh
-convert_1547.dss
+base/convert_1547.dss
+base/*.xml
