@@ -13,4 +13,5 @@ cp ../KLUSolve/Lib/libklusolve.so distrib
 ./stop.sh
 docker rmi gridappsd/cimhub:0.0.2
 docker rmi gridappsd/cimhub:0.0.3
-docker build -t="gridappsd/cimhub:0.0.3" .
+docker rmi gridappsd/cimhub:0.0.4
+docker build -t="gridappsd/cimhub:0.0.4" .

@@ -1,5 +1,6 @@
 # Copyright (C) 2021 Battelle Memorial Institute
-# file: test_xfmr.py
+# file: test_1547.py
+# for DER modeled with IEC CIM Dynamics
 
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
