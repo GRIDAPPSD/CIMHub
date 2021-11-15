@@ -4,7 +4,7 @@
 
 Clear
 
-New Circuit.ieee9500unbal
+New Circuit.final9500node
 
 ! Make the source stiff with small impedance
 ~ pu=1.05  r1=0  x1=0.001  r0=0  x0=0.001  
@@ -69,9 +69,13 @@ Set loadmult=1.0
 ! Generator Configuration
 ! CHP at 30% capacity, MT-1 at 25%, MT-2 at 50%, all other DG off.
 Generator.SteamGen1.kw=1000
+
 Generator.MicroTurb-1.kw=50
 Generator.MicroTurb-2.kw=0
 Generator.MicroTurb-3.kw=0
+Generator.WindTurb-1.kw=20
+Generator.WindTurb-2.kw=20
+Generator.WindTurb-3.kw=20
 Generator.MicroTurb-4.kw=100
 Generator.Diesel620.kw=0
 Generator.Diesel590.kw=0
