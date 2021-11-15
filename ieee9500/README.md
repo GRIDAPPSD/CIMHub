@@ -28,7 +28,7 @@ To run the conversion and power flow solution script, follow the instructions be
 4. Return to the main CIMHub directory with `cd ..` and install the Blazegraph database engine:
    * Install the [Docker Engine](https://docs.docker.com/install/)
    * Install the Blazegraph engine with ```docker pull lyrasis/blazegraph:2.1.5```
-   * Install the CIMHub docker package with ```docker pull gridappsd/cimhub:0.0.4./start.sh```
+   * Install the CIMHub docker package with ```docker pull gridappsd/cimhub:0.0.4```
    * Start the Blazegraph engine by running `./start.sh`
    * Exit the docker terminal with `exit`
 
