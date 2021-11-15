@@ -21,15 +21,16 @@ To run the conversion and power flow solution script, follow the instructions be
 
 1. Clone the final9500node branch of the CIMHub repository: ```git clone https://github.com/GRIDAPPSD/CIMHub.git -b final9500node```
 
-2. Install the CIMHub Python package. From your home directory, run ```python3 pip install -e CIMHub```
+2. Install the CIMHub Python package. From your home directory, run ```python3 -m pip install -e CIMHub```
 
 3. Build the CIMHub java libraries by changing directories into cimhub library with `cd CIMHub/cimhub`. Build the java library with `mvn clean install`
 
 4. Return to the main CIMHub directory with `cd ..` and install the Blazegraph database engine:
    * Install the [Docker Engine](https://docs.docker.com/install/)
    * Install the Blazegraph engine with ```docker pull lyrasis/blazegraph:2.1.5```
-   * Install the CIMHub docker package with ```docker pull gridappsd/cimhub:0.0.3```
+   * Install the CIMHub docker package with ```docker pull gridappsd/cimhub:0.0.4./start.sh```
    * Start the Blazegraph engine by running `./start.sh`
+   * Exit the docker terminal with `exit`
 
 5. Change directories into the 9500 node folder with `cd ieee9500`
 
@@ -38,6 +39,8 @@ To run the conversion and power flow solution script, follow the instructions be
 7. Run `./zipall.sh` and `./zipcomparisons.h` to create downloadable archives
 
 ------
+
+## Building the CIM XML model from Original DSS Files
 
 To build the CIM XML files from the original DSS source files:
 
