@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2021, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -123,13 +123,20 @@ public class DistPowerXfmrWinding extends DistComponent {
 		StringBuilder buf = new StringBuilder ("object transformer_configuration {\n"); 
 		buf.append ("  name \"xcon_" + name + "\";\n");
 		String sConnect = GetGldTransformerConnection (conn, size);
+    boolean bSwap = false;
 		if (sConnect.equals ("Y_D")) {
-			buf.append ("  connect_type WYE_WYE; // should be Y_D\n");
+			buf.append ("  connect_type DELTA_GWYE; // Y_D swap to DELTA_GWYE\n");
+      bSwap = true;
 		} else {
 			buf.append ("  connect_type " + sConnect + ";\n");
 		}
-		buf.append ("  primary_voltage " + df3.format (ratedU[0]) + ";\n");
-		buf.append ("  secondary_voltage " + df3.format (ratedU[1]) + ";\n");
+    if (bSwap) {
+      buf.append ("  primary_voltage " + df3.format (ratedU[1]) + ";\n");
+      buf.append ("  secondary_voltage " + df3.format (ratedU[0]) + ";\n");
+    } else {
+      buf.append ("  primary_voltage " + df3.format (ratedU[0]) + ";\n");
+      buf.append ("  secondary_voltage " + df3.format (ratedU[1]) + ";\n");
+    }
 		buf.append ("  power_rating " + df3.format (ratedS[0] * 0.001) + ";\n");
 		int idx;
 		double Zbase;
@@ -155,19 +162,30 @@ public class DistPowerXfmrWinding extends DistComponent {
 		buf.append ("  reactance " + df6.format (xpu) + ";\n");
 		idx = core.wdg - 1;
 		Zbase = ratedU[idx] * ratedU[idx] / ratedS[idx];
-		if (core.b > 0.0) {
-			buf.append ("  shunt_reactance " + df6.format (1.0 / Zbase / core.b) + ";\n");
-		}
-		if (core.g > 0.0) {
-			buf.append ("  shunt_resistance " + df6.format (1.0 / Zbase / core.g) + ";\n");
-		}
+    if (sConnect.equals("WYE_WYE")) { // as of v4.3, GridLAB-D doesn't support shunt_impedance on other types
+      if (core.b > 0.0) {
+        buf.append ("  shunt_reactance " + df6.format (1.0 / Zbase / core.b) + ";\n");
+      }
+      if (core.g > 0.0) {
+        buf.append ("  shunt_resistance " + df6.format (1.0 / Zbase / core.g) + ";\n");
+      }
+    }
 		buf.append ("}\n");
 
 		buf.append ("object transformer {\n");
 		buf.append ("  name \"xf_" + name + "\";\n");
-		buf.append ("  from \"" + bus[0] + "\";\n");
-		buf.append ("  to \"" + bus[1] + "\";\n");
-		buf.append ("  phases ABC;\n");
+    if (bSwap) {
+      buf.append ("  from \"" + bus[1] + "\";\n");
+      buf.append ("  to \"" + bus[0] + "\";\n");
+    } else {
+      buf.append ("  from \"" + bus[0] + "\";\n");
+      buf.append ("  to \"" + bus[1] + "\";\n");
+    }
+    if (sConnect.equals("D_D")) {
+      buf.append ("  phases ABCD;\n");
+    } else {
+      buf.append ("  phases ABCN;\n");
+    }
 		buf.append ("  configuration \"xcon_" + name + "\";\n");
 		AppendGLMRatings (buf, "ABC", normalCurrentLimit, emergencyCurrentLimit);
 		buf.append ("  // vector group " + vgrp + ";\n");
@@ -176,35 +194,20 @@ public class DistPowerXfmrWinding extends DistComponent {
 		return buf.toString();
 	}
 
-	/*
-
-		double rpu = 0.0;
-		double zpu = 0.0;
-		double zbase1 = ratedU[0] * ratedU[0] / ratedS[0];
-		double zbase2 = ratedU[1] * ratedU[1] / ratedS[1];
-		if (sct.ll[0] > 0.0) {
-			rpu = sct.ll[0] / ratedS[0];
-		} else {
-			rpu = (r[0] / zbase1) + (r[1] / zbase2);
-		}
-		if (sct.fwdg[0] == 1) {
-			zpu = sct.z[0] / zbase1;
-		} else if (sct.fwdg[0] == 2) {
-			zpu = sct.z[0] / zbase2;
-		}
-		double xpu = zpu;
-		if (zpu >= rpu) {
-//			xpu = Math.sqrt (zpu * zpu - rpu * rpu);  // TODO: this adjustment is correct, but was not done in RC1
-		}
-
-*/
-
 	public String GetDSS(DistPowerXfmrMesh mesh, DistPowerXfmrCore core) {
-		boolean bDelta;
+		boolean bDelta, bAuto;
 		int i, fwdg, twdg;
 		double zbase, xpct;
+    String wdgBus, wdgConn;
+    StringBuilder buf;
 
-		StringBuilder buf = new StringBuilder ("new Transformer." + name + " phases=3 windings=" + Integer.toString(size));
+    bAuto = false;
+    if (vgrp.contains("Na")) bAuto = true;
+    if (bAuto) {
+      buf = new StringBuilder ("new AutoTrans." + name + " phases=3 windings=" + Integer.toString(size));
+    } else {
+      buf = new StringBuilder ("new Transformer." + name + " phases=3 windings=" + Integer.toString(size));
+    }
 
 		// mesh impedance - valid only up to 3 windings, and use winding instead of mesh resistances
 		for (i = 0; i < mesh.size; i++) {
@@ -213,11 +216,19 @@ public class DistPowerXfmrWinding extends DistComponent {
 			zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
 			xpct = 100.0 * mesh.x[i] / zbase;
 			if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
-				buf.append(" xhl=" + df6.format(xpct));
+				if (bAuto) {
+          buf.append(" xhx=" + df6.format(xpct));
+        } else {
+          buf.append(" xhl=" + df6.format(xpct));
+        }
 			} else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
 				buf.append(" xht=" + df6.format(xpct));
 			} else if ((fwdg == 2 && twdg == 3) || (fwdg == 3 && twdg == 2)) {
-				buf.append(" xlt=" + df6.format(xpct));
+        if (bAuto) {
+          buf.append(" xxt=" + df6.format(xpct));
+        } else {
+          buf.append(" xlt=" + df6.format(xpct));
+        }
 			}
 		}
 
@@ -229,15 +240,34 @@ public class DistPowerXfmrWinding extends DistComponent {
 		// winding ratings
 		AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
 		for (i = 0; i < size; i++) {
-			if (conn[i].contains("D")) {
-				bDelta = true;
-			} else {
-				bDelta = false;
-			}
+      wdgBus = bus[i];
+      if (bAuto) {
+        if (i == 0) {
+          wdgConn = "s";
+        } else if (i == 1) {
+          wdgConn = "w";
+        } else {
+          wdgConn = "d";
+        }
+      } else {
+        if (conn[i].contains("D")) {
+          bDelta = true;
+        } else {
+          bDelta = false;
+          if (!grounded[i] || rg[i] > 0.0 || xg[i] > 0.0) {
+            wdgBus = bus[i] + ".1.2.3.4";
+          }
+        }
+        wdgConn = DSSConn(bDelta);
+      }
 			zbase = ratedU[i] * ratedU[i] / ratedS[i];
-			buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + bus[i] + " conn=" + DSSConn(bDelta) +
+			buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + wdgBus + " conn=" + wdgConn +
 								 " kv=" + df3.format(0.001 * ratedU[i]) + " kva=" + df1.format(0.001 * ratedS[i]) +
-								 " %r=" + df6.format(100.0 * r[i] / zbase) + "\n");
+								 " %r=" + df6.format(100.0 * r[i] / zbase));
+      if (rg[i] > 0.0 || xg[i] > 0.0 && !bAuto) {
+        buf.append(" rneut=" + df3.format(rg[i]) + " xneut=" + df3.format(xg[i]));
+      }
+      buf.append("\n");
 		}
 		return buf.toString();
 	}

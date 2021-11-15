@@ -17,9 +17,17 @@ public class DistPhaseMatrix extends DistComponent {
 
 	// only write the phasing permutations that are actually used
 	private boolean glmABC;
+  private boolean glmACB;
+  private boolean glmBAC;
+  private boolean glmBCA;
+  private boolean glmCAB;
+  private boolean glmCBA;
 	private boolean glmAB;
+  private boolean glmBA;
 	private boolean glmAC;
+  private boolean glmCA;
 	private boolean glmBC;
+  private boolean glmCB;
 	private boolean glmA;
 	private boolean glmB;
 	private boolean glmC;
@@ -36,11 +44,19 @@ public class DistPhaseMatrix extends DistComponent {
 
 	public void MarkGLMPermutationsUsed (String s) {
 		if (cnt == 3) {
-			glmABC = true;
+      if (s.contains ("ABC") || s.contains ("A:B:C")) glmABC = true;
+      if (s.contains ("ACB") || s.contains ("A:C:B")) glmACB = true;
+      if (s.contains ("BAC") || s.contains ("B:A:C")) glmBAC = true;
+      if (s.contains ("BCA") || s.contains ("B:C:A")) glmBCA = true;
+      if (s.contains ("CAB") || s.contains ("C:A:B")) glmCAB = true;
+      if (s.contains ("CBA") || s.contains ("C:B:A")) glmCBA = true;
 		} else if (cnt == 2) {
-			if (s.contains ("A") && s.contains ("B")) glmAB = true;
-			if (s.contains ("A") && s.contains ("C")) glmAC = true;
-			if (s.contains ("B") && s.contains ("C")) glmBC = true;
+      if (s.contains ("AB") || s.contains ("A:B")) glmAB = true;
+      if (s.contains ("BA") || s.contains ("B:A")) glmBA = true;
+      if (s.contains ("AC") || s.contains ("A:C")) glmAC = true;
+      if (s.contains ("CA") || s.contains ("C:A")) glmCA = true;
+      if (s.contains ("BC") || s.contains ("B:C")) glmBC = true;
+      if (s.contains ("CB") || s.contains ("C:B")) glmCB = true;
 			if (s.contains ("s")) glmTriplex = true;
 		} else if (cnt == 1) {
 			if (s.contains ("A")) glmA = true;
@@ -142,12 +158,20 @@ public class DistPhaseMatrix extends DistComponent {
 
 	public String GetGLM() {
 		StringBuilder buf = new StringBuilder ("");
-		if ((cnt == 3) && glmABC) {
-			AppendPermutation (buf, "ABC", new int[] {1, 2, 3});
+		if (cnt == 3) {
+			if (glmABC) AppendPermutation (buf, "ABC", new int[] {1, 2, 3});
+      if (glmACB) AppendPermutation (buf, "ACB", new int[] {1, 3, 2});
+      if (glmBAC) AppendPermutation (buf, "BAC", new int[] {2, 1, 3});
+      if (glmBCA) AppendPermutation (buf, "BCA", new int[] {2, 3, 1});
+      if (glmCAB) AppendPermutation (buf, "CAB", new int[] {3, 1, 2});
+      if (glmCBA) AppendPermutation (buf, "CBA", new int[] {3, 2, 1});
 		} else if (cnt == 2) {
 			if (glmAB) AppendPermutation (buf, "AB", new int[] {1, 2});
+      if (glmBA) AppendPermutation (buf, "BA", new int[] {2, 1});
 			if (glmAC) AppendPermutation (buf, "AC", new int[] {1, 3});
+      if (glmCA) AppendPermutation (buf, "CA", new int[] {3, 1});
 			if (glmBC) AppendPermutation (buf, "BC", new int[] {2, 3});
+      if (glmCB) AppendPermutation (buf, "CB", new int[] {3, 2});
 			if (glmTriplex) AppendPermutation (buf, "12", new int[] {1, 2});
 		} else if (cnt == 1) {
 			if (glmA) AppendPermutation (buf, "A", new int[] {1});

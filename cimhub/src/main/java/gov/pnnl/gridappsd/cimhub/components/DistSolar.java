@@ -16,6 +16,8 @@ public class DistSolar extends DistComponent {
 	public double q;
 	public double ratedU;
 	public double ratedS;
+  public double maxP;
+  public double minP;
 	public double maxIFault;
 	public boolean bDelta;
 
@@ -47,6 +49,8 @@ public class DistSolar extends DistComponent {
 			q = Double.parseDouble (soln.get("?q").toString());
 			ratedU = Double.parseDouble (soln.get("?ratedU").toString());
 			ratedS = Double.parseDouble (soln.get("?ratedS").toString());
+      maxP = Double.parseDouble (soln.get("?maxP").toString());
+      minP = Double.parseDouble (soln.get("?minP").toString());
 			maxIFault = Double.parseDouble (soln.get("?ipu").toString());
 			bDelta = false;
 		}		
@@ -102,7 +106,7 @@ public class DistSolar extends DistComponent {
 		buf.append ("    name \"pv_" + name + "\";\n");
 		buf.append ("    panel_type SINGLE_CRYSTAL_SILICON;\n");
 		buf.append ("    efficiency 0.2;\n");
-		buf.append ("    rated_power " + df3.format (ratedS) + ";\n");
+		buf.append ("    rated_power " + df3.format (maxP) + ";\n");
 		buf.append ("  };\n");
 
 		buf.append("}\n");
@@ -127,13 +131,15 @@ public class DistSolar extends DistComponent {
     if (q < 0.0) {
       pf *= -1.0;
     }
+    double pctMin = 100.0 * minP / ratedS;
 
 //		System.out.println (name + ":" + bus + ":" + Boolean.toString(bDelta) + ":" + phases + ":" + Integer.toString(nphases));
 
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
 								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + " kv=" + df3.format(kv) +
-								" pmpp=" + df3.format(kva) + " irrad=" + df3.format(0.001 * p/kva) + " pf=" + df4.format(pf) +
-								" vminpu=" + df4.format(1.0/maxIFault) + " LimitCurrent=yes");
+								" pmpp=" + df3.format(0.001*maxP) + " irrad=" + df3.format(p/maxP) + " pf=" + df4.format(pf) +
+								" vminpu=" + df4.format(1.0/maxIFault) + " LimitCurrent=yes %cutin=" + df2.format(pctMin) +
+                " %cutout=" + df2.format(pctMin));
 		buf.append("\n");
 
 		return buf.toString();

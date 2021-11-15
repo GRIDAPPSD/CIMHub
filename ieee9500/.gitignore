@@ -1,0 +1,7 @@
+dss/
+glm/
+csv/
+base/*.csv
+go.sh
+cim_test.dss
+checkglm.sh

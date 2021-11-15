@@ -10,7 +10,7 @@ services:
       - 8889:8080
 
   hub:
-    image: gridappsd/cimhub:0.0.2
+    image: gridappsd/cimhub:0.0.4
     stdin_open: true
     tty: true
     depends_on:

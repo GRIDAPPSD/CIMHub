@@ -1,3 +1,4 @@
+#!/bin/bash
 rm *.XML
 rm *.xml
 rm *.json

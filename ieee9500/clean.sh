@@ -1,11 +1,7 @@
-rm *.XML
-rm *.xml
-rm *.json
-rm *.CSV
-rm *base.glm
-rm test*volt.csv
-rm test*curr.csv
-rm sum*.csv
-rm *_base.dss
-rm *_uuid.dss
-rm *_busxy.dss
+rm base/*.csv
+rm -rf csv
+rm -rf dss
+rm -rf glm
+rm cim_test.dss
+rm go.sh
+rm checkglm.sh

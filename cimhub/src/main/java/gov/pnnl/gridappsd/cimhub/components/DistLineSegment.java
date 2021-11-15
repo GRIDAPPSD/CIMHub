@@ -43,10 +43,7 @@ public abstract class DistLineSegment extends DistComponent {
 
 		buf.append ("  from \"" + bus1 + "\";\n");
 		buf.append ("  to \"" + bus2 + "\";\n");
-		StringBuilder phs = new StringBuilder();
-		if (phases.contains ("A")) phs.append ("A");
-		if (phases.contains ("B")) phs.append ("B");
-		if (phases.contains ("C")) phs.append ("C");
+		StringBuilder phs = new StringBuilder(phases.replace (":", "").replace("s1", "").replace("s2", ""));
 		if (bTriplex) phs.append ("S");
 		if (phases.contains ("N") || bForceN) phs.append ("N");
 		glm_phases = phs.toString();

@@ -7,6 +7,8 @@ new circuit.IEEE13NodecktAssets
 ~ Angle=30                     ! advance angle 30 deg so result agree with published angle
 ~ MVAsc3=20000 MVASC1=21000    ! stiffen the source to approximate inf source
 
+set earthmodel=carson
+
 New XfmrCode.SubXfmr Phases=3 Windings=2  XHL=(8 1000 /)
 ~ wdg=1 conn=delta kv=115  kva=5000  %r=(.5 1000 /)
 ~ wdg=2 conn=wye   kv=4.16 kva=5000  %r=(.5 1000 /) 
@@ -62,17 +64,17 @@ New Load.671 Bus1=671.1.2.3       Phases=3 Conn=Delta Model=1 kV=4.16   kW=1155 
 New Load.634a Bus1=634.1   Phases=1 Conn=Wye  Model=1 kV=0.277  kW=160   kvar=110 
 New Load.634b Bus1=634.2   Phases=1 Conn=Wye  Model=1 kV=0.277  kW=120   kvar=90 
 New Load.634c Bus1=634.3   Phases=1 Conn=Wye  Model=1 kV=0.277  kW=120   kvar=90 
-New Load.645 Bus1=645.2    Phases=1 Conn=Wye  Model=1 kV=2.4      kW=170   kvar=125 
+New Load.645 Bus1=645.2    Phases=1 Conn=Wye  Model=1 kV=2.402      kW=170   kvar=125 
 New Load.646 Bus1=646.2.3    Phases=1 Conn=Delta Model=2 kV=4.16    kW=230   kvar=132 
 New Load.692 Bus1=692.3.1    Phases=1 Conn=Delta Model=5 kV=4.16    kW=170   kvar=151 
-New Load.675a Bus1=675.1  Phases=1 Conn=Wye  Model=1 kV=2.4  kW=485   kvar=190 
-New Load.675b Bus1=675.2  Phases=1 Conn=Wye  Model=1 kV=2.4  kW=68   kvar=60 
-New Load.675c Bus1=675.3  Phases=1 Conn=Wye  Model=1 kV=2.4  kW=290   kvar=212 
-New Load.611 Bus1=611.3    Phases=1 Conn=Wye  Model=5 kV=2.4  kW=170   kvar=80 
-New Load.652 Bus1=652.1    Phases=1 Conn=Wye  Model=2 kV=2.4  kW=128   kvar=86 
-New Load.670a Bus1=670.1   Phases=1 Conn=Wye  Model=1 kV=2.4  kW=17    kvar=10 
-New Load.670b Bus1=670.2   Phases=1 Conn=Wye  Model=1 kV=2.4  kW=66    kvar=38 
-New Load.670c Bus1=670.3   Phases=1 Conn=Wye  Model=1 kV=2.4  kW=117  kvar=68 
+New Load.675a Bus1=675.1  Phases=1 Conn=Wye  Model=1 kV=2.402  kW=485   kvar=190 
+New Load.675b Bus1=675.2  Phases=1 Conn=Wye  Model=1 kV=2.402  kW=68   kvar=60 
+New Load.675c Bus1=675.3  Phases=1 Conn=Wye  Model=1 kV=2.402  kW=290   kvar=212 
+New Load.611 Bus1=611.3    Phases=1 Conn=Wye  Model=5 kV=2.402  kW=170   kvar=80 
+New Load.652 Bus1=652.1    Phases=1 Conn=Wye  Model=2 kV=2.402  kW=128   kvar=86 
+New Load.670a Bus1=670.1   Phases=1 Conn=Wye  Model=1 kV=2.402  kW=17    kvar=10 
+New Load.670b Bus1=670.2   Phases=1 Conn=Wye  Model=1 kV=2.402  kW=66    kvar=38 
+New Load.670c Bus1=670.3   Phases=1 Conn=Wye  Model=1 kV=2.402  kW=117  kvar=68 
 
 !Bus 670 is the concentrated point load of the distributed load on line 632 to 671 located at 1/3 the distance from node 632
 
@@ -101,12 +103,21 @@ New CapControl.Cap2 capacitor=cap2 type=voltage on=115 off=125 ptratio=20 ptphas
 
 Set Voltagebases=[115, 4.16, .48]
 calcv
+// Set Controlmode=off // static
 Solve
 BusCoords IEEE13Node_BusXY.csv
 
+// For benchmarking, lock the taps, turn caps on, load models to constant current
 Transformer.Reg1.Taps=[1.0 1.0625]
 Transformer.Reg2.Taps=[1.0 1.0500]
 Transformer.Reg3.Taps=[1.0 1.06875]
-Set Controlmode=OFF
+Capacitor.Cap1.States=[1]
+Capacitor.Cap2.States=[1]
+CapControl.Cap1.Reset=yes
+CapControl.Cap2.Reset=yes
+Set Controlmode=off // static
+Set Tolerance=1e-8
+
+batchedit load..* model=5
 
 Solve

@@ -57,6 +57,7 @@ public class DistSwitch extends DistComponent {
 			bus1 = SafeName (soln.get("?bus1").toString()); 
 			bus2 = SafeName (soln.get("?bus2").toString()); 
 			phases = OptionalString (soln, "?phases", "ABC");
+      phases = phases.replace ('\n', ':');
 			open = Boolean.parseBoolean (soln.get("?open").toString());
 			StringBuilder glm_phs = new StringBuilder ();
 			if (phases.contains("A")) glm_phs.append("A");
@@ -129,7 +130,7 @@ public class DistSwitch extends DistComponent {
 
 		buf.append (" phases=" + Integer.toString(DSSPhaseCount(phases, false)) + 
 								" bus1=" + DSSBusPhases(bus1, phases) + " bus2=" + DSSBusPhases (bus2, phases) + 
-								" switch=y // CIM " + CIMClass() + "\n");
+								" switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM " + CIMClass() + "\n");
 		AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
 		if (open) {
 			buf.append ("  open Line." + name + " 1\n");

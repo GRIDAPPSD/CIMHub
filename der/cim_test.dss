@@ -1,0 +1,7 @@
+redirect ieee13der.dss
+solve
+uuids file=IEEE13Nodeckt_Base_UUIDS.dat
+export cim100 substation=subname geo=region subgeo=subregion file=ieee13der.xml
+//export cim100fragments substation=subname geo=region subgeo=subregion file=ieee13der
+export uuids
+

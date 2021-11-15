@@ -50,7 +50,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?vnom");
 
 		mapQueries.put ("DistCapacitor",
-		   "SELECT ?name ?basev ?nomu ?bsection ?bus ?conn ?grnd ?phs"+
+		   "SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs"+
 			 " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {"+
 			 " ?s c:Equipment.EquipmentContainer ?fdr."+
 			 " ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -60,6 +60,7 @@ public class CIMQuerySetter extends Object {
 			 " ?bv c:BaseVoltage.nominalVoltage ?basev."+
 			 " ?s c:ShuntCompensator.nomU ?nomu."+
 			 " ?s c:LinearShuntCompensator.bPerSection ?bsection."+ 
+       " ?s c:ShuntCompensator.sections ?sections."+
 			 " ?s c:ShuntCompensator.phaseConnection ?connraw."+
 			 " 	bind(strafter(str(?connraw),\"PhaseShuntConnectionKind.\") as ?conn)"+
 			 " ?s c:ShuntCompensator.grounded ?grnd."+
@@ -245,6 +246,31 @@ public class CIMQuerySetter extends Object {
 			" GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid"+
 			" ORDER BY ?name");
 
+    mapQueries.put ("DistSeriesCompensator",
+      "SELECT ?name ?id ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid WHERE {"+
+      " ?s r:type c:SeriesCompensator."+
+      " ?s c:Equipment.EquipmentContainer ?fdr."+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?s c:IdentifiedObject.name ?name."+
+      " bind(strafter(str(?s),\"#\") as ?id)."+
+      " ?s c:ConductingEquipment.BaseVoltage ?bv."+
+      " ?bv c:BaseVoltage.nominalVoltage ?basev."+
+      " ?s c:SeriesCompensator.r ?r."+
+      " ?s c:SeriesCompensator.x ?x."+
+      " OPTIONAL {?s c:SeriesCompensator.r0 ?r0.}"+
+      " OPTIONAL {?s c:SeriesCompensator.x0 ?x0.}"+
+      " ?t1 c:Terminal.ConductingEquipment ?s."+
+      " ?t1 c:Terminal.ConnectivityNode ?cn1."+
+      " ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
+      " ?cn1 c:IdentifiedObject.name ?bus1."+
+      " ?t2 c:Terminal.ConductingEquipment ?s."+
+      " ?t2 c:Terminal.ConnectivityNode ?cn2."+
+      " ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
+      " ?cn2 c:IdentifiedObject.name ?bus2"+
+      "}"+
+      " GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid"+
+      " ORDER BY ?name");
+
 		mapQueries.put ("DistLinesSpacingZ",
 			"SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?phclass"+
 			" WHERE {"+
@@ -268,6 +294,7 @@ public class CIMQuerySetter extends Object {
 			" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
 			" ?cn2 c:IdentifiedObject.name ?bus2."+
 			" ?acp c:ACLineSegmentPhase.ACLineSegment ?s."+
+      " ?acp c:ACLineSegmentPhase.sequenceNumber ?seq."+
 			" ?acp c:ACLineSegmentPhase.phase ?phsraw."+
 			"   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs)."+
 			" ?acp c:ACLineSegmentPhase.WireInfo ?phinf."+
@@ -275,7 +302,7 @@ public class CIMQuerySetter extends Object {
 			" ?phinf a ?phclassraw."+
 			"   bind(strafter(str(?phclassraw),\"CIM100#\") as ?phclass)"+
 			" }"+
-			" ORDER BY ?id ?name ?phs");
+			" ORDER BY ?id ?name ?seq ?phs");
 
 		mapQueries.put ("DistLineSpacing",
 			"SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y"+
@@ -535,10 +562,12 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?name");
 
 		mapQueries.put ("DistSolar",
-			"SELECT ?name ?bus ?ratedS ?ratedU ?ipu ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
+			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:PhotovoltaicUnit."+
 			"	?s c:IdentifiedObject.name ?name."+
+      " ?s c:PowerElectronicsUnit.maxP ?maxP."+
+      " ?s c:PowerElectronicsUnit.minP ?minP."+
 			"	?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s."+
 			" ?pec c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -555,11 +584,11 @@ public class CIMQuerySetter extends Object {
 			"	?t c:Terminal.ConnectivityNode ?cn."+ 
 			"	?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP by ?name ?bus ?ratedS ?ratedU ?ipu ?p ?q ?id ?fdrid "+
+			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistStorage",
-			"SELECT ?name ?bus ?ratedS ?ratedU ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
+			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:BatteryUnit."+
 			"	?s c:IdentifiedObject.name ?name."+
@@ -571,6 +600,8 @@ public class CIMQuerySetter extends Object {
 			"	?pec c:PowerElectronicsConnection.p ?p."+
 			"	?pec c:PowerElectronicsConnection.q ?q."+
 			" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
+      " ?s c:PowerElectronicsUnit.maxP ?maxP."+
+      " ?s c:PowerElectronicsUnit.minP ?minP."+
 			" ?s c:BatteryUnit.ratedE ?ratedE."+
 			" ?s c:BatteryUnit.storedE ?storedE."+
 			" ?s c:BatteryUnit.batteryState ?stateraw."+
@@ -583,7 +614,7 @@ public class CIMQuerySetter extends Object {
 			"	?t c:Terminal.ConnectivityNode ?cn."+ 
 			"	?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP by ?name ?bus ?ratedS ?ratedU ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid "+
+			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistSubstation",
@@ -790,7 +821,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?pname ?tname ?enum ?gnum");
 
 		mapQueries.put ("DistXfmrTank",
-			"SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?grounded ?rground ?xground ?id ?infoid ?fdrid ?ename ?eid WHERE {"+
+			"SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?reversed ?grounded ?rground ?xground ?id ?infoid ?fdrid ?ename ?eid WHERE {"+
 			" ?p r:type c:PowerTransformer."+
 			" ?p c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -805,6 +836,7 @@ public class CIMQuerySetter extends Object {
 			" ?end c:TransformerTankEnd.TransformerTank ?t."+
 			" ?end c:TransformerTankEnd.phases ?phsraw."+
 			"  bind(strafter(str(?phsraw),\"PhaseCode.\") as ?phs)"+
+      " ?end c:TransformerTankEnd.reversed ?reversed."+
 			" ?end c:TransformerEnd.endNumber ?enum."+
 			" ?end c:TransformerEnd.grounded ?grounded."+
 			" ?end c:IdentifiedObject.name ?ename."+
