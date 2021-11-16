@@ -140,7 +140,7 @@ The Python source code is now in ```src_python/cimhub```. To test it:
 1. ```cd tests```
 2. ```python3 test_cimhub.py``` checks the basic functionality of circuit conversion, measurements, houses and DER. Six tuples are left in the database; these are CIM version strings.
 3. ```python3 test_comparisons.py``` compares OpenDSS and GridLAB-D solutions, to the pre-conversion OpenDSS model
-3. ```./test_combiner.sh``` uses ```test_combiner.py``` to combine 6 CDPSM profiles into a single CIM XML file
+4. ```./test_combiner.sh``` uses ```test_combiner.py``` to combine 6 CDPSM profiles into a single CIM XML file. Note: you must first run _./example.sh arg_ from the _example_ subdirectory, as described above.
 
 The steps for deployment to PyPi are:
 
