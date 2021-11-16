@@ -1,5 +1,5 @@
 clear
-new circuit.local_vvar_b
+new circuit.remote_vvar_b
 redirect shared.dss
 
 New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6593
