@@ -19,10 +19,6 @@ cwd = os.getcwd()
 # 6A7D5722-8D9D-4C54-861D-56E1CDA52231
 # 746C6392-9F8B-4537-98C4-E978AB9547D4
 # 520E4BC8-D3C2-4745-B784-AE23361E94BB
-# 58EAA940-6023-4F38-B09B-3D445BAB4429
-# 4C7345DE-E5D1-4A00-ACC4-0F85B9016F03
-# 408201DC-BBAB-4CDE-85DF-7F8D1E2CF258
-# 5824790B-58F9-4428-BB11-6D56CE013C73
 # 
 
 cfg_json = 'cimhubconfig.json'
@@ -58,6 +54,18 @@ cases = [
 #  'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
 #  'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
   {'dssname':'remote_vvar_a', 'root':'remote_vvar_a', 'mRID':'DA89ACD5-8AB1-46E4-959E-5BDE188DC12F',
+   'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
+   'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
+  {'dssname':'remote_vvar_b', 'root':'remote_vvar_b', 'mRID':'5824790B-58F9-4428-BB11-6D56CE013C73',
+   'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
+   'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
+  {'dssname':'remote_avr_b', 'root':'remote_avr_b', 'mRID':'408201DC-BBAB-4CDE-85DF-7F8D1E2CF258',
+   'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
+   'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
+  {'dssname':'remote_vwatt_b', 'root':'remote_vwatt_b', 'mRID':'4C7345DE-E5D1-4A00-ACC4-0F85B9016F03',
+   'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
+   'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
+  {'dssname':'remote_combo_b', 'root':'remote_combo_b', 'mRID':'58EAA940-6023-4F38-B09B-3D445BAB4429',
    'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
    'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
 ]
