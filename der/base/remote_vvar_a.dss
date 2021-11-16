@@ -4,7 +4,7 @@ redirect shared.dss
 
 New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6316
 New InvControl.der mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547a deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
-~ MonBus=High MonBusesVBase=[13200.0]
+redirect monbus.dss
 
 redirect postlude.dss
 
