@@ -2368,10 +2368,14 @@ New Load.2221108404A0a phases=1 Bus1=SX1108404A.1 kV=.120 Status=variable Model=
 New Load.2221108404A0b phases=1 Bus1=SX1108404A.2 kV=.120 Status=variable Model=1 Conn=wye kW= 12.8708975340535     pf = 0.97 Vminpu = 0.88
 New Load.2221108404B0a phases=1 Bus1=SX1108404B.1 kV=.120 Status=variable Model=1 Conn=wye kW= 18.2746296483264     pf = 0.97 Vminpu = 0.88
 New Load.2221108404B0b phases=1 Bus1=SX1108404B.2 kV=.120 Status=variable Model=1 Conn=wye kW= 20.4642817469989     pf = 0.97 Vminpu = 0.88
+New Load.2221108404C0a phases=1 Bus1=SX1108404C.1 kV=.120 Status=variable Model=1 Conn=wye kW= 15.6546598325165     pf = 0.97 Vminpu = 0.88
+New Load.2221108404C0b phases=1 Bus1=SX1108404C.2 kV=.120 Status=variable Model=1 Conn=wye kW= 17.6864654265432     pf = 0.97 Vminpu = 0.88
 New Load.2221108405A0a phases=1 Bus1=SX1108405A.1 kV=.120 Status=variable Model=1 Conn=wye kW= 10.8329874927289     pf = 0.97 Vminpu = 0.88
 New Load.2221108405A0b phases=1 Bus1=SX1108405A.2 kV=.120 Status=variable Model=1 Conn=wye kW= 11.9375987492748     pf = 0.97 Vminpu = 0.88
 New Load.2221108405B0a phases=1 Bus1=SX1108405B.1 kV=.120 Status=variable Model=1 Conn=wye kW= 13.3874479274956     pf = 0.97 Vminpu = 0.88
 New Load.2221108405B0b phases=1 Bus1=SX1108405B.2 kV=.120 Status=variable Model=1 Conn=wye kW= 15.9734687346721     pf = 0.97 Vminpu = 0.88
+New Load.2221108405C0a phases=1 Bus1=SX1108405C.1 kV=.120 Status=variable Model=1 Conn=wye kW= 16.1676522568976     pf = 0.97 Vminpu = 0.88
+New Load.2221108405C0b phases=1 Bus1=SX1108405C.2 kV=.120 Status=variable Model=1 Conn=wye kW= 19.9854168246415     pf = 0.97 Vminpu = 0.88
 New Load.2221108406A0a phases=1 Bus1=SX1108406A.1 kV=.120 Status=variable Model=1 Conn=wye kW= 12.9847298743482     pf = 0.97 Vminpu = 0.88
 New Load.2221108406A0b phases=1 Bus1=SX1108406A.2 kV=.120 Status=variable Model=1 Conn=wye kW= 10.5465287346983     pf = 0.97 Vminpu = 0.88
 New Load.2221108406B0a phases=1 Bus1=SX1108406B.1 kV=.120 Status=variable Model=1 Conn=wye kW= 14.4779274975337     pf = 0.97 Vminpu = 0.88
