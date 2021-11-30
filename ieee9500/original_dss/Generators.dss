@@ -21,16 +21,16 @@ New Transformer.1142-LNG1 XHL=5.75  kVA=150 Conns=[wye, wye]
 
 
 ! 3x200kW microturbine in New Neighborhood (equipment: Capstone C200S)
-New Generator.MicroTurb-1 bus1=m2001-MT1 kV=0.480 kW=200 kVA=250 pf=0.9 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
-New Generator.MicroTurb-2 bus1=m2001-MT2 kV=0.480 kW=200 kVA=250 pf=0.9 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
-New Generator.MicroTurb-3 bus1=m2001-MT3 kV=0.480 kW=200 kVA=250 pf=0.9 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
+New Generator.MicroTurb-1 bus1=m2001-MT1 kV=0.480 kW=200 kVA=250 pf=0.95 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
+New Generator.MicroTurb-2 bus1=m2001-MT2 kV=0.480 kW=200 kVA=250 pf=0.95 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
+New Generator.MicroTurb-3 bus1=m2001-MT3 kV=0.480 kW=200 kVA=250 pf=0.95 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
 New Transformer.2001-MT123 XHL=5.75  kVA=750 Conns=[wye, wye]
 ~ wdg=1 bus=M2001500.1.2.3  kV=12.47
 ~ wdg=2 bus=M2001DER480-1   kV=0.480
 
 
 ! 1800kW Peaking LNG Engine Generator at Industrial Park (equipment: Cummins HSK78G)
-New Generator.LNGengine1800 bus1=m1089-LNG1 kV=0.480 kW=1800 kVA=2250 pf=0.9 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
+New Generator.LNGengine1800 bus1=m1089-LNG1 kV=0.480 kW=1800 kVA=2250 pf=0.95 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
 New Transformer.1089-LNG1 XHL=5.75  kVA=2000 Conns=[wye, wye]
 ~ wdg=1 bus=M1089186.1.2.3  kV=12.47
 ~ wdg=2 bus=M1089DER480-1   kV=0.480
@@ -44,15 +44,15 @@ New Transformer.1089-DIES1 XHL=5.75  kVA=750 Conns=[wye, wye]
 
 
 ! 200kW microturbine in central neighborhood (equipmentL Capstone C200S)
-New Generator.MicroTurb-4 bus1=m1069-MT1 kV=0.480 kW=200 kVA=250 pf=0.9 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
+New Generator.MicroTurb-4 bus1=m1069-MT1 kV=0.480 kW=200 kVA=250 pf=0.95 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
 New Transformer.1069-MT1 XHL=5.75  kVA=300 Conns=[wye, wye]
 ~ wdg=1 bus=M1069215.1.2.3  kV=12.47
 ~ wdg=2 bus=M1069DER480-1   kV=0.480
 
 ! 3x50kW wind turbines in farm area
-New Generator.WindTurb-1 bus1=m1186-WT1 kV=0.480 kW=50 kVA=75 pf=0.9 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
-New Generator.WindTurb-2 bus1=m1186-WT2 kV=0.480 kW=50 kVA=75 pf=0.9 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
-New Generator.WindTurb-3 bus1=m1186-WT3 kV=0.480 kW=50 kVA=75 pf=0.9 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
+New Generator.WindTurb-1 bus1=m1186-WT1 kV=0.480 kW=50 kVA=75 pf=0.95 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
+New Generator.WindTurb-2 bus1=m1186-WT2 kV=0.480 kW=50 kVA=75 pf=0.95 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
+New Generator.WindTurb-3 bus1=m1186-WT3 kV=0.480 kW=50 kVA=75 pf=0.95 Xdp=0.27 Xdpp=0.2 H=2 conn=wye mode=1 !Operating in constant pf mode per CA Rule 21
 New Transformer.1209-WT123 XHL=5.75  kVA=250 Conns=[wye, wye]
 ~ wdg=1 bus=M1186000.1.2.3  kV=12.47
 ~ wdg=2 bus=M1186DER480-1    kV=0.480
