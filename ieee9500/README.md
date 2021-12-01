@@ -6,7 +6,11 @@ This directory contains the power system model files and scripts to help convert
 
 ## CIM XML Model Files
 
-These are contained in the Base subdirectory. There are separate model versions for blanced and unbalanced load models.
+These are contained in the Base subdirectory. There are separate model versions for balanced and unbalanced load models.
+
+## Original DSS Source Files
+
+These are the original files used to derive the model from IEEE 8500 Node model and contain in-line comments explaining the model changes. There are separate model versions for balanced and unbalanced load models. These files are located in the original_dss subdirectory.
 
 ------
 
