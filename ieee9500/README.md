@@ -10,6 +10,10 @@ These are contained in the Base subdirectory. There are separate model versions 
 
 ------
 
+![9500 node model](https://github.com/GRIDAPPSD/CIMHub/blob/final9500/ieee9500/9500%20Node%20Test%20Feeder%401x_overlay.png)
+
+------
+
 ## Exporting to DSS and GLM file formats
 
 The CIMHub repo contains a set of scripts for converting the CIM XML model to OpenDSS and GridLab-D file formats. 
