@@ -1,0 +1,19 @@
+clear
+new circuit.remote_1phase_b
+redirect shared.dss
+
+New PVSystem.dera phases=1 bus1=low.1 kV=0.23094 irradiance=1.0 pmpp=2000 kVA=2198
+New InvControl.dera mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+~ MonBus=[High.1] MonBusesVBase=[7621.0] 
+
+New PVSystem.derb phases=1 bus1=low.2 kV=0.23094 irradiance=1.0 pmpp=2000 kVA=2198
+New InvControl.derb mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+~ MonBus=[High.2] MonBusesVBase=[7621.0] 
+
+New PVSystem.derc phases=1 bus1=low.3 kV=0.23094 irradiance=1.0 pmpp=2000 kVA=2198
+New InvControl.derc mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+~ MonBus=[High.3] MonBusesVBase=[7621.0] 
+
+redirect postlude.dss
+
+
