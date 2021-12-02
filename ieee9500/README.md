@@ -27,7 +27,7 @@ It also can compare the power flow solution results (if OpenDSS and GridLab-D ar
 To run the conversion and power flow solution script, follow the instructions below:
 
 
-1. Clone the final9500node branch of the CIMHub repository: ```git clone https://github.com/GRIDAPPSD/CIMHub.git -b final9500node```
+1. Clone the final9500node branch of the CIMHub repository: ```git clone https://github.com/GRIDAPPSD/CIMHub.git -b final9500```
 
 2. Install the CIMHub Python package. From your home directory, run ```python3 -m pip install -e CIMHub```
 
