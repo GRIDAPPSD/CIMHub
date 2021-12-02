@@ -22,18 +22,20 @@ new transformer.der windings=2 buses=[high low] conns=[d,w] kvas=[7500,7500] kvs
 // New InvControl.der combimode=VV_VW voltage_curvex_ref=rated vvc_curve1=voltvar1547b 
 // ~ voltwatt_curve=voltwatt1547pv deltaQ_factor=0.4 deltaP_factor=0.2 VV_RefReactivePower=VARMAX_VARS eventlog=yes
 
-// 1547-2018 default volt-var settings for category A
-New XYcurve.voltvar1547a npts=4 Yarray=[0.25,0.25,-0.25,-0.25] Xarray=[.5,0.92,0.98,1.02,1.08,1.5]
+// 1547-2018 default volt-var settings for category A, with sentinels
+New XYcurve.voltvar1547a npts=4 Yarray=[0.25,0.25,-0.25,-0.25] Xarray=[.5,0.9,1.1,1.5]
 
-// 1547-2018 default volt-var settings for category B
+// 1547-2018 default volt-var settings for category B, with sentinels
 New XYcurve.voltvar1547b npts=6 Yarray=[0.44,0.44,0,0,-0.44,-0.44] Xarray=[.5,0.92,0.98,1.02,1.08,1.5]
 
-// 1547-2018 default watt-var settings for category B; can only be implemented in Version 8 of OpenDSS
+// 1547-2018 default watt-var settings for category B, with sentinels; can only be implemented in Version 8 of OpenDSS
+// New XYcurve.wattvar1547b npts=8 Yarray=[0.44,0.44,0,0,0,0,-0.44,-0.44] Xarray=[-2.0,-1.0,-0.5,-0.2,0.2,0.5,1.0,2.0]
 New XYcurve.wattvar1547b npts=6 Yarray=[0.44,0.44,0,0,-0.44,-0.44] Xarray=[-2.0,-1.0,-0.5,0.5,1.0,2.0]
 
-// 1547-2018 default volt-watt settings for category B, not for storage
+// 1547-2018 default volt-watt settings for category B, with sentinel, not for storage
 New XYcurve.voltwatt1547b npts=4 Yarray=[1.0,1.0,0.2,0.2] Xarray=[0.0,1.06,1.10,2.00]
+New XYcurve.voltwatt1547bch npts=4 Yarray=[0.0,0.0,1.0,1.0] Xarray=[0.0,1.06,1.10,2.00]
 
-// volt-watt settings to start limiting at 1.03 pu, can't absorb P (note that maximum V2 is 1.10)
+// volt-watt settings to start limiting at 1.03 pu, with sentinel, can't absorb P (note that maximum V2 is 1.10)
 New XYcurve.voltwatt1547pv npts=4 Yarray=[1.0,1.0,0.0,0.0] Xarray=[0.0,1.03,1.06,2.00]
 
