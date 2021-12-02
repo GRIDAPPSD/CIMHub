@@ -975,6 +975,123 @@ SELECT ?name WHERE {
  ?s c:IdentifiedObject.name ?name}
 ORDER by ?name
 
+# DistIEEE1547Signals
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?fdrid  (group_concat(distinct ?rid;separator="\n") as ?rids) WHERE {
+ ?s r:type c:DERIEEEType1.
+ ?s c:DERDynamics.PowerElectronicsConnection ?pec.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"_520E4BC8-D3C2-4745-B784-AE23361E94BB"}  # remote 1phase b
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ OPTIONAL {?s c:DERDynamics.RemoteInputSignal ?rsig.
+ ?rsig c:IdentifiedObject.mRID ?rid.}
+}
+GROUP by ?name ?id ?fdrid
+ORDER by ?name ?id
+
+# DistIEEE1547Connections
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?fdrid (group_concat(distinct ?pid;separator="\n") as ?pids) WHERE {
+ ?s r:type c:DERIEEEType1.
+ ?s c:DERDynamics.PowerElectronicsConnection ?pec.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"_520E4BC8-D3C2-4745-B784-AE23361E94BB"}  # remote 1phase b
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:IdentifiedObject.mRID ?pid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+}
+GROUP by ?name ?id ?fdrid
+ORDER by ?name ?id
+
+# DistIEEE1547Used
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?id ?enabled ?cat ?acVnom ?acVmin ?acVmax ?sMax ?pMax ?pMaxOverPF ?overPF ?pMaxUnderPF ?underPF ?qMaxInj ?qMaxAbs ?pMaxCharge ?apparentPowerChargeMax ?fdrid 
+  ?vvEnabled ?vvV1 ?vvV2 ?vvV3 ?vvV4 ?vvQ1 ?vvQ2 ?vvQ3 ?vvQ4 ?vvRef ?vvRefAuto ?vvRefOlrt ?vvOlrt
+  ?wvEnabled ?wvP1gen ?wvP2gen ?wvP3gen ?wvQ1gen ?wvQ2gen ?wvQ3gen ?wvP1load ?wvP2load ?wvP3load ?wvQ1load ?wvQ2load ?wvQ3load
+  ?pfEnabled ?powerFactor ?pfKind
+  ?cqEnabled ?reactivePower
+  ?vwEnabled ?vwV1 ?vwP1 ?vwV2 ?vwP2gen ?vwP2load ?vwOlrt
+WHERE {
+ ?s r:type c:DERIEEEType1.
+ ?s c:DERDynamics.PowerElectronicsConnection ?pec.
+# feeder selection options - if all commented out, query matches all feeders
+ VALUES ?fdrid {"_520E4BC8-D3C2-4745-B784-AE23361E94BB"}  # remote 1phase b
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:IdentifiedObject.mRID ?pid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:DynamicsFunctionBlock.enabled ?enabled.
+ ?nd c:DERNameplateData.DERIEEEType1 ?s.
+ ?nd c:DERNameplateData.acVmin ?acVmin.
+ ?nd c:DERNameplateData.acVmax ?acVmax.
+ ?nd c:DERNameplateData.normalOPcatKind ?catraw. bind(strafter(str(?catraw),"NormalOPcatKind.") as ?cat)
+ ?ad c:DERNameplateDataApplied.DERNameplateData ?nd.
+ ?ad c:DERNameplateDataApplied.acVnom ?acVnom.
+ ?ad c:DERNameplateDataApplied.sMax ?sMax.
+ ?ad c:DERNameplateDataApplied.pMax ?pMax.
+ ?ad c:DERNameplateDataApplied.pMaxOverPF ?pMaxOverPF.
+ ?ad c:DERNameplateDataApplied.overPF ?overPF.
+ ?ad c:DERNameplateDataApplied.pMaxUnderPF ?pMaxUnderPF.
+ ?ad c:DERNameplateDataApplied.underPF ?underPF.
+ ?ad c:DERNameplateDataApplied.qMaxInj ?qMaxInj.
+ ?ad c:DERNameplateDataApplied.qMaxAbs ?qMaxAbs.
+ ?ad c:DERNameplateDataApplied.pMaxCharge ?pMaxCharge.
+ ?ad c:DERNameplateDataApplied.apparentPowerChargeMax ?apparentPowerChargeMax.
+ ?vv c:VoltVarSettings.DERIEEEType1 ?s.
+ ?vv c:VoltVarSettings.enabled ?vvEnabled.
+ ?vv c:VoltVarSettings.vRef ?vvRef.
+ ?vv c:VoltVarSettings.vRefAutoModeEnabled ?vvRefAuto.
+ ?vv c:VoltVarSettings.vRefOlrt ?vvRefOlrt.
+ ?vv c:VoltVarSettings.curveV1 ?vvV1.
+ ?vv c:VoltVarSettings.curveV2 ?vvV2.
+ ?vv c:VoltVarSettings.curveV3 ?vvV3.
+ ?vv c:VoltVarSettings.curveV4 ?vvV4.
+ ?vv c:VoltVarSettings.curveQ1 ?vvQ1.
+ ?vv c:VoltVarSettings.curveQ2 ?vvQ2.
+ ?vv c:VoltVarSettings.curveQ3 ?vvQ3.
+ ?vv c:VoltVarSettings.curveQ4 ?vvQ4.
+ ?vv c:VoltVarSettings.olrt ?vvOlrt.
+ ?wv c:WattVarSettings.DERIEEEType1 ?s.
+ ?wv c:WattVarSettings.enabled ?wvEnabled.
+ ?wv c:WattVarSettings.curveP1gen ?wvP1gen.
+ ?wv c:WattVarSettings.curveP1load ?wvP1load.
+ ?wv c:WattVarSettings.curveP2gen ?wvP2gen.
+ ?wv c:WattVarSettings.curveP2load ?wvP2load.
+ ?wv c:WattVarSettings.curveP3gen ?wvP3gen.
+ ?wv c:WattVarSettings.curveP3load ?wvP3load.
+ ?wv c:WattVarSettings.curveQ1gen ?wvQ1gen.
+ ?wv c:WattVarSettings.curveQ1load ?wvQ1load.
+ ?wv c:WattVarSettings.curveQ2gen ?wvQ2gen.
+ ?wv c:WattVarSettings.curveQ2load ?wvQ2load.
+ ?wv c:WattVarSettings.curveQ3gen ?wvQ3gen.
+ ?wv c:WattVarSettings.curveQ3load ?wvQ3load.
+ ?vw c:VoltWattSettings.DERIEEEType1 ?s.
+ ?vw c:VoltWattSettings.enabled ?vwEnabled.
+ ?vw c:VoltWattSettings.curveV1 ?vwV1.
+ ?vw c:VoltWattSettings.curveP1 ?vwP1.
+ ?vw c:VoltWattSettings.curveV2 ?vwV2.
+ ?vw c:VoltWattSettings.curveP2gen ?vwP2gen.
+ ?vw c:VoltWattSettings.curveP2load ?vwP2load.
+ ?vw c:VoltWattSettings.olrt ?vwOlrt.
+ ?pf c:ConstantPowerFactorSettings.DERIEEEType1 ?s.
+ ?pf c:ConstantPowerFactorSettings.enabled ?pfEnabled.
+ ?pf c:ConstantPowerFactorSettings.powerFactor ?powerFactor.
+ ?pf c:ConstantPowerFactorSettings.constantPFexcitationKind ?pfraw. bind(strafter(str(?pfraw),"ConstantPowerFactorSettingKind.") as ?pfKind)
+ ?cq c:ConstantReactivePowerSettings.DERIEEEType1 ?s.
+ ?cq c:ConstantReactivePowerSettings.enabled ?cqEnabled.
+ ?cq c:ConstantReactivePowerSettings.reactivePower ?reactivePower.
+}
+ORDER by ?name ?id
+
 # Solar - DistSolar
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
