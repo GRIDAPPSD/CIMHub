@@ -39,7 +39,7 @@ New Transformer.1089-LNG1 XHL=5.75  kVA=2000 Conns=[wye, wye]
 ! 590kW inverter-connected diesel genset between S1-S2 regulators (equipment: Innovus MVS 600)
 New Generator.Diesel590 bus1=m1089-DIES1 kV=0.480 kW=590 kVar=15 kVA=737 conn=wye Model=7 !Operating with specified P and Q
 New Transformer.1089-DIES1 XHL=5.75  kVA=750 Conns=[wye, wye]
-~ wdg=1 bus=M1089220.1.2.3.4  kV=12.47
+~ wdg=1 bus=M1089220.1.2.3    kV=12.47
 ~ wdg=2 bus=M1089DER480-2     kV=0.480
 
 

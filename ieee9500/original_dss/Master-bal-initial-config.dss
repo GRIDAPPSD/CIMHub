@@ -69,7 +69,7 @@ Set loadmult=1.0
 ! Generator Configuration
 ! CHP at 30% capacity, MT-1 at 25%, MT-2 at 50%, all other DG off.
 Generator.SteamGen1.kw=1000
-
+Generator.SteamGen1.vpu=1.00
 Generator.MicroTurb-1.kw=50
 Generator.MicroTurb-2.kw=0
 Generator.MicroTurb-3.kw=0

@@ -69,6 +69,7 @@ To build the CIM XML files from the original DSS source files:
 
 ```
 
+  OpenDSS branch flow in LINE.LN5815900-1 from E192860, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7365.59 -0.5533    139.08 -0.5522   1024.391 + j    -1.073     AB    12755.59 -0.0298
     B   7363.30 -2.6477    132.96 -2.6260    978.780 + j   -21.186     BC    12755.00 -2.1252
@@ -82,9 +83,9 @@ To build the CIM XML files from the original DSS source files:
     Total S =  3184.612 + j    21.190
   GridLAB-D branch flow in LINE_LN5815900-1 from E192860
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7366.30 -0.5533    139.01 -0.5599   1023.939 + j     6.777     AB    12756.57 -0.0299
-    B   7362.72  3.6353    132.86  3.6430    978.157 + j    -7.532     BC    12751.09 -2.1250
-    C   7356.98  1.5400    161.08  1.4940   1183.802 + j    54.478     CA    12746.42  2.0645
+    A   7366.05 -0.5533    139.01 -0.5599   1023.942 + j     6.802     AB    12756.51 -0.0299
+    B   7362.79  3.6353    132.86  3.6430    978.156 + j    -7.539     BC    12751.12 -2.1250
+    C   7357.16  1.5400    161.07  1.4940   1183.799 + j    54.459     CA    12746.45  2.0645
     Total S =  3185.898 + j    53.722
   OpenDSS branch flow in LINE.LN6380847-1 from M1047303, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
@@ -100,10 +101,10 @@ To build the CIM XML files from the original DSS source files:
     Total S =  2731.585 + j  -119.542
   GridLAB-D branch flow in LINE_LN6380847-1 from M1047303
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7346.95 -0.5599    123.52 -0.5185    906.731 + j   -37.571     AB    12738.50 -0.0384
-    B   7345.29  3.6249    125.58  3.6668    921.603 + j   -38.677     BC    12714.72 -2.1307
-    C   7363.97  1.5370    123.43  1.5552    908.787 + j   -16.607     CA    12749.14  2.0587
-    Total S =  2737.121 + j   -92.856
+    A   7344.89 -0.5599    123.56 -0.5187    906.746 + j   -37.374     AB    12738.34 -0.0384
+    B   7345.96  3.6246    125.57  3.6666    921.596 + j   -38.740     BC    12714.84 -2.1307
+    C   7365.35  1.5372    123.41  1.5556    908.774 + j   -16.748     CA    12749.16  2.0586
+    Total S =  2737.116 + j   -92.861
   OpenDSS branch flow in LINE.LN6044631-1 from E203026, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7364.95 -0.5603    170.68 -0.9308   1171.705 + j   455.180     AB    12814.55 -0.0364
@@ -118,10 +119,10 @@ To build the CIM XML files from the original DSS source files:
     Total S =  3398.949 + j  1310.876
   GridLAB-D branch flow in LINE_LN6044631-1 from E203026
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7362.54 -0.5607    172.06 -0.9400   1176.816 + j   469.004     AB    12807.55 -0.0369
-    B   7411.71  3.6246    181.86  3.2448   1251.827 + j   499.697     BC    12795.98 -2.1320
-    C   7394.82  1.5375    144.23  1.1499    987.441 + j   403.074     CA    12794.27  2.0579
-    Total S =  3416.085 + j  1371.775
+    A   7361.44 -0.5607    172.10 -0.9401   1176.841 + j   469.172     AB    12807.42 -0.0369
+    B   7412.00  3.6245    181.85  3.2447   1251.814 + j   499.657     BC    12796.07 -2.1320
+    C   7395.63  1.5376    144.20  1.1501    987.427 + j   402.949     CA    12794.28  2.0579
+    Total S =  3416.082 + j  1371.777
   OpenDSS branch flow in LINE.LN6381853-1 from L2955077, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7310.47 -0.5707     84.12 -0.8617    589.089 + j   176.399     AB    12660.22 -0.0472
@@ -136,9 +137,9 @@ To build the CIM XML files from the original DSS source files:
     Total S =  1854.819 + j   537.810
   GridLAB-D branch flow in LINE_LN6381853-1 from L2955077
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7310.36 -0.5705     84.26 -0.8711    588.385 + j   182.370     AB    12654.02 -0.0468
-    B   7304.34  3.6190     91.44  3.3288    639.982 + j   191.115     BC    12665.82 -2.1414
-    C   7311.62  1.5224     89.16  1.2301    624.256 + j   187.888     CA    12657.65  2.0467
+    A   7310.10 -0.5705     84.27 -0.8711    588.386 + j   182.371     AB    12653.95 -0.0468
+    B   7304.42  3.6190     91.44  3.3288    639.981 + j   191.115     BC    12665.86 -2.1414
+    C   7311.80  1.5225     89.16  1.2301    624.256 + j   187.886     CA    12657.68  2.0467
     Total S =  1852.623 + j   561.373
   OpenDSS branch flow in LINE.LN5486729-1 from M1069310, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
@@ -154,9 +155,9 @@ To build the CIM XML files from the original DSS source files:
     Total S =   959.941 + j   273.328
   GridLAB-D branch flow in LINE_LN5486729-1 from M1069310
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7241.17 -0.5745     48.03 -0.8690    332.811 + j   100.944     AB    12547.06 -0.0550
-    B   7220.03  3.6078     64.86  3.3289    450.202 + j   128.901     BC    12537.77 -2.1458
-    C   7285.59  1.5201     25.52  1.2128    177.240 + j    56.252     CA    12581.58  2.0418
+    A   7239.05 -0.5745     48.04 -0.8690    332.814 + j   100.950     AB    12546.82 -0.0550
+    B   7220.73  3.6076     64.85  3.3287    450.199 + j   128.898     BC    12537.94 -2.1458
+    C   7287.02  1.5204     25.52  1.2130    177.239 + j    56.250     CA    12581.64  2.0418
     Total S =   960.252 + j   286.098
   OpenDSS branch flow in LINE.LN6350537-1 from M1026907, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
@@ -172,11 +173,12 @@ To build the CIM XML files from the original DSS source files:
     Total S =   626.020 + j   165.670
   GridLAB-D branch flow in LINE_LN6350537-1 from M1026907
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7110.28 -0.5668     33.68 -0.8325    231.100 + j    62.899     AB    12425.26 -0.0436
-    B   7203.46  3.6138     31.51  3.3488    219.034 + j    59.455     BC    12454.28 -2.1377
-    C   7234.53  1.5330     25.50  1.2670    177.975 + j    48.489     CA    12442.60  2.0489
-    Total S =   628.109 + j   170.843
-ieee9500bal      Nbus=[  9549,  9549, 12528] Nlink=[ 11256, 11256, 12156] MAEv=[ 0.0002, 0.0069] MAEi=[   0.0269,   0.1440]
+    A   7109.08 -0.5668     33.69 -0.8325    231.102 + j    62.902     AB    12425.07 -0.0436
+    B   7203.77  3.6137     31.51  3.3486    219.034 + j    59.455     BC    12454.44 -2.1377
+    C   7235.42  1.5331     25.49  1.2671    177.974 + j    48.487     CA    12442.59  2.0489
+    Total S =   628.110 + j   170.844
+ieee9500bal      Nbus=[  9549,  9549, 12528] Nlink=[ 11254, 11254, 12156] MAEv=[ 0.0002, 0.0069] MAEi=[   0.0269,   0.1315]
+
 
 
 ```
@@ -199,10 +201,10 @@ ieee9500bal      Nbus=[  9549,  9549, 12528] Nlink=[ 11256, 11256, 12156] MAEv=[
     Total S =  3199.300 + j    30.306
   GridLAB-D branch flow in LINE_LN5815900-1 from E192860
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7366.16 -0.5533    139.29 -0.5612   1025.970 + j     8.063     AB    12756.40 -0.0299
-    B   7362.73  3.6353    132.83  3.6429    977.978 + j    -7.422     BC    12750.98 -2.1250
-    C   7356.64  1.5399    161.58  1.4921   1187.327 + j    56.787     CA    12745.87  2.0645
-    Total S =  3191.276 + j    57.428
+    A   7365.91 -0.5533    139.29 -0.5612   1025.973 + j     8.088     AB    12756.34 -0.0299
+    B   7362.80  3.6353    132.83  3.6428    977.978 + j    -7.428     BC    12751.01 -2.1250
+    C   7356.82  1.5399    161.58  1.4921   1187.324 + j    56.768     CA    12745.90  2.0645
+    Total S =  3191.275 + j    57.428
   OpenDSS branch flow in LINE.LN6380847-1 from M1047303, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7346.40 -0.5603    124.08 -0.5109    910.415 + j   -45.005     AB    12738.75 -0.0383
@@ -217,10 +219,10 @@ ieee9500bal      Nbus=[  9549,  9549, 12528] Nlink=[ 11256, 11256, 12156] MAEv=[
     Total S =  2740.654 + j  -113.720
   GridLAB-D branch flow in LINE_LN6380847-1 from M1047303
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7347.00 -0.5599    123.47 -0.5186    906.345 + j   -37.455     AB    12738.48 -0.0384
-    B   7345.08  3.6248    125.72  3.6659    922.675 + j   -37.904     BC    12714.42 -2.1308
-    C   7363.72  1.5369    123.63  1.5540    910.241 + j   -15.597     CA    12748.75  2.0586
-    Total S =  2739.260 + j   -90.955
+    A   7344.94 -0.5599    123.50 -0.5188    906.359 + j   -37.259     AB    12738.31 -0.0384
+    B   7345.74  3.6246    125.71  3.6657    922.668 + j   -37.965     BC    12714.54 -2.1308
+    C   7365.11  1.5371    123.60  1.5544    910.228 + j   -15.737     CA    12748.77  2.0586
+    Total S =  2739.254 + j   -90.961
   OpenDSS branch flow in LINE.LN6044631-1 from E203026, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7364.65 -0.5603    171.17 -0.9287   1175.988 + j   454.012     AB    12813.77 -0.0364
@@ -235,10 +237,10 @@ ieee9500bal      Nbus=[  9549,  9549, 12528] Nlink=[ 11256, 11256, 12156] MAEv=[
     Total S =  3410.148 + j  1307.092
   GridLAB-D branch flow in LINE_LN6044631-1 from E203026
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7362.85 -0.5608    172.14 -0.9373   1178.666 + j   466.057     AB    12807.94 -0.0370
-    B   7411.71  3.6245    182.21  3.2468   1255.287 + j   498.027     BC    12796.09 -2.1321
-    C   7394.84  1.5374    144.56  1.1529    990.932 + j   400.950     CA    12794.34  2.0578
-    Total S =  3424.885 + j  1365.034
+    A   7361.76 -0.5608    172.18 -0.9374   1178.691 + j   466.225     AB    12807.81 -0.0370
+    B   7411.99  3.6244    182.20  3.2467   1255.274 + j   497.987     BC    12796.18 -2.1321
+    C   7395.64  1.5375    144.53  1.1531    990.916 + j   400.824     CA    12794.35  2.0578
+    Total S =  3424.881 + j  1365.036
   OpenDSS branch flow in LINE.LN6381853-1 from L2955077, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7309.56 -0.5707     84.52 -0.8629    591.592 + j   177.937     AB    12657.96 -0.0472
@@ -253,10 +255,10 @@ ieee9500bal      Nbus=[  9549,  9549, 12528] Nlink=[ 11256, 11256, 12156] MAEv=[
     Total S =  1864.175 + j   543.585
   GridLAB-D branch flow in LINE_LN6381853-1 from L2955077
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7309.90 -0.5706     84.55 -0.8718    590.247 + j   183.379     AB    12653.41 -0.0468
-    B   7304.48  3.6190     91.59  3.3283    640.957 + j   191.791     BC    12665.53 -2.1415
-    C   7310.85  1.5223     89.22  1.2298    624.546 + j   188.133     CA    12656.65  2.0466
-    Total S =  1855.750 + j   563.303
+    A   7309.64 -0.5706     84.56 -0.8718    590.248 + j   183.382     AB    12653.34 -0.0468
+    B   7304.55  3.6190     91.59  3.3282    640.956 + j   191.791     BC    12665.57 -2.1415
+    C   7311.03  1.5224     89.22  1.2298    624.545 + j   188.131     CA    12656.68  2.0466
+    Total S =  1855.749 + j   563.304
   OpenDSS branch flow in LINE.LN5486729-1 from M1069310, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7242.56 -0.5742     48.34 -0.8533    336.539 + j    96.437     AB    12555.61 -0.0547
@@ -271,10 +273,10 @@ ieee9500bal      Nbus=[  9549,  9549, 12528] Nlink=[ 11256, 11256, 12156] MAEv=[
     Total S =   963.838 + j   275.730
   GridLAB-D branch flow in LINE_LN5486729-1 from M1069310
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7241.76 -0.5745     47.82 -0.8691    331.368 + j   100.539     AB    12547.12 -0.0551
-    B   7219.07  3.6077     65.04  3.3283    451.300 + j   129.490     BC    12536.98 -2.1459
-    C   7285.21  1.5200     25.57  1.2122    177.531 + j    56.441     CA    12581.00  2.0418
-    Total S =   960.198 + j   286.470
+    A   7239.64 -0.5745     47.83 -0.8690    331.370 + j   100.544     AB    12546.88 -0.0551
+    B   7219.74  3.6075     65.03  3.3281    451.297 + j   129.488     BC    12537.14 -2.1459
+    C   7286.65  1.5202     25.57  1.2124    177.529 + j    56.438     CA    12581.06  2.0418
+    Total S =   960.197 + j   286.470
   OpenDSS branch flow in LINE.LN6350537-1 from M1026907, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7117.29 -0.5672     33.55 -0.8278    230.744 + j    61.526     AB    12441.27 -0.0442
@@ -289,11 +291,11 @@ ieee9500bal      Nbus=[  9549,  9549, 12528] Nlink=[ 11256, 11256, 12156] MAEv=[
     Total S =   627.573 + j   166.766
   GridLAB-D branch flow in LINE_LN6350537-1 from M1026907
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7111.59 -0.5670     33.68 -0.8329    231.092 + j    62.938     AB    12426.91 -0.0439
-    B   7203.57  3.6135     31.53  3.3481    219.189 + j    59.576     BC    12455.26 -2.1380
-    C   7235.49  1.5327     25.61  1.2657    178.719 + j    48.889     CA    12444.08  2.0487
-    Total S =   629.000 + j   171.403
-ieee9500unbal    Nbus=[  9549,  9549, 12528] Nlink=[ 11256, 11256, 12156] MAEv=[ 0.0002, 0.0073] MAEi=[   0.0390,   0.1428]
+    A   7110.39 -0.5670     33.68 -0.8329    231.095 + j    62.941     AB    12426.73 -0.0439
+    B   7203.87  3.6134     31.53  3.3480    219.188 + j    59.576     BC    12455.41 -2.1380
+    C   7236.37  1.5328     25.60  1.2658    178.717 + j    48.887     CA    12444.07  2.0487
+    Total S =   629.001 + j   171.403
+ieee9500unbal    Nbus=[  9549,  9549, 12528] Nlink=[ 11254, 11254, 12156] MAEv=[ 0.0002, 0.0072] MAEi=[   0.0390,   0.1292]
 
 
 ```
