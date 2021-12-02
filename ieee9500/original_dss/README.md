@@ -4,10 +4,6 @@ This repository contains OpenDSS files for the 9500 node test feeder
 
 ## Directory of Files
 
-
-* _Archive_ contains unused files for the original 8500-node model, and earlier versions of the 9500-node model
- 
-* _AddBusXY.py_ fills in missing XY coordinates
 * _BusCoords.dss_ gives XY coordinates for all 12.47kV nodes
 * _LatLongCoords.dss_ gives latitude/longitude coordinates for all primary and secondary nodes
 
