@@ -13,6 +13,7 @@ These are contained in the Base subdirectory. There are separate model versions 
 These are the original files used to derive the model from IEEE 8500 Node model and contain in-line comments explaining the model changes. There are separate model versions for balanced and unbalanced load models. These files are located in the original_dss subdirectory.
 
 ------
+## Model Semi-Geographic Rendering
 
 ![9500 node model](https://github.com/GRIDAPPSD/CIMHub/blob/final9500/ieee9500/9500%20Node%20Test%20Feeder%401x_overlay.png)
 
