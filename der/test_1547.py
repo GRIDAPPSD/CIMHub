@@ -18,7 +18,6 @@ cwd = os.getcwd()
 # 1C8206E3-44F6-4B91-989F-CF3883DFD6FA
 # 6A7D5722-8D9D-4C54-861D-56E1CDA52231
 # 746C6392-9F8B-4537-98C4-E978AB9547D4
-# 520E4BC8-D3C2-4745-B784-AE23361E94BB
 # 
 
 cfg_json = 'cimhubconfig.json'
@@ -68,6 +67,9 @@ cases = [
   {'dssname':'remote_combo_b', 'root':'remote_combo_b', 'mRID':'58EAA940-6023-4F38-B09B-3D445BAB4429',
    'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
    'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
+  {'dssname':'remote_1phase_b', 'root':'remote_1phase_b', 'mRID':'520E4BC8-D3C2-4745-B784-AE23361E94BB',
+   'glmvsrc': 8002.0747,'bases':[208.0, 400.0, 13200.0], 'skip_gld': True,
+   'check_branches':[{'dss_link': 'REACTOR.THEV', 'dss_bus': 'HIGH', 'gld_link': 'REAC_THEV', 'gld_bus': 'HIGH'}]},
 ]
 
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
