@@ -978,7 +978,7 @@ ORDER by ?name
 # DistIEEE1547Signals
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?id ?fdrid  (group_concat(distinct ?rid;separator="\n") as ?rids) WHERE {
+SELECT DISTINCT ?name ?id ?rid ?phs ?kind ?tid ?fdrid WHERE {
  ?s r:type c:DERIEEEType1.
  ?s c:DERDynamics.PowerElectronicsConnection ?pec.
 # feeder selection options - if all commented out, query matches all feeders
@@ -987,11 +987,14 @@ SELECT ?name ?id ?fdrid  (group_concat(distinct ?rid;separator="\n") as ?rids) W
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?id.
- OPTIONAL {?s c:DERDynamics.RemoteInputSignal ?rsig.
- ?rsig c:IdentifiedObject.mRID ?rid.}
+ ?s c:DERDynamics.RemoteInputSignal ?rsig.
+ ?rsig c:IdentifiedObject.mRID ?rid.
+ ?rsig c:RemoteInputSignal.Terminal ?trm.
+ ?rsig c:RemoteInputSignal.remoteSignalType ?kindraw. bind(strafter(str(?kindraw),"RemoteSignalKind.") as ?kind)
+ ?rsig c:RemoteInputSignal.phase ?phsraw. bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+ ?trm c:IdentifiedObject.mRID ?tid.
 }
-GROUP by ?name ?id ?fdrid
-ORDER by ?name ?id
+ORDER by ?name ?id ?phs
 
 # DistIEEE1547Connections
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
