@@ -285,6 +285,32 @@ remote_vwatt_b   Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[
     C   8237.43  2.1817    241.82 -0.9212  -1990.505 + j    77.163     CA    14267.65  2.7053
     Total S = -5971.515 + j   231.490
 remote_combo_b   Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[ 0.0218,-1.0000] MAEi=[ 144.0900,  -1.0000]
+  OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A   8176.92  0.0593    167.01 -3.0547  -1365.076 + j    37.653     AB    14162.84  0.5829
+    B   8176.92 -2.0351    167.01  1.1341  -1365.076 + j    37.653     BC    14162.84 -1.5115
+    C   8176.92  2.1537    167.01 -0.9603  -1365.076 + j    37.653     CA    14162.84  2.6773
+    Total S = -4095.227 + j   112.959
+  OpenDSS branch flow in TRANSFORMER.DER from HIGH, Converted case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A   8237.43  0.0873    241.82 -3.0156  -1990.505 + j    77.163     AB    14267.65  0.6109
+    B   8237.43 -2.0071    241.82  1.1732  -1990.505 + j    77.163     BC    14267.65 -1.4835
+    C   8237.43  2.1817    241.82 -0.9212  -1990.505 + j    77.163     CA    14267.65  2.7053
+    Total S = -5971.515 + j   231.490
+local_chcurve_b  Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[ 0.0057,-1.0000] MAEi=[ 673.3228,  -1.0000]
+  OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A   8092.37  0.0960    253.08 -2.8058  -1989.418 + j   486.439     AB    14016.40  0.6196
+    B   8092.37 -1.9984    253.08  1.3830  -1989.418 + j   486.439     BC    14016.40 -1.4748
+    C   8092.37  2.1904    253.08 -0.7114  -1989.418 + j   486.439     CA    14016.40  2.7140
+    Total S = -5968.254 + j  1459.318
+  OpenDSS branch flow in TRANSFORMER.DER from HIGH, Converted case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A   8092.35  0.0960    253.08 -2.8058  -1989.437 + j   486.444     AB    14016.36  0.6196
+    B   8092.35 -1.9984    253.08  1.3830  -1989.437 + j   486.444     BC    14016.36 -1.4748
+    C   8092.35  2.1904    253.08 -0.7114  -1989.437 + j   486.444     CA    14016.36  2.7140
+    Total S = -5968.310 + j  1459.332
+local_wvar_b     Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0222,  -1.0000]
   OpenDSS branch flow in REACTOR.THEV from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8029.67  0.1047    273.97 -2.7180  -2088.984 + j   689.652     AB    13907.80  0.6283

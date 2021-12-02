@@ -16,8 +16,6 @@ cwd = os.getcwd()
 # 2C2944C1-FF54-4662-B12A-5BE94CA5BB30
 # 3F3FFAAC-D309-4B9A-9F99-1AAC003B8216
 # 1C8206E3-44F6-4B91-989F-CF3883DFD6FA
-# 6A7D5722-8D9D-4C54-861D-56E1CDA52231
-# 746C6392-9F8B-4537-98C4-E978AB9547D4
 # 
 
 cfg_json = 'cimhubconfig.json'
@@ -65,6 +63,12 @@ cases = [
 #  'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
 #  'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
 # {'dssname':'remote_combo_b', 'root':'remote_combo_b', 'mRID':'58EAA940-6023-4F38-B09B-3D445BAB4429',
+#  'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
+#  'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
+# {'dssname':'local_chcurve_b', 'root':'local_chcurve_b', 'mRID':'6A7D5722-8D9D-4C54-861D-56E1CDA52231',
+#  'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
+#  'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
+# {'dssname':'local_wvar_b', 'root':'local_wvar_b', 'mRID':'746C6392-9F8B-4537-98C4-E978AB9547D4',
 #  'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
 #  'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
   {'dssname':'remote_1phase_b', 'root':'remote_1phase_b', 'mRID':'520E4BC8-D3C2-4745-B784-AE23361E94BB',
