@@ -1,3 +1,5 @@
 /target/
 /bin/
 /generated/
+*.csv
+test_feeder_index.json

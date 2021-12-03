@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub;
 //      		----------------------------------------------------------
-//      		Copyright (c) 2017-2020, Battelle Memorial Institute
+//      		Copyright (c) 2017-2021, Battelle Memorial Institute
 //      		All rights reserved.
 //      		----------------------------------------------------------
 
@@ -30,6 +30,9 @@ import gov.pnnl.gridappsd.cimhub.components.DistFeeder;
 import gov.pnnl.gridappsd.cimhub.components.DistFuse;
 import gov.pnnl.gridappsd.cimhub.components.DistGroundDisconnector;
 import gov.pnnl.gridappsd.cimhub.components.DistHouse;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Connection;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Signal;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Used;
 import gov.pnnl.gridappsd.cimhub.components.DistJumper;
 import gov.pnnl.gridappsd.cimhub.components.DistLineSegment;
 import gov.pnnl.gridappsd.cimhub.components.DistLineSpacing;
@@ -106,6 +109,9 @@ public class CIMImporter extends Object {
 	HashMap<String,DistFeeder> mapFeeders = new HashMap<>();
 	HashMap<String,DistFuse> mapFuses = new HashMap<>();
 	HashMap<String,DistGroundDisconnector> mapGroundDisconnectors = new HashMap<>();
+  HashMap<String,DistIEEE1547Connection> mapIEEE1547Connections = new HashMap<>();
+  HashMap<String,DistIEEE1547Signal> mapIEEE1547Signals = new HashMap<>();
+  HashMap<String,DistIEEE1547Used> mapIEEE1547Used = new HashMap<>();
 	HashMap<String,DistJumper> mapJumpers = new HashMap<>();
 	HashMap<String,DistLinesCodeZ> mapLinesCodeZ = new HashMap<>();
 	HashMap<String,DistLinesInstanceZ> mapLinesInstanceZ = new HashMap<>();
@@ -519,6 +525,33 @@ public class CIMImporter extends Object {
 		((ResultSetCloseable)results).close();
 	}
 
+  void LoadIEEE1547Connections() {
+    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistIEEE1547Connection"), "I1547Conn");
+    while (results.hasNext()) {
+      DistIEEE1547Connection obj = new DistIEEE1547Connection (results);
+      mapIEEE1547Connections.put (obj.GetKey(), obj);
+    }
+    ((ResultSetCloseable)results).close();
+  }
+
+  void LoadIEEE1547Signals() {
+    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistIEEE1547Signal"), "I1547Sig");
+    while (results.hasNext()) {
+      DistIEEE1547Signal obj = new DistIEEE1547Signal (results);
+      mapIEEE1547Signals.put (obj.GetKey(), obj);
+    }
+    ((ResultSetCloseable)results).close();
+  }
+
+  void LoadIEEE1547Used() {
+    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistIEEE1547Used"), "I1547Used");
+    while (results.hasNext()) {
+      DistIEEE1547Used obj = new DistIEEE1547Used (results);
+      mapIEEE1547Used.put (obj.GetKey(), obj);
+    }
+    ((ResultSetCloseable)results).close();
+  }
+
 	public void PrintOneMap(HashMap<String,? extends DistComponent> map, String label) {
 		System.out.println(label);
 		SortedSet<String> keys = new TreeSet<String>(map.keySet());
@@ -591,6 +624,9 @@ public class CIMImporter extends Object {
 		PrintOneMap (mapTanks, "** XFMR TANKS");
 		PrintOneMap (mapHouses, "** HOUSES");
 		PrintOneMap (mapSyncMachines, "** SYNC MACHINES");
+    PrintOneMap (mapIEEE1547Connections, "** IEEE 1547 CONNECTIONS");
+    PrintOneMap (mapIEEE1547Signals, "** IEEE 1547 SIGNALS");
+    PrintOneMap (mapIEEE1547Used, "** IEEE 1547 USED");
 	}
 
 	public void LoadAllMaps() {
@@ -637,6 +673,9 @@ public class CIMImporter extends Object {
 		LoadFeeders();
 		LoadHouses();
 		LoadSyncMachines();
+    LoadIEEE1547Connections();
+    LoadIEEE1547Signals();
+    LoadIEEE1547Used();
 
     MakeSwitchMap();
 
@@ -2003,6 +2042,27 @@ public class CIMImporter extends Object {
     out =  new PrintWriter(fRoot + "_SyncGen.csv");
     out.println(DistSyncMachine.szCSVHeader);
     for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_I1547Conn.csv");
+    out.println(DistIEEE1547Connection.szCSVHeader);
+    for (HashMap.Entry<String,DistIEEE1547Connection> pair : mapIEEE1547Connections.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_I1547Sig.csv");
+    out.println(DistIEEE1547Signal.szCSVHeader);
+    for (HashMap.Entry<String,DistIEEE1547Signal> pair : mapIEEE1547Signals.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
+    out =  new PrintWriter(fRoot + "_I1547Used.csv");
+    out.println(DistIEEE1547Used.szCSVHeader);
+    for (HashMap.Entry<String,DistIEEE1547Used> pair : mapIEEE1547Used.entrySet()) {
       out.print (pair.getValue().GetCSV());
     }
     out.close();
