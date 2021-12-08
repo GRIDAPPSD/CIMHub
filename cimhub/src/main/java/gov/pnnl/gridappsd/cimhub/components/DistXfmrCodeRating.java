@@ -172,11 +172,16 @@ public class DistXfmrCodeRating extends DistComponent {
     }
     // as of v4.3, GridLAB-D implementing shunt_impedance for only two connection types
     if (sConnect.equals ("SINGLE_PHASE_CENTER_TAPPED") || sConnect.equals ("WYE_WYE")) {
-      if (oct.iexc > 0.0) {
-        buf.append ("  shunt_reactance " + df6.format (100.0 / oct.iexc) + ";\n");
+      double puloss = 1000.0 * oct.nll / ratedS[0];
+      double puimag = 0.01 * oct.iexc;
+      if ((puloss > 0.0) && (puloss <= puimag)) {
+        puimag = Math.sqrt(puimag * puimag - puloss * puloss);
       }
-      if (oct.nll > 0.0) {
-        buf.append ("  shunt_resistance " + df6.format (ratedS[0] / oct.nll / 1000.0) + ";\n");
+      if (puimag > 0.0) {
+        buf.append ("  shunt_reactance " + df6.format (1.0 / puimag) + ";\n");
+      }
+      if (puloss > 0.0) {
+        buf.append ("  shunt_resistance " + df6.format (1.0 / puloss) + ";\n");
       }
     }
     return buf.toString();
@@ -224,7 +229,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public String GetDSS(DistXfmrCodeSCTest sct, DistXfmrCodeOCTest oct) {
     boolean bDelta;
     int phases = 3;
-    double zbase, xpct;
+    double zbase, xpct, pctloss, pctimag;
     int fwdg, twdg, i;
 
     for (i = 0; i < size; i++) {
@@ -250,7 +255,13 @@ public class DistXfmrCodeRating extends DistComponent {
       }
     }
     // open circuit test
-    buf.append (" %imag=" + df3.format(oct.iexc) + " %noloadloss=" + df3.format(100.0 * 1000.0 * oct.nll / ratedS[0]) + "\n");
+    pctloss = 100.0 * 1000.0 * oct.nll / ratedS[0];
+    if ((pctloss > 0.0) && (pctloss <= oct.iexc)) {
+      pctimag = Math.sqrt(oct.iexc * oct.iexc - pctloss * pctloss);
+    } else {
+      pctimag = oct.iexc;
+    }
+    buf.append (" %imag=" + df3.format(pctimag) + " %noloadloss=" + df3.format(pctloss) + "\n");
 
     // winding ratings
     for (i = 0; i < size; i++) {
@@ -272,7 +283,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public String GetCSV (DistXfmrCodeSCTest sct, DistXfmrCodeOCTest oct) {
     boolean bDelta;
     int phases = 3;
-    double zbase, xpct;
+    double zbase, xpct, pctloss, pctimag;
     int fwdg, twdg, i;
 
     for (i = 0; i < size; i++) {
@@ -313,7 +324,13 @@ public class DistXfmrCodeRating extends DistComponent {
     buf.append ("," + df6.format(x12) + "," + df6.format(x13) + "," + df6.format(x23));
 
     // open circuit test
-    buf.append ("," + df3.format(oct.iexc) + "," + df3.format(0.001 * oct.nll / ratedS[0]) + "\n");
+    pctloss = 100.0 * 1000.0 * oct.nll / ratedS[0];
+    if ((pctloss > 0.0) && (pctloss <= oct.iexc)) {
+      pctimag = Math.sqrt(oct.iexc * oct.iexc - pctloss * pctloss);
+    } else {
+      pctimag = oct.iexc;
+    }
+    buf.append ("," + df3.format(pctimag) + "," + df3.format(pctloss) + "\n");
     return buf.toString();
   }
 
