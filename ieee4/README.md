@@ -316,7 +316,7 @@ OnePh            Nbus=[    12,    12,    15] Nlink=[    11,    11,     9] MAEv=[
     B   7274.36 -2.1537    230.52 -2.6166   1500.461 + j   748.756     BC    12712.94 -1.6156
     C   7464.63  2.0490    138.08  1.8052   1000.223 + j   248.827     CA    12775.27  2.5691
     Total S =  3750.223 + j  1498.123
-YYD              Nbus=[    18,    18,     0] Nlink=[    21,    21,     0] MAEv=[ 0.0120,-1.0000] MAEi=[   0.0459,  -1.0000]
+YYD              Nbus=[    18,    18,     0] Nlink=[    21,    21,     0] MAEv=[ 0.0116,-1.0000] MAEi=[   0.0459,  -1.0000]
   OpenDSS branch flow in LINE.DLINE3-4 from B4, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7285.83 -0.0384    184.75 -0.4178   1250.324 + j   498.576     AB    12687.89  0.4721
