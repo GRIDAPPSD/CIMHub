@@ -48,7 +48,7 @@ public class DistIEEE1547Connection extends DistComponent {
 	}
 
 	public String GetDSS () {
-		StringBuilder buf = new StringBuilder ("new InvControl." + name + "\n");
+		StringBuilder buf = new StringBuilder ("// new InvControl." + name + " // Connection\n");
 		return buf.toString();
 	}
 

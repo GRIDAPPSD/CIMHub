@@ -51,7 +51,7 @@ public class DistIEEE1547Signal extends DistComponent {
 	}
 
 	public String GetDSS () {
-		StringBuilder buf = new StringBuilder ("new InvControl." + name + "\n");
+		StringBuilder buf = new StringBuilder ("// new InvControl." + name + "// Signal\n");
 		return buf.toString();
 	}
 

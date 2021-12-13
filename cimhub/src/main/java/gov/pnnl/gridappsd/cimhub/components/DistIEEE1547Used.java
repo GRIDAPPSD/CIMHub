@@ -163,7 +163,7 @@ public class DistIEEE1547Used extends DistComponent {
 	}
 
 	public String GetDSS () {
-		StringBuilder buf = new StringBuilder ("new InvControl." + name + "\n");
+		StringBuilder buf = new StringBuilder ("new InvControl." + name + " // data \n");
 		return buf.toString();
 	}
 
