@@ -51,7 +51,7 @@ p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
 p1.wait()
 
 os.chdir(cwd)
-cimhub.make_glmrun_script (casefiles=cases, inpath='.', outpath='.', scriptname='./glm/checkglm.sh')
+cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname='./glm/checkglm.sh', movefiles=False)
 shfile = './glm/checkglm.sh'
 st = os.stat (shfile)
 os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)

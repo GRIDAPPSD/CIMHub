@@ -1380,5 +1380,7 @@
   "LoadBreakSwitch_sw7:i1:C:Pos": "_366a126b-ada3-4437-be47-8bf752e545cd",
   "LoadBreakSwitch_sw7:i1:C:A": "_a3a5d926-a1b0-4b79-86a7-c016e181833f",
   "LoadBreakSwitch_sw8:i1:A:Pos": "_aec83808-a877-48de-a6f9-3585b3f036c2",
-  "LoadBreakSwitch_sw8:i1:A:A": "_32045e82-6fa2-4b9e-80a8-9204092914b2"
+  "LoadBreakSwitch_sw8:i1:A:A": "_32045e82-6fa2-4b9e-80a8-9204092914b2",
+  "EnergyConsumer_s59b:s59b:s2:PNV": "_9cd0d9d6-761a-421c-8733-e723fa3c40be",
+  "EnergyConsumer_s59b:s59b:s2:VA": "_0ef48413-1aef-4031-b6ab-4baf7ee37d3a"
 }
