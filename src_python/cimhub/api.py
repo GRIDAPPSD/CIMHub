@@ -34,6 +34,7 @@ from .CountClasses import count_platform_circuit_classes
 from .CombineModelXMLFiles import combine_xml_files 
 
 from .MakeConversionScript import make_dss2xml_script
+from .MakeLoopScript import make_export_script
 from .MakeLoopScript import make_blazegraph_script
 from .MakeLoopScript import make_dssrun_script
 from .MakeGlmTestScript import make_glmrun_script

@@ -55,6 +55,30 @@ def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, cs
     print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
   fp.close()
 
+def make_export_script (scriptname, cases, dsspath=None, glmpath=None, csvpath=None):
+  fp = open (scriptname, 'w')
+  print ('#!/bin/bash', file=fp)
+  print ('source envars.sh', file=fp)
+  for outpath in [dsspath, glmpath, csvpath]:
+    if outpath is not None:
+      print ('rm -rf', outpath, file=fp)
+      print ('mkdir', outpath, file=fp)
+  for row in cases:
+    if 'export_options' in row:
+      opts = row['export_options']
+    else:
+      opts = ' -l=1.0 -i=1.0'
+    if dsspath is not None:
+      print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
+    if csvpath is not None:
+      print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=csv {:s}'.format (opts), csvpath + row['root'], file=fp)
+    if glmpath is not None:
+      if 'skip_gld' in row:
+        if row['skip_gld']:
+          continue
+      print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
+  fp.close()
+
 def make_dssrun_script (casefiles, scriptname, bControls=False, tol=1e-8):
   fp = open (scriptname, 'w')
 #  print('cd', dsspath, file=fp)

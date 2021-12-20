@@ -37,14 +37,16 @@ def write_glm_case (c, v, fp):
 def make_glmrun_script (casefiles, inpath, outpath, scriptname):
   bp = open (scriptname, 'w')
   print ('#!/bin/bash', file=bp)
-  print('cd', inpath, file=bp)
+  if inpath != '.':
+    print('cd', inpath, file=bp)
   for row in casefiles:
     c = row['root']
     if 'skip_gld' in row:
       if row['skip_gld']:
         continue
     print('gridlabd -D WANT_VI_DUMP=1', c + '_run.glm >' + c + '.log', file=bp)
-    print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
+    if outpath != '.':
+      print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
     fp = open (inpath + c + '_run.glm', 'w')
     write_glm_case (c, row['glmvsrc'], fp)
     fp.close()
