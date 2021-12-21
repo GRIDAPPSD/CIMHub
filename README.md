@@ -164,12 +164,18 @@ The actively maintained directories are:
 
 * ```cimhub/src``` Java source for CIMHub
 * ```converters``` CYMDist and Synergi conversion to OpenDSS
+* ```der``` test cases for DER with smart inverter functions as defined in IEEE Std. 1547-2018
 * ```doc``` description of the CIM support in OpenDSS
 * ```example``` test CIMHub on the IEEE 13-bus model
 * ```helics``` illustration of a CIM-defined link between transmission and distribution simulators under [HELICS](https://helics.org/)
+* ```ieee4``` test cases for transformer connections
 * ```ieee9500``` CIM, OpenDSS, GridLAB-D and CSV versions of the IEEE 9500-node test feeder
 * ```model_output_tests``` scratch directory for model output tst results
+* ```lv_network``` test cases for European and North American low-voltage distribution networks
+* ```OEDI``` creates a version of the IEEE 123-Bus test circuit with DER, for the OEDI project
 * ```src_python/cimhub``` Python source, bash scripts and supporting data files
+* ```support``` contains GridLAB-D schedules for end-use, commercial, and thermostat-controlled loads
+* ```tests``` contains scripts to test functions of the cimhub Python module
 
 To run the Python code, you may need to adjust the Blazegraph URL and CIM Namespace in ```cimhubconfig.json```. Set ```use_proxy: true``` in this file if your computer is running a proxy server, e.g., if you are connected to the PNNL VPN.
 
