@@ -120,6 +120,8 @@ ins_pv_template = """
  <{url}#{res}> a c:PhotovoltaicUnit.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
+ <{url}#{res}> c:PowerElectronicsUnit.minP \"{minP}\".
+ <{url}#{res}> c:PowerElectronicsUnit.maxP \"{maxP}\".
  <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
 """
 
@@ -127,6 +129,8 @@ ins_bat_template = """
  <{url}#{res}> a c:BatteryUnit.
  <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
  <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
+ <{url}#{res}> c:PowerElectronicsUnit.minP \"{minP}\".
+ <{url}#{res}> c:PowerElectronicsUnit.maxP \"{maxP}\".
  <{url}#{res}> c:BatteryUnit.ratedE \"{ratedE}\".
  <{url}#{res}> c:BatteryUnit.storedE \"{storedE}\".
  <{url}#{res}> c:BatteryUnit.batteryState {ns}BatteryState.{state}>.
@@ -255,9 +259,9 @@ def insert_der (cfg_file, fname):
             elif kW < 0.0:
               state = 'Charging'
             insunit = ins_bat_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc, ns=CIMHubConfig.cim_ns,
-                                                       ratedE=ratedkwh*1000.0, storedE=storedkwh*1000.0, state=state)
+                                                       ratedE=ratedkwh*1000.0, storedE=storedkwh*1000.0, state=state, maxP=kW*1000.0, minP=-kW*1000.0)
           elif unit == 'Photovoltaic':
-            insunit = ins_pv_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc)
+            insunit = ins_pv_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc, maxP=kW*1000.0, minP=0.1*kW*1000.0)
           else:
             insunit = '** Unsupported Unit ' + unit
           qtriples.append(insunit)
