@@ -259,7 +259,7 @@ def insert_der (cfg_file, fname):
             elif kW < 0.0:
               state = 'Charging'
             insunit = ins_bat_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc, ns=CIMHubConfig.cim_ns,
-                                                       ratedE=ratedkwh*1000.0, storedE=storedkwh*1000.0, state=state, maxP=kW*1000.0, minP=-kW*1000.0)
+                                                       ratedE=ratedkwh*1000.0, storedE=storedkwh*1000.0, state=state, maxP=kVA*1000.0, minP=-kVA*1000.0)
           elif unit == 'Photovoltaic':
             insunit = ins_pv_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc, maxP=kW*1000.0, minP=0.1*kW*1000.0)
           else:
