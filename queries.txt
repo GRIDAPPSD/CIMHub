@@ -1520,7 +1520,7 @@ VALUES ?fdrid {"_5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
 GROUP BY ?key
 ORDER BY ?key
 
-# transformer codes; no-load tests actually used - DistXfmrCodeOCTest
+# transformer codes; no-load tests actually used - DistXfmrCodeNLTest
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT DISTINCT ?pname ?tname ?nll ?iexc WHERE {

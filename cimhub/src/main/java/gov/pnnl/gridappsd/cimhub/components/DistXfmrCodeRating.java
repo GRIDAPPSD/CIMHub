@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //  ----------------------------------------------------------
-//  Copyright (c) 2017-2021, Battelle Memorial Institute
+//  Copyright (c) 2017-2022, Battelle Memorial Institute
 //  All rights reserved.
 //  ----------------------------------------------------------
 
@@ -90,7 +90,7 @@ public class DistXfmrCodeRating extends DistComponent {
   }
 
   // format all parameters except the name, power ratings and phases
-  private String TankParameterString (DistXfmrCodeSCTest sct, DistXfmrCodeOCTest oct) {
+  private String TankParameterString (DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     StringBuilder buf = new StringBuilder("");
     double rpu = 0.0;
     double zpu = 0.0;
@@ -209,7 +209,7 @@ public class DistXfmrCodeRating extends DistComponent {
   }
 
   // write one, two or three of these depending on the phases used
-  public String GetGLM (DistXfmrCodeSCTest sct, DistXfmrCodeOCTest oct) {
+  public String GetGLM (DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     String parms = TankParameterString (sct, oct);
 
     StringBuilder buf = new StringBuilder("");
@@ -226,7 +226,7 @@ public class DistXfmrCodeRating extends DistComponent {
     return buf.toString();
   }
 
-  public String GetDSS(DistXfmrCodeSCTest sct, DistXfmrCodeOCTest oct) {
+  public String GetDSS(DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     boolean bDelta;
     int phases = 3;
     double zbase, xpct, pctloss, pctimag;
@@ -280,7 +280,7 @@ public class DistXfmrCodeRating extends DistComponent {
 
   public static String szCSVHeader = "Name,NumWindings,NumPhases,Wdg1kV,Wdg1kVA,Wdg1Conn,Wdg1R,Wdg2kV,Wdg2kVA,Wdg2Conn,Wdg2R,Wdg3kV,Wdg3kVA,Wdg3Conn,Wdg3R,%x12,%x13,%x23,%imag,%NoLoadLoss";
 
-  public String GetCSV (DistXfmrCodeSCTest sct, DistXfmrCodeOCTest oct) {
+  public String GetCSV (DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     boolean bDelta;
     int phases = 3;
     double zbase, xpct, pctloss, pctimag;

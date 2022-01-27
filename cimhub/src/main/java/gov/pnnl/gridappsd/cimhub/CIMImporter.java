@@ -59,7 +59,7 @@ import gov.pnnl.gridappsd.cimhub.components.DistSwitch;
 import gov.pnnl.gridappsd.cimhub.components.DistSyncMachine;
 import gov.pnnl.gridappsd.cimhub.components.DistTapeShieldCable;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrBank;
-import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeOCTest;
+import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeNLTest;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeRating;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeSCTest;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrTank;
@@ -134,7 +134,7 @@ public class CIMImporter extends Object {
   HashMap<String,DistSubstation> mapSubstations = new HashMap<>();
   HashMap<String,DistSyncMachine> mapSyncMachines = new HashMap<>();
   HashMap<String,DistTapeShieldCable> mapTSCables = new HashMap<>();
-  HashMap<String,DistXfmrCodeOCTest> mapCodeOCTests = new HashMap<>();
+  HashMap<String,DistXfmrCodeNLTest> mapCodeNLTests = new HashMap<>();
   HashMap<String,DistXfmrCodeRating> mapCodeRatings = new HashMap<>();
   HashMap<String,DistXfmrCodeSCTest> mapCodeSCTests = new HashMap<>();
   HashMap<String,DistXfmrTank> mapTanks = new HashMap<>();
@@ -260,11 +260,11 @@ public class CIMImporter extends Object {
     ((ResultSetCloseable)results).close();
   }
 
-  void LoadXfmrCodeOCTests() {
-    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistXfmrCodeOCTest"), "XfmrCodeOCTest");
+  void LoadXfmrCodeNLTests() {
+    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistXfmrCodeNLTest"), "XfmrCodeNLTest");
     while (results.hasNext()) {
-      DistXfmrCodeOCTest obj = new DistXfmrCodeOCTest (results);
-      mapCodeOCTests.put (obj.GetKey(), obj);
+      DistXfmrCodeNLTest obj = new DistXfmrCodeNLTest (results);
+      mapCodeNLTests.put (obj.GetKey(), obj);
     }
     ((ResultSetCloseable)results).close();
   }
@@ -617,7 +617,7 @@ public class CIMImporter extends Object {
     PrintOneMap (mapStorages, "** STORAGE SOURCES");
     PrintOneMap (mapSubstations, "** SUBSTATION SOURCES");
     PrintOneMap (mapTSCables, "** TS CABLES");
-    PrintOneMap (mapCodeOCTests, "** XFMR CODE OC TESTS");
+    PrintOneMap (mapCodeNLTests, "** XFMR CODE OC TESTS");
     PrintOneMap (mapCodeRatings, "** XFMR CODE WINDING RATINGS");
     PrintOneMap (mapCodeSCTests, "** XFMR CODE SC TESTS");
     PrintOneMap (mapBanks, "** XFMR BANKS");
@@ -665,7 +665,7 @@ public class CIMImporter extends Object {
     LoadStorages();
     LoadSubstations();
     LoadTapeShieldCables();
-    LoadXfmrCodeOCTests();
+    LoadXfmrCodeNLTests();
     LoadXfmrCodeRatings();
     LoadXfmrCodeSCTests();
     LoadXfmrTanks();
@@ -1361,7 +1361,7 @@ public class CIMImporter extends Object {
       DistXfmrCodeRating code = pair.getValue();
       if (code.glmUsed) {
         DistXfmrCodeSCTest sct = mapCodeSCTests.get (code.tname);
-        DistXfmrCodeOCTest oct = mapCodeOCTests.get (code.tname);
+        DistXfmrCodeNLTest oct = mapCodeNLTests.get (code.tname);
         out.print (code.GetGLM(sct, oct));
       }
     }
@@ -1674,7 +1674,7 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
       DistXfmrCodeRating obj = pair.getValue();
       DistXfmrCodeSCTest sct = mapCodeSCTests.get (obj.tname);
-      DistXfmrCodeOCTest oct = mapCodeOCTests.get (obj.tname);
+      DistXfmrCodeNLTest oct = mapCodeNLTests.get (obj.tname);
       out.print (obj.GetDSS(sct, oct));
       outID.println ("Xfmrcode." + obj.tname + "\t" + UUIDfromCIMmRID (obj.id));
     }
@@ -1935,7 +1935,7 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
       DistXfmrCodeRating obj = pair.getValue();
       DistXfmrCodeSCTest sct = mapCodeSCTests.get (obj.tname);
-      DistXfmrCodeOCTest oct = mapCodeOCTests.get (obj.tname);
+      DistXfmrCodeNLTest oct = mapCodeNLTests.get (obj.tname);
       out.print (obj.GetCSV(sct, oct));
     }
     out.close();

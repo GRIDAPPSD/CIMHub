@@ -282,7 +282,7 @@ GROUP BY ?key ORDER BY ?key
 </value>
 </query>
 <query>
-<id>DistXfmrCodeOCTest</id>
+<id>DistXfmrCodeNLTest</id>
 <description>No-load tests actually used</description>
 <value>
 <![CDATA[

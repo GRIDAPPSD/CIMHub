@@ -867,7 +867,7 @@ public class CIMQuerySetter extends Object {
 			" ?t c:IdentifiedObject.name ?tname"+
 			"} ORDER BY ?pname ?tname");
 
-		mapQueries.put ("DistXfmrCodeOCTest",
+		mapQueries.put ("DistXfmrCodeNLTest",
 			"SELECT DISTINCT ?pname ?tname ?nll ?iexc WHERE {"+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			" ?xft c:TransformerTank.PowerTransformer ?eq."+

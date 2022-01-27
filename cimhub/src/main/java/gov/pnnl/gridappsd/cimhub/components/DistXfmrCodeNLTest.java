@@ -1,12 +1,12 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
 import org.apache.jena.query.*;
 
-public class DistXfmrCodeOCTest extends DistComponent {
+public class DistXfmrCodeNLTest extends DistComponent {
 	public String pname;
 	public String tname;
 	public double nll;
@@ -20,7 +20,7 @@ public class DistXfmrCodeOCTest extends DistComponent {
 		return buf.toString();
 	}
 
-	public DistXfmrCodeOCTest (ResultSet results) {
+	public DistXfmrCodeNLTest (ResultSet results) {
 		if (results.hasNext()) {
 			QuerySolution soln = results.next();
 			pname = SafeName (soln.get("?pname").toString());
