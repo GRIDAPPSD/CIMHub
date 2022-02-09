@@ -1,0 +1,6 @@
+New "Transformer.sub" phases=3 windings=2 XHL=0.008 buses=[sourcebus, 650, ] conns=[delta, wye, ] kVs=[115, 4.16, ] kVAs=[5000, 5000, ] taps=[1, 1, ] wdg=1 %R=0.0005 RdcOhms=0.01124125 wdg=2 %R=0.0005 RdcOhms=4.903253E-006
+New "Transformer.reg1" phases=1 XHL=0.01 kVAs=[1666, 1666, ] kVs=[2.4, 2.4, ] %loadloss=0.01 bank=Reg buses=[brkr.1, rg60.1, ] taps=[1, 1.0625, ]
+New "Transformer.reg2" phases=1 XHL=0.01 kVAs=[1666, 1666, ] kVs=[2.4, 2.4, ] %loadloss=0.01 bank=Reg buses=[brkr.2, rg60.2, ] taps=[1, 1.05, ]
+New "Transformer.reg3" phases=1 XHL=0.01 kVAs=[1666, 1666, ] kVs=[2.4, 2.4, ] %loadloss=0.01 bank=Reg buses=[brkr.3, rg60.3, ] taps=[1, 1.06875, ]
+New "Transformer.xfm1" phases=3 windings=2 XHL=2 buses=[xf1, 634, ] conns=[wye, wye, ] kVs=[4.16, 0.48, ] kVAs=[500, 500, ] taps=[1, 1, ] wdg=1 %R=0.55 RdcOhms=0.05393579 wdg=2 %R=0.55 RdcOhms=0.00071808
+New "Transformer.tpoletop" XfmrCode=CT5 buses=[670.2, house.1.0, house.0.2, ]

@@ -1,0 +1,22 @@
+Clear
+New Circuit.j1
+
+
+Redirect Vsource.dss
+Redirect LoadShape.DSS
+Redirect GrowthShape.DSS
+Redirect XYcurve.DSS
+Redirect TCC_Curve.DSS
+Redirect Spectrum.DSS
+Redirect Line.DSS
+Redirect VCCS.DSS
+Redirect Load.DSS
+Redirect Transformer.DSS
+Redirect RegControl.DSS
+Redirect Capacitor.DSS
+Redirect Relay.DSS
+Redirect Recloser.DSS
+MakeBusList
+Redirect BusVoltageBases.dss  ! set voltage bases
+Buscoords buscoords.dss
+GIScoords GIScoords.dss
