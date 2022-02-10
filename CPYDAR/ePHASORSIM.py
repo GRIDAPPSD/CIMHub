@@ -103,6 +103,15 @@ def load_feeder (dict, fid, bTime=True):
     if bTime:
       print ('Running {:30s} took {:6.3f} s'.format (key, time.time() - start_time))
 
+def write_ephasor_model (dict, filename):
+  xlw = pd.ExcelWriter (filename)
+  df = pd.DataFrame ([['Excel file version', 'v2.0'], 
+                      ['Name', 'ieee13x'], 
+                      ['Frequency (Hz)', 60], 
+                      ['Power Base (MVA)', 100]])
+  df.to_excel (xlw, sheet_name='General')
+  xlw.save()
+
 if __name__ == '__main__':
   cfg_file = 'cimhubconfig.json'
   if len(sys.argv) > 1:
@@ -125,14 +134,18 @@ if __name__ == '__main__':
     dict[qid]['vals'] = {}
 
   fid = '4BE6DD69-8FE9-4C9F-AD44-B327D5623974'
+#  fid = '4C4E3E2C-6332-4DCB-8425-26B628178374'
+#  fid = '1C9727D2-E4D2-4084-B612-90A44E1810FD'
 #  list_feeders (dict)
   load_feeder (dict, fid, bTime=False)
   summarize_dict (dict)
+  list_table (dict, 'DistFeeder')
 #  list_table (dict, 'DistPowerXfmrMesh')
 #  list_table (dict, 'DistCoordinates')
-  list_table (dict, 'DistPhaseMatrix')
+#  list_table (dict, 'DistPhaseMatrix')
 #  list_table (dict, 'DistXfmrTank')
 #  list_table (dict, 'DistXfmrCodeSCTest')
 #  list_table (dict, 'DistXfmrCodeNLTest')
 #  list_table (dict, 'DistXfmrCodeRating')
 
+  write_ephasor_model (dict, 'ieee13x.xlsx')
