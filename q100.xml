@@ -38,9 +38,10 @@ ORDER by ?station ?feeder
 <description></description>
 <value>
 <![CDATA[
-SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?fdrid (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
  ?s r:type c:PhotovoltaicUnit.
  ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
  ?s c:PowerElectronicsUnit.maxP ?maxP.
  ?s c:PowerElectronicsUnit.minP ?minP.
  ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
@@ -58,7 +59,7 @@ SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?fdrid (group_concat(di
  ?t c:Terminal.ConnectivityNode ?cn. 
  ?cn c:IdentifiedObject.name ?bus
 }
-GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?fdrid
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid
 ORDER by ?name
 ]]>
 </value>
