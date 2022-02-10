@@ -56,7 +56,7 @@ def query_for_values (tbl, fid):
       if fld not in b:
         row[fld] = ''
       else:
-        if fld in ['name', 'phases', 'bus', 'state', 'conn', 'fdrid']:
+        if fld in ['name', 'phases', 'bus', 'state', 'conn', 'fdrid', 'bus1', 'bus2']:
           row[fld] = b[fld].value
         else:
           try:
@@ -102,14 +102,36 @@ def load_feeder (dict, fid, bTime=True):
     query_for_values (dict[key], fid)
     if bTime:
       print ('Running {:30s} took {:6.3f} s'.format (key, time.time() - start_time))
+  # remove all but fid from the list of feeders
+  match_fid = '_' + fid
+  delete = [key for key in dict['DistFeeder']['vals'] if dict['DistFeeder']['vals'][key]['fid'] != match_fid]
+  for key in delete: 
+    del dict['DistFeeder']['vals'][key]
 
 def write_ephasor_model (dict, filename):
   xlw = pd.ExcelWriter (filename)
+  feeder_name = list(dict['DistFeeder']['vals'].keys())[0]
+
   df = pd.DataFrame ([['Excel file version', 'v2.0'], 
-                      ['Name', 'ieee13x'], 
+                      ['Name', feeder_name], 
                       ['Frequency (Hz)', 60], 
                       ['Power Base (MVA)', 100]])
-  df.to_excel (xlw, sheet_name='General')
+  df.to_excel (xlw, sheet_name='General', header=False, index=False)
+  data = {'From Bus':[], 'To Bus':[], 'ID':[], 'Status':[]}
+  for tag in ['DistBreaker', 'DistDisconnector', 'DistFuse', 'DistJumper', 'DistLoadBreakSwitch', 'DistRecloser', 'DistSectionaliser']:
+    tbl = dict[tag]
+    for key, row in tbl['vals'].items():
+      data['ID'].append (key)
+      data['From Bus'].append (row['bus1'])
+      data['To Bus'].append (row['bus2'])
+      if row['open'] == 'true':
+        data['Status'].append(0)
+      else:
+        data['Status'].append(1)
+  df = pd.DataFrame (data)
+  df.to_excel (xlw, sheet_name='Switch', header=True, index=False)
+
+
   xlw.save()
 
 if __name__ == '__main__':
@@ -139,7 +161,8 @@ if __name__ == '__main__':
 #  list_feeders (dict)
   load_feeder (dict, fid, bTime=False)
   summarize_dict (dict)
-  list_table (dict, 'DistFeeder')
+#  list_table (dict, 'DistFeeder')
+#  list_table (dict, 'DistBreaker')
 #  list_table (dict, 'DistPowerXfmrMesh')
 #  list_table (dict, 'DistCoordinates')
 #  list_table (dict, 'DistPhaseMatrix')
