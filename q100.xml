@@ -122,7 +122,7 @@ ORDER BY ?name ?seq ?phs
 </query>
 <query>
 <id>DistPhaseMatrix</id>
-<keyfld>name</keyfld>
+<keyfld>name:row:col</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -223,7 +223,7 @@ ORDER BY ?pname
 </query>
 <query>
 <id>DistPowerXfmrMesh</id>
-<keyfld>pname</keyfld>
+<keyfld>pname:fnum:tnum</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -246,7 +246,7 @@ ORDER BY ?pname ?fnum ?tnum
 </query>
 <query>
 <id>DistFeeder</id>
-<keyfld>fid</keyfld>
+<keyfld>feeder</keyfld>
 <description>list all the feeders, with substations and regions</description>
 <value>
 <![CDATA[
@@ -270,7 +270,7 @@ ORDER by ?station ?feeder
 </query>
 <query>
 <id>DistSolar</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -302,7 +302,7 @@ ORDER by ?name
 </query>
 <query>
 <id>DistStorage</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -338,7 +338,7 @@ ORDER by ?name
 </query>
 <query>
 <id>DistBreaker</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
 <value>
 <![CDATA[
@@ -372,7 +372,7 @@ GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
 </query>
 <query>
 <id>DistDisconnector</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
 <value>
 <![CDATA[
@@ -406,7 +406,7 @@ GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
 </query>
 <query>
 <id>DistFuse</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
 <value>
 <![CDATA[
@@ -440,7 +440,7 @@ GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
 </query>
 <query>
 <id>DistJumper</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
 <value>
 <![CDATA[
@@ -474,7 +474,7 @@ GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
 </query>
 <query>
 <id>DistLoadBreakSwitch</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
 <value>
 <![CDATA[
@@ -508,7 +508,7 @@ GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
 </query>
 <query>
 <id>DistRecloser</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
 <value>
 <![CDATA[
@@ -542,7 +542,7 @@ GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
 </query>
 <query>
 <id>DistSectionaliser</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
 <value>
 <![CDATA[
@@ -596,7 +596,7 @@ ORDER BY ?vnom
 </query>
 <query>
 <id>DistSubstation</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>EnergySource for Thevenin equivalent, not the CIM Substation</description>
 <value>
 <![CDATA[
@@ -625,7 +625,7 @@ ORDER by ?name
 </query>
 <query>
 <id>DistCapacitor</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Does not account for 2+ unequal phases on same LinearShuntCompensator</description>
 <value>
 <![CDATA[
@@ -673,7 +673,7 @@ ORDER by ?name
 </query>
 <query>
 <id>DistLoad</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description>Need to account for 2+ unequal EnergyConsumerPhases per EnergyConsumer</description>
 <value>
 <![CDATA[
@@ -713,7 +713,7 @@ GROUP BY ?name ?id ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe 
 </query>
 <query>
 <id>DistXfmrCodeRating</id>
-<keyfld>id</keyfld>
+<keyfld>pname:tname:enum</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -745,7 +745,7 @@ ORDER BY ?pname ?tname ?enum
 </query>
 <query>
 <id>DistXfmrCodeNLTest</id>
-<keyfld>tname</keyfld>
+<keyfld>pname:tname</keyfld>
 <description>No-load tests actually used</description>
 <value>
 <![CDATA[
@@ -770,7 +770,7 @@ ORDER BY ?pname ?tname
 </query>
 <query>
 <id>DistXfmrCodeSCTest</id>
-<keyfld>tname</keyfld>
+<keyfld>pname:tname:enum:gnum</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -798,7 +798,7 @@ ORDER BY ?pname ?tname ?enum ?gnum
 </query>
 <query>
 <id>DistXfmrTank</id>
-<keyfld>id</keyfld>
+<keyfld>pname:tname:enum</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -836,7 +836,7 @@ ORDER BY ?pname ?tname ?enum
 </query>
 <query>
 <id>DistRegulatorBanked</id>
-<keyfld>id</keyfld>
+<keyfld>rname</keyfld>
 <description>Regulators having PowerTransformerEnd.PowerTransformer</description>
 <value>
 <![CDATA[
@@ -894,7 +894,7 @@ SELECT ?rname ?pname ?tname ?wnum ?phs ?incr ?mode ?enabled ?highStep ?lowStep ?
 </query>
 <query>
 <id>DistRegulatorTanked</id>
-<keyfld>id</keyfld>
+<keyfld>rname</keyfld>
 <description>Regulators having TransformerTankEnd.TransformerTank</description>
 <value>
 <![CDATA[
@@ -957,7 +957,7 @@ SELECT ?rname ?pname ?tname ?wnum ?phs ?incr ?mode ?enabled ?highStep ?lowStep ?
 <query>
 <id>DistCoordinates</id>
 <description></description>
-<keyfld>name</keyfld>
+<keyfld>class:name:seq</keyfld>
 <value>
 <![CDATA[
 SELECT ?class ?name ?seq ?x ?y WHERE {
@@ -987,7 +987,7 @@ ORDER BY ?class ?name ?seq ?x ?y
 </query>
 <query>
 <id>DistOverheadWire</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -1020,7 +1020,7 @@ ORDER BY ?name
 </query>
 <query>
 <id>DistConcentricNeutralCable</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -1064,7 +1064,7 @@ ORDER BY ?name
 </query>
 <query>
 <id>DistLineSpacing</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -1093,7 +1093,7 @@ ORDER BY ?name ?phs
 </query>
 <query>
 <id>DistLinesSpacingZ</id>
-<keyfld>id</keyfld>
+<keyfld>name</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -1134,7 +1134,7 @@ ORDER BY ?name ?phs
 </query>
 <query>
 <id>DistXfmrBank</id>
-<keyfld>id</keyfld>
+<keyfld>pname</keyfld>
 <description></description>
 <value>
 <![CDATA[

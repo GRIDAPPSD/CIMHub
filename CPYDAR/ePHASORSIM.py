@@ -39,17 +39,19 @@ def build_dict (ret):
   return dict
 
 def query_for_values (tbl, fid):
-  keyfld = tbl['keyfld']
+  keyflds = tbl['keyfld'].split(':')
   query = build_query (prefix, tbl['sparql'], fid)
-#  print (query)
   sparql.setQuery (query)
   ret = sparql.query()
   vars = ret.variables
-  vars.remove (keyfld)
+  for akey in keyflds:
+    vars.remove (akey)
   tbl['columns'] = vars
   for b in ret.bindings:
-    key = b[keyfld].value
     row = {}
+    key = b[keyflds[0]].value
+    for i in range(1, len(keyflds)):
+      key = key + ':' + b[keyflds[i]].value
     for fld in vars:
       if fld not in b:
         row[fld] = ''
@@ -68,9 +70,11 @@ def query_for_values (tbl, fid):
     tbl['vals'][key] = row
 
 def summarize_dict (dict):
-  print ('Query ID                       Key Field   Nrows Columns')
-  for key, q in dict.items():
-    print ('{:30s} {:10s} {:6d} {:s}'.format(key, str(q['keyfld']), len(q['vals']), str(q['columns'])))
+  print ('Query ID                       Key Field              Nrows Columns')
+  lst = sorted(dict.keys())
+  for key in lst:
+    q = dict[key]
+    print ('{:30s} {:21s} {:6d} {:s}'.format(key, str(q['keyfld']), len(q['vals']), str(q['columns'])))
 
 def list_feeders (dict):
   print ('Feeder Name          FID')
@@ -79,12 +83,13 @@ def list_feeders (dict):
   for b in ret.bindings:
     print ('{:20s} {:s}'.format (b['feeder'].value, b['fid'].value))
 
-def list_table(tbl):
-  print ('key,{:s}'.format(str(tbl['columns'])))
+def list_table(dict, tag):
+  tbl = dict[tag]
+  print ('{:s}: key,{:s}'.format(tag, str(tbl['columns'])))
   for key, row in tbl['vals'].items():
     print ('{:s},{:s}'.format (key, ','.join(str(row[c]) for c in tbl['columns'])))
 
-def load_feeder (dict, fid):
+def load_feeder (dict, fid, bTime=True):
   for key in ['DistSolar', 'DistStorage', 'DistLoad', 'DistCapacitor', 'DistLinesSpacingZ', 'DistSubstation', 'DistBaseVoltage', 'DistFeeder',
               'DistBreaker', 'DistDisconnector', 'DistFuse', 'DistJumper', 'DistLoadBreakSwitch', 'DistRecloser', 'DistSectionaliser',
               'DistOverheadWire', 'DistConcentricNeutralCable', 'DistLineSpacing',
@@ -92,10 +97,11 @@ def load_feeder (dict, fid):
               'DistCoordinates', 'DistRegulatorBanked', 'DistRegulatorTanked',
               'DistPowerXfmrCore', 'DistPowerXfmrMesh', 'DistSeriesCompensator',
               'DistPhaseMatrix', 'DistSequenceMatrix', 'DistLinesCodeZ', 'DistLinesInstanceZ', 'DistTapeShieldCable']:
+
     start_time = time.time()
     query_for_values (dict[key], fid)
-    print ('Running {:30s} took {:6.3f} s'.format (key, time.time() - start_time))
-    list_table (dict[key])
+    if bTime:
+      print ('Running {:30s} took {:6.3f} s'.format (key, time.time() - start_time))
 
 if __name__ == '__main__':
   cfg_file = 'cimhubconfig.json'
@@ -119,7 +125,14 @@ if __name__ == '__main__':
     dict[qid]['vals'] = {}
 
   fid = '4BE6DD69-8FE9-4C9F-AD44-B327D5623974'
-  list_feeders (dict)
-  load_feeder (dict, fid)
+#  list_feeders (dict)
+  load_feeder (dict, fid, bTime=False)
   summarize_dict (dict)
+#  list_table (dict, 'DistPowerXfmrMesh')
+#  list_table (dict, 'DistCoordinates')
+  list_table (dict, 'DistPhaseMatrix')
+#  list_table (dict, 'DistXfmrTank')
+#  list_table (dict, 'DistXfmrCodeSCTest')
+#  list_table (dict, 'DistXfmrCodeNLTest')
+#  list_table (dict, 'DistXfmrCodeRating')
 
