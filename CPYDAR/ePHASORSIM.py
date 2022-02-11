@@ -96,7 +96,8 @@ def load_feeder (dict, fid, bTime=True):
               'DistXfmrTank', 'DistXfmrBank', 'DistXfmrCodeRating', 'DistXfmrCodeNLTest', 'DistXfmrCodeSCTest',
               'DistCoordinates', 'DistRegulatorBanked', 'DistRegulatorTanked',
               'DistPowerXfmrCore', 'DistPowerXfmrMesh', 'DistSeriesCompensator',
-              'DistPhaseMatrix', 'DistSequenceMatrix', 'DistLinesCodeZ', 'DistLinesInstanceZ', 'DistTapeShieldCable']:
+              'DistPhaseMatrix', 'DistSequenceMatrix', 'DistLinesCodeZ', 'DistLinesInstanceZ', 'DistTapeShieldCable',
+              'DistBus']:
 
     start_time = time.time()
     query_for_values (dict[key], fid)
@@ -111,12 +112,53 @@ def load_feeder (dict, fid, bTime=True):
 def write_ephasor_model (dict, filename):
   xlw = pd.ExcelWriter (filename)
   feeder_name = list(dict['DistFeeder']['vals'].keys())[0]
+  slack_buses = set()
+  pv_buses = set()
 
   df = pd.DataFrame ([['Excel file version', 'v2.0'], 
                       ['Name', feeder_name], 
                       ['Frequency (Hz)', 60], 
                       ['Power Base (MVA)', 100]])
   df.to_excel (xlw, sheet_name='General', header=False, index=False)
+
+  # voltage sources, identify slack buses
+  data = {'ID':[], 'Bus':[], 'Voltage (pu)':[], 'Angle (deg)':[], 'Rs (pu)':[], 'Xs (pu)':[]}
+  for key, row in dict['DistSubstation']['vals'].items():
+    slack_buses.add (row['bus'])
+    zbase = row['nomv']*row['nomv'] / 100.0e6
+    data['ID'].append(key)
+    data['Bus'].append(row['bus'])
+    data['Voltage (pu)'].append(row['vmag'])
+    data['Angle (deg)'].append(key)
+    data['Rs (pu)'].append(row['r1']/zbase)
+    data['Xs (pu)'].append(row['r1']/zbase)
+  df = pd.DataFrame (data)
+  df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=12)
+
+  # DER
+  for key, row in dict['DistSolar']['vals'].items():
+    pv_buses.add (row['bus'])
+  for key, row in dict['DistStorage']['vals'].items():
+    pv_buses.add (row['bus'])
+
+  # buses
+  data = {'Bus':[], 'Base Voltage (V)':[], 'Initial Vmag':[], 'Unit (V, pu)':[], 'Angle (deg)':[], 'Type':[]}
+  for key, row in dict['DistBus']['vals'].items():
+    data['Bus'].append(key)
+    data['Base Voltage (V)'].append(row['nomv'])
+    data['Initial Vmag'].append(1.0)
+    data['Unit (V, pu)'].append('pu')
+    data['Angle (deg)'].append(0.0)
+    if key in slack_buses:
+      data['Type'].append('SLACK')
+    elif key in pv_buses:
+      data['Type'].append('PV')
+    else:
+      data['Type'].append('PQ')
+  df = pd.DataFrame (data)
+  df.to_excel (xlw, sheet_name='Bus', header=True, index=False)
+
+  # switches
   data = {'From Bus':[], 'To Bus':[], 'ID':[], 'Status':[]}
   for tag in ['DistBreaker', 'DistDisconnector', 'DistFuse', 'DistJumper', 'DistLoadBreakSwitch', 'DistRecloser', 'DistSectionaliser']:
     tbl = dict[tag]
@@ -130,7 +172,6 @@ def write_ephasor_model (dict, filename):
         data['Status'].append(1)
   df = pd.DataFrame (data)
   df.to_excel (xlw, sheet_name='Switch', header=True, index=False)
-
 
   xlw.save()
 
@@ -161,7 +202,7 @@ if __name__ == '__main__':
 #  list_feeders (dict)
   load_feeder (dict, fid, bTime=False)
   summarize_dict (dict)
-#  list_table (dict, 'DistFeeder')
+  list_table (dict, 'DistLoad')
 #  list_table (dict, 'DistBreaker')
 #  list_table (dict, 'DistPowerXfmrMesh')
 #  list_table (dict, 'DistCoordinates')

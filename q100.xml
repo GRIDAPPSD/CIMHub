@@ -11,6 +11,28 @@ http://www.w3.org/1999/02/22-rdf-syntax-ns#
 ]]>
 </nsRDF>
 <query>
+<id>DistBus</id>
+<keyfld>busname</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?feeder ?busname ?cnid ?nomv WHERE {
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?bus c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?bus r:type c:ConnectivityNode.
+ ?bus c:IdentifiedObject.name ?busname.
+ ?bus c:IdentifiedObject.mRID ?cnid.
+ ?fdr c:IdentifiedObject.name ?feeder.
+ ?trm c:Terminal.ConnectivityNode ?bus.
+ ?trm c:Terminal.ConductingEquipment ?ce.
+ ?ce  c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv  c:BaseVoltage.nominalVoltage ?nomv.
+}
+ORDER by ?feeder ?busname ?nomv
+]]>
+</value>
+</query>
+<query>
 <id>DistLinesInstanceZ</id>
 <keyfld>name</keyfld>
 <description></description>
