@@ -112,9 +112,10 @@ ORDER BY ?name
 <description></description>
 <value>
 <![CDATA[
-SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid ?seq ?phs
-#     (group_concat(distinct ?seq;separator="\n") as ?seqs) 
-#     (group_concat(distinct ?phs;separator="\n") as ?phases) 
+SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid
+     (group_concat(distinct ?seqphs;separator=":") as ?seqs) 
+     (group_concat(distinct ?phs;separator="") as ?phases) 
+#     the group_concat doesn't maintain order, so we can't rely on synchronization between the phases and sequence numbers
 WHERE {
  ?s r:type c:ACLineSegment.
  ?s c:Equipment.EquipmentContainer ?fdr.
@@ -136,9 +137,11 @@ WHERE {
  OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
    ?acp c:ACLineSegmentPhase.phase ?phsraw.
    ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
-     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)}
+     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+     bind(concat(?seq, ?phs) as ?seqphs)}
 }
-ORDER BY ?name ?seq ?phs
+GROUP BY ?name ?basev ?bus1 ?bus2 ?len ?lname ?fdrid
+ORDER BY ?name
 ]]>
 </value>
 </query>
@@ -219,6 +222,39 @@ SELECT ?name ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid WHERE {
 }
 GROUP BY ?name ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid
 ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistPowerXfmrWinding</id>
+<keyfld>pname:enum</keyfld>
+<description>Power transformers on their own, without catalog reference.</description>
+<value>
+<![CDATA[
+SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid WHERE {
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?end c:PowerTransformerEnd.ratedS ?ratedS.
+ ?end c:PowerTransformerEnd.ratedU ?ratedU.
+ ?end c:PowerTransformerEnd.r ?r.
+ ?end c:PowerTransformerEnd.phaseAngleClock ?ang.
+ ?end c:PowerTransformerEnd.connectionKind ?connraw.  
+  bind(strafter(str(?connraw),"WindingConnection.") as ?conn)
+ ?end c:TransformerEnd.grounded ?grounded.
+ OPTIONAL {?end c:TransformerEnd.rground ?rground.}
+ OPTIONAL {?end c:TransformerEnd.xground ?xground.}
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus.
+ ?end c:TransformerEnd.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev
+}
+ORDER BY ?pname ?enum
 ]]>
 </value>
 </query>
@@ -651,7 +687,7 @@ ORDER by ?name
 <description>Does not account for 2+ unequal phases on same LinearShuntCompensator</description>
 <value>
 <![CDATA[
-SELECT ?name ?basev ?nomu ?bsection ?bus ?conn ?grnd ?phs ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {
+SELECT ?name ?basev ?nomu ?bsection ?bus ?conn ?grnd ?phases ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {
  ?s r:type c:LinearShuntCompensator.
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
@@ -665,7 +701,7 @@ SELECT ?name ?basev ?nomu ?bsection ?bus ?conn ?grnd ?phs ?ctrlenabled ?discrete
  ?s c:ShuntCompensator.grounded ?grnd.
  OPTIONAL {?scp c:ShuntCompensatorPhase.ShuntCompensator ?s.
  ?scp c:ShuntCompensatorPhase.phase ?phsraw.
-   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phases) }
  OPTIONAL {?ctl c:RegulatingControl.RegulatingCondEq ?s.
           ?ctl c:RegulatingControl.discrete ?discrete.
           ?ctl c:RegulatingControl.enabled ?ctrlenabled.
@@ -824,7 +860,7 @@ ORDER BY ?pname ?tname ?enum ?gnum
 <description></description>
 <value>
 <![CDATA[
-SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?grounded ?rground ?xground ?fdrid ?id ?infoid ?ename ?eid WHERE {
+SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phases ?grounded ?rground ?xground ?fdrid ?id ?infoid ?ename ?eid WHERE {
  ?p r:type c:PowerTransformer.
  ?p c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
@@ -839,7 +875,7 @@ SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?grounded ?rground ?
  ?inf c:IdentifiedObject.mRID ?infoid.
  ?end c:TransformerTankEnd.TransformerTank ?t.
  ?end c:TransformerTankEnd.phases ?phsraw.
-  bind(strafter(str(?phsraw),"PhaseCode.") as ?phs)
+  bind(strafter(str(?phsraw),"PhaseCode.") as ?phases)
  ?end c:TransformerEnd.endNumber ?enum.
  ?end c:TransformerEnd.grounded ?grounded.
  ?end c:IdentifiedObject.name ?ename.
@@ -862,7 +898,7 @@ ORDER BY ?pname ?tname ?enum
 <description>Regulators having PowerTransformerEnd.PowerTransformer</description>
 <value>
 <![CDATA[
-SELECT ?rname ?pname ?tname ?wnum ?phs ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+SELECT ?rname ?pname ?tname ?wnum ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
  ?step ?initDelay ?subDelay ?ltc ?vlim ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode 
  ?monphs ?ctRating ?ctRatio ?ptRatio ?id ?fdrid ?pxfid
  WHERE {
@@ -920,7 +956,7 @@ SELECT ?rname ?pname ?tname ?wnum ?phs ?incr ?mode ?enabled ?highStep ?lowStep ?
 <description>Regulators having TransformerTankEnd.TransformerTank</description>
 <value>
 <![CDATA[
-SELECT ?rname ?pname ?tname ?wnum ?phs ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+SELECT ?rname ?pname ?tname ?wnum ?phases ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
  ?step ?initDelay ?subDelay ?ltc ?vlim ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode 
  ?monphs ?ctRating ?ctRatio ?ptRatio ?id ?fdrid ?pxfid
  WHERE {
@@ -934,7 +970,7 @@ SELECT ?rname ?pname ?tname ?wnum ?phs ?incr ?mode ?enabled ?highStep ?lowStep ?
  ?end c:TransformerTankEnd.TransformerTank ?tank.
  ?tank c:IdentifiedObject.name ?tname.
  OPTIONAL {?end c:TransformerTankEnd.phases ?phsraw.
-  bind(strafter(str(?phsraw),"PhaseCode.") as ?phs)}
+  bind(strafter(str(?phsraw),"PhaseCode.") as ?phases)}
  ?tank c:TransformerTank.PowerTransformer ?pxf.
   ?pxf c:IdentifiedObject.name ?pname.
   ?pxf c:IdentifiedObject.mRID ?pxfid.

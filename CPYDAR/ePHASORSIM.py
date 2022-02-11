@@ -2,15 +2,12 @@ from SPARQLWrapper import SPARQLWrapper2, JSON
 import cimhub.CIMHubConfig as CIMHubConfig
 import sys
 import time
+import math
 import xml.etree.ElementTree as ET
 import pandas as pd
 
 sparql = None
 prefix = None
-
-# ieee13x  4BE6DD69-8FE9-4C9F-AD44-B327D5623974
-# ieee123x 4C4E3E2C-6332-4DCB-8425-26B628178374
-# j1red    1C9727D2-E4D2-4084-B612-90A44E1810FD
 
 def initialize_sparql (cfg_file=None):
   global sparql
@@ -97,7 +94,7 @@ def load_feeder (dict, fid, bTime=True):
               'DistCoordinates', 'DistRegulatorBanked', 'DistRegulatorTanked',
               'DistPowerXfmrCore', 'DistPowerXfmrMesh', 'DistSeriesCompensator',
               'DistPhaseMatrix', 'DistSequenceMatrix', 'DistLinesCodeZ', 'DistLinesInstanceZ', 'DistTapeShieldCable',
-              'DistBus']:
+              'DistBus', 'DistPowerXfmrWinding']:
 
     start_time = time.time()
     query_for_values (dict[key], fid)
@@ -109,11 +106,59 @@ def load_feeder (dict, fid, bTime=True):
   for key in delete: 
     del dict['DistFeeder']['vals'][key]
 
+def mark_all_device_phases (dict):
+  for tbl in ['DistSubstation', 'DistSeriesCompensator', 'DistRegulatorBanked', 
+              'DistLinesInstanceZ', 'DistPowerXfmrWinding']: # didn't query for phases, assume 3
+    dict[tbl]['columns'].append('phases')
+    for key, row in dict[tbl]['vals'].items():
+      row['phases'] = 'ABC'
+  for tbl in ['DistBreaker', 'DistDisconnector', 'DistFuse', 'DistJumper', 'DistLoadBreakSwitch', 'DistRecloser', 'DistSectionaliser',
+              'DistSolar', 'DistStorage', 'DistLoad', 'DistCapacitor', 'DistXfmrTank', 'DistRegulatorTanked',
+              'DistLinesCodeZ', 'DistLinesSpacingZ']:
+    for key, row in dict[tbl]['vals'].items():
+      if len(row['phases']) < 1:
+        row['phases'] = 'ABC'
+
+def mark_one_bus_phases (busrow, phases):
+  if 's1' in phases:
+    busrow['phases'].add('s1')
+  if 's2' in phases or 's12' in phases:
+    busrow['phases'].add('s2')
+  if 'A' in phases:
+    busrow['phases'].add('A')
+  if 'B' in phases:
+    busrow['phases'].add('B')
+  if 'C' in phases:
+    busrow['phases'].add('C')
+
+def mark_all_bus_phases (dict):
+  sqrt3 = math.sqrt(3.0)
+  busvals = dict['DistBus']['vals']
+  dict['DistBus']['columns'].append('phases')
+  for key in busvals:
+    busvals[key]['nomv'] /= sqrt3
+    busvals[key]['phases'] = set()
+  for tbl in ['DistSolar', 'DistStorage', 'DistLoad', 'DistCapacitor', 'DistXfmrTank', 'DistSubstation', 'DistPowerXfmrWinding']:
+    for key, row in dict[tbl]['vals'].items():
+      mark_one_bus_phases (busvals[row['bus']], row['phases'])
+  for tbl in ['DistBreaker', 'DistDisconnector', 'DistFuse', 'DistJumper', 'DistLoadBreakSwitch', 'DistRecloser', 'DistSectionaliser',
+              'DistLinesCodeZ', 'DistLinesSpacingZ', 'DistSeriesCompensator', 'DistLinesInstanceZ']:
+    for key, row in dict[tbl]['vals'].items():
+      mark_one_bus_phases (busvals[row['bus1']], row['phases'])
+      mark_one_bus_phases (busvals[row['bus2']], row['phases'])
+
+def add_comment_cell (xlw, sheet_name, startrow, txt):
+  df = pd.DataFrame ([txt])
+  df.to_excel (xlw, sheet_name = sheet_name, header=False, index=False, startrow=startrow)
+
 def write_ephasor_model (dict, filename):
+  rad_to_deg = 180.0 / math.pi
   xlw = pd.ExcelWriter (filename)
   feeder_name = list(dict['DistFeeder']['vals'].keys())[0]
+  mark_all_device_phases (dict)
+  mark_all_bus_phases (dict)
   slack_buses = set()
-  pv_buses = set()
+  der_buses = set()
 
   df = pd.DataFrame ([['Excel file version', 'v2.0'], 
                       ['Name', feeder_name], 
@@ -122,39 +167,75 @@ def write_ephasor_model (dict, filename):
   df.to_excel (xlw, sheet_name='General', header=False, index=False)
 
   # voltage sources, identify slack buses
+  add_comment_cell (xlw, 'Voltage Source', 10, 'Positive Sequence Voltage Source')
   data = {'ID':[], 'Bus':[], 'Voltage (pu)':[], 'Angle (deg)':[], 'Rs (pu)':[], 'Xs (pu)':[]}
+  df = pd.DataFrame (data)
+  df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=11)
+  add_comment_cell (xlw, 'Voltage Source', 12, 'End of Positive Sequence Voltage Source')
+
+  add_comment_cell (xlw, 'Voltage Source', 14, 'Single-Phase Voltage Source')
+  data = {'ID':[], 'Bus1':[], 'Voltage (V)':[], 'Angle (deg)':[], 'Rs (Ohm)':[], 'Xs (Ohm)':[]}
+  df = pd.DataFrame (data)
+  df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=15)
+  add_comment_cell (xlw, 'Voltage Source', 16, 'End of Single-Phase Voltage Source')
+
+  add_comment_cell (xlw, 'Voltage Source', 18, 'Three-Phase Voltage Source with Short-Circuit Level Data')
+  data = {'ID':[], 'Bus1':[], 'Bus2':[], 'Bus3':[], 'kV (ph-ph RMS)':[], 'Angle_a (deg)':[], 'SC1ph (MVA)':[], 'SC3ph (MVA)':[]}
+  df = pd.DataFrame (data)
+  df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=19)
+  add_comment_cell (xlw, 'Voltage Source', 20, 'End of Three-Phase Voltage Source with Short-Circuit Level Data')
+
+  add_comment_cell (xlw, 'Voltage Source', 22, 'Three-Phase Voltage Source with Sequential Data')
+  data = {'ID':[], 'Bus1':[], 'Bus2':[], 'Bus3':[], 'kV (ph-ph RMS)':[], 'Angle_a (deg)':[], 'R1 (Ohm)':[], 'X1 (Ohm)':[], 'R0 (Ohm)':[], 'X0 (Ohm)':[]}
   for key, row in dict['DistSubstation']['vals'].items():
     slack_buses.add (row['bus'])
-    zbase = row['nomv']*row['nomv'] / 100.0e6
     data['ID'].append(key)
-    data['Bus'].append(row['bus'])
-    data['Voltage (pu)'].append(row['vmag'])
-    data['Angle (deg)'].append(key)
-    data['Rs (pu)'].append(row['r1']/zbase)
-    data['Xs (pu)'].append(row['r1']/zbase)
+    data['Bus1'].append(row['bus'] + '_A')
+    data['Bus2'].append(row['bus'] + '_B')
+    data['Bus3'].append(row['bus'] + '_C')
+    data['kV (ph-ph RMS)'].append(row['vmag'] * 0.001)
+    data['Angle_a (deg)'].append(row['vang'] * rad_to_deg)
+    data['R1 (Ohm)'].append(row['r1'])
+    data['X1 (Ohm)'].append(row['x1'])
+    data['R0 (Ohm)'].append(row['r0'])
+    data['X0 (Ohm)'].append(row['x0'])
+#    zbase = row['nomv']*row['nomv'] / 100.0e6
+#    data['Rs (pu)'].append(row['r1']/zbase)
+#    data['Xs (pu)'].append(row['r1']/zbase)
   df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=12)
+  df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=23)
+  add_comment_cell (xlw, 'Voltage Source', 24 + len(df.index), 'End of Three-Phase Voltage Source with Sequential Data')
 
   # DER
   for key, row in dict['DistSolar']['vals'].items():
-    pv_buses.add (row['bus'])
+    der_buses.add (row['bus'])
   for key, row in dict['DistStorage']['vals'].items():
-    pv_buses.add (row['bus'])
+    der_buses.add (row['bus'])
 
   # buses
   data = {'Bus':[], 'Base Voltage (V)':[], 'Initial Vmag':[], 'Unit (V, pu)':[], 'Angle (deg)':[], 'Type':[]}
   for key, row in dict['DistBus']['vals'].items():
-    data['Bus'].append(key)
-    data['Base Voltage (V)'].append(row['nomv'])
-    data['Initial Vmag'].append(1.0)
-    data['Unit (V, pu)'].append('pu')
-    data['Angle (deg)'].append(0.0)
     if key in slack_buses:
-      data['Type'].append('SLACK')
-    elif key in pv_buses:
-      data['Type'].append('PV')
+      bustype = 'SLACK'
+    elif key in der_buses:
+      bustype = 'PQ' # not 'PV'
     else:
-      data['Type'].append('PQ')
+      bustype = 'PQ'
+    for phs in row['phases']:
+      angle = 0.0
+      busname = '{:s}_{:s}'.format (key, phs)
+      if phs == 'B':
+        angle = -120.0
+      elif phs == 'C':
+        angle = 120.0
+      elif phs == 's2':
+        angle = 180.0
+      data['Bus'].append(busname)
+      data['Base Voltage (V)'].append(row['nomv'])
+      data['Initial Vmag'].append(1.0)
+      data['Unit (V, pu)'].append('pu')
+      data['Angle (deg)'].append(angle)
+      data['Type'].append(bustype)
   df = pd.DataFrame (data)
   df.to_excel (xlw, sheet_name='Bus', header=True, index=False)
 
@@ -163,13 +244,15 @@ def write_ephasor_model (dict, filename):
   for tag in ['DistBreaker', 'DistDisconnector', 'DistFuse', 'DistJumper', 'DistLoadBreakSwitch', 'DistRecloser', 'DistSectionaliser']:
     tbl = dict[tag]
     for key, row in tbl['vals'].items():
-      data['ID'].append (key)
-      data['From Bus'].append (row['bus1'])
-      data['To Bus'].append (row['bus2'])
-      if row['open'] == 'true':
-        data['Status'].append(0)
-      else:
-        data['Status'].append(1)
+      for phs in row['phases']:
+        ext = '_' + phs
+        data['ID'].append (key + ext)
+        data['From Bus'].append (row['bus1'] + ext)
+        data['To Bus'].append (row['bus2'] + ext)
+        if row['open'] == 'true':
+          data['Status'].append(0)
+        else:
+          data['Status'].append(1)
   df = pd.DataFrame (data)
   df.to_excel (xlw, sheet_name='Switch', header=True, index=False)
 
@@ -196,20 +279,14 @@ if __name__ == '__main__':
     dict[qid]['columns'] = []
     dict[qid]['vals'] = {}
 
-  fid = '4BE6DD69-8FE9-4C9F-AD44-B327D5623974'
-#  fid = '4C4E3E2C-6332-4DCB-8425-26B628178374'
-#  fid = '1C9727D2-E4D2-4084-B612-90A44E1810FD'
+  fid = '4BE6DD69-8FE9-4C9F-AD44-B327D5623974'  # ieee13x
+#  fid = '4C4E3E2C-6332-4DCB-8425-26B628178374'  # ieee123x
+#  fid = '1C9727D2-E4D2-4084-B612-90A44E1810FD'  # j1red
 #  list_feeders (dict)
   load_feeder (dict, fid, bTime=False)
   summarize_dict (dict)
-  list_table (dict, 'DistLoad')
-#  list_table (dict, 'DistBreaker')
-#  list_table (dict, 'DistPowerXfmrMesh')
-#  list_table (dict, 'DistCoordinates')
-#  list_table (dict, 'DistPhaseMatrix')
-#  list_table (dict, 'DistXfmrTank')
-#  list_table (dict, 'DistXfmrCodeSCTest')
-#  list_table (dict, 'DistXfmrCodeNLTest')
-#  list_table (dict, 'DistXfmrCodeRating')
 
   write_ephasor_model (dict, 'ieee13x.xlsx')
+
+  list_table (dict, 'DistSubstation')
+
