@@ -8,6 +8,12 @@ import pandas as pd
 
 sparql = None
 prefix = None
+sqrt3 = math.sqrt(3.0)
+rad_to_deg = 180.0 / math.pi
+load_bandwidth = 0.12  # per-unit range for using ZIP coefficients, change to constant Z outside this range
+DER_K_z = 0.0
+DER_K_i = 100.0  # representing DER as constant current negative loads
+DER_K_p = 0.0
 
 def initialize_sparql (cfg_file=None):
   global sparql
@@ -132,7 +138,6 @@ def mark_one_bus_phases (busrow, phases):
     busrow['phases'].add('C')
 
 def mark_all_bus_phases (dict):
-  sqrt3 = math.sqrt(3.0)
   busvals = dict['DistBus']['vals']
   dict['DistBus']['columns'].append('phases')
   for key in busvals:
@@ -151,8 +156,26 @@ def add_comment_cell (xlw, sheet_name, startrow, txt):
   df = pd.DataFrame ([txt])
   df.to_excel (xlw, sheet_name = sheet_name, header=False, index=False, startrow=startrow)
 
+def phase_array (phases):
+  retval = []
+  for phs in ['A', 'B', 'C', 's1', 's2']:
+    if phs in phases:
+      retval.append ('_' + phs)
+  return retval
+
+def conn_string (cim_conn):
+  if cim_conn == 'D':
+    return 'delta'
+  return 'wye'
+
+def name_prefix (query_id):
+  if query_id == 'DistSolar':
+    return 'pv_'
+  if query_id == 'DistStorage':
+    return 'bat_'
+  return ''
+
 def write_ephasor_model (dict, filename):
-  rad_to_deg = 180.0 / math.pi
   xlw = pd.ExcelWriter (filename)
   feeder_name = list(dict['DistFeeder']['vals'].keys())[0]
   mark_all_device_phases (dict)
@@ -212,200 +235,345 @@ def write_ephasor_model (dict, filename):
   add_comment_cell (xlw, 'Voltage Source', xlrow, 'End of Three-Phase Voltage Source with Sequential Data')
 
   # Loads, plus DER as negative loads
+  data1 = {'ID':[], 'Status':[], 'Bus':[], 'P (MW)':[], 'Q (MVAr)':[]}
+  data2 = {'ID':[], 'Status':[], 'Bus':[], 'P (MW)':[], 'Q (MVAr)':[]}
+  data3 = {'ID':[], 'Status':[], 'Bus':[], 'P (MW)':[], 'Q (MVAr)':[]}
+  data4 = {'ID':[], 'Status':[], 'V (kV)':[], 'Bandwidth (pu)':[], 'Conn. type':[], 'K_z':[], 'K_i':[], 'K_p':[], 'Use initial voltage?':[],
+           'Bus1':[], 'P1 (kW)':[], 'Q1 (kVAr)':[]}
+  data5 = {'ID':[], 'Status':[], 'V (kV)':[], 'Bandwidth (pu)':[], 'Conn. type':[], 'K_z':[], 'K_i':[], 'K_p':[], 'Use initial voltage?':[],
+           'Bus1':[], 'Bus2':[], 'P1 (kW)':[], 'Q1 (kVAr)':[], 'P2 (kW)':[], 'Q2 (kVAr)':[]}
+  data6 = {'ID':[], 'Status':[], 'V (kV)':[], 'Bandwidth (pu)':[], 'Conn. type':[], 'K_z':[], 'K_i':[], 'K_p':[], 'Use initial voltage?':[],
+           'Bus1':[], 'Bus2':[], 'Bus3':[], 'P1 (kW)':[], 'Q1 (kVAr)':[], 'P2 (kW)':[], 'Q2 (kVAr)':[], 'P3 (kW)':[], 'Q3 (kVAr)':[]}
+
+  for key, row in dict['DistLoad']['vals'].items():
+    aphs = phase_array (row['phases'])
+    kv = 0.001 * row['basev']
+    kw = 0.001 * row['p']
+    kvar = 0.001 * row['q']
+    conn = conn_string(row['conn'])
+    if len(aphs) == 1:
+      data4['ID'].append(key)
+      data4['Status'].append(1)
+      data4['V (kV)'].append(kv)
+      data4['Bandwidth (pu)'].append(load_bandwidth)
+      data4['Conn. type'].append(conn)
+      data4['K_z'].append(row['pz'])
+      data4['K_i'].append(row['pi'])
+      data4['K_p'].append(row['pp'])
+      data4['Use initial voltage?'].append(0)
+      data4['Bus1'].append(row['bus'] + aphs[0])
+      data4['P1 (kW)'].append(kw)
+      data4['Q1 (kVAr)'].append(kvar)
+    elif len(aphs) == 2:
+      kvar /= 2.0
+      kw /= 2.0
+      data5['ID'].append(key)
+      data5['Status'].append(1)
+      data5['V (kV)'].append(kv)
+      data5['Bandwidth (pu)'].append(load_bandwidth)
+      data5['Conn. type'].append(conn)
+      data5['K_z'].append(row['pz'])
+      data5['K_i'].append(row['pi'])
+      data5['K_p'].append(row['pp'])
+      data5['Use initial voltage?'].append(0)
+      data5['Bus1'].append(row['bus'] + aphs[0])
+      data5['Bus2'].append(row['bus'] + aphs[1])
+      data5['P1 (kW)'].append(kw)
+      data5['Q1 (kVAr)'].append(kvar)
+      data5['P2 (kW)'].append(kw)
+      data5['Q2 (kVAr)'].append(kvar)
+    elif len(aphs) == 3:
+      kvar /= 3.0
+      kw /= 3.0
+      data6['ID'].append(key)
+      data6['Status'].append(1)
+      data6['V (kV)'].append(kv)
+      data6['Bandwidth (pu)'].append(load_bandwidth)
+      data6['Conn. type'].append(conn)
+      data6['K_z'].append(row['pz'])
+      data6['K_i'].append(row['pi'])
+      data6['K_p'].append(row['pp'])
+      data6['Use initial voltage?'].append(0)
+      data6['Bus1'].append(row['bus'] + aphs[0])
+      data6['Bus2'].append(row['bus'] + aphs[1])
+      data6['Bus3'].append(row['bus'] + aphs[2])
+      data6['P1 (kW)'].append(kw)
+      data6['Q1 (kVAr)'].append(kvar)
+      data6['P2 (kW)'].append(kw)
+      data6['Q2 (kVAr)'].append(kvar)
+      data6['P3 (kW)'].append(kw)
+      data6['Q3 (kVAr)'].append(kvar)
+  for der_tbl in ['DistSolar', 'DistStorage']:
+    prefix = name_prefix (der_tbl)
+    for key, row in dict[der_tbl]['vals'].items():
+      der_buses.add (row['bus'])
+      aphs = phase_array (row['phases'])
+      kv = 0.001 * row['ratedU']
+      kw = -0.001 * row['p']
+      kvar = -0.001 * row['q']
+      conn = 'wye'  # TODO - should be available from CIM?
+      if len(aphs) == 1:
+        data4['ID'].append(prefix + key)
+        data4['Status'].append(1)
+        data4['V (kV)'].append(kv)
+        data4['Bandwidth (pu)'].append(load_bandwidth)
+        data4['Conn. type'].append(conn)
+        data4['K_z'].append(DER_K_z)
+        data4['K_i'].append(DER_K_i)
+        data4['K_p'].append(DER_K_p)
+        data4['Use initial voltage?'].append(0)
+        data4['Bus1'].append(row['bus'] + aphs[0])
+        data4['P1 (kW)'].append(kw)
+        data4['Q1 (kVAr)'].append(kvar)
+      elif len(aphs) == 2:
+        kvar /= 2.0
+        kw /= 2.0
+        data5['ID'].append(prefix + key)
+        data5['Status'].append(1)
+        data5['V (kV)'].append(kv)
+        data5['Bandwidth (pu)'].append(load_bandwidth)
+        data5['Conn. type'].append(conn)
+        data5['K_z'].append(DER_K_z)
+        data5['K_i'].append(DER_K_i)
+        data5['K_p'].append(DER_K_p)
+        data5['Use initial voltage?'].append(0)
+        data5['Bus1'].append(row['bus'] + aphs[0])
+        data5['Bus2'].append(row['bus'] + aphs[1])
+        data5['P1 (kW)'].append(kw)
+        data5['Q1 (kVAr)'].append(kvar)
+        data5['P2 (kW)'].append(kw)
+        data5['Q2 (kVAr)'].append(kvar)
+      elif len(aphs) == 3:
+        kvar /= 3.0
+        kw /= 3.0
+        data6['ID'].append(prefix + key)
+        data6['Status'].append(1)
+        data6['V (kV)'].append(kv)
+        data6['Bandwidth (pu)'].append(load_bandwidth)
+        data6['Conn. type'].append(conn)
+        data6['K_z'].append(DER_K_z)
+        data6['K_i'].append(DER_K_i)
+        data6['K_p'].append(DER_K_p)
+        data6['Use initial voltage?'].append(0)
+        data6['Bus1'].append(row['bus'] + aphs[0])
+        data6['Bus2'].append(row['bus'] + aphs[1])
+        data6['Bus3'].append(row['bus'] + aphs[2])
+        data6['P1 (kW)'].append(kw)
+        data6['Q1 (kVAr)'].append(kvar)
+        data6['P2 (kW)'].append(kw)
+        data6['Q2 (kVAr)'].append(kvar)
+        data6['P3 (kW)'].append(kw)
+        data6['Q3 (kVAr)'].append(kvar)
+
+  df1 = pd.DataFrame (data1)
+  df2 = pd.DataFrame (data2)
+  df3 = pd.DataFrame (data3)
+  df4 = pd.DataFrame (data4)
+  df5 = pd.DataFrame (data5)
+  df6 = pd.DataFrame (data6)
   xlrow = 10
   add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Imepedance Load') # replicating typo on the Opal-RT template
-  data = {'ID':[], 'Status':[], 'Bus':[], 'P (MW)':[], 'Q (MVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df1.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df1.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of Positive Sequence Constant Imepedance Load')
   xlrow += 2
-
   add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Power Load')
-  data = {'ID':[], 'Status':[], 'Bus':[], 'P (MW)':[], 'Q (MVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df2.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df2.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of Positive Sequence Constant Power Load')
   xlrow += 2
-
   add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Current Load')
-  data = {'ID':[], 'Status':[], 'Bus':[], 'P (MW)':[], 'Q (MVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df3.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df3.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of Positive Sequence Constant Current Load')
   xlrow += 2
-
   add_comment_cell (xlw, 'Load', xlrow, 'Single-Phase ZIP Load')
-  data = {'ID':[], 'Status':[], 'V (kV)':[], 'Bandwidth (pu)':[], 'Conn. type':[], 'K_z':[], 'K_i':[], 'K_p':[], 'Use initial voltage?':[],
-          'Bus1':[], 'P1 (kW)':[], 'Q1 (kVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df4.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df4.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of SinglePhase ZIP Load')
   xlrow += 2
-
   add_comment_cell (xlw, 'Load', xlrow, 'Two-Phase ZIP Load')
-  data = {'ID':[], 'Status':[], 'V (kV)':[], 'Bandwidth (pu)':[], 'Conn. type':[], 'K_z':[], 'K_i':[], 'K_p':[], 'Use initial voltage?':[],
-          'Bus1':[], 'Bus2':[], 'P1 (kW)':[], 'Q1 (kVAr)':[], 'P2 (kW)':[], 'Q2 (kVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df5.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df5.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of TwoPhase ZIP Load')
   xlrow += 2
-
   add_comment_cell (xlw, 'Load', xlrow, 'Three-Phase ZIP Load')
-  data = {'ID':[], 'Status':[], 'V (kV)':[], 'Bandwidth (pu)':[], 'Conn. type':[], 'K_z':[], 'K_i':[], 'K_p':[], 'Use initial voltage?':[],
-          'Bus1':[], 'Bus2':[], 'Bus3':[], 'P1 (kW)':[], 'Q1 (kVAr)':[], 'P2 (kW)':[], 'Q2 (kVAr)':[], 'P3 (kW)':[], 'Q3 (kVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df6.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df6.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of ThreePhase ZIP Load')
 
-  for key, row in dict['DistSolar']['vals'].items():
-    der_buses.add (row['bus'])
-  for key, row in dict['DistStorage']['vals'].items():
-    der_buses.add (row['bus'])
-
   # shunts
+  data1 = {'ID':[], 'Status':[], 'Bus':[], 'P (MW)':[], 'Q (MVAr)':[]}
+  data2 = {'ID':[], 'Status':[], 'kV (ph-gr RMS)':[], 'Bus1':[], 'P1 (kW)':[], 'Q1 (kVAr)':[]}
+  data3 = {'ID':[], 'Status1':[], 'Status2':[], 'kV (ph-gr RMS)':[], 'Bus1':[], 'Bus2':[], 'P1 (kW)':[], 'Q1 (kVAr)':[], 'P2 (kW)':[], 'Q2 (kVAr)':[]}
+  data4 = {'ID':[], 'Status1':[], 'Status2':[], 'Status3':[], 'kV (ph-gr RMS)':[], 'Bus1':[], 'Bus2':[], 'Bus3':[], 
+          'P1 (kW)':[], 'Q1 (kVAr)':[], 'P2 (kW)':[], 'Q2 (kVAr)':[], 'P3 (kW)':[], 'Q3 (kVAr)':[]}
+  for key, row in dict['DistCapacitor']['vals'].items():
+    aphs = phase_array (row['phases'])
+    kv = 0.001 * row['nomu']
+    kvar = 1000.0 * row['bsection'] * kv * kv
+    if len(aphs) == 1:
+      data2['ID'].append(key)
+      data2['Status'].append(1)
+      data2['kV (ph-gr RMS)'].append(kv)
+      data2['Bus1'].append(row['bus'] + aphs[0])
+      data2['P1 (kW)'].append(0.0)
+      data2['Q1 (kVAr)'].append(kvar)
+    elif len(aphs) == 2:
+      kvar /= 2.0
+      kv /= sqrt3
+      data3['ID'].append(key)
+      data3['Status1'].append(1)
+      data3['Status2'].append(1)
+      data3['kV (ph-gr RMS)'].append(kv)
+      data3['Bus1'].append(row['bus'] + aphs[0])
+      data3['Bus2'].append(row['bus'] + aphs[1])
+      data3['P1 (kW)'].append(0.0)
+      data3['Q1 (kVAr)'].append(kvar)
+      data3['P2 (kW)'].append(0.0)
+      data3['Q2 (kVAr)'].append(kvar)
+    elif len(aphs) == 3:
+      kvar /= 3.0
+      kv /= sqrt3
+      data4['ID'].append(key)
+      data4['Status1'].append(1)
+      data4['Status2'].append(1)
+      data4['Status3'].append(1)
+      data4['kV (ph-gr RMS)'].append(kv)
+      data4['Bus1'].append(row['bus'] + aphs[0])
+      data4['Bus2'].append(row['bus'] + aphs[1])
+      data4['Bus3'].append(row['bus'] + aphs[2])
+      data4['P1 (kW)'].append(0.0)
+      data4['Q1 (kVAr)'].append(kvar)
+      data4['P2 (kW)'].append(0.0)
+      data4['Q2 (kVAr)'].append(kvar)
+      data4['P3 (kW)'].append(0.0)
+      data4['Q3 (kVAr)'].append(kvar)
+
+  df1 = pd.DataFrame (data1)
+  df2 = pd.DataFrame (data2)
+  df3 = pd.DataFrame (data3)
+  df4 = pd.DataFrame (data4)
   xlrow = 10
   add_comment_cell (xlw, 'Shunt', xlrow, 'Positive Sequence Shunt')
-  data = {'ID':[], 'Status':[], 'Bus':[], 'P (MW)':[], 'Q (MVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df1.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df1.index) + 2
   add_comment_cell (xlw, 'Shunt', xlrow, 'End of Positive Sequence Shunt')
   xlrow += 2
-
   add_comment_cell (xlw, 'Shunt', xlrow, 'Single-Phase Shunt')
-  data = {'ID':[], 'Status':[], 'kV (ph-gr RMS)':[], 'Bus1':[], 'P1 (kW)':[], 'Q1 (kVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df2.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df2.index) + 2
   add_comment_cell (xlw, 'Shunt', xlrow, 'End of Single-Phase Shunt')
   xlrow += 2
-
   add_comment_cell (xlw, 'Shunt', xlrow, 'Two-Phase Shunt')
-  data = {'ID':[], 'Status1':[], 'Status2':[], 'kV (ph-gr RMS)':[], 'Bus1':[], 'Bus2':[], 'P1 (kW)':[], 'Q1 (kVAr)':[], 'P2 (kW)':[], 'Q2 (kVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df3.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df3.index) + 2
   add_comment_cell (xlw, 'Shunt', xlrow, 'End of Two-Phase Shunt')
   xlrow += 2
-
   add_comment_cell (xlw, 'Shunt', xlrow, 'Three-Phase Shunt')
-  data = {'ID':[], 'Status1':[], 'Status2':[], 'Status3':[], 'kV (ph-gr RMS)':[], 'Bus1':[], 'Bus2':[], 'Bus3':[], 
-          'P1 (kW)':[], 'Q1 (kVAr)':[], 'P2 (kW)':[], 'Q2 (kVAr)':[], 'P3 (kW)':[], 'Q3 (kVAr)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df4.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df4.index) + 2
   add_comment_cell (xlw, 'Shunt', xlrow, 'End of Three-Phase Shunt')
 
   # lines
+  data1 = {'ID':[], 'Status':[], 'From bus':[], 'To bus':[], 'R (pu)':[], 'X (pu)':[], 'B (pu)':[]}
+  data2 = {'ID':[], 'Status':[], 'Length':[], 
+           'From1':[], 'To1':[], 
+           'r11 (Ohm/length_unit)':[], 'x11 (Ohm/length_unit)':[], 'b11 (uS/length_unit)':[]}
+  data3 = {'ID':[], 'Status':[], 'Length':[], 
+           'From1':[], 'From2':[], 'To1':[], 'To2':[], 
+           'r11 (Ohm/length_unit)':[], 'x11 (Ohm/length_unit)':[], 
+           'r21 (Ohm/length_unit)':[], 'x21 (Ohm/length_unit)':[], 
+           'r22 (Ohm/length_unit)':[], 'x22 (Ohm/length_unit)':[], 
+           'b11 (uS/length_unit)':[], 'b21 (uS/length_unit)':[], 'b22 (uS/length_unit)':[]}
+  data4 = {'ID':[], 'Status':[], 'Length':[], 
+           'From1':[], 'From2':[], 'From3':[], 'To1':[], 'To2':[], 'To3':[], 
+           'r11 (Ohm/length_unit)':[], 'x11 (Ohm/length_unit)':[], 
+           'r21 (Ohm/length_unit)':[], 'x21 (Ohm/length_unit)':[], 
+           'r22 (Ohm/length_unit)':[], 'x22 (Ohm/length_unit)':[], 
+           'r31 (Ohm/length_unit)':[], 'x31 (Ohm/length_unit)':[], 
+           'r32 (Ohm/length_unit)':[], 'x32 (Ohm/length_unit)':[], 
+           'r33 (Ohm/length_unit)':[], 'x33 (Ohm/length_unit)':[], 
+           'b11 (uS/length_unit)':[], 'b21 (uS/length_unit)':[], 'b22 (uS/length_unit)':[],
+           'b31 (uS/length_unit)':[], 'b32 (uS/length_unit)':[], 'b33 (uS/length_unit)':[]}
+  data5 = {'ID':[], 'Status':[], 'Length':[], 
+           'From1':[], 'From2':[], 'From3':[], 'To1':[], 'To2':[], 'To3':[], 
+           'R0 (Ohm/length_unit)':[], 'X0 (Ohm/length_unit)':[], 
+           'R1 (Ohm/length_unit)':[], 'X1 (Ohm/length_unit)':[], 
+           'B0 (uS/length_unit)':[], 'B1 (uS/length_unit)':[]}
+
+  df1 = pd.DataFrame (data1)
+  df2 = pd.DataFrame (data2)
+  df3 = pd.DataFrame (data3)
+  df4 = pd.DataFrame (data4)
+  df5 = pd.DataFrame (data5)
   xlrow = 10
   add_comment_cell (xlw, 'Line', xlrow, 'Positive-Sequence Line')
-  data = {'ID':[], 'Status':[], 'From bus':[], 'To bus':[], 'R (pu)':[], 'X (pu)':[], 'B (pu)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df1.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df1.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Positive-Sequence Line')
   xlrow += 2
-
   add_comment_cell (xlw, 'Line', xlrow, 'Single-Phase Line')
-  data = {'ID':[], 'Status':[], 'Length':[], 
-          'From1':[], 'To1':[], 
-          'r11 (Ohm/length_unit)':[], 'x11 (Ohm/length_unit)':[], 'b11 (uS/length_unit)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df2.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df2.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Single-Phase Line')
   xlrow += 2
-
   add_comment_cell (xlw, 'Line', xlrow, 'Two-Phase Line')
-  data = {'ID':[], 'Status':[], 'Length':[], 
-          'From1':[], 'From2':[], 'To1':[], 'To2':[], 
-          'r11 (Ohm/length_unit)':[], 'x11 (Ohm/length_unit)':[], 
-          'r21 (Ohm/length_unit)':[], 'x21 (Ohm/length_unit)':[], 
-          'r22 (Ohm/length_unit)':[], 'x22 (Ohm/length_unit)':[], 
-          'b11 (uS/length_unit)':[], 'b21 (uS/length_unit)':[], 'b22 (uS/length_unit)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df3.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df3.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Two-Phase Line')
   xlrow += 2
-
   add_comment_cell (xlw, 'Line', xlrow, 'Three-Phase Line with Full Data')
-  data = {'ID':[], 'Status':[], 'Length':[], 
-          'From1':[], 'From2':[], 'From3':[], 'To1':[], 'To2':[], 'To3':[], 
-          'r11 (Ohm/length_unit)':[], 'x11 (Ohm/length_unit)':[], 
-          'r21 (Ohm/length_unit)':[], 'x21 (Ohm/length_unit)':[], 
-          'r22 (Ohm/length_unit)':[], 'x22 (Ohm/length_unit)':[], 
-          'r31 (Ohm/length_unit)':[], 'x31 (Ohm/length_unit)':[], 
-          'r32 (Ohm/length_unit)':[], 'x32 (Ohm/length_unit)':[], 
-          'r33 (Ohm/length_unit)':[], 'x33 (Ohm/length_unit)':[], 
-          'b11 (uS/length_unit)':[], 'b21 (uS/length_unit)':[], 'b22 (uS/length_unit)':[],
-          'b31 (uS/length_unit)':[], 'b32 (uS/length_unit)':[], 'b33 (uS/length_unit)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df4.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df4.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Three-Phase Line with Full Data')
   xlrow += 2
-
   add_comment_cell (xlw, 'Line', xlrow, 'Three-Phase Line with Sequential Data')
-  data = {'ID':[], 'Status':[], 'Length':[], 
-          'From1':[], 'From2':[], 'From3':[], 'To1':[], 'To2':[], 'To3':[], 
-          'R0 (Ohm/length_unit)':[], 'X0 (Ohm/length_unit)':[], 
-          'R1 (Ohm/length_unit)':[], 'X1 (Ohm/length_unit)':[], 
-          'B0 (uS/length_unit)':[], 'B1 (uS/length_unit)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df5.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df5.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Three-Phase Line with Sequential Data')
 
   # transformers
+  data1 = {'ID':[], 'Status':[], 'From bus':[], 'To bus':[], 'R (pu)':[], 'Xl (pu)':[], 'Gmag (pu)':[], 'Bmag (pu)':[],
+           'Ratio W1 (pu)':[], 'Ratio W2 (pu)':[], 'Phase Shift (deg)':[]}
+  data2 = {'ID':[], 'Status':[], 'Bus1':[], 'Bus2':[], 'Bus3':[], 
+           'R_12 (pu)':[], 'Xl_12 (pu)':[], 'R_23 (pu)':[], 'Xl_23 (pu)':[], 'R_31 (pu)':[], 'Xl_31 (pu)':[], 'Gmag (pu)':[], 'Bmag (pu)':[],
+           'Ratio W1 (pu)':[], 'Ratio W2 (pu)':[], 'Ratio W3 (pu)':[], 
+           'Phase Shift W1 (deg)':[], 'Phase Shift W2 (deg)':[], 'Phase Shift W3 (deg)':[]}
+  data3 = {'ID':[], 'Status':[], 'Number of phases':[], 
+           'Bus1_A':[], 'Bus1_B':[], 'Bus1_C':[], 'V1 (kV)':[], 'S_base1 (kVA)':[], 'Conn. type1':[],
+           'Bus2_A':[], 'Bus2_B':[], 'Bus2_C':[], 'V2 (kV)':[], 'S_base2 (kVA)':[], 'Conn. type2':[],
+           'Tap 1':[], 'Tap 2':[], 'Tap 3':[], 'Lowest Tap':[], 'Highest Tap':[], 'Min Range (%)':[], 'Max Range (%)':[], 
+           'X (pu)':[], 'RW1 (pu)':[], 'RW2':[]}
+  data4 = {'ID':[], 'Status':[], 'Number of phases':[], 
+           'Bus1_A':[], 'Bus1_B':[], 'Bus1_C':[], 'V1 (kV)':[], 'S_base1 (kVA)':[], 'Conn. type1':[],
+           'Bus2_A':[], 'Bus2_B':[], 'Bus2_C':[], 'V2 (kV)':[], 'S_base2 (kVA)':[], 'Conn. type2':[],
+           'Tap 1':[], 'Tap 2':[], 'Tap 3':[], 'Lowest Tap':[], 'Highest Tap':[], 'Min Range (%)':[], 'Max Range (%)':[], 
+           'Z0 leakage (pu)':[], 'Z1 leakage (pu)':[], 'X0/R0':[], 'X1/R1':[], 'No Load Loss (kW)':[]}
+
+  df1 = pd.DataFrame (data1)
+  df2 = pd.DataFrame (data2)
+  df3 = pd.DataFrame (data3)
+  df4 = pd.DataFrame (data4)
   xlrow = 10
   add_comment_cell (xlw, 'Transformer', xlrow, 'Positive-Sequence 2W Transformer')
-  data = {'ID':[], 'Status':[], 'From bus':[], 'To bus':[], 'R (pu)':[], 'Xl (pu)':[], 'Gmag (pu)':[], 'Bmag (pu)':[],
-          'Ratio W1 (pu)':[], 'Ratio W2 (pu)':[], 'Phase Shift (deg)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df1.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df1.index) + 2
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Positive-Sequence 2W Transformer')
   xlrow += 2
-
   add_comment_cell (xlw, 'Transformer', xlrow, 'Positive-Sequence 3W Transformer')
-  data = {'ID':[], 'Status':[], 'Bus1':[], 'Bus2':[], 'Bus3':[], 
-          'R_12 (pu)':[], 'Xl_12 (pu)':[], 'R_23 (pu)':[], 'Xl_23 (pu)':[], 'R_31 (pu)':[], 'Xl_31 (pu)':[], 'Gmag (pu)':[], 'Bmag (pu)':[],
-          'Ratio W1 (pu)':[], 'Ratio W2 (pu)':[], 'Ratio W3 (pu)':[], 
-          'Phase Shift W1 (deg)':[], 'Phase Shift W2 (deg)':[], 'Phase Shift W3 (deg)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df2.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df2.index) + 2
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Positive-Sequence 3W Transformer')
   xlrow += 2
-
   add_comment_cell (xlw, 'Transformer', xlrow, 'Multiphase 2W Transformer')
-  data = {'ID':[], 'Status':[], 'Number of phases':[], 
-          'Bus1_A':[], 'Bus1_B':[], 'Bus1_C':[], 'V1 (kV)':[], 'S_base1 (kVA)':[], 'Conn. type1':[],
-          'Bus2_A':[], 'Bus2_B':[], 'Bus2_C':[], 'V2 (kV)':[], 'S_base2 (kVA)':[], 'Conn. type2':[],
-          'Tap 1':[], 'Tap 2':[], 'Tap 3':[], 'Lowest Tap':[], 'Highest Tap':[], 'Min Range (%)':[], 'Max Range (%)':[], 
-          'X (pu)':[], 'RW1 (pu)':[], 'RW2':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df3.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df3.index) + 2
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Multiphase 2W Transformer')
   xlrow += 2
-
   add_comment_cell (xlw, 'Transformer', xlrow, 'Multiphase 2W Transformer with Mutual Impedance')
-  data = {'ID':[], 'Status':[], 'Number of phases':[], 
-          'Bus1_A':[], 'Bus1_B':[], 'Bus1_C':[], 'V1 (kV)':[], 'S_base1 (kVA)':[], 'Conn. type1':[],
-          'Bus2_A':[], 'Bus2_B':[], 'Bus2_C':[], 'V2 (kV)':[], 'S_base2 (kVA)':[], 'Conn. type2':[],
-          'Tap 1':[], 'Tap 2':[], 'Tap 3':[], 'Lowest Tap':[], 'Highest Tap':[], 'Min Range (%)':[], 'Max Range (%)':[], 
-          'Z0 leakage (pu)':[], 'Z1 leakage (pu)':[], 'X0/R0':[], 'X1/R1':[], 'No Load Loss (kW)':[]}
-  df = pd.DataFrame (data)
-  df.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
-  xlrow += len(df.index) + 2
+  df4.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df4.index) + 2
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Multiphase 2W Transformer with Mutual Impedance')
 
   # buses
@@ -454,6 +622,8 @@ def write_ephasor_model (dict, filename):
 
   xlw.save()
 
+  print ('DER at buses', der_buses)
+
 if __name__ == '__main__':
   cfg_file = 'cimhubconfig.json'
   if len(sys.argv) > 1:
@@ -484,5 +654,7 @@ if __name__ == '__main__':
 
   write_ephasor_model (dict, 'ieee13x.xlsx')
 
-#  list_table (dict, 'DistSubstation')
+  list_table (dict, 'DistLinesCodeZ')
+  list_table (dict, 'DistPowerXfmrWinding')
+  list_table (dict, 'DistXfmrTank')
 
