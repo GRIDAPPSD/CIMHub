@@ -6,6 +6,12 @@ import math
 import xml.etree.ElementTree as ET
 import pandas as pd
 
+cases = [
+  {'fid': '4BE6DD69-8FE9-4C9F-AD44-B327D5623974', 'fname': 'ieee13x.xlsx'},
+  {'fid': '4C4E3E2C-6332-4DCB-8425-26B628178374', 'fname': 'ieee123x.xlsx'},
+  {'fid': '1C9727D2-E4D2-4084-B612-90A44E1810FD', 'fname': 'j1red.xlsx'},
+]
+
 sparql = None
 prefix = None
 sqrt3 = math.sqrt(3.0)
@@ -90,7 +96,7 @@ def list_feeders (dict):
 
 def list_table(dict, tag):
   tbl = dict[tag]
-  print ('{:s}: key,{:s}'.format(tag, str(tbl['columns'])))
+  print ('\n{:s}: key,{:s}'.format(tag, str(tbl['columns'])))
   for key, row in tbl['vals'].items():
     print ('{:s},{:s}'.format (key, ','.join(str(row[c]) for c in tbl['columns'])))
 
@@ -617,14 +623,14 @@ def write_ephasor_model (dict, filename):
            'Bus1_A':[], 'Bus1_B':[], 'Bus1_C':[], 'V1 (kV)':[], 'S_base1 (kVA)':[], 'Conn. type1':[],
            'Bus2_A':[], 'Bus2_B':[], 'Bus2_C':[], 'V2 (kV)':[], 'S_base2 (kVA)':[], 'Conn. type2':[],
            'Tap 1':[], 'Tap 2':[], 'Tap 3':[], 'Lowest Tap':[], 'Highest Tap':[], 'Min Range (%)':[], 'Max Range (%)':[], 
-           'X (pu)':[], 'RW1 (pu)':[], 'RW2':[]}
+           'X (pu)':[], 'RW1 (pu)':[], 'RW2 (pu)':[]}
   data4 = {'ID':[], 'Status':[], 'Number of phases':[], 
            'Bus1_A':[], 'Bus1_B':[], 'Bus1_C':[], 'V1 (kV)':[], 'S_base1 (kVA)':[], 'Conn. type1':[],
            'Bus2_A':[], 'Bus2_B':[], 'Bus2_C':[], 'V2 (kV)':[], 'S_base2 (kVA)':[], 'Conn. type2':[],
            'Tap 1':[], 'Tap 2':[], 'Tap 3':[], 'Lowest Tap':[], 'Highest Tap':[], 'Min Range (%)':[], 'Max Range (%)':[], 
            'Z0 leakage (pu)':[], 'Z1 leakage (pu)':[], 'X0/R0':[], 'X1/R1':[], 'No Load Loss (kW)':[]}
 
-  # balanced PowerTransformer instances can be exported as positive-sequence 2W or 3W
+  # balanced PowerTransformer instances can be represented as positive-sequence 2W or 3W
   XfmrWindingCount = {}
   for key in dict['DistPowerXfmrWinding']['vals']:
     pname = key.split(':')[0]
@@ -639,19 +645,75 @@ def write_ephasor_model (dict, filename):
       z12 = dict['DistPowerXfmrMesh']['vals']['{:s}:1:2'.format(pname)]
       ym = dict['DistPowerXfmrCore']['vals'][pname]
       zbase = wdg1['ratedU'] * wdg1['ratedU'] / wdg1['ratedS']
-      data1['ID'].append(pname)
-      data1['Status'].append(1)
-      data1['From bus'].append(wdg1['bus'])
-      data1['To bus'].append(wdg2['bus'])
-      data1['R (pu)'].append(z12['r']/zbase)
-      data1['Xl (pu)'].append(z12['x']/zbase)
-      if ym['enum'] == 2:
-        zbase = wdg2['ratedU'] * wdg2['ratedU'] / wdg2['ratedS']
-      data1['Gmag (pu)'].append(ym['g']*zbase)
-      data1['Bmag (pu)'].append(ym['b']*zbase)
-      data1['Ratio W1 (pu)'].append(1.0)
-      data1['Ratio W2 (pu)'].append(1.0)
-      data1['Phase Shift (deg)'].append(winding_shift (wdg2['ang']))
+      tap1 = 0
+      tap2 = 0
+      tap3 = 0
+      lowtap = -16
+      hightap = -16
+      maxboost = 10.0
+      maxbuck = 10.0
+      # this balanced 2W version cannot be mixed with multi-phase models in ePHASORSIM
+#     data1['ID'].append(pname)
+#     data1['Status'].append(1)
+#     data1['From bus'].append(wdg1['bus'])
+#     data1['To bus'].append(wdg2['bus'])
+#     data1['R (pu)'].append(z12['r']/zbase)
+#     data1['Xl (pu)'].append(z12['x']/zbase)
+#     if ym['enum'] == 2:
+#       zbase = wdg2['ratedU'] * wdg2['ratedU'] / wdg2['ratedS']
+#     data1['Gmag (pu)'].append(ym['g']*zbase)
+#     data1['Bmag (pu)'].append(ym['b']*zbase)
+#     data1['Ratio W1 (pu)'].append(1.0)
+#     data1['Ratio W2 (pu)'].append(1.0)
+#     data1['Phase Shift (deg)'].append(winding_shift (wdg2['ang']))
+      # 2W multi-phase; no place for the core admittance
+      aphs = phase_array ('ABC')
+      if ym['g'] <= 0.0:
+        dxf = data3
+        xpu = z12['x']/zbase
+        rpu = 0.5 * z12['r']/zbase
+        data3['X (pu)'].append(xpu)
+        data3['RW1 (pu)'].append(rpu)
+        data3['RW2 (pu)'].append(rpu)
+      else:
+        dxf = data4
+        xpu = z12['x']/zbase
+        rpu = z12['r']/zbase
+        if rpu <= 0.0:
+          rpu = 0.001 * xpu
+        zpu = math.sqrt(rpu*rpu + xpu*xpu)
+        xr = xpu/rpu
+        if ym['enum'] == 1:
+          kw = 0.001 * ym['g'] * wdg1['ratedU'] * wdg1['ratedU']
+        else:
+          kw = 0.001 * ym['g'] * wdg2['ratedU'] * wdg2['ratedU']
+        data4['Z1 leakage (pu)'].append(zpu)
+        data4['Z0 leakage (pu)'].append(zpu)
+        data4['X1/R1'].append(xr)
+        data4['X0/R0'].append(xr)
+        data4['No Load Loss (kW)'].append(kw)
+      dxf['ID'].append(pname)
+      dxf['Status'].append(1)
+      dxf['Number of phases'].append(len(aphs))
+      dxf['Bus1_A'].append(wdg1['bus'] + aphs[0])
+      dxf['Bus1_B'].append(wdg1['bus'] + aphs[1])
+      dxf['Bus1_C'].append(wdg1['bus'] + aphs[2])
+      dxf['Bus2_A'].append(wdg2['bus'] + aphs[0])
+      dxf['Bus2_B'].append(wdg2['bus'] + aphs[1])
+      dxf['Bus2_C'].append(wdg2['bus'] + aphs[2])
+      dxf['V1 (kV)'].append(wdg1['ratedU'] * 0.001)
+      dxf['S_base1 (kVA)'].append(wdg1['ratedS'] * 0.001)
+      dxf['Conn. type1'].append(conn_string(wdg1['conn']))
+      dxf['V2 (kV)'].append(wdg2['ratedU'] * 0.001)
+      dxf['S_base2 (kVA)'].append(wdg2['ratedS'] * 0.001)
+      dxf['Conn. type2'].append(conn_string(wdg2['conn']))
+      dxf['Tap 1'].append(tap1)
+      dxf['Tap 2'].append(tap2)
+      dxf['Tap 3'].append(tap3)
+      dxf['Lowest Tap'].append(lowtap)
+      dxf['Highest Tap'].append(hightap)
+      dxf['Min Range (%)'].append(maxbuck)
+      dxf['Max Range (%)'].append(maxboost)
     elif nwdg == 3:
       wdg1 = dict['DistPowerXfmrWinding']['vals']['{:s}:1'.format(pname)]
       wdg2 = dict['DistPowerXfmrWinding']['vals']['{:s}:2'.format(pname)]
@@ -687,8 +749,56 @@ def write_ephasor_model (dict, filename):
       data2['Phase Shift W1 (deg)'].append(winding_shift (wdg1['ang']))
       data2['Phase Shift W2 (deg)'].append(winding_shift (wdg2['ang']))
       data2['Phase Shift W3 (deg)'].append(winding_shift (wdg3['ang']))
+      print ('*** PowerTransformer {:s} has 3 windings, exported as 3W positive sequence, which cannot be mixed with multi-phase models.\n'.format (pname),
+             '   Suggest editing the original model to use 2W transformer(s) here.')
     else:
       print ('*** PowerTransformer {:s} has {:d} windings, which is not supported in this conversion'.format (pname, nwdg))
+
+  # each transformer bank is an unbalanced transformer; need to list its tanks and count its phases
+  XfmrBanks = {}
+  for key, row in dict['DistXfmrBank']['vals'].items():
+    keys = key.split(':')
+    pname = keys[0]
+    tname = keys[1]
+    vgrp = row['vgrp'].upper()
+    if pname not in XfmrBanks:
+      XfmrBanks[pname] = {'tanks': [], 'nphs': 1}
+    XfmrBanks[pname]['tanks'].append(tname)
+    if 'Y' in vgrp or 'D' in vgrp:
+      XfmrBanks[pname]['nphs'] = 3
+  # also need the number of windings and list of phases on each XfmrTank, for ePHASORSIM, s1 and s2 are supplanted by the primary phase
+  XfmrTanks = {}
+  for key, row in dict['DistXfmrTank']['vals'].items():
+    keys = key.split(':')
+    pname = keys[0]
+    tname = keys[1]
+    enum = int(keys[2])
+    phases = row['phases']
+    if tname not in XfmrTanks:
+      XfmrTanks[tname] = {'nwdg': 0, 'phases': set()}
+    XfmrTanks[tname]['nwdg'] += 1
+    if 'A' in phases:
+      XfmrTanks[tname]['phases'].add('A')
+    if 'B' in phases:
+      XfmrTanks[tname]['phases'].add('B')
+    if 'C' in phases:
+      XfmrTanks[tname]['phases'].add('C')
+
+  # now write the banked transformers as 2W multi-phase
+  for pname, row in XfmrBanks.items():
+    if len(row['tanks']) > 1:
+      print ('*** PowerTransformer {:s} has {:d} tanks; only using impedances and ratings from the first'.format (pname, len(row['tanks'])))
+    dxf = data3
+
+#    dxf['ID'].append(pname)
+#    dxf['Status'].append(1)
+#    dxf['Number of phases'].append(row['nphs'])
+#   dxf['Bus1_A'].append(wdg1['bus'] + aphs[0])
+#   dxf['Bus1_B'].append(wdg1['bus'] + aphs[1])
+#   dxf['Bus1_C'].append(wdg1['bus'] + aphs[2])
+#   dxf['Bus2_A'].append(wdg2['bus'] + aphs[0])
+#   dxf['Bus2_B'].append(wdg2['bus'] + aphs[1])
+#   dxf['Bus2_C'].append(wdg2['bus'] + aphs[2])
 
   df1 = pd.DataFrame (data1)
   df2 = pd.DataFrame (data2)
@@ -765,8 +875,14 @@ def write_ephasor_model (dict, filename):
 
 if __name__ == '__main__':
   cfg_file = 'cimhubconfig.json'
+  case_id = 0
+#  if len(sys.argv) > 1:
+#    cfg_file = sys.argv[1]
   if len(sys.argv) > 1:
-    cfg_file = sys.argv[1]
+    case_id = int(sys.argv[1])
+  fid = cases[case_id]['fid']
+  fname = cases[case_id]['fname']
+
   initialize_sparql (cfg_file)
 
   # read the queries into dict
@@ -784,20 +900,21 @@ if __name__ == '__main__':
     dict[qid]['columns'] = []
     dict[qid]['vals'] = {}
 
-  fid = '4BE6DD69-8FE9-4C9F-AD44-B327D5623974'  # ieee13x
-#  fid = '4C4E3E2C-6332-4DCB-8425-26B628178374'  # ieee123x
-#  fid = '1C9727D2-E4D2-4084-B612-90A44E1810FD'  # j1red
-#  list_feeders (dict)
   load_feeder (dict, fid, bTime=False)
   summarize_dict (dict)
 
-  write_ephasor_model (dict, 'ieee13x.xlsx')
+  write_ephasor_model (dict, fname)
 
-  list_table (dict, 'DistPowerXfmrWinding')
+#  list_table (dict, 'DistPowerXfmrWinding')
+#  list_table (dict, 'DistRegulatorBanked')
+  list_table (dict, 'DistXfmrBank')
   list_table (dict, 'DistXfmrTank')
+  list_table (dict, 'DistXfmrCodeRating')
+  list_table (dict, 'DistXfmrCodeSCTest')
+  list_table (dict, 'DistXfmrCodeNLTest')
   list_table (dict, 'DistRegulatorTanked')
   for tbl in ['DistLinesInstanceZ', 'DistLinesSpacingZ', 'DistSequenceMatrix', 'DistRegulatorBanked', 'DistRegulatorTanked',
-              'DistPowerXfmrWinding', 'DistXfmrTank']:
+              'DistXfmrBank', 'DistSyncMachine']:
     if len(dict[tbl]['vals']) > 0:
       print ('**** {:s} used in the circuit; but not implemented'.format (tbl))
 

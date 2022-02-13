@@ -799,7 +799,7 @@ GROUP BY ?name ?id ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe 
 </query>
 <query>
 <id>DistXfmrCodeRating</id>
-<keyfld>pname:tname:enum</keyfld>
+<keyfld>tname:enum</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -831,7 +831,7 @@ ORDER BY ?pname ?tname ?enum
 </query>
 <query>
 <id>DistXfmrCodeNLTest</id>
-<keyfld>pname:tname</keyfld>
+<keyfld>tname</keyfld>
 <description>No-load tests actually used</description>
 <value>
 <![CDATA[
@@ -856,7 +856,7 @@ ORDER BY ?pname ?tname
 </query>
 <query>
 <id>DistXfmrCodeSCTest</id>
-<keyfld>pname:tname:enum:gnum</keyfld>
+<keyfld>tname:enum:gnum</keyfld>
 <description></description>
 <value>
 <![CDATA[
@@ -1220,7 +1220,7 @@ ORDER BY ?name ?phs
 </query>
 <query>
 <id>DistXfmrBank</id>
-<keyfld>pname</keyfld>
+<keyfld>pname:tname</keyfld>
 <description></description>
 <value>
 <![CDATA[
