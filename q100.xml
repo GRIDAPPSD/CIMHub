@@ -33,6 +33,34 @@ ORDER by ?feeder ?busname ?nomv
 </value>
 </query>
 <query>
+<id>DistSyncMachine</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?bus (group_concat(distinct ?phs;separator="") as ?phases) ?ratedS ?ratedU ?p ?q ?id ?fdrid WHERE {
+ ?s r:type c:SynchronousMachine.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:SynchronousMachine.ratedS ?ratedS.
+ ?s c:SynchronousMachine.ratedU ?ratedU.
+ ?s c:SynchronousMachine.p ?p.
+ ?s c:SynchronousMachine.q ?q. 
+ bind(strafter(str(?s),"#_") as ?id).
+ OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s.
+ ?smp c:SynchronousMachinePhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?p ?q ?id ?fdrid
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
 <id>DistLinesInstanceZ</id>
 <keyfld>name</keyfld>
 <description></description>
