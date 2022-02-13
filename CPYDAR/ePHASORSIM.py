@@ -193,6 +193,31 @@ def append_phase_matrix (data, key, nphs, tbl):
       data['x{:d}{:d} (Ohm/length_unit)'.format(i+1, j+1)].append (row['x'])
       data['b{:d}{:d} (uS/length_unit)'.format(i+1, j+1)].append (row['b']*1.0e6)
 
+def winding_shift (clock_angle):
+  if clock_angle == 0:
+    return 0.0
+  elif clock_angle == 1:
+    return -30.0
+  elif clock_angle == 11:
+    return 30.0
+  elif clock_angle == 10:
+    return 60.0
+  elif clock_angle == 9:
+    return 90.0
+  elif clock_angle == 8:
+    return 120.0
+  elif clock_angle == 7:
+    return 150.0
+  elif clock_angle == 6:
+    return 180.0
+  elif clock_angle == 5:
+    return -150.0
+  elif clock_angle == 4:
+    return -120.0
+  elif clock_angle == 3:
+    return -90.0
+  return -60.0 # 2
+
 def write_ephasor_model (dict, filename):
   xlw = pd.ExcelWriter (filename)
   feeder_name = list(dict['DistFeeder']['vals'].keys())[0]
@@ -598,6 +623,72 @@ def write_ephasor_model (dict, filename):
            'Bus2_A':[], 'Bus2_B':[], 'Bus2_C':[], 'V2 (kV)':[], 'S_base2 (kVA)':[], 'Conn. type2':[],
            'Tap 1':[], 'Tap 2':[], 'Tap 3':[], 'Lowest Tap':[], 'Highest Tap':[], 'Min Range (%)':[], 'Max Range (%)':[], 
            'Z0 leakage (pu)':[], 'Z1 leakage (pu)':[], 'X0/R0':[], 'X1/R1':[], 'No Load Loss (kW)':[]}
+
+  # balanced PowerTransformer instances can be exported as positive-sequence 2W or 3W
+  XfmrWindingCount = {}
+  for key in dict['DistPowerXfmrWinding']['vals']:
+    pname = key.split(':')[0]
+    if pname in XfmrWindingCount:
+      XfmrWindingCount[pname] += 1
+    else:
+      XfmrWindingCount[pname] = 1
+  for pname, nwdg in XfmrWindingCount.items():
+    if nwdg == 2:
+      wdg1 = dict['DistPowerXfmrWinding']['vals']['{:s}:1'.format(pname)]
+      wdg2 = dict['DistPowerXfmrWinding']['vals']['{:s}:2'.format(pname)]
+      z12 = dict['DistPowerXfmrMesh']['vals']['{:s}:1:2'.format(pname)]
+      ym = dict['DistPowerXfmrCore']['vals'][pname]
+      zbase = wdg1['ratedU'] * wdg1['ratedU'] / wdg1['ratedS']
+      data1['ID'].append(pname)
+      data1['Status'].append(1)
+      data1['From bus'].append(wdg1['bus'])
+      data1['To bus'].append(wdg2['bus'])
+      data1['R (pu)'].append(z12['r']/zbase)
+      data1['Xl (pu)'].append(z12['x']/zbase)
+      if ym['enum'] == 2:
+        zbase = wdg2['ratedU'] * wdg2['ratedU'] / wdg2['ratedS']
+      data1['Gmag (pu)'].append(ym['g']*zbase)
+      data1['Bmag (pu)'].append(ym['b']*zbase)
+      data1['Ratio W1 (pu)'].append(1.0)
+      data1['Ratio W2 (pu)'].append(1.0)
+      data1['Phase Shift (deg)'].append(winding_shift (wdg2['ang']))
+    elif nwdg == 3:
+      wdg1 = dict['DistPowerXfmrWinding']['vals']['{:s}:1'.format(pname)]
+      wdg2 = dict['DistPowerXfmrWinding']['vals']['{:s}:2'.format(pname)]
+      wdg3 = dict['DistPowerXfmrWinding']['vals']['{:s}:3'.format(pname)]
+      z12 = dict['DistPowerXfmrMesh']['vals']['{:s}:1:2'.format(pname)]
+      z13 = dict['DistPowerXfmrMesh']['vals']['{:s}:1:3'.format(pname)]
+      z23 = dict['DistPowerXfmrMesh']['vals']['{:s}:2:3'.format(pname)]
+      z12base = wdg1['ratedU'] * wdg1['ratedU'] / wdg1['ratedS'] # TODO - check these against the Java code
+      z13base = wdg1['ratedU'] * wdg1['ratedU'] / wdg1['ratedS']
+      z23base = wdg2['ratedU'] * wdg2['ratedU'] / wdg2['ratedS']
+      ym = dict['DistPowerXfmrCore']['vals'][pname]
+      data2['ID'].append(pname)
+      data2['Status'].append(1)
+      data2['Bus1'].append(wdg1['bus'])
+      data2['Bus2'].append(wdg2['bus'])
+      data2['Bus3'].append(wdg3['bus'])
+      data2['R_12 (pu)'].append(z12['r']/z12base)
+      data2['Xl_12 (pu)'].append(z12['x']/z12base)
+      data2['R_23 (pu)'].append(z23['r']/z23base)
+      data2['Xl_23 (pu)'].append(z23['x']/z23base)
+      data2['R_31 (pu)'].append(z13['r']/z13base)
+      data2['Xl_31 (pu)'].append(z13['x']/z13base)
+      zybase = z12base
+      if ym['enum'] == 2:
+        zybase = wdg2['ratedU'] * wdg2['ratedU'] / wdg2['ratedS']
+      elif ym['enum'] == 3:
+        zybase = wdg3['ratedU'] * wdg3['ratedU'] / wdg3['ratedS']
+      data2['Gmag (pu)'].append(ym['g']*zybase)
+      data2['Bmag (pu)'].append(ym['b']*zybase)
+      data2['Ratio W1 (pu)'].append(1.0)
+      data2['Ratio W2 (pu)'].append(1.0)
+      data2['Ratio W3 (pu)'].append(1.0)
+      data2['Phase Shift W1 (deg)'].append(winding_shift (wdg1['ang']))
+      data2['Phase Shift W2 (deg)'].append(winding_shift (wdg2['ang']))
+      data2['Phase Shift W3 (deg)'].append(winding_shift (wdg3['ang']))
+    else:
+      print ('*** PowerTransformer {:s} has {:d} windings, which is not supported in this conversion'.format (pname, nwdg))
 
   df1 = pd.DataFrame (data1)
   df2 = pd.DataFrame (data2)
