@@ -14,6 +14,8 @@ load_bandwidth = 0.12  # per-unit range for using ZIP coefficients, change to co
 DER_K_z = 0.0
 DER_K_i = 100.0  # representing DER as constant current negative loads
 DER_K_p = 0.0
+mva_base = 100.0
+xl_start_row = 10
 
 def initialize_sparql (cfg_file=None):
   global sparql
@@ -156,6 +158,13 @@ def add_comment_cell (xlw, sheet_name, startrow, txt):
   df = pd.DataFrame ([txt])
   df.to_excel (xlw, sheet_name = sheet_name, header=False, index=False, startrow=startrow)
 
+def sequenced_phase_array (seqs):
+  seqphs = sorted(seqs.split(':'))
+  retval = []
+  for e in seqphs:
+    retval.append ('_' + e[1:])
+  return retval
+
 def phase_array (phases):
   retval = []
   for phs in ['A', 'B', 'C', 's1', 's2']:
@@ -175,6 +184,15 @@ def name_prefix (query_id):
     return 'bat_'
   return ''
 
+def append_phase_matrix (data, key, nphs, tbl):
+  for i in range(nphs):
+    for j in range(i+1):
+      tok = '{:s}:{:d}:{:d}'.format (key, i+1, j+1)
+      row = tbl[tok]
+      data['r{:d}{:d} (Ohm/length_unit)'.format(i+1, j+1)].append (row['r'])
+      data['x{:d}{:d} (Ohm/length_unit)'.format(i+1, j+1)].append (row['x'])
+      data['b{:d}{:d} (uS/length_unit)'.format(i+1, j+1)].append (row['b']*1.0e6)
+
 def write_ephasor_model (dict, filename):
   xlw = pd.ExcelWriter (filename)
   feeder_name = list(dict['DistFeeder']['vals'].keys())[0]
@@ -186,11 +204,11 @@ def write_ephasor_model (dict, filename):
   df = pd.DataFrame ([['Excel file version', 'v2.0'], 
                       ['Name', feeder_name], 
                       ['Frequency (Hz)', 60], 
-                      ['Power Base (MVA)', 100]])
+                      ['Power Base (MVA)', mva_base]])
   df.to_excel (xlw, sheet_name='General', header=False, index=False)
 
   # voltage sources, identify slack buses
-  xlrow = 10
+  xlrow = xl_start_row
   add_comment_cell (xlw, 'Voltage Source', xlrow, 'Positive Sequence Voltage Source')
   data = {'ID':[], 'Bus':[], 'Voltage (pu)':[], 'Angle (deg)':[], 'Rs (pu)':[], 'Xs (pu)':[]}
   df = pd.DataFrame (data)
@@ -371,7 +389,7 @@ def write_ephasor_model (dict, filename):
   df4 = pd.DataFrame (data4)
   df5 = pd.DataFrame (data5)
   df6 = pd.DataFrame (data6)
-  xlrow = 10
+  xlrow = xl_start_row
   add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Imepedance Load') # replicating typo on the Opal-RT template
   df1.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
@@ -454,7 +472,7 @@ def write_ephasor_model (dict, filename):
   df2 = pd.DataFrame (data2)
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
-  xlrow = 10
+  xlrow = xl_start_row
   add_comment_cell (xlw, 'Shunt', xlrow, 'Positive Sequence Shunt')
   df1.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
@@ -501,13 +519,43 @@ def write_ephasor_model (dict, filename):
            'R0 (Ohm/length_unit)':[], 'X0 (Ohm/length_unit)':[], 
            'R1 (Ohm/length_unit)':[], 'X1 (Ohm/length_unit)':[], 
            'B0 (uS/length_unit)':[], 'B1 (uS/length_unit)':[]}
+  for key, row in dict['DistLinesCodeZ']['vals'].items():
+    aphs = sequenced_phase_array (row['seqs'])
+    kv = 0.001 * row['basev']
+    if len(aphs) == 1:
+      data2['ID'].append(key)
+      data2['Status'].append(1)
+      data2['Length'].append(row['len'])
+      data2['From1'].append(row['bus1'] + aphs[0])
+      data2['To1'].append(row['bus2'] + aphs[0])
+      append_phase_matrix (data2, row['lname'], 1, dict['DistPhaseMatrix']['vals'])
+    elif len(aphs) == 2:
+      data3['ID'].append(key)
+      data3['Status'].append(1)
+      data3['Length'].append(row['len'])
+      data3['From1'].append(row['bus1'] + aphs[0])
+      data3['To1'].append(row['bus2'] + aphs[0])
+      data3['From2'].append(row['bus1'] + aphs[1])
+      data3['To2'].append(row['bus2'] + aphs[1])
+      append_phase_matrix (data3, row['lname'], 2, dict['DistPhaseMatrix']['vals'])
+    elif len(aphs) == 3:
+      data4['ID'].append(key)
+      data4['Status'].append(1)
+      data4['Length'].append(row['len'])
+      data4['From1'].append(row['bus1'] + aphs[0])
+      data4['To1'].append(row['bus2'] + aphs[0])
+      data4['From2'].append(row['bus1'] + aphs[1])
+      data4['To2'].append(row['bus2'] + aphs[1])
+      data4['From3'].append(row['bus1'] + aphs[2])
+      data4['To3'].append(row['bus2'] + aphs[2])
+      append_phase_matrix (data4, row['lname'], 3, dict['DistPhaseMatrix']['vals'])
 
   df1 = pd.DataFrame (data1)
   df2 = pd.DataFrame (data2)
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
   df5 = pd.DataFrame (data5)
-  xlrow = 10
+  xlrow = xl_start_row
   add_comment_cell (xlw, 'Line', xlrow, 'Positive-Sequence Line')
   df1.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
@@ -555,7 +603,7 @@ def write_ephasor_model (dict, filename):
   df2 = pd.DataFrame (data2)
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
-  xlrow = 10
+  xlrow = xl_start_row
   add_comment_cell (xlw, 'Transformer', xlrow, 'Positive-Sequence 2W Transformer')
   df1.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
@@ -654,7 +702,11 @@ if __name__ == '__main__':
 
   write_ephasor_model (dict, 'ieee13x.xlsx')
 
-  list_table (dict, 'DistLinesCodeZ')
   list_table (dict, 'DistPowerXfmrWinding')
   list_table (dict, 'DistXfmrTank')
+  list_table (dict, 'DistRegulatorTanked')
+  for tbl in ['DistLinesInstanceZ', 'DistLinesSpacingZ', 'DistSequenceMatrix', 'DistRegulatorBanked', 'DistRegulatorTanked',
+              'DistPowerXfmrWinding', 'DistXfmrTank']:
+    if len(dict[tbl]['vals']) > 0:
+      print ('**** {:s} used in the circuit; but not implemented'.format (tbl))
 
