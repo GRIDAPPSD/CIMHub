@@ -24,8 +24,13 @@ SELECT DISTINCT ?feeder ?busname ?cnid ?nomv WHERE {
  ?bus c:IdentifiedObject.mRID ?cnid.
  ?fdr c:IdentifiedObject.name ?feeder.
  ?trm c:Terminal.ConnectivityNode ?bus.
- ?trm c:Terminal.ConductingEquipment ?ce.
- ?ce  c:ConductingEquipment.BaseVoltage ?bv.
+ { 
+   ?trm c:Terminal.ConductingEquipment ?ce.
+   ?ce  c:ConductingEquipment.BaseVoltage ?bv.
+ } UNION { 
+   ?end c:TransformerEnd.Terminal ?trm.
+   ?end c:TransformerEnd.BaseVoltage ?bv.
+ }
  ?bv  c:BaseVoltage.nominalVoltage ?nomv.
 }
 ORDER by ?feeder ?busname ?nomv
@@ -835,7 +840,7 @@ ORDER BY ?pname ?tname ?enum
 <description>No-load tests actually used</description>
 <value>
 <![CDATA[
-SELECT DISTINCT ?pname ?tname ?nll ?iexc WHERE {
+SELECT DISTINCT ?pname ?tname ?nll ?iexc ?vbase ?sbase WHERE {
  ?eq c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?xft c:TransformerTank.PowerTransformer ?eq.
@@ -848,7 +853,9 @@ SELECT DISTINCT ?pname ?tname ?nll ?iexc WHERE {
  ?e c:TransformerEndInfo.TransformerTankInfo ?t.
  ?nlt c:NoLoadTest.EnergisedEnd ?e.
  ?nlt c:NoLoadTest.loss ?nll.
- ?nlt c:NoLoadTest.excitingCurrent ?iexc
+ ?nlt c:NoLoadTest.excitingCurrent ?iexc.
+ ?nlt c:NoLoadTest.energisedEndVoltage ?vbase.
+ ?nlt c:TransformerTest.basePower ?sbase
 }
 ORDER BY ?pname ?tname
 ]]>

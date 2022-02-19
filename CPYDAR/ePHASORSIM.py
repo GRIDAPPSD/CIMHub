@@ -193,7 +193,7 @@ def name_prefix (query_id):
 def append_phase_matrix (data, key, nphs, tbl):
   for i in range(nphs):
     for j in range(i+1):
-      tok = '{:s}:{:d}:{:d}'.format (key, i+1, j+1)
+      tok = '{:s}:{:d}:{:d}'.format (str(key), i+1, j+1)
       row = tbl[tok]
       data['r{:d}{:d} (Ohm/length_unit)'.format(i+1, j+1)].append (row['r'])
       data['x{:d}{:d} (Ohm/length_unit)'.format(i+1, j+1)].append (row['x'])
@@ -223,6 +223,119 @@ def winding_shift (clock_angle):
   elif clock_angle == 3:
     return -90.0
   return -60.0 # 2
+
+def make_transformer_star_bus (BusPhs, tname):
+  StarPhs = []
+  for elem in BusPhs:
+    if len(elem) > 0:
+      phs = elem[-1]
+      if phs == '1':
+        phs = 's1'
+      elif phs == '2':
+        phs = 's2'
+      StarPhs.append ('xfstar_{:s}_{:s}'.format (tname, phs))
+  while len(StarPhs) < 3:
+    StarPhs.append('')
+  return StarPhs
+
+def get_transformer_mesh (dict, base_key, end1, end2):
+  BusPhs1 = []
+  BusPhs2 = []
+  r = 0.0
+  x = 0.0
+  key1 = '{:s}:{:d}'.format (base_key, end1)
+  key2 = '{:s}:{:d}'.format (base_key, end2)
+
+  wdg1 = dict['DistXfmrTank']['vals'][key1]
+  wdg2 = dict['DistXfmrTank']['vals'][key2]
+  aphs1 = phase_array (wdg1['phases'])
+  aphs2 = phase_array (wdg2['phases'])
+  nphs1 = len(aphs1)
+  nphs2 = len(aphs2)
+  for phs in aphs1:
+    BusPhs1.append(wdg1['bus'] + phs)
+  for phs in aphs2:
+    BusPhs2.append(wdg2['bus'] + phs)
+  while len(BusPhs1) < 3:
+    BusPhs1.append('')
+  while len(BusPhs2) < 3:
+    BusPhs2.append('')
+
+  code1 = dict['DistXfmrCodeRating']['vals']['{:s}:{:d}'.format(wdg1['xfmrcode'], end1)]
+  v1 = 0.001 * code1['ratedU']
+  if code1['conn'] == 'I':
+    v1 *= sqrt3
+  s1 = 0.001 * code1['ratedS'] * nphs1
+  conn1 = conn_string(code1['conn'])
+  code2 = dict['DistXfmrCodeRating']['vals']['{:s}:{:d}'.format(wdg2['xfmrcode'], end2)]
+  v2 = 0.001 * code2['ratedU']
+  if code2['conn'] == 'I':
+    v2 *= sqrt3
+  s2 = 0.001 * code2['ratedS'] * nphs2
+  conn2 = conn_string(code2['conn'])
+
+  sctest = dict['DistXfmrCodeSCTest']['vals']['{:s}:{:d}:{:d}'.format(wdg2['xfmrcode'], end1, end2)]
+  zbase = code1['ratedU'] * code1['ratedU'] / code1['ratedS']
+  zpu = sctest['z'] / zbase
+  r = sctest['ll'] / s1
+  x = math.sqrt(zpu*zpu - r*r)
+
+  print ('Tank {:s}, {:d}-{:d}, bus1={:s},{:s},{:s}, bus2={:s},{:s},{:s}'.format(base_key, end1, end2,
+    BusPhs1[0], BusPhs1[1], BusPhs1[2], BusPhs2[0], BusPhs2[1], BusPhs2[2]))
+  print ('  wdg 1: v={:.3f} s={:.2f} conn={:s}; wdg 2: v={:.3f} s={:.2f} conn={:s} r={:.6f} x={:.6f}'.format (v1, s1, conn1, v2, s2, conn2, r, x))
+
+  return BusPhs1, BusPhs2, v1, v2, s1, s1, conn1, conn2, r, x
+
+def append_transformer_branch_only (dxf, r, x):
+  dxf['X (pu)'].append(x)
+  if r < 0.0:
+    r = 0.0
+  dxf['RW1 (pu)'].append(0.5*r)
+  dxf['RW2 (pu)'].append(0.5*r)
+
+def append_transformer_branch_and_core (dxf, r, x, nll_kw):
+  if r <= 0.0:
+    r = 0.001 * x
+  z = math.sqrt(r*r + x*x)
+  xr = x/r
+  dxf['Z1 leakage (pu)'].append(z)
+  dxf['Z0 leakage (pu)'].append(z)
+  dxf['X1/R1'].append(xr)
+  dxf['X0/R0'].append(xr)
+  dxf['No Load Loss (kW)'].append(nll_kw)
+
+def append_transformer_tank (dxf, base_key, BusPhs1, BusPhs2, v1, v2, s1, s2, conn1, conn2,
+                             tap1, tap2, tap3, lowtap, hightap, maxboost, maxbuck):
+  dxf['ID'].append(base_key)
+  dxf['Status'].append(1)
+  nph1 = 0
+  for busphs in BusPhs1:
+    if len(busphs) > 0:
+      nph1 += 1
+  nph2 = 0
+  for busphs in BusPhs2:
+    if len(busphs) > 0:
+      nph2 += 1
+  dxf['Number of phases'].append(min(nph1, nph2))
+  dxf['Bus1_A'].append(BusPhs1[0])
+  dxf['Bus1_B'].append(BusPhs1[1])
+  dxf['Bus1_C'].append(BusPhs1[2])
+  dxf['Bus2_A'].append(BusPhs2[0])
+  dxf['Bus2_B'].append(BusPhs2[1])
+  dxf['Bus2_C'].append(BusPhs2[2])
+  dxf['V1 (kV)'].append(v1)
+  dxf['S_base1 (kVA)'].append(s2)
+  dxf['Conn. type1'].append(conn1)
+  dxf['V2 (kV)'].append(v2)
+  dxf['S_base2 (kVA)'].append(s2)
+  dxf['Conn. type2'].append(conn2)
+  dxf['Tap 1'].append(tap1)
+  dxf['Tap 2'].append(tap2)
+  dxf['Tap 3'].append(tap3)
+  dxf['Lowest Tap'].append(lowtap)
+  dxf['Highest Tap'].append(hightap)
+  dxf['Min Range (%)'].append(maxbuck)
+  dxf['Max Range (%)'].append(maxboost)
 
 def write_ephasor_model (dict, filename):
   xlw = pd.ExcelWriter (filename)
@@ -631,14 +744,19 @@ def write_ephasor_model (dict, filename):
            'Z0 leakage (pu)':[], 'Z1 leakage (pu)':[], 'X0/R0':[], 'X1/R1':[], 'No Load Loss (kW)':[]}
 
   # balanced PowerTransformer instances can be represented as positive-sequence 2W or 3W
-  XfmrWindingCount = {}
+  PowerXfmrs = {}
   for key in dict['DistPowerXfmrWinding']['vals']:
     pname = key.split(':')[0]
-    if pname in XfmrWindingCount:
-      XfmrWindingCount[pname] += 1
+    if pname in PowerXfmrs:
+      PowerXfmrs[pname]['nwdg'] += 1
     else:
-      XfmrWindingCount[pname] = 1
-  for pname, nwdg in XfmrWindingCount.items():
+      PowerXfmrs[pname] = {'nwdg':1, 'regulator': None}
+  for key, row in dict['DistRegulatorBanked']['vals'].items():
+    if row['pname'] in PowerXfmrs:
+      PowerXfmrs[row['pname']]['regulator'] = key
+  print (PowerXfmrs)
+  for pname, row in PowerXfmrs.items():
+    nwdg = row['nwdg']
     if nwdg == 2:
       wdg1 = dict['DistPowerXfmrWinding']['vals']['{:s}:1'.format(pname)]
       wdg2 = dict['DistPowerXfmrWinding']['vals']['{:s}:2'.format(pname)]
@@ -649,7 +767,7 @@ def write_ephasor_model (dict, filename):
       tap2 = 0
       tap3 = 0
       lowtap = -16
-      hightap = -16
+      hightap = 16
       maxboost = 10.0
       maxbuck = 10.0
       # this balanced 2W version cannot be mixed with multi-phase models in ePHASORSIM
@@ -760,45 +878,80 @@ def write_ephasor_model (dict, filename):
     keys = key.split(':')
     pname = keys[0]
     tname = keys[1]
-    vgrp = row['vgrp'].upper()
     if pname not in XfmrBanks:
-      XfmrBanks[pname] = {'tanks': [], 'nphs': 1}
+      XfmrBanks[pname] = {'tanks': []}
     XfmrBanks[pname]['tanks'].append(tname)
-    if 'Y' in vgrp or 'D' in vgrp:
-      XfmrBanks[pname]['nphs'] = 3
-  # also need the number of windings and list of phases on each XfmrTank, for ePHASORSIM, s1 and s2 are supplanted by the primary phase
+  # also need the number of windings and back-pointer to the regulator (if present) on each tank
   XfmrTanks = {}
   for key, row in dict['DistXfmrTank']['vals'].items():
     keys = key.split(':')
     pname = keys[0]
     tname = keys[1]
-    enum = int(keys[2])
-    phases = row['phases']
     if tname not in XfmrTanks:
-      XfmrTanks[tname] = {'nwdg': 0, 'phases': set()}
+      XfmrTanks[tname] = {'nwdg': 0, 'regulator':None}
     XfmrTanks[tname]['nwdg'] += 1
-    if 'A' in phases:
-      XfmrTanks[tname]['phases'].add('A')
-    if 'B' in phases:
-      XfmrTanks[tname]['phases'].add('B')
-    if 'C' in phases:
-      XfmrTanks[tname]['phases'].add('C')
+  for key, row in dict['DistRegulatorTanked']['vals'].items():
+    if row['tname'] in XfmrTanks:
+      XfmrTanks[row['tname']]['regulator'] = key
+  print ('XfmrBanks', XfmrBanks)
+  print ('XfmrTanks', XfmrTanks)
 
-  # now write the banked transformers as 2W multi-phase
+  TooManyWindings = {}
+  StarBuses = {}
+  # now write the banked transformers as 2W multi-phase, one for each star branch
   for pname, row in XfmrBanks.items():
-    if len(row['tanks']) > 1:
-      print ('*** PowerTransformer {:s} has {:d} tanks; only using impedances and ratings from the first'.format (pname, len(row['tanks'])))
-    dxf = data3
+    ntank = len(row['tanks'])
+    for itk in range(ntank):
+      tname = row['tanks'][itk]
+      base_key = pname + ':' + tname # will add :wdg
+      nwdg = XfmrTanks[tname]['nwdg']
+      nlcode = dict['DistXfmrTank']['vals'][base_key + ':1']['xfmrcode']
+      nltest = dict['DistXfmrCodeNLTest']['vals'][nlcode]
+      nll_kw = nltest['nll']
+      iexc_pct = nltest['iexc']
+      dxf = data3 # if NLL==0, else data4
+      tap1 = 0
+      tap2 = 0
+      tap3 = 0
+      lowtap = -16
+      hightap = 16
+      maxboost = 10.0
+      maxbuck = 10.0
+      if nwdg == 2:
+        BusPhs1, BusPhs2, v1, v2, s1, s2, conn1, conn2, r, x = get_transformer_mesh (dict, base_key, 1, 2)
+        if nll_kw > 0.0:
+          append_transformer_tank (data4, base_key, BusPhs1, BusPhs2, v1, v2, s1, s2, conn1, conn2,
+                                   tap1, tap2, tap3, lowtap, hightap, maxboost, maxbuck)
+          append_transformer_branch_and_core (data4, r, x, nll_kw)
+        else:
+          append_transformer_tank (data3, base_key, BusPhs1, BusPhs2, v1, v2, s1, s2, conn1, conn2,
+                                   tap1, tap2, tap3, lowtap, hightap, maxboost, maxbuck)
+          append_transformer_branch_only (data3, r, x)
+      elif nwdg == 3:
+        BusPhs12, BusPhs21, v12, v21, s12, s21, conn12, conn21, r12, x12 = get_transformer_mesh (dict, base_key, 1, 2)
+        BusPhs13, BusPhs31, v13, v31, s13, s31, conn13, conn31, r13, x13 = get_transformer_mesh (dict, base_key, 1, 3)
+        BusPhs23, BusPhs32, v23, v32, s23, s32, conn23, conn32, r23, x23 = get_transformer_mesh (dict, base_key, 2, 3)
+        StarPhs = make_transformer_star_bus (BusPhs12, tname)
+        for busphs in StarPhs:
+          if len(busphs) > 0:
+            StarBuses[busphs] = 1000.0 * v12/sqrt3
+        if nll_kw > 0.0:
+          append_transformer_tank (data4, base_key, BusPhs12, StarPhs, v12, v12, s12, s12, conn12, conn12,
+                                   tap1, tap2, tap3, lowtap, hightap, maxboost, maxbuck)
+          append_transformer_branch_and_core (data4, 0.5*(r12+r13-r23), 0.5*(x12+x13-x23), nll_kw)
+        else:
+          append_transformer_tank (data3, base_key, BusPhs12, StarPhs, v12, v12, s12, s12, conn12, conn12,
+                                   tap1, tap2, tap3, lowtap, hightap, maxboost, maxbuck)
+          append_transformer_branch_only (data3, 0.5*(r12+r13-r23), 0.5*(x12+x13-x23))
+        append_transformer_tank (data3, base_key, StarPhs, BusPhs21, v12, v21, s12, s21, conn12, conn21, tap1, tap2, tap3, lowtap, hightap, maxboost, maxbuck)
+        append_transformer_branch_only (data3, 0.5*(r12+r23-r13), 0.5*(x12+x23-x13))
+        append_transformer_tank (data3, base_key, StarPhs, BusPhs32, v13, v32, s23, s32, conn12, conn32, tap1, tap2, tap3, lowtap, hightap, maxboost, maxbuck)
+        append_transformer_branch_only (data3, 0.5*(r13+r23-r12), 0.5*(x13+x23-x12))
+      else:
+        TooManyWindings[base_key] = nwdg
 
-#    dxf['ID'].append(pname)
-#    dxf['Status'].append(1)
-#    dxf['Number of phases'].append(row['nphs'])
-#   dxf['Bus1_A'].append(wdg1['bus'] + aphs[0])
-#   dxf['Bus1_B'].append(wdg1['bus'] + aphs[1])
-#   dxf['Bus1_C'].append(wdg1['bus'] + aphs[2])
-#   dxf['Bus2_A'].append(wdg2['bus'] + aphs[0])
-#   dxf['Bus2_B'].append(wdg2['bus'] + aphs[1])
-#   dxf['Bus2_C'].append(wdg2['bus'] + aphs[2])
+  for tname, nwdg in TooManyWindings.items():
+    print ('*** Transformer Tank {:s} has {:d} windings, which cannot be converted to star equivalent'.format (tname, nwdg))
 
   df1 = pd.DataFrame (data1)
   df2 = pd.DataFrame (data2)
@@ -826,6 +979,7 @@ def write_ephasor_model (dict, filename):
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Multiphase 2W Transformer with Mutual Impedance')
 
   # buses
+  print ('StarBuses', StarBuses)
   data = {'Bus':[], 'Base Voltage (V)':[], 'Initial Vmag':[], 'Unit (V, pu)':[], 'Angle (deg)':[], 'Type':[]}
   for key, row in dict['DistBus']['vals'].items():
     if key in slack_buses:
@@ -849,6 +1003,21 @@ def write_ephasor_model (dict, filename):
       data['Unit (V, pu)'].append('pu')
       data['Angle (deg)'].append(angle)
       data['Type'].append(bustype)
+  for busname, vnom in StarBuses.items():
+    angle = 0.0
+    phs = busname[-1]
+    if phs == 'B':
+      angle = -120.0
+    elif phs == 'C':
+      angle = 120.0
+    elif phs == '2':
+      angle = 180.0
+    data['Bus'].append(busname)
+    data['Base Voltage (V)'].append(vnom)
+    data['Initial Vmag'].append(1.0)
+    data['Unit (V, pu)'].append('pu')
+    data['Angle (deg)'].append(angle)
+    data['Type'].append('PQ')
   df = pd.DataFrame (data)
   df.to_excel (xlw, sheet_name='Bus', header=True, index=False)
 
@@ -913,8 +1082,7 @@ if __name__ == '__main__':
   list_table (dict, 'DistXfmrCodeSCTest')
   list_table (dict, 'DistXfmrCodeNLTest')
   list_table (dict, 'DistRegulatorTanked')
-  for tbl in ['DistLinesInstanceZ', 'DistLinesSpacingZ', 'DistSequenceMatrix', 'DistRegulatorBanked', 'DistRegulatorTanked',
-              'DistXfmrBank', 'DistSyncMachine']:
+  for tbl in ['DistLinesInstanceZ', 'DistLinesSpacingZ', 'DistSequenceMatrix', 'DistSyncMachine']:
     if len(dict[tbl]['vals']) > 0:
       print ('**** {:s} used in the circuit; but not implemented'.format (tbl))
 
