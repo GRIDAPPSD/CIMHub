@@ -1,6 +1,6 @@
 # CIMHub
 
-Copyright (c) 2017-2021, Battelle Memorial Institute
+Copyright (c) 2017-2022, Battelle Memorial Institute
 
 This is a tool set for translating electric power distribution system models between
 various formats, using the IEC Standard 61970/61968 Common Information Model (CIM) as the "Hub".
@@ -36,7 +36,7 @@ without writing code. One version uses phase impedance matrices for line segment
 labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
 for the transformers.
 
-1. Install the converter with _docker pull gridappsd/cimhub:0.0.3_
+1. Install the converter with _docker pull gridappsd/cimhub:0.0.4_
 2. From a Terminal, start the converter and Blazegraph with _./start.sh_
 3. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
    * _cd example_
