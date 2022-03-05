@@ -698,6 +698,27 @@ def write_ephasor_model (dict, filename):
       data4['To3'].append(row['bus2'] + aphs[2])
       append_phase_matrix (data4, row['lname'], 3, dict['DistPhaseMatrix']['vals'])
 
+  for key, row in dict['DistLinesInstanceZ']['vals'].items():
+    aphs = phase_array (row['phases'])
+    if len(aphs) == 3:
+      data5['ID'].append(key)
+      data5['Status'].append(1)
+      data5['Length'].append(row['len'])
+      data5['From1'].append(row['bus1'] + aphs[0])
+      data5['To1'].append(row['bus2'] + aphs[0])
+      data5['From2'].append(row['bus1'] + aphs[1])
+      data5['To2'].append(row['bus2'] + aphs[1])
+      data5['From3'].append(row['bus1'] + aphs[2])
+      data5['To3'].append(row['bus2'] + aphs[2])
+      data5['R0 (Ohm/length_unit)'].append(row['r0'])
+      data5['R1 (Ohm/length_unit)'].append(row['r'])
+      data5['X0 (Ohm/length_unit)'].append(row['x0'])
+      data5['X1 (Ohm/length_unit)'].append(row['x'])
+      data5['B0 (uS/length_unit)'].append(row['b0'] * 1.0e6)
+      data5['B1 (uS/length_unit)'].append(row['b'] * 1.0e6)
+    else:
+      print ('*** DistLinesInstanceZ {:s} has {:d} phases; it must have 3 phases'.format (key, len(aphs)))
+    
   df1 = pd.DataFrame (data1)
   df2 = pd.DataFrame (data2)
   df3 = pd.DataFrame (data3)
@@ -1080,14 +1101,14 @@ if __name__ == '__main__':
 
 #  list_table (dict, 'DistPowerXfmrWinding')
 #  list_table (dict, 'DistRegulatorBanked')
-  list_table (dict, 'DistLinesInstanceZ')
+#  list_table (dict, 'DistLinesInstanceZ')
 # list_table (dict, 'DistXfmrBank')
 # list_table (dict, 'DistXfmrTank')
 # list_table (dict, 'DistXfmrCodeRating')
 # list_table (dict, 'DistXfmrCodeSCTest')
 # list_table (dict, 'DistXfmrCodeNLTest')
 # list_table (dict, 'DistRegulatorTanked')
-  for tbl in ['DistLinesInstanceZ', 'DistLinesSpacingZ', 'DistSequenceMatrix', 'DistSyncMachine']:
+  for tbl in ['DistLinesSpacingZ', 'DistSequenceMatrix', 'DistSyncMachine']:
     if len(dict[tbl]['vals']) > 0:
       print ('**** {:s} used in the circuit; but not implemented'.format (tbl))
 
