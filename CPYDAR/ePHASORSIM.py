@@ -802,6 +802,20 @@ def write_ephasor_model (dict, filename):
       hightap = DFLT_HIGH_TAP
       maxboost = DFLT_BOOST
       maxbuck = DFLT_BUCK
+      if row['regulator'] is not None:
+        reg = dict['DistRegulatorBanked']['vals'][row['regulator']]
+        if reg['wnum'] == 1:  # reverse the order
+          tap1 = reg['neutralStep'] - reg['step']
+        else:
+          tap1 = reg['step']
+        tap2 = tap1
+        tap3 = tap1
+        lowtap = reg['lowStep']
+        hightap = reg['highStep']
+        maxboost = reg['incr']*abs(reg['highStep']-reg['neutralStep'])
+        maxbuck = reg['incr']*abs(reg['neutralStep']-reg['lowStep'])
+        print ('== taps for bank {:s}, wdg={:d}, phases={:s}, tap1={:d}, low={:d}, high={:d}, boost={:.2f}%, buck={:.2f}%'.format (pname,  
+          reg['wnum'], reg['phases'], tap1, lowtap, hightap, maxboost, maxbuck))
       # this balanced 2W version cannot be mixed with multi-phase models in ePHASORSIM
 #     data1['ID'].append(pname)
 #     data1['Status'].append(1)
@@ -949,6 +963,22 @@ def write_ephasor_model (dict, filename):
       hightap = DFLT_HIGH_TAP
       maxboost = DFLT_BOOST
       maxbuck = DFLT_BUCK
+      if  XfmrTanks[tname]['regulator'] is not None:
+        reg = dict['DistRegulatorTanked']['vals'][XfmrTanks[tname]['regulator']]
+        if reg['wnum'] == 1:  # reverse the order
+          tap1 = reg['neutralStep'] - reg['step']
+        else:
+          tap1 = reg['step']
+        if len(reg['phases']) > 1:
+          tap2 = tap1
+          if len(reg['phases']) > 2:
+            tap3 = tap1
+        lowtap = reg['lowStep']
+        hightap = reg['highStep']
+        maxboost = reg['incr']*abs(reg['highStep']-reg['neutralStep'])
+        maxbuck = reg['incr']*abs(reg['neutralStep']-reg['lowStep'])
+        print ('== taps for tank {:s}/{:s}, wdg={:d}, phases={:s}, tap1={:d}, low={:d}, high={:d}, boost={:.2f}%, buck={:.2f}%'.format (pname, tname, 
+          reg['wnum'], reg['phases'], tap1, lowtap, hightap, maxboost, maxbuck))
       if nwdg == 2:
         BusPhs1, BusPhs2, v1, v2, s1, s2, conn1, conn2, r, x = get_transformer_mesh (dict, base_key, 1, 2)
         if nll_kw > 0.0:
@@ -1105,8 +1135,8 @@ if __name__ == '__main__':
 
   write_ephasor_model (dict, fname)
 
-  list_table (dict, 'DistRegulatorBanked')
-  list_table (dict, 'DistRegulatorTanked')
+#  list_table (dict, 'DistRegulatorBanked')
+#  list_table (dict, 'DistRegulatorTanked')
   for tbl in ['DistLinesSpacingZ', 'DistSequenceMatrix', 'DistSyncMachine']:
     if len(dict[tbl]['vals']) > 0:
       print ('**** {:s} used in the circuit; but not implemented'.format (tbl))
