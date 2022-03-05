@@ -6,32 +6,39 @@ import math
 import xml.etree.ElementTree as ET
 import pandas as pd
 
-cases = [
+CASES = [
   {'fid': '4BE6DD69-8FE9-4C9F-AD44-B327D5623974', 'fname': 'ieee13x.xlsx'},
   {'fid': '4C4E3E2C-6332-4DCB-8425-26B628178374', 'fname': 'ieee123x.xlsx'},
   {'fid': '1C9727D2-E4D2-4084-B612-90A44E1810FD', 'fname': 'j1red.xlsx'},
 ]
+
 # global constants
-sparql = None
-prefix = None
-sqrt3 = math.sqrt(3.0)
-rad_to_deg = 180.0 / math.pi
+SPARQL = None
+PREFIX = None
+SQRT3 = math.sqrt(3.0)
+RAD_TO_DEG = 180.0 / math.pi
+
 # configurable parameters
-load_bandwidth = 0.12  # per-unit range for using ZIP coefficients, change to constant Z outside this range
+LOAD_BANDWIDTH = 0.12  # per-unit range for using ZIP coefficients, change to constant Z outside this range
 DER_K_z = 0.0
 DER_K_i = 100.0  # representing DER as constant current negative loads
 DER_K_p = 0.0
-mva_base = 100.0
-xl_start_row = 10
-gXFBUSPREFIX = 'xfbus'
+MVA_BASE = 100.0
+XL_START_ROW = 10
+XFBUSPREFIX = 'xfbus'
+DFLT_TAP = 0
+DFLT_LOW_TAP = 0
+DFLT_HIGH_TAP = 0
+DFLT_BOOST = 0
+DFLT_BUCK = 0
 
-def initialize_sparql (cfg_file=None):
-  global sparql
+def initialize_SPARQL (cfg_file=None):
+  global SPARQL
   if cfg_file is not None:
     CIMHubConfig.ConfigFromJsonFile (cfg_file)
 
-  sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
-  sparql.setReturnFormat(JSON)
+  SPARQL = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
+  SPARQL.setReturnFormat(JSON)
 
 def build_query (prefix, base, fid):
   idx = base.find('WHERE {') + 8
@@ -53,9 +60,9 @@ def build_dict (ret):
 
 def query_for_values (tbl, fid):
   keyflds = tbl['keyfld'].split(':')
-  query = build_query (prefix, tbl['sparql'], fid)
-  sparql.setQuery (query)
-  ret = sparql.query()
+  query = build_query (PREFIX, tbl['sparql'], fid)
+  SPARQL.setQuery (query)
+  ret = SPARQL.query()
   vars = ret.variables
   for akey in keyflds:
     vars.remove (akey)
@@ -91,8 +98,8 @@ def summarize_dict (dict):
 
 def list_feeders (dict):
   print ('Feeder Name          FID')
-  sparql.setQuery (prefix + dict['DistFeeder']['sparql'])
-  ret = sparql.query()
+  SPARQL.setQuery (PREFIX + dict['DistFeeder']['sparql'])
+  ret = SPARQL.query()
   for b in ret.bindings:
     print ('{:20s} {:s}'.format (b['feeder'].value, b['fid'].value))
 
@@ -151,7 +158,7 @@ def mark_all_bus_phases (dict):
   busvals = dict['DistBus']['vals']
   dict['DistBus']['columns'].append('phases')
   for key in busvals:
-    busvals[key]['nomv'] /= sqrt3
+    busvals[key]['nomv'] /= SQRT3
     busvals[key]['phases'] = set()
   for tbl in ['DistSolar', 'DistStorage', 'DistLoad', 'DistCapacitor', 'DistXfmrTank', 'DistSubstation', 'DistPowerXfmrWinding']:
     for key, row in dict[tbl]['vals'].items():
@@ -235,7 +242,7 @@ def make_transformer_star_bus (BusPhs, tname):
         phs = 's1'
       elif phs == '2':
         phs = 's2'
-      StarPhs.append ('{:s}_{:s}_{:s}'.format (gXFBUSPREFIX, tname, phs))
+      StarPhs.append ('{:s}_{:s}_{:s}'.format (XFBUSPREFIX, tname, phs))
   while len(StarPhs) < 3:
     StarPhs.append('')
   return StarPhs
@@ -268,14 +275,14 @@ def get_transformer_mesh (dict, base_key, end1, end2):
   s1 = 0.001 * code1['ratedS'] * nphs1
   zbase1 = 1000.0 * v1 * v1 / s1
   if code1['conn'] == 'I':
-    v1 *= sqrt3
+    v1 *= SQRT3
   conn1 = conn_string(code1['conn'])
   code2 = dict['DistXfmrCodeRating']['vals']['{:s}:{:d}'.format(wdg2['xfmrcode'], end2)]
   v2 = 0.001 * code2['ratedU']
   s2 = 0.001 * code2['ratedS'] * nphs2
   zbase2 = 1000.0 * v2 * v2 / s2
   if code2['conn'] == 'I':
-    v2 *= sqrt3
+    v2 *= SQRT3
   conn2 = conn_string(code2['conn'])
 
   sctest = dict['DistXfmrCodeSCTest']['vals']['{:s}:{:d}:{:d}'.format(wdg2['xfmrcode'], end1, end2)]
@@ -284,9 +291,9 @@ def get_transformer_mesh (dict, base_key, end1, end2):
   r = code1['res'] / zbase1 + code2['res'] / zbase2
   x = zpu # math.sqrt(zpu*zpu - r*r)
 
-  print ('Tank {:s}, {:d}-{:d}, bus1={:s},{:s},{:s}, bus2={:s},{:s},{:s}'.format(base_key, end1, end2,
-    BusPhs1[0], BusPhs1[1], BusPhs1[2], BusPhs2[0], BusPhs2[1], BusPhs2[2]))
-  print ('  wdg 1: v={:.3f} s={:.2f} conn={:s}; wdg 2: v={:.3f} s={:.2f} conn={:s} rmesh={:.6f} xmesh={:.6f}'.format (v1, s1, conn1, v2, s2, conn2, r, x))
+# print ('Tank {:s}, {:d}-{:d}, bus1={:s},{:s},{:s}, bus2={:s},{:s},{:s}'.format(base_key, end1, end2,
+#   BusPhs1[0], BusPhs1[1], BusPhs1[2], BusPhs2[0], BusPhs2[1], BusPhs2[2]))
+# print ('  wdg 1: v={:.3f} s={:.2f} conn={:s}; wdg 2: v={:.3f} s={:.2f} conn={:s} rmesh={:.6f} xmesh={:.6f}'.format (v1, s1, conn1, v2, s2, conn2, r, x))
 
   return BusPhs1, BusPhs2, v1, v2, s1, s1, conn1, conn2, r, x
 
@@ -352,11 +359,11 @@ def write_ephasor_model (dict, filename):
   df = pd.DataFrame ([['Excel file version', 'v2.0'], 
                       ['Name', feeder_name], 
                       ['Frequency (Hz)', 60], 
-                      ['Power Base (MVA)', mva_base]])
+                      ['Power Base (MVA)', MVA_BASE]])
   df.to_excel (xlw, sheet_name='General', header=False, index=False)
 
   # voltage sources, identify slack buses
-  xlrow = xl_start_row
+  xlrow = XL_START_ROW
   add_comment_cell (xlw, 'Voltage Source', xlrow, 'Positive Sequence Voltage Source')
   data = {'ID':[], 'Bus':[], 'Voltage (pu)':[], 'Angle (deg)':[], 'Rs (pu)':[], 'Xs (pu)':[]}
   df = pd.DataFrame (data)
@@ -390,7 +397,7 @@ def write_ephasor_model (dict, filename):
     data['Bus2'].append(row['bus'] + '_B')
     data['Bus3'].append(row['bus'] + '_C')
     data['kV (ph-ph RMS)'].append(row['vmag'] * 0.001)
-    data['Angle_a (deg)'].append(row['vang'] * rad_to_deg)
+    data['Angle_a (deg)'].append(row['vang'] * RAD_TO_DEG)
     data['R1 (Ohm)'].append(row['r1'])
     data['X1 (Ohm)'].append(row['x1'])
     data['R0 (Ohm)'].append(row['r0'])
@@ -421,7 +428,7 @@ def write_ephasor_model (dict, filename):
       data4['ID'].append(key)
       data4['Status'].append(1)
       data4['V (kV)'].append(kv)
-      data4['Bandwidth (pu)'].append(load_bandwidth)
+      data4['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
       data4['Conn. type'].append(conn)
       data4['K_z'].append(row['pz'])
       data4['K_i'].append(row['pi'])
@@ -436,7 +443,7 @@ def write_ephasor_model (dict, filename):
       data5['ID'].append(key)
       data5['Status'].append(1)
       data5['V (kV)'].append(kv)
-      data5['Bandwidth (pu)'].append(load_bandwidth)
+      data5['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
       data5['Conn. type'].append(conn)
       data5['K_z'].append(row['pz'])
       data5['K_i'].append(row['pi'])
@@ -454,7 +461,7 @@ def write_ephasor_model (dict, filename):
       data6['ID'].append(key)
       data6['Status'].append(1)
       data6['V (kV)'].append(kv)
-      data6['Bandwidth (pu)'].append(load_bandwidth)
+      data6['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
       data6['Conn. type'].append(conn)
       data6['K_z'].append(row['pz'])
       data6['K_i'].append(row['pi'])
@@ -482,7 +489,7 @@ def write_ephasor_model (dict, filename):
         data4['ID'].append(prefix + key)
         data4['Status'].append(1)
         data4['V (kV)'].append(kv)
-        data4['Bandwidth (pu)'].append(load_bandwidth)
+        data4['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
         data4['Conn. type'].append(conn)
         data4['K_z'].append(DER_K_z)
         data4['K_i'].append(DER_K_i)
@@ -497,7 +504,7 @@ def write_ephasor_model (dict, filename):
         data5['ID'].append(prefix + key)
         data5['Status'].append(1)
         data5['V (kV)'].append(kv)
-        data5['Bandwidth (pu)'].append(load_bandwidth)
+        data5['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
         data5['Conn. type'].append(conn)
         data5['K_z'].append(DER_K_z)
         data5['K_i'].append(DER_K_i)
@@ -515,7 +522,7 @@ def write_ephasor_model (dict, filename):
         data6['ID'].append(prefix + key)
         data6['Status'].append(1)
         data6['V (kV)'].append(kv)
-        data6['Bandwidth (pu)'].append(load_bandwidth)
+        data6['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
         data6['Conn. type'].append(conn)
         data6['K_z'].append(DER_K_z)
         data6['K_i'].append(DER_K_i)
@@ -537,7 +544,7 @@ def write_ephasor_model (dict, filename):
   df4 = pd.DataFrame (data4)
   df5 = pd.DataFrame (data5)
   df6 = pd.DataFrame (data6)
-  xlrow = xl_start_row
+  xlrow = XL_START_ROW
   add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Imepedance Load') # replicating typo on the Opal-RT template
   df1.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
@@ -587,7 +594,7 @@ def write_ephasor_model (dict, filename):
       data2['Q1 (kVAr)'].append(kvar)
     elif len(aphs) == 2:
       kvar /= 2.0
-      kv /= sqrt3
+      kv /= SQRT3
       data3['ID'].append(key)
       data3['Status1'].append(1)
       data3['Status2'].append(1)
@@ -600,7 +607,7 @@ def write_ephasor_model (dict, filename):
       data3['Q2 (kVAr)'].append(kvar)
     elif len(aphs) == 3:
       kvar /= 3.0
-      kv /= sqrt3
+      kv /= SQRT3
       data4['ID'].append(key)
       data4['Status1'].append(1)
       data4['Status2'].append(1)
@@ -620,7 +627,7 @@ def write_ephasor_model (dict, filename):
   df2 = pd.DataFrame (data2)
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
-  xlrow = xl_start_row
+  xlrow = XL_START_ROW
   add_comment_cell (xlw, 'Shunt', xlrow, 'Positive Sequence Shunt')
   df1.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
@@ -724,7 +731,7 @@ def write_ephasor_model (dict, filename):
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
   df5 = pd.DataFrame (data5)
-  xlrow = xl_start_row
+  xlrow = XL_START_ROW
   add_comment_cell (xlw, 'Line', xlrow, 'Positive-Sequence Line')
   df1.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
@@ -779,7 +786,7 @@ def write_ephasor_model (dict, filename):
   for key, row in dict['DistRegulatorBanked']['vals'].items():
     if row['pname'] in PowerXfmrs:
       PowerXfmrs[row['pname']]['regulator'] = key
-  print (PowerXfmrs)
+#  print (PowerXfmrs)
   for pname, row in PowerXfmrs.items():
     nwdg = row['nwdg']
     if nwdg == 2:
@@ -788,13 +795,13 @@ def write_ephasor_model (dict, filename):
       z12 = dict['DistPowerXfmrMesh']['vals']['{:s}:1:2'.format(pname)]
       ym = dict['DistPowerXfmrCore']['vals'][pname]
       zbase = wdg1['ratedU'] * wdg1['ratedU'] / wdg1['ratedS']
-      tap1 = 0
-      tap2 = 0
-      tap3 = 0
-      lowtap = -16
-      hightap = 16
-      maxboost = 10.0
-      maxbuck = 10.0
+      tap1 = DFLT_TAP
+      tap2 = DFLT_TAP
+      tap3 = DFLT_TAP
+      lowtap = DFLT_LOW_TAP
+      hightap = DFLT_HIGH_TAP
+      maxboost = DFLT_BOOST
+      maxbuck = DFLT_BUCK
       # this balanced 2W version cannot be mixed with multi-phase models in ePHASORSIM
 #     data1['ID'].append(pname)
 #     data1['Status'].append(1)
@@ -918,8 +925,8 @@ def write_ephasor_model (dict, filename):
   for key, row in dict['DistRegulatorTanked']['vals'].items():
     if row['tname'] in XfmrTanks:
       XfmrTanks[row['tname']]['regulator'] = key
-  print ('XfmrBanks', XfmrBanks)
-  print ('XfmrTanks', XfmrTanks)
+# print ('XfmrBanks', XfmrBanks)
+# print ('XfmrTanks', XfmrTanks)
 
   TooManyWindings = {}
   StarBuses = {}
@@ -935,13 +942,13 @@ def write_ephasor_model (dict, filename):
       nll_kw = nltest['nll']
       iexc_pct = nltest['iexc']
       dxf = data3 # if NLL==0, else data4
-      tap1 = 0
-      tap2 = 0
-      tap3 = 0
-      lowtap = -16
-      hightap = 16
-      maxboost = 10.0
-      maxbuck = 10.0
+      tap1 = DFLT_TAP
+      tap2 = DFLT_TAP
+      tap3 = DFLT_TAP
+      lowtap = DFLT_LOW_TAP
+      hightap = DFLT_HIGH_TAP
+      maxboost = DFLT_BOOST
+      maxbuck = DFLT_BUCK
       if nwdg == 2:
         BusPhs1, BusPhs2, v1, v2, s1, s2, conn1, conn2, r, x = get_transformer_mesh (dict, base_key, 1, 2)
         if nll_kw > 0.0:
@@ -959,7 +966,7 @@ def write_ephasor_model (dict, filename):
         StarPhs = make_transformer_star_bus (BusPhs12, tname)
         for busphs in StarPhs:
           if len(busphs) > 0:
-            StarBuses[busphs] = 1000.0 * v12/sqrt3
+            StarBuses[busphs] = 1000.0 * v12/SQRT3
         if nll_kw > 0.0:
           append_transformer_tank (data4, base_key, BusPhs12, StarPhs, v12, v12, s12, s12, conn12, conn12,
                                    tap1, tap2, tap3, lowtap, hightap, maxboost, maxbuck)
@@ -982,7 +989,7 @@ def write_ephasor_model (dict, filename):
   df2 = pd.DataFrame (data2)
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
-  xlrow = xl_start_row
+  xlrow = XL_START_ROW
   add_comment_cell (xlw, 'Transformer', xlrow, 'Positive-Sequence 2W Transformer')
   df1.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
@@ -1004,7 +1011,6 @@ def write_ephasor_model (dict, filename):
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Multiphase 2W Transformer with Mutual Impedance')
 
   # buses
-  print ('StarBuses', StarBuses)
   data = {'Bus':[], 'Base Voltage (V)':[], 'Initial Vmag':[], 'Unit (V, pu)':[], 'Angle (deg)':[], 'Type':[]}
   for key, row in dict['DistBus']['vals'].items():
     if key in slack_buses:
@@ -1074,17 +1080,17 @@ if __name__ == '__main__':
 #    cfg_file = sys.argv[1]
   if len(sys.argv) > 1:
     case_id = int(sys.argv[1])
-  fid = cases[case_id]['fid']
-  fname = cases[case_id]['fname']
+  fid = CASES[case_id]['fid']
+  fname = CASES[case_id]['fname']
 
-  initialize_sparql (cfg_file)
+  initialize_SPARQL (cfg_file)
 
   # read the queries into dict
   tree = ET.parse('../q100.xml')
   root = tree.getroot()
   nsCIM = root.find('nsCIM').text.strip()
   nsRDF = root.find('nsRDF').text.strip()
-  prefix = """PREFIX r: <{:s}>\nPREFIX c: <{:s}>""".format (nsRDF, nsCIM)
+  PREFIX = """PREFIX r: <{:s}>\nPREFIX c: <{:s}>""".format (nsRDF, nsCIM)
   dict = {}
   for query in root.findall('query'):
     qid = query.find('id').text.strip()
@@ -1099,15 +1105,8 @@ if __name__ == '__main__':
 
   write_ephasor_model (dict, fname)
 
-#  list_table (dict, 'DistPowerXfmrWinding')
-#  list_table (dict, 'DistRegulatorBanked')
-#  list_table (dict, 'DistLinesInstanceZ')
-# list_table (dict, 'DistXfmrBank')
-# list_table (dict, 'DistXfmrTank')
-# list_table (dict, 'DistXfmrCodeRating')
-# list_table (dict, 'DistXfmrCodeSCTest')
-# list_table (dict, 'DistXfmrCodeNLTest')
-# list_table (dict, 'DistRegulatorTanked')
+  list_table (dict, 'DistRegulatorBanked')
+  list_table (dict, 'DistRegulatorTanked')
   for tbl in ['DistLinesSpacingZ', 'DistSequenceMatrix', 'DistSyncMachine']:
     if len(dict[tbl]['vals']) > 0:
       print ('**** {:s} used in the circuit; but not implemented'.format (tbl))
