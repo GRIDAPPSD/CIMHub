@@ -1724,7 +1724,7 @@
   <cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
-  <cim:TapChanger.step>11</cim:TapChanger.step>
+  <cim:TapChanger.step>10</cim:TapChanger.step>
   <cim:PowerSystemResource.Location rdf:resource="#_B276EC5A-D47B-4135-BD71-7D11124E8DEA"/>
 </cim:RatioTapChanger>
 <cim:Asset rdf:ID="_52373619-F695-41C0-B443-907C012795BD">

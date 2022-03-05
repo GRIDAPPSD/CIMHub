@@ -35,12 +35,13 @@ cases = [
   ]
 
 ## create the CIM XML and base case solutions from OpenDSS models
-fp = open ('convert_CPYDAR.dss', 'w')
 for row in cases:
+  fp = open ('convert_CPYDAR.dss', 'w')
   root = row['root']
   mRID = row['mRID']
   print ('cd {:s}/{:s}'.format (cwd, root), file=fp)
   print ('redirect Master.dss'.format (root), file=fp)
+  print ('solve', file=fp)
   print ('uuids {:s}_uuids.dat'.format (root.lower()), file=fp)
   print ('export cim100 fid={:s} substation=sub1 subgeo=subgeo1 geo=geo1 file={:s}.xml'.format (mRID, root), file=fp)
   print ('export uuids {:s}_uuids.dat'.format (root), file=fp)
@@ -49,9 +50,9 @@ for row in cases:
   print ('export currents {:s}_i.csv'.format (root), file=fp)
   print ('export taps     {:s}_t.csv'.format (root), file=fp)
   print ('export nodeorder {:s}_n.csv'.format (root), file=fp)
-fp.close ()
-p1 = subprocess.Popen ('opendsscmd convert_CPYDAR.dss', shell=True)
-p1.wait()
+  fp.close ()
+  p1 = subprocess.Popen ('opendsscmd convert_CPYDAR.dss', shell=True)
+  p1.wait()
 
 # upload the CIM XML files to Blazegraph
 cimhub.clear_db (cfg_json)
@@ -69,10 +70,12 @@ os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 p1 = subprocess.call (shfile, shell=True)
 
 ## run some load flow comparisons
-cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss')
-os.chdir('./dss')
-p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
-p1.wait()
+for row in cases:
+  os.chdir(cwd)
+  cimhub.make_dssrun_script (casefiles=[row], scriptname='./dss/check.dss')
+  os.chdir('./dss')
+  p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
+  p1.wait()
 
 os.chdir(cwd)
 cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname='./glm/checkglm.sh', movefiles=False)

@@ -20,3 +20,5 @@ MakeBusList
 Redirect BusVoltageBases.dss  ! set voltage bases
 Buscoords BusCoords.dss
 GIScoords GISCoords.dss
+
+Redirect SolutionOptions.dss

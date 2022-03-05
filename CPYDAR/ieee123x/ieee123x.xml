@@ -13108,7 +13108,7 @@
   <cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
-  <cim:TapChanger.step>0</cim:TapChanger.step>
+  <cim:TapChanger.step>3</cim:TapChanger.step>
   <cim:PowerSystemResource.Location rdf:resource="#_88E9F9E7-B92D-4044-BEF1-B158E10AC7E8"/>
 </cim:RatioTapChanger>
 <cim:Asset rdf:ID="_E60FE4D4-9531-432F-9CDD-DA990A284DE7">
@@ -13158,7 +13158,7 @@
   <cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
-  <cim:TapChanger.step>0</cim:TapChanger.step>
+  <cim:TapChanger.step>-1</cim:TapChanger.step>
   <cim:PowerSystemResource.Location rdf:resource="#_F897300B-B62E-4C85-8F2B-0931AAA9C1D3"/>
 </cim:RatioTapChanger>
 <cim:Asset rdf:ID="_EEA63F66-CBFC-4642-B1BC-58E0A984E1C9">
@@ -13208,7 +13208,7 @@
   <cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
-  <cim:TapChanger.step>0</cim:TapChanger.step>
+  <cim:TapChanger.step>-2</cim:TapChanger.step>
   <cim:PowerSystemResource.Location rdf:resource="#_852528B4-0513-4676-AA1F-B1DE59F97D82"/>
 </cim:RatioTapChanger>
 <cim:Asset rdf:ID="_69F80A04-E6A7-4023-84F9-4D4AF904732A">
@@ -13308,7 +13308,7 @@
   <cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
-  <cim:TapChanger.step>0</cim:TapChanger.step>
+  <cim:TapChanger.step>4</cim:TapChanger.step>
   <cim:PowerSystemResource.Location rdf:resource="#_3AE10149-2D5B-4F97-B998-0A91C9465EC7"/>
 </cim:RatioTapChanger>
 <cim:Asset rdf:ID="_3503F49B-0935-4DBB-8CFC-A3FD9B1F8122">
@@ -13408,7 +13408,7 @@
   <cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
-  <cim:TapChanger.step>7</cim:TapChanger.step>
+  <cim:TapChanger.step>8</cim:TapChanger.step>
   <cim:PowerSystemResource.Location rdf:resource="#_22734959-8D20-4B91-9099-EC6789FF1DB1"/>
 </cim:RatioTapChanger>
 <cim:Asset rdf:ID="_920FEB6D-FB0D-4511-B80B-082AAEEF7AFC">
