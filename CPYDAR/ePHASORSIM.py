@@ -11,17 +11,19 @@ cases = [
   {'fid': '4C4E3E2C-6332-4DCB-8425-26B628178374', 'fname': 'ieee123x.xlsx'},
   {'fid': '1C9727D2-E4D2-4084-B612-90A44E1810FD', 'fname': 'j1red.xlsx'},
 ]
-
+# global constants
 sparql = None
 prefix = None
 sqrt3 = math.sqrt(3.0)
 rad_to_deg = 180.0 / math.pi
+# configurable parameters
 load_bandwidth = 0.12  # per-unit range for using ZIP coefficients, change to constant Z outside this range
 DER_K_z = 0.0
 DER_K_i = 100.0  # representing DER as constant current negative loads
 DER_K_p = 0.0
 mva_base = 100.0
 xl_start_row = 10
+gXFBUSPREFIX = 'xfbus'
 
 def initialize_sparql (cfg_file=None):
   global sparql
@@ -233,7 +235,7 @@ def make_transformer_star_bus (BusPhs, tname):
         phs = 's1'
       elif phs == '2':
         phs = 's2'
-      StarPhs.append ('xfstar_{:s}_{:s}'.format (tname, phs))
+      StarPhs.append ('{:s}_{:s}_{:s}'.format (gXFBUSPREFIX, tname, phs))
   while len(StarPhs) < 3:
     StarPhs.append('')
   return StarPhs
@@ -263,26 +265,28 @@ def get_transformer_mesh (dict, base_key, end1, end2):
 
   code1 = dict['DistXfmrCodeRating']['vals']['{:s}:{:d}'.format(wdg1['xfmrcode'], end1)]
   v1 = 0.001 * code1['ratedU']
+  s1 = 0.001 * code1['ratedS'] * nphs1
+  zbase1 = 1000.0 * v1 * v1 / s1
   if code1['conn'] == 'I':
     v1 *= sqrt3
-  s1 = 0.001 * code1['ratedS'] * nphs1
   conn1 = conn_string(code1['conn'])
   code2 = dict['DistXfmrCodeRating']['vals']['{:s}:{:d}'.format(wdg2['xfmrcode'], end2)]
   v2 = 0.001 * code2['ratedU']
+  s2 = 0.001 * code2['ratedS'] * nphs2
+  zbase2 = 1000.0 * v2 * v2 / s2
   if code2['conn'] == 'I':
     v2 *= sqrt3
-  s2 = 0.001 * code2['ratedS'] * nphs2
   conn2 = conn_string(code2['conn'])
 
   sctest = dict['DistXfmrCodeSCTest']['vals']['{:s}:{:d}:{:d}'.format(wdg2['xfmrcode'], end1, end2)]
-  zbase = code1['ratedU'] * code1['ratedU'] / code1['ratedS']
-  zpu = sctest['z'] / zbase
-  r = sctest['ll'] / s1
-  x = math.sqrt(zpu*zpu - r*r)
+  zpu = sctest['z'] / zbase1
+  # r = sctest['ll'] / s1
+  r = code1['res'] / zbase1 + code2['res'] / zbase2
+  x = zpu # math.sqrt(zpu*zpu - r*r)
 
   print ('Tank {:s}, {:d}-{:d}, bus1={:s},{:s},{:s}, bus2={:s},{:s},{:s}'.format(base_key, end1, end2,
     BusPhs1[0], BusPhs1[1], BusPhs1[2], BusPhs2[0], BusPhs2[1], BusPhs2[2]))
-  print ('  wdg 1: v={:.3f} s={:.2f} conn={:s}; wdg 2: v={:.3f} s={:.2f} conn={:s} r={:.6f} x={:.6f}'.format (v1, s1, conn1, v2, s2, conn2, r, x))
+  print ('  wdg 1: v={:.3f} s={:.2f} conn={:s}; wdg 2: v={:.3f} s={:.2f} conn={:s} rmesh={:.6f} xmesh={:.6f}'.format (v1, s1, conn1, v2, s2, conn2, r, x))
 
   return BusPhs1, BusPhs2, v1, v2, s1, s1, conn1, conn2, r, x
 
@@ -1076,12 +1080,13 @@ if __name__ == '__main__':
 
 #  list_table (dict, 'DistPowerXfmrWinding')
 #  list_table (dict, 'DistRegulatorBanked')
-  list_table (dict, 'DistXfmrBank')
-  list_table (dict, 'DistXfmrTank')
-  list_table (dict, 'DistXfmrCodeRating')
-  list_table (dict, 'DistXfmrCodeSCTest')
-  list_table (dict, 'DistXfmrCodeNLTest')
-  list_table (dict, 'DistRegulatorTanked')
+  list_table (dict, 'DistLinesInstanceZ')
+# list_table (dict, 'DistXfmrBank')
+# list_table (dict, 'DistXfmrTank')
+# list_table (dict, 'DistXfmrCodeRating')
+# list_table (dict, 'DistXfmrCodeSCTest')
+# list_table (dict, 'DistXfmrCodeNLTest')
+# list_table (dict, 'DistRegulatorTanked')
   for tbl in ['DistLinesInstanceZ', 'DistLinesSpacingZ', 'DistSequenceMatrix', 'DistSyncMachine']:
     if len(dict[tbl]['vals']) > 0:
       print ('**** {:s} used in the circuit; but not implemented'.format (tbl))
