@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2021, Battelle Memorial Institute
+//	Copyright (c) 2021-22, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -10,7 +10,6 @@ import java.util.HashMap;
 public class DistIEEE1547Signal extends DistComponent {
 	public String id;
 	public String name;
-  public String phase;
   public String kind;
   public String tid;
 
@@ -27,7 +26,6 @@ public class DistIEEE1547Signal extends DistComponent {
 			QuerySolution soln = results.next();
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
-      phase = soln.get("?phs").toString();
       kind = soln.get("?kind").toString();
       tid = soln.get("?tid").toString();
 		}		
@@ -47,7 +45,7 @@ public class DistIEEE1547Signal extends DistComponent {
 	}
 
 	public String GetKey() {
-		return name + "_" + phase;
+		return name;
 	}
 
 	public String GetDSS () {
@@ -55,10 +53,10 @@ public class DistIEEE1547Signal extends DistComponent {
 		return buf.toString();
 	}
 
-  public static String szCSVHeader = "Name,Kind,Phase,TID";
+  public static String szCSVHeader = "Name,Kind,TID";
 
   public String GetCSV () {
-    StringBuilder buf = new StringBuilder (name + "," + kind + "," + phase + "," + tid + "\n");
+    StringBuilder buf = new StringBuilder (name + "," + kind + "," + tid + "\n");
     return buf.toString();
   }
 }

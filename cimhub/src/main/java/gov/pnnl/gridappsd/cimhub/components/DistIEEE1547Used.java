@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2021, Battelle Memorial Institute
+//	Copyright (c) 2021-22, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -26,6 +26,16 @@ public class DistIEEE1547Used extends DistComponent {
   public double qMaxAbs;
   public double pMaxCharge;
   public double apparentPowerChargeMax;
+
+  public boolean bUsePG;
+  public boolean bUsePN;
+  public boolean bUsePP;
+  public boolean bHasConstPF;
+  public boolean bHasConstQ;
+  public boolean bHasPV;
+  public boolean bHasPF;
+  public boolean bHasQV;
+  public boolean bHasQP;
 
   public boolean vvEnabled;
   public double vvV1;
@@ -100,6 +110,16 @@ public class DistIEEE1547Used extends DistComponent {
       pMaxCharge = Double.parseDouble (soln.get("?pMaxCharge").toString());
       apparentPowerChargeMax = Double.parseDouble (soln.get("?apparentPowerChargeMax").toString());
 
+      bUsePG = Boolean.parseBoolean (soln.get("?usePG").toString());
+      bUsePN = Boolean.parseBoolean (soln.get("?usePN").toString());
+      bUsePP = Boolean.parseBoolean (soln.get("?usePP").toString());
+      bHasConstPF = Boolean.parseBoolean (soln.get("?hasConstPF").toString());
+      bHasConstQ = Boolean.parseBoolean (soln.get("?hasConstQ").toString());
+      bHasPV = Boolean.parseBoolean (soln.get("?hasPV").toString());
+      bHasPF = Boolean.parseBoolean (soln.get("?hasPF").toString());
+      bHasQV = Boolean.parseBoolean (soln.get("?hasQV").toString());
+      bHasQP = Boolean.parseBoolean (soln.get("?hasQP").toString());
+
       vvEnabled = Boolean.parseBoolean (soln.get("?vvEnabled").toString());
       vvV1 = Double.parseDouble (soln.get("?vvV1").toString());
       vvV2 = Double.parseDouble (soln.get("?vvV2").toString());
@@ -168,7 +188,8 @@ public class DistIEEE1547Used extends DistComponent {
 	}
 
   public static String szCSVHeader = "Name,Enabled,Cat,acVnom,acVmin,acVmax,sMaxpMaxOverPF,overPF,pMaxUnderPF,underPF,qMaxInj,"+
-   "qMaxAbs,pMaxCharge,apparentPowerChargeMax,vvEnabled,vvV1,vvV2,vvV3,vvV4,vvQ1,vvQ2,vvQ3,vvQ4,vvRef,vvRefAuto,vvRefOlrt,vvOlrt,"+
+   "qMaxAbs,pMaxCharge,apparentPowerChargeMax,usePG,usePN,usePP,hasConstPF,hasConstQ,hasPV,hasPF,hasQV,hasQP,"+
+   "vvEnabled,vvV1,vvV2,vvV3,vvV4,vvQ1,vvQ2,vvQ3,vvQ4,vvRef,vvRefAuto,vvRefOlrt,vvOlrt,"+
    "wvEnabled,wvP1gen,wvP2gen,wvP3gen,wvQ1gen,wvQ2gen,wvQ3gen,wvP1load,wvP2load,wvP3load,wvQ1load,wvQ2load,wvQ3load,"+
    "pfEnabled,powerFactor,pfKind,cqEnabled,reactivePower,vwEnabled,vwV1,vwP1,vwV2,vwP2gen,vwP2load,vwOlrt";
 
@@ -188,6 +209,16 @@ public class DistIEEE1547Used extends DistComponent {
     buf.append ("," + df2.format (qMaxAbs));
     buf.append ("," + df2.format (pMaxCharge));
     buf.append ("," + df2.format (apparentPowerChargeMax));
+
+    buf.append ("," + Boolean.toString (bUsePG));
+    buf.append ("," + Boolean.toString (bUsePN));
+    buf.append ("," + Boolean.toString (bUsePP));
+    buf.append ("," + Boolean.toString (bHasConstPF));
+    buf.append ("," + Boolean.toString (bHasConstQ));
+    buf.append ("," + Boolean.toString (bHasPV));
+    buf.append ("," + Boolean.toString (bHasPF));
+    buf.append ("," + Boolean.toString (bHasQV));
+    buf.append ("," + Boolean.toString (bHasQP));
 
     buf.append ("," + Boolean.toString (vvEnabled));
     buf.append ("," + df3.format (vvV1));

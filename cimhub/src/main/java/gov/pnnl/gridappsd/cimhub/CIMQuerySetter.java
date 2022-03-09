@@ -701,7 +701,7 @@ public class CIMQuerySetter extends Object {
       "ORDER by ?name ?id");
 
     mapQueries.put ("DistIEEE1547Signal",
-      "SELECT DISTINCT ?name ?id ?rid ?phs ?kind ?tid ?fdrid WHERE {"+
+      "SELECT DISTINCT ?name ?id ?rid ?kind ?tid ?fdrid WHERE {"+
       " ?pec c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?s r:type c:DERIEEEType1."+
@@ -712,10 +712,9 @@ public class CIMQuerySetter extends Object {
       " ?rsig c:IdentifiedObject.mRID ?rid."+
       " ?rsig c:RemoteInputSignal.Terminal ?trm."+
       " ?rsig c:RemoteInputSignal.remoteSignalType ?kindraw. bind(strafter(str(?kindraw),\"RemoteSignalKind.\") as ?kind)"+
-      " ?rsig c:RemoteInputSignal.phase ?phsraw. bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs)"+
       " ?trm c:IdentifiedObject.mRID ?tid."+
       "} "+
-      "ORDER by ?name ?id ?phs");
+      "ORDER by ?name ?id");
 
     mapQueries.put ("DistIEEE1547Used",
       "SELECT DISTINCT ?name ?id ?enabled ?cat ?acVnom ?acVmin ?acVmax ?sMax ?pMax ?pMaxOverPF ?overPF ?pMaxUnderPF ?underPF ?qMaxInj ?qMaxAbs ?pMaxCharge ?apparentPowerChargeMax ?fdrid"+
@@ -724,11 +723,15 @@ public class CIMQuerySetter extends Object {
       " ?pfEnabled ?powerFactor ?pfKind"+
       " ?cqEnabled ?reactivePower"+
       " ?vwEnabled ?vwV1 ?vwP1 ?vwV2 ?vwP2gen ?vwP2load ?vwOlrt "+
+      " ?hasConstPF ?hasConstQ ?hasPV ?hasQV ?hasQP ?hasPF ?usePG ?usePN ?usePP "+
       "WHERE {"+
       " ?pec c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?s r:type c:DERIEEEType1."+
       " ?s c:DERDynamics.PowerElectronicsConnection ?pec."+
+      " ?s c:DERIEEEType1.phaseToGroundApplicable ?usePG."+
+      " ?s c:DERIEEEType1.phaseToNeutralApplicable ?usePN."+
+      " ?s c:DERIEEEType1.phaseToPhaseApplicable ?usePP."+
       " ?pec c:IdentifiedObject.mRID ?pid."+
       " ?s c:IdentifiedObject.name ?name."+
       " ?s c:IdentifiedObject.mRID ?id."+
@@ -737,6 +740,12 @@ public class CIMQuerySetter extends Object {
       " ?nd c:DERNameplateData.acVmin ?acVmin."+
       " ?nd c:DERNameplateData.acVmax ?acVmax."+
       " ?nd c:DERNameplateData.normalOPcatKind ?catraw. bind(strafter(str(?catraw),\"NormalOPcatKind.\") as ?cat)"+
+      " ?nd c:DERNameplateData.supportsConstPFmode ?hasConstPF."+
+      " ?nd c:DERNameplateData.supportsConstQmode ?hasConstQ."+
+      " ?nd c:DERNameplateData.supportsPVmode ?hasPV."+
+      " ?nd c:DERNameplateData.supportsQVmode ?hasQV."+
+      " ?nd c:DERNameplateData.supportsQPmode ?hasQP."+
+      " ?nd c:DERNameplateData.supportsPFmode ?hasPF."+
       " ?ad c:DERNameplateDataApplied.DERNameplateData ?nd."+
       " ?ad c:DERNameplateDataApplied.acVnom ?acVnom."+
       " ?ad c:DERNameplateDataApplied.sMax ?sMax."+
@@ -788,7 +797,7 @@ public class CIMQuerySetter extends Object {
       " ?pf c:ConstantPowerFactorSettings.DERIEEEType1 ?s."+
       " ?pf c:ConstantPowerFactorSettings.enabled ?pfEnabled."+
       " ?pf c:ConstantPowerFactorSettings.powerFactor ?powerFactor."+
-      " ?pf c:ConstantPowerFactorSettings.constantPFexcitationKind ?pfraw. bind(strafter(str(?pfraw),\"ConstantPowerFactorSettingKind.\") as ?pfKind)"+
+      " ?pf c:ConstantPowerFactorSettings.constantPowerFactorExcitationKind ?pfraw. bind(strafter(str(?pfraw),\"ConstantPowerFactorSettingKind.\") as ?pfKind)"+
       " ?cq c:ConstantReactivePowerSettings.DERIEEEType1 ?s."+
       " ?cq c:ConstantReactivePowerSettings.enabled ?cqEnabled."+
       " ?cq c:ConstantReactivePowerSettings.reactivePower ?reactivePower."+

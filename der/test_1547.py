@@ -39,7 +39,7 @@ cases = [
    'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
    'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
   {'dssname':'local_vvar_a', 'root':'local_vvar_a', 'mRID':'D1D5E183-EE39-44E6-9D5C-A1519F0D8709',
-   'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
+   'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': False,
    'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
   {'dssname':'local_vvar_b', 'root':'local_vvar_b', 'mRID':'3D840B6D-4A97-4BDA-A488-4EEF2F4F5FBD',
    'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
