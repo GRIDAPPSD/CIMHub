@@ -1,8 +1,8 @@
 package gov.pnnl.gridappsd.cimhub;
-//          ----------------------------------------------------------
-//          Copyright (c) 2017-2021, Battelle Memorial Institute
-//          All rights reserved.
-//          ----------------------------------------------------------
+// ----------------------------------------------------------
+// Copyright (c) 2017-2022, Battelle Memorial Institute
+// All rights reserved.
+// ----------------------------------------------------------
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -88,6 +88,8 @@ public class CIMImporter extends Object {
   CIMQuerySetter querySetter;
   OperationalLimits oLimits;
 
+  HashMap<String,CIMTerminal> mapTerminals = new HashMap<>();
+
   HashMap<String,GldNode> mapNodes = new HashMap<>();
   HashMap<String,GldLineConfig> mapLineConfigs = new HashMap<>();
 
@@ -143,6 +145,7 @@ public class CIMImporter extends Object {
   HashMap<String,DistHouse> mapHouses = new HashMap<>();
 
   HashMap<String,DistSwitch> mapSwitches = new HashMap<>(); // polymorphic
+  HashMap<String,DistLineSegment> mapLines = new HashMap<>(); // polymorphic
 
   boolean allMapsLoaded = false;
 
@@ -576,6 +579,14 @@ public class CIMImporter extends Object {
     }
   }
 
+  public void PrintTerminalMap(HashMap<String,CIMTerminal> map, String label) {
+    System.out.println(label);
+    SortedSet<String> keys = new TreeSet<String>(map.keySet());
+    for (String key : keys) {
+      System.out.println (map.get(key).DisplayString());
+    }
+  }
+
   public void PrintAllCountMaps () {
     PrintOneCountMap (mapCountBank, "Count of Bank Tanks");
     PrintOneCountMap (mapCountTank, "Count of Tank Ends");
@@ -678,6 +689,7 @@ public class CIMImporter extends Object {
     LoadIEEE1547Used();
 
     MakeSwitchMap();
+    MakeLineMap();
 
     oLimits = new OperationalLimits();
     oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
@@ -1076,6 +1088,84 @@ public class CIMImporter extends Object {
     mapSwitches.putAll (mapReclosers);
     mapSwitches.putAll (mapSectionalisers);
     mapSwitches.putAll (mapDisconnectors);
+    mapSwitches.putAll (mapGroundDisconnectors);
+  }
+
+  protected void MakeLineMap () {
+    // build a polymorphic map of line segments
+    mapLines.putAll (mapLinesCodeZ);
+    mapLines.putAll (mapLinesInstanceZ);
+    mapLines.putAll (mapLinesSpacingZ);
+  }
+
+  protected void MakeTerminalMap () {
+    for (HashMap.Entry<String, DistLineSegment> pair: mapLines.entrySet()) {
+      DistLineSegment obj = pair.getValue();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus1, obj.phases, obj.basev, "ACLineSegment");
+      mapTerminals.put (obj.t1id, trm1);
+      CIMTerminal trm2 = new CIMTerminal (obj.t2id, obj.bus2, obj.phases, obj.basev, "ACLineSegment");
+      mapTerminals.put (obj.t2id, trm2);
+    }
+    for (HashMap.Entry<String, DistSeriesCompensator> pair: mapSeriesCompensators.entrySet()) {
+      DistSeriesCompensator obj = pair.getValue();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus1, obj.phases, obj.basev, "SeriesCompensator");
+      mapTerminals.put (obj.t1id, trm1);
+      CIMTerminal trm2 = new CIMTerminal (obj.t2id, obj.bus2, obj.phases, obj.basev, "SeriesCompensator");
+      mapTerminals.put (obj.t2id, trm2);
+    }
+    for (HashMap.Entry<String, DistSwitch> pair: mapSwitches.entrySet()) {
+      DistSwitch obj = pair.getValue();
+      String eq = obj.CIMClass();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus1, obj.phases, obj.basev, eq);
+      mapTerminals.put (obj.t1id, trm1);
+      CIMTerminal trm2 = new CIMTerminal (obj.t2id, obj.bus2, obj.phases, obj.basev, eq);
+      mapTerminals.put (obj.t2id, trm2);
+    }
+    for (HashMap.Entry<String, DistCapacitor> pair: mapCapacitors.entrySet()) {
+      DistCapacitor obj = pair.getValue();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus, obj.phs, obj.basev, "LinearShuntCompensator");
+      mapTerminals.put (obj.t1id, trm1);
+    }
+    for (HashMap.Entry<String, DistLoad> pair: mapLoads.entrySet()) {
+      DistLoad obj = pair.getValue();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus, obj.phases, obj.basev, "EnergyConsumer");
+      mapTerminals.put (obj.t1id, trm1);
+    }
+    for (HashMap.Entry<String, DistSyncMachine> pair: mapSyncMachines.entrySet()) {
+      DistSyncMachine obj = pair.getValue();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus, obj.phases, obj.ratedU, "SynchronousMachine");
+      mapTerminals.put (obj.t1id, trm1);
+    }
+    for (HashMap.Entry<String, DistSolar> pair: mapSolars.entrySet()) {
+      DistSolar obj = pair.getValue();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus, obj.phases, obj.ratedU, "PhotovoltaicUnit");
+      mapTerminals.put (obj.t1id, trm1);
+    }
+    for (HashMap.Entry<String, DistStorage> pair: mapStorages.entrySet()) {
+      DistStorage obj = pair.getValue();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus, obj.phases, obj.ratedU, "StorageUnit");
+      mapTerminals.put (obj.t1id, trm1);
+    }
+    for (HashMap.Entry<String, DistSubstation> pair: mapSubstations.entrySet()) {
+      DistSubstation obj = pair.getValue();
+      CIMTerminal trm1 = new CIMTerminal (obj.t1id, obj.bus, "ABC", obj.basev, "EnergySource");
+      mapTerminals.put (obj.t1id, trm1);
+    }
+    for (HashMap.Entry<String, DistXfmrTank> pair: mapTanks.entrySet()) {
+      DistXfmrTank obj = pair.getValue();
+      for (int i = 0; i < obj.size; i++) {
+        CIMTerminal trm1 = new CIMTerminal(obj.t1id[i], obj.bus[i], obj.phs[i], obj.basev[i], "TransformerTank");
+        mapTerminals.put (obj.t1id[i], trm1);
+      }
+    }
+    for (HashMap.Entry<String, DistPowerXfmrWinding> pair: mapXfmrWindings.entrySet()) {
+      DistPowerXfmrWinding obj = pair.getValue();
+      for (int i = 0; i < obj.size; i++) {
+        CIMTerminal trm1 = new CIMTerminal(obj.t1id[i], obj.bus[i], "ABC", obj.basev[i], "PowerTransformer");
+        mapTerminals.put (obj.t1id[i], trm1);
+      }
+    }
+    PrintTerminalMap (mapTerminals, "*** Map Terminals");
   }
 
   protected void WriteGLMFile (PrintWriter out, double load_scale, boolean bWantSched, String fSched,
@@ -1780,9 +1870,14 @@ public class CIMImporter extends Object {
       out.print (pair.getValue().GetDSS());
       outID.println ("Capacitor." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
-    if (mapIEEE1547Connections.size() > 0) out.println();
+    if (mapIEEE1547Connections.size() > 0) {
+      MakeTerminalMap();
+      out.println();
+    } else {
+      MakeTerminalMap();
+    }
     for (HashMap.Entry<String,DistIEEE1547Connection> pair : mapIEEE1547Connections.entrySet()) {
-      out.print (pair.getValue().GetDSS());
+      out.print (pair.getValue().GetDSS(mapSolars, mapStorages, mapIEEE1547Used, mapIEEE1547Signals, mapTerminals));
       outID.println ("InvControl." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));  // TODO: what if ExpControl?
     }
     if (mapBaseVoltages.size() > 0) out.println();
@@ -2134,6 +2229,8 @@ public class CIMImporter extends Object {
       CheckMaps();
       UpdateModelState(ms);
       ApplyCurrentLimits();
+      PrintOneMap (mapSolars, "** SOLAR PV SOURCES");
+      PrintOneMap (mapStorages, "** STORAGE SOURCES");
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.dss";
       fXY = fRoot + "_busxy.dss";

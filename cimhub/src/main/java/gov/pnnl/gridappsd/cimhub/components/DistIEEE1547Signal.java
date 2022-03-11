@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 public class DistIEEE1547Signal extends DistComponent {
 	public String id;
+  public String pecid;
 	public String name;
   public String kind;
   public String tid;
@@ -26,6 +27,7 @@ public class DistIEEE1547Signal extends DistComponent {
 			QuerySolution soln = results.next();
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
+      pecid = soln.get("?pecid").toString();
       kind = soln.get("?kind").toString();
       tid = soln.get("?tid").toString();
 		}		

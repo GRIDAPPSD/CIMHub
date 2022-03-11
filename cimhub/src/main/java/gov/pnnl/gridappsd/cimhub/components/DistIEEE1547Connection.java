@@ -6,6 +6,11 @@ package gov.pnnl.gridappsd.cimhub.components;
 
 import org.apache.jena.query.*;
 import java.util.HashMap;
+import gov.pnnl.gridappsd.cimhub.CIMTerminal;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Signal;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Used;
+import gov.pnnl.gridappsd.cimhub.components.DistSolar;
+import gov.pnnl.gridappsd.cimhub.components.DistStorage;
 
 public class DistIEEE1547Connection extends DistComponent {
 	public String id;
@@ -47,9 +52,40 @@ public class DistIEEE1547Connection extends DistComponent {
 		return name;  // need a PID?
 	}
 
-	public String GetDSS () {
-		StringBuilder buf = new StringBuilder ("// new InvControl." + name + " // Connection\n");
-		return buf.toString();
+	public String GetDSS (HashMap<String,DistSolar> mapSolars, HashMap<String,DistStorage> mapStorages,
+                        HashMap<String,DistIEEE1547Used> mapUsed,
+                        HashMap<String,DistIEEE1547Signal> mapSignals,
+                        HashMap<String,CIMTerminal> mapTerminals) {
+		StringBuilder buf = new StringBuilder ("new InvControl." + name + " // " + pids + "\n");
+    for (HashMap.Entry<String,DistIEEE1547Used> pair : mapUsed.entrySet()) {
+      DistIEEE1547Used dset = pair.getValue();
+      if (pids.contains(dset.pecid)) {
+        buf.append(dset.GetDSS());
+      }
+    }
+    if (pids.length() > 0) { // connect this to the PowerElectronicUnits
+      buf.append("~ derlist=[");
+      for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
+        DistSolar dpv = pair.getValue();
+        if (pids.contains(dpv.pecid)) {
+          buf.append("pvsystem." + dpv.name);
+        }
+      }
+      for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
+        DistStorage dbat = pair.getValue();
+        if (pids.contains(dbat.pecid)) {
+          buf.append("storage." + dbat.name);
+        }
+      }
+      buf.append("]\n");
+    }
+    for (HashMap.Entry<String,DistIEEE1547Signal> pair : mapSignals.entrySet()) {
+      DistIEEE1547Signal dsig = pair.getValue();
+      if (pids.contains(dsig.pecid)) {
+        buf.append("// rsig " + dsig.name + ":" + dsig.kind + ":" + dsig.tid + "\n");
+      }
+    }
+    return buf.toString();
 	}
 
   public static String szCSVHeader = "Name,PECs";

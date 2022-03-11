@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2018, Battelle Memorial Institute
+//	Copyright (c) 2018-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -11,7 +11,9 @@ public class DistSolar extends DistComponent {
 	public String id;
 	public String name;
 	public String bus;
+  public String t1id;
 	public String phases;
+  public String pecid;
 	public double p;
 	public double q;
 	public double ratedU;
@@ -42,7 +44,9 @@ public class DistSolar extends DistComponent {
 			QuerySolution soln = results.next();
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
+      pecid = soln.get("?pecid").toString();
 			bus = SafeName (soln.get("?bus").toString());
+      t1id = soln.get("?t1id").toString();
 			phases = OptionalString (soln, "?phases", "ABC");
 			phases = phases.replace ('\n', ':');
 			p = Double.parseDouble (soln.get("?p").toString());
@@ -62,6 +66,7 @@ public class DistSolar extends DistComponent {
 		buf.append (name + " @ " + bus + " phases=" + phases);
 		buf.append (" vnom=" + df4.format(ratedU) + " vanom=" + df4.format(ratedS));
 		buf.append (" kw=" + df4.format(0.001 * p) + " kvar=" + df4.format(0.001 * q) + " ilimit=" + df4.format(maxIFault));
+    buf.append (" id=" + id + " pecid=" + pecid);
 		return buf.toString();
 	}
 

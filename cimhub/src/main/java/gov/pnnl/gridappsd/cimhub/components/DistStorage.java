@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2018, Battelle Memorial Institute
+//	Copyright (c) 2018-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -11,8 +11,10 @@ public class DistStorage extends DistComponent {
 	public String id;
 	public String name;
 	public String bus;
+  public String t1id;
 	public String phases;
 	public String state;
+  public String pecid;
 	public double p;
 	public double q;
 	public double ratedU;
@@ -58,7 +60,9 @@ public class DistStorage extends DistComponent {
 			QuerySolution soln = results.next();
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
+      pecid = soln.get("?pecid").toString();
 			bus = SafeName (soln.get("?bus").toString());
+      t1id = soln.get("?t1id").toString();
 			phases = OptionalString (soln, "?phases", "ABC");
 			phases = phases.replace ('\n', ':');
 			p = Double.parseDouble (soln.get("?p").toString());
@@ -82,7 +86,7 @@ public class DistStorage extends DistComponent {
 		buf.append (" vnom=" + df4.format(ratedU) + " vanom=" + df4.format(ratedS));
 		buf.append (" kw=" + df4.format(0.001 * p) + " kvar=" + df4.format(0.001 * q));
 		buf.append (" capacity=" + df4.format(0.001 * ratedE) + " stored=" + df4.format(0.001 * storedE));
-		buf.append (" " + DSSBatteryState (state) + " ilimit=" + df4.format(maxIFault));
+		buf.append (" " + DSSBatteryState (state) + " ilimit=" + df4.format(maxIFault) + " id=" + id + " pecid=" + pecid);
 		return buf.toString();
 	}
 

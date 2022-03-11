@@ -17,16 +17,19 @@ declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
 #declare -r CIMHUB_FID="_746C6392-9F8B-4537-98C4-E978AB9547D4" #local_wvar_b
 #declare -r CIMHUB_FID="_520E4BC8-D3C2-4745-B784-AE23361E94BB" #remote_1phase_b
 #declare -r CIMHUB_FID="_408201DC-BBAB-4CDE-85DF-7F8D1E2CF258" #remote_avr_b
-declare -r CIMHUB_FID="_58EAA940-6023-4F38-B09B-3D445BAB4429" #remote_combo_b
+#declare -r CIMHUB_FID="_58EAA940-6023-4F38-B09B-3D445BAB4429" #remote_combo_b
 #declare -r CIMHUB_FID="_DA89ACD5-8AB1-46E4-959E-5BDE188DC12F" #remote_vvar_a
 #declare -r CIMHUB_FID="_5824790B-58F9-4428-BB11-6D56CE013C73" #remote_vvar_b
 #declare -r CIMHUB_FID="_4C7345DE-E5D1-4A00-ACC4-0F85B9016F03" #remote_vwatt_b
 
+#declare -r CIMHUB_FID="_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62" # ieee13
+declare -r CIMHUB_FID="_5B816B93-7A5F-B64C-8460-47C17D6E4B0F" # ieee13assets
+
 #java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=idx test
 
 java -cp $CIMHUB_PATH $CIMHUB_PROG \
-  -s=_58EAA940-6023-4F38-B09B-3D445BAB4429 -u=$DB_URL -o=dss -l=1.0 -i=1 -h=0 -x=0 -t=1 test
-cat *base.dss
+  -s=$CIMHUB_FID -u=$DB_URL -o=dss -l=1.0 -i=1 -h=0 -x=0 -t=1 test
+#cat *base.dss
 
 #java -cp $CIMHUB_PATH $CIMHUB_PROG \
 #  -s=$CIMHUB_FID -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 test

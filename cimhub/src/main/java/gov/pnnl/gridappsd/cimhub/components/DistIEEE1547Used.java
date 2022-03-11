@@ -12,6 +12,7 @@ public class DistIEEE1547Used extends DistComponent {
 	public String name;
   public boolean enabled;
   public String cat;
+  public String pecid;
 
   public double acVnom;
   public double acVmin;
@@ -93,6 +94,7 @@ public class DistIEEE1547Used extends DistComponent {
 			QuerySolution soln = results.next();
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
+      pecid = soln.get("?pecid").toString();
       enabled = Boolean.parseBoolean (soln.get("?enabled").toString());
       cat = soln.get("?cat").toString();
 
@@ -167,7 +169,14 @@ public class DistIEEE1547Used extends DistComponent {
 	
 	public String DisplayString() {
 		StringBuilder buf = new StringBuilder ("");
-		buf.append (name);
+		buf.append (name + " cat=" + cat + " enabled=" + Boolean.toString(enabled) + " pf=" + Boolean.toString(pfEnabled));
+    buf.append (" cq=" + Boolean.toString(cqEnabled) + " vv=" + Boolean.toString(vvEnabled));
+    buf.append (" vw=" + Boolean.toString(vwEnabled) + " wv=" + Boolean.toString(wvEnabled));
+    if (vwEnabled) {
+      if (vvEnabled || wvEnabled) {
+        buf.append (" combo=" + Boolean.toString (true));
+      }
+    }
 		return buf.toString();
 	}
 
@@ -183,7 +192,7 @@ public class DistIEEE1547Used extends DistComponent {
 	}
 
 	public String GetDSS () {
-		StringBuilder buf = new StringBuilder ("new InvControl." + name + " // data \n");
+		StringBuilder buf = new StringBuilder (DisplayString() + "\n");
 		return buf.toString();
 	}
 

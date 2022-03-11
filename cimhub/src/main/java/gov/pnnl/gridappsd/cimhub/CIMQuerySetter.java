@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub;
 // ----------------------------------------------------------
-// Copyright (c) 2017-2020, Battelle Memorial Institute
+// Copyright (c) 2017-2022, Battelle Memorial Institute
 // All rights reserved.
 // ----------------------------------------------------------
 
@@ -51,7 +51,7 @@ public class CIMQuerySetter extends Object {
 
 		mapQueries.put ("DistCapacitor",
 		   "SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs"+
-			 " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {"+
+			 " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id WHERE {"+
 			 " ?s c:Equipment.EquipmentContainer ?fdr."+
 			 " ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			 " ?s r:type c:LinearShuntCompensator."+
@@ -88,6 +88,7 @@ public class CIMQuerySetter extends Object {
 			 " bind(strafter(str(?s),\"#\") as ?id)."+
 			 " ?t c:Terminal.ConductingEquipment ?s."+
 			 " ?t c:Terminal.ConnectivityNode ?cn."+ 
+       " ?t c:IdentifiedObject.mRID ?t1id."+
 			 " ?cn c:IdentifiedObject.name ?bus" + 
 			 "}");
 
@@ -191,7 +192,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?name");
 
 		mapQueries.put ("DistLinesCodeZ",
-			"SELECT ?name ?id ?basev ?bus1 ?bus2 ?len ?lname ?codeid ?fdrid ?seq ?phs WHERE {"+
+			"SELECT ?name ?id ?basev ?bus1 ?bus2 ?len ?lname ?codeid ?fdrid ?seq ?phs ?t1id ?t2id WHERE {"+
 			" ?s r:type c:ACLineSegment."+
 			" ?s c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -205,10 +206,12 @@ public class CIMQuerySetter extends Object {
 			" ?t1 c:Terminal.ConductingEquipment ?s."+
 			" ?t1 c:Terminal.ConnectivityNode ?cn1."+
 			" ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
 			" ?cn1 c:IdentifiedObject.name ?bus1."+
 			" ?t2 c:Terminal.ConductingEquipment ?s."+
 			" ?t2 c:Terminal.ConnectivityNode ?cn2."+
 			" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
 			" ?cn2 c:IdentifiedObject.name ?bus2."+
 			" bind(strafter(str(?s),\"#\") as ?id)."+
 			" OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s."+
@@ -219,7 +222,7 @@ public class CIMQuerySetter extends Object {
 			" ORDER BY ?name ?seq ?phs");
 
 		mapQueries.put ("DistLinesInstanceZ",
-			"SELECT ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid WHERE {"+
+			"SELECT ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid ?t1id ?t2id WHERE {"+
 			" ?s r:type c:ACLineSegment."+
 			" ?s c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -237,17 +240,19 @@ public class CIMQuerySetter extends Object {
 			" ?t1 c:Terminal.ConductingEquipment ?s."+
 			" ?t1 c:Terminal.ConnectivityNode ?cn1."+
 			" ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
 			" ?cn1 c:IdentifiedObject.name ?bus1."+
 			" ?t2 c:Terminal.ConductingEquipment ?s."+
 			" ?t2 c:Terminal.ConnectivityNode ?cn2."+
 			" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
 			" ?cn2 c:IdentifiedObject.name ?bus2"+
 			"}"+
-			" GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid"+
+			" GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid ?t1id ?t2id"+
 			" ORDER BY ?name");
 
     mapQueries.put ("DistSeriesCompensator",
-      "SELECT ?name ?id ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid WHERE {"+
+      "SELECT ?name ?id ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid ?t1id ?t2id WHERE {"+
       " ?s r:type c:SeriesCompensator."+
       " ?s c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -266,13 +271,15 @@ public class CIMQuerySetter extends Object {
       " ?t2 c:Terminal.ConductingEquipment ?s."+
       " ?t2 c:Terminal.ConnectivityNode ?cn2."+
       " ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
-      " ?cn2 c:IdentifiedObject.name ?bus2"+
+      " ?cn2 c:IdentifiedObject.name ?bus2."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
       "}"+
-      " GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid"+
+      " GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid ?t1id ?t2id"+
       " ORDER BY ?name");
 
 		mapQueries.put ("DistLinesSpacingZ",
-			"SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?phclass"+
+			"SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?phclass ?t1id ?t2id"+
 			" WHERE {"+
 			" ?s r:type c:ACLineSegment."+
 			" ?s c:Equipment.EquipmentContainer ?fdr."+
@@ -288,10 +295,12 @@ public class CIMQuerySetter extends Object {
 			" ?t1 c:Terminal.ConductingEquipment ?s."+
 			" ?t1 c:Terminal.ConnectivityNode ?cn1."+
 			" ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
 			" ?cn1 c:IdentifiedObject.name ?bus1."+
 			" ?t2 c:Terminal.ConductingEquipment ?s."+
 			" ?t2 c:Terminal.ConnectivityNode ?cn2."+
 			" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
 			" ?cn2 c:IdentifiedObject.name ?bus2."+
 			" ?acp c:ACLineSegmentPhase.ACLineSegment ?s."+
       " ?acp c:ACLineSegmentPhase.sequenceNumber ?seq."+
@@ -325,7 +334,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?name ?seq");
 
 		mapQueries.put ("DistLoad",
-			"SELECT ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid "+
+			"SELECT ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid ?t1id "+
 			"(group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:EnergyConsumer."+
@@ -354,9 +363,10 @@ public class CIMQuerySetter extends Object {
 			" bind(strafter(str(?s),\"#\") as ?id)."+
 			" ?t c:Terminal.ConductingEquipment ?s."+
 			" ?t c:Terminal.ConnectivityNode ?cn."+
+      " ?t c:IdentifiedObject.mRID ?t1id."+
 			" ?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP BY ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid "+
+			"GROUP BY ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid ?t1id "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistMeasurement",
@@ -453,7 +463,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?pname ?fnum ?tnum");
 
 		mapQueries.put ("DistPowerXfmrWinding",
-			"SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?id ?fdrid ?ename ?eid WHERE {"+
+			"SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?id ?fdrid ?ename ?eid ?t1id WHERE {"+
 			" ?p r:type c:PowerTransformer."+
 			" ?p c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -475,6 +485,7 @@ public class CIMQuerySetter extends Object {
 			" OPTIONAL {?end c:TransformerEnd.xground ?xground.}"+
 			" ?end c:TransformerEnd.Terminal ?trm."+
 			" ?trm c:Terminal.ConnectivityNode ?cn. "+
+      " ?trm c:IdentifiedObject.mRID ?t1id."+
 			" ?cn c:IdentifiedObject.name ?bus."+
 			" ?end c:TransformerEnd.BaseVoltage ?bv."+
 			" ?bv c:BaseVoltage.nominalVoltage ?basev"+
@@ -562,7 +573,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?name");
 
 		mapQueries.put ("DistSolar",
-			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
+			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:PhotovoltaicUnit."+
 			"	?s c:IdentifiedObject.name ?name."+
@@ -576,19 +587,21 @@ public class CIMQuerySetter extends Object {
 			"	?pec c:PowerElectronicsConnection.p ?p."+
 			"	?pec c:PowerElectronicsConnection.q ?q."+
 			" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
+      " ?pec c:IdentifiedObject.mRID ?pecid."+
 			"	OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec."+
 			"	?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw."+
 			"		bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
 			" bind(strafter(str(?s),\"#\") as ?id)."+
 			"	?t c:Terminal.ConductingEquipment ?pec."+
 			"	?t c:Terminal.ConnectivityNode ?cn."+ 
+      " ?t c:IdentifiedObject.mRID ?t1id."+
 			"	?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid "+
+			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid ?pecid ?t1id "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistStorage",
-			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
+			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:BatteryUnit."+
 			"	?s c:IdentifiedObject.name ?name."+
@@ -600,6 +613,7 @@ public class CIMQuerySetter extends Object {
 			"	?pec c:PowerElectronicsConnection.p ?p."+
 			"	?pec c:PowerElectronicsConnection.q ?q."+
 			" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
+      " ?pec c:IdentifiedObject.mRID ?pecid."+
       " ?s c:PowerElectronicsUnit.maxP ?maxP."+
       " ?s c:PowerElectronicsUnit.minP ?minP."+
 			" ?s c:BatteryUnit.ratedE ?ratedE."+
@@ -612,13 +626,14 @@ public class CIMQuerySetter extends Object {
 			" bind(strafter(str(?s),\"#\") as ?id)."+
 			"	?t c:Terminal.ConductingEquipment ?pec."+
 			"	?t c:Terminal.ConnectivityNode ?cn."+ 
+      " ?t c:IdentifiedObject.mRID ?t1id."+
 			"	?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid "+
+			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid ?pecid ?t1id "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistSubstation",
-			"SELECT ?name ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?id WHERE {" +
+			"SELECT ?name ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?id ?t1id WHERE {" +
 			" ?s r:type c:EnergySource." +
 			" ?s c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -635,11 +650,12 @@ public class CIMQuerySetter extends Object {
 			" ?t c:Terminal.ConductingEquipment ?s." +
 			" bind(strafter(str(?s),\"#\") as ?id)."+
 			" ?t c:Terminal.ConnectivityNode ?cn." + 
+      " ?t c:IdentifiedObject.mRID ?t1id."+
 			" ?cn c:IdentifiedObject.name ?bus" +
 			"}");
 
 		mapQueries.put ("DistSwitchSelect",
-			"SELECT ?name ?id ?bus1 ?bus2 ?basev ?rated ?breaking (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?open ?fdrid WHERE {");
+			"SELECT ?name ?id ?bus1 ?bus2 ?basev ?rated ?breaking (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?open ?fdrid ?t1id ?t2id WHERE {");
 
 		mapQueries.put ("DistSwitchWhere",
 			" ?s c:Equipment.EquipmentContainer ?fdr."+
@@ -653,21 +669,23 @@ public class CIMQuerySetter extends Object {
 			" ?t1 c:Terminal.ConductingEquipment ?s."+
 			" ?t1 c:Terminal.ConnectivityNode ?cn1."+
 			" ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
 			" ?cn1 c:IdentifiedObject.name ?bus1."+
 			" ?t2 c:Terminal.ConductingEquipment ?s."+
 			" ?t2 c:Terminal.ConnectivityNode ?cn2."+
 			" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
 			" ?cn2 c:IdentifiedObject.name ?bus2."+
 			" bind(strafter(str(?s),\"#\") as ?id)."+
 			" OPTIONAL {?swp c:SwitchPhase.Switch ?s."+
 			" ?swp c:SwitchPhase.phaseSide1 ?phsraw."+
 			"   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
 			"}"+
-			" GROUP BY ?name ?basev ?bus1 ?bus2 ?rated ?breaking ?open ?id ?fdrid"+
+			" GROUP BY ?name ?basev ?bus1 ?bus2 ?rated ?breaking ?open ?id ?fdrid ?t1id ?t2id"+
 			" ORDER BY ?name");
 
 		mapQueries.put ("DistSyncMachine",
-			 "SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?ratedS ?ratedU ?p ?q ?id ?fdrid WHERE {"+
+			 "SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?ratedS ?ratedU ?p ?q ?id ?fdrid ?t1id WHERE {"+
 			 " ?s c:Equipment.EquipmentContainer ?fdr."+
 			 " ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			 " ?s r:type c:SynchronousMachine."+
@@ -682,9 +700,10 @@ public class CIMQuerySetter extends Object {
 				" bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
 			 " ?t c:Terminal.ConductingEquipment ?s."+
 			 " ?t c:Terminal.ConnectivityNode ?cn."+ 
+       " ?t c:IdentifiedObject.mRID ?t1id."+
 			 " ?cn c:IdentifiedObject.name ?bus" + 
 			 "} " +
-			 "GROUP by ?name ?bus ?ratedS ?ratedU ?p ?q ?id ?fdrid " +
+			 "GROUP by ?name ?bus ?ratedS ?ratedU ?p ?q ?id ?fdrid ?t1id " +
 			 "ORDER by ?name");
 
     mapQueries.put ("DistIEEE1547Connection",
@@ -701,13 +720,14 @@ public class CIMQuerySetter extends Object {
       "ORDER by ?name ?id");
 
     mapQueries.put ("DistIEEE1547Signal",
-      "SELECT DISTINCT ?name ?id ?rid ?kind ?tid ?fdrid WHERE {"+
+      "SELECT DISTINCT ?name ?id ?pecid ?rid ?kind ?tid ?fdrid WHERE {"+
       " ?pec c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?s r:type c:DERIEEEType1."+
       " ?s c:DERDynamics.PowerElectronicsConnection ?pec."+
       " ?s c:IdentifiedObject.name ?name."+
       " ?s c:IdentifiedObject.mRID ?id."+
+      " ?pec c:IdentifiedObject.mRID ?pecid."+
       " ?s c:DERDynamics.RemoteInputSignal ?rsig."+
       " ?rsig c:IdentifiedObject.mRID ?rid."+
       " ?rsig c:RemoteInputSignal.Terminal ?trm."+
@@ -717,7 +737,7 @@ public class CIMQuerySetter extends Object {
       "ORDER by ?name ?id");
 
     mapQueries.put ("DistIEEE1547Used",
-      "SELECT DISTINCT ?name ?id ?enabled ?cat ?acVnom ?acVmin ?acVmax ?sMax ?pMax ?pMaxOverPF ?overPF ?pMaxUnderPF ?underPF ?qMaxInj ?qMaxAbs ?pMaxCharge ?apparentPowerChargeMax ?fdrid"+
+      "SELECT DISTINCT ?name ?id ?pecid ?enabled ?cat ?acVnom ?acVmin ?acVmax ?sMax ?pMax ?pMaxOverPF ?overPF ?pMaxUnderPF ?underPF ?qMaxInj ?qMaxAbs ?pMaxCharge ?apparentPowerChargeMax ?fdrid"+
       " ?vvEnabled ?vvV1 ?vvV2 ?vvV3 ?vvV4 ?vvQ1 ?vvQ2 ?vvQ3 ?vvQ4 ?vvRef ?vvRefAuto ?vvRefOlrt ?vvOlrt"+
       " ?wvEnabled ?wvP1gen ?wvP2gen ?wvP3gen ?wvQ1gen ?wvQ2gen ?wvQ3gen ?wvP1load ?wvP2load ?wvP3load ?wvQ1load ?wvQ2load ?wvQ3load"+
       " ?pfEnabled ?powerFactor ?pfKind"+
@@ -732,7 +752,7 @@ public class CIMQuerySetter extends Object {
       " ?s c:DERIEEEType1.phaseToGroundApplicable ?usePG."+
       " ?s c:DERIEEEType1.phaseToNeutralApplicable ?usePN."+
       " ?s c:DERIEEEType1.phaseToPhaseApplicable ?usePP."+
-      " ?pec c:IdentifiedObject.mRID ?pid."+
+      " ?pec c:IdentifiedObject.mRID ?pecid."+
       " ?s c:IdentifiedObject.name ?name."+
       " ?s c:IdentifiedObject.mRID ?id."+
       " ?s c:DynamicsFunctionBlock.enabled ?enabled."+
@@ -938,7 +958,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?pname ?tname ?enum ?gnum");
 
 		mapQueries.put ("DistXfmrTank",
-			"SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?reversed ?grounded ?rground ?xground ?id ?infoid ?fdrid ?ename ?eid WHERE {"+
+			"SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?phs ?reversed ?grounded ?rground ?xground ?id ?infoid ?fdrid ?ename ?eid ?t1id WHERE {"+
 			" ?p r:type c:PowerTransformer."+
 			" ?p c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -962,6 +982,7 @@ public class CIMQuerySetter extends Object {
 			" OPTIONAL {?end c:TransformerEnd.xground ?xground.}"+
 			" ?end c:TransformerEnd.Terminal ?trm."+
 			" ?trm c:Terminal.ConnectivityNode ?cn."+ 
+      " ?trm c:IdentifiedObject.mRID ?t1id."+
 			" ?cn c:IdentifiedObject.name ?bus."+
 			" bind(strafter(str(?t),\"#\") as ?id)."+
 			" ?end c:TransformerEnd.BaseVoltage ?bv."+

@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -11,6 +11,7 @@ public class DistSubstation extends DistComponent {
 	public String id;
 	public String name;
 	public String bus;
+  public String t1id;
 	public double basev;
 	public double nomv;
 	public double vmag;
@@ -35,6 +36,7 @@ public class DistSubstation extends DistComponent {
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
 			bus = SafeName (soln.get("?bus").toString());
+      t1id = soln.get("?t1id").toString();
 			basev = Double.parseDouble (soln.get("?basev").toString());
 			nomv = Double.parseDouble (soln.get("?nomv").toString());
 			vmag = Double.parseDouble (soln.get("?vmag").toString());

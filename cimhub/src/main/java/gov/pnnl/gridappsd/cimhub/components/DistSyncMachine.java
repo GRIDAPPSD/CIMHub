@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -11,6 +11,7 @@ public class DistSyncMachine extends DistComponent {
 	public String id;
 	public String name;
 	public String bus;
+  public String t1id;
 	public String phases;
 	public double ratedS;
 	public double ratedU;
@@ -38,6 +39,7 @@ public class DistSyncMachine extends DistComponent {
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
 			bus = SafeName (soln.get("?bus").toString());
+      t1id = soln.get("?t1id").toString();
 			phases = OptionalString (soln, "?phases", "ABC");
 			phases = phases.replace ('\n', ':');
 			p = Double.parseDouble (soln.get("?p").toString());

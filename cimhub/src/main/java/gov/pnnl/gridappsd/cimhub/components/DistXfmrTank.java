@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //  ----------------------------------------------------------
-//  Copyright (c) 2017-2021, Battelle Memorial Institute
+//  Copyright (c) 2017-2022, Battelle Memorial Institute
 //  All rights reserved.
 //  ----------------------------------------------------------
 
@@ -15,6 +15,7 @@ public class DistXfmrTank extends DistComponent {
   public String tankinfo;
   public String infoid;
   public String[] bus;
+  public String[] t1id;
   public String[] phs;
   public String[] ename;
   public String[] eid;
@@ -44,6 +45,7 @@ public class DistXfmrTank extends DistComponent {
   private void SetSize (int val) {
     size = val;
     bus = new String[size];
+    t1id = new String[size];
     phs = new String[size];
     ename = new String[size];
     eid = new String[size];
@@ -70,6 +72,7 @@ public class DistXfmrTank extends DistComponent {
         eid[i] = soln.get("?eid").toString();
         ename[i] = SafeName (soln.get("?ename").toString());
         bus[i] = SafeName (soln.get("?bus").toString());
+        t1id[i] = soln.get("?t1id").toString();
         basev[i] = Double.parseDouble (soln.get("?basev").toString());
         phs[i] = soln.get("?phs").toString();
         rg[i] = OptionalDouble (soln, "?rground", 0.0);
