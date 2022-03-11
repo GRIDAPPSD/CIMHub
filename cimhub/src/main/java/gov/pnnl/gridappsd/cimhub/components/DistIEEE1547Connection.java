@@ -68,13 +68,13 @@ public class DistIEEE1547Connection extends DistComponent {
       for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
         DistSolar dpv = pair.getValue();
         if (pids.contains(dpv.pecid)) {
-          buf.append("pvsystem." + dpv.name);
+          buf.append(" pvsystem." + dpv.name);
         }
       }
       for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
         DistStorage dbat = pair.getValue();
         if (pids.contains(dbat.pecid)) {
-          buf.append("storage." + dbat.name);
+          buf.append(" storage." + dbat.name);
         }
       }
       buf.append("]\n");
@@ -82,7 +82,19 @@ public class DistIEEE1547Connection extends DistComponent {
     for (HashMap.Entry<String,DistIEEE1547Signal> pair : mapSignals.entrySet()) {
       DistIEEE1547Signal dsig = pair.getValue();
       if (pids.contains(dsig.pecid)) {
-        buf.append("// rsig " + dsig.name + ":" + dsig.kind + ":" + dsig.tid + "\n");
+        CIMTerminal trm = mapTerminals.get(dsig.tid);
+        int nph = DSSPhaseCount (trm.phases, false);
+        double vbase = trm.voltage;
+        if (nph > 1) vbase /= Math.sqrt(3.0);
+        buf.append("~ MonBus=["); // " + trm.DisplayString() + "\n");
+        if (trm.phases.contains("A") || trm.phases.contains("s1")) buf.append (" " + trm.bus + ".1");
+        if (trm.phases.contains("B") || trm.phases.contains("s12") || trm.phases.contains("s2")) buf.append (" " + trm.bus + ".2");
+        if (trm.phases.contains("C")) buf.append (" " + trm.bus + ".3");
+        buf.append("] MonBusesVBase=[");
+        for (int i = 0; i < nph; i++) {
+          buf.append (" " + df3.format(vbase));
+        }
+        buf.append("]\n");
       }
     }
     return buf.toString();
