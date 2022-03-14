@@ -61,11 +61,12 @@ public class DistIEEE1547Connection extends DistComponent {
     boolean bC = false;
     boolean bs1 = false;
     boolean bs2 = false;
-		StringBuilder buf = new StringBuilder ("new InvControl." + name + "\n");
+    StringBuilder buf = new StringBuilder("");
     for (HashMap.Entry<String,DistIEEE1547Used> pair : mapUsed.entrySet()) {
       DistIEEE1547Used dset = pair.getValue();
       if (pids.contains(dset.pecid)) {
-        buf.append(dset.GetDSS());
+        buf.append(dset.GetDSS()); // write the settings and XY curve, use that name
+        break;
       }
     }
     if (pids.length() > 0) { // connect this to the PowerElectronicUnits
@@ -94,7 +95,7 @@ public class DistIEEE1547Connection extends DistComponent {
       }
       buf.append("]\n");
     }
-    for (HashMap.Entry<String,DistIEEE1547Signal> pair : mapSignals.entrySet()) { // remote signals, if used
+    for ( HashMap.Entry<String, DistIEEE1547Signal> pair: mapSignals.entrySet() ) { // remote signals, if used
       DistIEEE1547Signal dsig = pair.getValue();
       if (pids.contains(dsig.pecid)) {
         CIMTerminal trm = mapTerminals.get(dsig.tid);

@@ -192,7 +192,9 @@ public class DistIEEE1547Used extends DistComponent {
 	}
 
 	public String GetDSS () {
-		StringBuilder buf = new StringBuilder (DisplayString() + "\n");
+    StringBuilder buf = new StringBuilder ("// write the XY curves first\n");
+    buf.append ("new InvControl." + name + "\n");
+		buf.append (DisplayString() + "\n");
 		return buf.toString();
 	}
 
