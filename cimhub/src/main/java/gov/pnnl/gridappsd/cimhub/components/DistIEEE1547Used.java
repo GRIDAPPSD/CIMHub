@@ -171,7 +171,7 @@ public class DistIEEE1547Used extends DistComponent {
 		StringBuilder buf = new StringBuilder ("");
 		buf.append (name + " cat=" + cat + " enabled=" + Boolean.toString(enabled) + " pf=" + Boolean.toString(pfEnabled));
     buf.append (" cq=" + Boolean.toString(cqEnabled) + " vv=" + Boolean.toString(vvEnabled));
-    buf.append (" vw=" + Boolean.toString(vwEnabled) + " wv=" + Boolean.toString(wvEnabled));
+    buf.append (" vw=" + Boolean.toString(vwEnabled) + " wv=" + Boolean.toString(wvEnabled) + " vvRefAuto=" + Boolean.toString(vvRefAuto));
     if (vwEnabled) {
       if (vvEnabled || wvEnabled) {
         buf.append (" combo=" + Boolean.toString (true));
@@ -191,11 +191,57 @@ public class DistIEEE1547Used extends DistComponent {
 		return name;
 	}
 
-	public String GetDSS () {
-    StringBuilder buf = new StringBuilder ("// write the XY curves first\n");
-    buf.append ("new InvControl." + name + "\n");
-		buf.append (DisplayString() + "\n");
-		return buf.toString();
+  public String GetExpControl() {
+    StringBuilder buf = new StringBuilder("new ExpControl." + name + " // " + cat + " " + id + "\n");
+    double slope = (vvQ2 - vvQ3) / (vvV3 - vvV2);
+    buf.append ("~ vreg=" + df4.format(vvRef) + " slope=" + df4.format(slope) + " vregtau=" + df2.format(vvRefOlrt) + " Tresponse=" + df2.format(vvOlrt) + " deltaQ_factor=0.3\n");
+    return buf.toString();
+  }
+
+	public String GetDSS (boolean bStorage) {
+    if (vvEnabled && vvRefAuto) {
+      return GetExpControl();
+    }
+    StringBuilder buf = new StringBuilder("");
+    if (vvEnabled) {
+      if (vvV2 == vvV3) { // catA
+        buf.append("new XyCurve." + name + "_vvar npts=4 Yarray=[" + df4.format (vvQ1) + " " + df4.format (vvQ1) + " " + df4.format (vvQ4) + " " + df4.format (vvQ4));
+        buf.append("] Xarray=[0.5 " + df4.format (vvV1) + " " + df4.format (vvV4) + " 1.5]\n");
+      } else { // catB
+        buf.append("new XyCurve." + name + "_vvar npts=6 Yarray=[" + df4.format (vvQ1) + " " + df4.format (vvQ1) + " " + df4.format (vvQ2) + " " + df4.format (vvQ3) + " " + df4.format (vvQ4) + " " + df4.format (vvQ4));
+        buf.append("] Xarray=[0.5 " + df4.format (vvV1) + " " + df4.format (vvV2) + " " + df4.format (vvV3) + " " + df4.format (vvV4) + " 1.5]\n");
+      }
+    }
+    if (vwEnabled) {
+      buf.append("new XyCurve." + name + "_vwatt npts=4 Yarray=[" + df4.format (vwP1) + " " + df4.format (vwP1) + " " + df4.format (vwP2gen) + " " + df4.format (vwP2gen));
+      buf.append("] Xarray=[0.0 " + df4.format (vwV1) + " " + df4.format (vwV2) + " 2.0]\n");
+      if (bStorage) {
+        buf.append("new XyCurve." + name + "_vwattch npts=4 Yarray=[0 0 " + df4.format (-vwP2load) + " " + df4.format (-vwP2load));
+        buf.append("] Xarray=[0.0 " + df4.format (vwV1) + " " + df4.format (vwV2) + " 2.0]\n");
+      }
+    }
+    if (wvEnabled) {
+      buf.append("new XyCurve." + name + "_wattvar npts=8 Yarray=[" + df4.format (wvQ3load) + " " + df4.format (wvQ3load) + " " + df4.format (wvQ2load) + " " + df4.format (wvQ1load) +
+                 " " + df4.format (wvQ1gen) + " " + df4.format (wvQ2gen) + " " + df4.format (wvQ3gen) + " " + df4.format (wvQ3gen) + "]\n");
+      buf.append("~ Xarray=[-2.0 " + df4.format (wvP3load) + " " + df4.format (wvP2load) + " " + df4.format (wvP1load) +
+                 " " + df4.format (wvP1gen) + " " + df4.format (wvP2gen) + " " + df4.format (wvP3gen) + " 2.0]\n");
+    }
+    buf.append("new InvControl." + name + " // " + cat + " " + id + "\n");
+    if (vvEnabled && vwEnabled) {
+      buf.append ("~ combimode=VV_VW voltage_curvex_ref=rated deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS deltaP_factor=0.2\n");
+      buf.append ("~ vvc_curve1=" + name + "_vvar voltwatt_curve=" + name + "_vwatt\n");
+    } else if (vvEnabled) {
+      buf.append ("~ mode=VOLTVAR voltage_curvex_ref=rated deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS vvc_curve1=" + name + "_vvar\n");
+    } else if (vwEnabled) {
+      buf.append ("~ mode=VOLTWATT voltage_curvex_ref=rated deltaP_factor=0.2 voltwatt_curve=" + name + "_vwatt");
+      if (bStorage) {
+        buf.append (" voltwattch_curve=" + name + "_vwattch\n");
+      }
+      buf.append ("\n");
+    } else if (wvEnabled) {
+      buf.append ("~ mode=WATTVAR voltage_curvex_ref=rated wattvar_curve=" + name + "_wattvar\n");
+    }
+    return buf.toString();
 	}
 
   public static String szCSVHeader = "Name,Enabled,Cat,acVnom,acVmin,acVmax,sMaxpMaxOverPF,overPF,pMaxUnderPF,underPF,qMaxInj,"+

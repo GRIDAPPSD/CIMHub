@@ -1,0 +1,7 @@
+redirect test_base.dss
+set maxcontroliter=100
+solve
+show powers
+show voltages ln nodes
+quit
+

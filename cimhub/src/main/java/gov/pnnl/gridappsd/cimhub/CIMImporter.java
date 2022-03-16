@@ -1165,7 +1165,7 @@ public class CIMImporter extends Object {
         mapTerminals.put (obj.t1id[i], trm1);
       }
     }
-    PrintTerminalMap (mapTerminals, "*** Map Terminals");
+//    PrintTerminalMap (mapTerminals, "*** Map Terminals");
   }
 
   protected void WriteGLMFile (PrintWriter out, double load_scale, boolean bWantSched, String fSched,
@@ -2229,8 +2229,6 @@ public class CIMImporter extends Object {
       CheckMaps();
       UpdateModelState(ms);
       ApplyCurrentLimits();
-      PrintOneMap (mapSolars, "** SOLAR PV SOURCES");
-      PrintOneMap (mapStorages, "** STORAGE SOURCES");
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.dss";
       fXY = fRoot + "_busxy.dss";

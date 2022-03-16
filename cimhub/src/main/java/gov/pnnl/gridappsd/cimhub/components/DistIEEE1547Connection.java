@@ -61,16 +61,11 @@ public class DistIEEE1547Connection extends DistComponent {
     boolean bC = false;
     boolean bs1 = false;
     boolean bs2 = false;
-    StringBuilder buf = new StringBuilder("");
-    for (HashMap.Entry<String,DistIEEE1547Used> pair : mapUsed.entrySet()) {
-      DistIEEE1547Used dset = pair.getValue();
-      if (pids.contains(dset.pecid)) {
-        buf.append(dset.GetDSS()); // write the settings and XY curve, use that name
-        break;
-      }
-    }
-    if (pids.length() > 0) { // connect this to the PowerElectronicUnits
-      buf.append("~ derlist=[");
+    boolean bStorage = false;
+    StringBuilder derlist = new StringBuilder("");
+     // first determine the PowerElectronicUnit connections, because we need early phasing and storage identification
+    if (pids.length() > 0) {
+      derlist.append("~ derlist=[");
       for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
         DistSolar dpv = pair.getValue();
         if (pids.contains(dpv.pecid)) {
@@ -79,7 +74,7 @@ public class DistIEEE1547Connection extends DistComponent {
           if (dpv.phases.contains("C")) bC = true;
           if (dpv.phases.contains("1")) bs1 = true;
           if (dpv.phases.contains("2")) bs2 = true;
-          buf.append(" pvsystem." + dpv.name);
+          derlist.append(" pvsystem." + dpv.name);
         }
       }
       for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
@@ -90,12 +85,23 @@ public class DistIEEE1547Connection extends DistComponent {
           if (dbat.phases.contains("C")) bC = true;
           if (dbat.phases.contains("1")) bs1 = true;
           if (dbat.phases.contains("2")) bs2 = true;
-          buf.append(" storage." + dbat.name);
+          derlist.append(" storage." + dbat.name);
+          bStorage = true;
         }
       }
-      buf.append("]\n");
+      derlist.append("]\n");
     }
-    for ( HashMap.Entry<String, DistIEEE1547Signal> pair: mapSignals.entrySet() ) { // remote signals, if used
+
+    StringBuilder buf = new StringBuilder("");
+    for (HashMap.Entry<String,DistIEEE1547Used> pair : mapUsed.entrySet()) {
+      DistIEEE1547Used dset = pair.getValue();
+      if (pids.contains(dset.pecid)) {
+        buf.append(dset.GetDSS(bStorage)); // write the settings and XY curve, use that name
+        break;
+      }
+    }
+    buf.append (derlist);
+    for (HashMap.Entry<String, DistIEEE1547Signal> pair: mapSignals.entrySet()) { // remote signals, if used
       DistIEEE1547Signal dsig = pair.getValue();
       if (pids.contains(dsig.pecid)) {
         CIMTerminal trm = mapTerminals.get(dsig.tid);
