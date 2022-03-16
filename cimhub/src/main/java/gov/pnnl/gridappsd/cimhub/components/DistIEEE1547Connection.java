@@ -62,6 +62,7 @@ public class DistIEEE1547Connection extends DistComponent {
     boolean bs1 = false;
     boolean bs2 = false;
     boolean bStorage = false;
+    boolean bAllowRemoteSignals = true;
     StringBuilder derlist = new StringBuilder("");
      // first determine the PowerElectronicUnit connections, because we need early phasing and storage identification
     if (pids.length() > 0) {
@@ -97,44 +98,49 @@ public class DistIEEE1547Connection extends DistComponent {
       DistIEEE1547Used dset = pair.getValue();
       if (pids.contains(dset.pecid)) {
         buf.append(dset.GetDSS(bStorage)); // write the settings and XY curve, use that name
+        if (dset.vvEnabled && dset.vvRefAuto) { // this will be an ExpControl
+          bAllowRemoteSignals = false;
+        }
         break;
       }
     }
     buf.append (derlist);
-    for (HashMap.Entry<String, DistIEEE1547Signal> pair: mapSignals.entrySet()) { // remote signals, if used
-      DistIEEE1547Signal dsig = pair.getValue();
-      if (pids.contains(dsig.pecid)) {
-        CIMTerminal trm = mapTerminals.get(dsig.tid);
-        int nph = DSSPhaseCount (trm.phases, false);
-        double vbase = trm.voltage;
-        if (nph > 1) vbase /= Math.sqrt(3.0);
-        int nphused = 0;
-        buf.append("~ MonBus=["); // " + trm.DisplayString() + "\n");
-        if (bA && trm.phases.contains("A")) {
-          buf.append (" " + trm.bus + ".1");
-          nphused += 1;
+    if (bAllowRemoteSignals) {
+      for (HashMap.Entry<String, DistIEEE1547Signal> pair: mapSignals.entrySet()) { // remote signals, if used
+        DistIEEE1547Signal dsig = pair.getValue();
+        if (pids.contains(dsig.pecid)) {
+          CIMTerminal trm = mapTerminals.get(dsig.tid);
+          int nph = DSSPhaseCount (trm.phases, false);
+          double vbase = trm.voltage;
+          if (nph > 1) vbase /= Math.sqrt(3.0);
+          int nphused = 0;
+          buf.append("~ MonBus=["); // " + trm.DisplayString() + "\n");
+          if (bA && trm.phases.contains("A")) {
+            buf.append (" " + trm.bus + ".1");
+            nphused += 1;
+          }
+          if (bB && trm.phases.contains("B")) {
+            buf.append (" " + trm.bus + ".2");
+            nphused += 1;
+          }
+          if (bC && trm.phases.contains("C")) {
+            buf.append (" " + trm.bus + ".3");
+            nphused += 1;
+          }
+          if (bs1 && trm.phases.contains("1")) {
+            buf.append (" " + trm.bus + ".1");
+            nphused += 1;
+          }
+          if (bs2 && trm.phases.contains("2")) {
+            buf.append (" " + trm.bus + ".2");
+            nphused += 1;
+          }
+          buf.append("] MonBusesVBase=[");
+          for (int i = 0; i < nphused; i++) {
+            buf.append (" " + df3.format(vbase));
+          }
+          buf.append("]\n");
         }
-        if (bB && trm.phases.contains("B")) {
-          buf.append (" " + trm.bus + ".2");
-          nphused += 1;
-        }
-        if (bC && trm.phases.contains("C")) {
-          buf.append (" " + trm.bus + ".3");
-          nphused += 1;
-        }
-        if (bs1 && trm.phases.contains("1")) {
-          buf.append (" " + trm.bus + ".1");
-          nphused += 1;
-        }
-        if (bs2 && trm.phases.contains("2")) {
-          buf.append (" " + trm.bus + ".2");
-          nphused += 1;
-        }
-        buf.append("] MonBusesVBase=[");
-        for (int i = 0; i < nphused; i++) {
-          buf.append (" " + df3.format(vbase));
-        }
-        buf.append("]\n");
       }
     }
     return buf.toString();
