@@ -119,7 +119,7 @@ public class DistLoad extends DistComponent {
 		if (nphases < 2 && !bDelta) { 
       if (kv < 0.22) {
         kv /= Math.sqrt(3.0);
-      } else if (kv < 0.26) {// this catches the 240-volt windings with center tap?
+      } else if (kv < 0.26) {// TODO: this catches the 240-volt windings with center tap?
         kv /= 2.0;
       } else {
         kv /= Math.sqrt(3.0);
