@@ -9,3 +9,5 @@ rm -rf dss
 rm -rf glm
 rm upload_1547.sh
 rm checkglm.sh
+rm base/*.Txt
+rm base/*.txt

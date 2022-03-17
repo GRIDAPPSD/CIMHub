@@ -3,7 +3,7 @@ declare -r DB_URL="http://localhost:8889/bigdata/namespace/kb/sparql"
 declare -r CIMHUB_PATH="target/libs/*:../cimhub/target/cimhub-0.0.3-SNAPSHOT.jar"
 declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
 
-declare -r CIMHUB_FID="_3CC2D836-CE11-4D4F-B93D-B2851B1E79B5" #local_avr_b
+#declare -r CIMHUB_FID="_3CC2D836-CE11-4D4F-B93D-B2851B1E79B5" #local_avr_b
 #declare -r CIMHUB_FID="_6A7D5722-8D9D-4C54-861D-56E1CDA52231" #local_chcurve_b
 #declare -r CIMHUB_FID="_1D4B98E2-62AB-411A-813E-F125F29ABD48" #local_combo_a
 #declare -r CIMHUB_FID="_7C1EEB79-9E9C-43E5-BAE9-0F0F99B41384" #local_combo_b
@@ -17,10 +17,11 @@ declare -r CIMHUB_FID="_3CC2D836-CE11-4D4F-B93D-B2851B1E79B5" #local_avr_b
 #declare -r CIMHUB_FID="_746C6392-9F8B-4537-98C4-E978AB9547D4" #local_wvar_b
 #declare -r CIMHUB_FID="_520E4BC8-D3C2-4745-B784-AE23361E94BB" #remote_1phase_b
 #declare -r CIMHUB_FID="_408201DC-BBAB-4CDE-85DF-7F8D1E2CF258" #remote_avr_b
-#declare -r CIMHUB_FID="_58EAA940-6023-4F38-B09B-3D445BAB4429" #remote_combo_b
+declare -r CIMHUB_FID="_58EAA940-6023-4F38-B09B-3D445BAB4429" #remote_combo_b
 #declare -r CIMHUB_FID="_DA89ACD5-8AB1-46E4-959E-5BDE188DC12F" #remote_vvar_a
 #declare -r CIMHUB_FID="_5824790B-58F9-4428-BB11-6D56CE013C73" #remote_vvar_b
 #declare -r CIMHUB_FID="_4C7345DE-E5D1-4A00-ACC4-0F85B9016F03" #remote_vwatt_b
+#declare -r CIMHUB_FID="_57AA3D7E-E023-4C09-A9A7-81C44C2EE87E" #default_avr_b
 
 #declare -r CIMHUB_FID="_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62" # ieee13
 #declare -r CIMHUB_FID="_5B816B93-7A5F-B64C-8460-47C17D6E4B0F" # ieee13assets
@@ -28,11 +29,14 @@ declare -r CIMHUB_FID="_3CC2D836-CE11-4D4F-B93D-B2851B1E79B5" #local_avr_b
 
 #java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=idx test
 
+#java -cp $CIMHUB_PATH $CIMHUB_PROG \
+#  -s=$CIMHUB_FID -u=$DB_URL -o=glm -l=1.0 -i=1 -h=0 -x=0 -t=1 test
+#cat *base.dss
+
 java -cp $CIMHUB_PATH $CIMHUB_PROG \
   -s=$CIMHUB_FID -u=$DB_URL -o=dss -l=1.0 -i=1 -h=0 -x=0 -t=1 test
 cat *base.dss
 
 #java -cp $CIMHUB_PATH $CIMHUB_PROG \
 #  -s=$CIMHUB_FID -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 test
-
 #cat *I1547*.csv

@@ -573,7 +573,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?name");
 
 		mapQueries.put ("DistSolar",
-			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
+			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:PhotovoltaicUnit."+
 			"	?s c:IdentifiedObject.name ?name."+
@@ -586,6 +586,8 @@ public class CIMQuerySetter extends Object {
 			"	?pec c:PowerElectronicsConnection.ratedU ?ratedU."+
 			"	?pec c:PowerElectronicsConnection.p ?p."+
 			"	?pec c:PowerElectronicsConnection.q ?q."+
+      " {?pec c:PowerElectronicsConnection.controlMode ?modeRaw."+
+      " bind(strafter(str(?modeRaw),\"ConverterControlMode.\") as ?controlMode)}"+
 			" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
       " ?pec c:IdentifiedObject.mRID ?pecid."+
 			"	OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec."+
@@ -597,11 +599,11 @@ public class CIMQuerySetter extends Object {
       " ?t c:IdentifiedObject.mRID ?t1id."+
 			"	?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?id ?fdrid ?pecid ?t1id "+
+			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistStorage",
-			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
+			"SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
 			"WHERE {"+
 			" ?s r:type c:BatteryUnit."+
 			"	?s c:IdentifiedObject.name ?name."+
@@ -612,6 +614,8 @@ public class CIMQuerySetter extends Object {
 			"	?pec c:PowerElectronicsConnection.ratedU ?ratedU."+
 			"	?pec c:PowerElectronicsConnection.p ?p."+
 			"	?pec c:PowerElectronicsConnection.q ?q."+
+      " {?pec c:PowerElectronicsConnection.controlMode ?modeRaw."+
+      " bind(strafter(str(?modeRaw),\"ConverterControlMode.\") as ?controlMode)}"+
 			" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
       " ?pec c:IdentifiedObject.mRID ?pecid."+
       " ?s c:PowerElectronicsUnit.maxP ?maxP."+
@@ -629,7 +633,7 @@ public class CIMQuerySetter extends Object {
       " ?t c:IdentifiedObject.mRID ?t1id."+
 			"	?cn c:IdentifiedObject.name ?bus"+
 			"} "+
-			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid ?pecid ?t1id "+
+			"GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id "+
 			"ORDER BY ?name");
 
 		mapQueries.put ("DistSubstation",

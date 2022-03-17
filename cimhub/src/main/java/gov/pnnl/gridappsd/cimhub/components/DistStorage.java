@@ -26,6 +26,7 @@ public class DistStorage extends DistComponent {
 	public double storedE;
 	public double maxIFault;
 	public boolean bDelta;
+  public ConverterControlMode mode;
 
 	public String GetJSONEntry () {
 		StringBuilder buf = new StringBuilder ();
@@ -67,6 +68,7 @@ public class DistStorage extends DistComponent {
 			phases = phases.replace ('\n', ':');
 			p = Double.parseDouble (soln.get("?p").toString());
 			q = Double.parseDouble (soln.get("?q").toString());
+      mode = ParseControlMode (soln.get("?controlMode").toString());
 			ratedU = Double.parseDouble (soln.get("?ratedU").toString());
 			ratedS = Double.parseDouble (soln.get("?ratedS").toString());
       maxP = Double.parseDouble (soln.get("?maxP").toString());
@@ -159,14 +161,8 @@ public class DistStorage extends DistComponent {
 		if (nphases < 2) { // 2-phase wye load should be line-line for secondary?
 			kv /= Math.sqrt(3.0);
 		}
-    double s = Math.sqrt(p*p + q*q);
     double pf = 1.0;
-    if (s > 0.0) {
-      pf = p / s;
-    }
-    if (q < 0.0) {
-      pf *= -1.0;
-    }
+    double kvar = 0.001 * q;
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
 								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + 
                 " kwrated=" + df3.format(0.001 * ratedP) + 
@@ -174,7 +170,19 @@ public class DistStorage extends DistComponent {
 								" kwhstored=" + df3.format(0.001 * storedE) + " state=" + DSSBatteryState(state) +
 								" vminpu=" + df4.format(1/maxIFault) + " LimitCurrent=yes kw=" + df2.format(p/1000.0) +
                 " %charge=" + df2.format(-100.0 * minP / ratedP) + " %discharge=" + df2.format(100.0 * maxP / ratedP));
-		buf.append("\n");
+    if (mode == ConverterControlMode.CONSTANT_PF) {
+      double s = Math.sqrt(p * p + q * q);
+      if (s > 0.0) {
+        pf = p / s;
+      }
+      if (q < 0.0) {
+        pf *= -1.0;
+      }
+      buf.append (" pf=" + df4.format(pf));
+    } else {
+      buf.append (" kvar=" + df2.format(kvar));
+    }
+    buf.append("\n");
 
 		return buf.toString();
 	}

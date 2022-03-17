@@ -1153,7 +1153,7 @@ ORDER by ?name ?id
 # Solar - DistSolar
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
  ?s r:type c:PhotovoltaicUnit.
  ?s c:IdentifiedObject.name ?name.
  ?s c:PowerElectronicsUnit.maxP ?maxP.
@@ -1179,6 +1179,8 @@ SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?fdrid ?pecid ?t1id (gr
  ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
  ?pec c:PowerElectronicsConnection.p ?p.
  ?pec c:PowerElectronicsConnection.q ?q.
+ {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+  bind(strafter(str(?modeRaw),"ConverterControlMode.") as ?controlMode)}
  ?pec c:IdentifiedObject.mRID ?pecid.
  OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
  ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
@@ -1188,13 +1190,13 @@ SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?fdrid ?pecid ?t1id (gr
  ?t c:IdentifiedObject.mRID ?t1id.
  ?cn c:IdentifiedObject.name ?bus
 }
-GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?fdrid ?pecid ?t1id
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id
 ORDER by ?name
 
 # Storage - DistStorage
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
  ?s r:type c:BatteryUnit.
  ?s c:IdentifiedObject.name ?name.
  ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
@@ -1219,6 +1221,8 @@ SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q
    bind(strafter(str(?stateraw),"BatteryState.") as ?state)
  ?pec c:PowerElectronicsConnection.p ?p.
  ?pec c:PowerElectronicsConnection.q ?q. 
+ {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+  bind(strafter(str(?modeRaw),"ConverterControlMode.") as ?controlMode)}
  OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
  ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
@@ -1228,7 +1232,7 @@ SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q
  ?t c:IdentifiedObject.mRID ?t1id.
  ?cn c:IdentifiedObject.name ?bus
 }
-GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?id ?fdrid ?pecid ?t1id
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id
 ORDER by ?name
 
 # substation source - DistSubstation

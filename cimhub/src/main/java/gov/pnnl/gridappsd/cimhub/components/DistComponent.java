@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //  ----------------------------------------------------------
-//  Copyright (c) 2017-2019, Battelle Memorial Institute
+//  Copyright (c) 2017-2022, Battelle Memorial Institute
 //  All rights reserved.
 //  ----------------------------------------------------------
 
@@ -9,6 +9,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.commons.math3.complex.Complex;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import gov.pnnl.gridappsd.cimhub.components.ConverterControlMode;
 
 public abstract class DistComponent {
   public static String nsCIM = "http://iec.ch/TC57/CIM100#";
@@ -119,6 +120,18 @@ public abstract class DistComponent {
     s = s.replace ('}', '_');
     s = s.replace ('(', '_');
     s = s.replace (')', '_');
+    return s;
+  }
+
+  public static ConverterControlMode ParseControlMode (String arg) {
+    ConverterControlMode s = ConverterControlMode.CONSTANT_PF;
+    if (arg == null) {
+      return s;
+    } else if (arg.contains ("constantReactivePower")) {
+      s = ConverterControlMode.CONSTANT_Q;
+    } else if (arg.contains ("dynamic")) {
+      s = ConverterControlMode.DYNAMIC;
+    }
     return s;
   }
 
