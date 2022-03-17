@@ -101,15 +101,29 @@ public class DistSolar extends DistComponent {
 			buf.append ("  phases " + phases.replace (":", "") + ";\n");
 		}
 		buf.append ("  generator_status ONLINE;\n");
-		buf.append ("  four_quadrant_control_mode CONSTANT_PQ;\n");
 		buf.append ("  inverter_type FOUR_QUADRANT;\n");
 		buf.append ("  inverter_efficiency 1.0;\n");
-		buf.append ("  power_factor 1.0;\n");
 		buf.append ("  V_base " + df3.format (ratedU) + ";\n");
 		buf.append ("  rated_power " + df3.format (ratedS) + ";\n");
 		buf.append ("  P_Out " + df3.format (p) + ";\n");
-		buf.append ("  Q_Out " + df3.format (q) + ";\n");
-		buf.append ("  object solar {\n");
+    if (mode == ConverterControlMode.CONSTANT_PF) {
+      buf.append ("  four_quadrant_control_mode CONSTANT_PF;\n");
+      double pf = 1.0;
+      double s = Math.sqrt(p * p + q * q);
+      if (s > 0.0) {
+        pf = p / s;
+      }
+      if (q < 0.0) {
+        pf *= -1.0;
+      }
+      buf.append ("  power_factor " + df4.format (pf) + ";\n");
+    } else if (mode == ConverterControlMode.CONSTANT_Q) {
+      buf.append ("  four_quadrant_control_mode CONSTANT_PQ;\n");
+      buf.append ("  Q_Out " + df3.format (q) + ";\n");
+    } else if (mode == ConverterControlMode.DYNAMIC) {
+      buf.append ("  four_quadrant_control_mode VOLT_VAR;\n");  // TODO - parse the IEEE1547 controller
+    }
+    buf.append("  object solar {\n");
 		buf.append ("    name \"pv_" + name + "\";\n");
 		buf.append ("    panel_type SINGLE_CRYSTAL_SILICON;\n");
 		buf.append ("    efficiency 0.2;\n");

@@ -122,7 +122,6 @@ public class DistStorage extends DistComponent {
 		buf.append ("  generator_status ONLINE;\n");
 		buf.append ("  generator_mode CONSTANT_PQ;\n");
 		buf.append ("  inverter_type FOUR_QUADRANT;\n");
-		buf.append ("  four_quadrant_control_mode CONSTANT_PQ; // LOAD_FOLLOWING;\n");
 		buf.append ("  charge_lockout_time 1;\n");
 		buf.append ("  discharge_lockout_time 1;\n");
 		buf.append ("  sense_object \"" + bus + "_stmtr\";\n");
@@ -136,7 +135,23 @@ public class DistStorage extends DistComponent {
 		buf.append ("  max_charge_rate " + df3.format (-minP) + ";\n");
 		buf.append ("  max_discharge_rate " + df3.format (maxP) + ";\n");
 		buf.append ("  P_Out " + df3.format (p) + ";\n");
-		buf.append ("  Q_Out " + df3.format (q) + ";\n");
+    if (mode == ConverterControlMode.CONSTANT_PF) {
+      buf.append ("  four_quadrant_control_mode CONSTANT_PF;\n");
+      double pf = 1.0;
+      double s = Math.sqrt(p * p + q * q);
+      if (s > 0.0) {
+        pf = p / s;
+      }
+      if (q < 0.0) {
+        pf *= -1.0;
+      }
+      buf.append ("  power_factor " + df4.format (pf) + ";\n");
+    } else if (mode == ConverterControlMode.CONSTANT_Q) {
+      buf.append ("  four_quadrant_control_mode CONSTANT_PQ; // LOAD_FOLLOWING? \n");
+      buf.append ("  Q_Out " + df3.format (q) + ";\n");
+    } else if (mode == ConverterControlMode.DYNAMIC) {
+      buf.append ("  four_quadrant_control_mode VOLT_VAR;\n");  // TODO - parse the IEEE1547 controller
+    }
 		buf.append ("  object battery {\n");
 		buf.append ("    name \"bat_" + name + "\";\n");
 		buf.append ("    nominal_voltage 48;\n");
