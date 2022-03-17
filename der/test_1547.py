@@ -74,6 +74,9 @@ cases = [
   {'dssname':'remote_1phase_b', 'root':'remote_1phase_b', 'mRID':'520E4BC8-D3C2-4745-B784-AE23361E94BB',
    'glmvsrc': 8002.0747,'bases':[208.0, 400.0, 13200.0], 'skip_gld': True,
    'check_branches':[{'dss_link': 'REACTOR.THEV', 'dss_bus': 'HIGH', 'gld_link': 'REAC_THEV', 'gld_bus': 'HIGH'}]},
+  {'dssname':'default_avr_b', 'root':'default_avr_b', 'mRID':'57AA3D7E-E023-4C09-A9A7-81C44C2EE87E',
+   'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': True,
+   'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
 ]
 
 CIMHubConfig.ConfigFromJsonFile (cfg_json)

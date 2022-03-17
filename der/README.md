@@ -330,6 +330,19 @@ local_wvar_b     Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[
     C   8030.13  2.1991    273.20 -0.6245  -2083.870 + j   685.948     CA    13908.59  2.7227
     Total S = -6251.609 + j  2057.843
 remote_1phase_b  Nbus=[    21,    21,     0] Nlink=[    27,    27,     0] MAEv=[ 0.0002,-1.0000] MAEi=[  11.0416,  -1.0000]
+  OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A   8095.32  0.0960    252.75 -2.8098  -1989.514 + j   478.007     AB    14021.51  0.6196
+    B   8095.32 -1.9984    252.75  1.3790  -1989.514 + j   478.007     BC    14021.51 -1.4748
+    C   8095.32  2.1904    252.75 -0.7154  -1989.514 + j   478.007     CA    14021.51  2.7140
+    Total S = -5968.543 + j  1434.022
+  OpenDSS branch flow in TRANSFORMER.DER from HIGH, Converted case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A   8095.31  0.0960    252.76 -2.8098  -1989.528 + j   478.011     AB    14021.49  0.6196
+    B   8095.31 -1.9984    252.76  1.3790  -1989.528 + j   478.011     BC    14021.49 -1.4748
+    C   8095.31  2.1904    252.76 -0.7154  -1989.528 + j   478.011     CA    14021.49  2.7140
+    Total S = -5968.583 + j  1434.032
+default_avr_b    Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0140,  -1.0000]
 ```
 
 ## Notes on OpenDSS Conversion
@@ -339,7 +352,7 @@ The results for autonomously adjusting reference voltage (AVR) cannot be compare
 - The baseline ```local_avr_b``` simulation had ```vregmax=1.03```, which is not supported in CIM. The exported case uses default ```vregmax=1.05```, which allows the terminal voltage to be higher.
 - The baseline ```remote_avr_b``` was set up with dynamic reactive current mode, because the OpenDSS ExpControl does not support monitoring remote buses. The exported model uses ExpControl because the AVR implementation is better, but the remote monitoring signals are not exported.
 
-
+In the last case, ```default_avr_b```, the base attribute values were set to facilitate a match.
 
 ## Notes on GridLAB-D Conversion
 

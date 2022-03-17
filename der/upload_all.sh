@@ -19,4 +19,5 @@ curl -D- -H "Content-Type: application/xml" --upload-file base/remote_combo_b.xm
 curl -D- -H "Content-Type: application/xml" --upload-file base/local_chcurve_b.xml -X POST $DB_URL
 curl -D- -H "Content-Type: application/xml" --upload-file base/local_wvar_b.xml -X POST $DB_URL
 curl -D- -H "Content-Type: application/xml" --upload-file base/remote_1phase_b.xml -X POST $DB_URL
+curl -D- -H "Content-Type: application/xml" --upload-file base/default_avr_b.xml -X POST $DB_URL
 
