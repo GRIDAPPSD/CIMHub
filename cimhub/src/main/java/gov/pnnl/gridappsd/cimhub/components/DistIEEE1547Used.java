@@ -194,7 +194,8 @@ public class DistIEEE1547Used extends DistComponent {
   public String GetExpControl() {
     StringBuilder buf = new StringBuilder("new ExpControl." + name + " // " + cat + " " + id + "\n");
     double slope = (vvQ2 - vvQ3) / (vvV3 - vvV2);
-    buf.append ("~ vreg=" + df4.format(vvRef) + " slope=" + df4.format(slope) + " vregtau=" + df2.format(vvRefOlrt) + " Tresponse=" + df2.format(vvOlrt) + " deltaQ_factor=0.3\n");
+//    buf.append ("~ vreg=" + df4.format(vvRef) + " slope=" + df4.format(slope) + " vregtau=" + df2.format(vvRefOlrt) + " Tresponse=" + df2.format(vvOlrt) + " deltaQ_factor=0.3\n");
+    buf.append ("~ vreg=0.0 slope=" + df4.format(slope) + " vregtau=" + df2.format(vvRefOlrt) + " Tresponse=" + df2.format(vvOlrt) + " deltaQ_factor=0.3\n");
     return buf.toString();
   }
 

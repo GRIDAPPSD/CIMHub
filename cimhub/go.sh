@@ -3,7 +3,7 @@ declare -r DB_URL="http://localhost:8889/bigdata/namespace/kb/sparql"
 declare -r CIMHUB_PATH="target/libs/*:../cimhub/target/cimhub-0.0.3-SNAPSHOT.jar"
 declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
 
-#declare -r CIMHUB_FID="_3CC2D836-CE11-4D4F-B93D-B2851B1E79B5" #local_avr_b
+declare -r CIMHUB_FID="_3CC2D836-CE11-4D4F-B93D-B2851B1E79B5" #local_avr_b
 #declare -r CIMHUB_FID="_6A7D5722-8D9D-4C54-861D-56E1CDA52231" #local_chcurve_b
 #declare -r CIMHUB_FID="_1D4B98E2-62AB-411A-813E-F125F29ABD48" #local_combo_a
 #declare -r CIMHUB_FID="_7C1EEB79-9E9C-43E5-BAE9-0F0F99B41384" #local_combo_b
@@ -15,7 +15,7 @@ declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
 #declare -r CIMHUB_FID="_3D840B6D-4A97-4BDA-A488-4EEF2F4F5FBD" #local_vvar_b
 #declare -r CIMHUB_FID="_0A81F3A8-0985-423B-A5F5-2A7A0319A9B6" #local_vwatt_b
 #declare -r CIMHUB_FID="_746C6392-9F8B-4537-98C4-E978AB9547D4" #local_wvar_b
-declare -r CIMHUB_FID="_520E4BC8-D3C2-4745-B784-AE23361E94BB" #remote_1phase_b
+#declare -r CIMHUB_FID="_520E4BC8-D3C2-4745-B784-AE23361E94BB" #remote_1phase_b
 #declare -r CIMHUB_FID="_408201DC-BBAB-4CDE-85DF-7F8D1E2CF258" #remote_avr_b
 #declare -r CIMHUB_FID="_58EAA940-6023-4F38-B09B-3D445BAB4429" #remote_combo_b
 #declare -r CIMHUB_FID="_DA89ACD5-8AB1-46E4-959E-5BDE188DC12F" #remote_vvar_a
