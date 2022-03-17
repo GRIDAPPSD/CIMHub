@@ -6,6 +6,8 @@ package gov.pnnl.gridappsd.cimhub.components;
 
 import org.apache.jena.query.*;
 import java.util.HashMap;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Connection;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Used;
 
 public class DistStorage extends DistComponent {
 	public String id;
@@ -107,7 +109,7 @@ public class DistStorage extends DistComponent {
 		return buf.toString();
 	}
 
-	public String GetGLM() {
+	public String GetGLM(HashMap<String,DistIEEE1547Connection> mapConnections, HashMap<String,DistIEEE1547Used> mapUsed) {
 		StringBuilder buf = new StringBuilder ("object inverter {\n");
 
 		buf.append ("  name \"inv_bat_" + name + "\";\n");
@@ -202,7 +204,7 @@ public class DistStorage extends DistComponent {
 		return buf.toString();
 	}
 
-  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,kVA,Capacity,Connection,kW,pf,kWh,State";
+  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,kVA,Capacity,Connection,kW,kVAR,pf,ctrlMode,kWh,State";
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name + ",");
@@ -224,7 +226,7 @@ public class DistStorage extends DistComponent {
 
     buf.append (Integer.toString(nphases) + "," + bus + "," + CSVPhaseString (phases) + "," + df3.format(kv) + "," + 
                 df3.format(kva) + "," + df3.format(0.001 * ratedE) + "," + DSSConn(bDelta) + "," + df3.format(0.001 + p) + "," + 
-                df4.format(pf) + "," + df3.format(0.001 * storedE) + "," + DSSBatteryState(state) + "\n");
+                df3.format(0.001 + q) + "," + df4.format(pf) + "," + mode.toString() + "," + df3.format(0.001 * storedE) + "," + DSSBatteryState(state) + "\n");
 
     return buf.toString();
   }

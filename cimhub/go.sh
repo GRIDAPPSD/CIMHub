@@ -29,14 +29,15 @@ declare -r CIMHUB_FID="_58EAA940-6023-4F38-B09B-3D445BAB4429" #remote_combo_b
 
 #java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=idx test
 
-java -cp $CIMHUB_PATH $CIMHUB_PROG \
-  -s=$CIMHUB_FID -u=$DB_URL -o=glm -l=1.0 -i=1 -h=0 -x=0 -t=1 test
-cat test_base.glm
+#java -cp $CIMHUB_PATH $CIMHUB_PROG \
+#  -s=$CIMHUB_FID -u=$DB_URL -o=glm -l=1.0 -i=1 -h=0 -x=0 -t=1 test
+#cat test_base.glm
 
 #java -cp $CIMHUB_PATH $CIMHUB_PROG \
 #  -s=$CIMHUB_FID -u=$DB_URL -o=dss -l=1.0 -i=1 -h=0 -x=0 -t=1 test
 #cat *base.dss
 
-#java -cp $CIMHUB_PATH $CIMHUB_PROG \
-#  -s=$CIMHUB_FID -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 test
-#cat *I1547*.csv
+java -cp $CIMHUB_PATH $CIMHUB_PROG \
+  -s=$CIMHUB_FID -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 test
+cat test_Solar.csv
+cat test_Storage.csv

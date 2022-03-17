@@ -1461,10 +1461,10 @@ public class CIMImporter extends Object {
       out.print (pair.getValue().GetGLM());
     }
     for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
-      out.print (pair.getValue().GetGLM());
+      out.print (pair.getValue().GetGLM(mapIEEE1547Connections, mapIEEE1547Used));
     }
     for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
-      out.print (pair.getValue().GetGLM());
+      out.print (pair.getValue().GetGLM(mapIEEE1547Connections, mapIEEE1547Used));
     }
     for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
       out.print (pair.getValue().GetGLM());

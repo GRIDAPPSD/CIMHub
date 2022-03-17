@@ -6,6 +6,8 @@ package gov.pnnl.gridappsd.cimhub.components;
 
 import org.apache.jena.query.*;
 import java.util.HashMap;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Connection;
+import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Used;
 
 public class DistSolar extends DistComponent {
 	public String id;
@@ -88,7 +90,7 @@ public class DistSolar extends DistComponent {
 		return buf.toString();
 	}
 
-	public String GetGLM() {
+	public String GetGLM(HashMap<String,DistIEEE1547Connection> mapConnections, HashMap<String,DistIEEE1547Used> mapUsed) {
 		StringBuilder buf = new StringBuilder("object inverter {\n");
 
 		buf.append ("  name \"inv_pv_" + name + "\";\n");
@@ -172,7 +174,7 @@ public class DistSolar extends DistComponent {
 		return buf.toString();
 	}
 
-  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,kVA,Connection,kW,pf";
+  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,kVA,Connection,kW,kVAR,pf,ctrlMode";
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name + ",");
@@ -193,7 +195,8 @@ public class DistSolar extends DistComponent {
     }
 
     buf.append (Integer.toString(nphases) + "," + bus + "," + CSVPhaseString (phases) + "," + df3.format(kv) + "," + 
-                df3.format(kva) + "," + DSSConn(bDelta) + "," + df3.format(0.001 * p) + "," + df4.format(pf) + "\n");
+                df3.format(kva) + "," + DSSConn(bDelta) + "," + df3.format(0.001 * p) + "," + df3.format(0.001 + q) + "," + 
+                df4.format(pf) + "," + mode.toString() + "\n");
 
     return buf.toString();
   }
