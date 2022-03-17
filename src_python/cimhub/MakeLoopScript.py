@@ -91,7 +91,7 @@ def make_dssrun_script (casefiles, scriptname, bControls=False, tol=1e-8):
     print('set tolerance={:g}'.format(tol), file=fp)
     if bControls:
       print('set controlmode=static', file=fp)
-      print('set maxcontroliter=50', file=fp)
+      print('set maxcontroliter=100', file=fp)
     else:
       print('set controlmode=off', file=fp)
     print('solve', file=fp)
