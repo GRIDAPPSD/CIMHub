@@ -93,7 +93,16 @@ public class DistSolar extends DistComponent {
 	public String GetGLM(HashMap<String,DistIEEE1547Connection> mapConnections, HashMap<String,DistIEEE1547Used> mapUsed) {
 		StringBuilder buf = new StringBuilder("object inverter {\n");
 
-		buf.append ("  name \"inv_pv_" + name + "\";\n");
+    double pf = 1.0;
+    double s = Math.sqrt(p * p + q * q);
+    if (s > 0.0) {
+      pf = p / s;
+    }
+    if (q < 0.0) {
+      pf *= -1.0;
+    }
+
+    buf.append ("  name \"inv_pv_" + name + "\";\n");
 		buf.append ("  parent \"" + bus + "_pvmtr\";\n");
 		if (bDelta && !phases.contains("D")) {
 			buf.append ("  phases " + phases.replace (":", "") + "D;\n");
@@ -110,20 +119,29 @@ public class DistSolar extends DistComponent {
 		buf.append ("  P_Out " + df3.format (p) + ";\n");
     if (mode == ConverterControlMode.CONSTANT_PF) {
       buf.append ("  four_quadrant_control_mode CONSTANT_PF;\n");
-      double pf = 1.0;
-      double s = Math.sqrt(p * p + q * q);
-      if (s > 0.0) {
-        pf = p / s;
-      }
-      if (q < 0.0) {
-        pf *= -1.0;
-      }
       buf.append ("  power_factor " + df4.format (pf) + ";\n");
     } else if (mode == ConverterControlMode.CONSTANT_Q) {
       buf.append ("  four_quadrant_control_mode CONSTANT_PQ;\n");
       buf.append ("  Q_Out " + df3.format (q) + ";\n");
     } else if (mode == ConverterControlMode.DYNAMIC) {
-      buf.append ("  four_quadrant_control_mode VOLT_VAR;\n");  // TODO - parse the IEEE1547 controller
+      boolean bSet = false;
+      for (HashMap.Entry<String,DistIEEE1547Connection> pair1 : mapConnections.entrySet()) {
+        DistIEEE1547Connection dconn = pair1.getValue();
+        if (dconn.pids.contains(pecid)) { // this is my connection to IEEE1547 dynamics
+          for (HashMap.Entry<String,DistIEEE1547Used> pair2 : mapUsed.entrySet()) {
+            DistIEEE1547Used dset = pair2.getValue();
+            if (dconn.pids.contains(dset.pecid)) {  // these are my connection settings
+              buf.append (dset.GetGLM (q, pf));
+              bSet = true;
+              break;
+            }
+          }
+        }
+        if (bSet) break;
+      }
+      if (!bSet) {
+        buf.append ("  four_quadrant_control_mode NOT_FOUND; // TODO - an IEEE1547 controller should be associated in the CIM XML \n");
+      }
     }
     buf.append("  object solar {\n");
 		buf.append ("    name \"pv_" + name + "\";\n");

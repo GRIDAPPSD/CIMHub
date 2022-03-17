@@ -92,7 +92,7 @@ def load_glm_currents(fname):
   #link_name,currA_mag,currA_angle,currB_mag,currB_angle,currC_mag,currC_angle
   for row in rd:
     link = row[0].upper()
-    if link.startswith ('LINE_') or link.startswith ('REG_') or link.startswith ('SWT_') or link.startswith ('XF_'):
+    if link.startswith ('LINE_') or link.startswith ('REG_') or link.startswith ('SWT_') or link.startswith ('XF_') or link.startswith ('REAC_'):
       links.append(link)
       maga = float(row[1])
       if maga >= itol:
@@ -355,6 +355,14 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
     gldv = []
     gldi = []
 
+# print (gldbus)
+# print ('**GLM  V**', gldv)
+# print ('**MAG V**', gldmagv)
+# print ('**ANG V**', gldangv)
+# print (gldlink)
+# print ('**GLM  I**', gldi)
+# print ('**ANG I**', gldangi)
+
   for row in check_branches:
     if (('dss_link' in row) and ('dss_bus' in row)):
       print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, 'Base')
@@ -362,12 +370,6 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
     if (do_gld and ('gld_link' in row) and ('gld_bus' in row)):
       print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi)
 
-#  print (gldbus)
-#  print ('**GLM  V**', gldv)
-#  print ('**BASE V**', v1)
-#  print (gldlink)
-#  print ('**GLM  I**', gldi)
-#  print ('**BASE I**', i1)
 #  print (basepath+dssroot+'_s.csv', s1)
 #  print (dsspath+dssroot+'_s.csv', s2)
 #  print ('\n** BASE I**')

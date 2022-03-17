@@ -180,10 +180,47 @@ public class DistIEEE1547Used extends DistComponent {
 		return buf.toString();
 	}
 
-	public String GetGLM () {
-		StringBuilder buf = new StringBuilder ("object inverter {\n");
-		buf.append ("  name \"inv_" + name + "\";\n");
-		buf.append("}\n");
+	public String GetGLM (double const_q, double const_pf) {
+		StringBuilder buf = new StringBuilder ("");
+    if (vvEnabled) {
+      buf.append ("  four_quadrant_control_mode VOLT_VAR;\n");
+      buf.append ("  V1 " + df3.format(vvV1) + ";\n");
+      buf.append ("  Q1 " + df3.format(vvQ1) + ";\n");
+      buf.append ("  V2 " + df3.format(vvV2) + ";\n");
+      buf.append ("  Q2 " + df3.format(vvQ2) + ";\n");
+      buf.append ("  V3 " + df3.format(vvV3) + ";\n");
+      buf.append ("  Q3 " + df3.format(vvQ3) + ";\n");
+      buf.append ("  V4 " + df3.format(vvV4) + ";\n");
+      buf.append ("  Q4 " + df3.format(vvQ4) + ";\n");
+      buf.append ("  volt_var_control_lockout 30.0;\n");
+    } else if (vwEnabled) {
+      buf.append ("  four_quadrant_control_mode VOLT_WATT;\n");
+      buf.append ("  VW_V1 " + df3.format(vwV1) + ";\n");
+      buf.append ("  VW_P1 " + df3.format(vwP1) + ";\n");
+      buf.append ("  VW_V2 " + df3.format(vwV2) + ";\n");
+      if (vwP2load < 0.0) {
+        buf.append("  VW_P2 " + df3.format(vwP2load) + ";\n");
+      } else {
+        buf.append("  VW_P2 " + df3.format(vwP2gen) + ";\n");
+      }
+      buf.append("  volt_var_control_lockout 30.0;\n");
+    } else if (wvEnabled) {
+      buf.append ("  four_quadrant_control_mode CONSTANT_PF;\n");
+      double wv_pf = 1.0;
+      double wv_p = Math.abs(wvP1gen) + Math.abs(wvP2gen) + Math.abs(wvP3gen) + Math.abs(wvP1load) + Math.abs(wvP2load) + Math.abs(wvP3load);
+      double wv_q = Math.abs(wvQ1gen) + Math.abs(wvQ2gen) + Math.abs(wvQ3gen) + Math.abs(wvQ1load) + Math.abs(wvQ2load) + Math.abs(wvQ3load);
+      double wv_s = Math.sqrt(wv_p*wv_p + wv_q*wv_q);
+      if (wv_s > 0.0) {
+        wv_pf = wv_p / wv_s;
+      }
+      buf.append("  power_factor " + df4.format(wv_pf) + "; // approximating a WATT_VAR mode\n");
+    } else if (pfEnabled) {
+      buf.append ("  four_quadrant_control_mode CONSTANT_PF;\n");
+      buf.append ("  power_factor " + df4.format (const_pf) + ";\n");
+    } else if (cqEnabled) {
+      buf.append ("  four_quadrant_control_mode CONSTANT_PQ;\n");
+      buf.append ("  Q_Out " + df3.format (const_q) + ";\n");
+    }
 		return buf.toString();
 	}
 
