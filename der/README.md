@@ -332,6 +332,15 @@ local_wvar_b     Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[
 remote_1phase_b  Nbus=[    21,    21,     0] Nlink=[    27,    27,     0] MAEv=[ 0.0002,-1.0000] MAEi=[  11.0416,  -1.0000]
 ```
 
+## Notes on OpenDSS Conversion
+
+The results for autonomously adjusting reference voltage (AVR) cannot be compared closely, because of variations used in the test cases:
+
+- The baseline ```local_avr_b``` simulation had ```vregmax=1.03```, which is not supported in CIM. The exported case uses default ```vregmax=1.05```, which allows the terminal voltage to be higher.
+- The baseline ```remote_avr_b``` was set up with dynamic reactive current mode, because the OpenDSS ExpControl does not support monitoring remote buses. The exported model uses ExpControl because the AVR implementation is better, but the remote monitoring signals are not exported.
+
+
+
 ## Notes on GridLAB-D Conversion
 
 Unsupported features were removed from the model, to improve GridLAB-D comparisons:
