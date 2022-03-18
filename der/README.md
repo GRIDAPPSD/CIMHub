@@ -83,11 +83,11 @@ Notes:
     Total S = -5971.515 + j   231.490
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   8340.75  0.1586    434.09  3.3693  -3612.001 + j   249.967     AB    14446.60  0.6822
-    B   8340.75  4.3474    434.09  1.2749  -3612.001 + j   249.968     BC    14446.60 -1.4122
-    C   8340.75  2.2530    434.09 -0.8195  -3612.001 + j   249.968     CA    14446.60  2.7766
-    Total S = -10836.004 + j   749.903
-local_unity_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0068] MAEi=[   0.1145, 192.2415]
+    A   8237.42  0.0871    241.81  3.2677  -1990.397 + j    77.568     AB    14267.63  0.6107
+    B   8237.42  4.2759    241.81  1.1733  -1990.397 + j    77.567     BC    14267.63 -1.4837
+    C   8237.42  2.1815    241.81 -0.9211  -1990.397 + j    77.567     CA    14267.63  2.7051
+    Total S = -5971.192 + j   232.701
+local_unity_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.1145,   0.0368]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7994.83  0.1030    265.86 -2.6780  -1988.801 + j   749.919     AB    13847.45  0.6266
@@ -102,11 +102,11 @@ local_unity_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     Total S = -5966.450 + j  2250.964
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   8743.84  0.1302    427.39  3.0134  -3612.940 + j  -954.970     AB    15144.78  0.6538
-    B   8743.84  4.3190    427.39  0.9190  -3612.941 + j  -954.969     BC    15144.78 -1.4406
-    C   8743.84  2.2246    427.39 -1.1754  -3612.941 + j  -954.969     CA    15144.78  2.7482
-    Total S = -10838.822 + j -2864.908
-local_optpf_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.1083, 161.5305]
+    A   8458.96  0.0731    244.98  2.9321  -1990.146 + j  -577.723     AB    14651.35  0.5967
+    B   8458.96  4.2619    244.98  0.8377  -1990.146 + j  -577.723     BC    14651.35 -1.4977
+    C   8458.96  2.1675    244.98 -1.2567  -1990.146 + j  -577.723     CA    14651.35  2.6911
+    Total S = -5970.438 + j -1733.169
+local_optpf_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.1083,  20.8746]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7917.96  0.1082    278.51 -2.5864  -1988.604 + j   953.206     AB    13714.31  0.6318
@@ -121,11 +121,11 @@ local_optpf_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     Total S = -5959.793 + j  2869.536
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   8852.63  0.1226    433.73  2.9181  -3612.054 + j -1302.209     AB    15333.20  0.6462
-    B   8852.63  4.3114    433.73  0.8237  -3612.052 + j -1302.215     BC    15333.20 -1.4482
-    C   8852.63  2.2170    433.73 -1.2706  -3612.052 + j -1302.215     CA    15333.20  2.7406
-    Total S = -10836.157 + j -3906.638
-local_optpf_b    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.2335, 155.2136]
+    A   8521.21  0.0691    250.33  2.8420  -1989.716 + j  -768.829     AB    14759.16  0.5927
+    B   8521.21  4.2579    250.33  0.7476  -1989.716 + j  -768.830     BC    14759.17 -1.5017
+    C   8521.21  2.1635    250.33 -1.3468  -1989.716 + j  -768.830     CA    14759.17  2.6871
+    Total S = -5969.148 + j -2306.490
+local_optpf_b    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.2335,  28.1860]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8117.38  0.0942    250.44 -2.8405  -1989.600 + j   417.462     AB    14059.71  0.6178
@@ -140,11 +140,11 @@ local_optpf_b    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     Total S = -5968.832 + j  1252.391
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   8117.39  0.0947    250.44  3.4427  -1989.800 + j   416.535     AB    14059.73  0.6183
-    B   8117.39  4.2835    250.44  1.3483  -1989.800 + j   416.536     BC    14059.73 -1.4761
-    C   8117.39  2.1891    250.44 -0.7461  -1989.800 + j   416.536     CA    14059.73  2.7127
-    Total S = -5969.400 + j  1249.607
-local_fixq_a     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.0008,   0.0004]
+    A   8237.42  0.0871    241.81  3.2677  -1990.397 + j    77.568     AB    14267.63  0.6107
+    B   8237.42  4.2759    241.81  1.1733  -1990.397 + j    77.567     BC    14267.63 -1.4837
+    C   8237.42  2.1815    241.81 -0.9211  -1990.397 + j    77.567     CA    14267.63  2.7051
+    Total S = -5971.192 + j   232.701
+local_fixq_a     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0129] MAEi=[   0.0008,   8.6288]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8018.09  0.0401    103.01 -2.7688   -780.663 + j   269.719     AB    13887.74  0.5637
@@ -185,11 +185,11 @@ local_combo_b    Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[
     Total S = -5969.070 + j  1237.222
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   8860.82  0.1220    434.34  2.9111  -3611.966 + j -1328.744     AB    15347.39  0.6456
-    B   8860.82  4.3108    434.34  0.8167  -3611.966 + j -1328.743     BC    15347.39 -1.4488
-    C   8860.82  2.2164    434.34 -1.2777  -3611.966 + j -1328.743     CA    15347.39  2.7400
-    Total S = -10835.898 + j -3986.231
-local_vvar_a     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0001, 0.0000] MAEi=[   0.0660, 184.0611]
+    A   8416.25  0.0758    242.42  2.9958  -1990.350 + j  -448.377     AB    14577.37  0.5994
+    B   8416.25  4.2646    242.42  0.9014  -1990.350 + j  -448.379     BC    14577.37 -1.4950
+    C   8416.25  2.1702    242.42 -1.1930  -1990.350 + j  -448.379     CA    14577.37  2.6938
+    Total S = -5971.050 + j -1345.134
+local_vvar_a     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0001, 0.0000] MAEi=[   0.0660,   7.8645]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8056.70  0.0977    257.31 -2.7576  -1988.748 + j   585.320     AB    13954.61  0.6213
@@ -204,11 +204,11 @@ local_vvar_a     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     Total S = -5966.165 + j  1755.938
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   9233.83  0.0959    480.98  2.6138  -3605.025 + j -2594.029     AB    15993.45  0.6195
-    B   9233.83  4.2847    480.98  0.5194  -3605.023 + j -2594.031     BC    15993.46 -1.4749
-    C   9233.83  2.1903    480.98  4.7082  -3605.023 + j -2594.032     CA    15993.46  2.7139
-    Total S = -10815.071 + j -7782.093
-local_vvar_b     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.0305, 223.6691]
+    A   8539.86  0.0679    252.28  2.8157  -1989.556 + j  -826.675     AB    14791.47  0.5915
+    B   8539.86  4.2567    252.28  0.7213  -1989.556 + j  -826.674     BC    14791.46 -1.5029
+    C   8539.86  2.1623    252.28 -1.3731  -1989.556 + j  -826.674     CA    14791.46  2.6859
+    Total S = -5968.668 + j -2480.022
+local_vvar_b     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.0305,   5.0294]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8013.71  0.1012    263.10 -2.7018  -1988.712 + j   700.336     AB    13880.15  0.6248
@@ -236,11 +236,11 @@ local_avr_b      Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[
     Total S = -4087.539 + j   112.033
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   8340.75  0.1586    434.09  3.3693  -3612.001 + j   249.967     AB    14446.60  0.6822
-    B   8340.75  4.3474    434.09  1.2749  -3612.001 + j   249.968     BC    14446.60 -1.4122
-    C   8340.75  2.2530    434.09 -0.8195  -3612.001 + j   249.968     CA    14446.60  2.7766
-    Total S = -10836.004 + j   749.903
-local_vwatt_b    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0108] MAEi=[   2.8117, 267.0845]
+    A   8237.42  0.0871    241.81  3.2677  -1990.397 + j    77.568     AB    14267.63  0.6107
+    B   8237.42  4.2759    241.81  1.1733  -1990.397 + j    77.567     BC    14267.63 -1.4837
+    C   8237.42  2.1815    241.81 -0.9211  -1990.397 + j    77.567     CA    14267.63  2.7051
+    Total S = -5971.192 + j   232.701
+local_vwatt_b    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0057] MAEi=[   2.8117,  74.8062]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8115.08  0.0942    250.68 -2.8372  -1989.507 + j   424.335     AB    14055.73  0.6178
@@ -339,11 +339,11 @@ local_chcurve_b  Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     Total S = -5968.254 + j  1459.318
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7969.69  0.1849    478.67  3.6594  -3605.384 + j  1246.738     AB    13803.92  0.7085
-    B   7969.69  4.3737    478.67  1.5650  -3605.383 + j  1246.739     BC    13803.91 -1.3859
-    C   7969.69  2.2793    478.67 -0.5293  -3605.383 + j  1246.739     CA    13803.91  2.8029
-    Total S = -10816.150 + j  3740.216
-local_wvar_b     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0141] MAEi=[   0.0000, 225.5897]
+    A   8048.43  0.0991    258.36  3.5365  -1989.051 + j   606.162     AB    13940.28  0.6227
+    B   8048.43  4.2879    258.36  1.4421  -1989.052 + j   606.161     BC    13940.29 -1.4717
+    C   8048.43  2.1935    258.36 -0.6523  -1989.051 + j   606.163     CA    13940.28  2.7171
+    Total S = -5967.154 + j  1818.486
+local_wvar_b     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0047] MAEi=[   0.0000,   5.2757]
   OpenDSS branch flow in REACTOR.THEV from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8029.67  0.1047    273.97 -2.7180  -2088.984 + j   689.652     AB    13907.80  0.6283
@@ -358,11 +358,11 @@ local_wvar_b     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     Total S = -6251.609 + j  2057.843
   GridLAB-D branch flow in REAC_THEV from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   8265.26  0.1003    277.94  3.2833  -2295.253 + j    95.200     AB    14315.86  0.6239
-    B   8265.26  4.2890    277.94  1.1889  -2295.253 + j    95.201     BC    14315.86 -1.4705
-    C   8265.26  2.1947    277.94 -0.9055  -2295.253 + j    95.201     CA    14315.86  2.7183
-    Total S = -6885.760 + j   285.603
-remote_1phase_b  Nbus=[    21,    21,    30] Nlink=[    27,    27,    15] MAEv=[ 0.0002, 0.3089] MAEi=[  11.0416,   2.9969]
+    A   8535.62  0.0729    261.13  2.8573  -2088.230 + j  -779.380     AB    14784.12  0.5965
+    B   8535.62  4.2617    261.13  0.7629  -2088.230 + j  -779.379     BC    14784.12 -1.4979
+    C   8535.62  2.1673    261.13 -1.3315  -2088.230 + j  -779.379     CA    14784.12  2.6909
+    Total S = -6264.690 + j -2338.138
+remote_1phase_b  Nbus=[    21,    21,    30] Nlink=[    27,    27,    15] MAEv=[ 0.0002, 0.4053] MAEi=[  11.0416,   4.4675]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8095.32  0.0960    252.75 -2.8098  -1989.514 + j   478.007     AB    14021.51  0.6196

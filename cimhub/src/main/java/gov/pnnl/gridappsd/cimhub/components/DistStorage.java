@@ -141,8 +141,9 @@ public class DistStorage extends DistComponent {
 		buf.append ("  discharge_off_threshold " + df3.format (0.4 * ratedS) + ";\n");
 		buf.append ("  discharge_on_threshold " + df3.format (0.6 * ratedS) + ";\n");
 		buf.append ("  inverter_efficiency 0.975;\n");
+    buf.append ("  use_multipoint_efficiency FALSE;\n");
 		buf.append ("  V_base " + df3.format (ratedU) + ";\n");
-		buf.append ("  rated_power " + df3.format (ratedS) + ";\n");
+		buf.append ("  rated_power " + df3.format (ratedS/GLMPhaseCount(phases)) + "; // per phase!\n");
 		buf.append ("  max_charge_rate " + df3.format (-minP) + ";\n");
 		buf.append ("  max_discharge_rate " + df3.format (maxP) + ";\n");
 		buf.append ("  P_Out " + df3.format (p) + ";\n");

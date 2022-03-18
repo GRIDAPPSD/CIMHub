@@ -4,13 +4,13 @@ declare -r CIMHUB_PATH="target/libs/*:../cimhub/target/cimhub-0.0.3-SNAPSHOT.jar
 declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
 
 #declare -r CIMHUB_FID="_3CC2D836-CE11-4D4F-B93D-B2851B1E79B5" #local_avr_b
-declare -r CIMHUB_FID="_6A7D5722-8D9D-4C54-861D-56E1CDA52231" #local_chcurve_b
+#declare -r CIMHUB_FID="_6A7D5722-8D9D-4C54-861D-56E1CDA52231" #local_chcurve_b
 #declare -r CIMHUB_FID="_1D4B98E2-62AB-411A-813E-F125F29ABD48" #local_combo_a
 #declare -r CIMHUB_FID="_7C1EEB79-9E9C-43E5-BAE9-0F0F99B41384" #local_combo_b
 #declare -r CIMHUB_FID="_A0BABA6C-3323-412C-A87A-E8F15456031C" #local_fixq_a
 #declare -r CIMHUB_FID="_3D9154FE-8514-40BA-8AE1-7DB8B134617D" #local_optpf_a
 #declare -r CIMHUB_FID="_43728B05-D922-4477-99DA-F980D27811ED" #local_optpf_b
-#declare -r CIMHUB_FID="_B3600BC3-18B5-4720-9CC6-5997E35E8158" #local_unity_a
+declare -r CIMHUB_FID="_B3600BC3-18B5-4720-9CC6-5997E35E8158" #local_unity_a
 #declare -r CIMHUB_FID="_D1D5E183-EE39-44E6-9D5C-A1519F0D8709" #local_vvar_a
 #declare -r CIMHUB_FID="_3D840B6D-4A97-4BDA-A488-4EEF2F4F5FBD" #local_vvar_b
 #declare -r CIMHUB_FID="_0A81F3A8-0985-423B-A5F5-2A7A0319A9B6" #local_vwatt_b

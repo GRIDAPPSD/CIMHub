@@ -114,8 +114,9 @@ public class DistSolar extends DistComponent {
 		buf.append ("  generator_status ONLINE;\n");
 		buf.append ("  inverter_type FOUR_QUADRANT;\n");
 		buf.append ("  inverter_efficiency 1.0;\n");
+    buf.append ("  use_multipoint_efficiency FALSE;\n");
 		buf.append ("  V_base " + df3.format (ratedU) + ";\n");
-		buf.append ("  rated_power " + df3.format (ratedS) + ";\n");
+		buf.append ("  rated_power " + df3.format (ratedS/GLMPhaseCount(phases)) + "; // per phase!\n");
 		buf.append ("  P_Out " + df3.format (p) + ";\n");
     if (mode == ConverterControlMode.CONSTANT_PF) {
       buf.append ("  four_quadrant_control_mode CONSTANT_PF;\n");
@@ -147,6 +148,8 @@ public class DistSolar extends DistComponent {
 		buf.append ("    name \"pv_" + name + "\";\n");
 		buf.append ("    panel_type SINGLE_CRYSTAL_SILICON;\n");
 		buf.append ("    efficiency 0.2;\n");
+    buf.append ("    derating 1.0;\n");
+    buf.append ("    soiling 1.0;\n");
 		buf.append ("    rated_power " + df3.format (maxP) + ";\n");
 		buf.append ("  };\n");
 

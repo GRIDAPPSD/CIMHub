@@ -171,6 +171,16 @@ public abstract class DistComponent {
     return nphases;
   }
 
+  static int GLMPhaseCount (String phs) {
+    int nphases = 0;
+    if (phs.contains ("A")) nphases += 1;
+    if (phs.contains ("B")) nphases += 1;
+    if (phs.contains ("C")) nphases += 1;
+    if (phs.contains ("1")) nphases += 1;
+    if (phs.contains ("2")) nphases += 1;
+    return nphases;
+  }
+
   static String DSSConn (boolean bDelta) {
     if (bDelta) {
       return "d";
