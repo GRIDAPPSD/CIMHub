@@ -11,8 +11,8 @@ test_froot = 'test13'
 
 # empty the database, load 2 test feeders, then delete one
 cimhub.clear_db (cfg_json)
-xml_path = '~/src/Powergrid-Models/platform/cimxml/'
-#xml_path = '../model_output_tests/'
+#xml_path = '~/src/Powergrid-Models/platform/cimxml/'
+xml_path = '../model_output_tests/'
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 for fname in ['IEEE13']:
   cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + xml_path + fname + '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
