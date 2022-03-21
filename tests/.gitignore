@@ -9,3 +9,5 @@ dss
 cim_test.dss
 go.sh
 convert_xml.sh
+test*.dss
+test*.json

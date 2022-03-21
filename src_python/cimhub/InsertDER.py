@@ -5,6 +5,9 @@ import os.path
 import cimhub.CIMHubConfig as CIMHubConfig
 import sys
 
+CATA_MIN_SBYP = 1.053
+CATB_MIN_SBYP = 1.099
+
 qbus_template = """# list the bus name, cn id, terminal id, sequence number, eq id and loc id
 SELECT ?bus ?cnid ?tid ?seq ?eqid ?locid WHERE {{
 VALUES ?fdrid {{"{:s}"}}
@@ -91,6 +94,7 @@ ins_pec_template = """
  <{url}#{res}> c:PowerElectronicsConnection.q \"{q}\".
  <{url}#{res}> c:PowerElectronicsConnection.ratedS \"{ratedS}\".
  <{url}#{res}> c:PowerElectronicsConnection.ratedU \"{ratedU}\".
+ <{url}#{res}> c:PowerElectronicsConnection.controlMode {ns}ConverterControlMode.{mode}>.
 """
 
 ins_syn_template = """
@@ -162,6 +166,25 @@ def PostDER (sparql, qtriples):
 #  print (ret)
   return
 
+def get_category (name, tok):
+  if tok in ['catA', 'catB']:
+    return tok
+  print ('** {:s} has invalid category {:s}, setting to catA'.format (name, tok))
+  return 'catA'
+
+def get_control_mode (name, tok):
+  if tok in ['CQ', 'PF', 'VV', 'VW', 'WVAR', 'AVR', 'VV_VW']:
+    return tok
+  print ('** {:s} has invalid control mode {:s}, setting to PF'.format (name, tok))
+  return 'PF'
+
+def get_cim_control_mode (mode):
+  if mode == 'CQ':
+    return 'constantReactivePower'
+  elif mode == 'PF':
+    return 'constantPowerFactor'
+  return 'dynamic'
+
 def insert_der (cfg_file, fname):
   fdr_id = ''
   crs_id = ''
@@ -205,16 +228,23 @@ def insert_der (cfg_file, fname):
         nmCN = toks[1]
         phases = toks[2]
         unit = toks[3]
-        kVA = float(toks[4])
-        kV = float(toks[5])
-        kW = float(toks[6])
-        kVAR = float(toks[7])
-        if unit == 'Battery':
-          ratedkwh = float(toks[8])
-          storedkwh = float(toks[9])
+        kWmax = float(toks[4])
+        kVA = float(toks[5])
+        kV = float(toks[6])
+        kW = float(toks[7])
+        kVAR = float(toks[8])
+        if unit == 'Battery' or unit == 'Photovoltaic':
+          category = get_category (name, toks[9])
+          ctrlMode = get_control_mode (name, toks[10])
+          if unit == 'Battery':
+            ratedkwh = float(toks[11])
+            storedkwh = float(toks[12])
+          else:
+            ratedkwh = 0.0
+            storedkwh = 0.0
         else:
-          ratedkwh = 0.0
-          storedkwh = 0.0
+          category = 'not supported'
+          ctrlMode = 'not supported'
         nmUnit = name + '_' + unit
         nmTrm = name + '_T1'
         nmLoc = name + '_Loc'
@@ -230,15 +260,22 @@ def insert_der (cfg_file, fname):
         y = float(pp['y'])
         print ('create {:s} at {:s} CN {:s} location {:.4f},{:.4f}'.format (name, nmCN, idCN, x, y))
 
-        if unit == "SynchronousMachine":
+        if unit == 'SynchronousMachine':
           idSYN = GetCIMID('SynchronousMachine', name, uuids)
-          inssyn = ins_syn_template.format(url=CIMHubConfig.blazegraph_url, res=idSYN, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
-                                                    p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0)
+          inssyn = ins_syn_template.format(url=CIMHubConfig.blazegraph_url, res=idSYN, nm=name, resLoc=idLoc, resFdr=fdr_id,
+                                           resUnit=idUnit, p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0) 
           qtriples.append(inssyn)
         else:
+          if category == 'catA':
+            if (kVA/kWmax) < CATA_MIN_SBYP:
+              print ('** {:s} {:s} inverter kVA should be >= {:.3f} for category A'.format (unit, name, kWmax*CATA_MIN_SBYP))
+          elif category == 'catB':
+            if (kVA/kWmax) < CATB_MIN_SBYP:
+              print ('** {:s} {:s} inverter kVA should be >= {:.3f} for category B'.format (unit, name, kWmax*CATB_MIN_SBYP))
           idPEC = GetCIMID('PowerElectronicsConnection', name, uuids)
-          inspec = ins_pec_template.format(url=CIMHubConfig.blazegraph_url, res=idPEC, nm=name, resLoc=idLoc, resFdr=fdr_id, resUnit=idUnit,
-                                                    p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0)
+          inspec = ins_pec_template.format(url=CIMHubConfig.blazegraph_url, res=idPEC, nm=name, resLoc=idLoc, resFdr=fdr_id, 
+                                           resUnit=idUnit, p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0,
+                                           mode=get_cim_control_mode(ctrlMode), ns=CIMHubConfig.cim_ns)
           qtriples.append(inspec)
 
           if len(phases) > 0 and phases != 'ABC':
@@ -259,9 +296,9 @@ def insert_der (cfg_file, fname):
             elif kW < 0.0:
               state = 'Charging'
             insunit = ins_bat_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc, ns=CIMHubConfig.cim_ns,
-                                                       ratedE=ratedkwh*1000.0, storedE=storedkwh*1000.0, state=state, maxP=kVA*1000.0, minP=-kVA*1000.0)
+                                                       ratedE=ratedkwh*1000.0, storedE=storedkwh*1000.0, state=state, maxP=kWmax*1000.0, minP=-kWmax*1000.0)
           elif unit == 'Photovoltaic':
-            insunit = ins_pv_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc, maxP=kW*1000.0, minP=0.1*kW*1000.0)
+            insunit = ins_pv_template.format(url=CIMHubConfig.blazegraph_url, res=idUnit, nm=nmUnit, resLoc=idLoc, maxP=kWmax*1000.0, minP=0.1*kWmax*1000.0)
           else:
             insunit = '** Unsupported Unit ' + unit
           qtriples.append(insunit)
