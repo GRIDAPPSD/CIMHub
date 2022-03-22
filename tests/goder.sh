@@ -13,7 +13,7 @@ python3 test_dercat.py
 #cat test_base.glm
 
 java -cp $CIMHUB_PATH $CIMHUB_PROG \
-  -s=$CIMHUB_FID -u=$DB_URL -o=dss -l=1.0 -i=1 -h=0 -x=0 -t=1 test
+  -s=$CIMHUB_FID -u=$DB_URL -o=dss -l=1.0 -i=1 -h=0 -x=0 -t=0 test
 #cat *base.dss
 opendsscmd test_base.dss
 
