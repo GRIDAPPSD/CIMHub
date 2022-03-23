@@ -4,7 +4,7 @@ feederID,_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62
 //  kW is taken as maximum real power
 //  for Battery,Photovoltaic: append IEEE 1547 category [catA/catB], control mode [CQ,PF,VV,VW,WVAR,AVR,VV_VW]
 //  for Battery: append RatedkWH,StoredkWH
-PV1,   671,  ABC, Photovoltaic,       100.0, 110.000, 4.160, 75,  0, catB, VV
+PV1,   671,  ABC, Photovoltaic,       100.0, 110.000, 4.160, 75,  0, catB, AVR
 PV2, house, s1s2, Photovoltaic,         5.0,   5.265, 0.208,  3,  0, catA, PF
 WTG,   680,  ABC, SynchronousMachine, 100.0, 105.000, 4.160, 80, 10
 ES1,   675,  ABC, Battery,            100.0, 109.900, 4.160,  0,  0, catB, WVAR,  500.0, 250.0

@@ -1,4 +1,5 @@
 rm *.txt
+rm *.Txt
 rm *uuids.*
 rm *.XML
 rm *.xml

@@ -205,7 +205,7 @@ class ieee1547:
       'ConstantPowerFactorSettings.DERIEEEType1':None,
       'ConstantPowerFactorSettings.enabled':False,
       'ConstantPowerFactorSettings.powerFactor':1.0,
-      'ConstantPowerFactorSettings.ConstantPowerFactorExcitationKind':'ConstantPowerFactorSettingKind.abs'
+      'ConstantPowerFactorSettings.constantPowerFactorExcitationKind':'ConstantPowerFactorSettingKind.abs'
     }
     self.cimparms['VoltVarSettings'] = {
       'IdentifiedObject.name':None,
@@ -352,9 +352,9 @@ class ieee1547:
       pf = p / s
     dct['ConstantPowerFactorSettings.powerFactor'] = pf
     if q < 0.0:
-      dct['ConstantPowerFactorSettings.ConstantPowerFactorExcitationKind'] = 'ConstantPowerFactorSettingKind.abs'
+      dct['ConstantPowerFactorSettings.constantPowerFactorExcitationKind'] = 'ConstantPowerFactorSettingKind.abs'
     else:
-      dct['ConstantPowerFactorSettings.ConstantPowerFactorExcitationKind'] = 'ConstantPowerFactorSettingKind.inj'
+      dct['ConstantPowerFactorSettings.constantPowerFactorExcitationKind'] = 'ConstantPowerFactorSettingKind.inj'
 
     dct = self.cimparms['VoltVarSettings']
     dct['IdentifiedObject.name'] = nameVV
@@ -439,8 +439,19 @@ class ieee1547:
       dct['WattVarSettings.curveQ3load'] = 0.44
     return
 
-  def get_cim_triples(self):
-    return
+  def append_cim_triples(self, qtriples):
+    for tag in ['DERIEEEType1', 'DERNameplateData', 'DERNameplateDataApplied', 'ConstantReactivePowerSettings',
+                'ConstantPowerFactorSettings', 'VoltVarSettings', 'VoltWattSettings', 'WattVarSettings']:
+      dct = self.cimparms[tag]
+      prefix = ' <{:s}#{:s}> '.format(CIMHubConfig.blazegraph_url, dct['IdentifiedObject.mRID'])
+      qtriples.append (prefix + 'a c:{:s}.'.format(tag))
+      for key, val in dct.items():
+        if ('.DER' in key) or ('.Power' in key):
+          qtriples.append (prefix + 'c:{:s} <{:s}#{:s}>.'.format(key, CIMHubConfig.blazegraph_url, str(val)))
+        elif 'Kind' in key:
+          qtriples.append (prefix + 'c:{:s} {:s}#{:s}>.'.format(key, CIMHubConfig.cim_ns, str(val)))
+        else:
+          qtriples.append (prefix + 'c:{:s} \"{:s}\".'.format (key, str(val)))
 
 def ParsePhases (sphs):
   lst = []
@@ -577,6 +588,7 @@ def insert_der (cfg_file, fname):
             else:
               settings.assign_pec(kVA, kWmax, kV, category, ctrlMode, kW, kVAR, idPEC, name, False, uuids)
 #            settings.print_dicts()
+            settings.append_cim_triples(qtriples)
 
           if len(phases) > 0 and phases != 'ABC':
             phase_list = ParsePhases (phases)
