@@ -264,31 +264,32 @@ public abstract class DistComponent {
     }
   }
 
-  static String DSSXfmrTankPhasesAndGround (String vgrp, String bus, String phs, boolean reversed, boolean grounded, double rg, double xg) {
-    if (phs.contains("s2")) return (bus + ".0.2"); // TODO: this is a built-in reversal
-    if (phs.contains("s1")) return (bus + ".1.0");
+  static String DSSXfmrTankPhasesAndGround (String vgrp, String bus, String orderedPhases, boolean grounded, double rg, double xg) {
+    if (orderedPhases.contains("s2")) return (bus + ".0.2"); // TODO: this is a built-in reversal
+    if (orderedPhases.contains("s1")) return (bus + ".1.0");
     String xphs;
-    if (reversed) {
-      xphs = new StringBuilder(phs).reverse().toString();
-    } else {
-      xphs = phs;
-    }
-    if (vgrp.contains ("I") && phs.length() > 1) {
+ //   if (reversed) {
+ //     xphs = new StringBuilder(phs).reverse().toString();
+ //   } else {
+ //     xphs = phs;
+ //   }
+    xphs = orderedPhases;
+    if (vgrp.contains ("I") && orderedPhases.length() > 1) {
       StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));
       buf.append (" conn=d");
       return buf.toString();
     }
-    if (!grounded && phs.length() == 1) {
+    if (!grounded && orderedPhases.length() == 1) {
       StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));
       buf.append (".4");
       return buf.toString();
     }
-    if (grounded && reversed) {
-      return DSSBusPhases (bus + ".0", xphs);
-    }
+//    if (grounded && reversed) {
+//      return DSSBusPhases (bus + ".0", xphs);
+//    }
     if (rg > 0.0 || xg > 0.0) {
       StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));
-      int idxN = phs.length() + 1;
+      int idxN = orderedPhases.length() + 1;
       buf.append("." + Integer.toString (idxN) + " rneut=" + df3.format(rg) + " xneut=" + df3.format(xg));
       return buf.toString();
     }

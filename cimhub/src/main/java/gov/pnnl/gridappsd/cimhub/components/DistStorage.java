@@ -24,6 +24,8 @@ public class DistStorage extends DistComponent {
   public double ratedP; // TODO: OpenDSS allowed a different kvaRated from kwRated, but CIM does not
   public double maxP;
   public double minP;
+  public double maxQ;
+  public double minQ;
 	public double ratedE;
 	public double storedE;
 	public double maxIFault;
@@ -75,6 +77,8 @@ public class DistStorage extends DistComponent {
 			ratedS = Double.parseDouble (soln.get("?ratedS").toString());
       maxP = Double.parseDouble (soln.get("?maxP").toString());
       minP = Double.parseDouble (soln.get("?minP").toString());
+      maxQ = Double.parseDouble (soln.get("?maxQ").toString());
+      minQ = Double.parseDouble (soln.get("?minQ").toString());
       ratedP = Math.max(maxP, Math.abs(minP));
 			maxIFault = Double.parseDouble (soln.get("?ipu").toString());
 			bDelta = false;
@@ -199,13 +203,19 @@ public class DistStorage extends DistComponent {
 		}
     double pf = 1.0;
     double kvar = 0.001 * q;
+    double kvarMax = 0.001 * maxQ;
+    double kvarMaxAbs = kvarMax;
+    if (minQ < 0.0) {
+      kvarMaxAbs = Math.abs(0.001 * minQ);
+    }
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
 								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + 
                 " kwrated=" + df3.format(0.001 * ratedP) + 
                 " kv=" + df3.format(kv) + " kwhrated=" + df3.format(0.001 * ratedE) + 
 								" kwhstored=" + df3.format(0.001 * storedE) + " state=" + DSSBatteryState(state) +
 								" vminpu=" + df4.format(1/maxIFault) + " LimitCurrent=yes kw=" + df2.format(p/1000.0) +
-                " %charge=" + df2.format(-100.0 * minP / ratedP) + " %discharge=" + df2.format(100.0 * maxP / ratedP));
+                " %charge=" + df2.format(-100.0 * minP / ratedP) + " %discharge=" + df2.format(100.0 * maxP / ratedP) + 
+                " kvarMax=" + df3.format(kvarMax) + " kvarMaxAbs=" + df3.format(kvarMaxAbs));
     if (mode == ConverterControlMode.CONSTANT_PF) {
       double s = Math.sqrt(p * p + q * q);
       if (s > 0.0) {

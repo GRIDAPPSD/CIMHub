@@ -22,6 +22,8 @@ public class DistSolar extends DistComponent {
 	public double ratedS;
   public double maxP;
   public double minP;
+  public double maxQ;
+  public double minQ;
 	public double maxIFault;
 	public boolean bDelta;
   public ConverterControlMode mode;
@@ -59,6 +61,8 @@ public class DistSolar extends DistComponent {
 			ratedS = Double.parseDouble (soln.get("?ratedS").toString());
       maxP = Double.parseDouble (soln.get("?maxP").toString());
       minP = Double.parseDouble (soln.get("?minP").toString());
+      maxQ = Double.parseDouble (soln.get("?maxQ").toString());
+      minQ = Double.parseDouble (soln.get("?minQ").toString());
 			maxIFault = Double.parseDouble (soln.get("?ipu").toString());
 			bDelta = false;
 		}		
@@ -169,6 +173,11 @@ public class DistSolar extends DistComponent {
 		}
     double pf = 1.0;
     double kvar = 0.001 * q;
+    double kvarMax = 0.001 * maxQ;
+    double kvarMaxAbs = kvarMax;
+    if (minQ < 0.0) {
+      kvarMaxAbs = Math.abs(0.001 * minQ);
+    }
     double pctMin = 100.0 * minP / ratedS;
 
 //		System.out.println (name + ":" + bus + ":" + Boolean.toString(bDelta) + ":" + phases + ":" + Integer.toString(nphases));
@@ -177,7 +186,7 @@ public class DistSolar extends DistComponent {
 								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + " kv=" + df3.format(kv) +
 								" pmpp=" + df3.format(0.001*maxP) + " irrad=" + df3.format(p/maxP) +
 								" vminpu=" + df4.format(1.0/maxIFault) + " LimitCurrent=yes %cutin=" + df2.format(pctMin) +
-                " %cutout=" + df2.format(pctMin));
+                " %cutout=" + df2.format(pctMin) + " kvarMax=" + df3.format(kvarMax) + " kvarMaxAbs=" + df3.format(kvarMaxAbs));
     if (mode == ConverterControlMode.CONSTANT_PF) {
       double s = Math.sqrt(p * p + q * q);
       if (s > 0.0) {

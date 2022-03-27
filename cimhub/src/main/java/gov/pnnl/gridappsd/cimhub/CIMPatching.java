@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub;
 // ----------------------------------------------------------
-// Copyright (c) 2017-2020, Battelle Memorial Institute
+// Copyright (c) 2017-2022, Battelle Memorial Institute
 // All rights reserved.
 // ----------------------------------------------------------
 
@@ -81,7 +81,7 @@ public class CIMPatching extends Object {
 	public void FixTransformerKVA (HashMap<String,DistXfmrCodeRating> mapCodeRatings) {
 		for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
 			DistXfmrCodeRating obj = pair.getValue();
-			if (obj.pname.contains("kVA") && obj.ratedS[0] < 1501.0) {
+			if (obj.tname.contains("kVA") && obj.ratedS[0] < 1501.0) { // TODO, tname used to be pname
 				for (int i = 0; i < obj.size; i++) {
 					obj.ratedS[i] *= 1000.0;
 				}

@@ -554,7 +554,7 @@ public class CIMWriter extends Object {
 					RefNode ("Equipment.EquipmentContainer", fdrID, out);
 					RefNode("DistributionTransformerWinding.WindingInfo", 
 									mapWindings.get(infID).get(i), out); 
-					PhasesEnum (obj.phs[i], out);
+					PhasesEnum (obj.orderedPhases[i], out); // TODO
 					BoolNode ("DistributionTransformerWinding.grounded", obj.grounded[i], out);
 					DoubleNode ("DistributionTransformerWinding.rground", obj.rg[i], out);
 					DoubleNode ("DistributionTransformerWinding.xground", obj.xg[i], out);

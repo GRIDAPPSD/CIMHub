@@ -16,7 +16,7 @@ public class DistXfmrTank extends DistComponent {
   public String infoid;
   public String[] bus;
   public String[] t1id;
-  public String[] phs;
+  public String[] orderedPhases;
   public String[] ename;
   public String[] eid;
   public double[] basev;
@@ -24,7 +24,6 @@ public class DistXfmrTank extends DistComponent {
   public double[] xg;
   public int[] wdg;
   public boolean[] grounded;
-  public boolean[] reversed;
 
   public double normalCurrentLimit = 0.0;
   public double emergencyCurrentLimit = 0.0;
@@ -46,12 +45,11 @@ public class DistXfmrTank extends DistComponent {
     size = val;
     bus = new String[size];
     t1id = new String[size];
-    phs = new String[size];
+    orderedPhases = new String[size];
     ename = new String[size];
     eid = new String[size];
     wdg = new int[size];
     grounded = new boolean[size];
-    reversed = new boolean[size];
     basev = new double[size];
     rg = new double[size];
     xg = new double[size];
@@ -74,12 +72,11 @@ public class DistXfmrTank extends DistComponent {
         bus[i] = SafeName (soln.get("?bus").toString());
         t1id[i] = soln.get("?t1id").toString();
         basev[i] = Double.parseDouble (soln.get("?basev").toString());
-        phs[i] = soln.get("?phs").toString();
+        orderedPhases[i] = soln.get("?orderedPhases").toString();
         rg[i] = OptionalDouble (soln, "?rground", 0.0);
         xg[i] = OptionalDouble (soln, "?xground", 0.0);
         wdg[i] = Integer.parseInt (soln.get("?enum").toString());
         grounded[i] = Boolean.parseBoolean (soln.get("?grounded").toString());
-        reversed[i] = Boolean.parseBoolean (soln.get("?reversed").toString());
         if ((i + 1) < size) {
           soln = results.next();
         }
@@ -91,8 +88,7 @@ public class DistXfmrTank extends DistComponent {
     StringBuilder buf = new StringBuilder ("");
     buf.append ("pname=" + pname + " vgrp=" + vgrp + " tname=" + tname + " tankinfo=" + tankinfo);
     for (int i = 0; i < size; i++) {
-      buf.append ("\n  " + Integer.toString(wdg[i]) + " bus=" + bus[i] + " basev=" + df4.format(basev[i]) + " phs=" + phs[i]);
-      buf.append (" reversed=" + Boolean.toString(reversed[i]));
+      buf.append ("\n  " + Integer.toString(wdg[i]) + " bus=" + bus[i] + " basev=" + df4.format(basev[i]) + " phs=" + orderedPhases[i]);
       buf.append (" grounded=" + Boolean.toString(grounded[i]) + " rg=" + df4.format(rg[i]) + " xg=" + df4.format(xg[i]));
     }
     return buf.toString();
@@ -104,8 +100,8 @@ public class DistXfmrTank extends DistComponent {
     String bus1 = bus[0];
     String bus2 = bus[1];
     StringBuilder lbl_phs = new StringBuilder ();
-    for (int i = 0; i < phs.length; i++) {
-      lbl_phs.append(phs[i]);
+    for (int i = 0; i < orderedPhases.length; i++) {
+      lbl_phs.append(orderedPhases[i]);
     }
 
     StringBuilder buf = new StringBuilder ();
@@ -113,7 +109,7 @@ public class DistXfmrTank extends DistComponent {
     buf.append ("{\"name\":\"" + pname + "\"");
     buf.append (",\"from\":\"" + bus1 + "\"");
     buf.append (",\"to\":\"" + bus2 + "\"");
-    buf.append (",\"phases\":\"" + phs[0] +"\"");
+    buf.append (",\"phases\":\"" + orderedPhases[0] +"\"");
     buf.append (",\"configuration\":\"" + tankinfo + ":" + vgrp + "\"");
     buf.append (",\"x1\":" + Double.toString(pt1.x));
     buf.append (",\"y1\":" + Double.toString(pt1.y));
@@ -124,10 +120,10 @@ public class DistXfmrTank extends DistComponent {
   }
 
   private String PhasedTankName () {
-    if (phs[0].contains ("ABC")) return tankinfo;
-    if (phs[0].contains ("A")) return tankinfo + "A";
-    if (phs[0].contains ("B")) return tankinfo + "B";
-    if (phs[0].contains ("C")) return tankinfo + "C";
+    if (orderedPhases[0].contains ("ABC")) return tankinfo;
+    if (orderedPhases[0].contains ("A")) return tankinfo + "A";
+    if (orderedPhases[0].contains ("B")) return tankinfo + "B";
+    if (orderedPhases[0].contains ("C")) return tankinfo + "C";
     return tankinfo;
   }
 
@@ -137,13 +133,13 @@ public class DistXfmrTank extends DistComponent {
     buf.append ("  name \"xf_" + pname + "\";\n");
     buf.append ("  from \"" + bus[0] + "\";\n");
     buf.append ("  to \"" + bus[1] + "\";\n");
-    if (phs[1].contains("s")) {
-      buf.append("  phases " + phs[0] + "S;\n");
+    if (orderedPhases[1].contains("s")) {
+      buf.append("  phases " + orderedPhases[0] + "S;\n");
     } else {
-      buf.append("  phases " + phs[0] + ";\n");
+      buf.append("  phases " + orderedPhases[0] + ";\n");
     }
     buf.append ("  configuration \"xcon_" + PhasedTankName() + "\";\n");
-    AppendGLMRatings (buf, phs[0], normalCurrentLimit, emergencyCurrentLimit);
+    AppendGLMRatings (buf, orderedPhases[0], normalCurrentLimit, emergencyCurrentLimit);
     buf.append ("  // vector group " + vgrp + ";\n");
     buf.append("}\n");
     return buf.toString();
@@ -155,7 +151,7 @@ public class DistXfmrTank extends DistComponent {
     // winding ratings
     AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
     for (int i = 0; i < size; i++) {
-      buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + DSSXfmrTankPhasesAndGround (vgrp, bus[i], phs[i], reversed[i], grounded[i], rg[i], xg[i]) + "\n");
+      buf.append("~ wdg=" + Integer.toString(i + 1) + " bus=" + DSSXfmrTankPhasesAndGround (vgrp, bus[i], orderedPhases[i], grounded[i], rg[i], xg[i]) + "\n");
     }
     return buf.toString();
   }
@@ -165,7 +161,7 @@ public class DistXfmrTank extends DistComponent {
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (tname);
     for (int i = 0; i < size; i++) {
-      buf.append ("," + bus[i] + "," + CSVPhaseString(phs[i]));
+      buf.append ("," + bus[i] + "," + CSVPhaseString(orderedPhases[i]));
     }
     if (size < 3) buf.append (",,");
     buf.append ("," + tankinfo + "\n");

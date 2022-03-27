@@ -9,7 +9,6 @@ import java.util.HashMap;
 import org.apache.commons.math3.complex.Complex;
 
 public class DistXfmrCodeRating extends DistComponent {
-  public String pname;
   public String tname;
   public String id;
   public String[] eid;
@@ -30,7 +29,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"name\":\"" + pname +"\"");
+    buf.append ("{\"name\":\"" + tname +"\"");
     buf.append (",\"mRID\":\"" + id +"\"");
     buf.append ("}");
     return buf.toString();
@@ -51,9 +50,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public DistXfmrCodeRating (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      String p = soln.get("?pname").toString();
       String t = soln.get("?tname").toString();
-      pname = SafeName (p);
       tname = SafeName (t);
       id = soln.get("?id").toString();
       SetSize (map.get(tname));
@@ -74,8 +71,7 @@ public class DistXfmrCodeRating extends DistComponent {
   }
 
   public String DisplayString() {
-    StringBuilder buf = new StringBuilder ("");
-    buf.append (pname + ":" + tname);
+    StringBuilder buf = new StringBuilder (tname);
     for (int i = 0; i < size; i++) {
       buf.append ("\n  wdg=" + Integer.toString(wdg[i]) + " conn=" + conn[i] + " ang=" + Integer.toString(ang[i]));
       buf.append (" U=" + df4.format(ratedU[i]) + " S=" + df4.format(ratedS[i]) + " r=" + df4.format(r[i]));
