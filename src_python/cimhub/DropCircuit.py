@@ -149,11 +149,17 @@ def drop_circuit (cfg_file, mRID):
   run_query ('OperationalLimitType', remove_oplimit_type)
 
   # flush unused catalog entries linked via Asset
-  run_query ('Asset=>PSR', remove_asset_links)
-  run_query ('Asset', remove_asset_objects)
-  run_query ('TapChangerInfo', asset_leaf_template.format(cls='TapChangerInfo'))
-  run_query ('TransformerTankInfo', asset_leaf_template.format(cls='TransformerTankInfo'))
-  run_query ('PowerTransformerInfo', not_used_template.format(cls='PowerTransformerInfo', usage='TransformerTankInfo.PowerTransformerInfo'))
+#  run_query ('Asset=>PSR', remove_asset_links)
+#  run_query ('Asset', remove_asset_objects)
+#  run_query ('TapChangerInfo', asset_leaf_template.format(cls='TapChangerInfo'))
+#  run_query ('TransformerTankInfo', asset_leaf_template.format(cls='TransformerTankInfo'))
+#  run_query ('PowerTransformerInfo', not_used_template.format(cls='PowerTransformerInfo', usage='TransformerTankInfo.PowerTransformerInfo'))
+#  run_query ('TransformerEndInfo', no_parent_template.format(target='TransformerEndInfo.TransformerTankInfo'))
+#  run_query ('NoLoadTest', no_parent_template.format(target='NoLoadTest.EnergisedEnd'))
+#  run_query ('ShortCircuitTest', no_parent_template.format(target='ShortCircuitTest.EnergisedEnd'))
+
+  # TransformerTankInfo, then cascade to TransformerTankEndInfo, NoLoadTest, ShortCircuitTest
+  run_query ('TransformerTankInfo', not_used_template.format(cls='TransformerTankInfo', usage='TransformerTank.TransformerTankInfo'))
   run_query ('TransformerEndInfo', no_parent_template.format(target='TransformerEndInfo.TransformerTankInfo'))
   run_query ('NoLoadTest', no_parent_template.format(target='NoLoadTest.EnergisedEnd'))
   run_query ('ShortCircuitTest', no_parent_template.format(target='ShortCircuitTest.EnergisedEnd'))
