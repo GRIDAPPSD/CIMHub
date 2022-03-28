@@ -1054,8 +1054,8 @@
   <cim:TapChangerControl.lineDropX>9</cim:TapChangerControl.lineDropX>
   <cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
   <cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
-  <cim:TapChangerControl.maxLimitVoltage>126</cim:TapChangerControl.maxLimitVoltage>
-  <cim:TapChangerControl.minLimitVoltage>114</cim:TapChangerControl.minLimitVoltage>
+  <cim:TapChangerControl.maxLimitVoltage>132</cim:TapChangerControl.maxLimitVoltage>
+  <cim:TapChangerControl.minLimitVoltage>108</cim:TapChangerControl.minLimitVoltage>
   <cim:PowerSystemResource.Location rdf:resource="#_B4E2A46F-F985-451E-A14A-933A626AA1C5"/>
 </cim:TapChangerControl>
 <cim:RatioTapChanger rdf:ID="_DADD793B-6F2F-4E4A-8941-F73E44FC5DD2">
@@ -1095,8 +1095,8 @@
   <cim:TapChangerControl.lineDropX>9</cim:TapChangerControl.lineDropX>
   <cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
   <cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
-  <cim:TapChangerControl.maxLimitVoltage>126</cim:TapChangerControl.maxLimitVoltage>
-  <cim:TapChangerControl.minLimitVoltage>114</cim:TapChangerControl.minLimitVoltage>
+  <cim:TapChangerControl.maxLimitVoltage>132</cim:TapChangerControl.maxLimitVoltage>
+  <cim:TapChangerControl.minLimitVoltage>108</cim:TapChangerControl.minLimitVoltage>
   <cim:PowerSystemResource.Location rdf:resource="#_4390F36E-33BB-409B-B038-955A08F27DCA"/>
 </cim:TapChangerControl>
 <cim:RatioTapChanger rdf:ID="_A480E0A9-AD2B-4D8E-9478-71C29F738221">
@@ -1136,8 +1136,8 @@
   <cim:TapChangerControl.lineDropX>9</cim:TapChangerControl.lineDropX>
   <cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
   <cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
-  <cim:TapChangerControl.maxLimitVoltage>126</cim:TapChangerControl.maxLimitVoltage>
-  <cim:TapChangerControl.minLimitVoltage>114</cim:TapChangerControl.minLimitVoltage>
+  <cim:TapChangerControl.maxLimitVoltage>132</cim:TapChangerControl.maxLimitVoltage>
+  <cim:TapChangerControl.minLimitVoltage>108</cim:TapChangerControl.minLimitVoltage>
   <cim:PowerSystemResource.Location rdf:resource="#_2799A8F9-7C70-4639-AAD6-0B435B96182D"/>
 </cim:TapChangerControl>
 <cim:RatioTapChanger rdf:ID="_D8BC994E-8335-49BE-A1E1-B50BC8A511DD">
