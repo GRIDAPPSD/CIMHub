@@ -494,8 +494,11 @@
   <cim:PowerElectronicsConnection.maxIFault>1.1111111</cim:PowerElectronicsConnection.maxIFault>
   <cim:PowerElectronicsConnection.p>240000</cim:PowerElectronicsConnection.p>
   <cim:PowerElectronicsConnection.q>0</cim:PowerElectronicsConnection.q>
+  <cim:PowerElectronicsConnection.controlMode rdf:resource="http://iec.ch/TC57/CIM100#ConverterControlMode.constantPowerFactor"/>
   <cim:PowerElectronicsConnection.ratedS>300000</cim:PowerElectronicsConnection.ratedS>
   <cim:PowerElectronicsConnection.ratedU>480</cim:PowerElectronicsConnection.ratedU>
+  <cim:PowerElectronicsConnection.maxQ>75000</cim:PowerElectronicsConnection.maxQ>
+  <cim:PowerElectronicsConnection.minQ>-75000</cim:PowerElectronicsConnection.minQ>
   <cim:PowerSystemResource.Location rdf:resource="#_03415EDB-8B26-4C33-B0F4-AA5DC3E1BCA7"/>
 </cim:PowerElectronicsConnection>
 <cim:Terminal rdf:ID="_C97C6179-35A3-429B-9849-2EF08FDE8AAE">
@@ -531,8 +534,11 @@
   <cim:PowerElectronicsConnection.maxIFault>1.1111111</cim:PowerElectronicsConnection.maxIFault>
   <cim:PowerElectronicsConnection.p>4000</cim:PowerElectronicsConnection.p>
   <cim:PowerElectronicsConnection.q>0</cim:PowerElectronicsConnection.q>
+  <cim:PowerElectronicsConnection.controlMode rdf:resource="http://iec.ch/TC57/CIM100#ConverterControlMode.constantPowerFactor"/>
   <cim:PowerElectronicsConnection.ratedS>5000</cim:PowerElectronicsConnection.ratedS>
   <cim:PowerElectronicsConnection.ratedU>208</cim:PowerElectronicsConnection.ratedU>
+  <cim:PowerElectronicsConnection.maxQ>1250</cim:PowerElectronicsConnection.maxQ>
+  <cim:PowerElectronicsConnection.minQ>-1250</cim:PowerElectronicsConnection.minQ>
   <cim:PowerSystemResource.Location rdf:resource="#_1FDD92A6-B70C-4001-9BCD-368259498967"/>
 </cim:PowerElectronicsConnection>
 <cim:PowerElectronicsConnectionPhase rdf:ID="_3B29C6D2-6B9A-4AF1-96C7-343C7F081DFA">
@@ -578,7 +584,7 @@
   <cim:PowerElectronicsUnit.minP>-100000</cim:PowerElectronicsUnit.minP>
   <cim:BatteryUnit.ratedE>200000</cim:BatteryUnit.ratedE>
   <cim:BatteryUnit.storedE>100000</cim:BatteryUnit.storedE>
-  <cim:BatteryUnit.batteryState rdf:resource="http://iec.ch/TC57/CIM100#BatteryState.Charging"/>
+  <cim:BatteryUnit.batteryState rdf:resource="http://iec.ch/TC57/CIM100#BatteryState.charging"/>
   <cim:PowerSystemResource.Location rdf:resource="#_893DF2C7-50DC-4B31-9835-DBD1BA6C7F60"/>
 </cim:BatteryUnit>
 <cim:PowerElectronicsConnection rdf:ID="_FC39A464-CF48-4A21-812D-A043B60664F1">
@@ -589,8 +595,11 @@
   <cim:PowerElectronicsConnection.maxIFault>1.1111111</cim:PowerElectronicsConnection.maxIFault>
   <cim:PowerElectronicsConnection.p>-100000</cim:PowerElectronicsConnection.p>
   <cim:PowerElectronicsConnection.q>0</cim:PowerElectronicsConnection.q>
+  <cim:PowerElectronicsConnection.controlMode rdf:resource="http://iec.ch/TC57/CIM100#ConverterControlMode.constantPowerFactor"/>
   <cim:PowerElectronicsConnection.ratedS>100000</cim:PowerElectronicsConnection.ratedS>
   <cim:PowerElectronicsConnection.ratedU>480</cim:PowerElectronicsConnection.ratedU>
+  <cim:PowerElectronicsConnection.maxQ>25000</cim:PowerElectronicsConnection.maxQ>
+  <cim:PowerElectronicsConnection.minQ>-25000</cim:PowerElectronicsConnection.minQ>
   <cim:PowerSystemResource.Location rdf:resource="#_893DF2C7-50DC-4B31-9835-DBD1BA6C7F60"/>
 </cim:PowerElectronicsConnection>
 <cim:Terminal rdf:ID="_CEF8B78E-0F1D-4127-8728-7604D4D4F21F">
@@ -618,7 +627,7 @@
   <cim:PowerElectronicsUnit.minP>-5000</cim:PowerElectronicsUnit.minP>
   <cim:BatteryUnit.ratedE>13500</cim:BatteryUnit.ratedE>
   <cim:BatteryUnit.storedE>5000</cim:BatteryUnit.storedE>
-  <cim:BatteryUnit.batteryState rdf:resource="http://iec.ch/TC57/CIM100#BatteryState.Charging"/>
+  <cim:BatteryUnit.batteryState rdf:resource="http://iec.ch/TC57/CIM100#BatteryState.charging"/>
   <cim:PowerSystemResource.Location rdf:resource="#_E1094345-D8A1-49C6-9468-7C3C8A936DC4"/>
 </cim:BatteryUnit>
 <cim:PowerElectronicsConnection rdf:ID="_5B5B0A45-7C5D-4C28-93EF-B395DF40A8AB">
@@ -629,8 +638,11 @@
   <cim:PowerElectronicsConnection.maxIFault>1.1111111</cim:PowerElectronicsConnection.maxIFault>
   <cim:PowerElectronicsConnection.p>-5000</cim:PowerElectronicsConnection.p>
   <cim:PowerElectronicsConnection.q>0</cim:PowerElectronicsConnection.q>
+  <cim:PowerElectronicsConnection.controlMode rdf:resource="http://iec.ch/TC57/CIM100#ConverterControlMode.constantPowerFactor"/>
   <cim:PowerElectronicsConnection.ratedS>5000</cim:PowerElectronicsConnection.ratedS>
   <cim:PowerElectronicsConnection.ratedU>208</cim:PowerElectronicsConnection.ratedU>
+  <cim:PowerElectronicsConnection.maxQ>5000</cim:PowerElectronicsConnection.maxQ>
+  <cim:PowerElectronicsConnection.minQ>-5000</cim:PowerElectronicsConnection.minQ>
   <cim:PowerSystemResource.Location rdf:resource="#_E1094345-D8A1-49C6-9468-7C3C8A936DC4"/>
 </cim:PowerElectronicsConnection>
 <cim:PowerElectronicsConnectionPhase rdf:ID="_D57BA525-14C6-47A1-BB60-6AAC9D007CB2">
@@ -787,14 +799,9 @@
   <cim:PositionPoint.xPosition>0</cim:PositionPoint.xPosition>
   <cim:PositionPoint.yPosition>100</cim:PositionPoint.yPosition>
 </cim:PositionPoint>
-<cim:PowerTransformerInfo rdf:ID="_8C95863F-79B1-4927-816C-3E947D01745B">
-  <cim:IdentifiedObject.mRID>_8C95863F-79B1-4927-816C-3E947D01745B</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>ct5_PowerXfInfo</cim:IdentifiedObject.name>
-</cim:PowerTransformerInfo>
 <cim:TransformerTankInfo rdf:ID="_8F519D22-E2CF-4D0F-B65F-C824991D1FB9">
   <cim:IdentifiedObject.mRID>_8F519D22-E2CF-4D0F-B65F-C824991D1FB9</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>ct5</cim:IdentifiedObject.name>
-  <cim:TransformerTankInfo.PowerTransformerInfo rdf:resource="#_8C95863F-79B1-4927-816C-3E947D01745B"/>
 </cim:TransformerTankInfo>
 <cim:TransformerEndInfo rdf:ID="_5BD0E622-9B95-44B6-B41B-24FEBF8F727B">
   <cim:IdentifiedObject.mRID>_5BD0E622-9B95-44B6-B41B-24FEBF8F727B</cim:IdentifiedObject.mRID>
@@ -892,20 +899,9 @@
   <cim:TransformerTest.basePower>5000</cim:TransformerTest.basePower>
   <cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 </cim:ShortCircuitTest>
-<cim:Asset rdf:ID="_3527D634-AB94-43A4-B73C-03FF2B087972">
-  <cim:IdentifiedObject.mRID>_3527D634-AB94-43A4-B73C-03FF2B087972</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>TankAsset_ct5</cim:IdentifiedObject.name>
-  <cim:Asset.AssetInfo rdf:resource="#_8F519D22-E2CF-4D0F-B65F-C824991D1FB9"/>
-  <cim:Asset.PowerSystemResources rdf:resource="#_D525913A-34FC-46E5-86D2-DD6BA37DBFE3"/>
-</cim:Asset>
-<cim:PowerTransformerInfo rdf:ID="_742E302A-9582-4434-B7DE-CA75D092C0B9">
-  <cim:IdentifiedObject.mRID>_742E302A-9582-4434-B7DE-CA75D092C0B9</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>cimxfmrcode_reg1_PowerXfInfo</cim:IdentifiedObject.name>
-</cim:PowerTransformerInfo>
 <cim:TransformerTankInfo rdf:ID="_291C313B-D3F6-48E9-9124-7AF499683E6F">
   <cim:IdentifiedObject.mRID>_291C313B-D3F6-48E9-9124-7AF499683E6F</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>cimxfmrcode_reg1</cim:IdentifiedObject.name>
-  <cim:TransformerTankInfo.PowerTransformerInfo rdf:resource="#_742E302A-9582-4434-B7DE-CA75D092C0B9"/>
 </cim:TransformerTankInfo>
 <cim:TransformerEndInfo rdf:ID="_D92131A3-2C40-4741-9B17-DE6A6424C46D">
   <cim:IdentifiedObject.mRID>_D92131A3-2C40-4741-9B17-DE6A6424C46D</cim:IdentifiedObject.mRID>
@@ -961,20 +957,9 @@
   <cim:TransformerTest.basePower>1666000</cim:TransformerTest.basePower>
   <cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 </cim:ShortCircuitTest>
-<cim:Asset rdf:ID="_3AABB4AD-4CE9-48D4-BB4F-FDF1D139E41E">
-  <cim:IdentifiedObject.mRID>_3AABB4AD-4CE9-48D4-BB4F-FDF1D139E41E</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>TankAsset_cimxfmrcode_reg1</cim:IdentifiedObject.name>
-  <cim:Asset.AssetInfo rdf:resource="#_291C313B-D3F6-48E9-9124-7AF499683E6F"/>
-  <cim:Asset.PowerSystemResources rdf:resource="#_08F517D5-3E61-49B4-BDE0-81B2CC2DBA63"/>
-</cim:Asset>
-<cim:PowerTransformerInfo rdf:ID="_FD204E01-5A06-4A97-AB61-DEC053FACB13">
-  <cim:IdentifiedObject.mRID>_FD204E01-5A06-4A97-AB61-DEC053FACB13</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>cimxfmrcode_reg2_PowerXfInfo</cim:IdentifiedObject.name>
-</cim:PowerTransformerInfo>
 <cim:TransformerTankInfo rdf:ID="_D49D6D53-6F14-45A7-AD65-A431CB45D14B">
   <cim:IdentifiedObject.mRID>_D49D6D53-6F14-45A7-AD65-A431CB45D14B</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>cimxfmrcode_reg2</cim:IdentifiedObject.name>
-  <cim:TransformerTankInfo.PowerTransformerInfo rdf:resource="#_FD204E01-5A06-4A97-AB61-DEC053FACB13"/>
 </cim:TransformerTankInfo>
 <cim:TransformerEndInfo rdf:ID="_AA9BA838-C198-42E9-B205-9B057603DEC1">
   <cim:IdentifiedObject.mRID>_AA9BA838-C198-42E9-B205-9B057603DEC1</cim:IdentifiedObject.mRID>
@@ -1030,20 +1015,9 @@
   <cim:TransformerTest.basePower>1666000</cim:TransformerTest.basePower>
   <cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 </cim:ShortCircuitTest>
-<cim:Asset rdf:ID="_F95EEBFF-68D0-4388-8451-16C23235CF3E">
-  <cim:IdentifiedObject.mRID>_F95EEBFF-68D0-4388-8451-16C23235CF3E</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>TankAsset_cimxfmrcode_reg2</cim:IdentifiedObject.name>
-  <cim:Asset.AssetInfo rdf:resource="#_D49D6D53-6F14-45A7-AD65-A431CB45D14B"/>
-  <cim:Asset.PowerSystemResources rdf:resource="#_89231DB9-F9E2-4615-9D06-C32B2F7F6137"/>
-</cim:Asset>
-<cim:PowerTransformerInfo rdf:ID="_6AF0EC5C-73EB-47DB-AE5E-AFEF5BA2EBF7">
-  <cim:IdentifiedObject.mRID>_6AF0EC5C-73EB-47DB-AE5E-AFEF5BA2EBF7</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>cimxfmrcode_reg3_PowerXfInfo</cim:IdentifiedObject.name>
-</cim:PowerTransformerInfo>
 <cim:TransformerTankInfo rdf:ID="_7FC521AB-D70F-4BF9-8D07-E1FA5CA499A7">
   <cim:IdentifiedObject.mRID>_7FC521AB-D70F-4BF9-8D07-E1FA5CA499A7</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>cimxfmrcode_reg3</cim:IdentifiedObject.name>
-  <cim:TransformerTankInfo.PowerTransformerInfo rdf:resource="#_6AF0EC5C-73EB-47DB-AE5E-AFEF5BA2EBF7"/>
 </cim:TransformerTankInfo>
 <cim:TransformerEndInfo rdf:ID="_A950C2CD-4402-46D9-A8E5-17B928B5D33E">
   <cim:IdentifiedObject.mRID>_A950C2CD-4402-46D9-A8E5-17B928B5D33E</cim:IdentifiedObject.mRID>
@@ -1099,12 +1073,6 @@
   <cim:TransformerTest.basePower>1666000</cim:TransformerTest.basePower>
   <cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 </cim:ShortCircuitTest>
-<cim:Asset rdf:ID="_1F6C9AAE-3F9E-4CB6-98F4-EADA1F4A1E67">
-  <cim:IdentifiedObject.mRID>_1F6C9AAE-3F9E-4CB6-98F4-EADA1F4A1E67</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>TankAsset_cimxfmrcode_reg3</cim:IdentifiedObject.name>
-  <cim:Asset.AssetInfo rdf:resource="#_7FC521AB-D70F-4BF9-8D07-E1FA5CA499A7"/>
-  <cim:Asset.PowerSystemResources rdf:resource="#_31E9C88C-4E8E-4CCB-B3B2-AC6BE8F8E8AD"/>
-</cim:Asset>
 <cim:Location rdf:ID="_F20D7484-080E-49CD-8B75-48B1247A1FEE">
   <cim:IdentifiedObject.mRID>_F20D7484-080E-49CD-8B75-48B1247A1FEE</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>sub_Loc</cim:IdentifiedObject.name>
@@ -1190,6 +1158,7 @@
   <cim:IdentifiedObject.mRID>_08F517D5-3E61-49B4-BDE0-81B2CC2DBA63</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg1</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_4BE6DD69-8FE9-4C9F-AD44-B327D5623974"/>
+  <cim:TransformerTank.TransformerTankInfo rdf:resource="#_291C313B-D3F6-48E9-9124-7AF499683E6F"/>
   <cim:TransformerTank.PowerTransformer rdf:resource="#_30187FE0-C5A0-4877-B042-9B7406689C9C"/>
   <cim:PowerSystemResource.Location rdf:resource="#_570A76D6-40CB-4850-809D-059C854A92D6"/>
 </cim:TransformerTank>
@@ -1213,11 +1182,10 @@
 <cim:TransformerTankEnd rdf:ID="_236693C9-0292-4BC6-8FAD-32C8C0C12EFD">
   <cim:IdentifiedObject.mRID>_236693C9-0292-4BC6-8FAD-32C8C0C12EFD</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg1_End_1</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.A"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>false</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.AN"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_08F517D5-3E61-49B4-BDE0-81B2CC2DBA63"/>
   <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_2B7ED33E-9103-403E-83F5-1A49B971484F"/>
@@ -1234,11 +1202,10 @@
 <cim:TransformerTankEnd rdf:ID="_AB3C3D54-09CD-4D7B-9F2C-533D0BCE841E">
   <cim:IdentifiedObject.mRID>_AB3C3D54-09CD-4D7B-9F2C-533D0BCE841E</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg1_End_2</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.A"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>false</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.AN"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_08F517D5-3E61-49B4-BDE0-81B2CC2DBA63"/>
   <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_00542554-0BEF-4FAD-BE48-86206B62D11A"/>
@@ -1255,6 +1222,7 @@
   <cim:IdentifiedObject.mRID>_89231DB9-F9E2-4615-9D06-C32B2F7F6137</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg2</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_4BE6DD69-8FE9-4C9F-AD44-B327D5623974"/>
+  <cim:TransformerTank.TransformerTankInfo rdf:resource="#_D49D6D53-6F14-45A7-AD65-A431CB45D14B"/>
   <cim:TransformerTank.PowerTransformer rdf:resource="#_30187FE0-C5A0-4877-B042-9B7406689C9C"/>
   <cim:PowerSystemResource.Location rdf:resource="#_BC17EB78-80FC-490E-994C-6C315F4A405D"/>
 </cim:TransformerTank>
@@ -1278,11 +1246,10 @@
 <cim:TransformerTankEnd rdf:ID="_46C442D5-2D05-4E95-B32D-413B1959F26B">
   <cim:IdentifiedObject.mRID>_46C442D5-2D05-4E95-B32D-413B1959F26B</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg2_End_1</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.B"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>false</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.BN"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_89231DB9-F9E2-4615-9D06-C32B2F7F6137"/>
   <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_A2BDB515-496D-4729-944A-319CC949426E"/>
@@ -1299,11 +1266,10 @@
 <cim:TransformerTankEnd rdf:ID="_A8C09847-C832-4958-90BF-A2136A13F2A3">
   <cim:IdentifiedObject.mRID>_A8C09847-C832-4958-90BF-A2136A13F2A3</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg2_End_2</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.B"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>false</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.BN"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_89231DB9-F9E2-4615-9D06-C32B2F7F6137"/>
   <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_FB129B8F-62E8-4B8F-B2CE-17031ACECB5F"/>
@@ -1320,6 +1286,7 @@
   <cim:IdentifiedObject.mRID>_31E9C88C-4E8E-4CCB-B3B2-AC6BE8F8E8AD</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg3</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_4BE6DD69-8FE9-4C9F-AD44-B327D5623974"/>
+  <cim:TransformerTank.TransformerTankInfo rdf:resource="#_7FC521AB-D70F-4BF9-8D07-E1FA5CA499A7"/>
   <cim:TransformerTank.PowerTransformer rdf:resource="#_30187FE0-C5A0-4877-B042-9B7406689C9C"/>
   <cim:PowerSystemResource.Location rdf:resource="#_B276EC5A-D47B-4135-BD71-7D11124E8DEA"/>
 </cim:TransformerTank>
@@ -1343,11 +1310,10 @@
 <cim:TransformerTankEnd rdf:ID="_0236C8F0-B913-4A36-965C-02C8B507976D">
   <cim:IdentifiedObject.mRID>_0236C8F0-B913-4A36-965C-02C8B507976D</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg3_End_1</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.C"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>false</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.CN"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_31E9C88C-4E8E-4CCB-B3B2-AC6BE8F8E8AD"/>
   <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_FAC9158D-228C-4480-80C4-7A60930B5FE2"/>
@@ -1364,11 +1330,10 @@
 <cim:TransformerTankEnd rdf:ID="_C74C1F87-6EB6-4F47-84B9-3CC6D1C70FE3">
   <cim:IdentifiedObject.mRID>_C74C1F87-6EB6-4F47-84B9-3CC6D1C70FE3</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg3_End_2</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.C"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>false</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.CN"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_31E9C88C-4E8E-4CCB-B3B2-AC6BE8F8E8AD"/>
   <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_EAD596B5-CECF-4AAE-9D11-2F99856DB193"/>
@@ -1468,6 +1433,7 @@
   <cim:IdentifiedObject.mRID>_D525913A-34FC-46E5-86D2-DD6BA37DBFE3</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>tpoletop</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_4BE6DD69-8FE9-4C9F-AD44-B327D5623974"/>
+  <cim:TransformerTank.TransformerTankInfo rdf:resource="#_8F519D22-E2CF-4D0F-B65F-C824991D1FB9"/>
   <cim:TransformerTank.PowerTransformer rdf:resource="#_954B2CFC-D1C1-4BE5-A92E-030A46723D4F"/>
   <cim:PowerSystemResource.Location rdf:resource="#_A528721B-B131-4EE3-A245-6585CDD96D04"/>
 </cim:TransformerTank>
@@ -1497,11 +1463,10 @@
 <cim:TransformerTankEnd rdf:ID="_09B45BF6-4A98-4533-AF0F-5454464692BF">
   <cim:IdentifiedObject.mRID>_09B45BF6-4A98-4533-AF0F-5454464692BF</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>tpoletop_End_1</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.B"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>false</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.BN"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_D525913A-34FC-46E5-86D2-DD6BA37DBFE3"/>
   <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_DA9EC8F6-C599-44DD-BD50-8262C41E97EE"/>
@@ -1518,11 +1483,10 @@
 <cim:TransformerTankEnd rdf:ID="_B15C6056-B287-4AAE-BC2B-98790441346E">
   <cim:IdentifiedObject.mRID>_B15C6056-B287-4AAE-BC2B-98790441346E</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>tpoletop_End_2</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.s1"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>false</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.s1N"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_D525913A-34FC-46E5-86D2-DD6BA37DBFE3"/>
   <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_B986C376-3C72-4F18-AEE7-6405CABA9CE4"/>
@@ -1538,11 +1502,10 @@
 <cim:TransformerTankEnd rdf:ID="_6A0A8F2B-CA04-487F-8744-183045615DB5">
   <cim:IdentifiedObject.mRID>_6A0A8F2B-CA04-487F-8744-183045615DB5</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>tpoletop_End_3</cim:IdentifiedObject.name>
-  <cim:TransformerTankEnd.phases rdf:resource="http://iec.ch/TC57/CIM100#PhaseCode.s2"/>
   <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
   <cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
   <cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
-  <cim:TransformerTankEnd.reversed>true</cim:TransformerTankEnd.reversed>
+  <cim:TransformerTankEnd.orderedPhases rdf:resource="http://iec.ch/TC57/CIM100#OrderedPhaseCodeKind.Ns2"/>
   <cim:TransformerTankEnd.TransformerTank rdf:resource="#_D525913A-34FC-46E5-86D2-DD6BA37DBFE3"/>
   <cim:TransformerEnd.endNumber>3</cim:TransformerEnd.endNumber>
   <cim:TransformerEnd.Terminal rdf:resource="#_B961DF09-AD85-4180-B725-63EEC42A734A"/>
@@ -1583,13 +1546,6 @@
   <cim:PowerTransformer.vectorGroup>Iii</cim:PowerTransformer.vectorGroup>
   <cim:PowerSystemResource.Location rdf:resource="#_A528721B-B131-4EE3-A245-6585CDD96D04"/>
 </cim:PowerTransformer>
-<cim:TapChangerInfo rdf:ID="_7590F662-5B07-4934-9207-22FEFB7FAC3A">
-  <cim:IdentifiedObject.mRID>_7590F662-5B07-4934-9207-22FEFB7FAC3A</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>reg1_Info</cim:IdentifiedObject.name>
-  <cim:TapChangerInfo.ptRatio>20</cim:TapChangerInfo.ptRatio>
-  <cim:TapChangerInfo.ctRatio>3500</cim:TapChangerInfo.ctRatio>
-  <cim:TapChangerInfo.ctRating>700</cim:TapChangerInfo.ctRating>
-</cim:TapChangerInfo>
 <cim:TapChangerControl rdf:ID="_D7B361DA-6D1D-4498-A5F3-EFB968B29673">
   <cim:IdentifiedObject.mRID>_D7B361DA-6D1D-4498-A5F3-EFB968B29673</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg1_Ctrl</cim:IdentifiedObject.name>
@@ -1605,7 +1561,8 @@
   <cim:TapChangerControl.lineDropX>9</cim:TapChangerControl.lineDropX>
   <cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
   <cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
-  <cim:TapChangerControl.limitVoltage>0</cim:TapChangerControl.limitVoltage>
+  <cim:TapChangerControl.maxLimitVoltage>132</cim:TapChangerControl.maxLimitVoltage>
+  <cim:TapChangerControl.minLimitVoltage>108</cim:TapChangerControl.minLimitVoltage>
   <cim:PowerSystemResource.Location rdf:resource="#_570A76D6-40CB-4850-809D-059C854A92D6"/>
 </cim:TapChangerControl>
 <cim:RatioTapChanger rdf:ID="_8ED9C1E9-EE18-46CD-928D-3BFC7ABCD7EE">
@@ -1625,21 +1582,11 @@
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
   <cim:TapChanger.step>10</cim:TapChanger.step>
+  <cim:TapChanger.ptRatio>20</cim:TapChanger.ptRatio>
+  <cim:TapChanger.ctRatio>3500</cim:TapChanger.ctRatio>
+  <cim:TapChanger.ctRating>700</cim:TapChanger.ctRating>
   <cim:PowerSystemResource.Location rdf:resource="#_570A76D6-40CB-4850-809D-059C854A92D6"/>
 </cim:RatioTapChanger>
-<cim:Asset rdf:ID="_E58A817E-C494-4587-A0C2-01982AD4BC1D">
-  <cim:IdentifiedObject.mRID>_E58A817E-C494-4587-A0C2-01982AD4BC1D</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>TapChangerAsset_reg1</cim:IdentifiedObject.name>
-  <cim:Asset.AssetInfo rdf:resource="#_7590F662-5B07-4934-9207-22FEFB7FAC3A"/>
-  <cim:Asset.PowerSystemResources rdf:resource="#_8ED9C1E9-EE18-46CD-928D-3BFC7ABCD7EE"/>
-</cim:Asset>
-<cim:TapChangerInfo rdf:ID="_F30AF232-07A1-49B2-B41D-D4242F786C57">
-  <cim:IdentifiedObject.mRID>_F30AF232-07A1-49B2-B41D-D4242F786C57</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>reg2_Info</cim:IdentifiedObject.name>
-  <cim:TapChangerInfo.ptRatio>20</cim:TapChangerInfo.ptRatio>
-  <cim:TapChangerInfo.ctRatio>3500</cim:TapChangerInfo.ctRatio>
-  <cim:TapChangerInfo.ctRating>700</cim:TapChangerInfo.ctRating>
-</cim:TapChangerInfo>
 <cim:TapChangerControl rdf:ID="_E997C026-419E-4F70-98C6-660EA4890DC0">
   <cim:IdentifiedObject.mRID>_E997C026-419E-4F70-98C6-660EA4890DC0</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg2_Ctrl</cim:IdentifiedObject.name>
@@ -1655,7 +1602,8 @@
   <cim:TapChangerControl.lineDropX>9</cim:TapChangerControl.lineDropX>
   <cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
   <cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
-  <cim:TapChangerControl.limitVoltage>0</cim:TapChangerControl.limitVoltage>
+  <cim:TapChangerControl.maxLimitVoltage>132</cim:TapChangerControl.maxLimitVoltage>
+  <cim:TapChangerControl.minLimitVoltage>108</cim:TapChangerControl.minLimitVoltage>
   <cim:PowerSystemResource.Location rdf:resource="#_BC17EB78-80FC-490E-994C-6C315F4A405D"/>
 </cim:TapChangerControl>
 <cim:RatioTapChanger rdf:ID="_CBEB0F79-6C36-40AA-B53E-B3DC3F4F918B">
@@ -1675,21 +1623,11 @@
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
   <cim:TapChanger.step>8</cim:TapChanger.step>
+  <cim:TapChanger.ptRatio>20</cim:TapChanger.ptRatio>
+  <cim:TapChanger.ctRatio>3500</cim:TapChanger.ctRatio>
+  <cim:TapChanger.ctRating>700</cim:TapChanger.ctRating>
   <cim:PowerSystemResource.Location rdf:resource="#_BC17EB78-80FC-490E-994C-6C315F4A405D"/>
 </cim:RatioTapChanger>
-<cim:Asset rdf:ID="_B7ACCDEA-83B4-4925-84F1-BCBDB872C87F">
-  <cim:IdentifiedObject.mRID>_B7ACCDEA-83B4-4925-84F1-BCBDB872C87F</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>TapChangerAsset_reg2</cim:IdentifiedObject.name>
-  <cim:Asset.AssetInfo rdf:resource="#_F30AF232-07A1-49B2-B41D-D4242F786C57"/>
-  <cim:Asset.PowerSystemResources rdf:resource="#_CBEB0F79-6C36-40AA-B53E-B3DC3F4F918B"/>
-</cim:Asset>
-<cim:TapChangerInfo rdf:ID="_D97BDB7E-BA7D-4EA0-8579-0509DE7E0AE1">
-  <cim:IdentifiedObject.mRID>_D97BDB7E-BA7D-4EA0-8579-0509DE7E0AE1</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>reg3_Info</cim:IdentifiedObject.name>
-  <cim:TapChangerInfo.ptRatio>20</cim:TapChangerInfo.ptRatio>
-  <cim:TapChangerInfo.ctRatio>3500</cim:TapChangerInfo.ctRatio>
-  <cim:TapChangerInfo.ctRating>700</cim:TapChangerInfo.ctRating>
-</cim:TapChangerInfo>
 <cim:TapChangerControl rdf:ID="_3A71AFCF-CE88-43A0-8B26-D27F9837E75D">
   <cim:IdentifiedObject.mRID>_3A71AFCF-CE88-43A0-8B26-D27F9837E75D</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>reg3_Ctrl</cim:IdentifiedObject.name>
@@ -1705,7 +1643,8 @@
   <cim:TapChangerControl.lineDropX>9</cim:TapChangerControl.lineDropX>
   <cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
   <cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
-  <cim:TapChangerControl.limitVoltage>0</cim:TapChangerControl.limitVoltage>
+  <cim:TapChangerControl.maxLimitVoltage>132</cim:TapChangerControl.maxLimitVoltage>
+  <cim:TapChangerControl.minLimitVoltage>108</cim:TapChangerControl.minLimitVoltage>
   <cim:PowerSystemResource.Location rdf:resource="#_B276EC5A-D47B-4135-BD71-7D11124E8DEA"/>
 </cim:TapChangerControl>
 <cim:RatioTapChanger rdf:ID="_94F7317F-D0AC-4ACD-B585-FA8BBDF7C49A">
@@ -1725,14 +1664,11 @@
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
   <cim:TapChanger.step>10</cim:TapChanger.step>
+  <cim:TapChanger.ptRatio>20</cim:TapChanger.ptRatio>
+  <cim:TapChanger.ctRatio>3500</cim:TapChanger.ctRatio>
+  <cim:TapChanger.ctRating>700</cim:TapChanger.ctRating>
   <cim:PowerSystemResource.Location rdf:resource="#_B276EC5A-D47B-4135-BD71-7D11124E8DEA"/>
 </cim:RatioTapChanger>
-<cim:Asset rdf:ID="_52373619-F695-41C0-B443-907C012795BD">
-  <cim:IdentifiedObject.mRID>_52373619-F695-41C0-B443-907C012795BD</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>TapChangerAsset_reg3</cim:IdentifiedObject.name>
-  <cim:Asset.AssetInfo rdf:resource="#_D97BDB7E-BA7D-4EA0-8579-0509DE7E0AE1"/>
-  <cim:Asset.PowerSystemResources rdf:resource="#_94F7317F-D0AC-4ACD-B585-FA8BBDF7C49A"/>
-</cim:Asset>
 <cim:ACLineSegment rdf:ID="_388ACCBE-D378-4B74-8567-44EBAE4CCBAC">
   <cim:IdentifiedObject.mRID>_388ACCBE-D378-4B74-8567-44EBAE4CCBAC</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>650632</cim:IdentifiedObject.name>

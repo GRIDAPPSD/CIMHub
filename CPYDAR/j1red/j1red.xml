@@ -1829,13 +1829,6 @@
   <cim:PowerTransformer.vectorGroup>Yy</cim:PowerTransformer.vectorGroup>
   <cim:PowerSystemResource.Location rdf:resource="#_380BE488-56C8-47FB-AFB7-A804FDC57602"/>
 </cim:PowerTransformer>
-<cim:TapChangerInfo rdf:ID="_28F23739-8198-454B-9238-D772DA02A6EA">
-  <cim:IdentifiedObject.mRID>_28F23739-8198-454B-9238-D772DA02A6EA</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>subxfmr_Info</cim:IdentifiedObject.name>
-  <cim:TapChangerInfo.ptRatio>60</cim:TapChangerInfo.ptRatio>
-  <cim:TapChangerInfo.ctRatio>1500</cim:TapChangerInfo.ctRatio>
-  <cim:TapChangerInfo.ctRating>300</cim:TapChangerInfo.ctRating>
-</cim:TapChangerInfo>
 <cim:TapChangerControl rdf:ID="_F0210D83-2BA2-4E41-97E7-9664639C5002">
   <cim:IdentifiedObject.mRID>_F0210D83-2BA2-4E41-97E7-9664639C5002</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>subxfmr_Ctrl</cim:IdentifiedObject.name>
@@ -1851,7 +1844,8 @@
   <cim:TapChangerControl.lineDropX>0</cim:TapChangerControl.lineDropX>
   <cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
   <cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
-  <cim:TapChangerControl.limitVoltage>0</cim:TapChangerControl.limitVoltage>
+  <cim:TapChangerControl.maxLimitVoltage>138.55444</cim:TapChangerControl.maxLimitVoltage>
+  <cim:TapChangerControl.minLimitVoltage>113.36273</cim:TapChangerControl.minLimitVoltage>
   <cim:PowerSystemResource.Location rdf:resource="#_EEB2D733-B5DC-4FD0-A582-5388A26F65A7"/>
 </cim:TapChangerControl>
 <cim:RatioTapChanger rdf:ID="_D2873E3C-12EF-446B-8CC0-AF50871FC4DA">
@@ -1865,20 +1859,17 @@
   <cim:TapChanger.lowStep>-8</cim:TapChanger.lowStep>
   <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
   <cim:TapChanger.normalStep>0</cim:TapChanger.normalStep>
-  <cim:TapChanger.neutralU>7200</cim:TapChanger.neutralU>
+  <cim:TapChanger.neutralU>7557.515</cim:TapChanger.neutralU>
   <cim:TapChanger.initialDelay>90</cim:TapChanger.initialDelay>
   <cim:TapChanger.subsequentDelay>30</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
   <cim:TapChanger.step>1</cim:TapChanger.step>
+  <cim:TapChanger.ptRatio>60</cim:TapChanger.ptRatio>
+  <cim:TapChanger.ctRatio>1500</cim:TapChanger.ctRatio>
+  <cim:TapChanger.ctRating>300</cim:TapChanger.ctRating>
   <cim:PowerSystemResource.Location rdf:resource="#_EEB2D733-B5DC-4FD0-A582-5388A26F65A7"/>
 </cim:RatioTapChanger>
-<cim:Asset rdf:ID="_B3880974-1916-4D54-8D4A-F2CCA326B38A">
-  <cim:IdentifiedObject.mRID>_B3880974-1916-4D54-8D4A-F2CCA326B38A</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>TapChangerAsset_subxfmr</cim:IdentifiedObject.name>
-  <cim:Asset.AssetInfo rdf:resource="#_28F23739-8198-454B-9238-D772DA02A6EA"/>
-  <cim:Asset.PowerSystemResources rdf:resource="#_D2873E3C-12EF-446B-8CC0-AF50871FC4DA"/>
-</cim:Asset>
 <cim:LoadBreakSwitch rdf:ID="_BB71654F-C482-437D-88DE-1A6BB2916CE8">
   <cim:IdentifiedObject.mRID>_BB71654F-C482-437D-88DE-1A6BB2916CE8</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>temp_sub</cim:IdentifiedObject.name>
