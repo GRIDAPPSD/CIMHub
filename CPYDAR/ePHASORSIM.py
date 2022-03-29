@@ -136,11 +136,21 @@ def mark_all_device_phases (dict):
     for key, row in dict[tbl]['vals'].items():
       row['phases'] = 'ABC'
   for tbl in ['DistBreaker', 'DistDisconnector', 'DistFuse', 'DistJumper', 'DistLoadBreakSwitch', 'DistRecloser', 'DistSectionaliser',
-              'DistSolar', 'DistStorage', 'DistLoad', 'DistCapacitor', 'DistXfmrTank', 'DistRegulatorTanked',
-              'DistLinesCodeZ', 'DistLinesSpacingZ']:
+              'DistSolar', 'DistStorage', 'DistLoad', 'DistCapacitor', 'DistLinesCodeZ', 'DistLinesSpacingZ']: # queried for PhaseCodeKinde
     for key, row in dict[tbl]['vals'].items():
       if len(row['phases']) < 1:
         row['phases'] = 'ABC'
+  for tbl in ['DistXfmrTank', 'DistRegulatorTanked']: # queried for OrderedPhaseCodeKind
+    dict[tbl]['columns'].append('phases')
+    for key, row in dict[tbl]['vals'].items():
+      if len(row['orderedPhases']) < 1:
+        row['phases'] = 'ABC'
+      else:
+        phs = ''
+        for tok in ['A', 'B', 'C', 's1', 's2']:
+          if tok in row['orderedPhases']:
+            phs += tok
+        row['phases'] = phs
 
 def mark_one_bus_phases (busrow, phases):
   if 's1' in phases:
@@ -424,15 +434,25 @@ def write_ephasor_model (dict, filename):
     kw = 0.001 * row['p']
     kvar = 0.001 * row['q']
     conn = conn_string(row['conn'])
+    pz = row['pz']
+    pi = row['pi']
+    pp = row['pp']
+    if (pz+pi+pp) <= 0.0:
+      if row['pe'] >= 1.9:
+        pz = 100.0
+      elif row['pe'] >= 0.9:
+        pi = 100.0
+      else:
+        pp = 100.0
     if len(aphs) == 1:
       data4['ID'].append(key)
       data4['Status'].append(1)
       data4['V (kV)'].append(kv)
       data4['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
       data4['Conn. type'].append(conn)
-      data4['K_z'].append(row['pz'])
-      data4['K_i'].append(row['pi'])
-      data4['K_p'].append(row['pp'])
+      data4['K_z'].append(pz)
+      data4['K_i'].append(pi)
+      data4['K_p'].append(pp)
       data4['Use initial voltage?'].append(0)
       data4['Bus1'].append(row['bus'] + aphs[0])
       data4['P1 (kW)'].append(kw)
@@ -445,9 +465,9 @@ def write_ephasor_model (dict, filename):
       data5['V (kV)'].append(kv)
       data5['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
       data5['Conn. type'].append(conn)
-      data5['K_z'].append(row['pz'])
-      data5['K_i'].append(row['pi'])
-      data5['K_p'].append(row['pp'])
+      data5['K_z'].append(pz)
+      data5['K_i'].append(pi)
+      data5['K_p'].append(pp)
       data5['Use initial voltage?'].append(0)
       data5['Bus1'].append(row['bus'] + aphs[0])
       data5['Bus2'].append(row['bus'] + aphs[1])
@@ -463,9 +483,9 @@ def write_ephasor_model (dict, filename):
       data6['V (kV)'].append(kv)
       data6['Bandwidth (pu)'].append(LOAD_BANDWIDTH)
       data6['Conn. type'].append(conn)
-      data6['K_z'].append(row['pz'])
-      data6['K_i'].append(row['pi'])
-      data6['K_p'].append(row['pp'])
+      data6['K_z'].append(pz)
+      data6['K_i'].append(pi)
+      data6['K_p'].append(pp)
       data6['Use initial voltage?'].append(0)
       data6['Bus1'].append(row['bus'] + aphs[0])
       data6['Bus2'].append(row['bus'] + aphs[1])

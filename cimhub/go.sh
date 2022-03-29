@@ -29,15 +29,15 @@ declare -r CIMHUB_FID="_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62" # ieee13
 
 #java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=idx test
 
-#java -cp $CIMHUB_PATH $CIMHUB_PROG \
-#  -s=$CIMHUB_FID -u=$DB_URL -o=glm -l=1.0 -i=1 -h=0 -x=0 -t=1 test
+java -cp $CIMHUB_PATH $CIMHUB_PROG \
+  -s=$CIMHUB_FID -u=$DB_URL -o=glm -l=1.0 -i=1 -h=0 -x=0 -t=1 test
 #gridlabd test_run.glm
 #cat test_base.glm
 
-java -cp $CIMHUB_PATH $CIMHUB_PROG \
-  -s=$CIMHUB_FID -u=$DB_URL -o=dss -l=1.0 -i=1 -h=0 -x=0 -t=1 test
+#java -cp $CIMHUB_PATH $CIMHUB_PROG \
+#  -s=$CIMHUB_FID -u=$DB_URL -o=dss -l=1.0 -i=1 -h=0 -x=0 -t=1 test
 #cat *base.dss
-opendsscmd test.dss
+#opendsscmd test.dss
 
 #java -cp $CIMHUB_PATH $CIMHUB_PROG \
 #  -s=$CIMHUB_FID -u=$DB_URL -o=csv -l=1.0 -i=1 -h=0 -x=0 -t=1 test

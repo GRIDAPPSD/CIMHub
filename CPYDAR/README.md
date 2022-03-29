@@ -13,7 +13,7 @@ The model files are versioned in subdirectories _ieee13x_, _ieee123x_, and _j1re
 
 ## Process
 
-The test case conversion is executed with ```python3 test_CPYDAR.py```. The steps cover:
+The test case conversion to CIM XML is executed with ```python3 test_CPYDAR.py```. The steps cover:
 
 1. Solve the original cases in OpenDSS, then create CIM XML
 2. Upload the CIM XML to Blazegraph
@@ -21,6 +21,7 @@ The test case conversion is executed with ```python3 test_CPYDAR.py```. The step
 4. Solve the exported models in OpenDSS and GridLAB-D
 5. Compare the original OpenDSS power flow results with exported OpenDSS and GridLAB-D power flow results
 
+The test case conversion to ePHASORSIM is executed with ```python3 ePHASORSIM.py```. 
 The test cases are configured by entries in the ```cases``` array near the top of ```test_CPYDAR.py```.
 Each array element is a dictionary with the following keys:
 
@@ -61,11 +62,11 @@ In an ungrounded system, MAEv can be large. Use the line-to-line voltage compari
     Total S =  3438.162 + j  1710.145
   GridLAB-D branch flow in LINE_650632 from RG60
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2561.72 -0.5236    538.00 -1.0353   1201.657 + j   674.883     AB     4407.92 -0.0038
-    B   2528.06  3.6652    403.42  3.2836    946.534 + j   379.750     BC     4407.91 -2.0906
-    C   2561.72  1.5708    565.29  1.1057   1294.303 + j   649.455     CA     4437.03  2.0944
-    Total S =  3442.495 + j  1704.088
-ieee13x          Nbus=[    53,    53,    90] Nlink=[    87,    87,    60] MAEv=[ 0.0000, 0.0016] MAEi=[   0.0024,   0.5686]
+    A   2561.73 -0.5236    518.00 -1.0513   1146.488 + j   668.137     AB     4407.93 -0.0038
+    B   2528.07  3.6652    380.39  3.2648    885.586 + j   374.848     BC     4407.92 -2.0906
+    C   2561.72  1.5708    545.26  1.0914   1239.363 + j   644.221     CA     4437.03  2.0944
+    Total S =  3271.437 + j  1687.206
+ieee13x          Nbus=[    53,    53,    90] Nlink=[    87,    87,    60] MAEv=[ 0.0000, 0.0079] MAEi=[   0.0024,   5.8458]
   OpenDSS branch flow in TRANSFORMER.REG1A from 150, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2401.76  0.0000    232.44 -1.2299    186.631 + j   526.155     AB     4159.97  0.5236
@@ -80,11 +81,11 @@ ieee13x          Nbus=[    53,    53,    90] Nlink=[    87,    87,    60] MAEv=[
     Total S =   270.441 + j  1263.583
   GridLAB-D branch flow in REG_REG1A from 150
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2401.78  0.0000    232.44 -1.2289    187.177 + j   525.953     AB     4160.01  0.5236
-    B   2401.78  4.1888    224.93  1.7570   -409.762 + j   352.047     BC     4160.00 -1.5708
-    C   2401.78  2.0944    260.93  1.4340    494.933 + j   384.427     CA     4160.00  2.6180
-    Total S =   272.348 + j  1262.426
-ieee123x         Nbus=[   442,   442,   655] Nlink=[   564,   564,   639] MAEv=[ 0.0000, 0.0012] MAEi=[   0.0029,   0.0513]
+    A   2401.78  0.0000    232.45 -1.2288    187.233 + j   525.953     AB     4160.01  0.5236
+    B   2401.78  4.1888    224.91  1.7570   -409.699 + j   352.041     BC     4160.00 -1.5708
+    C   2401.78  2.0944    260.94  1.4340    494.964 + j   384.427     CA     4160.00  2.6180
+    Total S =   272.498 + j  1262.421
+ieee123x         Nbus=[   442,   442,   655] Nlink=[   564,   564,   639] MAEv=[ 0.0000, 0.0012] MAEi=[   0.0029,   0.0528]
   OpenDSS branch flow in LINE.FEEDER from FDR_BUS, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7450.65 -0.1082    137.52 -0.0667   1023.730 + j   -42.549     AB    12900.73  0.4164

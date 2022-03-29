@@ -134,9 +134,9 @@ public class DistXfmrTank extends DistComponent {
     buf.append ("  from \"" + bus[0] + "\";\n");
     buf.append ("  to \"" + bus[1] + "\";\n");
     if (orderedPhases[1].contains("s")) {
-      buf.append("  phases " + orderedPhases[0] + "S;\n");
+      buf.append("  phases " + orderedPhases[0].replace("N","") + "S;\n");
     } else {
-      buf.append("  phases " + orderedPhases[0] + ";\n");
+      buf.append("  phases " + PhaseCodeFromOrderedPhases(orderedPhases[0]) + ";\n");
     }
     buf.append ("  configuration \"xcon_" + PhasedTankName() + "\";\n");
     AppendGLMRatings (buf, orderedPhases[0], normalCurrentLimit, emergencyCurrentLimit);
