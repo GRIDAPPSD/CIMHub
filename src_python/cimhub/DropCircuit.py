@@ -172,6 +172,16 @@ def drop_circuit (cfg_file, mRID):
   run_query ('TapeShieldCableInfo', not_used_template.format(cls='TapeShieldCableInfo', usage='ACLineSegmentPhase.WireInfo'))
   run_query ('OverheadWireInfo', not_used_template.format(cls='OverheadWireInfo', usage='ACLineSegmentPhase.WireInfo'))
 
+  # IEEE1547 controllers
+  run_query ('DERIEEIType1', not_used_template.format(cls='DERIEEEType1', usage='DERDynamics.PowerElectronicsConnection'))
+  run_query ('DERNameplateData', not_used_template.format(cls='DERNameplateData', usage='DERNameplateData.DERIEEEType1'))
+  run_query ('DERNameplateDataApplied', not_used_template.format(cls='DERNameplateDataApplied', usage='DERNameplateDataApplied.DERNameplateData'))
+  run_query ('WattVarSettings', not_used_template.format(cls='WattVarSettings', usage='WattVarSettings.DERIEEEType1'))
+  run_query ('VoltVarSettings', not_used_template.format(cls='VoltVarSettings', usage='VoltVarSettings.DERIEEEType1'))
+  run_query ('VoltWattSettings', not_used_template.format(cls='VoltWattSettings', usage='VoltWattSettings.DERIEEEType1'))
+  run_query ('ConstantPowerFactorSettings', not_used_template.format(cls='ConstantPowerFactorSettings', usage='ConstantPowerFactorSettings.DERIEEEType1'))
+  run_query ('ConstantReactivePowerSettings', not_used_template.format(cls='ConstantReactivePowerSettings', usage='ConstantReactivePowerSettings.DERIEEEType1'))
+
   # measurements and houses
   run_query ('Measurement', no_parent_template.format(target='Measurement.PowerSystemResource'))
   run_query ('House', no_parent_template.format(target='House.EnergyConsumer'))

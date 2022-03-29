@@ -302,8 +302,8 @@ class ieee1547:
       dct['DERNameplateData.normalOPcatKind'] = 'NormalOPcatKind.catB'
       dct['DERNameplateData.supportsPVmode'] = True
       dct['DERNameplateData.supportsQPmode'] = True
-    dct['acVmin'] = 0.95 * 1000.0 * ratedU
-    dct['acVmax'] = 1.05 * 1000.0 * ratedU
+    dct['DERNameplateData.acVmin'] = 0.95 * 1000.0 * ratedU
+    dct['DERNameplateData.acVmax'] = 1.05 * 1000.0 * ratedU
 
     dct = self.cimparms['DERNameplateDataApplied']
     dct['IdentifiedObject.name'] = nameAD

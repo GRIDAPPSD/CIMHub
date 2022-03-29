@@ -1,3 +1,4 @@
+#!/bin/bash
 opendsscmd ../example/cim_test.dss
 cp ../example/ieee13*CAT.XML .
 cp ../example/ieee13*EP.XML .

@@ -1,3 +1,4 @@
+#!/bin/bash
 rm *.txt
 rm *.Txt
 rm *uuids.*
