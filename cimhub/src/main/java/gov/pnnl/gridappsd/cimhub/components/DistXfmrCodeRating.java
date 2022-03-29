@@ -79,6 +79,7 @@ public class DistXfmrCodeRating extends DistComponent {
     return buf.toString();
   }
 
+  // phs may contain A, B, C, N, s1, s2, s12 in any order
   public void AddGldPrimaryPhase (String phs) {
     if (phs.contains("A")) glmAUsed = true;
     if (phs.contains("B")) glmBUsed = true;

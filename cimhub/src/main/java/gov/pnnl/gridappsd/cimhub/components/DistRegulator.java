@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class DistRegulator extends DistComponent {
 	public String pname;
-	public String bankphases;
+	public String bankphases; // set of phases present for GridLAB-D
 
 	public boolean hasTanks;
 
@@ -221,7 +221,7 @@ public class DistRegulator extends DistComponent {
 				rname[i] = SafeName (soln.get("?rname").toString());
 				if (hasTanks) {
 					tname[i] = SafeName(soln.get("?tname").toString());
-					orderedPhases[i] = soln.get("?orderedPhases").toString(); // TODO
+					orderedPhases[i] = soln.get("?orderedPhases").toString();
 				} else {
 					tname[i] = "";
 					orderedPhases[i] = "ABC";
@@ -261,7 +261,7 @@ public class DistRegulator extends DistComponent {
 			}
 			StringBuilder buf = new StringBuilder ();
 			for (int i = 0; i < size; i++) {
-				buf.append (orderedPhases[i]);
+				buf.append (orderedPhases[i].replace("N","").replace("s", "").replace("1","").replace("2",""));
 			}
 			bankphases = buf.toString();
 		}
@@ -396,7 +396,7 @@ public class DistRegulator extends DistComponent {
 		if (hasTanks) {
 			for (int i = 0; i < size; i++) {
 	//			int iTap = (int) Math.round((step[i] - 1.0) / incr[i] * 100.0);	// TODO - verify this should be an offset from neutralStep
-				buf.append ("  compensator_r_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdR[i]) + ";\n");
+				buf.append ("  compensator_r_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdR[i]) + ";\n"); // TODO
 				buf.append ("  compensator_x_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdX[i]) + ";\n");
 				buf.append ("  // comment out the manual tap setting if using automatic control\n");
 				buf.append ("  tap_pos_" + orderedPhases[i].substring(0,1) + " " + Integer.toString(step[i]) + ";\n");

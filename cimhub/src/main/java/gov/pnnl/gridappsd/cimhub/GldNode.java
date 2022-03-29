@@ -177,7 +177,7 @@ public class GldNode {
   }
 
   /** accumulates phases present
-   *  @param phs phases to add, may contain ABCDSs
+   *  @param phs phases to add, may contain ABCDNSs in any order
    *  @return always true */
   public boolean AddPhases(String phs) {
     StringBuilder buf = new StringBuilder("");

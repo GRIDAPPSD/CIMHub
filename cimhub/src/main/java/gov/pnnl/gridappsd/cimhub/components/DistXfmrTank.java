@@ -120,7 +120,7 @@ public class DistXfmrTank extends DistComponent {
   }
 
   private String PhasedTankName () {
-    if (orderedPhases[0].contains ("ABC")) return tankinfo;
+    if (orderedPhases[0].contains ("A") && orderedPhases[0].contains ("B") && orderedPhases[0].contains ("C")) return tankinfo;
     if (orderedPhases[0].contains ("A")) return tankinfo + "A";
     if (orderedPhases[0].contains ("B")) return tankinfo + "B";
     if (orderedPhases[0].contains ("C")) return tankinfo + "C";

@@ -22,14 +22,15 @@ object climate {
 	latitude 45.0;
   solar_direct 93.4458; // 92.902;
 }
-#define VSOURCE=8002.0747
+//#define VSOURCE=8002.0747
+#define VSOURCE=66395.281
 #include "test_base.glm";
-object recorder {
-  parent inv_pv_der;
-  property V_In,I_In,P_In,VA_Out;
-  interval -1;
-  file test_inv.csv;
-}
+//object recorder {
+//  parent inv_pv_der;
+//  property V_In,I_In,P_In,VA_Out;
+//  interval -1;
+//  file test_inv.csv;
+//}
 //object recorder {
 //  parent pv_der;
 //  property orientation,derating,soiling,shading_factor,tilt_angle,Insolation,V_Out,I_Out,P_Out;

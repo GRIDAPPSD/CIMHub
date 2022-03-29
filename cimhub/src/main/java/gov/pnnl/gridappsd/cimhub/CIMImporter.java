@@ -599,45 +599,45 @@ public class CIMImporter extends Object {
   }
 
   public void PrintAllMaps() {
-//  PrintOneMap (mapBaseVoltages, "** BASE VOLTAGES");
-//  PrintOneMap (mapCapacitors, "** CAPACITORS");
-//  PrintOneMap (mapCNCables, "** CN CABLES");
-//  PrintOneMap (mapCoordinates, "** COMPONENT XY COORDINATES");
-//  PrintOneMap (mapLinesCodeZ, "** LINES REFERENCING MATRICES");
-//  PrintOneMap (mapLinesInstanceZ, "** LINES WITH IMPEDANCE ATTRIBUTES");
-//  PrintOneMap (mapSeriesCompensators, "** SERIES COMPENSATORS (Reactors only)");
-//  PrintOneMap (mapSpacings, "** LINE SPACINGS");
-//  PrintOneMap (mapLinesSpacingZ, "** LINES REFERENCING SPACINGS");
-//  PrintOneMap (mapBreakers, "** BREAKERS");
-//  PrintOneMap (mapReclosers, "** RECLOSERS");
-//  PrintOneMap (mapFuses, "** FUSES");
-//  PrintOneMap (mapLoadBreakSwitches, "** LOADBREAK SWITCHES");
-//  PrintOneMap (mapSectionalisers, "** SECTIONALISERS");
-//  PrintOneMap (mapJumpers, "** JUMPERS");
-//  PrintOneMap (mapDisconnectors, "** DISCONNECTORS");
-//  PrintOneMap (mapGroundDisconnectors, "** GROUND DISCONNECTORS");
-//  PrintOneMap (mapLoads, "** LOADS");
-//  PrintOneMap (mapWires, "** OVERHEAD WIRES");
-//  PrintOneMap (mapPhaseMatrices, "** PHASE IMPEDANCE MATRICES");
-//  PrintOneMap (mapXfmrCores, "** POWER XFMR CORE ADMITTANCES");
-//  PrintOneMap (mapXfmrMeshes, "** POWER XFMR MESH IMPEDANCES");
+    PrintOneMap (mapBaseVoltages, "** BASE VOLTAGES");
+    PrintOneMap (mapCapacitors, "** CAPACITORS");
+    PrintOneMap (mapCNCables, "** CN CABLES");
+    PrintOneMap (mapCoordinates, "** COMPONENT XY COORDINATES");
+    PrintOneMap (mapLinesCodeZ, "** LINES REFERENCING MATRICES");
+    PrintOneMap (mapLinesInstanceZ, "** LINES WITH IMPEDANCE ATTRIBUTES");
+    PrintOneMap (mapSeriesCompensators, "** SERIES COMPENSATORS (Reactors only)");
+    PrintOneMap (mapSpacings, "** LINE SPACINGS");
+    PrintOneMap (mapLinesSpacingZ, "** LINES REFERENCING SPACINGS");
+    PrintOneMap (mapBreakers, "** BREAKERS");
+    PrintOneMap (mapReclosers, "** RECLOSERS");
+    PrintOneMap (mapFuses, "** FUSES");
+    PrintOneMap (mapLoadBreakSwitches, "** LOADBREAK SWITCHES");
+    PrintOneMap (mapSectionalisers, "** SECTIONALISERS");
+    PrintOneMap (mapJumpers, "** JUMPERS");
+    PrintOneMap (mapDisconnectors, "** DISCONNECTORS");
+    PrintOneMap (mapGroundDisconnectors, "** GROUND DISCONNECTORS");
+    PrintOneMap (mapLoads, "** LOADS");
+    PrintOneMap (mapWires, "** OVERHEAD WIRES");
+    PrintOneMap (mapPhaseMatrices, "** PHASE IMPEDANCE MATRICES");
+    PrintOneMap (mapXfmrCores, "** POWER XFMR CORE ADMITTANCES");
+    PrintOneMap (mapXfmrMeshes, "** POWER XFMR MESH IMPEDANCES");
     PrintOneMap (mapXfmrWindings, "** POWER XFMR WINDINGS");
     PrintOneMap (mapRegulators, "** REGULATORS");
-//  PrintOneMap (mapSequenceMatrices, "** SEQUENCE IMPEDANCE MATRICES");
-//  PrintOneMap (mapSolars, "** SOLAR PV SOURCES");
-//  PrintOneMap (mapStorages, "** STORAGE SOURCES");
-//  PrintOneMap (mapSubstations, "** SUBSTATION SOURCES");
-//  PrintOneMap (mapTSCables, "** TS CABLES");
+    PrintOneMap (mapSequenceMatrices, "** SEQUENCE IMPEDANCE MATRICES");
+    PrintOneMap (mapSolars, "** SOLAR PV SOURCES");
+    PrintOneMap (mapStorages, "** STORAGE SOURCES");
+    PrintOneMap (mapSubstations, "** SUBSTATION SOURCES");
+    PrintOneMap (mapTSCables, "** TS CABLES");
     PrintOneMap (mapCodeNLTests, "** XFMR CODE OC TESTS");
     PrintOneMap (mapCodeRatings, "** XFMR CODE WINDING RATINGS");
     PrintOneMap (mapCodeSCTests, "** XFMR CODE SC TESTS");
     PrintOneMap (mapBanks, "** XFMR BANKS");
     PrintOneMap (mapTanks, "** XFMR TANKS");
-//  PrintOneMap (mapHouses, "** HOUSES");
-//  PrintOneMap (mapSyncMachines, "** SYNC MACHINES");
-//  PrintOneMap (mapIEEE1547Connections, "** IEEE 1547 CONNECTIONS");
-//  PrintOneMap (mapIEEE1547Signals, "** IEEE 1547 SIGNALS");
-//  PrintOneMap (mapIEEE1547Used, "** IEEE 1547 USED");
+    PrintOneMap (mapHouses, "** HOUSES");
+    PrintOneMap (mapSyncMachines, "** SYNC MACHINES");
+    PrintOneMap (mapIEEE1547Connections, "** IEEE 1547 CONNECTIONS");
+    PrintOneMap (mapIEEE1547Signals, "** IEEE 1547 SIGNALS");
+    PrintOneMap (mapIEEE1547Used, "** IEEE 1547 USED");
   }
 
   public void LoadAllMaps() {
@@ -1154,7 +1154,7 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String, DistXfmrTank> pair: mapTanks.entrySet()) {
       DistXfmrTank obj = pair.getValue();
       for (int i = 0; i < obj.size; i++) {
-        CIMTerminal trm1 = new CIMTerminal(obj.t1id[i], obj.bus[i], obj.orderedPhases[i], obj.basev[i], "TransformerTank"); // TODO
+        CIMTerminal trm1 = new CIMTerminal(obj.t1id[i], obj.bus[i], DistComponent.PhaseCodeFromOrderedPhases(obj.orderedPhases[i]), obj.basev[i], "TransformerTank");
         mapTerminals.put (obj.t1id[i], trm1);
       }
     }
@@ -2015,7 +2015,7 @@ public class CIMImporter extends Object {
       DistRegulator reg = pair.getValue();
       if (reg.hasTanks) {
         DistXfmrTank tank = mapTanks.get(reg.tname[0]); // TODO: revisit if GridLAB-D can model un-banked regulator tanks
-        out.print (pair.getValue().GetCSV(tank.bus[0], tank.orderedPhases[0], tank.bus[1], tank.orderedPhases[1])); // TODO
+        out.print (pair.getValue().GetCSV(tank.bus[0], tank.orderedPhases[0], tank.bus[1], tank.orderedPhases[1]));
         tank.glmUsed = false;  // don't write these as separate transformers to CSV
       } else {
         DistPowerXfmrWinding xfmr = mapXfmrWindings.get(reg.pname);
@@ -2210,9 +2210,9 @@ public class CIMImporter extends Object {
       CheckMaps();
       UpdateModelState(ms);
       ApplyCurrentLimits();
-      //      PrintAllMaps();
-      //      PrintOneMap (mapSpacings, "** LINE SPACINGS");
-      //      PrintOneMap (mapLinesSpacingZ, "** LINES REFERENCING SPACINGS");
+      // PrintAllMaps();
+      // PrintOneMap (mapSpacings, "** LINE SPACINGS");
+      // PrintOneMap (mapLinesSpacingZ, "** LINES REFERENCING SPACINGS");
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.glm";
       fXY = fRoot + "_symbols.json";
@@ -2229,7 +2229,7 @@ public class CIMImporter extends Object {
       CheckMaps();
       UpdateModelState(ms);
       ApplyCurrentLimits();
-      PrintAllMaps();
+      // PrintAllMaps();
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.dss";
       fXY = fRoot + "_busxy.dss";
