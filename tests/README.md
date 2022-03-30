@@ -61,10 +61,10 @@ In an ungrounded system, MAEv can be large. Use the line-to-line voltage compari
     Total S =  2478.869 + j   808.929
   OpenDSS branch flow in LINE.670671 from 670, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2415.88 -0.0628    466.89 -0.4740   1033.935 + j   450.856     AB     4206.23  0.4874
-    B   2491.04 -2.1223    190.54 -2.3077    466.520 + j    87.475     BC     4287.47 -1.6184
-    C   2425.25  2.0420    418.58  1.7722    978.439 + j   270.610     CA     4205.16  2.5593
-    Total S =  2478.894 + j   808.941
+    A   2415.75 -0.0628    466.89 -0.4740   1033.880 + j   450.832     AB     4206.07  0.4874
+    B   2490.98 -2.1223    190.55 -2.3077    466.516 + j    87.475     BC     4287.40 -1.6184
+    C   2425.23  2.0420    418.58  1.7724    978.476 + j   270.436     CA     4205.03  2.5593
+    Total S =  2478.871 + j   808.742
   GridLAB-D branch flow in LINE_670671 from 670
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2426.79 -0.5859    466.79 -0.9966   1038.629 + j   452.212     AB     4222.08 -0.0364
@@ -235,6 +235,7 @@ the comparison of solutions between them:
 6. In a constant-current load model, the angle rotations are not exactly correct, especially for unbalanced loads or loads connected in Delta. See [GridLAB-D Issue 1312](https://github.com/gridlab-d/gridlab-d/issues/1312)
 7. GridLAB-D calculates line parameters with Carson's equations, as simplified in Kersting's book. OpenDSS defaults to Deri's method, but it offers Full Carson and Carson options. Specify ```Carson``` for compatibility. (Deri is the OpenDSS default because it's easy to calculate, and it closely matches Full Carson.)
 8. In GridLAB-D, wye/delta transformers have to be converted to delta/wye, swapping primary and secondary windings. With **check_branches**, choose an adjacent branch for proper comparisons.
+9. In GridLAB-D, the IEEE13 results are affected by a bug in default solar insolation.  See [GridLAB-D Issue 1333] (https://github.com/gridlab-d/gridlab-d/issues/1333)
 
 If these effects cannot be mitigated, one could either remove the unsupported feature from the test case, or
 use **skip_gld** for the test case.
