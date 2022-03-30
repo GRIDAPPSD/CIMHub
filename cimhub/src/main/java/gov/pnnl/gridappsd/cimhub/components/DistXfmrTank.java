@@ -97,6 +97,9 @@ public class DistXfmrTank extends DistComponent {
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
     DistCoordinates pt1 = map.get("PowerTransformer:" + pname + ":1");
     DistCoordinates pt2 = map.get("PowerTransformer:" + pname + ":2");
+    if (pt2 == null) { // catches the one-bus, multiphase autotransformer exception
+      pt2 = pt1;
+    }
     String bus1 = bus[0];
     String bus2 = bus[1];
     StringBuilder lbl_phs = new StringBuilder ();

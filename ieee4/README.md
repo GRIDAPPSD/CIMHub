@@ -404,7 +404,7 @@ AutoHLT          Nbus=[    12,    12,     0] Nlink=[    12,    12,     0] MAEv=[
   OpenDSS branch flow in LOAD.TEST from LOW, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     Total S =     0.000 + j     0.000
-Auto1bus         Nbus=[    15,     9,     0] Nlink=[    24,    18,     0] MAEv=[ 0.0119,-1.0000] MAEi=[29560.4452,  -1.0000]
+Auto1bus         Nbus=[    15,     9,     0] Nlink=[    24,    18,     0] MAEv=[ 0.0717,-1.0000] MAEi=[137513.5846,  -1.0000]
   OpenDSS branch flow in LOAD.TEST from LOW, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A  88193.90 -0.0750   1463.44 -0.6302  109680.787 + j 68031.474     AB   152756.32  0.4485
