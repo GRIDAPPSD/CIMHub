@@ -6,8 +6,8 @@ import cimhub.CIMHubConfig as CIMHubConfig
 import sys
 import math
 
-CATA_MIN_SBYP = 1.053
-CATB_MIN_SBYP = 1.099
+CATA_MIN_SBYP = 1.0328
+CATB_MIN_SBYP = 1.1135
 
 qbus_template = """# list the bus name, cn id, terminal id, sequence number, eq id and loc id
 SELECT ?bus ?cnid ?tid ?seq ?eqid ?locid WHERE {{
@@ -93,6 +93,8 @@ ins_pec_template = """
  <{url}#{res}> c:PowerElectronicsConnection.maxIFault \"1.111\".
  <{url}#{res}> c:PowerElectronicsConnection.p \"{p}\".
  <{url}#{res}> c:PowerElectronicsConnection.q \"{q}\".
+ <{url}#{res}> c:PowerElectronicsConnection.maxQ \"{maxQ}\".
+ <{url}#{res}> c:PowerElectronicsConnection.minQ \"{minQ}\".
  <{url}#{res}> c:PowerElectronicsConnection.ratedS \"{ratedS}\".
  <{url}#{res}> c:PowerElectronicsConnection.ratedU \"{ratedU}\".
  <{url}#{res}> c:PowerElectronicsConnection.controlMode {ns}ConverterControlMode.{mode}>.
@@ -538,6 +540,8 @@ def insert_der (cfg_file, fname):
         kV = float(toks[6])
         kW = float(toks[7])
         kVAR = float(toks[8])
+        maxQ = math.sqrt(kVA*kVA - kWmax*kWmax)
+        minQ = -maxQ
         if unit == 'Battery' or unit == 'Photovoltaic':
           category = get_category (name, toks[9])
           ctrlMode = get_control_mode (name, toks[10])
@@ -580,6 +584,7 @@ def insert_der (cfg_file, fname):
           idPEC = GetCIMID('PowerElectronicsConnection', name, uuids)
           inspec = ins_pec_template.format(url=CIMHubConfig.blazegraph_url, res=idPEC, nm=name, resLoc=idLoc, resFdr=fdr_id, 
                                            resUnit=idUnit, p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0,
+                                           maxQ=maxQ, minQ=minQ,
                                            mode=get_cim_control_mode(ctrlMode), ns=CIMHubConfig.cim_ns)
           qtriples.append(inspec)
           if ctrlMode in ['VV','VW','WVAR','AVR','VV_VW']:

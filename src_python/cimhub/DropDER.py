@@ -49,6 +49,8 @@ drop_pec_template = """DELETE {{
  ?m c:PowerElectronicsConnection.maxIFault ?flt.
  ?m c:PowerElectronicsConnection.p ?p.
  ?m c:PowerElectronicsConnection.q ?q.
+ ?m c:PowerElectronicsConnection.maxQ ?maxQ.
+ ?m c:PowerElectronicsConnection.minQ ?minQ.
  ?m c:PowerElectronicsConnection.ratedS ?S.
  ?m c:PowerElectronicsConnection.ratedU ?U.
  ?m c:PowerElectronicsConnection.controlMode ?controlMode.
@@ -64,6 +66,8 @@ drop_pec_template = """DELETE {{
  ?m c:PowerElectronicsConnection.maxIFault ?flt.
  ?m c:PowerElectronicsConnection.p ?p.
  ?m c:PowerElectronicsConnection.q ?q.
+ ?m c:PowerElectronicsConnection.maxQ ?maxQ.
+ ?m c:PowerElectronicsConnection.minQ ?minQ.
  ?m c:PowerElectronicsConnection.ratedS ?S.
  ?m c:PowerElectronicsConnection.ratedU ?U.
  ?m c:PowerElectronicsConnection.controlMode ?controlMode.
