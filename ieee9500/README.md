@@ -58,9 +58,9 @@ files into GridLAB-D, OpenDSS and CSV file format. Follow these steps:
   OpenDSS branch flow in LINE.LN6044631-1 from E203026, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7408.35 -0.5411     79.86  1.7862   -406.059 + j  -430.298     AB    12813.74 -0.0206
-    B   7372.80 -2.6389     70.83 -0.3810   -331.241 + j  -403.690     BC    12756.77 -2.1078
+    B   7372.80 -2.6389     70.83 -0.3810   -331.240 + j  -403.689     BC    12756.77 -2.1078
     C   7409.85  1.5621     44.07  2.3504    230.215 + j  -231.585     CA    12865.14  2.0812
-    Total S =  -507.086 + j -1065.573
+    Total S =  -507.085 + j -1065.572
   GridLAB-D branch flow in LINE_LN6044631-1 from E203026
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7408.84 -0.5414     79.09  1.7758   -397.891 + j  -430.175     AB    12813.30 -0.0205
@@ -112,9 +112,9 @@ files into GridLAB-D, OpenDSS and CSV file format. Follow these steps:
   OpenDSS branch flow in LINE.LN6350537-1 from M1026907, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7128.65 -0.5341     30.65 -0.7941    211.140 + j    56.180     AB    12550.89 -0.0070
-    B   7327.15 -2.6372     27.55 -2.8950    195.185 + j    51.461     BC    12586.23 -2.0878
+    B   7327.15 -2.6372     27.55 -2.8950    195.184 + j    51.461     BC    12586.23 -2.0878
     C   7402.84  1.5970     22.91  1.3381    163.920 + j    43.401     CA    12716.36  2.0918
-    Total S =   570.245 + j   151.042
+    Total S =   570.244 + j   151.042
   GridLAB-D branch flow in LINE_LN6350537-1 from M1026907
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7130.55 -0.5342     30.50 -0.7944    210.167 + j    55.956     AB    12555.05 -0.0068
