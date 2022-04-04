@@ -117,12 +117,6 @@ fp.close ()
 p1 = subprocess.Popen ('opendsscmd cim_test.dss', shell=True)
 p1.wait()
 
-# This is helpful for checking the CIM upload, but make_blazegraph_script will repeat it
-#for row in cases:
-#  cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + row['root']+ '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
-#  os.system (cmd)
-#cimhub.list_feeders (cfg_json)
-
 shfile = './go.sh'
 cimhub.make_blazegraph_script (cases, './', 'dss/', 'glm/', shfile)
 st = os.stat (shfile)
