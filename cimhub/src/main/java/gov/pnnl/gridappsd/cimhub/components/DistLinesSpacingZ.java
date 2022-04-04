@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017-2019, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -36,6 +36,8 @@ public class DistLinesSpacingZ extends DistLineSegment {
 			bus1 = SafeName (soln.get("?bus1").toString()); 
 			bus2 = SafeName (soln.get("?bus2").toString()); 
 			len = Double.parseDouble (soln.get("?len").toString());
+      t1id = soln.get("?t1id").toString();
+      t2id = soln.get("?t2id").toString();
 			basev = Double.parseDouble (soln.get("?basev").toString());
 			spacing = soln.get("?spacing").toString();
 			spcid = soln.get("?spcid").toString();

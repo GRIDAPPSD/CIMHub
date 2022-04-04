@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class DistRegulator extends DistComponent {
 	public String pname;
-	public String bankphases;
+	public String bankphases; // set of phases present for GridLAB-D
 
 	public boolean hasTanks;
 
@@ -21,7 +21,7 @@ public class DistRegulator extends DistComponent {
 	public double[] fwdR;
 	public double[] fwdX;
 	// GridLAB-D codes phs variations into certain attribute labels
-	public String[] phs;
+	public String[] orderedPhases;
 	// TODO: if any of these vary within the bank, should write separate single-phase instances for GridLAB-D
 	public String[] tname;
 	public String[] rname;
@@ -44,6 +44,7 @@ public class DistRegulator extends DistComponent {
 	public double[] initDelay; 
 	public double[] subDelay;
 	public double[] vlim;
+  public double[] vmin;
 	public double[] vset;
 	public double[] vbw;
 	public double[] revR;
@@ -123,7 +124,7 @@ public class DistRegulator extends DistComponent {
 		buf.append (",\"bankPhases\":\"" + bankphases +"\"");
 		AddJSONStringArray (buf, "tankName", tname);
 		AddJSONIntegerArray (buf, "endNumber", wnum);
-		AddJSONStringArray (buf, "endPhase", phs);
+		AddJSONStringArray (buf, "endPhase", orderedPhases);
 		AddJSONStringArray (buf, "rtcName", rname);
 		AddJSONStringArray (buf, "mRID", id);
 		AddJSONStringArray (buf, "monitoredPhase", monphs);
@@ -141,7 +142,8 @@ public class DistRegulator extends DistComponent {
 		AddJSONIntegerArray (buf, "step", step);
 		AddJSONDoubleArray (buf, "targetValue", vset);
 		AddJSONDoubleArray (buf, "targetDeadband", vbw);
-		AddJSONDoubleArray (buf, "limitVoltage", vlim);
+		AddJSONDoubleArray (buf, "maxLmitVoltage", vlim);
+    AddJSONDoubleArray (buf, "minLimitVoltage", vmin);
 		AddJSONDoubleArray (buf, "stepVoltageIncrement", incr);
 		AddJSONDoubleArray (buf, "neutralU", neutralU);
 		AddJSONDoubleArray (buf, "initialDelay", initDelay); 
@@ -173,7 +175,7 @@ public class DistRegulator extends DistComponent {
 				size = nTanks;
 			}
 		}
-		phs = new String[size];
+		orderedPhases = new String[size];
 		rname = new String[size];
 		tname = new String[size];
 		id = new String[size];
@@ -195,6 +197,7 @@ public class DistRegulator extends DistComponent {
 		initDelay = new double[size]; 
 		subDelay = new double[size];
 		vlim = new double[size];
+    vmin = new double[size];
 		vset = new double[size];
 		vbw = new double[size];
 		step = new int[size];
@@ -218,10 +221,10 @@ public class DistRegulator extends DistComponent {
 				rname[i] = SafeName (soln.get("?rname").toString());
 				if (hasTanks) {
 					tname[i] = SafeName(soln.get("?tname").toString());
-					phs[i] = soln.get("?phs").toString();
+					orderedPhases[i] = soln.get("?orderedPhases").toString();
 				} else {
 					tname[i] = "";
-					phs[i] = "ABC";
+					orderedPhases[i] = "ABC";
 				}
 				monphs[i] = soln.get("?monphs").toString();
 				mode[i] = soln.get("?mode").toString();
@@ -242,6 +245,7 @@ public class DistRegulator extends DistComponent {
 				initDelay[i] = Double.parseDouble (soln.get("?initDelay").toString());
 				subDelay[i] = Double.parseDouble (soln.get("?subDelay").toString());
 				vlim[i] = Double.parseDouble (soln.get("?vlim").toString());
+        vmin[i] = Double.parseDouble (soln.get("?vmin").toString());
 				vset[i] = Double.parseDouble (soln.get("?vset").toString());
 				vbw[i] = Double.parseDouble (soln.get("?vbw").toString());
 				fwdR[i] = Double.parseDouble (soln.get("?fwdR").toString());
@@ -257,7 +261,7 @@ public class DistRegulator extends DistComponent {
 			}
 			StringBuilder buf = new StringBuilder ();
 			for (int i = 0; i < size; i++) {
-				buf.append (phs[i]);
+				buf.append (orderedPhases[i].replace("N","").replace("s", "").replace("1","").replace("2",""));
 			}
 			bankphases = buf.toString();
 		}
@@ -269,7 +273,7 @@ public class DistRegulator extends DistComponent {
 		buf.append (pname + " bankphases=" + bankphases);
 		for (int i = 0; i < size; i++) {
 			buf.append ("\n  " + Integer.toString(i));
-			buf.append (" " + Integer.toString(wnum[i]) + ":" +rname[i] + ":" + phs[i]);
+			buf.append (" " + Integer.toString(wnum[i]) + ":" +rname[i] + ":" + orderedPhases[i]);
 			buf.append (" tank=" + tname[i]);
 			buf.append (" mode=" + mode[i]);
 			buf.append (" ctlmode=" + ctlmode[i]);
@@ -289,6 +293,7 @@ public class DistRegulator extends DistComponent {
 			buf.append (" initDelay=" + df4.format(initDelay[i]));
 			buf.append (" subDelay=" + df4.format(subDelay[i]));
 			buf.append (" vlim=" + df4.format(vlim[i]));
+      buf.append (" vmin=" + df4.format(vmin[i]));
 			buf.append (" vset=" + df4.format(vset[i]));
 			buf.append (" vbw=" + df4.format(vbw[i]));
 			buf.append (" fwdR=" + df4.format(fwdR[i]));
@@ -391,10 +396,10 @@ public class DistRegulator extends DistComponent {
 		if (hasTanks) {
 			for (int i = 0; i < size; i++) {
 	//			int iTap = (int) Math.round((step[i] - 1.0) / incr[i] * 100.0);	// TODO - verify this should be an offset from neutralStep
-				buf.append ("  compensator_r_setting_" + phs[i].substring(0,1) + " " + df6.format(fwdR[i]) + ";\n");
-				buf.append ("  compensator_x_setting_" + phs[i].substring(0,1) + " " + df6.format(fwdX[i]) + ";\n");
+				buf.append ("  compensator_r_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdR[i]) + ";\n"); // TODO
+				buf.append ("  compensator_x_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdX[i]) + ";\n");
 				buf.append ("  // comment out the manual tap setting if using automatic control\n");
-				buf.append ("  tap_pos_" + phs[i].substring(0,1) + " " + Integer.toString(step[i]) + ";\n");
+				buf.append ("  tap_pos_" + orderedPhases[i].substring(0,1) + " " + Integer.toString(step[i]) + ";\n");
 			}
 		} else {
 			buf.append ("  compensator_r_setting_A " + df6.format(fwdR[0]) + ";\n");

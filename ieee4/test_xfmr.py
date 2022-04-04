@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Battelle Memorial Institute
+# Copyright (C) 2021-2022 Battelle Memorial Institute
 # file: test_xfmr.py
 
 import cimhub.api as cimhub
@@ -79,7 +79,7 @@ cases = [
   {'dssname':'IMOYODlead',  'root':'IMOYODlead',  'mRID':'083167E5-2729-4397-BCC5-6037C2E4E8F5','bases':[240.0, 12470.0],
    'export_options':' -l=1.0 -p=1.0 -e=carson', 'skip_gld': True,
    'check_branches':[{'dss_link': 'LOAD.MOTOR', 'dss_bus': 'LOADBUS'}]},
-   {'dssname':'AutoHLT',  'root':'AutoHLT',  'mRID':'94BEE3C7-5EF1-465A-B872-FF43E62AA81B','bases':[13800.0, 161000.0, 345000.0], 
+  {'dssname':'AutoHLT',  'root':'AutoHLT',  'mRID':'94BEE3C7-5EF1-465A-B872-FF43E62AA81B','bases':[13800.0, 161000.0, 345000.0],
     'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
     'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
   {'dssname':'Auto1bus',  'root':'Auto1bus',  'mRID':'7AE1360F-8A58-49FE-8716-8CF8794B9F9A','bases':[13800.0, 161000.0, 345000.0],
@@ -88,7 +88,7 @@ cases = [
   {'dssname':'Auto3bus',  'root':'Auto3bus',  'mRID':'7528323E-ABA2-420F-B8B8-DA51E172BB46','bases':[13800.0, 161000.0, 345000.0],
    'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
    'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
-  {'dssname':'AutoAuto',  'root':'AutoAuto',  'mRID':'7FCDAD02-036A-48BA-B71D-1FE988F665CF','bases':[13800.0, 161000.0, 345000.0], 
+  {'dssname':'AutoAuto',  'root':'AutoAuto',  'mRID':'7FCDAD02-036A-48BA-B71D-1FE988F665CF','bases':[13800.0, 161000.0, 345000.0],
    'export_options':' -l=1.0 -z=1.0 -e=carson', 'skip_gld': True,
    'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
 ]
@@ -117,10 +117,11 @@ fp.close ()
 p1 = subprocess.Popen ('opendsscmd cim_test.dss', shell=True)
 p1.wait()
 
-for row in cases:
-  cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + row['root']+ '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
-  os.system (cmd)
-cimhub.list_feeders (cfg_json)
+# This is helpful for checking the CIM upload, but make_blazegraph_script will repeat it
+#for row in cases:
+#  cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + row['root']+ '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
+#  os.system (cmd)
+#cimhub.list_feeders (cfg_json)
 
 shfile = './go.sh'
 cimhub.make_blazegraph_script (cases, './', 'dss/', 'glm/', shfile)

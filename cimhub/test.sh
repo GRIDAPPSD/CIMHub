@@ -1,0 +1,1 @@
+opendsscmd test.dss

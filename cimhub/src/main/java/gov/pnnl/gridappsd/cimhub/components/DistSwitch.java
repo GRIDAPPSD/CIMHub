@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -12,6 +12,8 @@ public class DistSwitch extends DistComponent {
 	public String name;
 	public String bus1;
 	public String bus2;
+  public String t1id;
+  public String t2id;
 	public String phases;
 	public boolean open;
 	public double basev;
@@ -56,6 +58,8 @@ public class DistSwitch extends DistComponent {
 			breaking = OptionalDouble (soln, "?breaking", 0.0);
 			bus1 = SafeName (soln.get("?bus1").toString()); 
 			bus2 = SafeName (soln.get("?bus2").toString()); 
+      t1id = soln.get("?t1id").toString();
+      t2id = soln.get("?t2id").toString();
 			phases = OptionalString (soln, "?phases", "ABC");
       phases = phases.replace ('\n', ':');
 			open = Boolean.parseBoolean (soln.get("?open").toString());

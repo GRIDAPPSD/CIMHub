@@ -1,0 +1,50 @@
+clear
+new circuit.remote_1phase_b
+redirect shared.dss
+
+///////// single-phase DER on the low side of a three-phase, 400-volt transformer
+
+New PVSystem.dera phases=1 bus1=low.1 kV=0.23094 irradiance=1.0 pmpp=2000 kVA=2227 kvarMax=980 kvarMaxAbs=980
+New InvControl.dera mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+~ MonBus=[High.1] MonBusesVBase=[7621.0] DERList=[PVSystem.dera]
+
+New PVSystem.derb phases=1 bus1=low.2 kV=0.23094 irradiance=1.0 pmpp=2000 kVA=2227 kvarMax=980 kvarMaxAbs=980
+//New InvControl.derb mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+//~ MonBus=[High.2] MonBusesVBase=[7621.0] DERList=[PVSystem.derb] 
+
+// testing an inverter control that manages more than one DER
+New PVSystem.derc phases=1 bus1=low.3 kV=0.23094 irradiance=1.0 pmpp=2000 kVA=2227 kvarMax=980 kvarMaxAbs=980
+New InvControl.derc mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+~ MonBus=[High.3] MonBusesVBase=[7621.0] DERList=[PVSystem.derb PVSystem.derc]
+
+////////// single-phase DER, served through a center-tap secondary transformer and triplex
+
+New XfmrCode.CT100 phases=1 windings=3 kvs=[7.2 0.12 0.12] kVAs=[100.0 100.0 100.0] %imag=0.5 %Rs=[0.6 1.2 1.2] %noloadloss=0.2 Xhl=2.04 Xht=2.04 Xlt=1.36
+New Transformer.TA XfmrCode=CT100 buses=[High.1 Ptop1.1.0 Ptop1.0.2]
+New Transformer.TB XfmrCode=CT100 buses=[High.2 Ptop2.1.0 Ptop2.0.2]
+New Transformer.TC XfmrCode=CT100 buses=[High.3 Ptop3.1.0 Ptop3.0.2]
+
+New Linecode.750_Triplex  nphases=2 units=kft    ! ohms per 1000 ft
+~ rmatrix=[  0.04974733   0.02342157 |  0.02342157   0.04974733 ]
+~ xmatrix=[  0.02782436   0.00669472 |  0.00669472   0.02782436 ]
+~ cmatrix=[  3.00000000  -2.40000000 | -2.40000000   3.00000000 ]
+~ NormAmps=580 {580 1.25 *}  
+New Line.Tpx1 Bus1=Ptop1.1.2  Bus2=Roof1.1.2 linecode=750_Triplex length=300 units=ft 
+New Line.Tpx2 Bus1=Ptop2.1.2  Bus2=Roof2.1.2 linecode=750_Triplex length=300 units=ft 
+New Line.Tpx3 Bus1=Ptop3.1.2  Bus2=Roof3.1.2 linecode=750_Triplex length=300 units=ft 
+
+New PVSystem.roof1 phases=2 bus1=Roof1.1.2 conn=wye kV=0.208 irradiance=1.0 pmpp=100 kVA=111.4 kvarMax=49 kvarMaxAbs=49
+New InvControl.roof1 mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+~ MonBus=[Ptop1.1 Ptop1.2] MonBusesVBase=[120.0 120.0] DERList=[PVSystem.roof1]
+
+New PVSystem.roof2 phases=2 bus1=Roof2.1.2 conn=wye kV=0.208 irradiance=1.0 pmpp=100 kVA=111.4 kvarMax=49 kvarMaxAbs=49
+New InvControl.roof2 mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+~ MonBus=[Ptop2.1 Ptop2.2] MonBusesVBase=[120.0 120.0] DERList=[PVSystem.roof2]
+
+New PVSystem.roof3 phases=2 bus1=Roof3.1.2 conn=wye kV=0.208 irradiance=1.0 pmpp=100 kVA=111.4 kvarMax=49 kvarMaxAbs=49
+New InvControl.roof3 mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+~ MonBus=[Ptop3.1 Ptop3.2] MonBusesVBase=[120.0 120.0] DERList=[PVSystem.roof3]
+
+redirect postlude.dss
+
+

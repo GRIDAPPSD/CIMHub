@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017-2021, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -14,6 +14,7 @@ public class DistPowerXfmrWinding extends DistComponent {
 	public String[] ename;
 	public String[] eid;
 	public String[] bus;
+  public String[] t1id;
 	public String[] conn;
 	public double[] basev;
 	public double[] ratedU;
@@ -43,6 +44,7 @@ public class DistPowerXfmrWinding extends DistComponent {
 	private void SetSize (int val) {
 		size = val;
 		bus = new String[size];
+    t1id = new String[size];
 		conn = new String[size];
 		ename = new String[size];
 		eid = new String[size];
@@ -70,6 +72,7 @@ public class DistPowerXfmrWinding extends DistComponent {
 				eid[i] = soln.get("?eid").toString();
 				ename[i] = SafeName (soln.get("?ename").toString());
 				bus[i] = SafeName (soln.get("?bus").toString());
+        t1id[i] = soln.get("?t1id").toString();
 				basev[i] = Double.parseDouble (soln.get("?basev").toString());
 				conn[i] = soln.get("?conn").toString();
 				ratedU[i] = Double.parseDouble (soln.get("?ratedU").toString());

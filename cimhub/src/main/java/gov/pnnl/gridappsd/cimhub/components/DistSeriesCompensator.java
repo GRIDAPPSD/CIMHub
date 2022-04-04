@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -14,6 +14,8 @@ public class DistSeriesCompensator extends DistComponent {
   public String bus1;
   public String bus2;
   public String phases;
+  public String t1id;
+  public String t2id;
   public double basev;
 	public double r1; 
 	public double x1; 
@@ -37,6 +39,8 @@ public class DistSeriesCompensator extends DistComponent {
 			QuerySolution soln = results.next();
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
+      t1id = soln.get("?t1id").toString();
+      t2id = soln.get("?t2id").toString();
 			bus1 = SafeName (soln.get("?bus1").toString()); 
 			bus2 = SafeName (soln.get("?bus2").toString()); 
 			phases = "ABC";

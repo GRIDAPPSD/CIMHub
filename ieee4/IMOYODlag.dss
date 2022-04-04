@@ -22,12 +22,12 @@ New Line.OHLine bus1=sourcebus bus2=Primary linecode=556mcmred  length=5   units
 New Line.Quad   Bus1=secondary bus2=loadbus linecode=4/0quad length=100 units=ft  
 
 !  Transformer  Bank - ungrounded wye/delta-CT, then remove BC leg and ground primary
-New Transformer.XfmrAB    Phases=1 Windings=3 Xhl=1.44 XHt = 1.44  Xlt=.96
+New Transformer.XfmrAB    Phases=1 Windings=3 Xhl=1.44 XHt = 1.44  Xlt=.96 bank=Xfmr
 ~ wdg=1 bus=Primary.1.0       kv=7.2  kva=15  %r=0.65 
 ~ wdg=2 bus=secondary.1.0     kv=.12  kva=15  %r=1.3 // conn=delta
 ~ wdg=3 bus=secondary.0.2     kv=.12  kva=15  %r=1.3 // conn=delta
 
-New Transformer.XfmrCA    Phases=1 Windings=2 Xhl=1.6
+New Transformer.XfmrCA    Phases=1 Windings=2 Xhl=1.6 bank=Xfmr
 ~ wdg=1 bus=Primary.3.0       kv=7.2  kva=10  %r=0.7 
 ~ wdg=2 bus=secondary.3.1     kv=.24  kva=10  %r=0.7  conn=delta
 

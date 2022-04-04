@@ -1,0 +1,1 @@
+New "XfmrCode.ct5" phases=1 windings=3 kVs=[2.4, 0.12, 0.12, ] kVAs=[5, 5, 5, ] %imag=0.5 %Rs=[0.6, 1.2, 1.2, ] %noloadloss=0.2 Xhl=2.04 Xht=2.04 Xlt=1.36

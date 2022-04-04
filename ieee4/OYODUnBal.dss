@@ -14,10 +14,10 @@ New linecode.300 nphases=3 basefreq=60 units=mi
 ~ xmatrix = ( 1.4133 | .8515 1.4133 | .7266  .7802  1.4133 )
 ~ cmatrix = (15.04 | -4.8706 15.855 | -1.8655 -3.1008  14.3 )
 
-New Transformer.T1 Phases=1 Windings=2 Xhl=6 ppm=0
+New Transformer.T1 Phases=1 Windings=2 Xhl=6 ppm=0 bank=Xfmr
 ~ wdg=1 bus=n2.1.0  conn=Wye   kv= 7.20 kva=2000  %r=0.5
 ~ wdg=2 bus=n3.1.2  conn=Delta kv= 4.16 kva=2000  %r=0.5
-New Transformer.T2 Phases=1 Windings=2 Xhl=6 ppm=0
+New Transformer.T2 Phases=1 Windings=2 Xhl=6 ppm=0 bank=Xfmr
 ~ wdg=1 bus=n2.2.0  conn=Wye   kv= 7.20 kva=2000  %r=0.5
 ~ wdg=2 bus=n3.2.3  conn=Delta kv= 4.16 kva=2000  %r=0.5
 

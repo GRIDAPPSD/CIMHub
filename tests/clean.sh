@@ -1,4 +1,6 @@
+#!/bin/bash
 rm *.txt
+rm *.Txt
 rm *uuids.*
 rm *.XML
 rm *.xml
@@ -10,3 +12,4 @@ rm -rf dss
 rm -rf glm
 rm convert_xml.sh
 rm go.sh
+rm test*.json

@@ -47,13 +47,13 @@ New XfmrCode.YYD1Phase phases=1 windings=3
 ~ %Rs = [0.11  0.11  0.275]   
 
 // Connect up the three 1-ph transformer in YYD
-New Transformer.YYDA XfmrCode=YYD1Phase ppm=0   !<------------ set ppm
+New Transformer.YYDA XfmrCode=YYD1Phase ppm=0 bank=Xfmr
 ~ Buses=[B2.1.0 B3.1.0 B5.1.2]
 
-New Transformer.YYDB  XfmrCode=YYD1Phase  ppm=0   
+New Transformer.YYDB XfmrCode=YYD1Phase ppm=0 bank=Xfmr
 ~ Buses=[B2.2.0 B3.2.0 B5.2.3]
 
-New Transformer.YYDC  XfmrCode=YYD1Phase ppm=0  
+New Transformer.YYDC XfmrCode=YYD1Phase ppm=0 bank=Xfmr
 ~ Buses=[B2.3.0 B3.3.0 B5.3.1]
 
 

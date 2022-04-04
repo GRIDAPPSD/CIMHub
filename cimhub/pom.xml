@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>gov.pnnl.gridappsd</groupId>
     <artifactId>cimhub</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<maven.compiler.target>1.8</maven.compiler.target> 
@@ -85,17 +85,17 @@
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-core</artifactId>
-            <version>3.6.0</version>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-arq</artifactId>
-            <version>3.6.0</version>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.30</version>
+            <version>1.7.36</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

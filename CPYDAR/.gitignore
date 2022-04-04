@@ -1,0 +1,6 @@
+convert*.dss
+*.csv
+go.sh
+dss/
+glm/
+csv/

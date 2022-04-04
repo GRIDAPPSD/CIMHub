@@ -2,7 +2,7 @@ import sys
 import os
 import stat
 
-def write_glm_case (c, v, fp):
+def write_glm_case (c, v, fp, bHouses=False):
   print('clock {', file=fp)
   print('  timezone EST+5EDT;', file=fp)
   print('  starttime \'2000-01-01 0:00:00\';', file=fp)
@@ -16,11 +16,20 @@ def write_glm_case (c, v, fp):
   print('//  maximum_voltage_error 1e-6;', file=fp)
   print('//  default_maximum_voltage_error 1e-6;', file=fp)
   print('};', file=fp)
+  print('module climate;', file=fp)
   print('module generators;', file=fp)
   print('module tape;', file=fp)
   print('module reliability {', file=fp)
   print('  report_event_log false;', file=fp)
   print('};', file=fp)
+  print('object climate {', file=fp)
+  print('  name climate;', file=fp)
+  print('  latitude 45.0;', file=fp)
+  print('  solar_direct 93.4458; // 92.902;', file=fp)
+  print('}', file=fp)
+  if bHouses:
+    print('module residential;', file=fp)
+    print('#include "appliance_schedules.glm";', file=fp)
   print('#define VSOURCE=' + str (v), file=fp)
   print('#include \"' + c + '_base.glm\";', file=fp)
   print('#ifdef WANT_VI_DUMP', file=fp)
@@ -34,19 +43,21 @@ def write_glm_case (c, v, fp):
   print('};', file=fp)
   print('#endif', file=fp)
 
-def make_glmrun_script (casefiles, inpath, outpath, scriptname):
+def make_glmrun_script (casefiles, inpath, outpath, scriptname, movefiles=True, bHouses=False):
   bp = open (scriptname, 'w')
   print ('#!/bin/bash', file=bp)
-  print('cd', inpath, file=bp)
+  if movefiles:
+    print('cd', inpath, file=bp)
   for row in casefiles:
     c = row['root']
     if 'skip_gld' in row:
       if row['skip_gld']:
         continue
     print('gridlabd -D WANT_VI_DUMP=1', c + '_run.glm >' + c + '.log', file=bp)
-    print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
+    if movefiles:
+      print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
     fp = open (inpath + c + '_run.glm', 'w')
-    write_glm_case (c, row['glmvsrc'], fp)
+    write_glm_case (c, row['glmvsrc'], fp, bHouses)
     fp.close()
   bp.close()
 

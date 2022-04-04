@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub;
 // ----------------------------------------------------------
-// Copyright (c) 2017-2019, Battelle Memorial Institute
+// Copyright (c) 2017-2022, Battelle Memorial Institute
 // All rights reserved.
 // ----------------------------------------------------------
 
@@ -54,7 +54,7 @@ import gov.pnnl.gridappsd.cimhub.components.DistSwitch;
 import gov.pnnl.gridappsd.cimhub.components.DistSyncMachine;
 import gov.pnnl.gridappsd.cimhub.components.DistTapeShieldCable;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrBank;
-import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeOCTest;
+import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeNLTest;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeRating;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrCodeSCTest;
 import gov.pnnl.gridappsd.cimhub.components.DistXfmrTank;
@@ -554,7 +554,7 @@ public class CIMWriter extends Object {
 					RefNode ("Equipment.EquipmentContainer", fdrID, out);
 					RefNode("DistributionTransformerWinding.WindingInfo", 
 									mapWindings.get(infID).get(i), out); 
-					PhasesEnum (obj.phs[i], out);
+					PhasesEnum (obj.orderedPhases[i], out); // TODO
 					BoolNode ("DistributionTransformerWinding.grounded", obj.grounded[i], out);
 					DoubleNode ("DistributionTransformerWinding.rground", obj.rg[i], out);
 					DoubleNode ("DistributionTransformerWinding.xground", obj.xg[i], out);

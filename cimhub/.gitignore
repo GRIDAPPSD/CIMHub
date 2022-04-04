@@ -1,3 +1,14 @@
 /target/
 /bin/
 /generated/
+*.csv
+test_feeder_index.json
+test_base.dss
+test_busxy.dss
+test_dict.json
+test_limits.json
+test_uuid.dss
+test_symbols.json
+test_base.glm
+*.txt
+*.Txt

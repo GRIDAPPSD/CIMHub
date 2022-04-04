@@ -149,11 +149,17 @@ def drop_circuit (cfg_file, mRID):
   run_query ('OperationalLimitType', remove_oplimit_type)
 
   # flush unused catalog entries linked via Asset
-  run_query ('Asset=>PSR', remove_asset_links)
-  run_query ('Asset', remove_asset_objects)
-  run_query ('TapChangerInfo', asset_leaf_template.format(cls='TapChangerInfo'))
-  run_query ('TransformerTankInfo', asset_leaf_template.format(cls='TransformerTankInfo'))
-  run_query ('PowerTransformerInfo', not_used_template.format(cls='PowerTransformerInfo', usage='TransformerTankInfo.PowerTransformerInfo'))
+#  run_query ('Asset=>PSR', remove_asset_links)
+#  run_query ('Asset', remove_asset_objects)
+#  run_query ('TapChangerInfo', asset_leaf_template.format(cls='TapChangerInfo'))
+#  run_query ('TransformerTankInfo', asset_leaf_template.format(cls='TransformerTankInfo'))
+#  run_query ('PowerTransformerInfo', not_used_template.format(cls='PowerTransformerInfo', usage='TransformerTankInfo.PowerTransformerInfo'))
+#  run_query ('TransformerEndInfo', no_parent_template.format(target='TransformerEndInfo.TransformerTankInfo'))
+#  run_query ('NoLoadTest', no_parent_template.format(target='NoLoadTest.EnergisedEnd'))
+#  run_query ('ShortCircuitTest', no_parent_template.format(target='ShortCircuitTest.EnergisedEnd'))
+
+  # TransformerTankInfo, then cascade to TransformerTankEndInfo, NoLoadTest, ShortCircuitTest
+  run_query ('TransformerTankInfo', not_used_template.format(cls='TransformerTankInfo', usage='TransformerTank.TransformerTankInfo'))
   run_query ('TransformerEndInfo', no_parent_template.format(target='TransformerEndInfo.TransformerTankInfo'))
   run_query ('NoLoadTest', no_parent_template.format(target='NoLoadTest.EnergisedEnd'))
   run_query ('ShortCircuitTest', no_parent_template.format(target='ShortCircuitTest.EnergisedEnd'))
@@ -165,6 +171,16 @@ def drop_circuit (cfg_file, mRID):
   run_query ('ConcentricNeutralCableInfo', not_used_template.format(cls='ConcentricNeutralCableInfo', usage='ACLineSegmentPhase.WireInfo'))
   run_query ('TapeShieldCableInfo', not_used_template.format(cls='TapeShieldCableInfo', usage='ACLineSegmentPhase.WireInfo'))
   run_query ('OverheadWireInfo', not_used_template.format(cls='OverheadWireInfo', usage='ACLineSegmentPhase.WireInfo'))
+
+  # IEEE1547 controllers
+  run_query ('DERIEEIType1', not_used_template.format(cls='DERIEEEType1', usage='DERDynamics.PowerElectronicsConnection'))
+  run_query ('DERNameplateData', not_used_template.format(cls='DERNameplateData', usage='DERNameplateData.DERIEEEType1'))
+  run_query ('DERNameplateDataApplied', not_used_template.format(cls='DERNameplateDataApplied', usage='DERNameplateDataApplied.DERNameplateData'))
+  run_query ('WattVarSettings', not_used_template.format(cls='WattVarSettings', usage='WattVarSettings.DERIEEEType1'))
+  run_query ('VoltVarSettings', not_used_template.format(cls='VoltVarSettings', usage='VoltVarSettings.DERIEEEType1'))
+  run_query ('VoltWattSettings', not_used_template.format(cls='VoltWattSettings', usage='VoltWattSettings.DERIEEEType1'))
+  run_query ('ConstantPowerFactorSettings', not_used_template.format(cls='ConstantPowerFactorSettings', usage='ConstantPowerFactorSettings.DERIEEEType1'))
+  run_query ('ConstantReactivePowerSettings', not_used_template.format(cls='ConstantReactivePowerSettings', usage='ConstantReactivePowerSettings.DERIEEEType1'))
 
   # measurements and houses
   run_query ('Measurement', no_parent_template.format(target='Measurement.PowerSystemResource'))

@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -12,6 +12,8 @@ public abstract class DistLineSegment extends DistComponent {
 	public String name;
 	public String bus1;
 	public String bus2;
+  public String t1id;
+  public String t2id;
 	public String phases;
 	public double len;
 	public double basev;

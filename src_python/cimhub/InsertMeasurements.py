@@ -156,6 +156,20 @@ def insert_measurements (cfg_file, fname, uuidfile=None):
         InsertMeasurement ('Analog', getMeasurementID (key + ':VA', uuidDict), name + '_Power', eqid, trmid, 'VA', phases)
       elif 'i' in what:
         InsertMeasurement ('Analog', getMeasurementID (key + ':A', uuidDict), name + '_Current', eqid, trmid, 'A', phases)
+    if toks[0] == 'PowerTransformer' and toks[1] == 'TransformerTankEnd':
+      what = toks[2]
+      bus = toks[5]
+      phases = toks[6]
+      eqid = toks[7]
+      trmid = toks[8]
+      name = 'TransformerTank_' + toks[3]
+      key = name + ':' + bus + ':' + phases
+      if 'v' in what:
+        InsertMeasurement ('Analog', getMeasurementID (key + ':PNV', uuidDict), name + '_Voltage', eqid, trmid, 'PNV', phases)
+      elif 's' in what:
+        InsertMeasurement ('Analog', getMeasurementID (key + ':VA', uuidDict), name + '_Power', eqid, trmid, 'VA', phases)
+      elif 'i' in what:
+        InsertMeasurement ('Analog', getMeasurementID (key + ':A', uuidDict), name + '_Current', eqid, trmid, 'A', phases)
     if toks[0] == 'ACLineSegment' or toks[0] == 'LoadBreakSwitch' or toks[0] == 'Breaker' or toks[0] == 'Recloser':
       what = toks[1]
       phases = toks[5]

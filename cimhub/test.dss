@@ -1,0 +1,7 @@
+redirect test_base.dss
+set maxcontroliter=200
+solve
+show powers kva elements
+show voltages ln nodes
+quit
+

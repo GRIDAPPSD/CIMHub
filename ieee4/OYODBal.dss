@@ -18,10 +18,10 @@ new linegeometry.3wire nconds=3 nphases=3 reduce=no
 
 new line.line1 geometry=4wire length=2000 units=ft bus1=sourcebus bus2=n2
 
-new transformer.t1 xhl=6 Phases=1
+new transformer.t1 xhl=6 Phases=1 bank=Xfmr
 ~ wdg=1 bus=n2.1.0     conn=wye     kV=7.2   kVA=2000 %r=0.5  
 ~ wdg=2 bus=n3.1.2     conn=Delta   kV=4.16  kVA=2000 %r=0.5 
-new transformer.t2 xhl=6 Phases=1
+new transformer.t2 xhl=6 Phases=1 bank=Xfmr
 ~ wdg=1 bus=n2.2.0     conn=wye     kV=7.2   kVA=2000 %r=0.5 
 ~ wdg=2 bus=n3.2.3     conn=Delta   kV=4.16  kVA=2000 %r=0.5 
 

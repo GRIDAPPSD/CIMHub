@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -11,6 +11,7 @@ public class DistCapacitor extends DistComponent {
 	public String id;
 	public String name;
 	public String bus;
+  public String t1id;
 	public String phs;
 	public String conn;
 	public String grnd;
@@ -127,6 +128,7 @@ public class DistCapacitor extends DistComponent {
 			name = SafeName (soln.get("?name").toString());
 			id = soln.get("?id").toString();
 			bus = SafeName (soln.get("?bus").toString());
+      t1id = soln.get("?t1id").toString();
 			basev = Double.parseDouble (soln.get("?basev").toString());
 			phs = OptionalString (soln, "?phs", "ABC");
 			conn = soln.get("?conn").toString();

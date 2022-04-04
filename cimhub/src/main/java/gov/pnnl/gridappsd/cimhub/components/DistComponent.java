@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //  ----------------------------------------------------------
-//  Copyright (c) 2017-2019, Battelle Memorial Institute
+//  Copyright (c) 2017-2022, Battelle Memorial Institute
 //  All rights reserved.
 //  ----------------------------------------------------------
 
@@ -9,6 +9,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.commons.math3.complex.Complex;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import gov.pnnl.gridappsd.cimhub.components.ConverterControlMode;
 
 public abstract class DistComponent {
   public static String nsCIM = "http://iec.ch/TC57/CIM100#";
@@ -122,6 +123,18 @@ public abstract class DistComponent {
     return s;
   }
 
+  public static ConverterControlMode ParseControlMode (String arg) {
+    ConverterControlMode s = ConverterControlMode.CONSTANT_PF;
+    if (arg == null) {
+      return s;
+    } else if (arg.contains ("constantReactivePower")) {
+      s = ConverterControlMode.CONSTANT_Q;
+    } else if (arg.contains ("dynamic")) {
+      s = ConverterControlMode.DYNAMIC;
+    }
+    return s;
+  }
+
   static String GLMClassPrefix (String t) {  // GLD conversion
     if (t.equals("LinearShuntCompensator")) return "cap";
     if (t.equals("ACLineSegment")) return "line"; // assumes we prefix both overhead and underground with line_
@@ -155,6 +168,16 @@ public abstract class DistComponent {
       nphases = 1;
     }
 //    System.out.println (phs + "," + Boolean.toString(bDelta) + "," + Integer.toString(nphases));
+    return nphases;
+  }
+
+  static int GLMPhaseCount (String phs) {
+    int nphases = 0;
+    if (phs.contains ("A")) nphases += 1;
+    if (phs.contains ("B")) nphases += 1;
+    if (phs.contains ("C")) nphases += 1;
+    if (phs.contains ("1")) nphases += 1;
+    if (phs.contains ("2")) nphases += 1;
     return nphases;
   }
 
@@ -241,35 +264,186 @@ public abstract class DistComponent {
     }
   }
 
-  static String DSSXfmrTankPhasesAndGround (String vgrp, String bus, String phs, boolean reversed, boolean grounded, double rg, double xg) {
-    if (phs.contains("s2")) return (bus + ".0.2"); // TODO: this is a built-in reversal
-    if (phs.contains("s1")) return (bus + ".1.0");
-    String xphs;
-    if (reversed) {
-      xphs = new StringBuilder(phs).reverse().toString();
+  public static String PhaseCodeFromOrderedPhases (String orderedPhases) {
+    if (orderedPhases.equals("ABC")) return "ABC";
+    if (orderedPhases.equals("ACB")) return "ABC";
+    if (orderedPhases.equals("BAC")) return "ABC";
+    if (orderedPhases.equals("BCA")) return "ABC";
+    if (orderedPhases.equals("CAB")) return "ABC";
+    if (orderedPhases.equals("CBA")) return "ABC";
+
+    if (orderedPhases.equals("AB")) return "AC";
+    if (orderedPhases.equals("AC")) return "AC";
+    if (orderedPhases.equals("BA")) return "AB";
+    if (orderedPhases.equals("BC")) return "BC";
+    if (orderedPhases.equals("CA")) return "AC";
+    if (orderedPhases.equals("CB")) return "BC";
+
+    if (orderedPhases.equals("A")) return "A";
+    if (orderedPhases.equals("B")) return "B";
+    if (orderedPhases.equals("C")) return "C";
+
+    if (orderedPhases.equals("s1")) return "s1";
+    if (orderedPhases.equals("s2")) return "s2";
+    if (orderedPhases.equals("s12")) return "s12";
+    if (orderedPhases.equals("s21")) return "s12";
+
+    if (orderedPhases.equals("ABCN")) return "ABCN";
+    if (orderedPhases.equals("ACBN")) return "ABCN";
+    if (orderedPhases.equals("BACN")) return "ABCN";
+    if (orderedPhases.equals("BCAN")) return "ABCN";
+    if (orderedPhases.equals("CABN")) return "ABCN";
+    if (orderedPhases.equals("CBAN")) return "ABCN";
+
+    if (orderedPhases.equals("ABN")) return "ABN";
+    if (orderedPhases.equals("ACN")) return "ACN";
+    if (orderedPhases.equals("BAN")) return "ABN";
+    if (orderedPhases.equals("BCN")) return "BCN";
+    if (orderedPhases.equals("CAN")) return "ACN";
+    if (orderedPhases.equals("CBN")) return "BCN";
+
+    if (orderedPhases.equals("AN")) return "AN";
+    if (orderedPhases.equals("NA")) return "AN";
+    if (orderedPhases.equals("BN")) return "BN";;
+    if (orderedPhases.equals("NB")) return "BN";
+    if (orderedPhases.equals("CN")) return "CN";
+    if (orderedPhases.equals("NC")) return "CN";
+
+    if (orderedPhases.equals("s1N")) return "s1N";
+    if (orderedPhases.equals("Ns1")) return "s1N";
+    if (orderedPhases.equals("s2N")) return "s2N";
+    if (orderedPhases.equals("Ns2")) return "s2N";
+    if (orderedPhases.equals("s12N")) return "s12N";
+    if (orderedPhases.equals("s21N")) return "s12N";
+
+    return "";
+  }
+
+  // from the new CIM Core::OrderedPhaseCodeKind enumeration for TransformerTankEnd phasing
+  // the floating neutral node (phase) is always numbered 4
+  static String DSSOrderedPhases (String orderedPhases, boolean floatNeutral) {
+    if (orderedPhases.equals("ABC")) return ".1.2.3";
+    if (orderedPhases.equals("ACB")) return ".1.3.2";
+    if (orderedPhases.equals("BAC")) return ".2.1.3";
+    if (orderedPhases.equals("BCA")) return ".2.3.1";
+    if (orderedPhases.equals("CAB")) return ".3.1.2";
+    if (orderedPhases.equals("CBA")) return ".3.2.1";
+
+    if (orderedPhases.equals("AB")) return ".1.2";
+    if (orderedPhases.equals("AC")) return ".1.3";
+    if (orderedPhases.equals("BA")) return ".2.1";
+    if (orderedPhases.equals("BC")) return ".2.3";
+    if (orderedPhases.equals("CA")) return ".3.1";
+    if (orderedPhases.equals("CB")) return ".3.2";
+
+    if (orderedPhases.equals("A")) return ".1";
+    if (orderedPhases.equals("B")) return ".2";
+    if (orderedPhases.equals("C")) return ".3";
+
+    if (orderedPhases.equals("s1")) return ".1";
+    if (orderedPhases.equals("s2")) return ".2";
+    if (orderedPhases.equals("s12")) return ".1.2";
+    if (orderedPhases.equals("s21")) return ".2.1";
+
+    if (floatNeutral) {
+      if (orderedPhases.equals("ABCN")) return ".1.2.3.4";
+      if (orderedPhases.equals("ACBN")) return ".1.3.2.4";
+      if (orderedPhases.equals("BACN")) return ".2.1.3.4";
+      if (orderedPhases.equals("BCAN")) return ".2.3.1.4";
+      if (orderedPhases.equals("CABN")) return ".3.1.2.4";
+      if (orderedPhases.equals("CBAN")) return ".3.2.1.4";
+
+      if (orderedPhases.equals("ABN")) return ".1.2.4";
+      if (orderedPhases.equals("ACN")) return ".1.3.4";
+      if (orderedPhases.equals("BAN")) return ".2.1.4";
+      if (orderedPhases.equals("BCN")) return ".2.3.4";
+      if (orderedPhases.equals("CAN")) return ".3.1.4";
+      if (orderedPhases.equals("CBN")) return ".3.2.4";
+
+      if (orderedPhases.equals("AN")) return ".1.4";
+      if (orderedPhases.equals("NA")) return ".4.1";
+      if (orderedPhases.equals("BN")) return ".2.4";
+      if (orderedPhases.equals("NB")) return ".4.2";
+      if (orderedPhases.equals("CN")) return ".3.4";
+      if (orderedPhases.equals("NC")) return ".4.3";
+
+      if (orderedPhases.equals("s1N")) return ".1.4";
+      if (orderedPhases.equals("Ns1")) return ".4.1";
+      if (orderedPhases.equals("s2N")) return ".2.4";
+      if (orderedPhases.equals("Ns2")) return ".4.2";
+      if (orderedPhases.equals("s12N")) return ".1.2.4";
+      if (orderedPhases.equals("s21N")) return ".2.1.4";
     } else {
-      xphs = phs;
+      if (orderedPhases.equals("ABCN")) return ".1.2.3.0";
+      if (orderedPhases.equals("ACBN")) return ".1.3.2.0";
+      if (orderedPhases.equals("BACN")) return ".2.1.3.0";
+      if (orderedPhases.equals("BCAN")) return ".2.3.1.0";
+      if (orderedPhases.equals("CABN")) return ".3.1.2.0";
+      if (orderedPhases.equals("CBAN")) return ".3.2.1.0";
+
+      if (orderedPhases.equals("ABN")) return ".1.2.0";
+      if (orderedPhases.equals("ACN")) return ".1.3.0";
+      if (orderedPhases.equals("BAN")) return ".2.1.0";
+      if (orderedPhases.equals("BCN")) return ".2.3.0";
+      if (orderedPhases.equals("CAN")) return ".3.1.0";
+      if (orderedPhases.equals("CBN")) return ".3.2.0";
+
+      if (orderedPhases.equals("AN")) return ".1.0";
+      if (orderedPhases.equals("NA")) return ".0.1";
+      if (orderedPhases.equals("BN")) return ".2.0";
+      if (orderedPhases.equals("NB")) return ".0.2";
+      if (orderedPhases.equals("CN")) return ".3.0";
+      if (orderedPhases.equals("NC")) return ".0.3";
+
+      if (orderedPhases.equals("s1N")) return ".1.0";
+      if (orderedPhases.equals("Ns1")) return ".0.1";
+      if (orderedPhases.equals("s2N")) return ".2.0";
+      if (orderedPhases.equals("Ns2")) return ".0.2";
+      if (orderedPhases.equals("s12N")) return ".1.2.0";
+      if (orderedPhases.equals("s21N")) return ".2.1.0";
     }
-    if (vgrp.contains ("I") && phs.length() > 1) {
-      StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));
+
+    return "";
+  }
+
+  static String DSSXfmrTankPhasesAndGround (String vgrp, String bus, String orderedPhases, boolean grounded, double rg, double xg) {
+    boolean floatNeutral = !grounded;
+    if (rg > 0.0 || xg > 0.0) {
+      floatNeutral = true;
+    }
+    StringBuilder buf = new StringBuilder (bus + DSSOrderedPhases (orderedPhases, floatNeutral));
+    if (vgrp.contains ("I") && orderedPhases.length() > 1 && !orderedPhases.contains("N")) {
       buf.append (" conn=d");
-      return buf.toString();
-    }
-    if (!grounded && phs.length() == 1) {
-      StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));
-      buf.append (".4");
-      return buf.toString();
-    }
-    if (grounded && reversed) {
-      return DSSBusPhases (bus + ".0", xphs);
     }
     if (rg > 0.0 || xg > 0.0) {
-      StringBuilder buf = new StringBuilder (DSSBusPhases (bus, xphs));
-      int idxN = phs.length() + 1;
-      buf.append("." + Integer.toString (idxN) + " rneut=" + df3.format(rg) + " xneut=" + df3.format(xg));
-      return buf.toString();
+      buf.append(" rneut=" + df3.format(rg) + " xneut=" + df3.format(xg));
     }
-    return DSSBusPhases (bus, xphs);
+    return buf.toString();
+  }
+
+  // not used yet. should return ABCNSDG set, TODO: when to return G instead of N?
+  static String GLMOrderedPhases (String orderedPhases, boolean floatNeutral, boolean delta) {
+    String root = "ABC";
+
+    if (orderedPhases.equals("AB") || orderedPhases.equals("ABN")) root = "AB";
+    if (orderedPhases.equals("AC") || orderedPhases.equals("ACN")) root = "AC";
+    if (orderedPhases.equals("BA") || orderedPhases.equals("BAN")) root = "AB";
+    if (orderedPhases.equals("BC") || orderedPhases.equals("BCN")) root = "BC";
+    if (orderedPhases.equals("CA") || orderedPhases.equals("CAN")) root = "AC";
+    if (orderedPhases.equals("CB") || orderedPhases.equals("CBN")) root = "BC";
+
+    if (orderedPhases.equals("A") || orderedPhases.equals("AN") || orderedPhases.equals("NA")) root = "A";
+    if (orderedPhases.equals("B") || orderedPhases.equals("BN") || orderedPhases.equals("NB")) root = "B";
+    if (orderedPhases.equals("C") || orderedPhases.equals("CN") || orderedPhases.equals("NC")) root = "C";
+
+    if (orderedPhases.contains("s")) root = "S"; // we don't know the primary-side phase from here
+
+    if (delta && !root.equals("S")) {
+      return root + "D";
+    } else if (orderedPhases.contains("N")) {
+      return root + "N";
+    }
+    return root;
   }
 
   static String GLMPhaseString (String cim_phases) {

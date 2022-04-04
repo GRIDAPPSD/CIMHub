@@ -1,6 +1,6 @@
 # CIMHub Test Cases for Low-Voltage Distribution
 
-Copyright (c) 2021, Battelle Memorial Institute
+Copyright (c) 2021-2022, Battelle Memorial Institute
 
 ## Process
 
