@@ -189,17 +189,17 @@ public class DistXfmrCodeRating extends DistComponent {
     buf.append ("  name \"xcon_" + name + "\";\n");
     buf.append ("  power_rating " + sKVA + ";\n");
     if (useA) {
-      buf.append ("  powerA_rating " + sKVA + ";\n");
-      buf.append ("  powerB_rating 0.0;\n");
-      buf.append ("  powerC_rating 0.0;\n");
+      // buf.append ("  powerA_rating " + sKVA + ";\n");
+      // buf.append ("  powerB_rating 0.0;\n");
+      // buf.append ("  powerC_rating 0.0;\n");
     } else if (useB) {
-      buf.append ("  powerA_rating 0.0;\n");
-      buf.append ("  powerB_rating " + sKVA + ";\n");
-      buf.append ("  powerC_rating 0.0;\n");
+      //buf.append ("  powerA_rating 0.0;\n");
+      //buf.append ("  powerB_rating " + sKVA + ";\n");
+      //buf.append ("  powerC_rating 0.0;\n");
     } else if (useC) {
-      buf.append ("  powerA_rating 0.0;\n");
-      buf.append ("  powerB_rating 0.0;\n");
-      buf.append ("  powerC_rating " + sKVA + ";\n");
+      // buf.append ("  powerA_rating 0.0;\n");
+      // buf.append ("  powerB_rating 0.0;\n");
+      // buf.append ("  powerC_rating " + sKVA + ";\n");
     }
     buf.append (parms);
     buf.append ("}\n");

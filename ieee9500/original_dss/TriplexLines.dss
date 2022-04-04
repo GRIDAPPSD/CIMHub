@@ -96,9 +96,9 @@ New Line.Tpx218474A0     Bus1=X3217056A.1.2  Bus2=SX3217056A.1.2   linecode=4/0T
 New Line.Tpx218475A0     Bus1=X3217057A.1.2  Bus2=SX3217057A.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx223655C0     Bus1=X2936268C.1.2  Bus2=SX2936268C.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx223658A0     Bus1=X2823592A.1.2  Bus2=SX2823592A.1.2   linecode=4/0Triplex  length=50 units=ft 
-New Line.Tpx223660C0     Bus1=X3160863C.1.2  Bus2=SX3160863C.1.2   linecode=4/0Triplex  length=50 units=ft 
-New Line.Tpx223661C0     Bus1=X2730108C.1.2  Bus2=SX2730108C.1.2   linecode=4/0Triplex  length=50 units=ft 
-New Line.Tpx223662C0     Bus1=X2786204C.1.2  Bus2=SX2786204C.1.2   linecode=4/0Triplex  length=50 units=ft 
+New Line.Tpx223660A0     Bus1=X3160863A.1.2  Bus2=SX3160863A.1.2   linecode=4/0Triplex  length=50 units=ft 
+New Line.Tpx223661B0     Bus1=X2730108B.1.2  Bus2=SX2730108B.1.2   linecode=4/0Triplex  length=50 units=ft 
+New Line.Tpx223662A0     Bus1=X2786204A.1.2  Bus2=SX2786204A.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx223663C0     Bus1=X2936216C.1.2  Bus2=SX2936216C.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx247036C0     Bus1=X3029498C.1.2  Bus2=SX3029498C.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx247056A0     Bus1=X2991912A.1.2  Bus2=SX2991912A.1.2   linecode=4/0Triplex  length=50 units=ft 
@@ -648,7 +648,7 @@ New Line.Tpx339049A0     Bus1=X2916602A.1.2  Bus2=SX2916602A.1.2   linecode=4/0T
 New Line.Tpx339051C0     Bus1=X3231255C.1.2  Bus2=SX3231255C.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx339052C0     Bus1=X3118855C.1.2  Bus2=SX3118855C.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx339097B0     Bus1=X3085410B.1.2  Bus2=SX3085410B.1.2   linecode=4/0Triplex  length=50 units=ft 
-New Line.Tpx346639C0     Bus1=X2992556C.1.2  Bus2=SX2992556C.1.2   linecode=4/0Triplex  length=50 units=ft 
+New Line.Tpx346639A0     Bus1=X2992556A.1.2  Bus2=SX2992556A.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx350993C0     Bus1=X3198356C.1.2  Bus2=SX3198356C.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx350994C0     Bus1=X3048968C.1.2  Bus2=SX3048968C.1.2   linecode=4/0Triplex  length=50 units=ft 
 New Line.Tpx351019C0     Bus1=X2767414C.1.2  Bus2=SX2767414C.1.2   linecode=4/0Triplex  length=50 units=ft 

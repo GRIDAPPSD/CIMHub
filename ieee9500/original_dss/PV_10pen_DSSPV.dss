@@ -30,7 +30,7 @@ New PVsystem.PV_1053 phases=2 Bus1=SX2710544A.1.2 kV=0.208 kVA=6.70 Pmpp=5.32
 New PVsystem.PV_1055 phases=2 Bus1=SX2839305A.1.2 kV=0.208 kVA=6.70 Pmpp=5.33
 New PVsystem.PV_1057 phases=2 Bus1=SX3160113B.1.2 kV=0.208 kVA=12.10 Pmpp=9.73
 New PVsystem.PV_1059 phases=2 Bus1=SX2673318C.1.2 kV=0.208 kVA=12.70 Pmpp=10.17
-New PVsystem.PV_1061 phases=2 Bus1=SX2992556C.1.2 kV=0.208 kVA=7.60 Pmpp=6.10
+New PVsystem.PV_1061 phases=2 Bus1=SX2992556A.1.2 kV=0.208 kVA=7.60 Pmpp=6.10
 New PVsystem.PV_1063 phases=2 Bus1=SX2814529A.1.2 kV=0.208 kVA=22.10 Pmpp=17.74
 New PVsystem.PV_1065 phases=2 Bus1=SX2785523C.1.2 kV=0.208 kVA=7.70 Pmpp=6.10
 New PVsystem.PV_1067 phases=2 Bus1=SX2841638C.1.2 kV=0.208 kVA=7.60 Pmpp=6.10
