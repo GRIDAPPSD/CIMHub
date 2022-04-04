@@ -62,6 +62,9 @@ for row in cases:
   os.system (cmd)
 cimhub.list_feeders ()
 
+#cimhub.list_measurables (cfg_json, 'j1red', '_1C9727D2-E4D2-4084-B612-90A44E1810FD')
+#quit()
+
 # create the OpenDSS, GridLAB-D and CSV versions
 shfile = './go.sh'
 cimhub.make_export_script (shfile, cases, dsspath='dss/', glmpath='glm/', csvpath='csv/')

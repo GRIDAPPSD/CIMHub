@@ -93,7 +93,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
 
   #################### regulators
 
-  qstr = CIMHubConfig.prefix + """ SELECT ?name ?bus ?tname ?wnum ?phases ?eqid ?trmid ?fdrid { """ + fidselect + """
+  qstr = CIMHubConfig.prefix + """ SELECT ?name ?bus ?tname ?wnum ?orderedPhases ?eqid ?trmid ?fdrid WHERE { """ + fidselect + """
    ?rtc r:type c:RatioTapChanger.
   ?rtc c:IdentifiedObject.name ?rname.
   ?rtc c:IdentifiedObject.mRID ?rtcid.
@@ -115,10 +115,10 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
   }
   ORDER BY ?pname ?tname ?rname ?wnum
   """
-  print (qstr)
+#  print (qstr)
   sparql.setQuery(qstr)
   ret = sparql.query()
-  print ('\nRatioTapChanger binding keys are:',ret.variables)
+#  print ('\nRatioTapChanger binding keys are:',ret.variables)
   for b in ret.bindings:
     if 'orderedPhases' in b: # was OPTIONAL in the query
       phases = FlatPhases (b['orderedPhases'].value)
@@ -126,38 +126,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
       phases = FlatPhases ('ABC')
     for phs in phases:
       print ('PowerTransformer','RatioTapChanger',b['name'].value,b['wnum'].value,b['bus'].value,phs,b['eqid'].value,b['trmid'].value,file=op)
-
-# qstr = CIMHubConfig.prefix + """SELECT ?name ?wnum ?bus (group_concat(distinct ?phs;separator=\"\") as ?orderedPhases) ?eqid ?trmid WHERE {
-#  SELECT ?name ?wnum ?bus ?phs ?eqid ?trmid WHERE { """ + fidselect + """
-#  ?rtc r:type c:RatioTapChanger.
-#  ?rtc c:IdentifiedObject.name ?rname.
-#  ?rtc c:IdentifiedObject.mRID ?rtcid.
-#  ?rtc c:RatioTapChanger.TransformerEnd ?end.
-#  ?end c:TransformerEnd.endNumber ?wnum.
-#  ?end c:TransformerEnd.Terminal ?trm.
-#  ?trm c:IdentifiedObject.mRID ?trmid.
-#  ?trm c:Terminal.ConnectivityNode ?cn.
-#  ?cn c:IdentifiedObject.name ?bus.
-#  OPTIONAL {?end c:TransformerTankEnd.orderedPhases ?phsraw.
-#   bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?phs)}
-#  ?end c:TransformerTankEnd.TransformerTank ?tank.
-#  ?tank c:TransformerTank.PowerTransformer ?s.
-#  ?s c:IdentifiedObject.name ?name.
-#  ?s c:IdentifiedObject.mRID ?eqid.
-#  ?tank c:IdentifiedObject.name ?tname.
-#  } ORDER BY ?name ?phs
-# }
-# GROUP BY ?name ?wnum ?bus ?eqid ?trmid
-# ORDER BY ?name
-# """
-# #print (qstr)
-# sparql.setQuery(qstr)
-# ret = sparql.query()
-# #print ('\nRatioTapChanger binding keys are:',ret.variables)
-# for b in ret.bindings:
-#   phases = FlatPhases (b['orderedPhases'].value)
-#   for phs in phases:
-#     print ('PowerTransformer','RatioTapChanger',b['name'].value,b['wnum'].value,b['bus'].value,phs,b['eqid'].value,b['trmid'].value,file=op)
+#      print ('PowerTransformer','RatioTapChanger',b['name'].value,b['wnum'].value,b['bus'].value,phs,b['eqid'].value,b['trmid'].value)
 
   ####################### - Storage
 
