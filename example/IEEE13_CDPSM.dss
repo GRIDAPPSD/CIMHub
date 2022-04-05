@@ -107,7 +107,8 @@ New Line.Sect1     Phases=1 Bus1=684.3  Bus2=TAP.3  Switch=y rmatrix=(1e-4) xmat
 
 // additional service transformer and DER components for testing
 New PVSystem.School phases=3 bus1=634 kV=0.48 kVA=300 irrad=0.8 Pmpp=300 PF=1
-New Storage.School  phases=3 bus1=634 kV=0.48 kWRated=100 kWhRated=200 kWhStored=100 state=charging 
+New Storage.School  phases=3 bus1=634 kV=0.48 kWRated=100 kWhRated=200 kWhStored=100 state=discharging 
+New Storage.BatIdle  phases=3 bus1=634 kV=0.48 kWRated=100 kWhRated=200 kWhStored=100 state=idling
 
 New XfmrCode.CT5  phases=1 windings=3 kvs=[2.4 0.12 0.12] kVAs=[5.0 5.0 5.0] 
 ~ %imag=0.5 %Rs=[0.6 1.2 1.2] %noloadloss=0.2 Xhl=2.04 Xht=2.04 Xlt=1.36

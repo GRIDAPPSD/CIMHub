@@ -626,7 +626,7 @@ public class CIMQuerySetter extends Object {
 			" ?s c:BatteryUnit.ratedE ?ratedE."+
 			" ?s c:BatteryUnit.storedE ?storedE."+
 			" ?s c:BatteryUnit.batteryState ?stateraw."+
-			" 	bind(strafter(str(?stateraw),\"BatteryState.\") as ?state)"+
+			" 	bind(strafter(str(?stateraw),\"BatteryStateKind.\") as ?state)"+
 			"	OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec."+
 			"	?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw."+
 			"		bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+

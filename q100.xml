@@ -416,7 +416,7 @@ SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE 
  ?s c:BatteryUnit.ratedE ?ratedE.
  ?s c:BatteryUnit.storedE ?storedE.
  ?s c:BatteryUnit.batteryState ?stateraw.
-   bind(strafter(str(?stateraw),"BatteryState.") as ?state)
+   bind(strafter(str(?stateraw),"BatteryStateKind.") as ?state)
  ?pec c:PowerElectronicsConnection.p ?p.
  ?pec c:PowerElectronicsConnection.q ?q. 
  ?pec c:PowerElectronicsConnection.minQ ?minQ.
