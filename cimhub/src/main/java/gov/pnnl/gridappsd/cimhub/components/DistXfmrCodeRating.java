@@ -109,9 +109,9 @@ public class DistXfmrCodeRating extends DistComponent {
       zpu = sct.z[0] / zbase2;
     }
     double xpu = zpu;
-//    if (zpu >= rpu) {
-//      xpu = Math.sqrt (zpu * zpu - rpu * rpu);
-//    }
+    if (zpu >= rpu) {
+      xpu = Math.sqrt (zpu * zpu - rpu * rpu);
+    }
 
     String sConnect = GetGldTransformerConnection (conn, size);
     if (sConnect.equals("SINGLE_PHASE")) {
@@ -134,25 +134,19 @@ public class DistXfmrCodeRating extends DistComponent {
       double x2 = 0.4 * zpu;
       double x3 = x2;
       if (size == 3) { // use the OpenDSS approach, should match Z23, should also work for non-interlaced
-        double x12 = 0.0, x13 = 0.0, x23 = 0.0;
-        double zbase = ratedU[0] * ratedU[0] / ratedS[0];
-        r1 = r[0] / zbase;
-        zbase = ratedU[1] * ratedU[1] / ratedS[1];
-        r2 = r[1] / zbase;
-        zbase = ratedU[2] * ratedU[2] / ratedS[2];
-        r3 = r[2] / zbase;
-        for (int i = 0; i < sct.size; i++) {
-          int fwdg = sct.fwdg[i];
-          int twdg = sct.twdg[i];
-          zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
-          if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
-            x12 = sct.z[i] / zbase;
-          } else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
-            x13 = sct.z[i] / zbase;
-          } else if ((fwdg == 2 && twdg == 3) || (fwdg == 3 && twdg == 2)) {
-            x23 = sct.z[i] / zbase;
-          }
-        }
+        double Sbase = ratedS[0];
+        double r12 = 1000.0 * sct.ll[0] / Sbase;
+        double r13 = 1000.0 * sct.ll[1] / Sbase;
+        double r23 = 1000.0 * sct.ll[2] / Sbase;
+        zpu = sct.z[0] * Sbase / ratedU[0] / ratedU[0];
+        double x12 = Math.sqrt(zpu*zpu - r12*r12);
+        zpu = sct.z[1] * Sbase / ratedU[0] / ratedU[0];
+        double x13 = Math.sqrt(zpu*zpu - r13*r13);
+        zpu = sct.z[2] * Sbase / ratedU[1] / ratedU[1];
+        double x23 = Math.sqrt(zpu*zpu - r23*r23);
+        r1 = 0.5 * (r12 + r13 - r23);
+        r2 = 0.5 * (r12 + r23 - r13);
+        r3 = 0.5 * (r13 + r23 - r12);
         x1 = 0.5 * (x12 + x13 - x23);
         x2 = 0.5 * (x12 + x23 - x13);
         x3 = 0.5 * (x13 + x23 - x12);
@@ -189,17 +183,17 @@ public class DistXfmrCodeRating extends DistComponent {
     buf.append ("  name \"xcon_" + name + "\";\n");
     buf.append ("  power_rating " + sKVA + ";\n");
     if (useA) {
-      // buf.append ("  powerA_rating " + sKVA + ";\n");
-      // buf.append ("  powerB_rating 0.0;\n");
-      // buf.append ("  powerC_rating 0.0;\n");
+      buf.append ("  powerA_rating " + sKVA + ";\n");
+      buf.append ("  powerB_rating 0.0;\n");
+      buf.append ("  powerC_rating 0.0;\n");
     } else if (useB) {
-      //buf.append ("  powerA_rating 0.0;\n");
-      //buf.append ("  powerB_rating " + sKVA + ";\n");
-      //buf.append ("  powerC_rating 0.0;\n");
+      buf.append ("  powerA_rating 0.0;\n");
+      buf.append ("  powerB_rating " + sKVA + ";\n");
+      buf.append ("  powerC_rating 0.0;\n");
     } else if (useC) {
-      // buf.append ("  powerA_rating 0.0;\n");
-      // buf.append ("  powerB_rating 0.0;\n");
-      // buf.append ("  powerC_rating " + sKVA + ";\n");
+      buf.append ("  powerA_rating 0.0;\n");
+      buf.append ("  powerB_rating 0.0;\n");
+      buf.append ("  powerC_rating " + sKVA + ";\n");
     }
     buf.append (parms);
     buf.append ("}\n");
@@ -223,10 +217,33 @@ public class DistXfmrCodeRating extends DistComponent {
     return buf.toString();
   }
 
+  // physical ohms to match the short circuit test load losses
+  public void SetWindingResistances (DistXfmrCodeSCTest sct) {
+    double r12pu, r13pu, r23pu, r1pu, r2pu, r3pu, Sbase;
+    Sbase = ratedS[0];
+    if (sct.size == 2) {
+      r12pu = 1000.0 * sct.ll[0] / Sbase;
+      r1pu = 0.5 * r12pu;
+      r2pu = r1pu;
+      r[0] = r1pu * ratedU[0] * ratedU[0] / Sbase;
+      r[1] = r2pu * ratedU[1] * ratedU[1] / Sbase;
+    } else if (sct.size == 3) {
+      r12pu = 1000.0 * sct.ll[0] / Sbase;
+      r13pu = 1000.0 * sct.ll[1] / Sbase;
+      r23pu = 1000.0 * sct.ll[2] / Sbase;
+      r1pu = 0.5 * (r12pu + r13pu - r23pu);
+      r2pu = 0.5 * (r12pu + r23pu - r13pu);
+      r3pu = 0.5 * (r13pu + r23pu - r12pu);
+      r[0] = r1pu * ratedU[0] * ratedU[0] / Sbase;
+      r[1] = r2pu * ratedU[1] * ratedU[1] / Sbase;
+      r[2] = r3pu * ratedU[2] * ratedU[2] / Sbase;
+    }
+  }
+
   public String GetDSS(DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     boolean bDelta;
     int phases = 3;
-    double zbase, xpct, pctloss, pctimag;
+    double zbase, xpct, zpct, rpct, pctloss, pctimag;
     int fwdg, twdg, i;
 
     for (i = 0; i < size; i++) {
@@ -242,7 +259,9 @@ public class DistXfmrCodeRating extends DistComponent {
       fwdg = sct.fwdg[i];
       twdg = sct.twdg[i];
       zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
-      xpct = 100.0 * sct.z[i] / zbase; // not accounting for ll
+      zpct = 100.0 * sct.z[i] / zbase;
+      rpct = 100.0 * 1000.0 * sct.ll[i] / ratedS[fwdg-1];
+      xpct = Math.sqrt(zpct*zpct - rpct*rpct);
       if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
         buf.append(" xhl=" + df6.format(xpct));
       } else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
@@ -261,13 +280,14 @@ public class DistXfmrCodeRating extends DistComponent {
     buf.append (" %imag=" + df3.format(pctimag) + " %noloadloss=" + df3.format(pctloss) + "\n");
 
     // winding ratings
+    SetWindingResistances (sct);
     for (i = 0; i < size; i++) {
       if (conn[i].contains("D")) {
         bDelta = true;
       } else {
         bDelta = false;
       }
-      zbase = ratedU[i] * ratedU[i] / ratedS[i];
+      zbase = ratedU[i] * ratedU[i] / ratedS[0]; // PU impedances always on winding 1's kva base
       buf.append("~ wdg=" + Integer.toString(i + 1) + " conn=" + DSSConn(bDelta) +
                  " kv=" + df3.format(0.001 * ratedU[i]) + " kva=" + df1.format(0.001 * ratedS[i]) +
                  " %r=" + df6.format(100.0 * r[i] / zbase) + "\n");
@@ -280,7 +300,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public String GetCSV (DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     boolean bDelta;
     int phases = 3;
-    double zbase, xpct, pctloss, pctimag;
+    double zbase, xpct, zpct, rpct, pctloss, pctimag;
     int fwdg, twdg, i;
 
     for (i = 0; i < size; i++) {
@@ -291,6 +311,7 @@ public class DistXfmrCodeRating extends DistComponent {
     StringBuilder buf = new StringBuilder(tname + "," + Integer.toString(size) + "," + Integer.toString(phases));
 
     // winding ratings: kV, kVA, Conn, R
+    SetWindingResistances (sct);
     for (i = 0; i < size; i++) {
       if (conn[i].contains("D")) {
         bDelta = true;
@@ -309,7 +330,9 @@ public class DistXfmrCodeRating extends DistComponent {
       fwdg = sct.fwdg[i];
       twdg = sct.twdg[i];
       zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
-      xpct = 100.0 * sct.z[i] / zbase; // not accounting for ll
+      zpct = 100.0 * sct.z[i] / zbase;
+      rpct = 100.0 * 1000.0 * sct.ll[i] / ratedS[fwdg-1];
+      xpct = Math.sqrt(zpct*zpct - rpct*rpct);
       if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
         x12 = xpct;
       } else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
