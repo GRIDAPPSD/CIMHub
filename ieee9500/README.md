@@ -28,7 +28,7 @@ Python package, and the Java program.  If not, please see directions at
 the bottom of this page.
   
 1. Invoke ```python3 test9500.py```. Check the new results against those below.  Also use ```git diff``` to identify any changes to the XML or UUID files.
-2. Invoke ```./zipall.sh``` and ```./zipcomparisons.sh``` to update the downloadable archives.  
+2. Invoke ```./zipall.sh``` to update the downloadable archives.  
 
 ------
 
@@ -287,7 +287,7 @@ To run the conversion and power flow solution script, using the archived CIM XML
 
 7. Run `python3 test9500bal.py` or `python3 test9500unbal.py` to convert the CIM XML model
 
-8. Run `./zipall.sh` and `./zipcomparisons.h` to create downloadable archives
+8. Run `./zipall.sh` to create downloadable archives
 
 To build the CIM XML files from the original DSS source files:
 
