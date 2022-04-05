@@ -104,4 +104,4 @@ set MarkCapacitors=true CapMarkerCode=38
 set MarkStorage=true StoreMarkerCode=36
 set MarkTransformers=true TransmarkerCode=14
 
-Plot daisy Power Max=1000 dots=n labels=n 1ph=3
+//Plot daisy Power Max=1000 dots=n labels=n 1ph=3
