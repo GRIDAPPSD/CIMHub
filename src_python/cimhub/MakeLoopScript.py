@@ -27,17 +27,19 @@ def append_xml_case (cases, xmlpath, outpath, fp):
     print('curl -D- -H "Content-Type: application/xml" --upload-file', xmlpath + c + '.xml', '-X POST $DB_URL', file=fp)
     print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=both {:s}'.format (opts), outpath + c, file=fp)
 
-def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, csvpath=None):
+def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, csvpath=None, clean_dirs=True):
   fp = open (scriptname, 'w')
   print ('#!/bin/bash', file=fp)
   print ('source envars.sh', file=fp)
+  if clean_dirs:
+    print ('rm -rf', dsspath, file=fp)
+    print ('rm -rf', glmpath, file=fp)
   print ('mkdir', dsspath, file=fp)
   print ('mkdir', glmpath, file=fp)
-  print ('rm', dsspath + '*.*', file=fp)
-  print ('rm', glmpath + '*.*', file=fp)
   if csvpath is not None:
+    if clean_dirs:
+      print ('rm -rf', csvpath, file=fp)
     print ('mkdir', csvpath, file=fp)
-    print ('rm', csvpath + '*.*', file=fp)
   for row in casefiles:
     if 'export_options' in row:
       opts = row['export_options']
@@ -55,13 +57,14 @@ def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, cs
     print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
   fp.close()
 
-def make_export_script (scriptname, cases, dsspath=None, glmpath=None, csvpath=None):
+def make_export_script (scriptname, cases, dsspath=None, glmpath=None, csvpath=None, clean_dirs=True):
   fp = open (scriptname, 'w')
   print ('#!/bin/bash', file=fp)
   print ('source envars.sh', file=fp)
   for outpath in [dsspath, glmpath, csvpath]:
     if outpath is not None:
-      print ('rm -rf', outpath, file=fp)
+      if clean_dirs:
+        print ('rm -rf', outpath, file=fp)
       print ('mkdir', outpath, file=fp)
   for row in cases:
     if 'export_options' in row:
