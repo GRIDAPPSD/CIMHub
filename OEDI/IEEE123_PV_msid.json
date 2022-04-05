@@ -1382,5 +1382,8 @@
   "LoadBreakSwitch_sw8:i1:A:Pos": "_aec83808-a877-48de-a6f9-3585b3f036c2",
   "LoadBreakSwitch_sw8:i1:A:A": "_32045e82-6fa2-4b9e-80a8-9204092914b2",
   "EnergyConsumer_s59b:s59b:s2:PNV": "_9cd0d9d6-761a-421c-8733-e723fa3c40be",
-  "EnergyConsumer_s59b:s59b:s2:VA": "_0ef48413-1aef-4031-b6ab-4baf7ee37d3a"
+  "EnergyConsumer_s59b:s59b:s2:VA": "_0ef48413-1aef-4031-b6ab-4baf7ee37d3a",
+  "RatioTapChanger_reg1a:150r:A:Pos": "_857992f7-0f63-4a62-b913-49eb63bb2d6e",
+  "RatioTapChanger_reg1a:150r:B:Pos": "_e5e2672a-62fc-4015-acff-f1a504772b08",
+  "RatioTapChanger_reg1a:150r:C:Pos": "_55ee8a26-9954-4106-b5e0-3b35b4971a8f"
 }
