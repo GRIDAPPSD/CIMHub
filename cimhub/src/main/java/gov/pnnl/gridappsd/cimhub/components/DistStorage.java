@@ -52,11 +52,11 @@ public class DistStorage extends DistComponent {
 	}
 
 	private String DSSBatteryState (String s) {
-		if (s.equals("Charging")) return "charging";
-		if (s.equals("Discharging")) return "discharging";
-		if (s.equals("Waiting")) return "idling";
-		if (s.equals("Full")) return "idling";
-		if (s.equals("Empty")) return "idling";
+		if (s.equals("charging")) return "charging";
+		if (s.equals("discharging")) return "discharging";
+		if (s.equals("waiting")) return "idling";
+		if (s.equals("full")) return "idling";
+		if (s.equals("empty")) return "idling";
 		return "idling";
 	}
 
@@ -208,13 +208,26 @@ public class DistStorage extends DistComponent {
     if (minQ < 0.0) {
       kvarMaxAbs = Math.abs(0.001 * minQ);
     }
+    // in default dispatch mode, the battery determines P from its idling, discharging, or charging state
+    // P cannot be set directly, so we mimic that by setting %charge or %discharge to get the desired P
+    String dssState = DSSBatteryState(state);
+    double pctCharge = -100.0 * minP / ratedP;
+    double pctDischarge = 100.0 * maxP / ratedP;
+    if (dssState.contains("charging")) {
+      pctCharge = 100.0 * Math.abs (p/ratedP);
+      pctDischarge = pctCharge;
+    }
+    if (pctCharge < 0.0) pctCharge = 0.0;
+    if (pctDischarge < 0.0) pctDischarge = 0.0;
+    if (pctCharge > 100.0) pctCharge = 100.0;
+    if (pctDischarge > 100.0) pctDischarge = 100.0;
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
 								" conn=" + DSSConn(bDelta) + " kva=" + df3.format(kva) + 
                 " kwrated=" + df3.format(0.001 * ratedP) + 
                 " kv=" + df3.format(kv) + " kwhrated=" + df3.format(0.001 * ratedE) + 
-								" kwhstored=" + df3.format(0.001 * storedE) + " state=" + DSSBatteryState(state) +
-								" vminpu=" + df4.format(1/maxIFault) + " LimitCurrent=yes kw=" + df2.format(p/1000.0) +
-                " %charge=" + df2.format(-100.0 * minP / ratedP) + " %discharge=" + df2.format(100.0 * maxP / ratedP) + 
+								" kwhstored=" + df3.format(0.001 * storedE) + " state=" + dssState +
+								" vminpu=" + df4.format(1/maxIFault) + " LimitCurrent=yes" + // "kw=" + df2.format(p/1000.0) +
+                " %charge=" + df2.format(pctCharge) + " %discharge=" + df2.format(pctDischarge) + 
                 " kvarMax=" + df3.format(kvarMax) + " kvarMaxAbs=" + df3.format(kvarMaxAbs));
     if (mode == ConverterControlMode.CONSTANT_PF) {
       double s = Math.sqrt(p * p + q * q);

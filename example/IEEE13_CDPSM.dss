@@ -107,7 +107,7 @@ New Line.Sect1     Phases=1 Bus1=684.3  Bus2=TAP.3  Switch=y rmatrix=(1e-4) xmat
 
 // additional service transformer and DER components for testing
 New PVSystem.School phases=3 bus1=634 kV=0.48 kVA=300 irrad=0.8 Pmpp=300 PF=1
-New Storage.School  phases=3 bus1=634 kV=0.48 kWRated=100 kWhRated=200 kWhStored=100 state=discharging 
+New Storage.School  phases=3 bus1=634 kV=0.48 kWRated=100 kWhRated=200 kWhStored=100 state=discharging %discharge=80.0
 New Storage.BatIdle  phases=3 bus1=634 kV=0.48 kWRated=100 kWhRated=200 kWhStored=100 state=idling
 
 New XfmrCode.CT5  phases=1 windings=3 kvs=[2.4 0.12 0.12] kVAs=[5.0 5.0 5.0] 
@@ -115,7 +115,7 @@ New XfmrCode.CT5  phases=1 windings=3 kvs=[2.4 0.12 0.12] kVAs=[5.0 5.0 5.0]
 New Transformer.Tpoletop XfmrCode=CT5 buses=[670.2 House.1.0 House.0.2]
 New Load.House     phases=2 Bus1=House.1.2 kv=0.208 conn=wye model=1 kW=5.0 pf=0.85 Vminpu=.88
 New PVSystem.House phases=2 bus1=House.1.2 kv=0.208 conn=wye kVA=5 irrad=0.8 Pmpp=5 PF=1 
-New Storage.House  phases=2 bus1=House.1.2 kv=0.208 conn=wye kWRated=5 kWhRated=13.5 kWhStored=5 state=charging 
+New Storage.House  phases=2 bus1=House.1.2 kv=0.208 conn=wye kWRated=5 kWhRated=13.5 kWhStored=5 state=charging %charge=90.0
 
 Set Voltagebases=[115, 4.16, 13.2, 0.48, 0.208]
 calcv
