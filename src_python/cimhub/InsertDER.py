@@ -140,7 +140,7 @@ ins_bat_template = """
  <{url}#{res}> c:PowerElectronicsUnit.maxP \"{maxP}\".
  <{url}#{res}> c:BatteryUnit.ratedE \"{ratedE}\".
  <{url}#{res}> c:BatteryUnit.storedE \"{storedE}\".
- <{url}#{res}> c:BatteryUnit.batteryState {ns}BatteryState.{state}>.
+ <{url}#{res}> c:BatteryUnit.batteryState {ns}BatteryStateKind.{state}>.
  <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
 """
 
