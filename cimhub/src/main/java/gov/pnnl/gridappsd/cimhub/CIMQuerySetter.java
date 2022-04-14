@@ -588,7 +588,7 @@ public class CIMQuerySetter extends Object {
       "	?pec c:PowerElectronicsConnection.maxQ ?maxQ."+
       "	?pec c:PowerElectronicsConnection.minQ ?minQ."+
       " {?pec c:PowerElectronicsConnection.controlMode ?modeRaw."+
-      " bind(strafter(str(?modeRaw),\"ConverterControlMode.\") as ?controlMode)}"+
+      " bind(strafter(str(?modeRaw),\"ConverterControlModeKind.\") as ?controlMode)}"+
 			" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
       " ?pec c:IdentifiedObject.mRID ?pecid."+
 			"	OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec."+
@@ -618,7 +618,7 @@ public class CIMQuerySetter extends Object {
       "	?pec c:PowerElectronicsConnection.maxQ ?maxQ."+
       "	?pec c:PowerElectronicsConnection.minQ ?minQ."+
       " {?pec c:PowerElectronicsConnection.controlMode ?modeRaw."+
-      " bind(strafter(str(?modeRaw),\"ConverterControlMode.\") as ?controlMode)}"+
+      " bind(strafter(str(?modeRaw),\"ConverterControlModeKind.\") as ?controlMode)}"+
 			" ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
       " ?pec c:IdentifiedObject.mRID ?pecid."+
       " ?s c:PowerElectronicsUnit.maxP ?maxP."+

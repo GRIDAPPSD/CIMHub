@@ -1176,7 +1176,7 @@ SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMod
  ?pec c:PowerElectronicsConnection.minQ ?minQ.
  ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
  {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
-  bind(strafter(str(?modeRaw),"ConverterControlMode.") as ?controlMode)}
+  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
  ?pec c:IdentifiedObject.mRID ?pecid.
  OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
  ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
@@ -1216,7 +1216,7 @@ SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE 
  ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
  ?pec c:PowerElectronicsConnection.minQ ?minQ. 
  {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
-  bind(strafter(str(?modeRaw),"ConverterControlMode.") as ?controlMode)}
+  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
  OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
  ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }

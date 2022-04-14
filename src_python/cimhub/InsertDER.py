@@ -97,7 +97,7 @@ ins_pec_template = """
  <{url}#{res}> c:PowerElectronicsConnection.minQ \"{minQ}\".
  <{url}#{res}> c:PowerElectronicsConnection.ratedS \"{ratedS}\".
  <{url}#{res}> c:PowerElectronicsConnection.ratedU \"{ratedU}\".
- <{url}#{res}> c:PowerElectronicsConnection.controlMode {ns}ConverterControlMode.{mode}>.
+ <{url}#{res}> c:PowerElectronicsConnection.controlMode {ns}ConverterControlModeKind.{mode}>.
 """
 
 ins_syn_template = """
