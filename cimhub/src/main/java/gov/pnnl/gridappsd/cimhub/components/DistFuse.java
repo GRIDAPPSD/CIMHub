@@ -40,9 +40,18 @@ public class DistFuse extends DistSwitch {
 	public String GetDSS () {
 		StringBuilder buf = new StringBuilder (super.GetDSS());
 
-		buf.append ("  new Fuse." + name + " MonitoredObj=Line." + name +
-								" RatedCurrent=" + df2.format (rated) + "\n");
-		return buf.toString();
+		buf.append ("  new Fuse." + name + " MonitoredObj=Line." + name + " RatedCurrent=" + df2.format (rated));
+    if (open) {
+      int nphase = DSSPhaseCount(phases, false);
+      buf.append (" state=[");
+      for (int i = 0; i < nphase; i++) {
+        buf.append (" open");
+      }
+      buf.append ("]\n");
+    } else {
+      buf.append("\n");
+    }
+    return buf.toString();
 	}
 }
 
