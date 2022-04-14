@@ -6,18 +6,14 @@ import sys
 def FlatPhases (phases):
   if len(phases) < 1:
     return ['A', 'B', 'C']
-  for tok in ['ABC', 'ACB', 'BAC', 'BCA', 'CAB', 'CBA']:
-    if tok in phases:
-      return ['A', 'B', 'C']
-  for tok in ['AB', 'BA']:
-    if tok in phases:
-      return ['A', 'B']
-  for tok in ['BC', 'CB']:
-    if tok in phases:
-      return ['B', 'C']
-  for tok in ['AC', 'CA']:
-    if tok in phases:
-      return ['A', 'C']
+  if ('A' in phases) and ('B' in phases) and ('C' in phases):
+    return ['A', 'B', 'C']
+  if ('A' in phases) and ('B' in phases):
+    return ['A', 'B']
+  if ('B' in phases) and ('C' in phases):
+    return ['B', 'C']
+  if ('A' in phases) and ('C' in phases):
+    return ['A', 'C']
   if 'A' in phases:
     return ['A']
   if 'B' in phases:
@@ -26,7 +22,7 @@ def FlatPhases (phases):
     return ['C']
   if 's12' in phases:
     return ['s12']
-  if 's1s2' in phases:
+  if ('s1' in phases) and ('s2' in phases):
     return ['s1', 's2']
   if 's1' in phases:
     return ['s1']
@@ -34,7 +30,7 @@ def FlatPhases (phases):
     return ['s2']
   return []
 
-def list_measurables (cfg_file, froot, mRID, outpath=None):
+def list_measurables (cfg_file, froot, mRID, outpath=None, taxonomy=False):
   if outpath is not None:
     froot = './{:s}/{:s}'.format (outpath, froot)
   op = open (froot + '_special.txt', 'w')
@@ -75,7 +71,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    ?cn c:IdentifiedObject.name ?bus.
    OPTIONAL {?scp c:ShuntCompensatorPhase.ShuntCompensator ?s.
    ?scp c:ShuntCompensatorPhase.phase ?phsraw.
-     bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phases) } }
+     bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phases) } } ORDER by ?name ?bus ?phases
   """
   #print (qstr)
   sparql.setQuery(qstr)
@@ -113,7 +109,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
   ?s c:IdentifiedObject.name ?name.
   ?s c:IdentifiedObject.mRID ?eqid.
   }
-  ORDER BY ?pname ?tname ?rname ?wnum
+  ORDER BY ?pname ?tname ?rname ?wnum ?orderedPhases
   """
 #  print (qstr)
   sparql.setQuery(qstr)
@@ -147,7 +143,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    ?pep c:PowerElectronicsConnectionPhase.phase ?phsraw.
     bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) } } ORDER BY ?name ?phs
    } GROUP BY ?name ?uname ?bus ?eqid ?trmid
-   ORDER BY ?name
+   ORDER BY ?name ?bus ?phases
   """
   #print (qstr)
   sparql.setQuery(qstr)
@@ -180,7 +176,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    ?pep c:PowerElectronicsConnectionPhase.phase ?phsraw.
     bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) } } ORDER BY ?name ?phs
    } GROUP BY ?name ?uname ?bus ?eqid ?trmid
-   ORDER BY ?name
+   ORDER BY ?name ?bus ?phases
   """
   #print (qstr)
   sparql.setQuery(qstr)
@@ -218,7 +214,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    ?scp c:SwitchPhase.phaseSide1 ?phs1raw.
     bind(strafter(str(?phs1raw),\"SinglePhaseKind.\") as ?phs1) } } ORDER BY ?name ?phs1
    } GROUP BY ?cimtype ?name ?bus1 ?bus2 ?eqid ?trm1id ?trm2id
-   ORDER BY ?cimtype ?name
+   ORDER BY ?cimtype ?name ?bus1 ?bus2 ?phs1
   """
   sparql.setQuery(qstr)
   ret = sparql.query()
@@ -226,6 +222,8 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
     phases1 = FlatPhases (b['phases1'].value)
     bus1 = b['bus1'].value
     bus2 = b['bus2'].value
+    if taxonomy and ('s' in phases1[0]):
+      phases1 = []
     for phs1 in phases1:
       print (b['cimtype'].value,'i1',b['name'].value,bus1,bus2,phs1,b['eqid'].value,b['trm1id'].value,b['trm2id'].value,file=op)
       if not busphases[bus1][phs1]:
@@ -258,7 +256,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    ?acp c:ACLineSegmentPhase.phase ?phsraw.
     bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) } } ORDER BY ?name ?phs
    } GROUP BY ?name ?bus1 ?bus2 ?eqid ?trm1id ?trm2id
-   ORDER BY ?name
+   ORDER BY ?name ?bus1 ?bus2 ?phs
   """
   #print (qstr)
   sparql.setQuery(qstr)
@@ -295,7 +293,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    ?acp c:EnergyConsumerPhase.phase ?phsraw.
     bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) } } ORDER BY ?name ?phs
    } GROUP BY ?name ?bus ?eqid ?trmid
-   ORDER BY ?name
+   ORDER BY ?name ?bus ?phs
   """
   #print (qstr)
   sparql.setQuery(qstr)
@@ -321,7 +319,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    ?t1 c:Terminal.ConnectivityNode ?cn1. 
    ?cn1 c:IdentifiedObject.name ?bus.
    }
-   ORDER BY ?name
+   ORDER BY ?name ?bus
   """
   sparql.setQuery(qstr)
   ret = sparql.query()
@@ -346,7 +344,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    ?trm c:Terminal.ConnectivityNode ?cn. 
    ?cn c:IdentifiedObject.name ?bus.
   }
-  ORDER BY ?name ?wnum
+  ORDER BY ?name ?wnum ?bus
   """
   #print (qstr)
   sparql.setQuery(qstr)
@@ -376,7 +374,7 @@ def list_measurables (cfg_file, froot, mRID, outpath=None):
    OPTIONAL {?end c:TransformerTankEnd.orderedPhases ?phsraw.
     bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?orderedPhases)}
   }
-  ORDER BY ?name ?wnum ?phs
+  ORDER BY ?name ?wnum ?bus ?orderedPhases
   """
   #print (qstr)
   sparql.setQuery(qstr)
@@ -400,6 +398,9 @@ if __name__ == '__main__':
   froot = sys.argv[2]
   mRID = sys.argv[3]
   outpath = None
+  taxonomy = False
   if len(sys.argv) > 4:
     outpath = sys.argv[4]
-  list_measurables (cfg_file, froot, mRID, outpath)
+  if len(sys.argv) > 5:
+    taxonomy = bool (int(sys.argv[5]))
+  list_measurables (cfg_file, froot, mRID, outpath, taxonomy)

@@ -1547,25 +1547,38 @@ public class CIMImporter extends Object {
 
     // try to link all CIM measurements to the GridLAB-D objects
 //    PrintGldNodeMap (mapNodes, "GldNode Map for Measurements");
+    HashMap<String,GldNode> mapLoadNodes = new HashMap<>();
+    for (HashMap.Entry<String,GldNode> pair : mapNodes.entrySet()) {
+      GldNode nd = pair.getValue();
+      if (nd.loadname.length() > 0) {
+        mapLoadNodes.put(nd.loadname, nd);
+      }
+    }
+//    PrintGldNodeMap (mapLoadNodes, "GldLoadNode Map for Measurements");
     int measurements_not_linked = 0;
+    int measurements_no_bus = 0;
     for (HashMap.Entry<String,DistMeasurement> pair : mapMeasurements.entrySet()) {
       DistMeasurement obj = pair.getValue();
-//      System.out.println (obj.DisplayString());
       GldNode nd = mapNodes.get (obj.bus);
-//      System.out.println (nd.DisplayString());
+      if (nd == null) {
+        nd = mapLoadNodes.get (obj.GetGldLoadName());
+      }
       if (nd != null) {
         obj.FindSimObject (nd.loadname, nd.phases, nd.bStorageInverters, nd.bSolarInverters, nd.bSyncMachines);
         if (!obj.LinkedToSimulatorObject()) {
           measurements_not_linked += 1;
+          System.out.println ("  unlinked " + obj.DisplayString());
         }
       } else {
-        measurements_not_linked += 1;
+        measurements_no_bus += 1;
+        System.out.println ("  no GldNode for " + obj.DisplayString());
       }
     }
-    if (measurements_not_linked > 0) {
-      System.out.println ("*** Could not FindSimObject for " + Integer.toString (measurements_not_linked) + " Measurements");
+    if ((measurements_not_linked+measurements_no_bus) > 0) {
+      System.out.println ("*** Could not FindSimObject for " + Integer.toString (measurements_not_linked) +
+                          " or bus for " + Integer.toString (measurements_no_bus) + 
+                          " out of " + Integer.toString(mapMeasurements.size()) + " Measurements");
     }
-
     out.close();
   }
 

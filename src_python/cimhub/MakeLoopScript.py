@@ -127,7 +127,7 @@ if __name__ == '__main__':
     {'file':'IEEE13_OCHRE',   'opts':'-e=carson -p=1'},
     {'file':'IEEE37',         'opts':'-e=carson -p=1'},
     {'file':'IEEE8500',       'opts':'-e=carson -i=1'}, # needed to converge
-    {'file':'IEEE8500_3subs', 'opts':'-e=carson -p=1'},
+    {'file':'IEEE9500bal',    'opts':'-e=carson -p=1'},
     {'file':'R2_12_47_2',     'opts':'-e=carson -p=1'},
     {'file':'Transactive',    'opts':'-e=carson -p=1'},
   ]

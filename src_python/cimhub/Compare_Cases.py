@@ -19,7 +19,7 @@ casefiles = [{'root':'ACEP_PSIL',      'do_gld':True,  'bases':[314.0,480.0], 'c
              {'root':'IEEE13_OCHRE',   'do_gld':True,  'bases':[480.0,4160.0,115000.0], 'check_branches':[]},
              {'root':'IEEE37',         'do_gld':False, 'bases':[480.0,4800.0,230000.0], 'check_branches':[{'dss_link': 'LOAD.S728', 'dss_bus': '728'}]},
              {'root':'IEEE8500',       'do_gld':True,  'bases':[12470.0,115000.0], 'check_branches':[]},
-             {'root':'IEEE8500_3subs', 'do_gld':True,  'bases':[12480.0,69000.0,115000.0], 'check_branches':[]},
+             {'root':'IEEE9500bal',    'do_gld':True,  'bases':[12480.0,69000.0,115000.0], 'check_branches':[]},
              {'root':'R2_12_47_2',     'do_gld':True,  'bases':[480.0,12470.0,100000.0], 'check_branches':[]}]
 
 dir1 = './test/'     # baseline dss outputs

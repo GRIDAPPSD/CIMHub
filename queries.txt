@@ -1426,8 +1426,7 @@ SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid ?seq ?phs ?t1id ?t2id
 #     (group_concat(distinct ?phs;separator="\n") as ?phases) 
 WHERE {
 # feeder selection options - if all commented out, query matches all feeders
-#VALUES ?fdrid {"_E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # CIM100 13 bus
-#VALUES ?fdrid {"_803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
+#VALUES ?fdrid {"_AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
  ?s r:type c:ACLineSegment.
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
@@ -1872,7 +1871,7 @@ PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT ?name ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid ?t1id ?t2id WHERE {
  ?s r:type c:ACLineSegment.
 # feeder selection options - if all commented out, query matches all feeders
-#VALUES ?fdrid {"_4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
+#VALUES ?fdrid {"_AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?s c:IdentifiedObject.name ?name.
@@ -2056,12 +2055,12 @@ PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?phs ?phname ?phclass ?t1id ?t2id
     WHERE {
 # feeder selection options - if all commented out, query matches all feeders
-#VALUES ?fdrid {"_E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # CIM100 13 bus
-#VALUES ?fdrid {"_803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
+#VALUES ?fdrid {"_AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
  ?s r:type c:ACLineSegment.
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
  ?s c:Conductor.length ?len.
