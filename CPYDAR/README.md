@@ -11,7 +11,7 @@ The model files are versioned in subdirectories _ieee13x_, _ieee123x_, and _j1re
 3. The UUID values are persisted in _*_uuids.dat_.
 4. Base case power flow solution is in _*_?.csv_.
 
-## Process
+## Loading and Testing CIM Models
 
 The test case conversion to CIM XML is executed with ```python3 test_CPYDAR.py```. The steps cover:
 
@@ -21,7 +21,6 @@ The test case conversion to CIM XML is executed with ```python3 test_CPYDAR.py``
 4. Solve the exported models in OpenDSS and GridLAB-D
 5. Compare the original OpenDSS power flow results with exported OpenDSS and GridLAB-D power flow results
 
-The test case conversion to ePHASORSIM is executed with ```python3 ePHASORSIM.py```. 
 The test cases are configured by entries in the ```cases``` array near the top of ```test_CPYDAR.py```.
 Each array element is a dictionary with the following keys:
 
@@ -37,6 +36,27 @@ Each array element is a dictionary with the following keys:
     - **gld_link** is the name of a GridLAB-D branch for power and current flow; only links, e.g., line or transformer, may be used. Do not use this when **skip_gld** is ```True```
     - **gld_bus** is the name of a GridLAB-D bus attached to **gld_link**. Do not use this when **skip_gld** is ```True```
 
+## Exporting ePHASORSIM Spreadsheets
+
+The test case conversion to ePHASORSIM is executed with ```python3 ePHASORSIM.py [0,1,2]```.
+The numerical command-line argument converts _ieee13x_, _ieee123x_, and _j1red_, respectively.
+If not provided, the script converts _ieee13x_ by default.
+
+The ePHASORSIM exporter adds prefixes to the component names, in the effort to make them unique:
+
+- Voltage Source prefix is VS_
+- Line prefix is LN_
+- Load prefix is LD_
+- Shunt prefix is SH_
+- Transformer prefix is XF_
+- Switch prefix is SW_
+- There is no prefix on Bus names
+
+The exporter writes distributed energy resources (DER) as Loads with negative power if generating,
+or with positive power for storage that is charging.
+
+## Load Flow Comparison Results
+
 The script outputs include the comparisons requested from **check_branches**, and summary information:
 
 - **Nbus** is the number of buses found in [Base OpenDSS, Converted OpenDSS, Converted GridLAB-D]
@@ -44,8 +64,6 @@ The script outputs include the comparisons requested from **check_branches**, an
 - **MAEv** is the mean absolute voltage error between Base OpenDSS and [Converted OpenDSS, Converted GridLAB-D], in per-unit. This is based on line-to-neutral voltages.
 In an ungrounded system, MAEv can be large. Use the line-to-line voltage comparisons from **check_branches** for ungrounded systems.
 - **MAEi** is the mean absolute link current error between Base OpenDSS and [Converted OpenDSS, Converted GridLAB-D], in Amperes
-
-## Results
 
 ```
   OpenDSS branch flow in LINE.650632 from RG60, Base case

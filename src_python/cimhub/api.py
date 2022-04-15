@@ -40,4 +40,7 @@ from .MakeLoopScript import make_dssrun_script
 from .MakeGlmTestScript import make_glmrun_script
 from .Compare_Cases import compare_cases
 
+from .SPARQL_Dict import load_feeder_dict
+from .SPARQL_Dict import summarize_feeder_dict
+from .SPARQL_Dict import list_dict_table
 
