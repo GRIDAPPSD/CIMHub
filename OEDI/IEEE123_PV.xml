@@ -13001,7 +13001,7 @@
   <cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
-  <cim:TapChanger.step>2</cim:TapChanger.step>
+  <cim:TapChanger.step>3</cim:TapChanger.step>
   <cim:TapChanger.ptRatio>20</cim:TapChanger.ptRatio>
   <cim:TapChanger.ctRatio>1500</cim:TapChanger.ctRatio>
   <cim:TapChanger.ctRating>300</cim:TapChanger.ctRating>

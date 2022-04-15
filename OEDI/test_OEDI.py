@@ -1,18 +1,28 @@
-# Copyright (C) 2021 Battelle Memorial Institute
+# Copyright (C) 2021-2022 Battelle Memorial Institute
 # file: test_OEDI.py
 
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import os
+import sys
 import subprocess
 import stat
 import shutil 
 
-cfg_json = 'cimhubconfig.json'
+cfg_json = '../queries/cimhubconfig.json'
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 ckt_mRID = '_E407CBB6-8C8D-9BC9-589C-AB83FBF0826D'
 froot = 'IEEE123_PV'
 cwd = os.getcwd()
+
+if sys.platform == 'win32':
+  shfile_export = 'go.bat'
+  shfile_glm = './glm/checkglm.bat'
+  shfile_run = 'checkglm.bat'
+else:
+  shfile_export = './go.sh'
+  shfile_glm = './glm/checkglm.sh'
+  shfile_run = './checkglm.sh'
 
 cases = [
   {'root':froot, 'mRID':'E407CBB6-8C8D-9BC9-589C-AB83FBF0826D','glmvsrc': 2400.00,'bases':[4160.0],
@@ -38,11 +48,10 @@ for mtxt in ['node_v', 'xfmr_pq', 'lines_pq', 'switch_i', 'loads', 'machines', '
 cimhub.summarize_db (cfg_json)
 
 # create the OpenDSS, GridLAB-D and CSV versions
-shfile = './go.sh'
-cimhub.make_export_script (shfile, cases, dsspath='dss/', glmpath='glm/', csvpath='csv/')
-st = os.stat (shfile)
-os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-p1 = subprocess.call (shfile, shell=True)
+cimhub.make_export_script (shfile_export, cases, dsspath='dss/', glmpath='glm/', csvpath='csv/')
+st = os.stat (shfile_export)
+os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile_export, shell=True)
 
 # run some load flow comparisons
 cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss')
@@ -51,12 +60,11 @@ p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
 p1.wait()
 
 os.chdir(cwd)
-cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname='./glm/checkglm.sh', movefiles=False)
-shfile = './glm/checkglm.sh'
-st = os.stat (shfile)
-os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname=shfile_glm, movefiles=False)
+st = os.stat (shfile_glm)
+os.chmod (shfile_glm, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 os.chdir('./glm')
-p1 = subprocess.call ('./checkglm.sh')
+p1 = subprocess.call (shfile_run)
 
 os.chdir(cwd)
 cimhub.compare_cases (casefiles=cases, basepath='./', dsspath='./dss/', glmpath='./glm/')
