@@ -1,6 +1,7 @@
 convert*.dss
 *.csv
 go.sh
+go.bat
 dss/
 glm/
 csv/

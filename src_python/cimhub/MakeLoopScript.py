@@ -59,27 +59,41 @@ def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, cs
 
 def make_export_script (scriptname, cases, dsspath=None, glmpath=None, csvpath=None, clean_dirs=True):
   fp = open (scriptname, 'w')
-  print ('#!/bin/bash', file=fp)
-  print ('source envars.sh', file=fp)
-  for outpath in [dsspath, glmpath, csvpath]:
-    if outpath is not None:
-      if clean_dirs:
-        print ('rm -rf', outpath, file=fp)
-      print ('mkdir', outpath, file=fp)
+  bWindows = scriptname.endswith('.bat')
+  cp_string = ''
+  if bWindows:
+    cp_string = '%CIMHUB_PATH% %CIMHUB_PROG% -u=%DB_URL%'
+    print ('call envars.bat', file=fp)
+    for outpath in [dsspath, glmpath, csvpath]:
+      if outpath is not None:
+        if clean_dirs:
+          outpath = os.path.relpath(outpath)
+          print ('rd /s /q', outpath, file=fp)
+          print ('md', outpath, file=fp)
+  else:
+    cp_string = '$CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL'
+    print ('#!/bin/bash', file=fp)
+    print ('source envars.sh', file=fp)
+    for outpath in [dsspath, glmpath, csvpath]:
+      if outpath is not None:
+        if clean_dirs:
+          outpath = os.path.relpath(outpath)
+          print ('rm -rf', outpath, file=fp)
+          print ('mkdir', outpath, file=fp)
   for row in cases:
     if 'export_options' in row:
       opts = row['export_options']
     else:
       opts = ' -l=1.0 -i=1.0'
     if dsspath is not None:
-      print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
+      print('java -cp', cp_string, '-o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
     if csvpath is not None:
-      print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=csv {:s}'.format (opts), csvpath + row['root'], file=fp)
+      print('java -cp', cp_string, '-o=csv {:s}'.format (opts), csvpath + row['root'], file=fp)
     if glmpath is not None:
       if 'skip_gld' in row:
         if row['skip_gld']:
           continue
-      print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
+      print('java -cp', cp_string, '-o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
   fp.close()
 
 def make_dssrun_script (casefiles, scriptname, bControls=False, tol=1e-8):

@@ -8,16 +8,25 @@ import subprocess
 import stat
 import shutil
 import glob 
+import sys
 
-cfg_json = 'cimhubconfig.json'
+cfg_json = '../queries/cimhubconfig.json'
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 cwd = os.getcwd()
+
+if sys.platform == 'win32':
+  shfile_export = 'go.bat'
+  shfile_glm = './glm/checkglm.bat'
+  shfile_run = 'checkglm.bat'
+else:
+  shfile_export = './go.sh'
+  shfile_glm = './glm/checkglm.sh'
+  shfile_run = './checkglm.sh'
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 #
 # 6114163B-E844-4DB9-9263-A2F2D5D0B596
 # 
-
 
 cases = [
   {'dssname':'ieee13pv', 'root':'ieee13x', 'mRID':'4BE6DD69-8FE9-4C9F-AD44-B327D5623974',
@@ -63,14 +72,13 @@ for row in cases:
 cimhub.list_feeders ()
 
 #cimhub.list_measurables (cfg_json, 'j1red', '_1C9727D2-E4D2-4084-B612-90A44E1810FD')
-#quit()
 
 # create the OpenDSS, GridLAB-D and CSV versions
-shfile = './go.sh'
-cimhub.make_export_script (shfile, cases, dsspath='dss/', glmpath='glm/', csvpath='csv/')
-st = os.stat (shfile)
-os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-p1 = subprocess.call (shfile, shell=True)
+
+cimhub.make_export_script (shfile_export, cases, dsspath='dss/', glmpath='glm/', csvpath='csv/')
+st = os.stat (shfile_export)
+os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile_export, shell=True)
 
 ## run some load flow comparisons
 for row in cases:
@@ -81,14 +89,11 @@ for row in cases:
   p1.wait()
 
 os.chdir(cwd)
-cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname='./glm/checkglm.sh', movefiles=False)
-shfile = './glm/checkglm.sh'
-st = os.stat (shfile)
-os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname=shfile_glm, movefiles=False)
+st = os.stat (shfile_glm)
+os.chmod (shfile_glm, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 os.chdir('./glm')
-p1 = subprocess.call ('./checkglm.sh')
-
-#quit()
+p1 = subprocess.call (shfile_run)
 
 # copy base DSS solutions to the same directory for compare_cases function to work
 os.chdir(cwd)

@@ -45,7 +45,9 @@ def write_glm_case (c, v, fp, bHouses=False):
 
 def make_glmrun_script (casefiles, inpath, outpath, scriptname, movefiles=True, bHouses=False):
   bp = open (scriptname, 'w')
-  print ('#!/bin/bash', file=bp)
+  bWindows = scriptname.endswith('.bat')
+  if not bWindows:
+    print ('#!/bin/bash', file=bp)
   if movefiles:
     print('cd', inpath, file=bp)
   for row in casefiles:
