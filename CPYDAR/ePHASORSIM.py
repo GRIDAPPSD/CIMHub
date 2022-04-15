@@ -1124,7 +1124,7 @@ def write_ephasor_model (dict, filename):
   print ('DER at buses', der_buses)
 
 if __name__ == '__main__':
-  cfg_file = 'cimhubconfig.json'
+  cfg_file = '../queries/cimhubconfig.json'
   case_id = 0
 #  if len(sys.argv) > 1:
 #    cfg_file = sys.argv[1]
@@ -1136,7 +1136,7 @@ if __name__ == '__main__':
   initialize_SPARQL (cfg_file)
 
   # read the queries into dict
-  tree = ET.parse('../q100.xml')
+  tree = ET.parse('../queries/q100.xml')
   root = tree.getroot()
   nsCIM = root.find('nsCIM').text.strip()
   nsRDF = root.find('nsRDF').text.strip()
