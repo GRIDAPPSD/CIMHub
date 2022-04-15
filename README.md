@@ -17,40 +17,63 @@ Please make sure that GIT LFS is installed before checking out or cloning this r
 
 ## End User Instructions
 
-CIMHub requires Docker for the database engine, and it runs on Linux (best), Windows or Mac OS X.
-Some of the [converters to OpenDSS](converters) may only work on Windows, in cases where the input file
-comes from a Windows-only database.
+CIMHub requires either Java 11 or Docker for the database engine, and 
+Python version 3.8 or later.  It runs on Linux, Windows or Mac OS 
+X.  Some of the [converters to OpenDSS](converters) may only work on 
+Windows, in cases where the input file comes from a Windows-only database.  
 
-### Docker and Blazegraph Setup
+### Option 1: Java and Blazegraph Setup
 
-Blazegraph requires Java 8, which is no longer widely available for new installations.  Blazegraph isn't 
-compatible with Java 9 or newer versions. Therefore, we recommend using Blazegraph in a Docker container: 
+Unless you already have Docker installed, this option is probably more convenient.
+However, there may be technical or licensing concerns with installation of Java. If so,
+please consider the Docker option below.
 
-1. Install the [Docker Engine](https://docs.docker.com/install/)
-2. Install the Blazegraph engine with _docker pull lyrasis/blazegraph:2.1.5_
+1. Install the Python package with ```pip install cimhub --upgrade```
+2. Install Java Development Kit (JDK) 11 or later [as instructed](https://docs.oracle.com/en/java/javase/11/install/index.html)
+3. Install Blazegraph 2.1.6 from [releases](https://github.com/blazegraph/database/releases)
+4. Install the CIMHub exporter by downloading a JAR file _TBD_
 
-### Getting Started Example
+### Option 2: Docker and Blazegraph Setup
+
+With this option, you don't have to install Java directly. The Docker container
+encapsulates Java 8 with a compatible (and sufficient) version of Blazegraph. 
+
+1. Install the Python package with ```pip install cimhub --upgrade```
+2. Install the [Docker Engine](https://docs.docker.com/install/)
+3. Install the Blazegraph engine with _docker pull lyrasis/blazegraph:2.1.5_
+4. Install the CIMHub exporter with _docker pull gridappsd/cimhub:1.0.1_
+
+### Option 1: Getting Started Example with Java and Windows
 
 This example converts two versions of the IEEE 13-Bus case from OpenDSS to CIM and GridLAB-D,
 without writing code. One version uses phase impedance matrices for line segments. The other version,
 labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
 for the transformers.
 
-1. Install the converter with _docker pull gridappsd/cimhub:0.0.4_
-2. From a Terminal, start the converter and Blazegraph with _./start.sh_
-3. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
+1. From a command prompt in the Blazegraph installation directory, start the Blazegraph engine with ```java -server -Xmx4g -jar blazegraph.jar```
+2. From another command prompt in the examples directory _TBD_
+
+### Option 2: Getting Started Example with Docker and Linux
+
+This example converts two versions of the IEEE 13-Bus case from OpenDSS to CIM and GridLAB-D,
+without writing code. One version uses phase impedance matrices for line segments. The other version,
+labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
+for the transformers.
+
+1. From a Terminal, start the converter and Blazegraph with _./start.sh_
+2. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
    * _cd example_
    * _./example.sh_
    * _tail sum*.csv_ to verify that the converted OpenDSS files ran correctly
    * see the comments embedded in _example.sh_ for more information
-4. To shut down the converter:
+3. To shut down the converter:
    * _exit_ from inside the Docker Terminal
    * _./stop.sh_ from the host Terminal
 
 The example script may produce error messages upon first invocation, 
 because the Blazegraph engine doesn't start immediately.  However, the 
 example does complete successfully.  You may re-run the example starting 
-from step 2.  You may also wish to modify _docker-compose.yml_ so that it 
+from step 1.  You may also wish to modify _docker-compose.yml_ so that it 
 mounts a local directory inside the converter, for transferring your own 
 files between the host and Docker.
 
@@ -164,6 +187,7 @@ The actively maintained directories are:
 
 * ```cimhub/src``` Java source for CIMHub
 * ```converters``` CYMDist and Synergi conversion to OpenDSS
+* ```CPYDAR``` Python scripts to create spreadsheet input files for the ePHASORSIM module of Opal-RT
 * ```der``` test cases for DER with smart inverter functions as defined in IEEE Std. 1547-2018
 * ```doc``` description of the CIM support in OpenDSS
 * ```example``` test CIMHub on the IEEE 13-bus model
@@ -173,6 +197,7 @@ The actively maintained directories are:
 * ```model_output_tests``` scratch directory for model output tst results
 * ```lv_network``` test cases for European and North American low-voltage distribution networks
 * ```OEDI``` creates a version of the IEEE 123-Bus test circuit with DER, for the OEDI project
+* ```queries``` text and xml files with SPARQL queries to use in a web browser, or from a Python script
 * ```src_python/cimhub``` Python source, bash scripts and supporting data files
 * ```support``` contains GridLAB-D schedules for end-use, commercial, and thermostat-controlled loads
 * ```tests``` contains scripts to test functions of the cimhub Python module
