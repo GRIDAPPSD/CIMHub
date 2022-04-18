@@ -1424,6 +1424,8 @@ PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid ?seq ?phs ?t1id ?t2id
 #     (group_concat(distinct ?seq;separator="\n") as ?seqs) 
 #     (group_concat(distinct ?phs;separator="\n") as ?phases) 
+# the group_concat doesn't maintain order, so we can't rely on synchronization between the phases and sequence numbers
+# here, we explicitly retain separate row for each phase, and order them by sequenceNumber
 WHERE {
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"_AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
@@ -1452,6 +1454,46 @@ WHERE {
      bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)}
 }
 ORDER BY ?name ?seq ?phs
+
+# lines referencing linecodes - DistLinesCodeZ2
+# concatenates the sequence/phase fields, as in q100.xml
+# the group_concat doesn't maintain order, so we can't rely on synchronization between the phases and sequence numbers
+# here, we explicitly bind sequenceNumber and phase in seqphs
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid ?t1id ?t2id
+     (group_concat(distinct ?seqphs;separator=":") as ?seqs) 
+     (group_concat(distinct ?phs;separator="") as ?phases) 
+WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"_AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.PerLengthImpedance ?lcode.
+ ?lcode c:IdentifiedObject.name ?lname. 
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+   ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
+     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+     bind(concat(?seq, ?phs) as ?seqphs)}
+}
+GROUP BY ?name ?basev ?bus1 ?bus2 ?len ?lname ?fdrid ?t1id ?t2id
+ORDER BY ?name
 
 # load-break switches (not handling different phases on each side, or different normalOpen values per phase) - DistLoadBreakSwitch
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
