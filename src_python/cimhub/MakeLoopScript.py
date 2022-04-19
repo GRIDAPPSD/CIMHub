@@ -29,32 +29,44 @@ def append_xml_case (cases, xmlpath, outpath, fp):
 
 def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, csvpath=None, clean_dirs=True):
   fp = open (scriptname, 'w')
-  print ('#!/bin/bash', file=fp)
-  print ('source envars.sh', file=fp)
-  if clean_dirs:
-    print ('rm -rf', dsspath, file=fp)
-    print ('rm -rf', glmpath, file=fp)
-  print ('mkdir', dsspath, file=fp)
-  print ('mkdir', glmpath, file=fp)
-  if csvpath is not None:
-    if clean_dirs:
-      print ('rm -rf', csvpath, file=fp)
-    print ('mkdir', csvpath, file=fp)
+  bWindows = scriptname.endswith('.bat')
+  cp_string = ''
+  if bWindows:
+    cp_string = '%CIMHUB_PATH% %CIMHUB_PROG% -u=%DB_URL%'
+    db_string = '%DB_URL%'
+    print ('call envars.bat', file=fp)
+    for outpath in [dsspath, glmpath, csvpath]:
+      if outpath is not None:
+        if clean_dirs:
+          outpath = os.path.relpath(outpath)
+          print ('rd /s /q', outpath, file=fp)
+          print ('md', outpath, file=fp)
+  else:
+    cp_string = '$CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL'
+    db_string = '$DB_URL'
+    print ('#!/bin/bash', file=fp)
+    print ('source envars.sh', file=fp)
+    for outpath in [dsspath, glmpath, csvpath]:
+      if outpath is not None:
+        if clean_dirs:
+          outpath = os.path.relpath(outpath)
+          print ('rm -rf', outpath, file=fp)
+          print ('mkdir', outpath, file=fp)
   for row in casefiles:
     if 'export_options' in row:
       opts = row['export_options']
     else:
       opts = ' -l=1.0 -i=1.0'
-    print('curl -D- -X POST $DB_URL --data-urlencode "update=drop all"', file=fp) # print('./drop_all.sh arg', file=fp)
+    print('curl -D- -X POST', db_string, '--data-urlencode "update=drop all"', file=fp)
     print('curl -D- -H "Content-Type: application/xml" --upload-file', 
-          xmlpath + row['root'] + '.xml', '-X POST $DB_URL', file=fp)
-    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
+          xmlpath + row['root'] + '.xml', '-X POST', db_string, file=fp)
+    print('java -cp', cp_string, '-o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
     if csvpath is not None:
-      print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=csv {:s}'.format (opts), csvpath + row['root'], file=fp)
+      print('java -cp', cp_string, '-o=csv {:s}'.format (opts), csvpath + row['root'], file=fp)
     if 'skip_gld' in row:
       if row['skip_gld']:
         continue
-    print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
+    print('java -cp', cp_string, '-o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
   fp.close()
 
 def make_export_script (scriptname, cases, dsspath=None, glmpath=None, csvpath=None, clean_dirs=True):

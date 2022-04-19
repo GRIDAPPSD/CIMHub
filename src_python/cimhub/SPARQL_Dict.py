@@ -51,7 +51,7 @@ def query_for_values (tbl, fid):
       if fld not in b:
         row[fld] = ''
       else:
-        if fld in ['name', 'phases', 'bus', 'state', 'conn', 'fdrid', 'bus1', 'bus2']:
+        if fld in ['name', 'phases', 'bus', 'state', 'conn', 'fdrid', 'bus1', 'bus2', 'lname']:
           row[fld] = b[fld].value
         else:
           try:

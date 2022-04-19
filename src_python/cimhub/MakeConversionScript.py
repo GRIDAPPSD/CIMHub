@@ -1,4 +1,4 @@
-import sys;
+import sys
 
 def append_cases(casefiles, dsspath, outpath, region, subregion, fp):
     for c in casefiles:
