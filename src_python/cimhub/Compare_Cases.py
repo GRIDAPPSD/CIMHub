@@ -39,11 +39,11 @@ def dss_phase(col):
 
 def glmVpu(v, bases):
   vpu = v / 120.0
-  if vpu < 1.1:
+  if vpu < 1.15:
     return vpu
   for vbase in bases:
     vpu = v / vbase
-    if vpu < 1.1:
+    if vpu < 1.15:
       return vpu
   return 0.0 # indicates a problem
 

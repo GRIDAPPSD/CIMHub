@@ -128,7 +128,7 @@ local_unity_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     B   8426.14  4.2639    242.93  0.8865  -1990.309 + j  -478.193     BC    14594.49 -1.4957
     C   8426.14  2.1695    242.93 -1.2078  -1990.309 + j  -478.193     CA    14594.49  2.6931
     Total S = -5970.928 + j -1434.579
-local_optpf_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.0270,  17.3945]
+local_optpf_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0421] MAEi=[   0.0270,  17.3945]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7917.96  0.1082    278.51 -2.5864  -1988.604 + j   953.206     AB    13714.31  0.6318
@@ -147,7 +147,7 @@ local_optpf_a    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     B   8521.21  4.2579    250.33  0.7476  -1989.716 + j  -768.830     BC    14759.17 -1.5017
     C   8521.21  2.1635    250.33 -1.3468  -1989.716 + j  -768.830     CA    14759.17  2.6871
     Total S = -5969.148 + j -2306.490
-local_optpf_b    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.2335,  28.1860]
+local_optpf_b    Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0647] MAEi=[   0.2335,  28.1860]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8117.38  0.0942    250.44 -2.8405  -1989.600 + j   417.462     AB    14059.71  0.6178
@@ -211,7 +211,7 @@ local_combo_b    Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[
     B   8413.84  4.2647    242.30  0.9050  -1990.359 + j  -441.121     BC    14573.19 -1.4949
     C   8413.84  2.1703    242.30 -1.1894  -1990.359 + j  -441.121     CA    14573.19  2.6939
     Total S = -5971.078 + j -1323.361
-local_vvar_a     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.0230,   1.5051]
+local_vvar_a     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0230] MAEi=[   0.0230,   1.5051]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8124.73  0.0942    249.72 -2.8508  -1989.870 + j   396.171     AB    14072.45  0.6178
@@ -230,7 +230,7 @@ local_vvar_a     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     B   8561.43  4.2553    254.74  0.6914  -1989.352 + j  -893.942     BC    14828.83 -1.5042
     C   8561.43  2.1609    254.74 -1.4030  -1989.352 + j  -893.942     CA    14828.83  2.6845
     Total S = -5968.058 + j -2681.825
-local_vvar_b     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0000] MAEi=[   0.0642,   5.0224]
+local_vvar_b     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0469] MAEi=[   0.0642,   5.0224]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8013.01  0.1012    263.20 -2.7009  -1988.690 + j   702.280     AB    13878.94  0.6248
@@ -384,7 +384,7 @@ local_wvar_b     Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[
     B   8555.88  4.2604    263.15  0.7353  -2088.005 + j  -842.353     BC    14819.22 -1.4992
     C   8555.88  2.1660    263.15 -1.3590  -2088.005 + j  -842.353     CA    14819.22  2.6896
     Total S = -6264.015 + j -2527.060
-remote_1phase_b  Nbus=[    21,    21,    30] Nlink=[    27,    27,    15] MAEv=[ 0.0009, 0.4209] MAEi=[  17.1166,   2.6346]
+remote_1phase_b  Nbus=[    21,    21,    30] Nlink=[    27,    27,    15] MAEv=[ 0.0009, 0.3207] MAEi=[  17.1166,   2.6346]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   8094.88  0.0960    252.80 -2.8093  -1989.533 + j   479.114     AB    14020.74  0.6196
