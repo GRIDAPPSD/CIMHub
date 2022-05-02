@@ -1,0 +1,218 @@
+LINE CONSTANTS
+Frequency = 60 Hz, Earth resistivity = 100 ohm-m
+Earth Model = Deri
+
+
+--------------------------------------------------
+Geometry Code = ohd
+
+R MATRIX, ohms per mi
+0.340352, 
+0.157721, 0.350714, 
+0.154668, 0.159811, 0.344313, 
+
+jX MATRIX, ohms per mi
+1.05232, 
+0.481288, 1.01832, 
+0.388599, 0.439591, 1.03924, 
+
+Susceptance (jB) MATRIX, S per mi
+5.83097E-6, 
+-1.7676E-6, 6.24919E-6, 
+-7.46604E-7, -1.39601E-6, 5.70229E-6, 
+
+L MATRIX, mH per mi
+2.79137, 
+1.27665, 2.70118, 
+1.03079, 1.16605, 2.75667, 
+
+C MATRIX, nF per mi
+15.4671, 
+-4.68871, 16.5765, 
+-1.98043, -3.70304, 15.1258, 
+
+-------------------------------------------------------------------
+-------------------Equiv Symmetrical Component --------------------
+-------------------------------------------------------------------
+
+
+Z1, ohms per mi = 0.187726 + j 0.600135 (L1 = 1.59191 mH) 
+Z0, ohms per mi = 0.659926 + j 1.90961 (L0 = 5.0654 mH) 
+
+C1, nF per mi = 19.1805
+C0, nF per mi = 8.80835
+
+Surge Impedance:
+  Positive sequence = 288.09 ohms
+  Zero sequence     = 758.333 ohms
+  Common Mode       = 252.684 ohms
+
+Propagation Velocity (Percent of speed of light):
+  Positive sequence = 97.1491 
+  Zero sequence     = 80.3663 
+
+
+--------------------------------------------------
+Geometry Code = ts1
+
+R MATRIX, ohms per mi
+1.29215, 
+
+jX MATRIX, ohms per mi
+0.690857, 
+
+Susceptance (jB) MATRIX, S per mi
+0.000100931, 
+
+L MATRIX, mH per mi
+1.83256, 
+
+C MATRIX, nF per mi
+267.729, 
+
+--------------------------------------------------
+Geometry Code = ts3
+
+R MATRIX, ohms per mi
+1.27601, 
+0.318392, 1.28582, 
+0.296778, 0.309002, 1.27497, 
+
+jX MATRIX, ohms per mi
+0.726454, 
+0.301212, 0.62737, 
+0.177168, 0.174679, 0.643155, 
+
+Susceptance (jB) MATRIX, S per mi
+0.000100931, 
+0, 0.000100931, 
+0, 0, 0.000100931, 
+
+L MATRIX, mH per mi
+1.92698, 
+0.798989, 1.66415, 
+0.469954, 0.463352, 1.70602, 
+
+C MATRIX, nF per mi
+267.729, 
+0, 267.729, 
+0, 0, 267.729, 
+
+-------------------------------------------------------------------
+-------------------Equiv Symmetrical Component --------------------
+-------------------------------------------------------------------
+
+
+Z1, ohms per mi = 0.970876 + j 0.447973 (L1 = 1.18829 mH) 
+Z0, ohms per mi = 1.89505 + j 1.10103 (L0 = 2.92058 mH) 
+
+C1, nF per mi = 267.729
+C0, nF per mi = 267.729
+
+Surge Impedance:
+  Positive sequence = 66.6213 ohms
+  Zero sequence     = 104.445 ohms
+  Common Mode       = 34.759 ohms
+
+Propagation Velocity (Percent of speed of light):
+  Positive sequence = 30.0968 
+  Zero sequence     = 19.1976 
+
+
+--------------------------------------------------
+Geometry Code = cn3
+
+R MATRIX, ohms per mi
+0.791613, 
+0.319846, 0.782442, 
+0.285644, 0.319846, 0.791613, 
+
+jX MATRIX, ohms per mi
+0.445708, 
+0.0321796, 0.403459, 
+-0.014884, 0.0321796, 0.445708, 
+
+Susceptance (jB) MATRIX, S per mi
+0.000144749, 
+0, 0.000144749, 
+0, 0, 0.000144749, 
+
+L MATRIX, mH per mi
+1.18228, 
+0.085359, 1.07021, 
+-0.0394811, 0.085359, 1.18228, 
+
+C MATRIX, nF per mi
+383.959, 
+0, 383.959, 
+0, 0, 383.959, 
+
+-------------------------------------------------------------------
+-------------------Equiv Symmetrical Component --------------------
+-------------------------------------------------------------------
+
+
+Z1, ohms per mi = 0.480111 + j 0.415133 (L1 = 1.10118 mH) 
+Z0, ohms per mi = 1.40545 + j 0.464608 (L0 = 1.23241 mH) 
+
+C1, nF per mi = 383.959
+C0, nF per mi = 383.959
+
+Surge Impedance:
+  Positive sequence = 53.5533 ohms
+  Zero sequence     = 56.6547 ohms
+  Common Mode       = 18.8864 ohms
+
+Propagation Velocity (Percent of speed of light):
+  Positive sequence = 26.107 
+  Zero sequence     = 24.6779 
+
+
+--------------------------------------------------
+Geometry Code = cn3n
+
+R MATRIX, ohms per mi
+0.743493, 
+0.273288, 0.737609, 
+0.237246, 0.273, 0.742936, 
+
+jX MATRIX, ohms per mi
+0.46038, 
+0.049716, 0.423723, 
+-0.000430415, 0.0495184, 0.459941, 
+
+Susceptance (jB) MATRIX, S per mi
+0.000144749, 
+0, 0.000144749, 
+0, 0, 0.000144749, 
+
+L MATRIX, mH per mi
+1.2212, 
+0.131876, 1.12396, 
+-0.00114171, 0.131352, 1.22003, 
+
+C MATRIX, nF per mi
+383.959, 
+0, 383.959, 
+0, 0, 383.959, 
+
+-------------------------------------------------------------------
+-------------------Equiv Symmetrical Component --------------------
+-------------------------------------------------------------------
+
+
+Z1, ohms per mi = 0.480168 + j 0.41508 (L1 = 1.10103 mH) 
+Z0, ohms per mi = 1.2637 + j 0.513884 (L0 = 1.36312 mH) 
+
+C1, nF per mi = 383.959
+C0, nF per mi = 383.959
+
+Surge Impedance:
+  Positive sequence = 53.5498 ohms
+  Zero sequence     = 59.5833 ohms
+  Common Mode       = 19.8598 ohms
+
+Propagation Velocity (Percent of speed of light):
+  Positive sequence = 26.1087 
+  Zero sequence     = 23.4649 
+
