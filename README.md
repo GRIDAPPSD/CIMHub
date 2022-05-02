@@ -15,6 +15,8 @@ OpenJDK 11 and builds with Apache Maven.
 
 Please make sure that GIT LFS is installed before checking out or cloning this repository.
 
+## Documentation
+
 For an introduction to the CIM, see [EPRI's CIM Primer](https://www.epri.com/research/products/000000003002006001), which is currently free to the public. Then see [Profile Unified Modeling Language (UML)](https://gridappsd.readthedocs.io/en/develop/developer_resources/index.html#class-diagrams-for-the-profile) for documentation of the schema used in CIMHub.
 
 ## End User Instructions
