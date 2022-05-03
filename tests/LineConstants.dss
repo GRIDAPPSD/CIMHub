@@ -20,10 +20,13 @@ new LineSpacing.515x nconds=4 nphases=3 units=ft x=[-0.5 0.0 0.5 0.25] h=[-4 -4 
 new LineSpacing.520  nconds=2 nphases=1 units=ft x=[0.0 0.25] h=[-4 -4]
 new LineSpacing.520x nconds=4 nphases=3 units=ft x=[0.0 0.25 0.75 0.50] h=[-4 -4 -4 -4]
 
-new LineGeometry.ohd nconds=4 nphases=3 spacing=500 wires=[ACSR_556_5 ACSR_556_5 ACSR_556_5 ACSR_4/0] reduce=yes linetype=OH
-new LineGeometry.ts1 nconds=2 nphases=1 spacing=520 tscables=[TS_1/0] wires=[CU_1/0] reduce=yes linetype=UG_TS
+new LineGeometry.ohd601 nconds=4 nphases=3 spacing=500 wires=[ACSR_556_5 ACSR_556_5 ACSR_556_5 ACSR_4/0] reduce=yes linetype=OH
+new LineGeometry.ohd603 nconds=3 nphases=2 spacing=505 wires=[ACSR_1/0 ACSR_1/0 ACSR_1/0] reduce=yes linetype=OH
+new LineGeometry.ohd605 nconds=2 nphases=1 spacing=510 wires=[ACSR_1/0 ACSR_1/0] reduce=yes linetype=OH
+
 new LineGeometry.ts3 nconds=4 nphases=3 spacing=520x tscables=[TS_1/0 TS_1/0 TS_1/0] wires=[CU_1/0] reduce=yes linetype=UG_TS
-new LineGeometry.cn3 nconds=3 nphases=3 spacing=515 cncables=[CN_250 CN_250 CN_250] reduce=yes linetype=UG_CN
 new LineGeometry.cn3n nconds=4 nphases=3 spacing=515x cncables=[CN_250 CN_250 CN_250] wires=[CU_1/0] reduce=yes linetype=UG_CN
+new LineGeometry.ts1 nconds=2 nphases=1 spacing=520 tscables=[TS_1/0] wires=[CU_1/0] reduce=yes linetype=UG_TS
+new LineGeometry.cn3 nconds=3 nphases=3 spacing=515 cncables=[CN_250 CN_250 CN_250] reduce=yes linetype=UG_CN
 
 show lineconstants 60 mi 100
