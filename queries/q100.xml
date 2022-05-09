@@ -1082,8 +1082,7 @@ SELECT DISTINCT ?name ?id ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?ins
  ?eq c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
- ?ast c:Asset.PowerSystemResources ?acp.
- ?ast c:Asset.AssetInfo ?w.
+ ?acp c:ACLineSegmentPhase.WireInfo ?w.
  ?w r:type c:OverheadWireInfo.
  ?w c:IdentifiedObject.name ?name.
  ?w c:IdentifiedObject.mRID ?id.
@@ -1116,8 +1115,7 @@ SELECT DISTINCT ?name ?id ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?ins
  ?eq c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
- ?ast c:Asset.PowerSystemResources ?acp.
- ?ast c:Asset.AssetInfo ?w.
+ ?acp c:ACLineSegmentPhase.WireInfo ?w.
  ?w r:type c:ConcentricNeutralCableInfo.
  ?w c:IdentifiedObject.name ?name.
  ?w c:IdentifiedObject.mRID ?id.
@@ -1150,40 +1148,38 @@ ORDER BY ?name
 </query>
 <query>
 <id>DistLineSpacing</id>
-<keyfld>name</keyfld>
+<keyfld>name:seq</keyfld>
 <description></description>
 <value>
 <![CDATA[
-SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?phs ?x ?y WHERE {
+SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y WHERE {
  ?eq r:type c:ACLineSegment.
  ?eq c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
- ?asset c:Asset.PowerSystemResources ?eq.
- ?asset c:Asset.AssetInfo ?w.
+ ?eq c:ACLineSegment.WireSpacingInfo ?w.
  ?w c:IdentifiedObject.name ?name.
   bind(strafter(str(?w),"#") as ?id).
  ?pos c:WirePosition.WireSpacingInfo ?w.
  ?pos c:WirePosition.xCoord ?x.
  ?pos c:WirePosition.yCoord ?y.
- ?pos c:WirePosition.phase ?phsraw.
-   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs).
+ ?pos c:WirePosition.sequenceNumber ?seq.
  ?w c:WireSpacingInfo.isCable ?cable.
  ?w c:WireSpacingInfo.phaseWireCount ?bundle_count.
  ?w c:WireSpacingInfo.phaseWireSpacing ?bundle_sep.
  ?w c:WireSpacingInfo.usage ?useraw.
    bind(strafter(str(?useraw),"WireUsageKind.") as ?usage).
 }
-ORDER BY ?name ?phs
+ORDER BY ?name ?seq
 ]]>
 </value>
 </query>
 <query>
 <id>DistLinesSpacingZ</id>
-<keyfld>name</keyfld>
+<keyfld>name:seq</keyfld>
 <description></description>
 <value>
 <![CDATA[
-SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?phclass
+SELECT ?name ?seq ?phs ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?phname ?phclass
     WHERE {
  ?s r:type c:ACLineSegment.
  ?s c:Equipment.EquipmentContainer ?fdr.
@@ -1193,10 +1189,8 @@ SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?ph
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
  ?s c:Conductor.length ?len.
- ?asset c:Asset.PowerSystemResources ?s.
- ?asset c:Asset.AssetInfo ?inf.
+ ?s c:ACLineSegment.WireSpacingInfo ?inf.
  ?inf c:IdentifiedObject.name ?spacing.
- ?inf c:IdentifiedObject.mRID ?spcid.
  ?t1 c:Terminal.ConductingEquipment ?s.
  ?t1 c:Terminal.ConnectivityNode ?cn1.
  ?t1 c:ACDCTerminal.sequenceNumber "1".
@@ -1208,13 +1202,13 @@ SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?spcid ?phs ?phname ?ph
  ?acp c:ACLineSegmentPhase.ACLineSegment ?s.
  ?acp c:ACLineSegmentPhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
- ?phasset c:Asset.PowerSystemResources ?acp.
- ?phasset c:Asset.AssetInfo ?phinf.
+ ?acp c:ACLineSegmentPhase.WireInfo ?phinf.
+ ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
  ?phinf c:IdentifiedObject.name ?phname.
  ?phinf a ?phclassraw.
    bind(strafter(str(?phclassraw),"CIM100#") as ?phclass)
 }
-ORDER BY ?name ?phs
+ORDER BY ?name ?seq ?phs
 ]]>
 </value>
 </query>
