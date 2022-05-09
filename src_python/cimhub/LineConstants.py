@@ -85,7 +85,7 @@ def convert_wdata_to_si(wdata):
   if 'id' in wdata:
     wdata['id'] = wdata['id'] * scipy.constants.inch
   if 'sb' in wdata:
-    wdata['sb'] = wdata['sb'] * scipy.constants.foot
+    wdata['sb'] = wdata['sb'] * scipy.constants.inch
   if 'T1' in wdata and 'T1' in wdata and 'M' in wdata and 'rdc' in wdata:
     wdata['rdc'] = wdata['rdc'] * (wdata['M']+wdata['T2'])/(wdata['M']+wdata['T1']) / scipy.constants.mile
   if 'rac' in wdata:
@@ -340,7 +340,7 @@ if __name__ == '__main__':
   # if rac given, bypass the temperature correction
   # if gmr given, bypass the penetration depth on conductors
   wdata_795 = convert_wdata_to_si ({'od': 1.108, 'id': 0.408, 'rdc': 0.1129, 'rac': 0.139, #'gmr': 0.45, # TODO: not handling the bundle correctly with GMR?
-    'nb': 2, 'sb': 1.5, 'T1': 20.0, 'T2': 70.0, 'M': 228.1})
+    'nb': 2, 'sb': 18.0, 'T1': 20.0, 'T2': 70.0, 'M': 228.1})
   wdata_ehs = convert_wdata_to_si ({'od': 0.36, 'id': 0.0, 'rdc': 6.74,
     'T1': 20.0, 'T2': 20.0, 'M': 228.1})
   wdata_556 = convert_wdata_to_si ({'od': 0.927, 'id': 0.3414, 'rdc': 0.1613, 'rac': 0.186, 'gmr': 0.3732,

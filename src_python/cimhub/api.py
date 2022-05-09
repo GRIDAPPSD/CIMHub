@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2021 Battelle Memorial Institute
+# Copyright (C) 2017-2022 Battelle Memorial Institute
 # file: api.py
 """Functions intended for public access.
 
@@ -43,4 +43,13 @@ from .Compare_Cases import compare_cases
 from .SPARQL_Dict import load_feeder_dict
 from .SPARQL_Dict import summarize_feeder_dict
 from .SPARQL_Dict import list_dict_table
+
+from .LineConstants import convert_spdata_to_si
+from .LineConstants import convert_wdata_to_si
+from .LineConstants import convert_cndata_to_si
+from .LineConstants import convert_tsdata_to_si
+from .LineConstants import line_constants
+from .LineConstants import phs_to_seq
+from .LineConstants import print_matrix
+
 
