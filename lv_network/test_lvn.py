@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Battelle Memorial Institute
+# Copyright (C) 2021-22 Battelle Memorial Institute
 # file: test_lvn.py
 # for IEEE Low-Voltage Distribution test cases, European and North American
 
@@ -8,14 +8,27 @@ import subprocess
 import stat
 import shutil
 import os
+import sys
 
 cwd = os.getcwd()
+
+if sys.platform == 'win32':
+  shfile_export = 'go.bat'
+  shfile_glm = './glm/checkglm.bat'
+  shfile_run = 'checkglm.bat'
+  dssroot = 'c:/src/opendss/version8/distrib/ieeetestcases/'
+else:
+  shfile_export = './go.sh'
+  shfile_glm = './glm/checkglm.sh'
+  shfile_run = './checkglm.sh'
+  dssroot = '/home/tom/src/OpenDSS/Distrib/IEEETestCases/'
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 # 
 cfg_json = 'cimhubconfig.json'
 cases = [
-  { 'dsspath':'/home/tom/src/OpenDSS/Distrib/IEEETestCases/LVTestCaseNorthAmerican', 'skip_gld':False,
+  { 'dsspath':dssroot+'LVTestCaseNorthAmerican', 
+    'skip_gld':False,
     'dssname':'SecPar', 'root':'IEEE390par', 'mRID':'EE33AEC3-8835-45BC-85B1-0E019F5EE070',
     'substation':'sub1', 'region':'NorthAmerica', 'subregion':'test_subregion',
     'glmvsrc': 139430.09, 'bases':[480.0, 13800.0, 230000.0], 'export_options':' -e=carson',
@@ -24,7 +37,8 @@ cases = [
       {'dss_link': 'TRANSFORMER.2', 'dss_bus': 'P8', 'gld_link': 'XF_2', 'gld_bus': 'P8'},
     ]
   },
-  { 'dsspath':'/home/tom/src/OpenDSS/Distrib/IEEETestCases/LVTestCaseNorthAmerican', 'skip_gld':True,
+  { 'dsspath':dssroot+'LVTestCaseNorthAmerican', 
+    'skip_gld':True,
     'dssname':'Master', 'root':'IEEE390', 'mRID':'F4127C61-BD06-47DF-9558-28785E0934D9',
     'substation':'sub1', 'region':'NorthAmerica', 'subregion':'test_subregion',
     'glmvsrc': 139430.09, 'bases':[480.0, 13800.0, 230000.0], 'export_options':' -e=carson',
@@ -33,7 +47,8 @@ cases = [
       {'dss_link': 'TRANSFORMER.2', 'dss_bus': 'P8', 'gld_link': 'XF_2', 'gld_bus': 'P8'},
     ]
   },
-  { 'dsspath':'/home/tom/src/OpenDSS/Distrib/IEEETestCases/LVTestCase', 'skip_gld':False,
+  { 'dsspath':dssroot+'LVTestCase', 
+    'skip_gld':False,
     'dssname':'Master', 'root':'LVTest', 'mRID':'2DD6F13C-58B8-4D3A-8DE7-67FDA0560293',
     'substation':'sub1', 'region':'Europe', 'subregion':'test_subregion',
     'glmvsrc': 6668.3956, 'bases':[416.0, 11000.0], 'export_options':' -e=carson -f=50.0',
@@ -47,7 +62,7 @@ cases = [
 #quit()
 
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
-cimhub.clear_db (cfg_json)
+#cimhub.clear_db (cfg_json)
 
 fp = open ('cim_base.dss', 'w')
 for row in cases:
@@ -72,7 +87,7 @@ for row in cases:
 fp.close ()
 p1 = subprocess.Popen ('opendsscmd cim_base.dss', shell=True)
 p1.wait()
-
+quit()
 # This is helpful for checking the CIM upload, but make_blazegraph_script will repeat it
 #for row in cases:
 #  cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file base/' + row['dssname']+ '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
