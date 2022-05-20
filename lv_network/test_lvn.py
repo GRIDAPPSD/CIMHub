@@ -14,18 +14,16 @@ cwd = os.getcwd()
 
 if sys.platform == 'win32':
   shfile_export = 'go.bat'
-  shfile_glm = './glm/checkglm.bat'
   shfile_run = 'checkglm.bat'
   dssroot = 'c:/src/opendss/version8/distrib/ieeetestcases/'
 else:
   shfile_export = './go.sh'
-  shfile_glm = './glm/checkglm.sh'
   shfile_run = './checkglm.sh'
   dssroot = '/home/tom/src/OpenDSS/Distrib/IEEETestCases/'
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 # 
-cfg_json = 'cimhubconfig.json'
+cfg_json = '..\queries\cimhubconfig.json'
 cases = [
   { 'dsspath':dssroot+'LVTestCaseNorthAmerican', 
     'skip_gld':False,
@@ -87,18 +85,17 @@ for row in cases:
 fp.close ()
 p1 = subprocess.Popen ('opendsscmd cim_base.dss', shell=True)
 p1.wait()
-quit()
+
 # This is helpful for checking the CIM upload, but make_blazegraph_script will repeat it
 #for row in cases:
 #  cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file base/' + row['dssname']+ '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url
 #  os.system (cmd)
 #cimhub.list_feeders (cfg_json)
 
-shfile = './go.sh'
-cimhub.make_blazegraph_script (cases, 'base/', 'dss/', 'glm/', shfile)
-st = os.stat (shfile)
-os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-p1 = subprocess.call (shfile, shell=True)
+cimhub.make_blazegraph_script (cases, 'base/', 'dss/', 'glm/', shfile_export)
+st = os.stat (shfile_export)
+os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile_export, shell=True)
 
 cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss', bControls=False)
 os.chdir('./dss')
@@ -106,11 +103,10 @@ p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
 p1.wait()
 
 os.chdir(cwd)
-cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname='./checkglm.sh')
-shfile = './checkglm.sh'
-st = os.stat (shfile)
-os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-p1 = subprocess.call ('./checkglm.sh')
+cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname=shfile_run)
+st = os.stat (shfile_run)
+os.chmod (shfile_run, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile_run)
 
 os.chdir(cwd)
 cimhub.compare_cases (casefiles=cases, basepath='./base/', dsspath='./dss/', glmpath='./glm/')
