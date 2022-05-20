@@ -616,7 +616,7 @@ public class GldNode {
   }
 
   public String GetGLM (double load_scale, boolean bWantSched, String fSched, boolean bWantZIP, boolean useHouses, 
-                        double Zcoeff, double Icoeff, double Pcoeff) {
+                        double Zcoeff, double Icoeff, double Pcoeff, boolean bLoadMeters) {
     StringBuilder buf = new StringBuilder();
 
     if (bTertiaryWinding) { // we have to skip it
@@ -651,6 +651,9 @@ public class GldNode {
       if (bSyncMachines) {
         AppendSubMeter (buf, "triplex_meter", "_dgmtr");
       }
+      if (bLoadMeters && HasLoad()) {
+        AppendSubMeter (buf, "triplex_meter", "_ldmtr");
+      }
     } else { // primary connected
       buf.append ("object node {\n");
       buf.append ("  name \"" + name + "\";\n");
@@ -670,6 +673,9 @@ public class GldNode {
       if (bSyncMachines) {
         AppendSubMeter (buf, "meter", "_dgmtr");
       }
+      if (bLoadMeters && HasLoad()) {
+        AppendSubMeter (buf, "meter", "_ldmtr");
+      }
     }
     if (!bSwing && HasLoad()) {
       RescaleLoad (load_scale);
@@ -687,7 +693,11 @@ public class GldNode {
         } else {
           buf.append ("object triplex_load {\n");
           buf.append ("  name \"" + loadname + "\";\n");
-          buf.append ("  parent \"" + name + "\";\n");
+          if (bLoadMeters) {
+            buf.append("  parent \"" + name + "_ldmtr\";\n");
+          } else {
+            buf.append("  parent \"" + name + "\";\n");
+          }
           buf.append ("  phases " + GetPhases(true) + ";\n");
           buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
           double ps1 = ps1_z + ps1_i + ps1_p;
@@ -705,7 +715,11 @@ public class GldNode {
       } else {
         buf.append ("object load {\n");
         buf.append ("  name \"" + loadname + "\";\n");
-        buf.append ("  parent \"" + name + "\";\n");
+        if (bLoadMeters) {
+          buf.append("  parent \"" + name + "_ldmtr\";\n");
+        } else {
+          buf.append("  parent \"" + name + "\";\n");
+        }
         buf.append ("  phases " + GetPhases(true) + ";\n");
         buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
         AppendPowerByFraction (buf, "A", pa_z, pa_i, pa_p, qa_z, qa_i, qa_p, bWantSched, fSched);

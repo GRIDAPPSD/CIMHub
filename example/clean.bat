@@ -1,6 +1,6 @@
 rm *.xml
 rm *.json
-rem rm *.CSV
+rm *.CSV
 rm *base.glm
 rm test*volt.csv
 rm test*curr.csv

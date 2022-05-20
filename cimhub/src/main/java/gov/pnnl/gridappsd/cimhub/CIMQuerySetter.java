@@ -85,7 +85,7 @@ public class CIMQuerySetter extends Object {
 			 " 	?trm c:Terminal.ConnectivityNode ?moncn."+
 			 " 	?moncn c:IdentifiedObject.name ?monbus."+
 			 "  }" +
-			 " bind(strafter(str(?s),\"#\") as ?id)."+
+       " ?s c:IdentifiedObject.mRID ?id."+
 			 " ?t c:Terminal.ConductingEquipment ?s."+
 			 " ?t c:Terminal.ConnectivityNode ?cn."+ 
        " ?t c:IdentifiedObject.mRID ?t1id."+
@@ -103,7 +103,7 @@ public class CIMQuerySetter extends Object {
 			" ?acp c:ACLineSegmentPhase.WireInfo ?w."+
 			" ?w r:type c:ConcentricNeutralCableInfo."+
 			" ?w c:IdentifiedObject.name ?name."+
-			" bind(strafter(str(?w),\"#\") as ?id)."+
+			" ?w c:IdentifiedObject.mRID ?id."+
 			" ?w c:WireInfo.radius ?rad."+
 			" ?w c:WireInfo.gmr ?gmr."+
 			" OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}"+
@@ -213,7 +213,7 @@ public class CIMQuerySetter extends Object {
 			" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
       " ?t2 c:IdentifiedObject.mRID ?t2id."+
 			" ?cn2 c:IdentifiedObject.name ?bus2."+
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			" OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s."+
 			" ?acp c:ACLineSegmentPhase.sequenceNumber ?seq."+
 			" ?acp c:ACLineSegmentPhase.phase ?phsraw."+
@@ -227,7 +227,7 @@ public class CIMQuerySetter extends Object {
 			" ?s c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			" ?s c:IdentifiedObject.name ?name."+
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			" ?s c:ConductingEquipment.BaseVoltage ?bv."+
 			" ?bv c:BaseVoltage.nominalVoltage ?basev."+
 			" ?s c:Conductor.length ?len."+
@@ -257,7 +257,7 @@ public class CIMQuerySetter extends Object {
       " ?s c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?s c:IdentifiedObject.name ?name."+
-      " bind(strafter(str(?s),\"#\") as ?id)."+
+      " ?s c:IdentifiedObject.mRID ?id."+
       " ?s c:ConductingEquipment.BaseVoltage ?bv."+
       " ?bv c:BaseVoltage.nominalVoltage ?basev."+
       " ?s c:SeriesCompensator.r ?r."+
@@ -285,7 +285,7 @@ public class CIMQuerySetter extends Object {
 			" ?s c:Equipment.EquipmentContainer ?fdr."+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			" ?s c:IdentifiedObject.name ?name."+
-			"   bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			" ?s c:ConductingEquipment.BaseVoltage ?bv."+
 			" ?bv c:BaseVoltage.nominalVoltage ?basev."+
 			" ?s c:Conductor.length ?len."+
@@ -321,7 +321,7 @@ public class CIMQuerySetter extends Object {
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			" ?eq c:ACLineSegment.WireSpacingInfo ?w."+
 			" ?w c:IdentifiedObject.name ?name."+
-			"   bind(strafter(str(?w),\"#\") as ?id)."+
+			" ?w c:IdentifiedObject.mRID ?id."+
 			" ?pos c:WirePosition.WireSpacingInfo ?w."+
 			" ?pos c:WirePosition.xCoord ?x."+
 			" ?pos c:WirePosition.yCoord ?y."+
@@ -360,7 +360,7 @@ public class CIMQuerySetter extends Object {
 			" OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s."+
 			" ?ecp c:EnergyConsumerPhase.phase ?phsraw."+
 			" 			bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			" ?t c:Terminal.ConductingEquipment ?s."+
 			" ?t c:Terminal.ConnectivityNode ?cn."+
       " ?t c:IdentifiedObject.mRID ?t1id."+
@@ -401,7 +401,7 @@ public class CIMQuerySetter extends Object {
 			" ?acp c:ACLineSegmentPhase.WireInfo ?w."+
 			" ?w r:type c:OverheadWireInfo."+
 			" ?w c:IdentifiedObject.name ?name."+
-			"   bind(strafter(str(?w),\"#\") as ?id)."+
+			" ?w c:IdentifiedObject.mRID ?id."+
 			" ?w c:WireInfo.radius ?rad."+
 			" ?w c:WireInfo.gmr ?gmr."+
 			" OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}"+
@@ -425,7 +425,7 @@ public class CIMQuerySetter extends Object {
 			" ?s r:type c:PerLengthPhaseImpedance."+
 			" ?s c:IdentifiedObject.name ?name."+
 			" ?s c:PerLengthPhaseImpedance.conductorCount ?cnt."+
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			" ?elm c:PhaseImpedanceData.PhaseImpedance ?s."+
 			" ?elm c:PhaseImpedanceData.row ?row."+
 			" ?elm c:PhaseImpedanceData.column ?col."+
@@ -469,7 +469,7 @@ public class CIMQuerySetter extends Object {
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			" ?p c:IdentifiedObject.name ?pname."+
 			" ?p c:PowerTransformer.vectorGroup ?vgrp."+
-			" bind(strafter(str(?p),\"#\") as ?id)."+
+			" ?p c:IdentifiedObject.mRID ?id."+
 			" ?end c:PowerTransformerEnd.PowerTransformer ?p."+
 			" ?end c:TransformerEnd.endNumber ?enum."+
 			" ?end c:PowerTransformerEnd.ratedS ?ratedS."+
@@ -550,7 +550,7 @@ public class CIMQuerySetter extends Object {
 			"  bind(strafter(str(?monraw),\"PhaseCode.\") as ?monphs)"+
 			" ?ctl c:RegulatingControl.targetDeadband ?vbw."+
 			" ?ctl c:RegulatingControl.targetValue ?vset."+
-			" bind(strafter(str(?rtc),\"#\") as ?id)"+
+			" ?rtc c:IdentifiedObject.mRID ?id."+
 			"}"+
 			" ORDER BY ?pname ?rname ?tname ?wnum");
 
@@ -562,7 +562,7 @@ public class CIMQuerySetter extends Object {
 			" ?eq c:ACLineSegment.PerLengthImpedance ?s."+
 			" ?s r:type c:PerLengthSequenceImpedance."+
 			" ?s c:IdentifiedObject.name ?name."+
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			" ?s c:PerLengthSequenceImpedance.r ?r1."+
 			" ?s c:PerLengthSequenceImpedance.x ?x1."+
 			" ?s c:PerLengthSequenceImpedance.bch ?b1."+
@@ -594,7 +594,7 @@ public class CIMQuerySetter extends Object {
 			"	OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec."+
 			"	?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw."+
 			"		bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			"	?t c:Terminal.ConductingEquipment ?pec."+
 			"	?t c:Terminal.ConnectivityNode ?cn."+ 
       " ?t c:IdentifiedObject.mRID ?t1id."+
@@ -630,7 +630,7 @@ public class CIMQuerySetter extends Object {
 			"	OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec."+
 			"	?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw."+
 			"		bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			"	?t c:Terminal.ConductingEquipment ?pec."+
 			"	?t c:Terminal.ConnectivityNode ?cn."+ 
       " ?t c:IdentifiedObject.mRID ?t1id."+
@@ -655,7 +655,7 @@ public class CIMQuerySetter extends Object {
 			" ?s c:EnergySource.r0 ?r0." + 
 			" ?s c:EnergySource.x0 ?x0." + 
 			" ?t c:Terminal.ConductingEquipment ?s." +
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+      " ?s c:IdentifiedObject.mRID ?id."+
 			" ?t c:Terminal.ConnectivityNode ?cn." + 
       " ?t c:IdentifiedObject.mRID ?t1id."+
 			" ?cn c:IdentifiedObject.name ?bus" +
@@ -683,7 +683,7 @@ public class CIMQuerySetter extends Object {
 			" ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
       " ?t2 c:IdentifiedObject.mRID ?t2id."+
 			" ?cn2 c:IdentifiedObject.name ?bus2."+
-			" bind(strafter(str(?s),\"#\") as ?id)."+
+			" ?s c:IdentifiedObject.mRID ?id."+
 			" OPTIONAL {?swp c:SwitchPhase.Switch ?s."+
 			" ?swp c:SwitchPhase.phaseSide1 ?phsraw."+
 			"   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
@@ -701,7 +701,7 @@ public class CIMQuerySetter extends Object {
 			 " ?s c:SynchronousMachine.ratedU ?ratedU."+
 			 " ?s c:SynchronousMachine.p ?p."+
 			 " ?s c:SynchronousMachine.q ?q."+
-			 " bind(strafter(str(?s),\"#\") as ?id)."+
+			 " ?s c:IdentifiedObject.mRID ?id."+
 			 " OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s."+
 			 "  ?smp c:SynchronousMachinePhase.phase ?phsraw."+
 				" bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
@@ -842,7 +842,7 @@ public class CIMQuerySetter extends Object {
 			" ?acp c:ACLineSegmentPhase.WireInfo ?w."+
 			" ?w r:type c:TapeShieldCableInfo."+
 			" ?w c:IdentifiedObject.name ?name."+
-			" bind(strafter(str(?w),\"#\") as ?id)."+
+			" ?w c:IdentifiedObject.mRID ?id."+
 			" ?w c:WireInfo.radius ?rad."+
 			" ?w c:WireInfo.gmr ?gmr."+
 			" OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}"+
@@ -926,7 +926,7 @@ public class CIMQuerySetter extends Object {
 			" ?e c:IdentifiedObject.mRID ?eid."+
 			" ?t c:IdentifiedObject.name ?tname."+
 			"	?e c:IdentifiedObject.name ?ename."+
-			" bind(strafter(str(?t),\"#\") as ?id)."+
+			" ?t c:IdentifiedObject.mRID ?id."+
 			" ?e c:TransformerEndInfo.endNumber ?enum."+
 			" ?e c:TransformerEndInfo.ratedS ?ratedS."+
 			" ?e c:TransformerEndInfo.ratedU ?ratedU."+
@@ -977,7 +977,7 @@ public class CIMQuerySetter extends Object {
 			" ?trm c:Terminal.ConnectivityNode ?cn."+ 
       " ?trm c:IdentifiedObject.mRID ?t1id."+
 			" ?cn c:IdentifiedObject.name ?bus."+
-			" bind(strafter(str(?t),\"#\") as ?id)."+
+			" ?t c:IdentifiedObject.mRID ?id."+
 			" ?end c:TransformerEnd.BaseVoltage ?bv."+
 			" ?bv c:BaseVoltage.nominalVoltage ?basev"+
 			"}"+

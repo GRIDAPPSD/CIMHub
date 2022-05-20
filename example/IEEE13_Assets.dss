@@ -105,7 +105,7 @@ Set Voltagebases=[115, 4.16, .48]
 calcv
 // Set Controlmode=off // static
 Solve
-BusCoords IEEE13Node_BusXY.csv
+BusCoords IEEE13Node_BusXY.dat
 
 // For benchmarking, lock the taps, turn caps on, load models to constant current
 Transformer.Reg1.Taps=[1.0 1.0625]
