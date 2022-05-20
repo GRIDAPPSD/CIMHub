@@ -1,7 +1,7 @@
 dss
 glm
 *.csv
-upload_1547.sh
-checkglm.sh
+upload_1547.*
+checkglm.*
 base/convert_1547.dss
 base/*.xml

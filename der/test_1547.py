@@ -8,6 +8,16 @@ import subprocess
 import stat
 import shutil
 import os
+import sys
+
+if sys.platform == 'win32':
+  shfile_export = 'upload_1547.bat'
+  shfile_run = 'checkglm.bat'
+else:
+  shfile_export = './upload_1547.sh'
+  shfile_run = './checkglm.sh'
+
+cfg_json = '../queries/cimhubconfig.json'
 
 cwd = os.getcwd()
 
@@ -18,7 +28,6 @@ cwd = os.getcwd()
 # 1C8206E3-44F6-4B91-989F-CF3883DFD6FA
 # 
 
-cfg_json = 'cimhubconfig.json'
 cases = [
   {'dssname':'local_unity_a', 'root':'local_unity_a', 'mRID':'B3600BC3-18B5-4720-9CC6-5997E35E8158',
    'glmvsrc': 8002.0747,'bases':[400.0, 13200.0], 'skip_gld': False,
@@ -119,11 +128,10 @@ p1 = subprocess.Popen ('opendsscmd convert_1547.dss', shell=True)
 p1.wait()
 
 os.chdir(cwd)
-shfile = './upload_1547.sh'
-cimhub.make_blazegraph_script (cases, 'base/', 'dss/', 'glm/', shfile)
-st = os.stat (shfile)
-os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-p1 = subprocess.call (shfile, shell=True)
+cimhub.make_blazegraph_script (cases, 'base/', 'dss/', 'glm/', shfile_export)
+st = os.stat (shfile_export)
+os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile_export, shell=True)
 
 cimhub.make_dssrun_script (casefiles=cases, bControls=True, scriptname='./dss/check.dss')
 os.chdir('./dss')
@@ -131,11 +139,10 @@ p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
 p1.wait()
 
 os.chdir(cwd)
-shfile = './checkglm.sh'
-cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname=shfile)
-st = os.stat (shfile)
-os.chmod (shfile, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-p1 = subprocess.call (shfile)
+cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname=shfile_run)
+st = os.stat (shfile_run)
+os.chmod (shfile_run, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile_run)
 
 os.chdir(cwd)
 cimhub.compare_cases (casefiles=cases, basepath='./base/', dsspath='./dss/', glmpath='./glm/')
