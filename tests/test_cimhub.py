@@ -4,16 +4,26 @@
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import os
+#import sys
 
-cfg_json = 'cimhubconfig.json'
-test_mRID = '_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62'
+#if sys.platform == 'win32':
+#  shfile_export = 'go.bat'
+#  shfile_glm = './glm/checkglm.bat'
+#  shfile_run = 'checkglm.bat'
+#else:
+#  shfile_export = './go.sh'
+#  shfile_glm = './glm/checkglm.sh'
+#  shfile_run = './checkglm.sh'
+
+cfg_json = '../queries/cimhubconfig.json'
+test_mRID = 'F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29'  # 13-bus
 test_froot = 'test13'
-second_mRID = '_5B816B93-7A5F-B64C-8460-47C17D6E4B0F'
+second_mRID = 'DFBF372D-4291-49EF-ACCA-53DAFDE0338F'  # assets
 
 # empty the database, load 2 test feeders, then delete one
 cimhub.clear_db (cfg_json)
-xml_path = '~/src/Powergrid-Models/platform/cimxml'
-xml_path = '../model_output_tests/'
+#xml_path = '../../Powergrid-Models/platform/cimxml'
+xml_path = '../model_output_tests/'  # copied from the example directory, different mRIDs than platform
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 for fname in ['IEEE13', 'IEEE13_Assets']:
   cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file ' + xml_path + fname + '.xml' + ' -X POST ' + CIMHubConfig.blazegraph_url

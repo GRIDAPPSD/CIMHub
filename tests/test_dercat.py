@@ -6,7 +6,7 @@ import cimhub.CIMHubConfig as CIMHubConfig
 import os
 
 cfg_json = 'cimhubconfig.json'
-test_mRID = '_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62'
+test_mRID = '49AD8E07-3BF9-A4E2-CB8F-C3722F837B62'
 test_froot = 'test13'
 
 # empty the database, load 2 test feeders, then delete one

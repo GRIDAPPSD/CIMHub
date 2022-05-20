@@ -90,7 +90,7 @@ def load_feeder (dict, fid, bTime=True):
               'DistOverheadWire', 'DistConcentricNeutralCable', 'DistLineSpacing',
               'DistXfmrTank', 'DistXfmrBank', 'DistXfmrCodeRating', 'DistXfmrCodeNLTest', 'DistXfmrCodeSCTest',
               'DistCoordinates', 'DistRegulatorBanked', 'DistRegulatorTanked',
-              'DistPowerXfmrCore', 'DistPowerXfmrMesh', 'DistSeriesCompensator',
+              'DistPowerXfmrCore', 'DistPowerXfmrMesh', 'DistSeriesCompensator', 'DistSyncMachine',
               'DistPhaseMatrix', 'DistSequenceMatrix', 'DistLinesCodeZ', 'DistLinesInstanceZ', 'DistTapeShieldCable',
               'DistBus', 'DistPowerXfmrWinding']:
 

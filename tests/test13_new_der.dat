@@ -1,5 +1,5 @@
 uuid_file,test13_new_der_uuid.txt
-feederID,_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62
+feederID,F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29
 //name,bus,phases(ABCs1s2),type(Battery,Photovoltaic,SynchronousMachine),kwMax,RatedkVA,RatedkV,kW,kVAR
 //  kW is taken as maximum real power
 //  for Battery,Photovoltaic: append IEEE 1547 category [catA/catB], control mode [CQ,PF,VV,VW,WVAR,AVR,VV_VW]
