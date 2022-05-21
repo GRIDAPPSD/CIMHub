@@ -27,6 +27,14 @@ def append_xml_case (cases, xmlpath, outpath, fp):
     print('curl -D- -H "Content-Type: application/xml" --upload-file', xmlpath + c + '.xml', '-X POST $DB_URL', file=fp)
     print('java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=both {:s}'.format (opts), outpath + c, file=fp)
 
+def append_xml_case_windows (cases, xmlpath, outpath, fp):
+  for row in cases:
+    c = row['file']
+    opts = row['opts']
+    print('curl -D- -X POST %DB_URL% --data-urlencode "update=drop all"', file=fp)
+    print('curl -D- -H "Content-Type: application/xml" --upload-file', xmlpath + c + '.xml', '-X POST %DB_URL%', file=fp)
+    print('java -cp %CIMHUB_PATH% %CIMHUB_PROG% -u=%DB_URL% -o=both {:s}'.format (opts), outpath + c, file=fp)
+
 def make_blazegraph_script (casefiles, xmlpath, dsspath, glmpath, scriptname, csvpath=None, clean_dirs=True):
   fp = open (scriptname, 'w')
   bWindows = scriptname.endswith('.bat')
@@ -159,20 +167,37 @@ if __name__ == '__main__':
   ]
 
   if arg == '-b':
-    fp = open ('convert_xml.sh', 'w')
-    print ('#!/bin/bash', file=fp)
-    print ('source envars.sh', file=fp)
-    print ('rm -rf', dsspath, file=fp)
-    print ('rm -rf', glmpath, file=fp)
-    print ('rm -rf', bothpath, file=fp)
-    print ('mkdir', dsspath, file=fp)
-    print ('mkdir', glmpath, file=fp)
-    print ('mkdir', bothpath, file=fp)
-    append_xml_case (casefiles, xmlpath, bothpath, fp)
-    print ('', file=fp)
-    fp.close()
-    st = os.stat ('convert_xml.sh')
-    os.chmod ('convert_xml.sh', st.st_mode | stat.S_IEXEC)
+    if sys.platform == 'win32':
+      dsspath = dsspath.replace ('/', '\\')
+      glmpath = glmpath.replace ('/', '\\')
+      bothpath = bothpath.replace ('/', '\\')
+      xmlpath = xmlpath.replace ('/', '\\')
+      fp = open ('convert_xml.bat', 'w')
+      print ('call envars.bat', file=fp)
+      print ('rd /s /q', dsspath, file=fp)
+      print ('rd /s /q', glmpath, file=fp)
+      print ('rd /s /q', bothpath, file=fp)
+      print ('md', dsspath, file=fp)
+      print ('md', glmpath, file=fp)
+      print ('md', bothpath, file=fp)
+      append_xml_case_windows (casefiles, xmlpath, bothpath, fp)
+      print ('', file=fp)
+      fp.close()
+    else:
+      fp = open ('convert_xml.sh', 'w')
+      print ('#!/bin/bash', file=fp)
+      print ('source envars.sh', file=fp)
+      print ('rm -rf', dsspath, file=fp)
+      print ('rm -rf', glmpath, file=fp)
+      print ('rm -rf', bothpath, file=fp)
+      print ('mkdir', dsspath, file=fp)
+      print ('mkdir', glmpath, file=fp)
+      print ('mkdir', bothpath, file=fp)
+      append_xml_case (casefiles, xmlpath, bothpath, fp)
+      print ('', file=fp)
+      fp.close()
+      st = os.stat ('convert_xml.sh')
+      os.chmod ('convert_xml.sh', st.st_mode | stat.S_IEXEC)
 
   if arg == '-d':
     fp = open ('check.dss', 'w')

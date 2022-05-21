@@ -69,11 +69,7 @@ if __name__ == '__main__':
   srcpath = '/home/tom/src/Powergrid-Models/platform/'
   if len(sys.argv) > 1:
     srcpath = sys.argv[1]
-
   inpath = srcpath + 'both/'
-  bpname = 'check_glm.sh'
-  bp = open (bpname, 'w')
-  print ('#!/bin/bash', file=bp)
 
   casefiles = [['R2_12_47_2',57735.0],
                ['EPRI_DPV_J1',39837.2],
@@ -88,16 +84,30 @@ if __name__ == '__main__':
                ['ACEP_PSIL',277.13],
                ['Transactive',2401.8]]
 
-  for c in casefiles:
-    print('cd', inpath, file=bp)
-    print('gridlabd -D WANT_VI_DUMP=1', c[0] + '_run.glm >../test/glm/' + c[0] + '.log', file=bp)
-    print('mv {:s}*.csv ../test/glm'.format (c[0]), file=bp)
+  if sys.platform == 'win32':
+    bp = open ('check_glm.bat', 'w')
+    for c in casefiles:
+      print('cd', inpath, file=bp)
+      print('gridlabd -D WANT_VI_DUMP=1', c[0] + '_run.glm >../test/glm/' + c[0] + '.log', file=bp)
+      print('mv {:s}*.csv ../test/glm'.format (c[0]), file=bp)
 
-    fp = open (inpath + c[0] + '_run.glm', 'w')
-    write_glm_case (c[0], c[1], fp)
-    fp.close()
+      fp = open (inpath + c[0] + '_run.glm', 'w')
+      write_glm_case (c[0], c[1], fp)
+      fp.close()
+    bp.close()
+  else:
+    bpname = 'check_glm.sh'
+    bp = open (bpname, 'w')
+    print ('#!/bin/bash', file=bp)
+    for c in casefiles:
+      print('cd', inpath, file=bp)
+      print('gridlabd -D WANT_VI_DUMP=1', c[0] + '_run.glm >../test/glm/' + c[0] + '.log', file=bp)
+      print('mv {:s}*.csv ../test/glm'.format (c[0]), file=bp)
 
-  bp.close()
-  st = os.stat (bpname)
-  os.chmod (bpname, st.st_mode | stat.S_IEXEC)
+      fp = open (inpath + c[0] + '_run.glm', 'w')
+      write_glm_case (c[0], c[1], fp)
+      fp.close()
+    bp.close()
+    st = os.stat (bpname)
+    os.chmod (bpname, st.st_mode | stat.S_IEXEC)
 
