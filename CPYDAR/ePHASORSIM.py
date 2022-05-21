@@ -9,6 +9,7 @@ CASES = [
   {'fid': '4BE6DD69-8FE9-4C9F-AD44-B327D5623974', 'fname': 'ieee13x.xlsx'},
   {'fid': '4C4E3E2C-6332-4DCB-8425-26B628178374', 'fname': 'ieee123x.xlsx'},
   {'fid': '1C9727D2-E4D2-4084-B612-90A44E1810FD', 'fname': 'j1red.xlsx'},
+  {'fid': '77966920-E1EC-EE8A-23EE-4EFD23B205BD', 'fname': 'acep_psil.xlsx'},
 ]
 
 # prefixes for exported names; will not prefix buses
@@ -18,6 +19,7 @@ SHUNT_PREFIX = 'SH_'
 SRCE_PREFIX = 'VS_'
 SWITCH_PREFIX = 'SW_'
 XFMR_PREFIX = 'XF_'
+MACH_PREFIX = 'SM_'
 
 # global constants
 SQRT3 = math.sqrt(3.0)
@@ -36,6 +38,7 @@ DFLT_LOW_TAP = 0
 DFLT_HIGH_TAP = 0
 DFLT_BOOST = 0
 DFLT_BUCK = 0
+DFLT_MACHINE_QF = 0.44  # for 0.9 power factor machine
 
 def mark_all_device_phases (dict):
   for tbl in ['DistSubstation', 'DistSeriesCompensator', 'DistRegulatorBanked', 
@@ -87,9 +90,12 @@ def mark_all_bus_phases (dict):
       mark_one_bus_phases (busvals[row['bus1']], row['phases'])
       mark_one_bus_phases (busvals[row['bus2']], row['phases'])
 
-def add_comment_cell (xlw, sheet_name, startrow, txt, startcol=0):
+def add_comment_cell (xlw, sheet_name, startrow, txt, startcol=0, GotoCol=None):
   df = pd.DataFrame ([txt])
   df.to_excel (xlw, sheet_name = sheet_name, header=False, index=False, startrow=startrow, startcol=startcol)
+  if GotoCol is not None:
+    df = pd.DataFrame (['Go to Type List'])
+    df.to_excel (xlw, sheet_name = sheet_name, header=False, index=False, startrow=startrow, startcol=GotoCol)
 
 def sequenced_phase_array (seqs):
   seqphs = sorted(seqs.split(':'))
@@ -300,7 +306,7 @@ def write_ephasor_model (dict, filename):
                                                             'ThreePhaseShortCircuitVsource',
                                                             'ThreePhaseSequentialVsource'])
   xlrow = XL_START_ROW
-  add_comment_cell (xlw, 'Voltage Source', xlrow, 'Positive Sequence Voltage Source')
+  add_comment_cell (xlw, 'Voltage Source', xlrow, 'Positive Sequence Voltage Source', GotoCol=4)
   data = {'ID':[], 'Bus':[], 'Voltage (pu)':[], 'Angle (deg)':[], 'Rs (pu)':[], 'Xs (pu)':[]}
   df = pd.DataFrame (data)
   df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=xlrow+1)
@@ -308,7 +314,7 @@ def write_ephasor_model (dict, filename):
   add_comment_cell (xlw, 'Voltage Source', xlrow, 'End of Positive Sequence Voltage Source')
   xlrow += 2
 
-  add_comment_cell (xlw, 'Voltage Source', xlrow, 'Single-Phase Voltage Source')
+  add_comment_cell (xlw, 'Voltage Source', xlrow, 'Single-Phase Voltage Source', GotoCol=4)
   data = {'ID':[], 'Bus1':[], 'Voltage (V)':[], 'Angle (deg)':[], 'Rs (Ohm)':[], 'Xs (Ohm)':[]}
   df = pd.DataFrame (data)
   df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=xlrow+1)
@@ -316,7 +322,7 @@ def write_ephasor_model (dict, filename):
   add_comment_cell (xlw, 'Voltage Source', xlrow, 'End of Single-Phase Voltage Source')
   xlrow += 2
 
-  add_comment_cell (xlw, 'Voltage Source', xlrow, 'Three-Phase Voltage Source with Short-Circuit Level Data')
+  add_comment_cell (xlw, 'Voltage Source', xlrow, 'Three-Phase Voltage Source with Short-Circuit Level Data', GotoCol=4)
   data = {'ID':[], 'Bus1':[], 'Bus2':[], 'Bus3':[], 'kV (ph-ph RMS)':[], 'Angle_a (deg)':[], 'SC1ph (MVA)':[], 'SC3ph (MVA)':[]}
   df = pd.DataFrame (data)
   df.to_excel (xlw, sheet_name='Voltage Source', header=True, index=False, startrow=xlrow+1)
@@ -324,7 +330,7 @@ def write_ephasor_model (dict, filename):
   add_comment_cell (xlw, 'Voltage Source', xlrow, 'End of Three-Phase Voltage Source with Short-Circuit Level Data')
   xlrow += 2
 
-  add_comment_cell (xlw, 'Voltage Source', xlrow, 'Three-Phase Voltage Source with Sequential Data')
+  add_comment_cell (xlw, 'Voltage Source', xlrow, 'Three-Phase Voltage Source with Sequential Data', GotoCol=4)
   data = {'ID':[], 'Bus1':[], 'Bus2':[], 'Bus3':[], 'kV (ph-ph RMS)':[], 'Angle_a (deg)':[], 'R1 (Ohm)':[], 'X1 (Ohm)':[], 'R0 (Ohm)':[], 'X0 (Ohm)':[]}
   for key, row in dict['DistSubstation']['vals'].items():
     slack_buses.add (row['bus'])
@@ -497,32 +503,32 @@ def write_ephasor_model (dict, filename):
                                                   'TwoPhaseZIPLoad'],
                       col1_labels = ['ThreePhaseZIPLoad'])
   xlrow = XL_START_ROW
-  add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Imepedance Load') # replicating typo on the Opal-RT template
+  add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Imepedance Load', GotoCol=2) # replicating typo on the Opal-RT template
   df1.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of Positive Sequence Constant Imepedance Load')
   xlrow += 2
-  add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Power Load')
+  add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Power Load', GotoCol=2)
   df2.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df2.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of Positive Sequence Constant Power Load')
   xlrow += 2
-  add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Current Load')
+  add_comment_cell (xlw, 'Load', xlrow, 'Positive-Sequence Constant Current Load', GotoCol=2)
   df3.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df3.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of Positive Sequence Constant Current Load')
   xlrow += 2
-  add_comment_cell (xlw, 'Load', xlrow, 'Single-Phase ZIP Load')
+  add_comment_cell (xlw, 'Load', xlrow, 'Single-Phase ZIP Load', GotoCol=2)
   df4.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df4.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of SinglePhase ZIP Load')
   xlrow += 2
-  add_comment_cell (xlw, 'Load', xlrow, 'Two-Phase ZIP Load')
+  add_comment_cell (xlw, 'Load', xlrow, 'Two-Phase ZIP Load', GotoCol=2)
   df5.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df5.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of TwoPhase ZIP Load')
   xlrow += 2
-  add_comment_cell (xlw, 'Load', xlrow, 'Three-Phase ZIP Load')
+  add_comment_cell (xlw, 'Load', xlrow, 'Three-Phase ZIP Load', GotoCol=2)
   df6.to_excel (xlw, sheet_name='Load', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df6.index) + 2
   add_comment_cell (xlw, 'Load', xlrow, 'End of ThreePhase ZIP Load')
@@ -584,27 +590,33 @@ def write_ephasor_model (dict, filename):
                                                    'TwoPhaseShunt',
                                                    'ThreePhaseShunt'])
   xlrow = XL_START_ROW
-  add_comment_cell (xlw, 'Shunt', xlrow, 'Positive Sequence Shunt')
+  add_comment_cell (xlw, 'Shunt', xlrow, 'Positive Sequence Shunt', GotoCol=2)
   df1.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
   add_comment_cell (xlw, 'Shunt', xlrow, 'End of Positive Sequence Shunt')
   xlrow += 2
-  add_comment_cell (xlw, 'Shunt', xlrow, 'Single-Phase Shunt')
+  add_comment_cell (xlw, 'Shunt', xlrow, 'Single-Phase Shunt', GotoCol=2)
   df2.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df2.index) + 2
   add_comment_cell (xlw, 'Shunt', xlrow, 'End of Single-Phase Shunt')
   xlrow += 2
-  add_comment_cell (xlw, 'Shunt', xlrow, 'Two-Phase Shunt')
+  add_comment_cell (xlw, 'Shunt', xlrow, 'Two-Phase Shunt', GotoCol=2)
   df3.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df3.index) + 2
   add_comment_cell (xlw, 'Shunt', xlrow, 'End of Two-Phase Shunt')
   xlrow += 2
-  add_comment_cell (xlw, 'Shunt', xlrow, 'Three-Phase Shunt')
+  add_comment_cell (xlw, 'Shunt', xlrow, 'Three-Phase Shunt', GotoCol=2)
   df4.to_excel (xlw, sheet_name='Shunt', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df4.index) + 2
   add_comment_cell (xlw, 'Shunt', xlrow, 'End of Three-Phase Shunt')
 
   # lines
+  PhaseMatrices = []
+  for key, row in dict['DistPhaseMatrix']['vals'].items():
+    sname = key.split(':')[0]
+    if sname not in PhaseMatrices:
+      PhaseMatrices.append(sname)
+
   data1 = {'ID':[], 'Status':[], 'From bus':[], 'To bus':[], 'R (pu)':[], 'X (pu)':[], 'B (pu)':[]}
   data2 = {'ID':[], 'Status':[], 'Length':[], 
            'From1':[], 'To1':[], 
@@ -631,35 +643,54 @@ def write_ephasor_model (dict, filename):
            'R1 (Ohm/length_unit)':[], 'X1 (Ohm/length_unit)':[], 
            'B0 (uS/length_unit)':[], 'B1 (uS/length_unit)':[]}
   for key, row in dict['DistLinesCodeZ']['vals'].items():
-    aphs = sequenced_phase_array (row['seqs'])
-    kv = 0.001 * row['basev']
-    if len(aphs) == 1:
-      data2['ID'].append(LINE_PREFIX + key)
-      data2['Status'].append(1)
-      data2['Length'].append(row['len'])
-      data2['From1'].append(row['bus1'] + aphs[0])
-      data2['To1'].append(row['bus2'] + aphs[0])
-      append_phase_matrix (data2, row['lname'], 1, dict['DistPhaseMatrix']['vals'])
-    elif len(aphs) == 2:
-      data3['ID'].append(LINE_PREFIX + key)
-      data3['Status'].append(1)
-      data3['Length'].append(row['len'])
-      data3['From1'].append(row['bus1'] + aphs[0])
-      data3['To1'].append(row['bus2'] + aphs[0])
-      data3['From2'].append(row['bus1'] + aphs[1])
-      data3['To2'].append(row['bus2'] + aphs[1])
-      append_phase_matrix (data3, row['lname'], 2, dict['DistPhaseMatrix']['vals'])
-    elif len(aphs) == 3:
-      data4['ID'].append(LINE_PREFIX + key)
-      data4['Status'].append(1)
-      data4['Length'].append(row['len'])
-      data4['From1'].append(row['bus1'] + aphs[0])
-      data4['To1'].append(row['bus2'] + aphs[0])
-      data4['From2'].append(row['bus1'] + aphs[1])
-      data4['To2'].append(row['bus2'] + aphs[1])
-      data4['From3'].append(row['bus1'] + aphs[2])
-      data4['To3'].append(row['bus2'] + aphs[2])
-      append_phase_matrix (data4, row['lname'], 3, dict['DistPhaseMatrix']['vals'])
+    lname = row['lname']
+    if lname in PhaseMatrices:
+      aphs = sequenced_phase_array (row['seqs'])
+      kv = 0.001 * row['basev']
+      if len(aphs) == 1:
+        data2['ID'].append(LINE_PREFIX + key)
+        data2['Status'].append(1)
+        data2['Length'].append(row['len'])
+        data2['From1'].append(row['bus1'] + aphs[0])
+        data2['To1'].append(row['bus2'] + aphs[0])
+        append_phase_matrix (data2, lname, 1, dict['DistPhaseMatrix']['vals'])
+      elif len(aphs) == 2:
+        data3['ID'].append(LINE_PREFIX + key)
+        data3['Status'].append(1)
+        data3['Length'].append(row['len'])
+        data3['From1'].append(row['bus1'] + aphs[0])
+        data3['To1'].append(row['bus2'] + aphs[0])
+        data3['From2'].append(row['bus1'] + aphs[1])
+        data3['To2'].append(row['bus2'] + aphs[1])
+        append_phase_matrix (data3, lname, 2, dict['DistPhaseMatrix']['vals'])
+      elif len(aphs) == 3:
+        data4['ID'].append(LINE_PREFIX + key)
+        data4['Status'].append(1)
+        data4['Length'].append(row['len'])
+        data4['From1'].append(row['bus1'] + aphs[0])
+        data4['To1'].append(row['bus2'] + aphs[0])
+        data4['From2'].append(row['bus1'] + aphs[1])
+        data4['To2'].append(row['bus2'] + aphs[1])
+        data4['From3'].append(row['bus1'] + aphs[2])
+        data4['To3'].append(row['bus2'] + aphs[2])
+        append_phase_matrix (data4, lname, 3, dict['DistPhaseMatrix']['vals'])
+    elif lname in dict['DistSequenceMatrix']['vals']:
+      mat = dict['DistSequenceMatrix']['vals'][lname]
+      data5['ID'].append(LINE_PREFIX + key)
+      data5['Status'].append(1)
+      data5['Length'].append(row['len'])
+      data5['From1'].append(row['bus1'] + '_A')
+      data5['To1'].append(row['bus2'] + '_A')
+      data5['From2'].append(row['bus1'] + '_B')
+      data5['To2'].append(row['bus2'] + '_B')
+      data5['From3'].append(row['bus1'] + '_C')
+      data5['To3'].append(row['bus2'] + '_C')
+      data5['R0 (Ohm/length_unit)'].append(mat['r0'])
+      data5['R1 (Ohm/length_unit)'].append(mat['r1'])
+      data5['X0 (Ohm/length_unit)'].append(mat['x0'])
+      data5['X1 (Ohm/length_unit)'].append(mat['x1'])
+      data5['B0 (uS/length_unit)'].append(mat['b0'] * 1.0e6)
+      data5['B1 (uS/length_unit)'].append(mat['b1'] * 1.0e6)
 
   for key, row in dict['DistLinesInstanceZ']['vals'].items():
     aphs = phase_array (row['phases'])
@@ -693,27 +724,27 @@ def write_ephasor_model (dict, filename):
                                                   'ThreePhaseLineFullData',
                                                   'ThreePhaseLineSequentialData'])
   xlrow = XL_START_ROW
-  add_comment_cell (xlw, 'Line', xlrow, 'Positive-Sequence Line')
+  add_comment_cell (xlw, 'Line', xlrow, 'Positive-Sequence Line', GotoCol=2)
   df1.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Positive-Sequence Line')
   xlrow += 2
-  add_comment_cell (xlw, 'Line', xlrow, 'Single-Phase Line')
+  add_comment_cell (xlw, 'Line', xlrow, 'Single-Phase Line', GotoCol=2)
   df2.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df2.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Single-Phase Line')
   xlrow += 2
-  add_comment_cell (xlw, 'Line', xlrow, 'Two-Phase Line')
+  add_comment_cell (xlw, 'Line', xlrow, 'Two-Phase Line', GotoCol=2)
   df3.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df3.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Two-Phase Line')
   xlrow += 2
-  add_comment_cell (xlw, 'Line', xlrow, 'Three-Phase Line with Full Data')
+  add_comment_cell (xlw, 'Line', xlrow, 'Three-Phase Line with Full Data', GotoCol=2)
   df4.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df4.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Three-Phase Line with Full Data')
   xlrow += 2
-  add_comment_cell (xlw, 'Line', xlrow, 'Three-Phase Line with Sequential Data')
+  add_comment_cell (xlw, 'Line', xlrow, 'Three-Phase Line with Sequential Data', GotoCol=2)
   df5.to_excel (xlw, sheet_name='Line', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df5.index) + 2
   add_comment_cell (xlw, 'Line', xlrow, 'End of Three-Phase Line with Sequential Data')
@@ -985,25 +1016,116 @@ def write_ephasor_model (dict, filename):
                                                    'Multiphase2wXF',
                                                    'Multiphase2wXFMutual'])
   xlrow = XL_START_ROW
-  add_comment_cell (xlw, 'Transformer', xlrow, 'Positive-Sequence 2W Transformer')
+  add_comment_cell (xlw, 'Transformer', xlrow, 'Positive-Sequence 2W Transformer', GotoCol=3)
   df1.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df1.index) + 2
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Positive-Sequence 2W Transformer')
   xlrow += 2
-  add_comment_cell (xlw, 'Transformer', xlrow, 'Positive-Sequence 3W Transformer')
+  add_comment_cell (xlw, 'Transformer', xlrow, 'Positive-Sequence 3W Transformer', GotoCol=3)
   df2.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df2.index) + 2
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Positive-Sequence 3W Transformer')
   xlrow += 2
-  add_comment_cell (xlw, 'Transformer', xlrow, 'Multiphase 2W Transformer')
+  add_comment_cell (xlw, 'Transformer', xlrow, 'Multiphase 2W Transformer', GotoCol=3)
   df3.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df3.index) + 2
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Multiphase 2W Transformer')
   xlrow += 2
-  add_comment_cell (xlw, 'Transformer', xlrow, 'Multiphase 2W Transformer with Mutual Impedance')
+  add_comment_cell (xlw, 'Transformer', xlrow, 'Multiphase 2W Transformer with Mutual Impedance', GotoCol=3)
   df4.to_excel (xlw, sheet_name='Transformer', header=True, index=False, startrow=xlrow+1)
   xlrow += len(df4.index) + 2
   add_comment_cell (xlw, 'Transformer', xlrow, 'End of Multiphase 2W Transformer with Mutual Impedance')
+
+  # synchronous machines; should probably use SyncGENCLS for all of them
+  data1 = {'Bus':[], 'ID':[], 'Status':[], 'Pg (MW)':[], 'Qg (MVAr)':[], 'Qmin (MVAr)':[], 'Qmax (MVAr)':[], 'Sbase (MVA)':[],
+          'H (s)':[], 'D':[], 'Ra (pu)':[], 'x\'_d (pu)':[]}
+  data2 = {'Bus':[], 'ID':[], 'Status':[], 'Pg (MW)':[], 'Qg (MVAr)':[], 'Qmin (MVAr)':[], 'Qmax (MVAr)':[], 'Sbase (MVA)':[],
+          'H (s)':[], 'D':[], 'Ra (pu)':[], 'x_d (pu)':[], 'x_q (pu)':[], 'x\'_d (pu)':[], 'x\'_q (pu)':[],
+          'x\'\'_d (pu)':[], 'x_l (pu)':[], 'T\'_do (s)':[], 'T\'\'_do (s)':[],
+          'T\'_qo (s)':[], 'T\'\'_qo (s)':[], 'S10':[], 'S12':[]}
+  data3 = {'Bus':[], 'ID':[], 'Status':[], 'Pg (MW)':[], 'Qg (MVAr)':[], 'Qmin (MVAr)':[], 'Qmax (MVAr)':[], 'Sbase (MVA)':[],
+          'H (s)':[], 'D':[], 'Ra (pu)':[], 'x_d (pu)':[], 'x_q (pu)':[], 'x\'_d (pu)':[], 'x\'_q (pu)':[],
+          'x\'\'_d (pu)':[], 'x_l (pu)':[], 'T\'_do (s)':[], 'T\'\'_do (s)':[],
+          'T\'_qo (s)':[], 'T\'\'_qo (s)':[], 'S10':[], 'S12':[]}
+  data4 = {'Bus':[], 'ID':[], 'Status':[], 'Pg (MW)':[], 'Qg (MVAr)':[], 'Qmin (MVAr)':[], 'Qmax (MVAr)':[], 'Sbase (MVA)':[],
+          'H (s)':[], 'D':[], 'Ra (pu)':[], 'x_d (pu)':[], 'x_q (pu)':[], 'x\'_d (pu)':[], 
+          'x\'\'_d (pu)':[], 'x_l (pu)':[], 'T\'_do (s)':[], 'T\'\'_do (s)':[],
+          'T\'\'_qo (s)':[], 'S10':[], 'S12':[]}
+  data5 = {'Bus':[], 'ID':[], 'Status':[], 'Pg (MW)':[], 'Qg (MVAr)':[], 'Qmin (MVAr)':[], 'Qmax (MVAr)':[], 'Sbase (MVA)':[],
+          'H (s)':[], 'D':[], 'Ra (pu)':[], 'x_d (pu)':[], 'x_q (pu)':[], 'x\'_d (pu)':[], 
+          'x\'\'_d (pu)':[], 'x_l (pu)':[], 'T\'_do (s)':[], 'T\'\'_do (s)':[],
+          'T\'\'_qo (s)':[], 'S10':[], 'S12':[]}
+  data6 = {'Bus':[], 'ID':[], 'Status':[], 'Pg (MW)':[], 'Qg (MVAr)':[], 'Qmin (MVAr)':[], 'Qmax (MVAr)':[], 'Sbase (MVA)':[],
+          'Pmech0 (pu)':[], 'H (s)':[], 'Ra (pu)':[], 'x (pu)':[], 'x\' (pu)':[],
+          'x_l (pu)':[], 'T\' (s)':[], 'e1 (pu)':[], 'e2 (pu)':[], 'S(e1)':[], 'S(e2)':[]}
+  data7 = {'Bus':[], 'ID':[], 'Status':[], 'Pg (MW)':[], 'Qg (MVAr)':[], 'Qmin (MVAr)':[], 'Qmax (MVAr)':[], 'Sbase (MVA)':[],
+          'Pmech0 (pu)':[], 'H (s)':[], 'Ra (pu)':[], 'x (pu)':[], 'x\' (pu)':[], 'x\'\' (pu)':[],
+          'x_l (pu)':[], 'T\' (s)':[], 'T\'\' (s)':[], 'e1 (pu)':[], 'e2 (pu)':[], 'S(e1)':[], 'S(e2)':[]}
+  for key, row in dict['DistSyncMachine']['vals'].items():
+    der_buses.add (row['bus'])
+    ratedQ = max (DFLT_MACHINE_QF * row['ratedS'], math.fabs(row['q']))
+    data1['Bus'].append(row['bus'])
+    data1['ID'].append(MACH_PREFIX + key) 
+    data1['Status'].append(1) 
+    data1['Pg (MW)'].append(1.0e-6 * row['p'])
+    data1['Qg (MVAr)'].append(1.0e-6 * row['q'])
+    data1['Qmin (MVAr)'].append(-1.0e-6 * ratedQ)
+    data1['Qmax (MVAr)'].append(1.0e-6 * ratedQ)
+    data1['Sbase (MVA)'].append(1.0e-6 * row['ratedS'])
+    data1['H (s)'].append(3.0)
+    data1['D'].append(0.001)
+    data1['Ra (pu)'].append(0.01)
+    data1['x\'_d (pu)'].append(0.5)
+
+  # push machine data into the spreadsheet
+  df1 = pd.DataFrame (data1)
+  df2 = pd.DataFrame (data2)
+  df3 = pd.DataFrame (data3)
+  df4 = pd.DataFrame (data4)
+  df5 = pd.DataFrame (data5)
+  df6 = pd.DataFrame (data6)
+  df7 = pd.DataFrame (data7)
+  add_template_block (xlw, 'Machine', col0_labels = ['SyncGenGENCLS',
+                                                     'SyncGenGENROE',
+                                                     'SyncGenGENROU',
+                                                     'SyncGenGENSAE',
+                                                     'SyncGenGENSAL'],
+                      col1_labels = ['AsyncGenSingleCage', 'AsyncGenDoubleCage'])
+  xlrow = XL_START_ROW
+  add_comment_cell (xlw, 'Machine', xlrow, 'SyncGenGENCLS', GotoCol=1)
+  df1.to_excel (xlw, sheet_name='Machine', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df1.index) + 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'End of SyncGenGENCLS')
+  xlrow += 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'SyncGenGENROE', GotoCol=1)
+  df2.to_excel (xlw, sheet_name='Machine', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df2.index) + 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'End of SyncGenGENROE')
+  xlrow += 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'SyncGenGENROU', GotoCol=1)
+  df3.to_excel (xlw, sheet_name='Machine', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df3.index) + 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'End of SyncGenGENROU')
+  xlrow += 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'SyncGenGENSAE', GotoCol=1)
+  df4.to_excel (xlw, sheet_name='Machine', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df4.index) + 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'End of SyncGenGENSAE')
+  xlrow += 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'SyncGenGENSAL', GotoCol=1)
+  df5.to_excel (xlw, sheet_name='Machine', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df5.index) + 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'End of SyncGenGENSAL')
+  xlrow += 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'AsyncGenSingleCage', GotoCol=1)
+  df6.to_excel (xlw, sheet_name='Machine', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df6.index) + 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'End of AsyncGenSingleCage')
+  xlrow += 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'AsyncGenDoubleCage', GotoCol=1)
+  df7.to_excel (xlw, sheet_name='Machine', header=True, index=False, startrow=xlrow+1)
+  xlrow += len(df7.index) + 2
+  add_comment_cell (xlw, 'Machine', xlrow, 'End of AsyncGenDoubleCage')
 
   # buses
   data = {'Bus':[], 'Base Voltage (V)':[], 'Initial Vmag':[], 'Unit (V, pu)':[], 'Angle (deg)':[], 'Type':[]}
@@ -1079,11 +1201,11 @@ if __name__ == '__main__':
 
   dict = cimhub.load_feeder_dict (cfg_file, xml_file, fid, bTime=False)
   cimhub.summarize_feeder_dict (dict)
+#  cimhub.list_dict_table (dict, 'DistSequenceMatrix')
 
   write_ephasor_model (dict, fname)
 
-#  cimhub.list_dict_table (dict, 'DistLoad')
-  for tbl in ['DistLinesSpacingZ', 'DistSequenceMatrix', 'DistSyncMachine']:
+  for tbl in ['DistLinesSpacingZ']:
     if len(dict[tbl]['vals']) > 0:
       print ('**** {:s} used in the circuit; but not implemented'.format (tbl))
 

@@ -17,7 +17,7 @@ def initialize_SPARQL (cfg_file=None):
 
 def build_query (prefix, base, fid):
   idx = base.find('WHERE {') + 8
-  retq = prefix + '\n' + base[:idx] + """ VALUES ?fdrid {{"_{:s}"}}\n""".format (fid) + base[idx:]
+  retq = prefix + '\n' + base[:idx] + """ VALUES ?fdrid {{"{:s}"}}\n""".format (fid) + base[idx:]
   return retq
 
 def build_dict (ret):
@@ -99,7 +99,7 @@ def load_feeder (dict, fid, bTime=True):
     if bTime:
       print ('Running {:30s} took {:6.3f} s'.format (key, time.time() - start_time))
   # remove all but fid from the list of feeders
-  match_fid = '_' + fid
+  match_fid = fid
   delete = [key for key in dict['DistFeeder']['vals'] if dict['DistFeeder']['vals'][key]['fid'] != match_fid]
   for key in delete: 
     del dict['DistFeeder']['vals'][key]
