@@ -291,7 +291,7 @@ def epri_to_pnnl(am:AdapterModel):
     # Add mRID's to all nodes, value is(extracted from rdf:about attrib
     for node in am.nodes:
         node_id = node.get_node_id()
-        mrid = '_' + node_id.rsplit(':', 1)[-1] # Assumes a "urn:uuid:" namespace in rdf:about values
+        mrid = node_id.rsplit(':', 1)[-1] # Assumes a "urn:uuid:" namespace in rdf:about values
         node.add_prop(CIMD_NS_LXML + 'IdentifiedObject.mRID', text=mrid)
  
     # Change WireAssembly to WireSpaceingInfo and add default properties
