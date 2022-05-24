@@ -286,14 +286,7 @@ def epri_to_pnnl(am:AdapterModel):
     SN_NAME = 'sequenceNumber'
     WP_SN_LITERAL = CIMD_NS_LXML + WP_NAME + '.' + SN_NAME
     ACLSP_SN_LITERAL = CIMD_NS_LXML + ACLSP_NAME + '.' + SN_NAME
-        
-    
-    # Add mRID's to all nodes, value is(extracted from rdf:about attrib
-    for node in am.nodes:
-        node_id = node.get_node_id()
-        mrid = node_id.rsplit(':', 1)[-1] # Assumes a "urn:uuid:" namespace in rdf:about values
-        node.add_prop(CIMD_NS_LXML + 'IdentifiedObject.mRID', text=mrid)
- 
+         
     # Change WireAssembly to WireSpaceingInfo and add default properties
     for wa_node in am.get_nodes_by_type(QName(WA)):
         wa_node.set_type(QName(WSI))
@@ -305,7 +298,7 @@ def epri_to_pnnl(am:AdapterModel):
         wa_node.add_prop(CIMD_NS_LXML + 'WireSpacingInfo.phaseWireSpacing', text='0')
         wa_node.add_prop(CIMD_NS_LXML + 'WireSpacingInfo.isCable', text='false')
 
-    # Change edges from WireAssembly to WireSpacingInfo
+    # Change edges names from WireAssembly to WireSpacingInfo
     for wp_node in am.get_nodes_by_type(QName(WP)):
         for edge in wp_node.edges:
             if edge.get_linked_name() == WA_NAME:
@@ -315,7 +308,6 @@ def epri_to_pnnl(am:AdapterModel):
             if edge.get_linked_name() == WA_NAME:
                 edge.set_linked_name(WSI_NAME)
                     
-
     # Move relations WP -R-> WI to ACLSP -R-> WI
     node_edges_to_remove = []
     aclsp_nodes = am.get_nodes_by_type(QName(ACLSP))
@@ -336,7 +328,13 @@ def epri_to_pnnl(am:AdapterModel):
         for edge in node_edges[1]:
             logging.debug("Removed Node: " + node.get_node_id() + ' Linked to: ' + edge.element.attrib[RDF_RESOURCE])
             node.remove_edge(edge, ignore_missing=True)
-            
+        
+    # Add mRID's to all nodes, value is(extracted from rdf:about attrib
+    for node in am.nodes:
+        node_id = node.get_node_id()
+        mrid = node_id.rsplit(':', 1)[-1] # Assumes a "urn:uuid:" namespace in rdf:about values
+        node.add_prop(CIMD_NS_LXML + 'IdentifiedObject.mRID', text=mrid)
+        
     logging.info('Completed epri to pnnl adapter')
                     
                             
