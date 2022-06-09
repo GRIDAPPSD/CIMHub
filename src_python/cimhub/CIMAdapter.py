@@ -2,20 +2,59 @@ from __future__ import annotations
 
 import logging
 import argparse
+import tempfile
 import os
 from lxml import etree
 from lxml.etree import Element, ElementTree, QName
 
-
+# Shared Use-Case RDF/XML elements
 RDF_NS = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
 RDF_NS_LXML = '{%s}' % RDF_NS  
-CIMD_NS = 'http://iec.ch/TC57/CIM100#'
-CIMD_NS_LXML =  '{%s}' % CIMD_NS
-CIMTB_NS = 'http://iec.ch/TC57/iec61970cim18v01_iec61968cim14v00_iec62325cim04v08_CIM101.0#'
-CIMTB_NS_LXML =  '{%s}' % CIMTB_NS
+CIM_NS = 'http://iec.ch/TC57/CIM100#'
+CIM_NS_LXML =  '{%s}' % CIM_NS
 RDF_ABOUT = '%s%s' % (RDF_NS_LXML, "about")
 RDF_RESOURCE = '%s%s' % (RDF_NS_LXML, "resource")
 
+
+# A dictionary that contains literal property names whose integer values need to be
+# modified by a multiplier.
+# KEY: integer multiplier VALUE: list of property names
+# TODO Replace with data-driven approach from profile data
+K_MULTUPLIER = 1e3
+M_MULTUPLIER = 1e6
+multipliers = {K_MULTUPLIER:    [
+                                    'BaseVoltage.nominalVoltage',
+                                    'EnergySource.nominalVoltage',
+                                    'NoLoadTest.energisedEndVoltage',
+                                    'PowerElectronicsConnection.ratedU',
+                                    'ShuntCompensator.nomU',
+                                    'TapChanger.neutralU',
+                                    'TapChangerControl.maxLimitVoltage',
+                                    'TapChangerControl.minLimitVoltage',
+                                    'TransformerEndInfo.insulationU',
+                                    'TransformerEndInfo.ratedU'
+                                ],
+              M_MULTUPLIER:     [
+                                    'BatteryUnit.ratedE',
+                                    'EnergyConsumer.p',
+                                    'EnergyConsumer.q',
+                                    'EnergyConsumerPhase.p',
+                                    'EnergyConsumerPhase.q',
+                                    'PowerElectronicsConnection.maxQ',
+                                    'PowerElectronicsConnection.minQ',
+                                    'PowerElectronicsConnection.p',
+                                    'PowerElectronicsConnection.q',
+                                    'PowerElectronicsConnection.ratedS',
+                                    'PowerElectronicsConnectionPhase.p',
+                                    'PowerElectronicsConnectionPhase.q',
+                                    'PowerElectronicsUnit.maxP',
+                                    'PowerElectronicsUnit.minP',
+                                    'TransformerEndInfo.emergencyS',
+                                    'TransformerEndInfo.ratedS',
+                                    'TransformerEndInfo.shortTermS',
+                                    'TransformerTest.basePower'
+                                ] 
+                }  
 
 class Edge:
     
@@ -38,6 +77,14 @@ class Edge:
     def is_local(self) -> bool:
         return self.qname.localname.startswith(self.node_qname.localname + '.')
     
+    def get_prop_name(self):
+        return self.qname.localname
+    
+    def set_prop_name(self, name):
+        new_qname = QName(self.qname.namespace, tag=name)
+        self.element.tag = new_qname.text
+        self.qname = new_qname
+    
     def __eq__(self, other):
         if not isinstance(other, Edge):
             return False
@@ -54,6 +101,20 @@ class Literal:
             
     def is_local(self):
         return self.qname.localname.startswith(self.node_qname.localname + '.')
+
+    def get_prop_name(self):
+        return self.qname.localname
+    
+    def set_prop_name(self, name):
+        new_qname = QName(self.qname.namespace, tag=name)
+        self.element.tag = new_qname.text
+        self.qname = new_qname
+        
+    def get_val(self):
+        return self.element.text
+            
+    def set_val(self, val:str):
+        self.element.text = val
     
     def __eq__(self, other):
         if not isinstance(other, Edge):
@@ -94,8 +155,16 @@ class Node:
     
     def set_type(self, node_type:QName):
         self.element.tag = self.create_tag(node_type.namespace, node_type.localname)
+        self.qname = node_type
     
-    def get_val(self, qname:QName) -> str:
+    def change_type(self, node_type:QName, clear=False, include_props=False):
+        self.set_type(node_type)
+        if clear:
+            self.remove_props()
+        if include_props:
+            pass #TODO
+    
+    def get_literal_val(self, qname:QName) -> str:
         ret = None
         for literal in self.literals:
             if literal.qname == qname:
@@ -129,7 +198,7 @@ class Node:
                 pass
             else:
                 raise
-        
+            
     def remove_literal(self, literal):
         self.element.remove(literal.element)
         self.literals.remove(literal)
@@ -166,8 +235,8 @@ class Node:
         for edge in edges:
             if edge.get_linked_name() == to_name:
                 resource_val = edge.element.attrib[RDF_RESOURCE]
-                source_val = self.get_val(keys[0])
-                from_val = from_node.get_val(keys[1])
+                source_val = self.get_literal_val(keys[0])
+                from_val = from_node.get_literal_val(keys[1])
                 if source_val and from_val and source_val == from_val:
                     tag:str
                     if edge.is_local():
@@ -181,6 +250,7 @@ class Node:
                     moved_edges.append(edge)
                     logging.debug('Edge moved:: SOURCE: ' + self.get_node_id() + ' FROM: ' + from_node.get_node_id() + ' TO: ' + resource_val)
         return moved_edges            
+        
 
     def __eq__(self, other):
         if not isinstance(other, Node):
@@ -189,12 +259,29 @@ class Node:
         
 class AdapterModel:
         
-    def __init__(self, in_filename:str, out_filename:str):        
+    def __init__(self, in_filename:str, out_filename:str, subst=[]):        
         self.in_filename = in_filename
         self.out_filename = out_filename
-        self.in_tree:ElementTree = etree.parse(self.in_filename)
+        self.subst = subst
+        self.in_tree:ElementTree
+        
+        # Use a temporary file, do not want to modify input file
+        if subst:
+            tmp_name:str
+            with tempfile.NamedTemporaryFile(mode='w+', delete=False) as tmp:
+                tmp_name = tmp.name
+                with open(in_filename) as r:
+                    text = r.read()
+                    for s in subst:
+                        text = text.replace(s[0], s[1])    
+                    tmp.write(text)
+            self.in_tree = etree.parse(tmp_name)
+            os.remove(tmp_name)
+        else:
+            self.in_tree:ElementTree = etree.parse(self.in_filename)
+        self.root_node:Element = self.in_tree.getroot()
         self.nodes:list[Node] = self._init_nodes()
-
+        
     def _get_root(self):
         return self.in_tree.getroot()
     
@@ -266,37 +353,59 @@ def setup() -> AdapterModel:
     parser.add_argument('-o', '--output', help='output filename', required=True,
                         nargs=1)
     args = parser.parse_args()
-    return AdapterModel(args.input[0], args.output[0])
+    return args
+    #return AdapterModel(args.input[0], args.output[0])
 
-def epri_to_pnnl(am:AdapterModel):
+def epri_to_pnnl(cli_args):
     logging.info('Started epri to pnnl adapter')
     
     ACLSP_NAME = 'ACLineSegmentPhase'
-    ACLSP = CIMD_NS_LXML + ACLSP_NAME
+    ACLSP = CIM_NS_LXML + ACLSP_NAME
     ACLS_NAME = 'ACLineSegment'
-    ACLS = CIMD_NS_LXML + ACLS_NAME
+    ACLS = CIM_NS_LXML + ACLS_NAME
     WSI_NAME = 'WireSpacingInfo'
-    WSI = CIMD_NS_LXML + WSI_NAME
+    WSI = CIM_NS_LXML + WSI_NAME
     WA_NAME = 'WireAssembly'
-    WA = CIMD_NS_LXML + WA_NAME
+    WA = CIM_NS_LXML + WA_NAME
     WP_NAME = 'WirePosition'
-    WP = CIMD_NS_LXML + WP_NAME
+    WP = CIM_NS_LXML + WP_NAME
     WI_NAME = 'WireInfo'
-    WI = CIMD_NS_LXML + WI_NAME
+    WI = CIM_NS_LXML + WI_NAME
+    OWI_NAME = 'OverheadWireInfo'
+    OWI = CIM_NS_LXML + OWI_NAME
     SN_NAME = 'sequenceNumber'
-    WP_SN_LITERAL = CIMD_NS_LXML + WP_NAME + '.' + SN_NAME
-    ACLSP_SN_LITERAL = CIMD_NS_LXML + ACLSP_NAME + '.' + SN_NAME
-         
+    WP_SN_LITERAL = CIM_NS_LXML + WP_NAME + '.' + SN_NAME
+    ACLSP_SN_LITERAL = CIM_NS_LXML + ACLSP_NAME + '.' + SN_NAME
+    IO_NAME = 'IdentifiedObject.name'
+    IO_NAME_LITERAL = CIM_NS_LXML + IO_NAME    
+    SWITCH_NAME = 'Switch'
+    SWITCH = CIM_NS_LXML + SWITCH_NAME
+    LBS_NAME = 'LoadBreakSwitch'
+    LBS = CIM_NS_LXML + LBS_NAME
+
+    # Get args
+    in_file = cli_args.input[0]
+    out_file = cli_args.output[0]
+
+    # Create adapter model, with substitutions
+    subst = [ ('http://ucaiug.org/61970cim18v02_61968cim14v00#', CIM_NS), 
+              ('http://ucaiug.org/GMDM/Exchange#', CIM_NS),
+              ('http://ucaiug.org/GMDM#', CIM_NS),
+              ('PhotoVoltaicUnit', 'PhotovoltaicUnit')
+            ]
+    am = AdapterModel(in_file, out_file, subst=subst)
+
     # Change WireAssembly to WireSpaceingInfo and add default properties
     for wa_node in am.get_nodes_by_type(QName(WA)):
-        wa_node.set_type(QName(WSI))
-        wa_node.remove_props()
-        wa_node.add_prop(CIMD_NS_LXML + 'IdentifiedObject.name', text='601')
-        wa_node.add_prop(CIMD_NS_LXML + 'WireSpacingInfo.usage', 
+        wa_node_name = wa_node.get_literal_val(QName(IO_NAME_LITERAL))
+        wa_node.change_type(QName(WSI), clear=True)
+        #wa_node.remove_props()
+        wa_node.add_prop(CIM_NS_LXML + IO_NAME, text=wa_node_name)
+        wa_node.add_prop(CIM_NS_LXML + 'WireSpacingInfo.usage', 
                       attrib={RDF_RESOURCE:'http://iec.ch/TC57/CIM100#WireUsageKind.distribution'})
-        wa_node.add_prop(CIMD_NS_LXML + 'WireSpacingInfo.phaseWireCount', text='1')
-        wa_node.add_prop(CIMD_NS_LXML + 'WireSpacingInfo.phaseWireSpacing', text='0')
-        wa_node.add_prop(CIMD_NS_LXML + 'WireSpacingInfo.isCable', text='false')
+        wa_node.add_prop(CIM_NS_LXML + 'WireSpacingInfo.phaseWireCount', text='1')
+        wa_node.add_prop(CIM_NS_LXML + 'WireSpacingInfo.phaseWireSpacing', text='0')
+        wa_node.add_prop(CIM_NS_LXML + 'WireSpacingInfo.isCable', text='false')
 
     # Change edges names from WireAssembly to WireSpacingInfo
     for wp_node in am.get_nodes_by_type(QName(WP)):
@@ -308,7 +417,7 @@ def epri_to_pnnl(am:AdapterModel):
             if edge.get_linked_name() == WA_NAME:
                 edge.set_linked_name(WSI_NAME)
                     
-    # Move relations WP -R-> WI to ACLSP -R-> WI
+    # Move relations WP-R->WI to ACLSP-R->WI
     node_edges_to_remove = []
     aclsp_nodes = am.get_nodes_by_type(QName(ACLSP))
     for aclsp_node in aclsp_nodes:
@@ -328,13 +437,49 @@ def epri_to_pnnl(am:AdapterModel):
         for edge in node_edges[1]:
             logging.debug("Removed Node: " + node.get_node_id() + ' Linked to: ' + edge.element.attrib[RDF_RESOURCE])
             node.remove_edge(edge, ignore_missing=True)
-        
-    # Add mRID's to all nodes, value is(extracted from rdf:about attrib
+    
+    # Change Class name Switch to LoadBreakSwitch
+    for switch_node in am.get_nodes_by_type(QName(SWITCH)):
+        switch_node.change_type(QName(LBS))
+
+    # Change Class name Switch to LoadBreakSwitch
+    for wi_node in am.get_nodes_by_type(QName(WI)):
+        wi_node.change_type(QName(OWI))
+
+    # Swap edges Equipment.AdditionalEquipmentContainer <-> Equipment.EquipmentContainer
+    aec = 'Equipment.AdditionalEquipmentContainer'
+    ec = 'Equipment.EquipmentContainer'
+    for node in am.nodes:
+        for edge in node.edges:
+            if edge.get_prop_name() == aec:
+                edge.set_prop_name(ec)
+            elif edge.get_prop_name() == ec:
+                edge.set_prop_name(aec)
+            else:
+                pass
+
+    # Multipliers
+    for node in am.nodes:
+        for l in node.literals:
+            if l.get_prop_name() in multipliers[K_MULTUPLIER]:
+                if l.get_val():
+                    l.set_val(str(float(l.get_val()) * K_MULTUPLIER))
+            elif l.get_prop_name() in multipliers[M_MULTUPLIER]:
+                if l.get_val():
+                    l.set_val(str(float(l.get_val()) * M_MULTUPLIER))
+            else:
+                pass
+
+    # Must be performed after any node creations
+    # Add mRID's to all nodes, value is extracted from rdf:about attribute
     for node in am.nodes:
         node_id = node.get_node_id()
         mrid = node_id.rsplit(':', 1)[-1] # Assumes a "urn:uuid:" namespace in rdf:about values
-        node.add_prop(CIMD_NS_LXML + 'IdentifiedObject.mRID', text=mrid)
+        node.add_prop(CIM_NS_LXML + 'IdentifiedObject.mRID', text=mrid)
         
+    # Write output file
+    am.write_out_file()
+            
     logging.info('Completed epri to pnnl adapter')
                     
                             
@@ -344,6 +489,7 @@ if __name__ == '__main__':
     fmt = "%(asctime)s: %(message)s"
     logging.basicConfig(format=fmt, level=LOG_LEVEL, datefmt="%H:%M:%S")    
     
-    am:AdapterModel = setup()
-    epri_to_pnnl(am)
-    am.write_out_file()
+    # Run use-case
+    epri_to_pnnl(setup())
+    
+    
