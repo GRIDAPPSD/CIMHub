@@ -275,15 +275,14 @@ def insertHouse (ecName, ecID, houseNum, houseData, uuids):
   key = ecName + '_house_' + str(houseNum) # relies on unique names within EnergyConsumers
   if key in uuids: # re-use
     hIDStr = uuids[key]
-  else: # make a new one with underscore, save it for re-use
+  else: # make a new one, save it for re-use
     hIDStr = str(uuid4())
-    if hIDStr[0] != '_':
-      hIDStr = '_' + hIDStr
     uuids[key] = hIDStr
 
   # Define strings for the house and energy consumer.
   house = '<' + CIMHubConfig.blazegraph_url + '#' + hIDStr + '>'
-  ec = '<' + CIMHubConfig.blazegraph_url + '#' + ecIDStr + '>'
+#  ec = '<' + CIMHubConfig.blazegraph_url + '#' + ecIDStr + '>'
+  ec = '<urn:uuid:' + ecIDStr + '>'
   
   # Define string for attaching house to energy consumer
   qdata = (house + ' a c:House. ' +

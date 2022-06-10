@@ -53,7 +53,7 @@ def load_glm_voltages(fname, voltagebases):
   vrad = {}
   buses = []
   if not os.path.isfile (fname):
-    return buses, vglm
+    return buses, vpu, vmag, vrad
   fd = open (fname, 'r')
   rd = csv.reader (fd, delimiter=',')
   next (rd)
@@ -337,16 +337,24 @@ def error_norm_tuple (diffs):
     sum += v
   return sum/cnt
 
+def write_glm_flows(glmpath, rootname, voltagebases, check_branches):
+  gldbus, gldv, gldmagv, gldangv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
+  gldlink, gldi, gldangi = load_glm_currents (glmpath + rootname + '_curr.csv')
+  for row in check_branches:
+    if (('gld_link' in row) and ('gld_bus' in row)):
+      print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi)
+
 def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_branches=[], do_gld=True):
   dssroot = rootname.lower()
   v1, magv1, angv1 = load_voltages (basepath + dssroot + '_v.csv')
-  v2, magv2, angv2 = load_voltages (dsspath + dssroot + '_v.csv')
   t1 = load_taps (basepath + dssroot + '_t.csv')
-  t2 = load_taps (dsspath + dssroot + '_t.csv')
   i1, angi1 = load_currents (basepath + dssroot + '_i.csv', basepath + dssroot + '_n.csv')
-  i2, angi2 = load_currents (dsspath + dssroot + '_i.csv', dsspath + dssroot + '_n.csv')
   s1 = load_summary (basepath + dssroot + '_s.csv')
-  s2 = load_summary (dsspath + dssroot + '_s.csv')
+  if dsspath:
+    v2, magv2, angv2 = load_voltages (dsspath + dssroot + '_v.csv')
+    t2 = load_taps (dsspath + dssroot + '_t.csv')
+    i2, angi2 = load_currents (dsspath + dssroot + '_i.csv', dsspath + dssroot + '_n.csv')
+    s2 = load_summary (dsspath + dssroot + '_s.csv')
 
   if do_gld:
     gldbus, gldv, gldmagv, gldangv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
@@ -366,7 +374,8 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
   for row in check_branches:
     if (('dss_link' in row) and ('dss_bus' in row)):
       print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, 'Base')
-      print_dss_flow (row['dss_bus'], row['dss_link'], magv2, angv2, i2, angi2, 'Converted')
+      if dsspath:
+        print_dss_flow (row['dss_bus'], row['dss_link'], magv2, angv2, i2, angi2, 'Converted')
     if (do_gld and ('gld_link' in row) and ('gld_bus' in row)):
       print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi)
 

@@ -37,9 +37,6 @@ cases = [
                      {'dss_link': 'LINE.L115', 'dss_bus': '149', 'gld_link': 'LINE_L115', 'gld_bus': '149'}]},
 ]
 
-#cimhub.compare_cases (casefiles=cases, basepath='./', dsspath='./dss/', glmpath='./glm/')
-#quit()
-
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 cimhub.clear_db (cfg_json)
 
