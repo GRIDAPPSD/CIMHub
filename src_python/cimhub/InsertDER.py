@@ -60,97 +60,97 @@ ORDER by ?name
 """
 
 ins_pt_template = """
- <{url}#{res}> a c:PositionPoint.
- <{url}#{res}> c:PositionPoint.Location <{url}#{resLoc}>.
- <{url}#{res}> c:PositionPoint.sequenceNumber \"{seq}\".
- <{url}#{res}> c:PositionPoint.xPosition \"{x}\".
- <{url}#{res}> c:PositionPoint.yPosition \"{y}\".
+ <urn:uuid:{res}> a c:PositionPoint.
+ <urn:uuid:{res}> c:PositionPoint.Location <urn:uuid:{resLoc}>.
+ <urn:uuid:{res}> c:PositionPoint.sequenceNumber \"{seq}\".
+ <urn:uuid:{res}> c:PositionPoint.xPosition \"{x}\".
+ <urn:uuid:{res}> c:PositionPoint.yPosition \"{y}\".
 """
 
 ins_loc_template = """
- <{url}#{res}> a c:Location.
- <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
- <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
- <{url}#{res}> c:Location.CoordinateSystem <{url}#{resCrs}>.
+ <urn:uuid:{res}> a c:Location.
+ <urn:uuid:{res}> c:IdentifiedObject.mRID \"{res}\".
+ <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
+ <urn:uuid:{res}> c:Location.CoordinateSystem <urn:uuid:{resCrs}>.
 """
 
 ins_trm_template = """
- <{url}#{res}> a c:Terminal.
- <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
- <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
- <{url}#{res}> c:Terminal.ConductingEquipment <{url}#{resEQ}>.
- <{url}#{res}> c:ACDCTerminal.sequenceNumber \"1\".
- <{url}#{res}> c:Terminal.ConnectivityNode <{url}#{resCN}>.
+ <urn:uuid:{res}> a c:Terminal.
+ <urn:uuid:{res}> c:IdentifiedObject.mRID \"{res}\".
+ <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
+ <urn:uuid:{res}> c:Terminal.ConductingEquipment <urn:uuid:{resEQ}>.
+ <urn:uuid:{res}> c:ACDCTerminal.sequenceNumber \"1\".
+ <urn:uuid:{res}> c:Terminal.ConnectivityNode <urn:uuid:{resCN}>.
 """
 
 ins_pec_template = """
- <{url}#{res}> a c:PowerElectronicsConnection.
- <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
- <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
- <{url}#{res}> c:Equipment.EquipmentContainer  <{url}#{resFdr}>.
- <{url}#{res}> c:PowerElectronicsConnection.PowerElectronicsUnit <{url}#{resUnit}>.
- <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
- <{url}#{res}> c:PowerElectronicsConnection.maxIFault \"1.111\".
- <{url}#{res}> c:PowerElectronicsConnection.p \"{p}\".
- <{url}#{res}> c:PowerElectronicsConnection.q \"{q}\".
- <{url}#{res}> c:PowerElectronicsConnection.maxQ \"{maxQ}\".
- <{url}#{res}> c:PowerElectronicsConnection.minQ \"{minQ}\".
- <{url}#{res}> c:PowerElectronicsConnection.ratedS \"{ratedS}\".
- <{url}#{res}> c:PowerElectronicsConnection.ratedU \"{ratedU}\".
- <{url}#{res}> c:PowerElectronicsConnection.controlMode {ns}ConverterControlModeKind.{mode}>.
+ <urn:uuid:{res}> a c:PowerElectronicsConnection.
+ <urn:uuid:{res}> c:IdentifiedObject.mRID \"{res}\".
+ <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
+ <urn:uuid:{res}> c:Equipment.EquipmentContainer  <urn:uuid:{resFdr}>.
+ <urn:uuid:{res}> c:PowerElectronicsConnection.PowerElectronicsUnit <urn:uuid:{resUnit}>.
+ <urn:uuid:{res}> c:PowerSystemResource.Location <urn:uuid:{resLoc}>.
+ <urn:uuid:{res}> c:PowerElectronicsConnection.maxIFault \"1.111\".
+ <urn:uuid:{res}> c:PowerElectronicsConnection.p \"{p}\".
+ <urn:uuid:{res}> c:PowerElectronicsConnection.q \"{q}\".
+ <urn:uuid:{res}> c:PowerElectronicsConnection.maxQ \"{maxQ}\".
+ <urn:uuid:{res}> c:PowerElectronicsConnection.minQ \"{minQ}\".
+ <urn:uuid:{res}> c:PowerElectronicsConnection.ratedS \"{ratedS}\".
+ <urn:uuid:{res}> c:PowerElectronicsConnection.ratedU \"{ratedU}\".
+ <urn:uuid:{res}> c:PowerElectronicsConnection.controlMode {ns}ConverterControlModeKind.{mode}>.
 """
 
 ins_syn_template = """
- <{url}#{res}> a c:SynchronousMachine.
- <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
- <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
- <{url}#{res}> c:Equipment.EquipmentContainer  <{url}#{resFdr}>.
- <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
- <{url}#{res}> c:SynchronousMachine.p \"{p}\".
- <{url}#{res}> c:SynchronousMachine.q \"{q}\".
- <{url}#{res}> c:SynchronousMachine.ratedS \"{ratedS}\".
- <{url}#{res}> c:SynchronousMachine.ratedU \"{ratedU}\".
+ <urn:uuid:{res}> a c:SynchronousMachine.
+ <urn:uuid:{res}> c:IdentifiedObject.mRID \"{res}\".
+ <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
+ <urn:uuid:{res}> c:Equipment.EquipmentContainer  <urn:uuid:{resFdr}>.
+ <urn:uuid:{res}> c:PowerSystemResource.Location <urn:uuid:{resLoc}>.
+ <urn:uuid:{res}> c:SynchronousMachine.p \"{p}\".
+ <urn:uuid:{res}> c:SynchronousMachine.q \"{q}\".
+ <urn:uuid:{res}> c:SynchronousMachine.ratedS \"{ratedS}\".
+ <urn:uuid:{res}> c:SynchronousMachine.ratedU \"{ratedU}\".
 """
 
 ins_pep_template = """
- <{url}#{res}> a c:PowerElectronicsConnectionPhase.
- <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
- <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
- <{url}#{res}> c:PowerElectronicsConnectionPhase.phase {ns}SinglePhaseKind.{phs}>.
- <{url}#{res}> c:PowerElectronicsConnectionPhase.PowerElectronicsConnection <{url}#{resPEC}>.
- <{url}#{res}> c:PowerElectronicsConnectionPhase.p \"{p}\".
- <{url}#{res}> c:PowerElectronicsConnectionPhase.q \"{q}\".
- <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
+ <urn:uuid:{res}> a c:PowerElectronicsConnectionPhase.
+ <urn:uuid:{res}> c:IdentifiedObject.mRID \"{res}\".
+ <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
+ <urn:uuid:{res}> c:PowerElectronicsConnectionPhase.phase {ns}SinglePhaseKind.{phs}>.
+ <urn:uuid:{res}> c:PowerElectronicsConnectionPhase.PowerElectronicsConnection <urn:uuid:{resPEC}>.
+ <urn:uuid:{res}> c:PowerElectronicsConnectionPhase.p \"{p}\".
+ <urn:uuid:{res}> c:PowerElectronicsConnectionPhase.q \"{q}\".
+ <urn:uuid:{res}> c:PowerSystemResource.Location <urn:uuid:{resLoc}>.
 """
 
 ins_pv_template = """
- <{url}#{res}> a c:PhotovoltaicUnit.
- <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
- <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
- <{url}#{res}> c:PowerElectronicsUnit.minP \"{minP}\".
- <{url}#{res}> c:PowerElectronicsUnit.maxP \"{maxP}\".
- <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
+ <urn:uuid:{res}> a c:PhotovoltaicUnit.
+ <urn:uuid:{res}> c:IdentifiedObject.mRID \"{res}\".
+ <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
+ <urn:uuid:{res}> c:PowerElectronicsUnit.minP \"{minP}\".
+ <urn:uuid:{res}> c:PowerElectronicsUnit.maxP \"{maxP}\".
+ <urn:uuid:{res}> c:PowerSystemResource.Location <urn:uuid:{resLoc}>.
 """
 
 ins_bat_template = """
- <{url}#{res}> a c:BatteryUnit.
- <{url}#{res}> c:IdentifiedObject.mRID \"{res}\".
- <{url}#{res}> c:IdentifiedObject.name \"{nm}\".
- <{url}#{res}> c:PowerElectronicsUnit.minP \"{minP}\".
- <{url}#{res}> c:PowerElectronicsUnit.maxP \"{maxP}\".
- <{url}#{res}> c:BatteryUnit.ratedE \"{ratedE}\".
- <{url}#{res}> c:BatteryUnit.storedE \"{storedE}\".
- <{url}#{res}> c:BatteryUnit.batteryState {ns}BatteryStateKind.{state}>.
- <{url}#{res}> c:PowerSystemResource.Location <{url}#{resLoc}>.
+ <urn:uuid:{res}> a c:BatteryUnit.
+ <urn:uuid:{res}> c:IdentifiedObject.mRID \"{res}\".
+ <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
+ <urn:uuid:{res}> c:PowerElectronicsUnit.minP \"{minP}\".
+ <urn:uuid:{res}> c:PowerElectronicsUnit.maxP \"{maxP}\".
+ <urn:uuid:{res}> c:BatteryUnit.ratedE \"{ratedE}\".
+ <urn:uuid:{res}> c:BatteryUnit.storedE \"{storedE}\".
+ <urn:uuid:{res}> c:BatteryUnit.batteryState {ns}BatteryStateKind.{state}>.
+ <urn:uuid:{res}> c:PowerSystemResource.Location <urn:uuid:{resLoc}>.
 """
 
 def GetCIMID (cls, nm, uuids):
   if nm is not None:
     key = cls + ':' + nm
     if key not in uuids:
-      uuids[key] = '_' + str(uuid.uuid4()).upper()
+      uuids[key] = str(uuid.uuid4()).upper()
     return uuids[key]
-  return '_' + str(uuid.uuid4()).upper() # for unidentified CIM instances
+  return str(uuid.uuid4()).upper() # for unidentified CIM instances
 
 class ieee1547:
   def __init__(self):

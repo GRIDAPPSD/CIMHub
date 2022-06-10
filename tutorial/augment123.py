@@ -39,9 +39,31 @@ CIMHubConfig.ConfigFromJsonFile (cfg_json)
 cimhub.list_feeders (cfg_json)
 cimhub.summarize_db (cfg_json)
 
+# run insert houses, GridLAB-D power flow with houses
 cimhub.insert_houses (cfg_json, mRID, 5, 0, 'ieee123_house_uuids.json', 1.0)
 
-# run a GridLAB-D power flow with houses, compare to the original OpenDSS
+cimhub.make_export_script (cases=cases, glmpath='glm/', scriptname=shfile_export, clean_dirs=False)
+st = os.stat (shfile_export)
+os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile_export, shell=True)
+
+os.chdir(cwd)
+shutil.copyfile('../support/appliance_schedules.glm', './glm/appliance_schedules.glm')
+cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/',
+                           scriptname=shfile_glm, bHouses=True, movefiles=False)
+st = os.stat (shfile_glm)
+os.chmod (shfile_glm, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+os.chdir('./glm')
+p1 = subprocess.call (shfile_run)
+cimhub.write_glm_flows (glmpath='./', rootname=cases[0]['root'],
+                        voltagebases=cases[0]['bases'],
+                        check_branches=cases[0]['check_branches'])
+
+# insert aggregated residential rooftop PV, run GridLAB-D with houses and PV
+os.chdir(cwd)
+cimhub.insert_der (cfg_json, 'ieee123_der.dat')
+cases[0]['root'] = 'ieee123houseder'
+
 cimhub.make_export_script (cases=cases, glmpath='glm/', scriptname=shfile_export, clean_dirs=False)
 st = os.stat (shfile_export)
 os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
@@ -58,24 +80,8 @@ p1 = subprocess.call (shfile_run)
 cimhub.write_glm_flows (glmpath='./', rootname=cases[0]['root'], 
                         voltagebases=cases[0]['bases'], 
                         check_branches=cases[0]['check_branches'])
-quit()
 
-der_fname = test_froot + '_new_der.dat'
-der_uuids = test_froot + '_new_der_uuid.txt'
-cimhub.insert_der (cfg_json, der_fname)
-cimhub.summarize_db (cfg_json)
-
-quit()
-
-cimhub.make_blazegraph_script (cases, './', 'dss/', 'glm/', shfile_export)
-st = os.stat (shfile_export)
-os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-p1 = subprocess.call (shfile_export, shell=True)
-
+# count the elements in the database; should have 671 Houses, 14 PhotovoltaicUnits, 14 PowerElectronicsConnections
 os.chdir(cwd)
-cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname=shfile_glm)
-st = os.stat (shfile_glm)
-os.chmod (shfile_glm, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-os.chdir('./glm')
-p1 = subprocess.call (shfile_run)
+cimhub.summarize_db (cfg_json)
 
