@@ -39,8 +39,10 @@ from .MakeLoopScript import make_export_script
 from .MakeLoopScript import make_blazegraph_script
 from .MakeLoopScript import make_dssrun_script
 from .MakeGlmTestScript import make_glmrun_script
+
 from .Compare_Cases import compare_cases
 from .Compare_Cases import write_glm_flows
+from .Compare_Cases import write_dss_flows
 
 from .SPARQL_Dict import load_feeder_dict
 from .SPARQL_Dict import summarize_feeder_dict

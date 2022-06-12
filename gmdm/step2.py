@@ -221,7 +221,7 @@ for b in ret.bindings:
     regctls[key] = {'type':b['type'].value, 'name':b['name'].value}
 for key, row in regctls.items():
   print (' ', key, row)
-  ins = ins_regenabled_template.format(res=key, enabled=True)
+  ins = ins_regenabled_template.format(res=key, enabled="true")
   qinserts.append(ins)
 
 #  populate RatioTapChanger.normalStep as 0

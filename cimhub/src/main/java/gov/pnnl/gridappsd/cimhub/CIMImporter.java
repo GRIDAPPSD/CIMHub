@@ -563,8 +563,8 @@ public class CIMImporter extends Object {
     }
   }
 
-  public void PrintGldNodeMap () {
-    System.out.println("*** GridLAB-D Node Map");
+  public void PrintGldNodeMap (String lbl) {
+    System.out.println("*** GridLAB-D Node Map " + lbl);
     SortedSet<String> keys = new TreeSet<String>(mapNodes.keySet());
     for (String key : keys) {
       System.out.println (mapNodes.get(key).DisplayString());
@@ -1201,7 +1201,7 @@ public class CIMImporter extends Object {
       String bus = DistComponent.SafeName (soln.get ("?name").toString());
       mapNodes.put (bus, new GldNode(bus));
     }
-//    PrintGldNodeMap ();
+    PrintGldNodeMap ("Before Accumulation");
     for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
       DistSubstation obj = pair.getValue();
       GldNode nd = mapNodes.get (obj.bus);
@@ -1445,6 +1445,7 @@ public class CIMImporter extends Object {
         xfmr.glmUsed = false;
       }
     }
+    PrintGldNodeMap ("After Accumulation");
 
     // GLM configurations
     for (HashMap.Entry<String,DistOverheadWire> pair : mapWires.entrySet()) {

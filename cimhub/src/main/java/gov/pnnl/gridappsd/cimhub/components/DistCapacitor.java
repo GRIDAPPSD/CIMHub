@@ -143,7 +143,7 @@ public class DistCapacitor extends DistComponent {
         setpoint = Double.parseDouble (soln.get("?setpoint").toString());
         deadband = Double.parseDouble (soln.get("?deadband").toString());
         delay = Double.parseDouble (soln.get("?delay").toString());
-        moneq = soln.get("?moneq").toString();
+        moneq = SafeName (soln.get("?moneq").toString());
         monclass = soln.get("?monclass").toString();
         monbus = soln.get("?monbus").toString();
         monphs = soln.get("?monphs").toString();

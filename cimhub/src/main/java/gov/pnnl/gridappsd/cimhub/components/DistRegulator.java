@@ -439,12 +439,21 @@ public class DistRegulator extends DistComponent {
       } else {
         xfName = pname;
       }
-      buf.append("new RegControl." + rname[i] + " transformer=" + xfName + " winding=" + Integer.toString(wnum[i]));
-      buf.append(" vreg=" + df2.format(vset[i]) + " band=" + df2.format(vbw[i]) + " ptratio=" + df2.format(ptRatio[i]) +
-                 " ctprim=" + df2.format(ctRating[i]) + " r=" + df2.format(fwdR[i]) +
-                 " x=" + df2.format(fwdX[i]) + " revr=" + df2.format(revR[i]) + " revx=" + df2.format(revX[i]) +
-                 " delay=" + df2.format(initDelay[i]) + " tapdelay=" + df2.format(subDelay[i]) + " vlimit=" + df2.format(vlim[i]) +
+      buf.append("new RegControl." + rname[i] + " transformer=" + xfName + " winding=" + Integer.toString(wnum[i]) +
                  " TapNum=" + Integer.toString(step[i]));
+      if (ltc[i]) {
+        if (vset[i] > 0.0) buf.append(" vreg=" + df2.format(vset[i]));
+        if (vbw[i] > 0.0) buf.append(" band=" + df2.format(vbw[i]));
+        if (ptRatio[i] > 0.0) buf.append(" ptratio=" + df2.format(ptRatio[i]));
+        if (ctRating[i] > 0.0) buf.append(" ctprim=" + df2.format(ctRating[i]));
+        if (fwdR[i] != 0.0) buf.append(" r=" + df2.format(fwdR[i]));
+        if (fwdX[i] != 0.0) buf.append(" x=" + df2.format(fwdX[i]));
+        if (revR[i] != 0.0) buf.append(" revr=" + df2.format(revR[i]));
+        if (revX[i] != 0.0) buf.append(" revx=" + df2.format(revX[i]));
+        if (initDelay[i] > 0.0) buf.append(" delay=" + df2.format(initDelay[i]));
+        if (subDelay[i] > 0.0) buf.append(" tapdelay=" + df2.format(subDelay[i]));
+        if (vlim[i] > 0.0) buf.append(" vlimit=" + df2.format(vlim[i]));
+      }
       // ptphase, enabled
       double turnsRatio = 1.0 + 0.01 * step[i] * incr[i];
       buf.append ("\nedit transformer." + xfName + " wdg=" + Integer.toString(wnum[i]) + " tap=" + df6.format(turnsRatio));
