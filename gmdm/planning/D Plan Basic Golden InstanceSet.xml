@@ -33,8 +33,8 @@
 		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 		<cim:ShortCircuitTest.energisedEndStep>16</cim:ShortCircuitTest.energisedEndStep>
 		<cim:ShortCircuitTest.groundedEndStep>16</cim:ShortCircuitTest.groundedEndStep>
-		<cim:ShortCircuitTest.leakageImpedance>82.94400024414062</cim:ShortCircuitTest.leakageImpedance>
-		<cim:ShortCircuitTest.loss>0.14000000059604645</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.leakageImpedance>110.21335</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>0.14</cim:ShortCircuitTest.loss>
 		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:5da4f5dd-abb4-41e1-b8b1-292a668d34c5"/>
 		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:5de8d7d5-6469-4dc0-b703-264b0afc3525"/>
 	</cim:ShortCircuitTest>
@@ -263,8 +263,8 @@
 		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 		<cim:ShortCircuitTest.energisedEndStep>16</cim:ShortCircuitTest.energisedEndStep>
 		<cim:ShortCircuitTest.groundedEndStep>16</cim:ShortCircuitTest.groundedEndStep>
-		<cim:ShortCircuitTest.leakageImpedance>49.76639938354492</cim:ShortCircuitTest.leakageImpedance>
-		<cim:ShortCircuitTest.loss>0</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.leakageImpedance>83.77575</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>0.2925</cim:ShortCircuitTest.loss>
 		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:7889ab14-6093-4528-bf0c-03733a83577c"/>
 		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:5966a699-7b4c-4e6c-8503-5371e99005fb"/>
 	</cim:ShortCircuitTest>
@@ -849,8 +849,8 @@
 		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 		<cim:ShortCircuitTest.energisedEndStep>16</cim:ShortCircuitTest.energisedEndStep>
 		<cim:ShortCircuitTest.groundedEndStep>16</cim:ShortCircuitTest.groundedEndStep>
-		<cim:ShortCircuitTest.leakageImpedance>0.009216000325977802</cim:ShortCircuitTest.leakageImpedance>
-		<cim:ShortCircuitTest.loss>0</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.leakageImpedance>0.026607072</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>0.39</cim:ShortCircuitTest.loss>
 		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:5966a699-7b4c-4e6c-8503-5371e99005fb"/>
 		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:f392cda7-b820-4c58-a20b-e223182f8ef1"/>
 	</cim:ShortCircuitTest>
@@ -1090,8 +1090,8 @@
 		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 		<cim:ShortCircuitTest.energisedEndStep>16</cim:ShortCircuitTest.energisedEndStep>
 		<cim:ShortCircuitTest.groundedEndStep>16</cim:ShortCircuitTest.groundedEndStep>
-		<cim:ShortCircuitTest.leakageImpedance>49.76639938354492</cim:ShortCircuitTest.leakageImpedance>
-		<cim:ShortCircuitTest.loss>0.29249998927116394</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.leakageImpedance>83.77575</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>0.2925</cim:ShortCircuitTest.loss>
 		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:7889ab14-6093-4528-bf0c-03733a83577c"/>
 		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:f392cda7-b820-4c58-a20b-e223182f8ef1"/>
 	</cim:ShortCircuitTest>
@@ -2217,12 +2217,12 @@
 		<cim:TransformerCoreAdmittance.TransformerEndInfo rdf:resource="urn:uuid:cfda902c-8fc4-4b60-bef5-d47b7c58b244"/>
 	</cim:TransformerCoreAdmittance>
 	<cim:TransformerCoreAdmittance rdf:about="urn:uuid:bc921705-577f-4331-b8a2-3ad34f7a8ab5">
-		<cim:TransformerCoreAdmittance.b>-1.447e-06</cim:TransformerCoreAdmittance.b>
-		<cim:TransformerCoreAdmittance.g>7.235e-07</cim:TransformerCoreAdmittance.g>
+		<cim:TransformerCoreAdmittance.b>0</cim:TransformerCoreAdmittance.b>
+		<cim:TransformerCoreAdmittance.g>0</cim:TransformerCoreAdmittance.g>
 		<cim:TransformerCoreAdmittance.TransformerEndInfo rdf:resource="urn:uuid:7889ab14-6093-4528-bf0c-03733a83577c"/>
 	</cim:TransformerCoreAdmittance>
 	<cim:TransformerCoreAdmittance rdf:about="urn:uuid:34c2c3f1-170a-4bf8-abf1-05a85d3e0119">
-		<cim:TransformerCoreAdmittance.b></cim:TransformerCoreAdmittance.b>
+		<cim:TransformerCoreAdmittance.b>0</cim:TransformerCoreAdmittance.b>
 		<cim:TransformerCoreAdmittance.g>0</cim:TransformerCoreAdmittance.g>
 		<cim:TransformerCoreAdmittance.TransformerEndInfo rdf:resource="urn:uuid:5da4f5dd-abb4-41e1-b8b1-292a668d34c5"/>
 	</cim:TransformerCoreAdmittance>
@@ -2238,26 +2238,26 @@
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:644399af-7303-4b04-8631-1cf76dd037d4"/>
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:6b5ea984-b446-42fd-82ee-1c5efbb645c0">
-		<cim:TransformerMeshImpedance.r></cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x></cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.r>67.392</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>49.7664</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:7889ab14-6093-4528-bf0c-03733a83577c"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:5966a699-7b4c-4e6c-8503-5371e99005fb"/>
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:a49b770c-1f57-403b-9a89-571c988c99f1">
-		<cim:TransformerMeshImpedance.r></cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x></cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.r>67.392</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>49.7664</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:7889ab14-6093-4528-bf0c-03733a83577c"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:f392cda7-b820-4c58-a20b-e223182f8ef1"/>
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:4ea756da-5abd-4c9b-be27-9a370fba52ef">
-		<cim:TransformerMeshImpedance.r></cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x></cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.r>0.02496</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>0.009216</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:5966a699-7b4c-4e6c-8503-5371e99005fb"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:f392cda7-b820-4c58-a20b-e223182f8ef1"/>
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:bd443aab-fa65-4fbb-89ba-9d1b8be7c9f2">
-		<cim:TransformerMeshImpedance.r></cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x></cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.r>72.576</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>82.944</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:5da4f5dd-abb4-41e1-b8b1-292a668d34c5"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:5de8d7d5-6469-4dc0-b703-264b0afc3525"/>
 	</cim:TransformerMeshImpedance>
