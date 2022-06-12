@@ -250,25 +250,25 @@ SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs ?ctrlenabled
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
  ?s c:ShuntCompensator.nomU ?nomu. 
- ?s c:LinearShuntCompensator.b0PerSection ?bsection. # we want bPerSection, not b0 and g0; they put bPerSection on LCSPhase
-# ?s c:ShuntCompensator.sections ?sections. # part of SSH?
+ ?s c:LinearShuntCompensator.bPerSection ?bsection.
+ ?s c:ShuntCompensator.sections ?sections. # part of SSH?
  ?s c:ShuntCompensator.phaseConnection ?connraw.
    bind(strafter(str(?connraw),"PhaseShuntConnectionKind.") as ?conn)
-# ?s c:ShuntCompensator.grounded ?grnd.
+ ?s c:ShuntCompensator.grounded ?grnd.
  OPTIONAL {?scp c:ShuntCompensatorPhase.ShuntCompensator ?s.
  ?scp c:ShuntCompensatorPhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
-# OPTIONAL {?ctl c:RegulatingControl.RegulatingCondEq ?s.
- OPTIONAL {?s c:LinearShuntCompensator.RegulatingControl ?ctl.
-#          ?ctl c:RegulatingControl.discrete ?discrete.
-#          ?ctl c:RegulatingControl.enabled ?ctrlenabled.
+ OPTIONAL {?ctl c:RegulatingControl.RegulatingCondEq ?s.
+# OPTIONAL {?s c:LinearShuntCompensator.RegulatingControl ?ctl.
+          ?ctl c:RegulatingControl.discrete ?discrete.
+          ?ctl c:RegulatingControl.enabled ?ctrlenabled.
           ?ctl c:RegulatingControl.mode ?moderaw.
            bind(strafter(str(?moderaw),"RegulatingControlModeKind.") as ?mode)
           ?ctl c:RegulatingControl.monitoredPhase ?monraw.
            bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
-#          ?ctl c:RegulatingControl.targetDeadband ?deadband.
-#          ?ctl c:RegulatingControl.targetValue ?setpoint.
-#          ?s c:ShuntCompensator.aVRDelay ?delay.
+          ?ctl c:RegulatingControl.targetDeadband ?deadband.
+          ?ctl c:RegulatingControl.targetValue ?setpoint.
+          ?s c:ShuntCompensator.aVRDelay ?delay.
           ?ctl c:RegulatingControl.Terminal ?trm.
           ?trm c:Terminal.ConductingEquipment ?eq.
           ?eq a ?classraw.
@@ -547,13 +547,11 @@ ORDER BY ?tname ?enum
 # voltage regulators - DistRegulator
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
  ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin
 	?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode ?monphs ?ctRating ?ctRatio ?ptRatio ?fdrid ?pxfid
 WHERE {
-#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
-#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
- ?pxf c:Equipment.AdditionalEquipmentContainer ?fdr.
+ ?pxf c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?rtc r:type c:RatioTapChanger.
  ?rtc c:IdentifiedObject.name ?rname.
@@ -564,41 +562,41 @@ WHERE {
 {?end c:TransformerTankEnd.TransformerTank ?tank.
  ?tank c:IdentifiedObject.name ?tname.
  OPTIONAL {?end c:TransformerTankEnd.orderedPhases ?phsraw.
-  bind(strafter(str(?phsraw),"PhaseCode.") as ?orderedPhases)}  # was strafter OrderedPhaseCodeKind
+  bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?orderedPhases)}
  ?tank c:TransformerTank.PowerTransformer ?pxf.}
  ?pxf c:IdentifiedObject.name ?pname.
  ?pxf c:IdentifiedObject.mRID ?pxfid.
  ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
-# ?rtc c:TapChanger.controlEnabled ?enabled.
+ ?rtc c:TapChanger.controlEnabled ?enabled.
  ?rtc c:TapChanger.highStep ?highStep.
  ?rtc c:TapChanger.lowStep ?lowStep.
  ?rtc c:TapChanger.ltcFlag ?ltc.
  ?rtc c:TapChanger.neutralStep ?neutralStep.
  ?rtc c:TapChanger.neutralU ?neutralU.
-# ?rtc c:TapChanger.normalStep ?normalStep. # in SSH?
-# ?rtc c:TapChanger.step ?step. # in SSH?
+ ?rtc c:TapChanger.normalStep ?normalStep. # in SSH?
+ ?rtc c:TapChanger.step ?step.
  OPTIONAL{?rtc c:TapChanger.subsequentDelay ?subDelay.
 	?rtc c:TapChanger.initialDelay ?initDelay.
     ?rtc c:TapChanger.ctRating ?ctRating.
     ?rtc c:TapChanger.ctRatio ?ctRatio.
-    ?rtc c:TapChanger.ptRating ?ptRatio.  # in the CIM XML as ptRating?
+    ?rtc c:TapChanger.ptRatio ?ptRatio.
  }
  OPTIONAL{?rtc c:TapChanger.TapChangerControl ?ctl.
  ?ctl c:TapChangerControl.maxLimitVoltage ?vlim.
  ?ctl c:TapChangerControl.minLimitVoltage ?vmin.
  ?ctl c:TapChangerControl.lineDropCompensation ?ldc.
- ?ctl c:TapChangerControl.lineDropR ?fwdR.
- ?ctl c:TapChangerControl.lineDropX ?fwdX.
- ?ctl c:TapChangerControl.reverseLineDropR ?revR.
- ?ctl c:TapChangerControl.reverseLineDropX ?revX.
-# ?ctl c:RegulatingControl.discrete ?discrete.
-# ?ctl c:RegulatingControl.enabled ?ctl_enabled.
- ?ctl c:RegulatingControl.mode ?ctlmode. # ?ctlmoderaw.
-#  bind(strafter(str(?ctlmoderaw),"RegulatingControlModeKind.") as ?ctlmode)
- ?ctl c:RegulatingControl.monitoredPhase ?monphs. # ?monraw
-#  bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
-# ?ctl c:RegulatingControl.targetDeadband ?vbw.
-# ?ctl c:RegulatingControl.targetValue ?vset.
+ OPTIONAL{?ctl c:TapChangerControl.lineDropR ?fwdR.}
+ OPTIONAL{?ctl c:TapChangerControl.lineDropX ?fwdX.}
+ OPTIONAL{?ctl c:TapChangerControl.reverseLineDropR ?revR.}
+ OPTIONAL{?ctl c:TapChangerControl.reverseLineDropX ?revX.}
+ ?ctl c:RegulatingControl.discrete ?discrete.
+ ?ctl c:RegulatingControl.enabled ?ctl_enabled.
+ ?ctl c:RegulatingControl.mode ?ctlmoderaw.
+  bind(strafter(str(?ctlmoderaw),"RegulatingControlModeKind.") as ?ctlmode)
+ ?ctl c:RegulatingControl.monitoredPhase ?monraw.
+  bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+ ?ctl c:RegulatingControl.targetDeadband ?vbw.
+ ?ctl c:RegulatingControl.targetValue ?vset.
   }
 }
 ORDER BY ?pname ?tname ?rname ?wnum
@@ -721,7 +719,7 @@ WHERE {
  ?ctl c:IdentifiedObject.name ?name.
  ?ctl r:type ?rawtype.
   bind(strafter(str(?rawtype),"#") as ?type)
- OPTIONAL {?ctl c:RatioTapChanger.normalStep ?normalStep.}
+ OPTIONAL {?ctl c:TapChanger.normalStep ?normalStep.}
 }
 ORDER BY ?type ?name
 

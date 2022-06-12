@@ -223,34 +223,35 @@ public class DistRegulator extends DistComponent {
           tname[i] = "";
           orderedPhases[i] = "ABC";
         }
-        monphs[i] = soln.get("?monphs").toString();
-        ctlmode[i] = soln.get("?ctlmode").toString();
         wnum[i] = Integer.parseInt (soln.get("?wnum").toString());
         highStep[i] = Integer.parseInt (soln.get("?highStep").toString());
         lowStep[i] = Integer.parseInt (soln.get("?lowStep").toString());
         neutralStep[i] = Integer.parseInt (soln.get("?neutralStep").toString());
         normalStep[i] = Integer.parseInt (soln.get("?normalStep").toString());
         enabled[i] = Boolean.parseBoolean (soln.get("?enabled").toString());
-        ldc[i] = Boolean.parseBoolean (soln.get("?ldc").toString());
         ltc[i] = Boolean.parseBoolean (soln.get("?ltc").toString());
-        discrete[i] = Boolean.parseBoolean (soln.get("?discrete").toString());
-        ctl_enabled[i] = Boolean.parseBoolean (soln.get("?ctl_enabled").toString());
         incr[i] = Double.parseDouble (soln.get("?incr").toString());
         neutralU[i] = Double.parseDouble (soln.get("?neutralU").toString());
         step[i] = Integer.parseInt (soln.get("?step").toString());
-        initDelay[i] = Double.parseDouble (soln.get("?initDelay").toString());
-        subDelay[i] = Double.parseDouble (soln.get("?subDelay").toString());
-        vlim[i] = Double.parseDouble (soln.get("?vlim").toString());
-        vmin[i] = Double.parseDouble (soln.get("?vmin").toString());
-        vset[i] = Double.parseDouble (soln.get("?vset").toString());
-        vbw[i] = Double.parseDouble (soln.get("?vbw").toString());
-        fwdR[i] = Double.parseDouble (soln.get("?fwdR").toString());
-        fwdX[i] = Double.parseDouble (soln.get("?fwdX").toString());
-        revR[i] = Double.parseDouble (soln.get("?revR").toString());
-        revX[i] = Double.parseDouble (soln.get("?revX").toString());
-        ctRating[i] = Double.parseDouble (soln.get("?ctRating").toString());
-        ctRatio[i] = Double.parseDouble (soln.get("?ctRatio").toString());
-        ptRatio[i] = Double.parseDouble (soln.get("?ptRatio").toString());
+
+        ctl_enabled[i] = OptionalBoolean (soln, "?ctl_enabled", false);
+        discrete[i] = OptionalBoolean (soln, "?discrete", false);
+        ldc[i] = OptionalBoolean (soln, "?ldc", false);
+        monphs[i] = OptionalString (soln, "?monphs", "");
+        ctlmode[i] = OptionalString (soln, "?ctlmode", "");
+        initDelay[i] = OptionalDouble (soln, "?initDelay", 0.0);
+        subDelay[i] = OptionalDouble (soln, "?subDelay", 0.0);
+        vlim[i] = OptionalDouble (soln, "?vlim", 0.0);
+        vmin[i] = OptionalDouble (soln, "?vmin", 0.0);
+        vset[i] = OptionalDouble (soln, "?vset", 0.0);
+        vbw[i] = OptionalDouble (soln, "?vbw", 0.0);
+        fwdR[i] = OptionalDouble (soln, "?fwdR", 0.0);
+        fwdX[i] = OptionalDouble (soln, "?fwdX", 0.0);
+        revR[i] = OptionalDouble (soln, "?revR", 0.0);
+        revX[i] = OptionalDouble (soln, "?revX", 0.0);
+        ctRating[i] = OptionalDouble (soln, "?ctRating", 0.0);
+        ctRatio[i] = OptionalDouble (soln, "?ctRatio", 0.0);
+        ptRatio[i] = OptionalDouble (soln, "?ptRatio", 0.0);
         if ((i + 1) < size) {
           soln = results.next();
         }

@@ -39,7 +39,7 @@ public class DistLinesSpacingZ extends DistLineSegment {
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
 			basev = Double.parseDouble (soln.get("?basev").toString());
-			spacing = soln.get("?spacing").toString();
+			spacing = SafeName (soln.get("?spacing").toString());
 			spcid = soln.get("?spcid").toString();
 			nwires = map.get (name);
 			wire_phases = new String[nwires];

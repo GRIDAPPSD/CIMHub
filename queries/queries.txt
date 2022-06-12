@@ -1236,11 +1236,6 @@ SELECT ?name ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?t1id WHERE {
  ?s r:type c:EnergySource.
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
-#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
-#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
-#VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
-#VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
-#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}  # R2 12.47 3
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?s c:IdentifiedObject.name ?name.
@@ -1822,11 +1817,11 @@ ORDER BY ?key
 # voltage regulators - DistRegulator
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
  ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin
 	?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode ?monphs ?ctRating ?ctRatio ?ptRatio ?fdrid ?pxfid
 WHERE {
-VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
 #VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
  ?pxf c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
@@ -1846,33 +1841,33 @@ VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
  ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
  ?rtc c:TapChanger.controlEnabled ?enabled.
  ?rtc c:TapChanger.highStep ?highStep.
- ?rtc c:TapChanger.initialDelay ?initDelay.
  ?rtc c:TapChanger.lowStep ?lowStep.
  ?rtc c:TapChanger.ltcFlag ?ltc.
  ?rtc c:TapChanger.neutralStep ?neutralStep.
  ?rtc c:TapChanger.neutralU ?neutralU.
  ?rtc c:TapChanger.normalStep ?normalStep.
  ?rtc c:TapChanger.step ?step.
- ?rtc c:TapChanger.subsequentDelay ?subDelay.
- ?rtc c:TapChanger.ctRating ?ctRating.
- ?rtc c:TapChanger.ctRatio ?ctRatio.
- ?rtc c:TapChanger.ptRatio ?ptRatio.
- ?rtc c:TapChanger.TapChangerControl ?ctl.
- ?ctl c:TapChangerControl.maxLimitVoltage ?vlim.
- ?ctl c:TapChangerControl.minLimitVoltage ?vmin.
- ?ctl c:TapChangerControl.lineDropCompensation ?ldc.
- ?ctl c:TapChangerControl.lineDropR ?fwdR.
- ?ctl c:TapChangerControl.lineDropX ?fwdX.
- ?ctl c:TapChangerControl.reverseLineDropR ?revR.
- ?ctl c:TapChangerControl.reverseLineDropX ?revX.
- ?ctl c:RegulatingControl.discrete ?discrete.
- ?ctl c:RegulatingControl.enabled ?ctl_enabled.
- ?ctl c:RegulatingControl.mode ?ctlmoderaw.
-  bind(strafter(str(?ctlmoderaw),"RegulatingControlModeKind.") as ?ctlmode)
- ?ctl c:RegulatingControl.monitoredPhase ?monraw.
-  bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
- ?ctl c:RegulatingControl.targetDeadband ?vbw.
- ?ctl c:RegulatingControl.targetValue ?vset.
+ OPTIONAL{?rtc c:TapChanger.initialDelay ?initDelay.
+    ?rtc c:TapChanger.subsequentDelay ?subDelay.
+ 	?rtc c:TapChanger.ctRating ?ctRating.
+ 	?rtc c:TapChanger.ctRatio ?ctRatio.
+ 	?rtc c:TapChanger.ptRatio ?ptRatio.}
+ OPTIONAL{?rtc c:TapChanger.TapChangerControl ?ctl.
+ 	?ctl c:TapChangerControl.maxLimitVoltage ?vlim.
+ 	?ctl c:TapChangerControl.minLimitVoltage ?vmin.
+ 	?ctl c:TapChangerControl.lineDropCompensation ?ldc.
+ 	OPTIONAL{?ctl c:TapChangerControl.lineDropR ?fwdR.}
+ 	OPTIONAL{?ctl c:TapChangerControl.lineDropX ?fwdX.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reverseLineDropR ?revR.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reverseLineDropX ?revX.}
+ 	?ctl c:RegulatingControl.discrete ?discrete.
+ 	?ctl c:RegulatingControl.enabled ?ctl_enabled.
+ 	?ctl c:RegulatingControl.mode ?ctlmoderaw.
+  	 bind(strafter(str(?ctlmoderaw),"RegulatingControlModeKind.") as ?ctlmode)
+ 	?ctl c:RegulatingControl.monitoredPhase ?monraw.
+  	 bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+ 	?ctl c:RegulatingControl.targetDeadband ?vbw.
+ 	?ctl c:RegulatingControl.targetValue ?vset.}
 }
 ORDER BY ?pname ?tname ?rname ?wnum
 

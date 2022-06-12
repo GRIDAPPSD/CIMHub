@@ -521,25 +521,25 @@ public class CIMQuerySetter extends Object {
 			" ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr."+
 			" ?rtc c:TapChanger.controlEnabled ?enabled."+
 			" ?rtc c:TapChanger.highStep ?highStep."+
-			" ?rtc c:TapChanger.initialDelay ?initDelay."+
 			" ?rtc c:TapChanger.lowStep ?lowStep."+
 			" ?rtc c:TapChanger.ltcFlag ?ltc."+
 			" ?rtc c:TapChanger.neutralStep ?neutralStep."+
 			" ?rtc c:TapChanger.neutralU ?neutralU."+
 			" ?rtc c:TapChanger.normalStep ?normalStep."+
 			" ?rtc c:TapChanger.step ?step."+
+      " OPTIONAL {?rtc c:TapChanger.initialDelay ?initDelay."+
 			" ?rtc c:TapChanger.subsequentDelay ?subDelay."+
       " ?rtc c:TapChanger.ctRating ?ctRating."+
       " ?rtc c:TapChanger.ctRatio ?ctRatio."+
-      " ?rtc c:TapChanger.ptRatio ?ptRatio."+
-			" ?rtc c:TapChanger.TapChangerControl ?ctl."+
+      " ?rtc c:TapChanger.ptRatio ?ptRatio.}"+
+			" OPTIONAL {?rtc c:TapChanger.TapChangerControl ?ctl."+
 			" ?ctl c:TapChangerControl.maxLimitVoltage ?vlim."+
       " ?ctl c:TapChangerControl.minLimitVoltage ?vmin."+
 			" ?ctl c:TapChangerControl.lineDropCompensation ?ldc."+
-			" ?ctl c:TapChangerControl.lineDropR ?fwdR."+
-			" ?ctl c:TapChangerControl.lineDropX ?fwdX."+
-			" ?ctl c:TapChangerControl.reverseLineDropR ?revR."+
-			" ?ctl c:TapChangerControl.reverseLineDropX ?revX."+
+			" OPTIONAL {?ctl c:TapChangerControl.lineDropR ?fwdR.}"+
+			" OPTIONAL {?ctl c:TapChangerControl.lineDropX ?fwdX.}"+
+			" OPTIONAL {?ctl c:TapChangerControl.reverseLineDropR ?revR.}"+
+			" OPTIONAL {?ctl c:TapChangerControl.reverseLineDropX ?revX.}"+
 			" ?ctl c:RegulatingControl.discrete ?discrete."+
 			" ?ctl c:RegulatingControl.enabled ?ctl_enabled."+
 			" ?ctl c:RegulatingControl.mode ?ctlmoderaw."+
@@ -547,7 +547,7 @@ public class CIMQuerySetter extends Object {
 			" ?ctl c:RegulatingControl.monitoredPhase ?monraw."+
 			"  bind(strafter(str(?monraw),\"PhaseCode.\") as ?monphs)"+
 			" ?ctl c:RegulatingControl.targetDeadband ?vbw."+
-			" ?ctl c:RegulatingControl.targetValue ?vset."+
+			" ?ctl c:RegulatingControl.targetValue ?vset.}"+
 			" ?rtc c:IdentifiedObject.mRID ?id."+
 			"}"+
 			" ORDER BY ?pname ?rname ?tname ?wnum");

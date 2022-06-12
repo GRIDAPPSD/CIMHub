@@ -5,7 +5,6 @@ import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import os
 import argparse
-from SPARQLWrapper import SPARQLWrapper2
 
 # combine a planning assembly into one file
 fnames = ['D Plan Basic Golden InstanceSet.xml',
@@ -41,29 +40,16 @@ print ('=== the database now contains ===')
 cimhub.summarize_db (cfg_json)
 
 # patch up the model with applied logic:
-sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
-sparql.method = 'POST'
-
-#  list the EquipmentContainer mRIDs
-#  make sure EquipmentContainer is the feeder for Breaker, PowerTransformer, EnergySource
-#  populate LinearShuntCompensator.sections and bPerSection from phases
-#  populate Switch.ratedCurrent and Switch.normalOpen from phases on Breaker, Fuse, LoadBreakSwitch, Recloser
-#  put a base voltage on Breaker and EnergySource
-#  populate RegulatingControl.enabled as true
-#  populate RatioTapChanger.normalStep as 0
-#  populate RatioTapChanger.TransformerEnd from TransformerEnd.RatioTapChanger
-#  targetValueUnitMultiplier on targetValue and targetDeadband?  It's either 'none' or 'k'
-#
-#  the inverter in this example has PV, wind, and storage units connected. Neither OpenDSS nor GridLAB-D support that.
-#    a) if more than one PEU points at the same PEC, list them and accumulate the results
-#    b) accumulate the minP and maxP into a PhotovoltaicUnit, or a BatteryUnit if storedE available
-#    c) mark the accumulated PEU for connection to a PEC
-#  for PEC with only one PEU, populate PowerElectronicsUnit.PowerElectronicsConnection from PowerElectronicsConnection.PowerElectronicsUnit
-#  for the accumulated PEUs, also populate PowerElectronicsUnit.PowerElectronicsConnection from PowerElectronicsConnection.PowerElectronicsUnit
-#
-#  add a PowerElectronicsConnection.controlMode
+os.system ('python step2.py')
 
 # export OpenDSS and GridLAB-D models, do not select on the feeder mRID
+cases = [
+  {'root':'testing', 'export_options':' -l=1.0 -i=1.0 -e=carson',
+   'glmvsrc': 39837.17, 'bases':[240.0, 480.0, 12470.0, 69000.0],
+    'check_branches':[{'dss_link': 'TRANSFORMER.XFM1', 'dss_bus': '633', 'gld_link': 'XF_XFM1', 'gld_bus': '633'},
+                      {'dss_link': 'LINE.670671', 'dss_bus': '670', 'gld_link': 'LINE_670671', 'gld_bus': '670'}]}] 
+cimhub.make_export_script ('export.bat', cases, dsspath='dss/', glmpath='glm/', clean_dirs=True)
+os.system ('export.bat')
 
 # run and summarize power flows
 

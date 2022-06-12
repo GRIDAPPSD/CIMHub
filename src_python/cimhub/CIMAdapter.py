@@ -32,7 +32,8 @@ multipliers = {K_MULTUPLIER:    [
                                     'TapChangerControl.maxLimitVoltage',
                                     'TapChangerControl.minLimitVoltage',
                                     'TransformerEndInfo.insulationU',
-                                    'TransformerEndInfo.ratedU'
+                                    'TransformerEndInfo.ratedU',
+                                    'EnergySource.voltageMagnitude'
                                 ],
               M_MULTUPLIER:     [
                                     'BatteryUnit.ratedE',

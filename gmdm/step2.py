@@ -233,12 +233,12 @@ WHERE {
  ?ctl c:IdentifiedObject.name ?name.
  ?ctl r:type ?rawtype.
   bind(strafter(str(?rawtype),\"#\") as ?type)
- OPTIONAL {?ctl c:RatioTapChanger.normalStep ?normalStep.}
+ OPTIONAL {?ctl c:TapChanger.normalStep ?normalStep.}
 }
 ORDER BY ?type ?name
 """
 ins_rtc_template = """
- <urn:uuid:{res}> c:RatioTapChanger.normalStep \"{normalStep}\"."""
+ <urn:uuid:{res}> c:TapChanger.normalStep \"{normalStep}\"."""
 rtcs = {}
 sparql.setQuery(q7)
 ret = sparql.query()
@@ -277,6 +277,31 @@ for key, row in rtcends.items():
   print (' ', key, row)
   ins = ins_end_template.format(res=key, resEnd=row['endid'])
   qinserts.append(ins)
+
+#  populate RegulatingControl.RegulatingCondEq from RegulatingCondEq.RegulatingControl
+# list RegulatingCondEq=>RegulatingControl associations to reverse
+q8b = CIMHubConfig.prefix + """SELECT DISTINCT ?regname ?regid ?ctlname ?ctlid
+WHERE {
+ ?reg c:RegulatingCondEq.RegulatingControl ?ctl.
+ ?reg c:IdentifiedObject.mRID ?regid.
+ ?reg c:IdentifiedObject.name ?regname.
+ ?ctl c:IdentifiedObject.mRID ?ctlid.
+ ?ctl c:IdentifiedObject.name ?ctlname.
+}
+ORDER BY ?regname
+"""
+ins_regctl_template = """
+ <urn:uuid:{res}> c:RegulatingControl.RegulatingCondEq <urn:uuid:{resReg}>."""
+regctls = {}
+sparql.setQuery(q8b)
+ret = sparql.query()
+print ('Associating RegulatingControl back to RegulatingCondEq:')
+for b in ret.bindings:
+  key = b['ctlid'].value
+  regctls[key] = {'name':b['regname'].value, 'ctlname':b['ctlname'].value, 'regid':b['regid'].value}
+for key, row in regctls.items():
+  print (' ', key, row)
+  qinserts.append(ins_regctl_template.format(res=key, resReg=row['regid']))
 
 #  targetValueUnitMultiplier on targetValue and targetDeadband?  It's either 'none' or 'k'
 q9 = CIMHubConfig.prefix + """# list RegulatingControl and TapChangerControl to incorporate targetValueUnitMultiplier
@@ -325,7 +350,7 @@ for key, row in mults.items():
 #    a) if more than one PEU points at the same PEC, list them and accumulate the results
 #    b) accumulate the minP and maxP into a PhotovoltaicUnit, or a BatteryUnit if storedE available
 #    c) mark the accumulated PEU for connection to a PEC
-#  this is like making a 'virtual battery' for a transactive system
+#  this is like making a 'virtual battery' for a transactive system, but need to set the batteryState properly (TODO)
 q10 = CIMHubConfig.prefix + """# sum the maxP, minP, storedE, ratedE for units connected to an inverter
 # also list the battery state, but this may be modified by output of parallel DC sources
 SELECT ?invname ?invid ?unitname ?unitid ?minP ?maxP ?ratedE ?storedE ?state
@@ -354,6 +379,8 @@ del_peu_template = """
  <urn:uuid:{res}> c:BatteryUnit.storedE \"{oldStoredE}\".
  <urn:uuid:{res}> c:PowerElectronicsUnit.maxP \"{oldMaxP}\".
  <urn:uuid:{res}> c:PowerElectronicsUnit.minP \"{oldMinP}\"."""
+link_pec_template = """
+ <urn:uuid:{res}> c:PowerElectronicsConnection.PowerElectronicsUnit <urn:uuid:{resPEU}>."""
 pecs = {}
 sparql.setQuery(q10)
 ret = sparql.query()
@@ -385,9 +412,10 @@ for b in ret.bindings:
     pecs[key]['oldMaxP'] = pecs[key]['maxP']
 for key, row in pecs.items():
   print (' ', key, row)
-  qinserts.append(ins_peu_template.format(res=key, ratedE=row['ratedE'], storedE=row['storedE'],
+  qinserts.append(ins_peu_template.format(res=row['unitid'], ratedE=row['ratedE'], storedE=row['storedE'],
                                           minP=row['minP'], maxP=row['maxP']))
-  qdeletes.append(del_peu_template.format(res=key, oldRatedE=row['oldRatedE'], oldStoredE=row['oldStoredE'],
+  qinserts.append(link_pec_template.format(res=key, resPEU=row['unitid']))
+  qdeletes.append(del_peu_template.format(res=row['unitid'], oldRatedE=row['oldRatedE'], oldStoredE=row['oldStoredE'],
                                           oldMinP=row['oldMinP'], oldMaxP=row['oldMaxP']))
 
 #  for PEC with only one PEU, populate PowerElectronicsUnit.PowerElectronicsConnection from PowerElectronicsConnection.PowerElectronicsUnit

@@ -2224,8 +2224,6 @@ public class CIMImporter extends Object {
       UpdateModelState(ms);
       ApplyCurrentLimits();
       // PrintAllMaps();
-      // PrintOneMap (mapSpacings, "** LINE SPACINGS");
-      // PrintOneMap (mapLinesSpacingZ, "** LINES REFERENCING SPACINGS");
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.glm";
       fXY = fRoot + "_symbols.json";
@@ -2243,6 +2241,8 @@ public class CIMImporter extends Object {
       UpdateModelState(ms);
       ApplyCurrentLimits();
       // PrintAllMaps();
+      PrintOneMap (mapSpacings, "** LINE SPACINGS");
+      PrintOneMap (mapCoordinates, "** XY COORDINATES");
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.dss";
       fXY = fRoot + "_busxy.dss";
