@@ -1324,7 +1324,7 @@ SELECT ?name ?bus ?basev ?p ?q ?conn ?cnt ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?fdrid
  ?s c:IdentifiedObject.name ?name.
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
- ?s c:EnergyConsumer.customerCount ?cnt.
+ OPTIONAL {?s c:EnergyConsumer.customerCount ?cnt.}
  ?s c:EnergyConsumer.p ?p.
  ?s c:EnergyConsumer.q ?q.
  ?s c:EnergyConsumer.phaseConnection ?connraw.
@@ -1336,8 +1336,8 @@ SELECT ?name ?bus ?basev ?p ?q ?conn ?cnt ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?fdrid
  ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi.
  ?lr c:LoadResponseCharacteristic.pConstantPower ?pp.
  ?lr c:LoadResponseCharacteristic.qConstantPower ?qp.
- ?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.
- ?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.
+ OPTIONAL {?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.}
+ OPTIONAL {?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.}
  OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s.
  ?ecp c:EnergyConsumerPhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
@@ -1844,8 +1844,6 @@ VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
  ?pxf c:IdentifiedObject.name ?pname.
  ?pxf c:IdentifiedObject.mRID ?pxfid.
  ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
- ?rtc c:RatioTapChanger.tculControlMode ?moderaw.
-  bind(strafter(str(?moderaw),"TransformerControlMode.") as ?mode)
  ?rtc c:TapChanger.controlEnabled ?enabled.
  ?rtc c:TapChanger.highStep ?highStep.
  ?rtc c:TapChanger.initialDelay ?initDelay.
@@ -2078,7 +2076,7 @@ VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?eq c:ACLineSegment.WireSpacingInfo ?w.
  ?w c:IdentifiedObject.name ?name.
-  bind(strafter(str(?w),"#") as ?id).
+ ?w c:IdentifiedObject.mRID ?id.
  ?pos c:WirePosition.WireSpacingInfo ?w.
  ?pos c:WirePosition.xCoord ?x.
  ?pos c:WirePosition.yCoord ?y.

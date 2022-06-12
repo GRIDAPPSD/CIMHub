@@ -345,7 +345,7 @@ public class CIMQuerySetter extends Object {
 			 " ?bv c:BaseVoltage.nominalVoltage ?basev."+
 			" ?s c:EnergyConsumer.p ?p."+
 			" ?s c:EnergyConsumer.q ?q."+
-			" ?s c:EnergyConsumer.customerCount ?cnt."+
+			" OPTIONAL {?s c:EnergyConsumer.customerCount ?cnt.}"+
 			" ?s c:EnergyConsumer.phaseConnection ?connraw."+
 			" 			bind(strafter(str(?connraw),\"PhaseShuntConnectionKind.\") as ?conn)"+
 			" ?s c:EnergyConsumer.LoadResponse ?lr."+
@@ -355,8 +355,8 @@ public class CIMQuerySetter extends Object {
 			" ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi."+
 			" ?lr c:LoadResponseCharacteristic.pConstantPower ?pp."+
 			" ?lr c:LoadResponseCharacteristic.qConstantPower ?qp."+
-			" ?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe."+
-			" ?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe."+
+			" OPTIONAL {?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.}"+
+			" OPTIONAL {?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.}"+
 			" OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s."+
 			" ?ecp c:EnergyConsumerPhase.phase ?phsraw."+
 			" 			bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
@@ -519,8 +519,6 @@ public class CIMQuerySetter extends Object {
 			" ?pxf c:IdentifiedObject.name ?pname."+
 			" ?pxf c:IdentifiedObject.mRID ?pxfid."+
 			" ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr."+
-			" ?rtc c:RatioTapChanger.tculControlMode ?moderaw."+
-			"  bind(strafter(str(?moderaw),\"TransformerControlMode.\") as ?mode)"+
 			" ?rtc c:TapChanger.controlEnabled ?enabled."+
 			" ?rtc c:TapChanger.highStep ?highStep."+
 			" ?rtc c:TapChanger.initialDelay ?initDelay."+

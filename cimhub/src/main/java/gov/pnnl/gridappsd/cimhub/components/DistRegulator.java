@@ -27,7 +27,6 @@ public class DistRegulator extends DistComponent {
   public String[] rname;
   public String[] id;
   public String[] monphs;
-  public String[] mode;
   public String[] ctlmode;
   public int[] wnum;
   public int[] highStep;
@@ -128,7 +127,6 @@ public class DistRegulator extends DistComponent {
     AddJSONStringArray (buf, "rtcName", rname);
     AddJSONStringArray (buf, "mRID", id);
     AddJSONStringArray (buf, "monitoredPhase", monphs);
-    AddJSONStringArray (buf, "TapChanger.tculControlMode", mode);
     AddJSONIntegerArray (buf, "highStep", highStep);
     AddJSONIntegerArray (buf, "lowStep", lowStep);
     AddJSONIntegerArray (buf, "neutralStep", neutralStep);
@@ -180,7 +178,6 @@ public class DistRegulator extends DistComponent {
     tname = new String[size];
     id = new String[size];
     monphs = new String[size];
-    mode = new String[size];
     ctlmode = new String[size];
     wnum = new int[size];
     highStep = new int[size];
@@ -227,7 +224,6 @@ public class DistRegulator extends DistComponent {
           orderedPhases[i] = "ABC";
         }
         monphs[i] = soln.get("?monphs").toString();
-        mode[i] = soln.get("?mode").toString();
         ctlmode[i] = soln.get("?ctlmode").toString();
         wnum[i] = Integer.parseInt (soln.get("?wnum").toString());
         highStep[i] = Integer.parseInt (soln.get("?highStep").toString());
@@ -275,7 +271,6 @@ public class DistRegulator extends DistComponent {
       buf.append ("\n  " + Integer.toString(i));
       buf.append (" " + Integer.toString(wnum[i]) + ":" +rname[i] + ":" + orderedPhases[i]);
       buf.append (" tank=" + tname[i]);
-      buf.append (" mode=" + mode[i]);
       buf.append (" ctlmode=" + ctlmode[i]);
       buf.append (" monphs=" + monphs[i]);
       buf.append (" enabled=" + Boolean.toString(enabled[i]));
@@ -453,7 +448,7 @@ public class DistRegulator extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,Bus1,Phase,Bus2,Phase,Vreg,PTRatio,CTRating,CTRatio,Band,R,X,revR,revX,Step,lowStep,highStep,neutralStep,normalStep,initDelay,subDelay,vLimit,vMin,Increment,neutralU,Wdg,Mode,CtlMode,MonPhs,Enabled,LDC,LTC,Discrete,CtlEnabled";
+  public static String szCSVHeader = "Name,Bus1,Phase,Bus2,Phase,Vreg,PTRatio,CTRating,CTRatio,Band,R,X,revR,revX,Step,lowStep,highStep,neutralStep,normalStep,initDelay,subDelay,vLimit,vMin,Increment,neutralU,Wdg,CtlMode,MonPhs,Enabled,LDC,LTC,Discrete,CtlEnabled";
 
   public String GetCSV (String bus1, String phs1, String bus2, String phs2) {
     StringBuilder buf = new StringBuilder ("");
@@ -465,7 +460,7 @@ public class DistRegulator extends DistComponent {
       buf.append(Integer.toString(lowStep[i]) + "," + Integer.toString(highStep[i]) + "," + Integer.toString(neutralStep[i]) + ",");
       buf.append(Integer.toString(normalStep[i]) + "," + df2.format(initDelay[i]) + "," + df2.format(subDelay[i]) + ",");
       buf.append(df2.format(vlim[i]) + "," + df2.format(vmin[i]) + "," + df4.format(incr[i]) + ",");
-      buf.append(df2.format(neutralU[i]) + "," + Integer.toString(wnum[i]) + "," + mode[i] + "," + ctlmode[i] + "," + monphs[i] + ",");
+      buf.append(df2.format(neutralU[i]) + "," + Integer.toString(wnum[i]) + "," + ctlmode[i] + "," + monphs[i] + ",");
       buf.append(Boolean.toString(enabled[i]) + "," + Boolean.toString(ldc[i]) + "," + Boolean.toString(ltc[i]) + ",");
       buf.append(Boolean.toString(discrete[i]) + "," + Boolean.toString(ctl_enabled[i]) + "\n");
     }

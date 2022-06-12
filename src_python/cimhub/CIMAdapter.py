@@ -36,6 +36,7 @@ multipliers = {K_MULTUPLIER:    [
                                 ],
               M_MULTUPLIER:     [
                                     'BatteryUnit.ratedE',
+                                    'BatteryUnit.storedE',
                                     'EnergyConsumer.p',
                                     'EnergyConsumer.q',
                                     'EnergyConsumerPhase.p',
@@ -442,7 +443,7 @@ def epri_to_pnnl(cli_args):
     for switch_node in am.get_nodes_by_type(QName(SWITCH)):
         switch_node.change_type(QName(LBS))
 
-    # Change Class name Switch to LoadBreakSwitch
+    # Change Class name WireInfo to OverheadWireInfo
     for wi_node in am.get_nodes_by_type(QName(WI)):
         wi_node.change_type(QName(OWI))
 

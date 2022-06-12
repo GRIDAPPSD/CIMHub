@@ -4,6 +4,7 @@ import xml.etree.ElementTree as ET
 from lxml import etree, objectify
 from xml.dom import minidom
 
+echo=False
 
 class Node(object):
     def __init__(self, tag=None, attrib=None, text=None, children=None, uuid=None):
@@ -55,17 +56,20 @@ class ModelCombiner(object):
 
     def _add_supp_to_base(self):
         for id, nlist in self.base_node_id_dict.items():
-            print(id)
+            if echo:
+                print(id)
             if len(nlist) > 1:
                 gnodes = nlist[0]
-                print('gnodes:')
-                print(gnodes.tag)
-                print(gnodes.attrib)
+                if echo:
+                    print('gnodes:')
+                    print(gnodes.tag)
+                    print(gnodes.attrib)
                 hasName = self._check_has_identifiedobject_name(gnodes)
                 for node in nlist[1:]:
                     for chld in node.children:
-                        print(chld.tag)
-                        print(chld.attrib)
+                        if echo:
+                            print(chld.tag)
+                            print(chld.attrib)
                         if chld not in gnodes.children:
                             t = str(chld.tag).split('}')
                             if len(t) == 2 and t[1] == "IdentifiedObject.name":
@@ -114,11 +118,13 @@ class ModelCombiner(object):
                     else:
                         existing_node = True
                     adict[thisid].append(new_child)
-            print(child.tag)
-            print(child.attrib)
+            if echo:
+                print(child.tag)
+                print(child.attrib)
             if child.text:
                 new_child.text = child.text.strip()
-                print(new_child.text)
+                if echo:
+                    print(new_child.text)
             child_nodes = child.getchildren()
             if child_nodes:
                 new_child.children = []
@@ -128,7 +134,7 @@ class ModelCombiner(object):
                 alist.append(new_child)
 
     def parse_base_file(self, filename):
-        with open(filename) as fobj:
+        with open(filename, encoding='utf8') as fobj:
             xml = fobj.read()
             root = etree.fromstring(xml.encode('utf-8'), parser=objectify.makeparser(remove_blank_text=True))
             if not self.completeFile.namespacedict:
@@ -203,11 +209,17 @@ class ModelCombiner(object):
             adict[k] = v
         return adict
 
-def combine_xml_files (input_root_name, output_filename):
+def combine_xml_files (input_root_name, output_filename, extensions=None):
     md = ModelCombiner()
-    for ext in ['CAT', 'EP', 'FUN', 'GEO', 'SSH', 'TOPO']:
-      filename = '{:s}_{:s}.XML'.format (input_root_name, ext)
-      md.base_file_list.append(filename)
+    if extensions:
+      for ext in extensions:
+        filename = '{:s}{:s}'.format (input_root_name, ext)
+        print('adding', filename)
+        md.base_file_list.append(filename)
+    else:
+      for ext in ['CAT', 'EP', 'FUN', 'GEO', 'SSH', 'TOPO']:
+        filename = '{:s}_{:s}.XML'.format (input_root_name, ext)
+        md.base_file_list.append(filename)
     md.output_filename = output_filename
     md.combine_files()
 

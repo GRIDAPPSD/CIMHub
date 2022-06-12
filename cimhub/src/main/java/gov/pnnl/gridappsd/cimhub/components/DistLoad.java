@@ -58,8 +58,8 @@ public class DistLoad extends DistComponent {
 			qi = Double.parseDouble (soln.get("?qi").toString());
 			pp = Double.parseDouble (soln.get("?pp").toString());
 			qp = Double.parseDouble (soln.get("?qp").toString());
-			pe = Double.parseDouble (soln.get("?pe").toString());
-			qe = Double.parseDouble (soln.get("?qe").toString());
+			pe = OptionalDouble (soln, "?pe", 0.0);
+      qe = OptionalDouble (soln, "?qe", 0.0);
 			cnt = OptionalInt (soln, "?cnt", 1);
 		}		
 		dss_load_model = 8;

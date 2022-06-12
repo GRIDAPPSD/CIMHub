@@ -32,6 +32,7 @@ from .DropHouses import drop_houses
 from .CountClasses import count_platform_circuit_classes
 
 from .CombineModelXMLFiles import combine_xml_files 
+from .CIMAdapter import epri_to_pnnl
 
 from .MakeConversionScript import make_dss2xml_script
 from .MakeLoopScript import make_export_script
