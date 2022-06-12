@@ -308,6 +308,11 @@ public class DistRegulator extends DistComponent {
                                HashMap<String,DistPowerXfmrWinding> mapXfmr) {
     DistCoordinates pt1 = map.get("PowerTransformer:" + pname + ":1");
     DistCoordinates pt2 = map.get("PowerTransformer:" + pname + ":2");
+    if (pt2 == null) {
+      pt2 = pt1;
+    } else if (pt1 == null) {
+      pt1 = pt2;
+    }
     String bus1, bus2;
     if (hasTanks) {
       DistXfmrTank tank = mapTank.get(tname[0]);

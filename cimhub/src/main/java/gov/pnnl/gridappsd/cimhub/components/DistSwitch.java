@@ -113,6 +113,11 @@ public class DistSwitch extends DistComponent {
 	public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
 		DistCoordinates pt1 = map.get(CIMClass() + ":" + name + ":1");
 		DistCoordinates pt2 = map.get(CIMClass() + ":" + name + ":2");
+    if (pt2 == null) {
+      pt2 = pt1;
+    } else if (pt1 == null) {
+      pt1 = pt2;
+    }
 
 		StringBuilder buf = new StringBuilder ();
 

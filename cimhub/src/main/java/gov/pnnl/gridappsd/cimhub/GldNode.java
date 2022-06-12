@@ -170,9 +170,30 @@ public class GldNode {
     bTertiaryWinding = false;
   }
 
+  public double TotalLoadRealPower() {
+    return pa_z + pb_z + pc_z + pa_i + pb_i + pc_i + pa_p + pb_p + pc_p + 
+      ps1_z + ps2_z + ps12_z + ps1_i + ps2_i + ps12_i + ps1_p + ps2_p + ps12_p;
+  }
+
+  public double TotalLoadReactivePower() {
+    return qa_z + qb_z + qc_z + qa_i + qb_i + qc_i + qa_p + qb_p + qc_p + 
+      qs1_z + qs2_z + qs12_z + qs1_i + qs2_i + qs12_i + qs1_p + qs2_p + qs12_p;
+  }
+
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (name + ":" + phases + ":" + loadname + ":" + bSecondary);
+    buf.append (name + ":" + phases + ":" + loadname);
+    buf.append (" Vln=" + df2.format(nomvln));
+    buf.append (" P=" + df2.format(TotalLoadRealPower()));
+    buf.append (" Q=" + df2.format(TotalLoadReactivePower()));
+    buf.append (" bSec=" + Boolean.toString(bSecondary));
+    buf.append (" bDelta=" + Boolean.toString(bDelta));
+    buf.append (" bSwing=" + Boolean.toString(bSwing));
+    buf.append (" bSwingPQ=" + Boolean.toString(bSwingPQ));
+    buf.append (" bTert=" + Boolean.toString(bTertiaryWinding));
+    buf.append (" bPV=" + Boolean.toString(bSolarInverters));
+    buf.append (" bBat=" + Boolean.toString(bStorageInverters));
+    buf.append (" bMach=" + Boolean.toString(bSyncMachines));
     return buf.toString();
   }
 

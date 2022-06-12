@@ -563,6 +563,14 @@ public class CIMImporter extends Object {
     }
   }
 
+  public void PrintGldNodeMap () {
+    System.out.println("*** GridLAB-D Node Map");
+    SortedSet<String> keys = new TreeSet<String>(mapNodes.keySet());
+    for (String key : keys) {
+      System.out.println (mapNodes.get(key).DisplayString());
+    }
+  }
+
   public void PrintOneCountMap(HashMap<String,Integer> map, String label) {
     System.out.println(label);
     SortedSet<String> keys = new TreeSet<String>(map.keySet());
@@ -1179,13 +1187,21 @@ public class CIMImporter extends Object {
             " ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr."+
             " ?s r:type c:ConnectivityNode."+
             " ?s c:IdentifiedObject.name ?name."+
-            //    " ?fdr c:IdentifiedObject.name ?feeder."+
         "} ORDER by ?name", "list nodes");
+    if (!results.hasNext()) {
+      System.out.println ("== no ConnectivityNodes found in a ConnectivityNodeContainer for GridLAB-D; trying a less restrictive query");
+      results = queryHandler.query (
+          "SELECT ?name WHERE {"+
+              " ?s r:type c:ConnectivityNode."+
+              " ?s c:IdentifiedObject.name ?name."+
+          "} ORDER by ?name", "list nodes");
+    }
     while (results.hasNext()) {
       QuerySolution soln = results.next();
       String bus = DistComponent.SafeName (soln.get ("?name").toString());
       mapNodes.put (bus, new GldNode(bus));
     }
+//    PrintGldNodeMap ();
     for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
       DistSubstation obj = pair.getValue();
       GldNode nd = mapNodes.get (obj.bus);
@@ -1221,6 +1237,11 @@ public class CIMImporter extends Object {
             nd.AddPhases (primaryPhase);
             DistCoordinates pt1 = mapCoordinates.get("PowerTransformer:" + obj.pname + ":1");
             DistCoordinates pt2 = mapCoordinates.get("PowerTransformer:" + obj.pname + ":2");
+            if (pt2 == null) {
+              pt2 = pt1;
+            } else if (pt1 == null) {
+              pt1 = pt2;
+            }
             if (pt1.x == 0.0 && pt1.y == 0.0) {
               if (pt2.x != 0.0 || pt2.y != 0.0) {
                 pt1.x = pt2.x + 3.0;
@@ -1630,79 +1651,79 @@ public class CIMImporter extends Object {
       DistLineSegment obj = pair.getValue();
       pt1 = mapCoordinates.get("ACLineSegment:" + obj.name + ":1");
       pt2 = mapCoordinates.get("ACLineSegment:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
       //      setSegXY.add(new DSSSegmentXY (obj.bus1, pt1.x, pt1.y, obj.bus2, pt2.x, pt2.y));
     }
     for (HashMap.Entry<String,DistLinesInstanceZ> pair : mapLinesInstanceZ.entrySet()) {
       DistLineSegment obj = pair.getValue();
       pt1 = mapCoordinates.get("ACLineSegment:" + obj.name + ":1");
       pt2 = mapCoordinates.get("ACLineSegment:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistSeriesCompensator> pair : mapSeriesCompensators.entrySet()) {
       DistSeriesCompensator obj = pair.getValue();
       pt1 = mapCoordinates.get("SeriesCompensator:" + obj.name + ":1");
       pt2 = mapCoordinates.get("SeriesCompensator:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistLinesSpacingZ> pair : mapLinesSpacingZ.entrySet()) {
       DistLineSegment obj = pair.getValue();
       pt1 = mapCoordinates.get("ACLineSegment:" + obj.name + ":1");
       pt2 = mapCoordinates.get("ACLineSegment:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistLoadBreakSwitch> pair : mapLoadBreakSwitches.entrySet()) {
       DistLoadBreakSwitch obj = pair.getValue();
       pt1 = mapCoordinates.get("LoadBreakSwitch:" + obj.name + ":1");
       pt2 = mapCoordinates.get("LoadBreakSwitch:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistFuse> pair : mapFuses.entrySet()) { // TODO - polymorphic switch maps
       DistFuse obj = pair.getValue();
       pt1 = mapCoordinates.get("Fuse:" + obj.name + ":1");
       pt2 = mapCoordinates.get("Fuse:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistJumper> pair : mapJumpers.entrySet()) {
       DistJumper obj = pair.getValue();
       pt1 = mapCoordinates.get("Jumper:" + obj.name + ":1");
       pt2 = mapCoordinates.get("Jumper:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistRecloser> pair : mapReclosers.entrySet()) {
       DistRecloser obj = pair.getValue();
       pt1 = mapCoordinates.get("Recloser:" + obj.name + ":1");
       pt2 = mapCoordinates.get("Recloser:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistBreaker> pair : mapBreakers.entrySet()) {
       DistBreaker obj = pair.getValue();
       pt1 = mapCoordinates.get("Breaker:" + obj.name + ":1");
       pt2 = mapCoordinates.get("Breaker:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistSectionaliser> pair : mapSectionalisers.entrySet()) {
       DistSectionaliser obj = pair.getValue();
       pt1 = mapCoordinates.get("Sectionaliser:" + obj.name + ":1");
       pt2 = mapCoordinates.get("Sectionaliser:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
     for (HashMap.Entry<String,DistDisconnector> pair : mapDisconnectors.entrySet()) {
       DistDisconnector obj = pair.getValue();
       pt1 = mapCoordinates.get("Disconnector:" + obj.name + ":1");
       pt2 = mapCoordinates.get("Disconnector:" + obj.name + ":2");
-      mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
-      mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
+      if (pt1 != null) mapBusXY.put (obj.bus1, new Double [] {pt1.x, pt1.y});
+      if (pt2 != null) mapBusXY.put (obj.bus2, new Double [] {pt2.x, pt2.y});
     }
 
     // The bus locations in mapBusXY should now be unique, and topologically consistent, so write them.
@@ -2241,7 +2262,6 @@ public class CIMImporter extends Object {
       UpdateModelState(ms);
       ApplyCurrentLimits();
       // PrintAllMaps();
-      PrintOneMap (mapSpacings, "** LINE SPACINGS");
       PrintOneMap (mapCoordinates, "** XY COORDINATES");
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.dss";

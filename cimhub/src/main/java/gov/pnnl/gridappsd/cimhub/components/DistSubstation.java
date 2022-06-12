@@ -69,8 +69,10 @@ public class DistSubstation extends DistComponent {
 		buf.append (",\"bus\":\"" + bus +"\"");
 		buf.append (",\"phases\":\"ABC\"");
 		buf.append (",\"nominal_voltage\":" + df1.format(nomv / Math.sqrt(3.0)));
-		buf.append (",\"x1\":" + Double.toString(pt.x));
-		buf.append (",\"y1\":" + Double.toString(pt.y));
+    if (pt != null) {
+      buf.append(",\"x1\":" + Double.toString(pt.x));
+      buf.append (",\"y1\":" + Double.toString(pt.y));
+    }
 		buf.append ("}");
 		return buf.toString();
 	}

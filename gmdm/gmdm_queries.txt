@@ -808,3 +808,12 @@ WHERE {
 }
 ORDER BY ?name
 
+# connectivity node query for the GridLAB-D node map
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name WHERE {
+#  ?fdr c:IdentifiedObject.mRID ?fdrid.
+#  ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+  ?s r:type c:ConnectivityNode.
+  ?s c:IdentifiedObject.name ?name.
+} ORDER by ?name
