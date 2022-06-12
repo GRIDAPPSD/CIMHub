@@ -46,9 +46,9 @@
 		<cim:WirePosition.WireAssembly rdf:resource="urn:uuid:c2703f47-070d-46fe-920d-0086614d06a7"/>
 	</cim:WirePosition>
 	<cim:WirePosition rdf:about="urn:uuid:d3a3a563-4993-442d-bcd0-5f89229c43e8">
-		<cim:WirePosition.sequenceNumber>1</cim:WirePosition.sequenceNumber>
-		<cim:WirePosition.xCoord>11</cim:WirePosition.xCoord>
-		<cim:WirePosition.yCoord>0.10000000149011612</cim:WirePosition.yCoord>
+		<cim:WirePosition.sequenceNumber>2</cim:WirePosition.sequenceNumber>
+		<cim:WirePosition.xCoord>0.10000000149011612</cim:WirePosition.xCoord>
+		<cim:WirePosition.yCoord>11</cim:WirePosition.yCoord>
 		<cim:WirePosition.WireInfo rdf:resource="urn:uuid:d9bd88bb-9c5e-45e5-82d8-c2da6a78ec21"/>
 		<cim:WirePosition.WireAssembly rdf:resource="urn:uuid:c2703f47-070d-46fe-920d-0086614d06a7"/>
 	</cim:WirePosition>
@@ -2100,8 +2100,8 @@
 		<cim:PhaseImpedanceData.x>0.0005982579896226525</cim:PhaseImpedanceData.x>
 		<cim:PhaseImpedanceData.b>0</cim:PhaseImpedanceData.b>
 		<cim:PhaseImpedanceData.g>0</cim:PhaseImpedanceData.g>
-		<cim:PhaseImpedanceData.column>1</cim:PhaseImpedanceData.column>
-		<cim:PhaseImpedanceData.row>1</cim:PhaseImpedanceData.row>
+		<cim:PhaseImpedanceData.column>2</cim:PhaseImpedanceData.column>
+		<cim:PhaseImpedanceData.row>2</cim:PhaseImpedanceData.row>
 		<cim:PhaseImpedanceData.PhaseImpedance rdf:resource="urn:uuid:689107b1-d57a-47da-b3a3-245736b77115"/>
 	</cim:PhaseImpedanceData>
 	<cim:Terminal rdf:about="urn:uuid:f9ceafab-9c32-481b-9bfd-0648512d29ae">
