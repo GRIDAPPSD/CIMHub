@@ -1605,10 +1605,9 @@ ORDER BY ?key
 # transformer codes; no-load tests actually used - DistXfmrCodeNLTest
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT DISTINCT ?tname ?nll ?iexc WHERE {
+SELECT DISTINCT ?tname ?nll ?iexc ?base WHERE {
 # feeder selection options - if all commented out, query matches all feeders
-#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
-VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
  ?eq c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?xft c:TransformerTank.PowerTransformer ?eq.
@@ -1617,14 +1616,15 @@ VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
  ?e c:TransformerEndInfo.TransformerTankInfo ?t.
  ?nlt c:NoLoadTest.EnergisedEnd ?e.
  ?nlt c:NoLoadTest.loss ?nll.
- ?nlt c:NoLoadTest.excitingCurrent ?iexc
+ ?nlt c:NoLoadTest.excitingCurrent ?iexc.
+ ?nlt c:TransformerTest.basePower ?base.
 }
 ORDER BY ?tname
 
 # transformer codes; short-circuit tests - DistXfmrCodeSCTest
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT DISTINCT ?tname ?enum ?gnum ?z ?ll WHERE {
+SELECT DISTINCT ?tname ?enum ?gnum ?z ?ll ?base WHERE {
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
 #VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
@@ -1640,6 +1640,7 @@ SELECT DISTINCT ?tname ?enum ?gnum ?z ?ll WHERE {
  ?sct c:ShortCircuitTest.loss ?ll.
  ?sct c:ShortCircuitTest.GroundedEnds ?grnd.
  ?grnd c:TransformerEndInfo.endNumber ?gnum.
+ ?sct c:TransformerTest.basePower ?base.
 }
 ORDER BY ?tname ?enum ?gnum
 

@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -25,7 +25,7 @@ public class DistPowerXfmrCore extends DistComponent {
 			QuerySolution soln = results.next();
 			name = SafeName (soln.get("?pname").toString());
 			wdg = Integer.parseInt (soln.get("?enum").toString());
-			b = Double.parseDouble (soln.get("?b").toString());
+			b = Math.abs(Double.parseDouble (soln.get("?b").toString()));
 			g = Double.parseDouble (soln.get("?g").toString());
 		}		
 	}

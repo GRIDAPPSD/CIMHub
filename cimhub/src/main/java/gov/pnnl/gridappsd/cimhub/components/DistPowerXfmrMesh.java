@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.components;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 

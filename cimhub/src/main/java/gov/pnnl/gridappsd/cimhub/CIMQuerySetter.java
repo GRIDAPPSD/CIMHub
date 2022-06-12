@@ -902,7 +902,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?pname ?tname");
 
 		mapQueries.put ("DistXfmrCodeNLTest",
-			"SELECT DISTINCT ?tname ?nll ?iexc WHERE {"+
+			"SELECT DISTINCT ?tname ?nll ?iexc ?base WHERE {"+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			" ?xft c:TransformerTank.PowerTransformer ?eq."+
 			" ?eq c:Equipment.EquipmentContainer ?fdr."+
@@ -912,6 +912,7 @@ public class CIMQuerySetter extends Object {
 			" ?nlt c:NoLoadTest.EnergisedEnd ?e."+
 			" ?nlt c:NoLoadTest.loss ?nll."+
 			" ?nlt c:NoLoadTest.excitingCurrent ?iexc."+
+      " ?nlt c:TransformerTest.basePower ?base."+
 			"} ORDER BY ?tname");
 
 		mapQueries.put ("DistXfmrCodeRating",
@@ -935,7 +936,7 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?tname ?enum");
 
 		mapQueries.put ("DistXfmrCodeSCTest",
-			"SELECT DISTINCT ?tname ?enum ?gnum ?z ?ll WHERE {"+
+			"SELECT DISTINCT ?tname ?enum ?gnum ?z ?ll ?base WHERE {"+
 			" ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			" ?xft c:TransformerTank.PowerTransformer ?eq."+
 			" ?eq c:Equipment.EquipmentContainer ?fdr."+
@@ -948,6 +949,7 @@ public class CIMQuerySetter extends Object {
 			" ?sct c:ShortCircuitTest.loss ?ll."+
 			" ?sct c:ShortCircuitTest.GroundedEnds ?grnd."+
 			" ?grnd c:TransformerEndInfo.endNumber ?gnum."+
+      " ?sct c:TransformerTest.basePower ?base."+
 			"} ORDER BY ?tname ?enum ?gnum");
 
 		mapQueries.put ("DistXfmrTank",

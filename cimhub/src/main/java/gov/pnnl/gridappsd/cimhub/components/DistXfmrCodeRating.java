@@ -220,7 +220,7 @@ public class DistXfmrCodeRating extends DistComponent {
   // physical ohms to match the short circuit test load losses
   public void SetWindingResistances (DistXfmrCodeSCTest sct) {
     double r12pu, r13pu, r23pu, r1pu, r2pu, r3pu, Sbase;
-    Sbase = ratedS[0];
+    Sbase = sct.sbase[0]; // the per-unit manipulations have to be done on this common base
     if (sct.size == 2) {
       r12pu = 1000.0 * sct.ll[0] / Sbase;
       r1pu = 0.5 * r12pu;
@@ -228,12 +228,18 @@ public class DistXfmrCodeRating extends DistComponent {
       r[0] = r1pu * ratedU[0] * ratedU[0] / Sbase;
       r[1] = r2pu * ratedU[1] * ratedU[1] / Sbase;
     } else if (sct.size == 3) {
-      r12pu = 1000.0 * sct.ll[0] / Sbase;
-      r13pu = 1000.0 * sct.ll[1] / Sbase;
-      r23pu = 1000.0 * sct.ll[2] / Sbase;
+      // test resistances on their own base
+      r12pu = 1000.0 * sct.ll[0] / sct.sbase[0];
+      r13pu = 1000.0 * sct.ll[1] / sct.sbase[1];
+      r23pu = 1000.0 * sct.ll[2] / sct.sbase[2];
+      // convert r13 and r23 to a common base
+      r13pu *= (Sbase / sct.sbase[1]);
+      r23pu *= (Sbase / sct.sbase[2]);
+      // determine the star equivalent in per-unit
       r1pu = 0.5 * (r12pu + r13pu - r23pu);
       r2pu = 0.5 * (r12pu + r23pu - r13pu);
       r3pu = 0.5 * (r13pu + r23pu - r12pu);
+      // convert to ohms from the common Sbase
       r[0] = r1pu * ratedU[0] * ratedU[0] / Sbase;
       r[1] = r2pu * ratedU[1] * ratedU[1] / Sbase;
       r[2] = r3pu * ratedU[2] * ratedU[2] / Sbase;
@@ -243,7 +249,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public String GetDSS(DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     boolean bDelta;
     int phases = 3;
-    double zbase, xpct, zpct, rpct, pctloss, pctimag;
+    double zbase, xpct, zpct, rpct, pctloss, pctimag, pctiexc, rescale;
     int fwdg, twdg, i;
 
     for (i = 0; i < size; i++) {
@@ -254,14 +260,18 @@ public class DistXfmrCodeRating extends DistComponent {
     StringBuilder buf = new StringBuilder("new Xfmrcode." + tname + " windings=" + Integer.toString(size) +
                                           " phases=" + Integer.toString(phases));
 
-    // short circuit tests - valid only up to 3 windings
+    // short circuit tests - valid only up to 3 windings; put on the Winding 1 base
     for (i = 0; i < sct.size; i++) {
       fwdg = sct.fwdg[i];
       twdg = sct.twdg[i];
-      zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
+      zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / sct.sbase[i];
       zpct = 100.0 * sct.z[i] / zbase;
-      rpct = 100.0 * 1000.0 * sct.ll[i] / ratedS[fwdg-1];
+      rpct = 100.0 * 1000.0 * sct.ll[i] / sct.sbase[i];
       xpct = Math.sqrt(zpct*zpct - rpct*rpct);
+      // convert rpct, xpct from the test base power to winding 1 base power
+      rescale = ratedS[0] / sct.sbase[i];
+      rpct *= rescale;
+      xpct *= rescale;
       if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
         buf.append(" xhl=" + df6.format(xpct));
       } else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
@@ -270,12 +280,13 @@ public class DistXfmrCodeRating extends DistComponent {
         buf.append(" xlt=" + df6.format(xpct));
       }
     }
-    // open circuit test
+    // open circuit test, must put on winding 1 base for OpenDSS
     pctloss = 100.0 * 1000.0 * oct.nll / ratedS[0];
-    if ((pctloss > 0.0) && (pctloss <= oct.iexc)) {
-      pctimag = Math.sqrt(oct.iexc * oct.iexc - pctloss * pctloss);
+    pctiexc = oct.iexc * oct.sbase / ratedS[0];
+    if ((pctloss > 0.0) && (pctloss <= pctiexc)) {
+      pctimag = Math.sqrt(pctiexc * pctiexc - pctloss * pctloss);
     } else {
-      pctimag = oct.iexc;
+      pctimag = pctiexc;
     }
     buf.append (" %imag=" + df3.format(pctimag) + " %noloadloss=" + df3.format(pctloss) + "\n");
 
