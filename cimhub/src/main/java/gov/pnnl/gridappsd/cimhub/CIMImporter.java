@@ -174,12 +174,21 @@ public class CIMImporter extends Object {
   }
 
   void LoadBaseVoltages() {
+    boolean b208 = false;
+    boolean b240 = false;
     ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistBaseVoltage"), "BaseVoltage");
     while (results.hasNext()) {
       DistBaseVoltage obj = new DistBaseVoltage (results);
       mapBaseVoltages.put (obj.GetKey(), obj);
+      if (Math.abs(obj.vnom - 208.0) < 0.1) b208 = true;
+      if (Math.abs(obj.vnom - 240.0) < 0.1) b240 = true;
     }
     ((ResultSetCloseable)results).close();
+    // if 240V is a base voltage for split-phase, make sure 208V is also a voltage base for pu reporting
+    if (b240 && !b208) {
+      DistBaseVoltage bvCust = new DistBaseVoltage("208", 208.0);
+      mapBaseVoltages.put(bvCust.GetKey(), bvCust);
+    }
   }
 
   void LoadSubstations() {

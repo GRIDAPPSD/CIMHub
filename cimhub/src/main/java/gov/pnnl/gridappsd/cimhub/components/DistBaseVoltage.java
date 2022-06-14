@@ -8,7 +8,7 @@ import org.apache.jena.query.*;
 
 public class DistBaseVoltage extends DistComponent {
 	public String name;
-	double vnom;
+	public double vnom;
 
 	public String GetJSONEntry () {
 		StringBuilder buf = new StringBuilder ();
@@ -17,6 +17,11 @@ public class DistBaseVoltage extends DistComponent {
 		buf.append ("}");
 		return buf.toString();
 	}
+
+  public DistBaseVoltage (String key, double val) {
+    name = key;
+    vnom = val;
+  }
 
 	public DistBaseVoltage (ResultSet results) {
 		if (results.hasNext()) {

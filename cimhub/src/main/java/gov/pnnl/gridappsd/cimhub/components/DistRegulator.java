@@ -251,7 +251,7 @@ public class DistRegulator extends DistComponent {
         revX[i] = OptionalDouble (soln, "?revX", 0.0);
         ctRating[i] = OptionalDouble (soln, "?ctRating", 0.0);
         ctRatio[i] = OptionalDouble (soln, "?ctRatio", 0.0);
-        ptRatio[i] = OptionalDouble (soln, "?ptRatio", 0.0);
+        ptRatio[i] = OptionalDouble (soln, "?ptRatio", 1.0); // if left at 0, GridLAB-D will use that value, and OpenDSS defaults to 60
         if ((i + 1) < size) {
           soln = results.next();
         }

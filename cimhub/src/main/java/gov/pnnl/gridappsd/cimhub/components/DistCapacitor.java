@@ -130,7 +130,7 @@ public class DistCapacitor extends DistComponent {
       bus = SafeName (soln.get("?bus").toString());
       t1id = soln.get("?t1id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
-      phs = OptionalString (soln, "?phs", "ABC");
+      phs = OptionalString (soln, "?phases", "ABC");
       conn = soln.get("?conn").toString();
       grnd = soln.get("?grnd").toString();
       ctrl = OptionalString (soln, "?ctrlenabled", "false");

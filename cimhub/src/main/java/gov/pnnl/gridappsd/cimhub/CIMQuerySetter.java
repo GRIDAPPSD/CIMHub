@@ -50,8 +50,10 @@ public class CIMQuerySetter extends Object {
 			"} ORDER BY ?vnom");
 
 		mapQueries.put ("DistCapacitor",
-		   "SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs"+
-			 " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id WHERE {"+
+		   "SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd"+
+			 " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id "+
+       "(group_concat(distinct ?phs;separator=\"\") as ?phases) "+
+       "WHERE {"+
 			 " ?s c:Equipment.EquipmentContainer ?fdr."+
 			 " ?fdr c:IdentifiedObject.mRID ?fdrid."+
 			 " ?s r:type c:LinearShuntCompensator."+
@@ -90,7 +92,9 @@ public class CIMQuerySetter extends Object {
 			 " ?t c:Terminal.ConnectivityNode ?cn."+ 
        " ?t c:IdentifiedObject.mRID ?t1id."+
 			 " ?cn c:IdentifiedObject.name ?bus" + 
-			 "}");
+			 "}"+
+       "GROUP BY ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id "+
+       "ORDER BY ?name");
 
 		mapQueries.put ("DistConcentricNeutralCable",
 			"SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?id"+

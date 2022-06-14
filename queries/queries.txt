@@ -890,11 +890,6 @@ SELECT DISTINCT ?vnom
 WHERE {
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
-#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
-#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
-#VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
-VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
-#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}  # R2 12.47 3
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?s c:Equipment.EquipmentContainer ?fdr.
  {?s c:ConductingEquipment.BaseVoltage ?lev.}
@@ -1255,10 +1250,12 @@ SELECT ?name ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?t1id WHERE {
 }
 ORDER by ?name
 
+# CAUTION: switched to phase group_concat for the GMDM interop.  Needs a regression test.
 # capacitors (does not account for 2+ unequal phases on same LinearShuntCompensator) - DistCapacitor
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id WHERE {
+SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id
+(group_concat(distinct ?phs;separator="") as ?phases) WHERE {
  ?s r:type c:LinearShuntCompensator.
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
@@ -1301,6 +1298,7 @@ SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs ?ctrlenabled
  ?t c:IdentifiedObject.mRID ?t1id.
  ?cn c:IdentifiedObject.name ?bus
 }
+GROUP BY ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id
 ORDER by ?name
 
 # loads (need to account for 2+ unequal EnergyConsumerPhases per EnergyConsumer) - DistLoad
