@@ -185,7 +185,7 @@ def load_voltages(fname):
   fd.close()
   return vpu, vmag, vrad
 
-def print_dss_flow (vtag, itag, volts, vang, amps, iang, label):
+def print_dss_flow (vtag, itag, volts, vang, amps, iang, label=None):
   if vtag is None or itag is None:
     return
   ptot = 0.0
@@ -196,7 +196,10 @@ def print_dss_flow (vtag, itag, volts, vang, amps, iang, label):
   vln_ang = {}
   pkw = {}
   qkvar = {}
-  print ('  OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (itag, vtag, label))
+  if label is None:
+    print ('  OpenDSS branch flow in {:s} from {:s}'.format (itag, vtag))
+  else:
+    print ('  OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (itag, vtag, label))
   print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad')
   for num, phs in zip(['1', '2', '3'], ['A', 'B', 'C']):
     vtarget = vtag + '_' + phs
@@ -223,6 +226,7 @@ def print_dss_flow (vtag, itag, volts, vang, amps, iang, label):
       print ('    {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}     {:s}{:s}   {:9.2f} {:7.4f}'.format (phs, vln_mag[phs], 
         vln_ang[phs], iline_mag[phs], iline_ang[phs], pkw[phs], qkvar[phs], phs, llp, vll_mag, vll_ang))
   print ('    Total S = {:9.3f} + j {:9.3f}'.format (ptot, qtot))
+  return ptot, qtot
 
 def print_glm_flow (vtag, itag, volts, vang, amps, iang):
   if vtag is None or itag is None:
@@ -350,13 +354,42 @@ def write_dss_flows(dsspath, rootname, check_branches):
   t1 = load_taps (dsspath + dssroot + '_t.csv')
   i1, angi1 = load_currents (dsspath + dssroot + '_i.csv', dsspath + dssroot + '_n.csv')
   s1 = load_summary (dsspath + dssroot + '_s.csv')
-  print ('OpenDSS solution from: ' + dsspath)
-  print ('Ndev={:s} Nbus={:s} Nnode={:s} Vmin={:.4f} pu Vmax={:.4f} pu P={:.2f} kW Q={:.2f} kVAR Loss={:.2f}%'.format(s1['NumDevices'],
-        s1['NumBuses'], s1['NumNodes'], float(s1['MinPuVoltage']), float(s1['MaxPuVoltage']), 
-        1000*float(s1['TotalMW']), 1000*float(s1['TotalMvar']), float(s1['pctLosses'])))
+  print ('OpenDSS solution from: {:s} {:s} in {:s} iterations'.format(dsspath, s1['Status'], s1['Iterations']))
+  print ('  Number of Devices={:s} Buses={:s} Nodes={:s}'.format(s1['NumDevices'], s1['NumBuses'], s1['NumNodes']))
+  print ('  Line-Neutral Voltage min={:.4f}    max={:.4f} pu'.format(float(s1['MinPuVoltage']), float(s1['MaxPuVoltage'])))
+  print ('  Source P={:.2f} kW    Q={:.2f} kVAR'.format(1000*float(s1['TotalMW']), 1000*float(s1['TotalMvar'])))
+  print ('  Loss   P={:.2f} kW    Q={:.2f} kVAR'.format(1000*float(s1['MWLosses']), 1000*float(s1['MvarLosses'])))
+  print ('Tap Changer     Position')
+  for key, val in t1.items():
+    print ('  {:14s} {:3d}'.format(key, val))
+  classes = ['LINE', 'VSOURCE', 'PVSYSTEM', 'STORAGE', 'TRANSFORMER', 'CAPACITOR', 'GENERATOR', 'REACTOR', 'AUTOTRANS',
+             'GICTRANSFORMER', 'GENERIC5', 'GICLINE', 'LOAD', 'INDMACH012', 'UPFC', 'VCCS', 'VSCONVERTER', 'WINDGEN']
+  class_instances = {}
+  for cls in classes:
+    class_instances[cls] = []
+  for key in i1:
+    for cls in classes:
+      if key.startswith(cls):
+        idx1 = key.find('.') + 1
+        idx2 = key.find('.', idx1)
+        tok = key[idx1:idx2]
+        if tok not in class_instances[cls]:
+          class_instances[cls].append(tok)
+          break
+  print ('Object counts (with non-zero current flow):')
+  for key, toks in class_instances.items():
+    if len(toks) > 0:
+      print ('  {:15s} {:5d}'.format(key, len(toks)))
+  branch_p = 0.0
+  branch_q = 0.0
   for row in check_branches:
     if (('dss_link' in row) and ('dss_bus' in row)):
-      print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, 'Base')
+      p, q = print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, label=None)
+      if 'bLoad' in row:
+        if row['bLoad']:
+          branch_p += p
+          branch_q += q
+  print ('Accumulated Load P={:.2f} kW   Q={:.2f} kVAR'.format(branch_p, branch_q))
 
 def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_branches=[], do_gld=True):
   dssroot = rootname.lower()

@@ -13,8 +13,19 @@ import shutil
 cases = [
   {'root':'testing', 'export_options':' -l=1.0 -i=1.0 -e=carson',
    'glmvsrc': 39837.17, 'bases':[240.0, 480.0, 12470.0, 69000.0],
-   'check_branches':[{'dss_link': 'TRANSFORMER.XF1_1', 'dss_bus': 'E', 'gld_link': 'XF_XF1', 'gld_bus': 'E'},
-                      {'dss_link': 'LINE.FBKR_A', 'dss_bus': 'J', 'gld_link': 'SWT_FBKR_A', 'gld_bus': 'J'}]}] 
+   'check_branches':[#, 'gld_link': 'SWT_FBKR_A', 'gld_bus': 'J'},# 'gld_link': 'XF_XF1', 'gld_bus': 'E'},
+     {'dss_link': 'TRANSFORMER.XF3_1', 'dss_bus': 'J1'}, 
+     {'dss_link': 'LINE.FBKR_A', 'dss_bus': 'J'},
+     {'dss_link': 'STORAGE.INDIV_RES_BATTERY', 'dss_bus': 'E1'}, 
+     {'dss_link': 'CAPACITOR.CAP_A1', 'dss_bus': 'I1'},
+     {'dss_link': 'LOAD.AGGREGATE_A_PH_LOAD', 'dss_bus': 'G1', 'bLoad':True},
+     {'dss_link': 'LOAD.AGGREGATE_B_PH_LOAD', 'dss_bus': 'G2', 'bLoad':True},
+     {'dss_link': 'LOAD.AGGREGATE_C_PH_LOAD', 'dss_bus': 'G3', 'bLoad':True},
+     {'dss_link': 'LOAD.BOX_STORE_LOAD', 'dss_bus': 'B1', 'bLoad':True},
+     {'dss_link': 'LOAD.G_AND_G_COMM_LOAD', 'dss_bus': 'D2', 'bLoad':True},
+     {'dss_link': 'LOAD.G_AND_G_RES_LOAD', 'dss_bus': 'D2', 'bLoad':True},
+     {'dss_link': 'LOAD.INDIV_RES_120/240_LOAD', 'dss_bus': 'E1', 'bLoad':True},
+   ]}] 
 
 cwd = os.getcwd()
 vendor_dir = './planning/'
@@ -24,6 +35,9 @@ if len(sys.argv) > 1:
   vendor_dir = sys.argv[1]
   dsspath = vendor_dir + 'dss/'
   glmpath = vendor_dir + 'glm/'
+
+cimhub.write_dss_flows (dsspath=dsspath, rootname=cases[0]['root'], check_branches=cases[0]['check_branches'])
+quit()
 
 # combine a planning assembly into one file
 fnames = ['D Plan Basic Golden InstanceSet.xml',
