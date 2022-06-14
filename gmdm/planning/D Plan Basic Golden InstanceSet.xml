@@ -490,7 +490,7 @@
 		<cim:TransformerEndInfo.phaseAngleClock>0</cim:TransformerEndInfo.phaseAngleClock>
 		<cim:TransformerEndInfo.r>0.000396</cim:TransformerEndInfo.r>
 		<cim:TransformerEndInfo.ratedS>0.167</cim:TransformerEndInfo.ratedS>
-		<cim:TransformerEndInfo.ratedU>12.47</cim:TransformerEndInfo.ratedU>
+		<cim:TransformerEndInfo.ratedU>7.2</cim:TransformerEndInfo.ratedU>
 		<cim:TransformerEndInfo.shortTermS>0.1837</cim:TransformerEndInfo.shortTermS>
 		<cim:TransformerEndInfo.TransformerTankInfo rdf:resource="urn:uuid:6ee1a4da-1f99-4228-aa2f-86c3eb1c4f15"/>
 	</cim:TransformerEndInfo>
