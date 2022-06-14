@@ -41,8 +41,8 @@
 		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
 	</cim:TapChangerControl>
 	<cim:RegulatingControl rdf:about="urn:uuid:5f8d7887-8513-4c89-b855-2d7b9e95159c">
-		<cim:RegulatingControl.targetDeadband>0.4</cim:RegulatingControl.targetDeadband>
-		<cim:RegulatingControl.targetValue>12.47</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.targetDeadband>0.3</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>7.2</cim:RegulatingControl.targetValue>
 		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.k"/>
 		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
 	</cim:RegulatingControl>
