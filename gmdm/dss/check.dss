@@ -1,0 +1,12 @@
+//
+clear
+redirect testing_base.dss
+set maxiterations=80
+set tolerance=1e-08
+set controlmode=off
+solve
+export summary   testing_s.csv
+export voltages  testing_v.csv
+export currents  testing_i.csv
+export taps      testing_t.csv
+export nodeorder testing_n.csv
