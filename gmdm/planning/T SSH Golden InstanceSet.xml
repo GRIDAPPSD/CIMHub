@@ -16,14 +16,14 @@
 		<cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
 	</cim:RatioTapChanger>
 	<cim:TapChangerControl rdf:about="urn:uuid:84f2a894-2c43-45a3-bda8-10c4e3bb0a48">
-		<cim:RegulatingControl.targetDeadband>3</cim:RegulatingControl.targetDeadband>
-		<cim:RegulatingControl.targetValue>120</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.targetDeadband>180</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>7200</cim:RegulatingControl.targetValue>
 		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
 		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.none"/>
 	</cim:TapChangerControl>
 	<cim:TapChangerControl rdf:about="urn:uuid:3b5f125b-659a-46ff-bd8a-2ef4cb0ce4c6">
-		<cim:RegulatingControl.targetDeadband>3</cim:RegulatingControl.targetDeadband>
-		<cim:RegulatingControl.targetValue>120</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.targetDeadband>180</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>7200</cim:RegulatingControl.targetValue>
 		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
 		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.none"/>
 	</cim:TapChangerControl>

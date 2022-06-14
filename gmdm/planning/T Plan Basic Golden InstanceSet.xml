@@ -332,7 +332,8 @@
 		<cim:TapChanger.neutralU>7.2</cim:TapChanger.neutralU>
 		<cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
 		<cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
-</cim:RatioTapChanger>
+        <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:3b5f125b-659a-46ff-bd8a-2ef4cb0ce4c6"/>
+    </cim:RatioTapChanger>
 	<cim:TransformerTankEnd rdf:about="urn:uuid:960357ba-cb1d-4e3e-bbb1-639cb931bec9">
 		<cim:IdentifiedObject.name>Xf3 1 3</cim:IdentifiedObject.name>
 		<cim:TransformerEnd.endNumber>3</cim:TransformerEnd.endNumber>
@@ -375,8 +376,8 @@
 		<cim:RegulatingControl.mode rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#RegulatingControlModeKind.voltage"/>
 		<cim:RegulatingControl.monitoredPhase rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#PhaseCode.B"/>
 		<cim:TapChangerControl.lineDropCompensation>false</cim:TapChangerControl.lineDropCompensation>
-		<cim:TapChangerControl.maxLimitVoltage>1.1</cim:TapChangerControl.maxLimitVoltage>
-		<cim:TapChangerControl.minLimitVoltage>0.9</cim:TapChangerControl.minLimitVoltage>
+		<cim:TapChangerControl.maxLimitVoltage>7.632</cim:TapChangerControl.maxLimitVoltage>
+		<cim:TapChangerControl.minLimitVoltage>6.768</cim:TapChangerControl.minLimitVoltage>
 	</cim:TapChangerControl>
 	<cim:TapChangerControl rdf:about="urn:uuid:3b5f125b-659a-46ff-bd8a-2ef4cb0ce4c6">
 		<cim:IdentifiedObject.name>Xf3 1 2_Ctrl</cim:IdentifiedObject.name>
@@ -384,7 +385,7 @@
 		<cim:RegulatingControl.mode rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#RegulatingControlModeKind.voltage"/>
 		<cim:RegulatingControl.monitoredPhase rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#PhaseCode.B"/>
 		<cim:TapChangerControl.lineDropCompensation>false</cim:TapChangerControl.lineDropCompensation>
-		<cim:TapChangerControl.maxLimitVoltage>1.1</cim:TapChangerControl.maxLimitVoltage>
-		<cim:TapChangerControl.minLimitVoltage>0.9</cim:TapChangerControl.minLimitVoltage>
+		<cim:TapChangerControl.maxLimitVoltage>7.632</cim:TapChangerControl.maxLimitVoltage>
+		<cim:TapChangerControl.minLimitVoltage>6.768</cim:TapChangerControl.minLimitVoltage>
 	</cim:TapChangerControl>
 </rdf:RDF>

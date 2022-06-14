@@ -92,8 +92,8 @@
 		<cim:RegulatingControl.mode rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#RegulatingControlModeKind.voltage"/>
 		<cim:RegulatingControl.monitoredPhase rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#PhaseCode.A"/>
 		<cim:TapChangerControl.lineDropCompensation>true</cim:TapChangerControl.lineDropCompensation>
-		<cim:TapChangerControl.maxLimitVoltage>1.1</cim:TapChangerControl.maxLimitVoltage>
-		<cim:TapChangerControl.minLimitVoltage>0.9</cim:TapChangerControl.minLimitVoltage>
+		<cim:TapChangerControl.maxLimitVoltage>0.127</cim:TapChangerControl.maxLimitVoltage>
+		<cim:TapChangerControl.minLimitVoltage>0.113</cim:TapChangerControl.minLimitVoltage>
 		<cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
 		<cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
 	</cim:TapChangerControl>
@@ -632,8 +632,8 @@
 		<cim:RegulatingControl.mode rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#RegulatingControlModeKind.voltage"/>
 		<cim:RegulatingControl.monitoredPhase rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#PhaseCode.C"/>
 		<cim:TapChangerControl.lineDropCompensation>true</cim:TapChangerControl.lineDropCompensation>
-		<cim:TapChangerControl.maxLimitVoltage>1.1</cim:TapChangerControl.maxLimitVoltage>
-		<cim:TapChangerControl.minLimitVoltage>0.9</cim:TapChangerControl.minLimitVoltage>
+		<cim:TapChangerControl.maxLimitVoltage>0.127</cim:TapChangerControl.maxLimitVoltage>
+		<cim:TapChangerControl.minLimitVoltage>0.113</cim:TapChangerControl.minLimitVoltage>
 		<cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
 		<cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
 	</cim:TapChangerControl>
@@ -1678,7 +1678,7 @@
 		<cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
 		<cim:TransformerEnd.BaseVoltage rdf:resource="urn:uuid:9f2da549-b846-4c08-a38c-3b80758e397c"/>
 		<cim:TransformerEnd.Terminal rdf:resource="urn:uuid:b1a9cb04-75e5-4ce2-a086-d049f785654b"/>
-		<cim:TransformerTankEnd.orderedPhases rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#OrderedPhaseCodeKind.s2N"/>
+		<cim:TransformerTankEnd.orderedPhases rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#OrderedPhaseCodeKind.Ns2"/>
 		<cim:TransformerTankEnd.TransformerTank rdf:resource="urn:uuid:e725fb83-a8c4-41d8-a5a0-5087687ad1eb"/>
 	</cim:TransformerTankEnd>
 	<cim:PowerTransformer rdf:about="urn:uuid:4e948f6f-46d4-4040-9d83-b725d4809599">
@@ -1855,8 +1855,8 @@
 		<cim:RegulatingControl.mode rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#RegulatingControlModeKind.voltage"/>
 		<cim:RegulatingControl.monitoredPhase rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#PhaseCode.B"/>
 		<cim:TapChangerControl.lineDropCompensation>true</cim:TapChangerControl.lineDropCompensation>
-		<cim:TapChangerControl.maxLimitVoltage>1.1</cim:TapChangerControl.maxLimitVoltage>
-		<cim:TapChangerControl.minLimitVoltage>0.9</cim:TapChangerControl.minLimitVoltage>
+		<cim:TapChangerControl.maxLimitVoltage>0.127</cim:TapChangerControl.maxLimitVoltage>
+		<cim:TapChangerControl.minLimitVoltage>0.113</cim:TapChangerControl.minLimitVoltage>
 		<cim:TapChangerControl.reverseLineDropR>0</cim:TapChangerControl.reverseLineDropR>
 		<cim:TapChangerControl.reverseLineDropX>0</cim:TapChangerControl.reverseLineDropX>
 	</cim:TapChangerControl>
