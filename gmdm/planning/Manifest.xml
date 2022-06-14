@@ -4,7 +4,7 @@
          xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
 	<exch:Manifest rdf:about="urn:uuid:0a66f3bf-883a-43bf-93cc-e798098d611f">
 		<exch:Manifest.name>Manifest for Planning Golden Assembly Exchange</exch:Manifest.name>
-		<exch:Manifest.profile>http://ucaiug.org/GMDM/exch_Profile</exch:Manifest.profile>
+		<exch:Manifest.profile>http://ucaiug.org/GMDM/Meta_Profile</exch:Manifest.profile>
 		<exch:Manifest.InstanceSet rdf:resource="urn:uuid:a84ffc15-6994-4758-9f36-7430d6b0421e"/>
 	</exch:Manifest>
 </rdf:RDF>

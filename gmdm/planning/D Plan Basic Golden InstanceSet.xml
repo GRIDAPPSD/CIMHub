@@ -468,7 +468,7 @@
 	<cim:RatioTapChanger rdf:about="urn:uuid:386360c6-9470-464a-be80-fd5802dfd306">
 		<cim:IdentifiedObject.name>rtc_Xf2 1 1</cim:IdentifiedObject.name>
 		<cim:TapChanger.highStep>16</cim:TapChanger.highStep>
-		<cim:TapChanger.lowStep>16</cim:TapChanger.lowStep>
+		<cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
 		<cim:TapChanger.ltcFlag>false</cim:TapChanger.ltcFlag>
 		<cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
 		<cim:TapChanger.neutralU>7.2</cim:TapChanger.neutralU>
@@ -490,7 +490,7 @@
 		<cim:TransformerEndInfo.phaseAngleClock>0</cim:TransformerEndInfo.phaseAngleClock>
 		<cim:TransformerEndInfo.r>0.000396</cim:TransformerEndInfo.r>
 		<cim:TransformerEndInfo.ratedS>0.167</cim:TransformerEndInfo.ratedS>
-		<cim:TransformerEndInfo.ratedU>7.2</cim:TransformerEndInfo.ratedU>
+		<cim:TransformerEndInfo.ratedU>12.47</cim:TransformerEndInfo.ratedU>
 		<cim:TransformerEndInfo.shortTermS>0.1837</cim:TransformerEndInfo.shortTermS>
 		<cim:TransformerEndInfo.TransformerTankInfo rdf:resource="urn:uuid:6ee1a4da-1f99-4228-aa2f-86c3eb1c4f15"/>
 	</cim:TransformerEndInfo>
@@ -2190,7 +2190,7 @@
 	</cim:Location>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:fd08e309-c78d-478c-811a-f5c6553ec09b">
 		<cim:TransformerMeshImpedance.r>0.46656</cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x>0.528772729</cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.x>0.528768003</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:3196947e-a338-4516-b1b5-b0a7536b0396"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:144d4c15-039c-4b2c-ae99-febf098171a8"/>
 	</cim:TransformerMeshImpedance>
@@ -2202,7 +2202,7 @@
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:110a66cd-587d-451a-a782-4779c9a46037">
 		<cim:TransformerMeshImpedance.r>0.0001728</cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x>9.79187E-05</cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.x>9.792E-05</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:f608ebf3-ffa2-4226-867c-4475f167e8a5"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:144d4c15-039c-4b2c-ae99-febf098171a8"/>
 	</cim:TransformerMeshImpedance>
@@ -2212,8 +2212,8 @@
 		<cim:TransformerCoreAdmittance.TransformerEndInfo rdf:resource="urn:uuid:3196947e-a338-4516-b1b5-b0a7536b0396"/>
 	</cim:TransformerCoreAdmittance>
 	<cim:TransformerCoreAdmittance rdf:about="urn:uuid:33fb455a-fd4d-4b14-9871-a09ab33478f3">
-		<cim:TransformerCoreAdmittance.b>-1.44688E-06</cim:TransformerCoreAdmittance.b>
-		<cim:TransformerCoreAdmittance.g>7.23468E-07</cim:TransformerCoreAdmittance.g>
+		<cim:TransformerCoreAdmittance.b>-1.447e-06</cim:TransformerCoreAdmittance.b>
+		<cim:TransformerCoreAdmittance.g>7.235e-07</cim:TransformerCoreAdmittance.g>
 		<cim:TransformerCoreAdmittance.TransformerEndInfo rdf:resource="urn:uuid:cfda902c-8fc4-4b60-bef5-d47b7c58b244"/>
 	</cim:TransformerCoreAdmittance>
 	<cim:TransformerCoreAdmittance rdf:about="urn:uuid:bc921705-577f-4331-b8a2-3ad34f7a8ab5">
@@ -2239,25 +2239,25 @@
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:6b5ea984-b446-42fd-82ee-1c5efbb645c0">
 		<cim:TransformerMeshImpedance.r>67.392</cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x>49.7664</cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.x>49.76639938</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:7889ab14-6093-4528-bf0c-03733a83577c"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:5966a699-7b4c-4e6c-8503-5371e99005fb"/>
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:a49b770c-1f57-403b-9a89-571c988c99f1">
-		<cim:TransformerMeshImpedance.r>67.392</cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x>49.7664</cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.r>67.39199753</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>49.76640055</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:7889ab14-6093-4528-bf0c-03733a83577c"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:f392cda7-b820-4c58-a20b-e223182f8ef1"/>
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:4ea756da-5abd-4c9b-be27-9a370fba52ef">
 		<cim:TransformerMeshImpedance.r>0.02496</cim:TransformerMeshImpedance.r>
 		<cim:TransformerMeshImpedance.x>0.009216</cim:TransformerMeshImpedance.x>
-		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:5966a699-7b4c-4e6c-8503-5371e99005fb"/>
-		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:f392cda7-b820-4c58-a20b-e223182f8ef1"/>
+		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:f392cda7-b820-4c58-a20b-e223182f8ef1"/>
+		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:5966a699-7b4c-4e6c-8503-5371e99005fb"/>
 	</cim:TransformerMeshImpedance>
 	<cim:TransformerMeshImpedance rdf:about="urn:uuid:bd443aab-fa65-4fbb-89ba-9d1b8be7c9f2">
-		<cim:TransformerMeshImpedance.r>72.576</cim:TransformerMeshImpedance.r>
-		<cim:TransformerMeshImpedance.x>82.944</cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.r>72.57600031</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>82.94399763</cim:TransformerMeshImpedance.x>
 		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:5da4f5dd-abb4-41e1-b8b1-292a668d34c5"/>
 		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:5de8d7d5-6469-4dc0-b703-264b0afc3525"/>
 	</cim:TransformerMeshImpedance>
@@ -2294,7 +2294,7 @@
 	<cim:SwitchPhase rdf:about="urn:uuid:24e811cc-933d-4ffa-a9ba-bb7a94f0185d">
 		<cim:IdentifiedObject.name>Indiv Res Sw_s1</cim:IdentifiedObject.name>
 		<cim:SwitchPhase.phaseSide1 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.s1"/>
-		<cim:SwitchPhase.phaseSide2 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.s2"/>
+		<cim:SwitchPhase.phaseSide2 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.s1"/>
 		<cim:SwitchPhase.Switch rdf:resource="urn:uuid:2d324611-adc5-48c0-ba9d-e4cd8654187a"/>
 		<cim:SwitchPhase.normalOpen>false</cim:SwitchPhase.normalOpen>
 		<cim:SwitchPhase.ratedCurrent>150</cim:SwitchPhase.ratedCurrent>

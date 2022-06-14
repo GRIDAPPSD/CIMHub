@@ -5,7 +5,7 @@
          xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
 	<exch:InstanceSet rdf:about="urn:uuid:cb0d06b4-aa4a-4745-a85c-e035ca928139">
 		<exch:InstanceSet.name>Transmission Planning Basic Golden Model InstanceSet</exch:InstanceSet.name>
-	</exch:InstanceSet>
+	</exch:InstanceSet>374
 	<cim:CoordinateSystem rdf:about="urn:uuid:927e8f1e-e2e9-4400-a246-c901004d7bf6">
 		<cim:IdentifiedObject.name>EPSG 4236  (WPS 84)</cim:IdentifiedObject.name>
 		<cim:CoordinateSystem.crsUrn>urn:ogc:def:crs:EPSG::4326</cim:CoordinateSystem.crsUrn>
@@ -142,48 +142,48 @@
 		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 		<cim:ShortCircuitTest.energisedEndStep>0</cim:ShortCircuitTest.energisedEndStep>
 		<cim:ShortCircuitTest.groundedEndStep>0</cim:ShortCircuitTest.groundedEndStep>
-		<cim:ShortCircuitTest.leakageImpedance>25.0</cim:ShortCircuitTest.leakageImpedance>
-		<cim:ShortCircuitTest.loss>50.0</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.leakageImpedance>25</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>50</cim:ShortCircuitTest.loss>
 		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
 		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:a8cc89b9-5270-40e6-b293-792cb578d6b3"/>
 	</cim:ShortCircuitTest>
 	<cim:TransformerEndInfo rdf:about="urn:uuid:a8cc89b9-5270-40e6-b293-792cb578d6b3">
 		<cim:IdentifiedObject.name>3E 69000/12470/12470 01 E2</cim:IdentifiedObject.name>
 		<cim:TransformerEndInfo.connectionKind rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#WindingConnection.Yn"/>
-		<cim:TransformerEndInfo.emergencyS>25.0</cim:TransformerEndInfo.emergencyS>
+		<cim:TransformerEndInfo.emergencyS>25</cim:TransformerEndInfo.emergencyS>
 		<cim:TransformerEndInfo.endNumber>2</cim:TransformerEndInfo.endNumber>
 		<cim:TransformerEndInfo.insulationU>0</cim:TransformerEndInfo.insulationU>
 		<cim:TransformerEndInfo.phaseAngleClock>0</cim:TransformerEndInfo.phaseAngleClock>
 		<cim:TransformerEndInfo.r>0.0207</cim:TransformerEndInfo.r>
-		<cim:TransformerEndInfo.ratedS>15.0</cim:TransformerEndInfo.ratedS>
+		<cim:TransformerEndInfo.ratedS>15</cim:TransformerEndInfo.ratedS>
 		<cim:TransformerEndInfo.ratedU>12.47</cim:TransformerEndInfo.ratedU>
-		<cim:TransformerEndInfo.shortTermS>20.0</cim:TransformerEndInfo.shortTermS>
+		<cim:TransformerEndInfo.shortTermS>20</cim:TransformerEndInfo.shortTermS>
 		<cim:TransformerEndInfo.TransformerTankInfo rdf:resource="urn:uuid:1145f3e8-657e-40ad-a1eb-cc5e04163ffc"/>
 	</cim:TransformerEndInfo>
 	<cim:TransformerEndInfo rdf:about="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120">
 		<cim:IdentifiedObject.name>3E 69000/12470/12470 01 E1</cim:IdentifiedObject.name>
 		<cim:TransformerEndInfo.connectionKind rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#WindingConnection.Yn"/>
-		<cim:TransformerEndInfo.emergencyS>50.0</cim:TransformerEndInfo.emergencyS>
+		<cim:TransformerEndInfo.emergencyS>25</cim:TransformerEndInfo.emergencyS>
 		<cim:TransformerEndInfo.endNumber>1</cim:TransformerEndInfo.endNumber>
 		<cim:TransformerEndInfo.insulationU>0</cim:TransformerEndInfo.insulationU>
 		<cim:TransformerEndInfo.phaseAngleClock>0</cim:TransformerEndInfo.phaseAngleClock>
-		<cim:TransformerEndInfo.r>0.195</cim:TransformerEndInfo.r>
-		<cim:TransformerEndInfo.ratedS>30.0</cim:TransformerEndInfo.ratedS>
-		<cim:TransformerEndInfo.ratedU>69</cim:TransformerEndInfo.ratedU>
-		<cim:TransformerEndInfo.shortTermS>40.0</cim:TransformerEndInfo.shortTermS>
+		<cim:TransformerEndInfo.r>0.0207</cim:TransformerEndInfo.r>
+		<cim:TransformerEndInfo.ratedS>30</cim:TransformerEndInfo.ratedS>
+		<cim:TransformerEndInfo.ratedU>12.47</cim:TransformerEndInfo.ratedU>
+		<cim:TransformerEndInfo.shortTermS>20</cim:TransformerEndInfo.shortTermS>
 		<cim:TransformerEndInfo.TransformerTankInfo rdf:resource="urn:uuid:1145f3e8-657e-40ad-a1eb-cc5e04163ffc"/>
 	</cim:TransformerEndInfo>
 	<cim:TransformerEndInfo rdf:about="urn:uuid:e5dca379-a0a0-4679-8140-89b9c72fc290">
 		<cim:IdentifiedObject.name>3E 69000/12470/12470 01 E3</cim:IdentifiedObject.name>
 		<cim:TransformerEndInfo.connectionKind rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#WindingConnection.Yn"/>
-		<cim:TransformerEndInfo.emergencyS>25.0</cim:TransformerEndInfo.emergencyS>
+		<cim:TransformerEndInfo.emergencyS>0.375</cim:TransformerEndInfo.emergencyS>
 		<cim:TransformerEndInfo.endNumber>3</cim:TransformerEndInfo.endNumber>
 		<cim:TransformerEndInfo.insulationU>0</cim:TransformerEndInfo.insulationU>
 		<cim:TransformerEndInfo.phaseAngleClock>0</cim:TransformerEndInfo.phaseAngleClock>
-		<cim:TransformerEndInfo.r>0.0207</cim:TransformerEndInfo.r>
-		<cim:TransformerEndInfo.ratedS>15.0</cim:TransformerEndInfo.ratedS>
+		<cim:TransformerEndInfo.r>0.0105</cim:TransformerEndInfo.r>
+		<cim:TransformerEndInfo.ratedS>1.666</cim:TransformerEndInfo.ratedS>
 		<cim:TransformerEndInfo.ratedU>12.47</cim:TransformerEndInfo.ratedU>
-		<cim:TransformerEndInfo.shortTermS>20.0</cim:TransformerEndInfo.shortTermS>
+		<cim:TransformerEndInfo.shortTermS>0.275</cim:TransformerEndInfo.shortTermS>
 		<cim:TransformerEndInfo.TransformerTankInfo rdf:resource="urn:uuid:1145f3e8-657e-40ad-a1eb-cc5e04163ffc"/>
 	</cim:TransformerEndInfo>
 	<cim:ShortCircuitTest rdf:about="urn:uuid:c1544729-0316-4647-b9ba-7292a5274790">
@@ -192,8 +192,8 @@
 		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 		<cim:ShortCircuitTest.energisedEndStep>16</cim:ShortCircuitTest.energisedEndStep>
 		<cim:ShortCircuitTest.groundedEndStep>16</cim:ShortCircuitTest.groundedEndStep>
-		<cim:ShortCircuitTest.leakageImpedance>25.0</cim:ShortCircuitTest.leakageImpedance>
-		<cim:ShortCircuitTest.loss>50.0</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.leakageImpedance>25</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>50</cim:ShortCircuitTest.loss>
 		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
 		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:e5dca379-a0a0-4679-8140-89b9c72fc290"/>
 	</cim:ShortCircuitTest>
@@ -204,7 +204,7 @@
 		<cim:ShortCircuitTest.energisedEndStep>0</cim:ShortCircuitTest.energisedEndStep>
 		<cim:ShortCircuitTest.groundedEndStep>0</cim:ShortCircuitTest.groundedEndStep>
 		<cim:ShortCircuitTest.leakageImpedance>1.66</cim:ShortCircuitTest.leakageImpedance>
-		<cim:ShortCircuitTest.loss>90.0</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.loss>99.0</cim:ShortCircuitTest.loss>
 		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:a8cc89b9-5270-40e6-b293-792cb578d6b3"/>
 		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:e5dca379-a0a0-4679-8140-89b9c72fc290"/>
 	</cim:ShortCircuitTest>
@@ -214,11 +214,11 @@
 		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
 		<cim:NoLoadTest.energisedEndVoltage>69.0</cim:NoLoadTest.energisedEndVoltage>
 		<cim:NoLoadTest.excitingCurrent>0.7</cim:NoLoadTest.excitingCurrent>
-		<cim:NoLoadTest.loss>45.0</cim:NoLoadTest.loss>
+		<cim:NoLoadTest.loss>45</cim:NoLoadTest.loss>
 		<cim:NoLoadTest.EnergisedEnd rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
 	</cim:NoLoadTest>
 	<cim:TransformerCoreAdmittance rdf:about="urn:uuid:8e5364ba-787a-498d-896f-e1cfaa54935b">
-		<cim:TransformerCoreAdmittance.b>-1.9926e-5</cim:TransformerCoreAdmittance.b>
+		<cim:TransformerCoreAdmittance.b>-4.30838E-05</cim:TransformerCoreAdmittance.b>
 		<cim:TransformerCoreAdmittance.g>9.4518e-6</cim:TransformerCoreAdmittance.g>
 		<cim:TransformerCoreAdmittance.TransformerEndInfo rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
 	</cim:TransformerCoreAdmittance>
@@ -244,7 +244,7 @@
 		<cim:IdentifiedObject.description>T equivalent energy source</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.name>Main Xf3 Energy Source</cim:IdentifiedObject.name>
 		<cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:27092531-8b05-4387-ac19-561fc5b1ff07"/>
-		<cim:EnergySource.nominalVoltage>69.00</cim:EnergySource.nominalVoltage>
+		<cim:EnergySource.nominalVoltage>69</cim:EnergySource.nominalVoltage>
 		<cim:EnergySource.r>0.0096619326</cim:EnergySource.r>
 		<cim:EnergySource.r0>0.0091817318</cim:EnergySource.r0>
 		<cim:EnergySource.x>0.03864773</cim:EnergySource.x>
