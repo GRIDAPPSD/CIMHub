@@ -124,7 +124,11 @@ public class DistLoad extends DistComponent {
       } else {
         kv /= Math.sqrt(3.0);
       }
-		}
+    } else if (nphases == 2) { // for 240-V loads on open delta secondary service
+      if (kv > 0.23 && kv < 0.26) {
+        kv = 0.208;
+      }
+    }
 
 		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
 								" conn=" + DSSConn(bDelta) + " kw=" + df3.format(p) + " kvar=" + df3.format(q) +
