@@ -140,7 +140,7 @@ public class DistSwitch extends DistComponent {
 		buf.append (" phases=" + Integer.toString(DSSPhaseCount(phases, false)) + 
 								" bus1=" + DSSBusPhases(bus1, phases) + " bus2=" + DSSBusPhases (bus2, phases) + 
 								" switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM " + CIMClass() + "\n");
-		AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
+		AppendDSSRatings (buf, rated, 0.0);
 		if (open) {
 			buf.append ("  open Line." + name + " 1\n");
 		} else {
