@@ -784,7 +784,7 @@ SELECT ?name ?id ?bus ?basev ?p ?q ?conn ?cnt ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?f
  ?s c:IdentifiedObject.mRID ?id.
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
- ?s c:EnergyConsumer.customerCount ?cnt.
+ OPTIONAL {?s c:EnergyConsumer.customerCount ?cnt.}
  ?s c:EnergyConsumer.p ?p.
  ?s c:EnergyConsumer.q ?q.
  ?s c:EnergyConsumer.phaseConnection ?connraw.
@@ -796,8 +796,8 @@ SELECT ?name ?id ?bus ?basev ?p ?q ?conn ?cnt ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?f
  ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi.
  ?lr c:LoadResponseCharacteristic.pConstantPower ?pp.
  ?lr c:LoadResponseCharacteristic.qConstantPower ?qp.
- ?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.
- ?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.
+ OPTIONAL {?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.}
+ OPTIONAL {?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.}
  OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s.
  ?ecp c:EnergyConsumerPhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
@@ -985,7 +985,7 @@ SELECT ?rname ?pname ?tname ?wnum ?incr ?mode ?enabled ?highStep ?lowStep ?neutr
 <description>Regulators having TransformerTankEnd.TransformerTank</description>
 <value>
 <![CDATA[
-SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
  ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode 
  ?monphs ?ctRating ?ctRatio ?ptRatio ?id ?fdrid ?pxfid
  WHERE {
@@ -1004,29 +1004,27 @@ SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?mode ?enabled ?highStep 
   ?pxf c:IdentifiedObject.name ?pname.
   ?pxf c:IdentifiedObject.mRID ?pxfid.
   ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
-  ?rtc c:RatioTapChanger.tculControlMode ?moderaw.
-   bind(strafter(str(?moderaw),"TransformerControlMode.") as ?mode)
   ?rtc c:TapChanger.controlEnabled ?enabled.
   ?rtc c:TapChanger.highStep ?highStep.
-  ?rtc c:TapChanger.initialDelay ?initDelay.
+  OPTIONAL {?rtc c:TapChanger.initialDelay ?initDelay.}
   ?rtc c:TapChanger.lowStep ?lowStep.
   ?rtc c:TapChanger.ltcFlag ?ltc.
   ?rtc c:TapChanger.neutralStep ?neutralStep.
   ?rtc c:TapChanger.neutralU ?neutralU.
   ?rtc c:TapChanger.normalStep ?normalStep.
   ?rtc c:TapChanger.step ?step.
-  ?rtc c:TapChanger.subsequentDelay ?subDelay.
-  ?rtc c:TapChanger.ctRating ?ctRating.
-  ?rtc c:TapChanger.ctRatio ?ctRatio.
-  ?rtc c:TapChanger.ptRatio ?ptRatio.
-  ?rtc c:TapChanger.TapChangerControl ?ctl.
+  OPTIONAL {?rtc c:TapChanger.subsequentDelay ?subDelay.}
+  OPTIONAL {?rtc c:TapChanger.ctRating ?ctRating.}
+  OPTIONAL {?rtc c:TapChanger.ctRatio ?ctRatio.}
+  OPTIONAL {?rtc c:TapChanger.ptRatio ?ptRatio.}
+  OPTIONAL {?rtc c:TapChanger.TapChangerControl ?ctl.
   ?ctl c:TapChangerControl.maxLimitVoltage ?vlim.
   ?ctl c:TapChangerControl.minLimitVoltage ?vmin.
   ?ctl c:TapChangerControl.lineDropCompensation ?ldc.
-  ?ctl c:TapChangerControl.lineDropR ?fwdR.
-  ?ctl c:TapChangerControl.lineDropX ?fwdX.
-  ?ctl c:TapChangerControl.reverseLineDropR ?revR.
-  ?ctl c:TapChangerControl.reverseLineDropX ?revX.
+  OPTIONAL {?ctl c:TapChangerControl.lineDropR ?fwdR.}
+  OPTIONAL {?ctl c:TapChangerControl.lineDropX ?fwdX.}
+  OPTIONAL {?ctl c:TapChangerControl.reverseLineDropR ?revR.}
+  OPTIONAL {?ctl c:TapChangerControl.reverseLineDropX ?revX.}
   ?ctl c:RegulatingControl.discrete ?discrete.
   ?ctl c:RegulatingControl.enabled ?ctl_enabled.
   ?ctl c:RegulatingControl.mode ?ctlmoderaw.
@@ -1034,7 +1032,7 @@ SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?mode ?enabled ?highStep 
   ?ctl c:RegulatingControl.monitoredPhase ?monraw.
    bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
   ?ctl c:RegulatingControl.targetDeadband ?vbw.
-  ?ctl c:RegulatingControl.targetValue ?vset.
+  ?ctl c:RegulatingControl.targetValue ?vset.}
  }
  ORDER BY ?pname ?tname ?rname ?wnum
 ]]>

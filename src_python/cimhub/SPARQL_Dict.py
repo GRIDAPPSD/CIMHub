@@ -16,9 +16,10 @@ def initialize_SPARQL (cfg_file=None):
   SPARQL.setReturnFormat(JSON)
 
 def build_query (prefix, base, fid):
-  idx = base.find('WHERE {') + 8
-  retq = prefix + '\n' + base[:idx] + """ VALUES ?fdrid {{"{:s}"}}\n""".format (fid) + base[idx:]
-  return retq
+  if fid is not None:
+    idx = base.find('WHERE {') + 8
+    return prefix + '\n' + base[:idx] + """ VALUES ?fdrid {{"{:s}"}}\n""".format (fid) + base[idx:]
+  return prefix + '\n' + base
 
 def build_dict (ret):
   dict = {}
