@@ -1,2 +1,2 @@
 DateTime, CaseName, Status, Mode, Number, LoadMult, NumDevices, NumBuses, NumNodes, Iterations, ControlMode, ControlIterations, MostIterationsDone, Year, Hour, MaxPuVoltage, MinPuVoltage, TotalMW, TotalMvar, MWLosses, pctLosses, MvarLosses, Frequency
-"6/14/2022 22:55:36", Main_Xf3_Energy_Source, SOLVED, Snap, 100,    1.000, 45, 23, 60, 6, OFF, 1, 6, 0, 0, 1.6537, 0.97203, 0.351442, -0.259732, 0.0638292, 18.16, 0.249516, 60
+"6/15/2022 10:20:00", Main_Xf3_Energy_Source, SOLVED, Snap, 100,    1.000, 45, 23, 60, 6, OFF, 1, 6, 0, 0, 1.6516, 0.96629, 0.403331, -0.238124, 0.0642082, 15.92, 0.250148, 60

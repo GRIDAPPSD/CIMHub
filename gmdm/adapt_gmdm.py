@@ -9,6 +9,7 @@ import argparse
 import subprocess
 import stat
 import shutil
+import glob
 
 cases = [
   {'root':'testing', 'export_options':' -l=1.0 -i=1.0 -e=carson',
@@ -47,7 +48,16 @@ fnames = ['D Plan Basic Golden InstanceSet.xml',
           'T SSH Golden InstanceSet.xml',
           'TD Basic Golden InstanceSet.xml']
 
-cimhub.combine_xml_files (input_root_name=vendor_dir, 
+for debris in ['adapted.xml', 'planning.xml']:
+  fname = vendor_dir + debris
+  if os.path.exists(fname):
+    os.remove(fname)
+fnames = glob.glob(vendor_dir+'*.xml')
+print ('Importing')
+for fn in fnames:
+  print ('  ', fn)
+#quit()
+cimhub.combine_xml_files (input_root_name='./', # vendor_dir, 
                           output_filename=vendor_dir + 'planning.xml', 
                           extensions=fnames)
 

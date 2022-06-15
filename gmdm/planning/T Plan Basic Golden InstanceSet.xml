@@ -5,7 +5,7 @@
          xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
 	<exch:InstanceSet rdf:about="urn:uuid:cb0d06b4-aa4a-4745-a85c-e035ca928139">
 		<exch:InstanceSet.name>Transmission Planning Basic Golden Model InstanceSet</exch:InstanceSet.name>
-	</exch:InstanceSet>374
+	</exch:InstanceSet>
 	<cim:CoordinateSystem rdf:about="urn:uuid:927e8f1e-e2e9-4400-a246-c901004d7bf6">
 		<cim:IdentifiedObject.name>EPSG 4236  (WPS 84)</cim:IdentifiedObject.name>
 		<cim:CoordinateSystem.crsUrn>urn:ogc:def:crs:EPSG::4326</cim:CoordinateSystem.crsUrn>

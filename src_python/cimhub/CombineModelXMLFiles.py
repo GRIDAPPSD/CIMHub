@@ -4,6 +4,7 @@ import xml.etree.ElementTree as ET
 from lxml import etree, objectify
 from xml.dom import minidom
 
+#echo=True
 echo=False
 
 class Node(object):
@@ -194,10 +195,11 @@ class ModelCombiner(object):
             ET.register_namespace(v, k)
         root = ET.Element(self.completeFile.tag)
         for chld in self.completeFile.children:
-            child = ET.SubElement(root, chld.tag, attrib=chld.attrib)
-            for gchld in chld.children:
-                gchild = ET.SubElement(child, gchld.tag, attrib=gchld.attrib)
-                gchild.text = gchld.text
+            if chld.children is not None:
+                child = ET.SubElement(root, chld.tag, attrib=chld.attrib)
+                for gchld in chld.children:
+                    gchild = ET.SubElement(child, gchld.tag, attrib=gchld.attrib)
+                    gchild.text = gchld.text
         rough_string = ET.tostring(root, 'utf-8')
         reparsed = minidom.parseString(rough_string)
         with open(self.output_filename, "w") as f:

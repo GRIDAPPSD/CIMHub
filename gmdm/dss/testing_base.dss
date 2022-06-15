@@ -40,12 +40,12 @@ new Xfmrcode.2E_7200/240_01 windings=2 phases=1 xhl=1.600005 %imag=0.000 %noload
 
 new Storage.Indiv_Res_Battery phases=2 bus1=e1.1.2 conn=w kva=25.000 kwrated=21.000 kv=0.240 kwhrated=50.000 kwhstored=30.000 state=discharging vminpu=0.6667 LimitCurrent=yes %charge=47.62 %discharge=47.62 kvarMax=13.000 kvarMaxAbs=13.000 pf=0.9806
 
-new Load.Aggregate_C_Ph_Load phases=2 bus1=g3.1.2 conn=w kw=116.000 kvar=46.000 numcust=1 kv=0.240 model=1
-new Load.G_and_G_Res_Load phases=2 bus1=d2.2.3 conn=w kw=19.000 kvar=7.600 numcust=1 kv=0.240 model=1
-new Load.Indiv_Res_120/240_Load phases=2 bus1=e1.1.2 conn=w kw=19.200 kvar=7.600 numcust=1 kv=0.240 model=1
-new Load.Aggregate_A_Ph_Load phases=2 bus1=g1.2.1 conn=w kw=58.000 kvar=24.000 numcust=1 kv=0.240 model=1
+new Load.Aggregate_C_Ph_Load phases=2 bus1=g3.1.2 conn=w kw=116.000 kvar=46.000 numcust=1 kv=0.208 model=1
+new Load.G_and_G_Res_Load phases=2 bus1=d2.2.3 conn=w kw=19.000 kvar=7.600 numcust=1 kv=0.208 model=1
+new Load.Indiv_Res_120/240_Load phases=2 bus1=e1.1.2 conn=w kw=19.200 kvar=7.600 numcust=1 kv=0.208 model=1
+new Load.Aggregate_A_Ph_Load phases=2 bus1=g1.2.1 conn=w kw=58.000 kvar=24.000 numcust=1 kv=0.208 model=1
 new Load.G_and_G_Comm_Load phases=3 bus1=d2.1.2.3 conn=d kw=25.000 kvar=10.000 numcust=1 kv=0.240 model=1
-new Load.Aggregate_B_Ph_Load phases=2 bus1=g2.2.1 conn=w kw=76.000 kvar=30.000 numcust=1 kv=0.240 model=1
+new Load.Aggregate_B_Ph_Load phases=2 bus1=g2.2.1 conn=w kw=76.000 kvar=30.000 numcust=1 kv=0.208 model=1
 new Load.Box_Store_Load phases=3 bus1=b1.1.2.3 conn=w kw=36.000 kvar=14.000 numcust=1 kv=0.480 model=1
 
 new Line.G_and_G_Sw phases=3 bus1=d3.2.3.1 bus2=d2.2.3.1 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch

@@ -1,7 +1,8 @@
 operations/
 dss/
 glm/
-vendor1/
+ips/
+ogs/
 adapted.xml
 planning.xml
 export.bat
