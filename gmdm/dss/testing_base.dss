@@ -17,17 +17,17 @@ new LineSpacing.PN_01_B nconds=2 nphases=1 units=m
 new Linecode.3P_01 nphases=3 units=mi rmatrix=[0.297273 | 0.102753 0.294494 | 0.103828 0.105296 0.299558 ] xmatrix=[0.942524 | 0.380854 0.962803 | 0.299752 0.362484 0.926145 ] cmatrix=[0.00000 | 0.00000 0.00000 | 0.00000 0.00000 0.00000 ]
 
 new Xfmrcode.2E_7200/7200_01 windings=2 phases=1 xhl=0.029998 %imag=0.001 %noloadloss=0.000
-~ wdg=1 conn=w kv=7.200 kva=167.0 %r=0.000128
-~ wdg=2 conn=w kv=7.200 kva=167.0 %r=0.000128
+~ wdg=1 conn=w kv=7.200 kva=167.0 %r=0.000050
+~ wdg=2 conn=w kv=7.200 kva=167.0 %r=0.000050
 new Xfmrcode.2E_12470/480_01 windings=2 phases=3 xhl=1.999984 %imag=0.500 %noloadloss=0.250
 ~ wdg=1 conn=w kv=12.470 kva=45.0 %r=0.825000
-~ wdg=2 conn=w kv=0.480 kva=45.0 %r=0.703125
+~ wdg=2 conn=w kv=0.480 kva=45.0 %r=0.825000
 new Xfmrcode.3E_7200/120/120_02 windings=3 phases=1 xhl=2.040018 xht=2.040018 xlt=1.359982 %imag=0.500 %noloadloss=0.200
 ~ wdg=1 conn=w kv=7.200 kva=2000.0 %r=0.600000
 ~ wdg=2 conn=w kv=0.120 kva=2000.0 %r=1.200000
 ~ wdg=3 conn=w kv=0.120 kva=2000.0 %r=1.200000
 new Xfmrcode.3E_7200/120/120_01 windings=3 phases=1 xhl=1.440059 xht=1.440059 xlt=0.959978 %imag=0.000 %noloadloss=0.000
-~ wdg=1 conn=d kv=12.470 kva=15.0 %r=0.650000
+~ wdg=1 conn=w kv=12.470 kva=15.0 %r=0.650000
 ~ wdg=2 conn=w kv=0.120 kva=15.0 %r=1.300000
 ~ wdg=3 conn=w kv=0.120 kva=15.0 %r=1.300000
 new Xfmrcode.3E_69000/12470/12470_01 windings=3 phases=3 xhl=15.738880 xht=15.738880 xlt=32.003048 %imag=0.684 %noloadloss=0.150
@@ -35,7 +35,7 @@ new Xfmrcode.3E_69000/12470/12470_01 windings=3 phases=3 xhl=15.738880 xht=15.73
 ~ wdg=2 conn=w kv=12.470 kva=15000.0 %r=0.600000
 ~ wdg=3 conn=w kv=12.470 kva=15000.0 %r=0.600000
 new Xfmrcode.2E_7200/240_01 windings=2 phases=1 xhl=1.600005 %imag=0.000 %noloadloss=0.000
-~ wdg=1 conn=d kv=12.470 kva=10.0 %r=0.699996
+~ wdg=1 conn=w kv=12.470 kva=10.0 %r=0.700000
 ~ wdg=2 conn=w kv=0.240 kva=10.0 %r=0.700000
 
 new Storage.Indiv_Res_Battery phases=2 bus1=e1.1.2 conn=w kva=25.000 kwrated=21.000 kv=0.240 kwhrated=50.000 kwhstored=30.000 state=discharging vminpu=0.6667 LimitCurrent=yes %charge=47.62 %discharge=47.62 kvarMax=13.000 kvarMaxAbs=13.000 pf=0.9806
@@ -76,7 +76,7 @@ new Line.L2 phases=3 bus1=b.1.2.3 bus2=c.1.2.3 length=3280.840 linecode=3P_01 un
 new Line.L3 phases=3 bus1=h.1.2.3 bus2=d.1.2.3 length=3280.840 linecode=3P_01 units=ft
 
 new Line.L4 phases=1 bus1=d1.2 bus2=e.2 length=3280.8 spacing=PN_01_B units=ft
-~ wires=[Penguin,Penguin]
+~ wires=[Linnet,Penguin]
 new Line.L5 phases=3 bus1=i.1.2.3 bus2=f.1.2.3 length=3280.8 spacing=PPPN_01_ABC units=ft
 ~ wires=[Hawk,Hawk,Hawk,Linnet]
 new Line.L6 phases=3 bus1=f1.1.2.3 bus2=g.1.2.3 length=3280.8 spacing=PPPN_01_ABC units=ft
@@ -122,7 +122,7 @@ new Transformer.Xf5_1 bank=Xf5 xfmrcode=2E_7200/7200_01
 ~ wdg=1 bus=f.1
 ~ wdg=2 bus=f1.1
 
-new RegControl.rtc_Xf3_1_3 transformer=Xf3_1 winding=3 TapNum=0 vreg=7200.00 band=180.00 ptratio=1.00 vlimit=7632.00
+new RegControl.rtc_Xf3_1_3 transformer=Xf3_1 winding=3 TapNum=0 vreg=7200.00 band=180.00 ptratio=1.00 vlimit=7632.00 ptphase=2
 edit transformer.Xf3_1 wdg=3 tap=1.000000
 new RegControl.rtc_Xf2_1_1 transformer=Xf2_1 winding=1 TapNum=0
 edit transformer.Xf2_1 wdg=1 tap=1.000000

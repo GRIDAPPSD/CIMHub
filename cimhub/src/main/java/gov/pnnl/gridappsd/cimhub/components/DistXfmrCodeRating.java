@@ -221,7 +221,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public void SetWindingResistances (DistXfmrCodeSCTest sct) {
     double r12pu, r13pu, r23pu, r1pu, r2pu, r3pu, Sbase;
     Sbase = sct.sbase[0]; // the per-unit manipulations have to be done on this common base
-    if (sct.size == 2) {
+    if (sct.size == 1) {
       r12pu = 1000.0 * sct.ll[0] / Sbase;
       r1pu = 0.5 * r12pu;
       r2pu = r1pu;

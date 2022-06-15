@@ -453,6 +453,7 @@ public class DistRegulator extends DistComponent {
         if (initDelay[i] > 0.0) buf.append(" delay=" + df2.format(initDelay[i]));
         if (subDelay[i] > 0.0) buf.append(" tapdelay=" + df2.format(subDelay[i]));
         if (vlim[i] > 0.0) buf.append(" vlimit=" + df2.format(vlim[i]));
+        if (orderedPhases[i].length() > 1) buf.append(" ptphase=" + FirstDSSPhase(monphs[i]));
       }
       // ptphase, enabled
       double turnsRatio = 1.0 + 0.01 * step[i] * incr[i];

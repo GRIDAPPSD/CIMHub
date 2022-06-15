@@ -36,8 +36,8 @@ if len(sys.argv) > 1:
   dsspath = vendor_dir + 'dss/'
   glmpath = vendor_dir + 'glm/'
 
-cimhub.write_dss_flows (dsspath=dsspath, rootname=cases[0]['root'], check_branches=cases[0]['check_branches'])
-quit()
+#cimhub.write_dss_flows (dsspath=dsspath, rootname=cases[0]['root'], check_branches=cases[0]['check_branches'])
+#quit()
 
 # combine a planning assembly into one file
 fnames = ['D Plan Basic Golden InstanceSet.xml',

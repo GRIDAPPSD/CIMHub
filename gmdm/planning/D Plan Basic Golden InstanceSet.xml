@@ -973,7 +973,7 @@
 		<cim:IdentifiedObject.name>NL 2E 7200/7200 01 E1</cim:IdentifiedObject.name>
 		<cim:TransformerTest.basePower>1.667000</cim:TransformerTest.basePower>
 		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
-		<cim:NoLoadTest.energisedEndVoltage>12.47</cim:NoLoadTest.energisedEndVoltage>
+		<cim:NoLoadTest.energisedEndVoltage>7.2</cim:NoLoadTest.energisedEndVoltage>
 		<cim:NoLoadTest.excitingCurrent>0.0001414</cim:NoLoadTest.excitingCurrent>
 		<cim:NoLoadTest.loss>0.000167</cim:NoLoadTest.loss>
 		<cim:NoLoadTest.EnergisedEnd rdf:resource="urn:uuid:3e4ba6c7-a3ed-4b51-8e17-670c59f3c41d"/>
@@ -2174,7 +2174,7 @@
 	</cim:TransformerTankEnd>
 	<cim:ACLineSegmentPhase rdf:about="urn:uuid:a4a45e09-9703-490f-8850-4ad64c4b0cb8">
 		<cim:IdentifiedObject.name>L4_B</cim:IdentifiedObject.name>
-		<cim:ACLineSegmentPhase.sequenceNumber>2</cim:ACLineSegmentPhase.sequenceNumber>
+		<cim:ACLineSegmentPhase.sequenceNumber>1</cim:ACLineSegmentPhase.sequenceNumber>
 		<cim:ACLineSegmentPhase.phase rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.B"/>
 		<cim:ACLineSegmentPhase.ACLineSegment rdf:resource="urn:uuid:4a6ca56d-debd-45bf-86cf-014c7936c074"/>
 	</cim:ACLineSegmentPhase>
