@@ -15,6 +15,6 @@ tables = ['DistFuse', 'DistBreaker', 'DistLoadBreakSwitch', 'DistRecloser', 'Dis
           'DistPhaseMatrix', 'DistLinesCodeZ', 'DistLinesSpacingZ', 'DistXfmrTank', 'DistXfmrCodeRating']
 tables.sort()
 
-for tbl in tables:
+for tbl in tables: #['DistCoordinates', 'DistBreaker', 'DistLoadBreakSwitch', 'DistRecloser', 'DistLoad', 'DistXfmrBank']:
   cimhub.list_dict_table (dict, tbl)
 

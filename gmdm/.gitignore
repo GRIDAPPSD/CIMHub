@@ -3,6 +3,9 @@ dss/
 glm/
 ips/
 ogs/
+oracle/
+epri/
+bentley/
 adapted.xml
 planning.xml
 export.bat

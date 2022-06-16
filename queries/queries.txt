@@ -11,6 +11,13 @@ WHERE {
   ?s a ?class .
 } group by ?class order by ?class
 
+# discover the attributes of each class
+SELECT DISTINCT ?class ?attr 
+WHERE {
+  ?s a ?class .
+  ?s ?attr ?val
+} ORDER BY ?class ?attr
+
 # lists all triples; should be only 3 for CIM version after clearing all circuits
 SELECT ?s ?attr ?val where {
   ?s ?attr ?val.
@@ -2060,7 +2067,7 @@ PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y
 WHERE {
 # feeder selection options - if all commented out, query matches all feeders
-VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
+#VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
  ?eq r:type c:ACLineSegment.
  ?eq c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
