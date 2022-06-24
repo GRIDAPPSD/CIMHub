@@ -5,8 +5,11 @@ Common Information Model Conversion (CIMHub)
    :maxdepth: 4
    :caption: Contents:
 
+   Installation
    Tutorial
    CDPSM
+   Python_Reference
+   Java_Reference
    LICENSE
 
 Indices and tables

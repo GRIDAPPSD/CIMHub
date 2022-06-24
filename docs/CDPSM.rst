@@ -1,8 +1,5 @@
 .. _cdpsm:
 
-.. toctree::
-   :maxdepth: 3
-
 .. role:: red
 
 This section summarizes the use of a reduced-order CIM [1]_ to support 
@@ -17,8 +14,8 @@ The CIM subset described here is based on CIM100_501-20v1_302CDV20v26_457-20v22,
 which includes new modeling for DER compliant to IEEE 1547-2018, and other changes 
 proposed from the GridAPPS-D project.  
 
-Class Diagrams for the Profile
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Common Information Model Diagrams
+=================================
 
 Figure 1 through Figure 20 present the UML class diagrams generated from
 Enterprise Architect [2]_. These diagrams provide an essential roadmap
@@ -63,8 +60,8 @@ described in the object diagram section.  Usually, the end with 0..1
 multiplicity is implemented instead of the end with 0..* or 1..* 
 multiplicity.  
 
-Network Models in GridAPPS-D
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Network Models in CIMHub
+------------------------
 
 Nearly every CIM class inherits from IdentifiedObject, from which we use
 two attributes:
@@ -307,7 +304,7 @@ voltage, then the RegulatingControl (with attribute values) and Terminal
 associations need to be provided.  
 
 DER Models from IEEE 1547-2018
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
 
 |imgcim302der|
 
@@ -360,7 +357,7 @@ as conveyed in the attributes of DERIEEEType1. Hence, the RemoteInputSignal.phas
 attribute is not used. Instead, use all applicable voltages from the associated Terminal.
 
 Extensions for Houses and Faults
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------
 
 |imghouses|
 
@@ -393,7 +390,7 @@ sustained fault has been repaired.  If not provided, then the fault is
 temporary and will clear itself as soon as it's been deenergized.  
 
 Typical Queries
-^^^^^^^^^^^^^^^
+---------------
 
 These queries focus on requirements of the first volt-var application.
 
@@ -499,7 +496,7 @@ These queries focus on requirements of the first volt-var application.
    b. Given switch, toggle its open/close status.
 
 Object Diagrams for Queries
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 This section contains UML object diagrams for the purpose of
 illustrating how to perform typical queries and updates. For those
@@ -895,10 +892,10 @@ LinearShuntCompensator.  If the phase attribute is not specified, then
 this value applies to all phases.  
 
 Other CIM Topics
-^^^^^^^^^^^^^^^^
+----------------
 
 Metering Relationship to Loads in the CIM
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Figure 42 shows how emulated trouble calls will be connected to loads 
 (EnergyConsumers) for test scenarios.  The TroubleTicket is associated 
@@ -919,8 +916,8 @@ each TroubleTicket.
 
 Figure 42: Trouble Calls route through Metering Usage Points to EnergyConsumers
 
-CIM Enhancements for RC4
-~~~~~~~~~~~~~~~~~~~~~~~~
+CIM Enhancements to be Proposed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Possible CIM enhancements: 
 

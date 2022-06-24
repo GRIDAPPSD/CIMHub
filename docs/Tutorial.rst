@@ -7,11 +7,6 @@ Tutorial
 
 This is a placeholder for the tutorial.
 
-Installation
-------------
-
-Java, Blazegraph, CIMHub jar, CIMHub python module.
-
 IEEE 123-Bus Base Case
 ----------------------
 
