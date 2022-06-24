@@ -6,6 +6,7 @@ Common Information Model Conversion (CIMHub)
    :caption: Contents:
 
    Tutorial
+   CDPSM
    LICENSE
 
 Indices and tables
