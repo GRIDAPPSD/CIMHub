@@ -572,14 +572,6 @@ public class CIMImporter extends Object {
     }
   }
 
-  public void PrintGldNodeMap (String lbl) {
-    System.out.println("*** GridLAB-D Node Map " + lbl);
-    SortedSet<String> keys = new TreeSet<String>(mapNodes.keySet());
-    for (String key : keys) {
-      System.out.println (mapNodes.get(key).DisplayString());
-    }
-  }
-
   public void PrintOneCountMap(HashMap<String,Integer> map, String label) {
     System.out.println(label);
     SortedSet<String> keys = new TreeSet<String>(map.keySet());
@@ -1210,7 +1202,7 @@ public class CIMImporter extends Object {
       String bus = DistComponent.SafeName (soln.get ("?name").toString());
       mapNodes.put (bus, new GldNode(bus));
     }
-    PrintGldNodeMap ("Before Accumulation");
+    // PrintGldNodeMap (mapNodes, "*** GldNode Map Before Accumulation");
     for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
       DistSubstation obj = pair.getValue();
       GldNode nd = mapNodes.get (obj.bus);
@@ -1454,7 +1446,7 @@ public class CIMImporter extends Object {
         xfmr.glmUsed = false;
       }
     }
-    PrintGldNodeMap ("After Accumulation");
+    // PrintGldNodeMap (mapNodes, "*** GldNode Map After Accumulation");
 
     // GLM configurations
     for (HashMap.Entry<String,DistOverheadWire> pair : mapWires.entrySet()) {
@@ -1577,7 +1569,7 @@ public class CIMImporter extends Object {
     }
 
     // try to link all CIM measurements to the GridLAB-D objects
-//    PrintGldNodeMap (mapNodes, "GldNode Map for Measurements");
+    // PrintGldNodeMap (mapNodes, "*** GldNode Map for Measurements");
     HashMap<String,GldNode> mapLoadNodes = new HashMap<>();
     for (HashMap.Entry<String,GldNode> pair : mapNodes.entrySet()) {
       GldNode nd = pair.getValue();
@@ -1585,7 +1577,7 @@ public class CIMImporter extends Object {
         mapLoadNodes.put(nd.loadname, nd);
       }
     }
-//    PrintGldNodeMap (mapLoadNodes, "GldLoadNode Map for Measurements");
+    // PrintGldNodeMap (mapLoadNodes, "*** GldLoadNode Map for Measurements");
     int measurements_not_linked = 0;
     int measurements_no_bus = 0;
     for (HashMap.Entry<String,DistMeasurement> pair : mapMeasurements.entrySet()) {
@@ -2272,7 +2264,7 @@ public class CIMImporter extends Object {
       UpdateModelState(ms);
       ApplyCurrentLimits();
       // PrintAllMaps();
-      PrintOneMap (mapCoordinates, "** XY COORDINATES");
+      // PrintOneMap (mapCoordinates, "** XY COORDINATES");
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.dss";
       fXY = fRoot + "_busxy.dss";
