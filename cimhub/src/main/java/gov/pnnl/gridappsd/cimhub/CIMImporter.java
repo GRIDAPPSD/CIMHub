@@ -2220,17 +2220,33 @@ public class CIMImporter extends Object {
 
 
   /**
-   *
-   * @param fOut
-   * @param fSched
-   * @param load_scale
-   * @param bWantSched
-   * @param bWantZIP
-   * @param Zcoeff
-   * @param Icoeff
-   * @param Pcoeff
-   * @param fXY
-   * @throws FileNotFoundException
+   * @param queryHandler sends queries to Blazegraph and gets 
+   *                     results
+   * @param querySetter manages the SPARQL for model components 
+   * @param fTarget glm, dss, both(glm+dss), csv, idx, cim
+   * @param fRoot root name for model output files
+   * @param fSched name of a GridLAB-D schedule file for loads
+   * @param load_scale multiplier on the nominal or peak loads
+   * @param bWantSched true to use a time schedule for GridLAB-D
+   *                   loads
+   * @param bWantZIP true if using Zcoeff, Icoeff, Pcoeff
+   * @param randomZIP true to randomize Zcoeff, Icoeff, Pcoeff
+   * @param useHouses true for houses to replace triplex loads
+   * @param Zcoeff fixed portion of constant-impedance load
+   * @param Icoeff fixed portion of constant-current load
+   * @param Pcoeff fixed portion of constant-power load
+   * @param maxMeasurements postive number to limit the number of
+   *                        measurements created
+   * @param bHaveEventGen true if the GridLAB-D export won't need
+   *                      it's own fault_check and eventgen
+   *                      objects for electrical islands
+   * @param ms used only for testing switch operations
+   * @param bTiming true for logging SPARQL query times
+   * @param fEarth Deri, Carson, FullCarson for OpenDSS
+   * @param bLoadMeters true for metering each GridLAB-D load
+   * @throws FileNotFoundException may occur if a file cannot be 
+   *                               opened in the specified
+   *                               directory for writing
    */
   public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, String fSched,
       double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP,
@@ -2433,15 +2449,24 @@ public class CIMImporter extends Object {
   }
   /**
    *
-   * @param queryHandler
-   * @param out
-   * @param fSched
-   * @param load_scale
-   * @param bWantSched
-   * @param bWantZIP
-   * @param Zcoeff
-   * @param Icoeff
-   * @param Pcoeff
+   * @param queryHandler sends queries to Blazegraph and gets 
+   *                     results
+   * @param out for file output streaming
+   * @param querySetter manages the SPARQL for model components 
+   * @param fSched name of a GridLAB-D schedule file for loads
+   * @param load_scale multiplier on the nominal or peak loads
+   * @param bWantSched true to use a time schedule for GridLAB-D
+   *                   loads
+   * @param bWantZIP true if using Zcoeff, Icoeff, Pcoeff
+   * @param randomZIP true to randomize Zcoeff, Icoeff, Pcoeff
+   * @param useHouses true for houses to replace triplex loads
+   * @param Zcoeff fixed portion of constant-impedance load
+   * @param Icoeff fixed portion of constant-current load
+   * @param Pcoeff fixed portion of constant-power load
+   * @param bHaveEventGen true if the GridLAB-D export won't need
+   *                      it's own fault_check and eventgen
+   *                      objects for electrical islands
+   * @param bLoadMeters true for metering each GridLAB-D load
    */
   public void generateGLMFile(QueryHandler queryHandler, CIMQuerySetter querySetter, 
       PrintWriter out, String fSched,
@@ -2463,8 +2488,9 @@ public class CIMImporter extends Object {
 
   /**
    *
-   * @param queryHandler
-   * @param out
+   * @param queryHandler sends queries to Blazegraph and gets 
+   *                     results
+   * @param out stream for the OpenDSS components
    */
   public void generateJSONSymbolFile(QueryHandler queryHandler, PrintWriter out){
     this.queryHandler = queryHandler;
@@ -2484,8 +2510,13 @@ public class CIMImporter extends Object {
   }
   /**
    *
-   * @param queryHandler
-   * @param out
+   * @param queryHandler sends queries to Blazegraph and gets 
+   *                     results
+   * @param out stream for the OpenDSS components
+   * @param useHouses true for houses to replace triplex loads
+   * @param maxMeasurements postive number to limit the number of
+   *                        measurements created
+   * @param ms used only for testing switch operations
    */
   public void generateDictionaryFile(QueryHandler queryHandler, PrintWriter out, int maxMeasurements, boolean useHouses,ModelState ms){
     this.queryHandler = queryHandler;
@@ -2501,17 +2532,24 @@ public class CIMImporter extends Object {
   }
 
   /**
-   *
-   * @param queryHandler
-   * @param out
-   * @param outID
-   * @param fXY
-   * @param fID
-   * @param load_scale
-   * @param bWantZIP
-   * @param Zcoeff
-   * @param Icoeff
-   * @param Pcoeff
+   * @param queryHandler sends queries to Blazegraph and gets 
+   *                     results
+   * @param out stream for the OpenDSS components
+   * @param outID stream for the OpenDSS UUID values
+   * @param fXY name of output file for XY coordinates, to call 
+   *            from master OpenDSS file
+   * @param fID name of output file for UUID / mRID values, to 
+   *            call from the master OpenDSS file
+   * @param fSched name of a GridLAB-D schedule file for loads 
+   *               (not implemented for OpenDSS?)
+   * @param load_scale multiplier on the nominal or peak loads
+   * @param bWantSched true to use a time schedule for GridLAB-D
+   *                   loads (not implemented for OpenDSS?)
+   * @param bWantZIP true if using Zcoeff, Icoeff, Pcoeff
+   * @param Zcoeff fixed portion of constant-impedance load
+   * @param Icoeff fixed portion of constant-current load
+   * @param Pcoeff fixed portion of constant-power load
+   * @param fEarth Deri, Carson, FullCarson for OpenDSS
    */
   public void generateDSSFile(QueryHandler queryHandler, PrintWriter out, PrintWriter outID, String fXY, String fID,
       double load_scale, boolean bWantSched, String fSched, boolean bWantZIP,
@@ -2530,8 +2568,9 @@ public class CIMImporter extends Object {
 
   /**
    *
-   * @param queryHandler
-   * @param out
+  * @param queryHandler sends queries to Blazegraph and gets 
+  *                     results
+  * @param out stream for the OpenDSS components
    */
   public void generateDSSCoordinates(QueryHandler queryHandler, PrintWriter out){
     this.queryHandler = queryHandler;
@@ -2548,8 +2587,9 @@ public class CIMImporter extends Object {
 
   /**
    *
-   * @param queryHandler
-   * @param out
+  * @param queryHandler sends queries to Blazegraph and gets 
+  *                     results
+  * @param out stream for the OpenDSS components
    */
   public void generateFeederIndexFile(QueryHandler queryHandler, PrintWriter out){
     this.queryHandler = queryHandler;

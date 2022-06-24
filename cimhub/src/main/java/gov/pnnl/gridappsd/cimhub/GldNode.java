@@ -220,7 +220,9 @@ public class GldNode {
     return AddPhases (phs);
   }
 
-  /** @return phasing string for GridLAB-D with appropriate D, S or N suffix */
+  /** @return phasing string for GridLAB-D with appropriate D, S or N suffix
+   *  @param bForLoad true if this node may have load
+   *                  connected, i.e., D phasing applies */
   public String GetPhases(boolean bForLoad) {
     if (bSecondary) {
       return phases + "S";
@@ -244,7 +246,9 @@ public class GldNode {
   @param Qi reactive power constant-current percentage from a CIM LoadResponseCharacteristic 
   @param Pp real power constant-power percentage from a CIM LoadResponseCharacteristic 
   @param Qp reactive power constant-power percentage from a CIM LoadResponseCharacteristic 
-  @return void */ 
+  @param ldname name of the load to prepend with ld_ 
+  @param conn D for delta, otherwise wye 
+  @param randomZIP true to randomize the ZIP coefficients  */ 
   public void AccumulateLoads (String ldname, String phs, String conn, double pL, double qL, double Pv, double Qv,
                                double Pz, double Pi, double Pp, double Qz, double Qi, double Qp, boolean randomZIP) {
     double fa = 0.0, fb = 0.0, fc = 0.0, fs1 = 0.0, fs2 = 0.0, fs12 = 0.0, denom = 0.0;
