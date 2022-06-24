@@ -2681,6 +2681,7 @@ public class CIMImporter extends Object {
     }
 
     try {
+      org.apache.jena.query.ARQ.init();
       HTTPBlazegraphQueryHandler qh = new HTTPBlazegraphQueryHandler(blazegraphURI);
       CIMQuerySetter qs = new CIMQuerySetter();
       if (bReadSPARQL) {
