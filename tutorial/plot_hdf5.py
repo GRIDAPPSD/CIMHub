@@ -63,7 +63,7 @@ plt.savefig('weather.png')
 plt.show()
 
 # downsample to 15 minutes, plot, and export to CSV
-df2 = df[0::300]  # this will stop 15 minutes short of midnight on the second day
+df2 = df[0::300]
 df2.info()
 
 ax = df2.plot (y=['pvP', 'primaryP', 'secondaryP'], title='15-minute Load and PV Total Real Power')

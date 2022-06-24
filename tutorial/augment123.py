@@ -40,7 +40,7 @@ cimhub.list_feeders (cfg_json)
 cimhub.summarize_db (cfg_json)
 
 # run insert houses, GridLAB-D power flow with houses
-cimhub.insert_houses (cfg_json, mRID, 5, 0, 'ieee123_house_uuids.json', 1.0)
+cimhub.insert_houses (cfg_json, mRID, 5, 0, 'ieee123_house_uuids.json', scale=0.4)
 
 cimhub.make_export_script (cases=cases, glmpath='glm/', scriptname=shfile_export, clean_dirs=False)
 st = os.stat (shfile_export)
@@ -81,7 +81,7 @@ cimhub.write_glm_flows (glmpath='./', rootname=cases[0]['root'],
                         voltagebases=cases[0]['bases'], 
                         check_branches=cases[0]['check_branches'])
 
-# count the elements in the database; should have 671 Houses, 14 PhotovoltaicUnits, 14 PowerElectronicsConnections
+# count the elements in the database; should have 287 Houses, 14 PhotovoltaicUnits, 14 PowerElectronicsConnections
 os.chdir(cwd)
 cimhub.summarize_db (cfg_json)
 

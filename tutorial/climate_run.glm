@@ -10,7 +10,7 @@ clock {
   // run a day to warm up the houses, and a second day for the data to use
   // July 28 is a full-sun day, August 11 has a cloud transient
 	starttime '2013-08-10 00:00:00';
-	stoptime '2013-08-13 00:01:00'; // make sure end-of-day is output
+	stoptime '2013-08-12 00:01:00'; // make sure end-of-day is output
 };
 
 module powerflow {
