@@ -35,7 +35,7 @@ please consider the Docker option below.
 1. Install the Python package with ```pip install cimhub --upgrade```
 2. Install Java Development Kit (JDK) 11 or later [as instructed](https://docs.oracle.com/en/java/javase/11/install/index.html)
 3. Install Blazegraph 2.1.6 from [releases](https://github.com/blazegraph/database/releases)
-4. Install the CIMHub exporter by downloading a JAR file _TBD_
+4. Install the CIMHub exporter by downloading a JAR file from [releases](https://github.com/GRIDAPPSD/CIMHub/tree/feature/SETO/releases)
 
 ### Option 2: Docker and Blazegraph Setup
 
