@@ -3,4 +3,9 @@
 Java Reference
 ==============
 
-Need to document CIMImporter without javasphinx
+This links to Javadoc pages for the CIMHub Java code.
+
+* CIMHub_
+
+.. _CIMHub: ../../java/index.html
+
