@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# TESP documentation build configuration file, created by
-# sphinx-quickstart on Sat Apr  1 19:56:10 2017.
-#
 # This file is execfile()d with the current directory set to its
 # containing dir.
 #
@@ -115,7 +112,7 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
-
+html_static_path = ['java']
 
 # -- Options for HTMLHelp output ------------------------------------------
 
