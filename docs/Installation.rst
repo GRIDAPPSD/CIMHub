@@ -21,10 +21,11 @@ To install the pre-requisite components:
   and then create a helper file c:\\blazegraph\\go.bat with contents ``java -server -Xmx4g -jar blazegraph.jar``
 - Install the CIMHub exporter by downloading a JAR file from https://github.com/GRIDAPPSD/CIMHub/tree/feature/SETO/releases
   This may be downloaded to the same directory as Blazegraph, or a different directory.
+  You may also download the tutorial input files and sample queries from this web site.
 - Install the latest Python from https://www.python.org/ or https://docs.conda.io/en/latest/
 - Install the CIMHub Python package, and its dependencies, by invoking ``pip install cimhub`` from a command prompt.
 
-At this point, the examples are only available from the GitHub repository. These
+At this point, the non-tutorial examples are only available from the GitHub repository. These
 will be packaged at a later time. For now:
 
 - | From a command prompt, invoke 

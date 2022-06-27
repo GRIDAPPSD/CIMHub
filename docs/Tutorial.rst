@@ -22,7 +22,7 @@ and the Java program, which exports models from CIM. These come properly
 configured for executing the tutorial on Windows, but in other scenarios
 you might have to make changes.
 
-The Windows/tutorial ``cimhubconfig.json`` is shown below.
+The Windows/tutorial ``cimhubjar.json`` is shown below.
 
 - Line 2 specifies the TCP/IP port number ``9999`` and the Blazegraph
   namespace, which contains ``blazegraph`` for the recommended installation
@@ -30,7 +30,7 @@ The Windows/tutorial ``cimhubconfig.json`` is shown below.
 - Line 3 is the CIM namespace, which should not be changed.
 - Line 4 may be required when using a restrictive proxy server, as at PNNL.
 
-.. literalinclude:: ../queries/cimhubconfig.json
+.. literalinclude:: ../tutorial/cimhubjar.json
   :linenos:
 
 The Windows/tutorial ``envars.bat`` is shown below.
@@ -42,23 +42,23 @@ The Windows/tutorial ``envars.bat`` is shown below.
 .. literalinclude:: ../tutorial/envars.bat
   :linenos:
 
-A sample Linux ``cimhubconfig.json`` is shown below. This is configured
+A sample Linux ``cimhubdocker.json`` is shown below. This is configured
 to use Blazegraph in Docker, with changes in Line 2:
 
 - The port is ``8889`` from outside the Docker
 - The namespace for v2.1.5 defaults to ``bigdata`` instead of blazegraph
 
-.. literalinclude:: ../ieee4/cimhubconfig.json
+.. literalinclude:: ../tutorial/cimhubdocker.json
   :linenos:
 
-A sample Linux ``envars.sh`` is shown below. The significant differences are:
+A sample Linux ``envars.sh`` is shown below. The significant differences to ``envars.bat`` are:
 
 - Line 2 is updated for port ``8889`` and ``bigdata`` in the namespace
 - Line 3 is configured for a Java developer using a local build of the Java program.
   In this configuration, the Java dependencies are built to ``target/libs``, not
   packaged with the CIMHub Jar.
 
-.. literalinclude:: ../ieee4/envars.sh
+.. literalinclude:: ../tutorial/envars.sh
   :linenos:
 
 IEEE 123-Bus Base Case
@@ -84,8 +84,10 @@ first one. At the end of this step, the CIM XML remains in Blazegraph.
 
 The Python script ``base123.py`` is shown below. As a roadmap to its contents:
 
-- Lines 23-28 configure CIMHub for the operating system.
-- Lines 29-38 define the ``cases`` to run. There is just one for this tutorial,
+- Lines 12-21 configure CIMHub for the operating system, choosing the ``jar``
+  version of Blazegraph for Windows and the ``docker`` version of Blazegraph for
+  Linux or Mac OS. You may edit these lines, e.g., to use the jar on Linux.
+- Lines 30-39 define the ``cases`` to run. There is just one for this tutorial,
   but there can be an array of them.  Each case contains the following elements:
 
   - **dssname** is the root file name of the original OpenDSS base case
@@ -124,22 +126,22 @@ The Python script ``base123.py`` is shown below. As a roadmap to its contents:
     - **gld_bus** is the name of a GridLAB-D bus attached to **gld_link**. 
       Do not use this when **skip_gld** is ``True``
 
-- Line 40 configures the CIM namespace and Blazegraph port
-- Line 41 clears the Blazegraph database
-- Lines 43-61 create and execute a script for OpenDSS to solve the base case,
+- Line 41 configures the CIM namespace and Blazegraph port
+- Line 42 clears the Blazegraph database
+- Lines 44-62 create and execute a script for OpenDSS to solve the base case,
   and export the CIM model. You should see ``ieee123.xml<=ieee123pv<-Fictitious<-Austin<-Texas``
   from this command in the output log. 
-- Lines 63-65 upload each exported CIM model into Blazegraph. Note that ``curl`` must
+- Lines 64-66 upload each exported CIM model into Blazegraph. Note that ``curl`` must
   be available; recent versions of Windows 10 and 11 seem to include this utility of
   Unix heritage.
-- Line 66 lists the feeders in the Blazegraph database. You should see 
+- Line 67 lists the feeders in the Blazegraph database. You should see 
   ``ieee123pv CBE09B55-091B-4BB0-95DA-392237B12640`` from this command in the output log.
-- Lines 68-71 create and execute a script that exports OpenDSS and GridLAB-D models from CIM.
+- Lines 69-72 create and execute a script that exports OpenDSS and GridLAB-D models from CIM.
   These models appear in directories ``./dss`` and ``./glm/``. A csv export option is also
   available, but not used in this tutorial.
-- Lines 73-76 solve power flow on the exported OpenDSS model, with output to ``./dss/``.
-- Lines 78-83 solve power flow on the exported GridLAB-D model, with output to ``./glm/``.
-- Lines 85-86 compare the three power flow solutions, as described under the Python script listing.
+- Lines 74-77 solve power flow on the exported OpenDSS model, with output to ``./dss/``.
+- Lines 79-84 solve power flow on the exported GridLAB-D model, with output to ``./glm/``.
+- Lines 86-88 compare the three power flow solutions, as described under the Python script listing.
 
 .. literalinclude:: ../tutorial/base123.py
   :language: Python
