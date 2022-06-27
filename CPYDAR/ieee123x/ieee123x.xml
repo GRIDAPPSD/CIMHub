@@ -12786,7 +12786,6 @@
   <cim:RatioTapChanger.TransformerEnd rdf:resource="urn:uuid:95336C62-A04C-4779-BA91-7BC439D66E20"/>
   <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:0C3F56ED-F65D-4929-A492-E6A3A2A3434D"/>
   <cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
-  <cim:RatioTapChanger.tculControlMode rdf:resource="http://iec.ch/TC57/CIM100#TransformerControlMode.volt"/>
   <cim:TapChanger.highStep>16</cim:TapChanger.highStep>
   <cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
   <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
@@ -12827,7 +12826,6 @@
   <cim:RatioTapChanger.TransformerEnd rdf:resource="urn:uuid:A8A8EA64-28BF-4168-A85C-374D62592471"/>
   <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:7E53F713-636B-4858-A267-B353C4F49D60"/>
   <cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
-  <cim:RatioTapChanger.tculControlMode rdf:resource="http://iec.ch/TC57/CIM100#TransformerControlMode.volt"/>
   <cim:TapChanger.highStep>16</cim:TapChanger.highStep>
   <cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
   <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
@@ -12868,7 +12866,6 @@
   <cim:RatioTapChanger.TransformerEnd rdf:resource="urn:uuid:B4742BD2-0418-440A-9145-17CF41D57115"/>
   <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:118E409A-4978-47E6-A462-35592A07D097"/>
   <cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
-  <cim:RatioTapChanger.tculControlMode rdf:resource="http://iec.ch/TC57/CIM100#TransformerControlMode.volt"/>
   <cim:TapChanger.highStep>16</cim:TapChanger.highStep>
   <cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
   <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
@@ -12909,7 +12906,6 @@
   <cim:RatioTapChanger.TransformerEnd rdf:resource="urn:uuid:F3E1B543-FAE9-4155-AA37-3C4B351D2B84"/>
   <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:172A63A8-7D0C-4AD8-95D9-5D52AB25F506"/>
   <cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
-  <cim:RatioTapChanger.tculControlMode rdf:resource="http://iec.ch/TC57/CIM100#TransformerControlMode.volt"/>
   <cim:TapChanger.highStep>16</cim:TapChanger.highStep>
   <cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
   <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
@@ -12950,7 +12946,6 @@
   <cim:RatioTapChanger.TransformerEnd rdf:resource="urn:uuid:72ED8F4C-6F8F-4621-97FF-A5484865A792"/>
   <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:0EC08A38-5D20-4BCC-B8BB-6E42BC4FA951"/>
   <cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
-  <cim:RatioTapChanger.tculControlMode rdf:resource="http://iec.ch/TC57/CIM100#TransformerControlMode.volt"/>
   <cim:TapChanger.highStep>16</cim:TapChanger.highStep>
   <cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
   <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
@@ -12991,7 +12986,6 @@
   <cim:RatioTapChanger.TransformerEnd rdf:resource="urn:uuid:F8D06856-315A-4011-BC22-B8614E68A00E"/>
   <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:B08650B0-C608-46DC-947F-E42367254A5C"/>
   <cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
-  <cim:RatioTapChanger.tculControlMode rdf:resource="http://iec.ch/TC57/CIM100#TransformerControlMode.volt"/>
   <cim:TapChanger.highStep>16</cim:TapChanger.highStep>
   <cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
   <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
@@ -13032,7 +13026,6 @@
   <cim:RatioTapChanger.TransformerEnd rdf:resource="urn:uuid:16AD2E6D-6ED3-4377-8E57-898588213343"/>
   <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:6BBB5B6B-82FA-4FEC-8496-34639FB74128"/>
   <cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
-  <cim:RatioTapChanger.tculControlMode rdf:resource="http://iec.ch/TC57/CIM100#TransformerControlMode.volt"/>
   <cim:TapChanger.highStep>16</cim:TapChanger.highStep>
   <cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
   <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>

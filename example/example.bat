@@ -1,6 +1,7 @@
 rem standalone Blazegraph on Windows
 set DB_URL="http://localhost:9999/blazegraph/namespace/kb/sparql"
-set CIMHUB_PATH="../cimhub/target/libs/*;../cimhub/target/cimhub-1.0.1-SNAPSHOT.jar"
+rem set CIMHUB_PATH="../cimhub/target/libs/*;../cimhub/target/cimhub-1.0.4-SNAPSHOT.jar"
+set CIMHUB_PATH="../releases/cimhub-1.0.4.jar"
 set CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
 
 rem empty the Blazegraph repository; this is optional unless you are re-uploading the same circuit
