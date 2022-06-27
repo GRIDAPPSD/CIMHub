@@ -8,7 +8,7 @@ in GridAPPS-D.  The full CIM includes over 1100 tables in SQL, each one
 corresponding to a UML class, enumeration or datatype.  RC1 used 
 approximately 100 such entities, mapped onto 100+ tables in SQL.  
 Subsequent versions of GridAPPS-D use a triple-store database, which is 
-better suited for CIM [ref].  
+better suited for CIM.  
 
 The CIM subset described here is based on CIM100_501-20v1_302CDV20v26_457-20v22, 
 which includes new modeling for DER compliant to IEEE 1547-2018, and other changes 
@@ -894,7 +894,71 @@ this value applies to all phases.
 Interoperability Testing
 ------------------------
   
-Describe the model changes from GMDM.  
+CIMHub participated in EPRI's Grid Model Data Management (GMDM) project,
+through the CIM Interoperability Tests in Charlotte, NC, June 14-16, 2022.
+We passed power flow tests with the reference model, and imported planning model
+assemblies provided by four (out of four attempted) other vendors.
+
+The GMDM CIM profile included some experimental features, and some other
+choices that differed from CIMHub design choices. In preparation for this
+test, we adopted some experimental features that are not in standard CIM:
+
+- Removed the leading underscore from *mRID* so it matches ``rdf:about``.
+  The UML documentation is arguably not clear, but the CIM standard appears 
+  to be moving in this direction.
+- Adopted the *OrderdPhases* attribute for *TransformerTankEnd*. This attribute
+  removed ambiguity from complicated transformer connections. It should be adopted 
+  for *TransformerTankEnd*, *EnergyConsumerPhase*, *PowerElectronicsConnectionPhase*,
+  and possibly others.
+
+We did not make other changes to the internal CIMHub model for this GMDM test.
+Instead, the incoming GMDM files were converted to a CIMHub schema:
+
+- ``./gmdm/adapt_gmdm.py`` implemented the first pass, outside of Blazegraph
+
+  - Combines incoming XML files from the GMDM planning assembly
+  - Merges the incoming namespaces into ``http://iec.ch/TC57/CIM100#``
+  - Converts kV to volts, and MVA to VA
+  - Converts the experimental *WireAssembly* to *WireSpacingInfo*
+  - Correct the spelling of *PhotoVoltaicUnit* to *PhotovoltaicUnit*
+  - Swap *EquipmentContainer* and *AdditionalEquipmentContainer*, because the incoming
+    GMDM files assign *EquipmentContainer* to the *Substation* while CIMHub assigns
+    it to the *Feeder*. The priority is not clear in CIM UML.
+  - Produced ``adapted.xml``, which was loaded into Blazegraph
+
+- ``./gmdm/step2.py`` implemented the second pass using SPARQL and Blazegraph
+
+  - Make sure *EquipmentContainer* is the feeder for *Breaker*, *PowerTransformer*, *EnergySource*, which are inside the *Substation* for GMDM.
+  - Populate *LinearShuntCompensator.sections* and *bPerSection* from phases
+  - Populate *Switch.ratedCurrent* and *Switch.normalOpen* from phases on *Breaker*, *Fuse*, *LoadBreakSwitch*, *Recloser*
+  - Put a base voltage on *Breaker* and *EnergySource*
+  - Populate *RegulatingControl.enabled* as true
+  - Populate *RatioTapChanger.normalStep* as 0
+  - Populate *RatioTapChanger.TransformerEnd* from *TransformerEnd.RatioTapChanger*, i.e., reversing an association
+  - Populate *RegulatingControl.RegulatingCondEq* from *RegulatingCondEq.RegulatingControl*, i.e., reversing an association
+  - Implement *targetValueUnitMultiplier* on *targetValue* and *targetDeadband* for *TapChangerControl* and *RegulatingControl*. 
+    Supported values are ``none`` or ``k``.
+  - Convert the GMDM wind, solar, and storage units into a single virtual battery [5]_, [6]_ behind the *PowerElectronicsConnection*.
+    Neither OpenDSS nor GridLAB-D can represent multiple units connected to the DC side of an inverter.
+
+CIMHub may differ from other CIM implementations in these respects:
+
+- We use *IdentifiedObject.mRID* as a database key.
+- We combine incoming CIM XML files into a single XML file with a single namespace.
+- We do not employ the CIM unit and multiplier system. Instead, all internal physical units are SI.
+  Multipliers can still be implemented with *e3* and *e6* in attribute values; the base units are still SI to CIMHub.
+- We use the CIM Dynamics package to represent DER control functions as defined in IEEE 1547-2018.
+  (This implementation did not play a role in the GMDM test).
+- We prefer to represent a single-phase, center-tap service transformer with 3 windings, and *s1s2* phasing. This
+  allows unbalanced loading on the secondary, which becomes significant at faster measurement data rates. The CIM
+  also supports a simplified single-phase service transformer [7]_, which would be used with *ABC* phasing on 
+  the secondary side. This may be more convenient for tracing meter associations to primary phases within the CIM.
+  With *s1s2* secondary phasing, the application would have to perform such tracing.
+
+CIMHub has not implemented an export to CIM. The CIM export command in OpenDSS uses the CIMHub profile, which
+does not match GMDM and may not match other profiles. Any future support of CIM import and export should use
+the adapter approach we used for the GMDM tests.  This will insulate CIMHub's internal schema from changes,
+including experimental proposals, that may be found in other profiles.
 
 Other CIM Topics
 ----------------
@@ -956,6 +1020,15 @@ Possible CIM enhancements:
 
 .. [4]
    https://github.com/GRIDAPPSD/Powergrid-Models/CIM
+
+.. [5]
+   Wang, Bhattarai, Lian, Hammerstrom, and Ma, *A Unified Virtual Battery Model for Responsive Assets*, https://doi.org/10.1109/PESGM40551.2019.8974107
+
+.. [6]
+   Chicco, Riaz, Mazza, and Mancarrella, *Flexibility From Distributed Multienergy Systems*, https://doi.org/10.1109/JPROC.2020.2986378
+
+.. [7]
+   Peppanen, Rocha, Taylor, and Dugan, *Secondary Low-Voltage Circuit Models – How Good is Good Enough?*, https://doi.org/10.1109/TIA.2017.2764024
 
 .. |imgcim0| image:: media/cim_FeederContext.png
 .. |imgcim1| image:: media/cim_LineModel.png
