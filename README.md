@@ -45,7 +45,7 @@ encapsulates Java 8 with a compatible (and sufficient) version of Blazegraph.
 1. Install the Python package with ```pip install cimhub --upgrade```
 2. Install the [Docker Engine](https://docs.docker.com/install/)
 3. Install the Blazegraph engine with _docker pull lyrasis/blazegraph:2.1.5_
-4. Install the CIMHub exporter with _docker pull gridappsd/cimhub:1.0.1_
+4. Install the CIMHub exporter with _docker pull gridappsd/cimhub:1.0.4_
 
 ### Option 1: Getting Started Example with Java and Windows
 

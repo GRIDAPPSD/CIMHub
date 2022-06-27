@@ -21,4 +21,3 @@ DG_72,  87,  B, Photovoltaic, 280.0, 290.0, 2.4, 280.0, 0.0, catA, CQ
 DG_78,  96,  B, Photovoltaic, 150.0, 155.0, 2.4, 150.0, 0.0, catA, CQ
 DG_84,  104, C, Photovoltaic, 300.0, 310.0, 2.4, 300.0, 0.0, catA, CQ
 DG_90,  113, A, Photovoltaic, 350.0, 362.0, 2.4, 350.0, 0.0, catA, CQ
-

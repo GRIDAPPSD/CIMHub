@@ -8,7 +8,12 @@ Installation
 CIMHub runs on Windows, Linux, and Mac OS.  The components include an 
 open-source NoSQL database, Java code, and Python code.  (Docker was 
 required in earlier versions, but no longer.) All end-user scripting can 
-be done in Python.  To install the pre-requisite components: 
+be done in Python.  
+
+Recommended Process with Java Installation
+------------------------------------------
+
+To install the pre-requisite components: 
 
 - Install Java Development Kit (JDK) 11 or later from https://docs.oracle.com/en/java/javase/11/install/index.html
 - Install Blazegraph 2.1.6 from https://github.com/blazegraph/database/releases 
@@ -28,4 +33,19 @@ will be packaged at a later time. For now:
 - As a Java developer, you can then build from the repository's ``./cimhub`` subdirectory using Maven
 - As a Python developer, you can then use ``pip install -e .`` from the repository's main directory
 
+Using Docker to Avoid Java Installation
+---------------------------------------
+
+With this option, you would not have to install Java directly. The Docker container
+encapsulates Java 8 with a compatible (and sufficient) version of Blazegraph. 
+
+- Install the Python package with ``pip install cimhub --upgrade``
+- Install the Docker Engine from https://docs.docker.com/install/
+- Install the Blazegraph engine with ``docker pull lyrasis/blazegraph:2.1.5``
+- Install the CIMHub exporter with ``docker pull gridappsd/cimhub:1.0.1``
+
+**Caveats**: the CIMHub container has not been updated for the tutorial and the
+most recent CIMHub enhancements. Plans for future support are not firm, because
+of recent changes in Docker terms. The main readme page for CIMHub still contains
+instructions for running an example with the Docker container.
 
