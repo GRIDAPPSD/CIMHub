@@ -4,18 +4,19 @@
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import os
-#import sys
+import sys
 
-#if sys.platform == 'win32':
+if sys.platform == 'win32':
 #  shfile_export = 'go.bat'
 #  shfile_glm = './glm/checkglm.bat'
 #  shfile_run = 'checkglm.bat'
-#else:
+  cfg_json = '../queries/cimhubconfig.json'
+else:
 #  shfile_export = './go.sh'
 #  shfile_glm = './glm/checkglm.sh'
 #  shfile_run = './checkglm.sh'
+  cfg_json = '../queries/cimhubdocker.json'
 
-cfg_json = '../queries/cimhubconfig.json'
 test_mRID = 'F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29'  # 13-bus
 test_froot = 'test13'
 second_mRID = 'DFBF372D-4291-49EF-ACCA-53DAFDE0338F'  # assets

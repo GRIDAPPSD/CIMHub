@@ -93,13 +93,7 @@ YYUnBal          Nbus=[    12,    12,    15] Nlink=[    15,    15,     9] MAEv=[
     B   2430.68 -2.6354    737.30  3.1079   1537.297 + j   921.147     BC     3986.68 -2.1411
     C   2177.38  1.5586    729.89  0.9976   1345.691 + j   845.460     CA     3983.93  2.0475
     Total S =  4384.904 + j  2485.560
-  GridLAB-D branch flow in LINE_LINE2 from N3
-  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2300.53 -0.5703    723.55 -1.0799   1453.084 + j   811.977     AB     3984.24 -0.0465
-    B   2300.75  3.6190    737.34  3.1079   1479.667 + j   829.733     BC     3986.18 -2.1407
-    C   2301.65  1.5242    729.92  0.9976   1452.424 + j   844.372     CA     3985.81  2.0476
-    Total S =  4385.176 + j  2486.082
-YDBal            Nbus=[    12,    12,    15] Nlink=[    16,    16,     9] MAEv=[ 0.0000, 0.0181] MAEi=[   0.0120, 162.4784]
+YDBal            Nbus=[    12,    12,     0] Nlink=[    16,    16,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0120,  -1.0000]
   OpenDSS branch flow in LINE.LINE2 from N3, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2321.37 -0.6213    532.41 -1.1437   1071.097 + j   616.654     AB     4036.69 -0.0276
@@ -112,13 +106,7 @@ YDBal            Nbus=[    12,    12,    15] Nlink=[    16,    16,     9] MAEv=[
     B   2479.90 -2.6180    443.52 -3.0981    975.519 + j   508.040     BC     4069.48 -2.1290
     C   2211.88  1.5673    550.84  1.1549   1116.235 + j   488.367     CA     4028.64  2.0562
     Total S =  3162.876 + j  1613.075
-  GridLAB-D branch flow in LINE_LINE2 from N3
-  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2321.74 -0.5556    532.45 -1.1437   1028.546 + j   685.799     AB     4038.73 -0.0276
-    B   2345.56  3.6360    443.54  3.1851    936.375 + j   453.358     BC     4069.22 -2.1294
-    C   2339.42  1.5314    550.87  1.1549   1198.454 + j   473.794     CA     4028.04  2.0565
-    Total S =  3163.375 + j  1612.952
-YDUnBal          Nbus=[    12,    12,    15] Nlink=[    19,    19,     9] MAEv=[ 0.0000, 0.0185] MAEi=[   0.0055, 113.2593]
+YDUnBal          Nbus=[    12,    12,     0] Nlink=[    19,    19,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0055,  -1.0000]
   OpenDSS branch flow in LINE.LINE2 from N3, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2301.44 -0.6336    723.50 -1.0800   1501.883 + j   718.937     AB     3984.96 -0.0462
@@ -131,13 +119,7 @@ YDUnBal          Nbus=[    12,    12,    15] Nlink=[    19,    19,     9] MAEv=[
     B   2430.68 -2.6354    737.30  3.1079   1537.297 + j   921.147     BC     3986.68 -2.1411
     C   2177.38  1.5586    729.89  0.9976   1345.691 + j   845.460     CA     3983.94  2.0475
     Total S =  4384.915 + j  2485.565
-  GridLAB-D branch flow in LINE_LINE2 from N3
-  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2300.53 -0.5703    723.55 -1.0799   1453.084 + j   811.977     AB     3984.24 -0.0465
-    B   2300.75  3.6190    737.34  3.1079   1479.667 + j   829.733     BC     3986.18 -2.1407
-    C   2301.65  1.5242    729.92  0.9976   1452.424 + j   844.372     CA     3985.81  2.0476
-    Total S =  4385.176 + j  2486.082
-GYDBal           Nbus=[    12,    12,    15] Nlink=[    15,    15,     9] MAEv=[ 0.0000, 0.0181] MAEi=[   0.0128, 162.2470]
+GYDBal           Nbus=[    12,    12,     0] Nlink=[    15,    15,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0128,  -1.0000]
   OpenDSS branch flow in LINE.LINE2 from N3, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2321.37 -0.6213    532.41 -1.1437   1071.099 + j   616.656     AB     4036.69 -0.0276
@@ -150,13 +132,7 @@ GYDBal           Nbus=[    12,    12,    15] Nlink=[    15,    15,     9] MAEv=[
     B   2479.90 -2.6180    443.52 -3.0981    975.519 + j   508.040     BC     4069.48 -2.1290
     C   2211.88  1.5673    550.84  1.1549   1116.235 + j   488.367     CA     4028.64  2.0562
     Total S =  3162.878 + j  1613.077
-  GridLAB-D branch flow in LINE_LINE2 from N3
-  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2321.74 -0.5556    532.45 -1.1437   1028.546 + j   685.799     AB     4038.73 -0.0276
-    B   2345.56  3.6360    443.54  3.1851    936.375 + j   453.358     BC     4069.22 -2.1294
-    C   2339.42  1.5314    550.87  1.1549   1198.454 + j   473.794     CA     4028.04  2.0565
-    Total S =  3163.375 + j  1612.952
-GYDUnBal         Nbus=[    12,    12,    15] Nlink=[    18,    18,     9] MAEv=[ 0.0000, 0.0185] MAEi=[   0.0059, 113.0694]
+GYDUnBal         Nbus=[    12,    12,     0] Nlink=[    18,    18,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0059,  -1.0000]
   OpenDSS branch flow in TRANSFORMER.T1 from N2, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7137.13 -0.0035    241.39 -0.5554   1467.049 + j   903.241     AB    12379.75  0.5198
@@ -169,13 +145,7 @@ GYDUnBal         Nbus=[    12,    12,    15] Nlink=[    18,    18,     9] MAEv=[
     B   7150.59 -2.0996    246.14 -2.6522   1498.137 + j   923.824     BC    12381.65 -1.5762
     C   7146.51  2.0892    243.28  1.5209   1465.362 + j   935.697     CA    12363.77  2.6133
     Total S =  4430.592 + j  2762.789
-  GridLAB-D branch flow in XF_T1 from N2
-  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7137.70 -0.0040    241.41 -0.5554   1467.703 + j   902.694     AB    12377.91  0.5197
-    B   7151.15  4.1839    246.16  3.6309   1498.004 + j   924.463     BC    12384.06 -1.5761
-    C   7147.07  2.0891    243.29  1.5209   1465.613 + j   935.707     CA    12366.14  2.6130
-    Total S =  4431.320 + j  2762.864
-DDBal            Nbus=[    12,    12,    15] Nlink=[    15,    15,     9] MAEv=[ 0.0000, 0.0182] MAEi=[   0.0129,   0.0315]
+DDBal            Nbus=[    12,    12,     0] Nlink=[    15,    15,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0129,  -1.0000]
   OpenDSS branch flow in TRANSFORMER.T1 from N2, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7152.14 -0.0035    177.60 -0.6196   1036.698 + j   734.023     AB    12405.65  0.5209
@@ -188,13 +158,7 @@ DDBal            Nbus=[    12,    12,    15] Nlink=[    15,    15,     9] MAEv=[
     B   7172.68 -2.0979    148.04 -2.5751    943.239 + j   487.676     BC    12422.00 -1.5755
     C   7163.79  2.0892    183.66  1.6781   1206.086 + j   525.673     CA    12391.72  2.6132
     Total S =  3186.047 + j  1747.390
-  GridLAB-D branch flow in XF_T1 from N2
-  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   7152.68 -0.0028    177.62 -0.6195   1036.350 + j   734.840     AB    12408.67  0.5214
-    B   7173.19  4.1854    148.05  3.7082    943.320 + j   487.798     BC    12422.13 -1.5753
-    C   7164.31  2.0895    183.66  1.6782   1206.091 + j   526.051     CA    12391.29  2.6137
-    Total S =  3185.761 + j  1748.689
-DDUnBal          Nbus=[    12,    12,    15] Nlink=[    18,    18,     9] MAEv=[ 0.0000, 0.0185] MAEi=[   0.0058,   0.0201]
+DDUnBal          Nbus=[    12,    12,     0] Nlink=[    18,    18,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0058,  -1.0000]
   OpenDSS branch flow in TRANSFORMER.T1 from N2, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   7136.85 -0.0035    243.73 -0.5513   1484.886 + j   906.022     AB    12379.31  0.5198
@@ -355,7 +319,7 @@ YYD1Tank         Nbus=[    18,    18,     0] Nlink=[    21,    21,     0] MAEv=[
     B    115.81  3.1329     54.71  3.0973      6.332 + j     0.226     BC      234.32 -2.0913
     C    204.30  1.5673     54.77  0.9964      9.415 + j     6.047     CA      234.86  2.0848
     Total S =    18.650 + j    11.891
-IMYD             Nbus=[    12,    12,     0] Nlink=[    24,    24,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0002,  -1.0000]
+IMYD             Nbus=[    12,    12,     0] Nlink=[    24,    24,     0] MAEv=[ 0.0810,-1.0000] MAEi=[   0.0002,  -1.0000]
   OpenDSS branch flow in LOAD.MOTOR from LOADBUS, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A    115.60 -0.0122     55.19 -1.0851      3.047 + j     5.605     AB      230.82 -0.0157
@@ -368,7 +332,20 @@ IMYD             Nbus=[    12,    12,     0] Nlink=[    24,    24,     0] MAEv=[
     B    115.30  3.1224     54.52  3.1056      6.285 + j     0.105     BC      226.99 -2.0964
     C    198.57  1.5778     54.98  1.0203      9.264 + j     5.775     CA      231.54  2.1008
     Total S =    18.584 + j    11.495
-IMOYODlag        Nbus=[    12,    12,     0] Nlink=[    19,    19,     0] MAEv=[ 0.0003,-1.0000] MAEi=[   0.1838,  -1.0000]
+IMOYODlag        Nbus=[    12,    12,     0] Nlink=[    19,    19,     0] MAEv=[ 0.0800,-1.0000] MAEi=[   0.1838,  -1.0000]
+  OpenDSS branch flow in LOAD.MOTOR from LOADBUS, Base case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A    191.00 -0.0244     55.14 -0.6163      8.741 + j     5.876     AB      223.60  0.5294
+    B    117.60 -1.5882     55.09 -2.6866      2.948 + j     5.768     BC      235.08 -1.5830
+    C    117.49  1.5638     56.26  1.4910      6.593 + j     0.481     CA      225.98  2.5705
+    Total S =    18.281 + j    12.125
+  OpenDSS branch flow in LOAD.MOTOR from LOADBUS, Converted case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A    191.26 -0.0262     53.64 -0.5721      8.768 + j     5.327     AB      223.67  0.5277
+    B    117.65 -1.5882     54.98 -2.6567      3.114 + j     5.669     BC      235.20 -1.5830
+    C    117.56  1.5638     54.78  1.5060      6.429 + j     0.372     CA      226.42  2.5696
+    Total S =    18.311 + j    11.367
+IMODOD           Nbus=[    12,    12,     0] Nlink=[    21,    21,     0] MAEv=[ 0.0005,-1.0000] MAEi=[   0.2804,  -1.0000]
   OpenDSS branch flow in LOAD.MOTOR from LOADBUS, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A    115.16  0.0070     54.82 -1.1167      2.730 + j     5.692     AB      229.92  0.0026
@@ -381,7 +358,7 @@ IMOYODlag        Nbus=[    12,    12,     0] Nlink=[    19,    19,     0] MAEv=[
     B    114.75  3.1398     55.39  3.0932      6.349 + j     0.296     BC      234.42 -2.1135
     C    201.04  1.5394     54.60  0.9945      9.388 + j     5.690     CA      227.81  2.0688
     Total S =    18.643 + j    11.586
-IMOYODlead       Nbus=[    12,    12,     0] Nlink=[    19,    19,     0] MAEv=[ 0.0004,-1.0000] MAEi=[   0.2013,  -1.0000]
+IMOYODlead       Nbus=[    12,    12,     0] Nlink=[    19,    19,     0] MAEv=[ 0.0803,-1.0000] MAEi=[   0.2013,  -1.0000]
   OpenDSS branch flow in LOAD.TEST from LOW, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A  88192.10 -0.0750   1463.41 -0.6304  109664.425 + j 68047.832     AB   152753.20  0.4485
@@ -395,6 +372,19 @@ IMOYODlead       Nbus=[    12,    12,     0] Nlink=[    19,    19,     0] MAEv=[
     C  88192.10  2.0193   1463.41  1.4640  109664.425 + j 68047.832     CA   152753.20  2.5429
     Total S = 328993.276 + j 204143.496
 AutoHLT          Nbus=[    12,    12,     0] Nlink=[    12,    12,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0000,  -1.0000]
+  OpenDSS branch flow in LOAD.TEST from LOW, Base case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A  88192.10 -0.0750   1463.41 -0.6304  109664.425 + j 68047.832     AB   152753.20  0.4485
+    B  88192.10 -2.1694   1463.41 -2.7248  109664.425 + j 68047.832     BC   152753.20 -1.6458
+    C  88192.10  2.0193   1463.41  1.4640  109664.425 + j 68047.832     CA   152753.20  2.5429
+    Total S = 328993.276 + j 204143.496
+  OpenDSS branch flow in LOAD.TEST from LOW, Converted case
+  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
+    A  88192.10 -0.0750   1463.41 -0.6304  109664.425 + j 68047.832     AB   152753.20  0.4485
+    B  88192.10 -2.1694   1463.41 -2.7248  109664.425 + j 68047.832     BC   152753.20 -1.6458
+    C  88192.10  2.0193   1463.41  1.4640  109664.425 + j 68047.832     CA   152753.20  2.5429
+    Total S = 328993.276 + j 204143.496
+AutoHLTCode      Nbus=[    12,    12,     0] Nlink=[    12,    12,     0] MAEv=[ 0.0000,-1.0000] MAEi=[   0.0000,  -1.0000]
   OpenDSS branch flow in LOAD.TEST from LOW, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A  88193.90 -0.0750   1463.44 -0.6302  109680.787 + j 68031.474     AB   152756.32  0.4485

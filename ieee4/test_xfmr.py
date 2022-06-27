@@ -15,15 +15,16 @@ if sys.platform == 'win32':
   shfile_export = 'go.bat'
   shfile_glm = './glm/checkglm.bat'
   shfile_run = 'checkglm.bat'
+  cfg_json = '../queries/cimhubconfig.json'
 else:
   shfile_export = './go.sh'
   shfile_glm = './glm/checkglm.sh'
   shfile_run = './checkglm.sh'
+  cfg_json = '../queries/cimhubdocker.json'
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 # 
 
-cfg_json = '../queries/cimhubconfig.json'
 cases = [
   {'dssname':'YYBal',    'root':'YYBal',    'mRID':'161B1872-2B5C-4CBF-9ED0-7193495CBE79','glmvsrc': 7200.00,'bases':[4160.0, 12470.0],
    'export_options':' -l=1.0 -z=1.0 -e=carson',

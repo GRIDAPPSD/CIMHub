@@ -1191,7 +1191,10 @@ def write_ephasor_model (dict, filename):
   print ('DER at buses', der_buses)
 
 if __name__ == '__main__':
-  cfg_file = '../queries/cimhubconfig.json'
+  if sys.platform == 'win32':
+    cfg_file = '../queries/cimhubconfig.json'
+  else:
+    cfg_file = '../queries/cimhubdocker.json'
   xml_file = '../queries/q100.xml'
   case_id = 0
   if len(sys.argv) > 1:

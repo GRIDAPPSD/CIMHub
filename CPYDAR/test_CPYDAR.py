@@ -10,18 +10,19 @@ import shutil
 import glob 
 import sys
 
-cfg_json = '../queries/cimhubconfig.json'
-CIMHubConfig.ConfigFromJsonFile (cfg_json)
-cwd = os.getcwd()
-
 if sys.platform == 'win32':
   shfile_export = 'go.bat'
   shfile_glm = './glm/checkglm.bat'
   shfile_run = 'checkglm.bat'
+  cfg_json = '../queries/cimhubconfig.json'
 else:
   shfile_export = './go.sh'
   shfile_glm = './glm/checkglm.sh'
   shfile_run = './checkglm.sh'
+  cfg_json = '../queries/cimhubdocker.json'
+
+CIMHubConfig.ConfigFromJsonFile (cfg_json)
+cwd = os.getcwd()
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 #

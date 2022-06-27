@@ -13,11 +13,11 @@ import sys
 if sys.platform == 'win32':
   shfile_export = 'upload_1547.bat'
   shfile_run = 'checkglm.bat'
+  cfg_json = '../queries/cimhubconfig.json'
 else:
   shfile_export = './upload_1547.sh'
   shfile_run = './checkglm.sh'
-
-cfg_json = '../queries/cimhubconfig.json'
+  cfg_json = '../queries/cimhubdocker.json'
 
 cwd = os.getcwd()
 

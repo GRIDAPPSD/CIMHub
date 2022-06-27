@@ -4,10 +4,11 @@ if (($# > 0))
 then
   declare -r DB_URL="http://localhost:8889/bigdata/namespace/kb/sparql"
 #  declare -r CIMHUB_PATH="../cimhub/target/libs/*:../cimhub/target/cimhub-1.0.4-SNAPSHOT.jar"
-  declare -r CIMHUB_PATH="../cimhub/target/cimhub-1.0.4.jar"
+#  declare -r CIMHUB_PATH="../cimhub/target/cimhub-1.0.4.jar"
+  declare -r CIMHUB_PATH="../releases/cimhub-1.0.4.jar"
+#  declare -r CIMHUB_PATH="../cimhub/target/cimhub-1.0.4-jar-with-dependencies.jar"
 else
   declare -r DB_URL="http://blazegraph:8080/bigdata/namespace/kb/sparql"
-#  declare -r CIMHUB_PATH="../target/libs/*:../target/cimhub-1.0.4-SNAPSHOT.jar"
   declare -r CIMHUB_PATH="../releases/cimhub-1.0.4.jar"
 fi
 declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
@@ -27,12 +28,12 @@ java -cp $CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL -o=idx test
 
 # create OpenDSS and GridLAB-D modes of the Assets-based IEEE 13-bus model from CIM
 java -cp $CIMHUB_PATH $CIMHUB_PROG \
-  -s=_DFBF372D-4291-49EF-ACCA-53DAFDE0338F -u=$DB_URL -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee13assets
+  -s=DFBF372D-4291-49EF-ACCA-53DAFDE0338F -u=$DB_URL -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee13assets
 
 # create OpenDSS and GridLAB-D modes of the regular IEEE 13-bus model from CIM
 # note: this version of the circuit adds photovoltaic and storage DER, and a single-phase center-tapped transformer
 java -cp $CIMHUB_PATH $CIMHUB_PROG \
-  -s=_F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29 -u=$DB_URL -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee13cdpsm
+  -s=F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29 -u=$DB_URL -o=both -l=1.0 -i=1 -h=0 -x=0 -t=1 ieee13cdpsm
 
 # test GridLAB-D solution of both models from CIM XML; outputs to test*volt.csv and test*curr.csv
 # these are bypassed by default because GridLAB-D is not installed into the cimhub container

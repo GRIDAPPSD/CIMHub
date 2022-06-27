@@ -16,14 +16,15 @@ if sys.platform == 'win32':
   shfile_export = 'go.bat'
   shfile_run = 'checkglm.bat'
   dssroot = 'c:/src/opendss/version8/distrib/ieeetestcases/'
+  cfg_json = '../queries/cimhubconfig.json'
 else:
   shfile_export = './go.sh'
   shfile_run = './checkglm.sh'
   dssroot = '/home/tom/src/OpenDSS/Distrib/IEEETestCases/'
+  cfg_json = '../queries/cimhubdocker.json'
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 # 
-cfg_json = '..\queries\cimhubconfig.json'
 cases = [
   { 'dsspath':dssroot+'LVTestCaseNorthAmerican', 
     'skip_gld':False,

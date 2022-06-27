@@ -9,8 +9,6 @@ import subprocess
 import stat
 import shutil 
 
-cfg_json = '../queries/cimhubconfig.json'
-CIMHubConfig.ConfigFromJsonFile (cfg_json)
 ckt_mRID = '_E407CBB6-8C8D-9BC9-589C-AB83FBF0826D'
 froot = 'IEEE123_PV'
 cwd = os.getcwd()
@@ -19,10 +17,14 @@ if sys.platform == 'win32':
   shfile_export = 'go.bat'
   shfile_glm = './glm/checkglm.bat'
   shfile_run = 'checkglm.bat'
+  cfg_json = '../queries/cimhubconfig.json'
 else:
   shfile_export = './go.sh'
   shfile_glm = './glm/checkglm.sh'
   shfile_run = './checkglm.sh'
+  cfg_json = '../queries/cimhubdocker.json'
+
+CIMHubConfig.ConfigFromJsonFile (cfg_json)
 
 cases = [
   {'root':froot, 'mRID':'E407CBB6-8C8D-9BC9-589C-AB83FBF0826D','glmvsrc': 2400.00,'bases':[4160.0],
