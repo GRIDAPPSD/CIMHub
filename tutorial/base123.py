@@ -13,14 +13,15 @@ if sys.platform == 'win32':
   shfile_export = 'go.bat'
   shfile_glm = './glm/checkglm.bat'
   shfile_run = 'checkglm.bat'
+  cfg_json = '../queries/cimhubjar.json'
 else:
   shfile_export = './go.sh'
   shfile_glm = './glm/checkglm.sh'
   shfile_run = './checkglm.sh'
+  cfg_json = '../queries/cimhubdocker.json'
 
 cwd = os.getcwd()
 
-cfg_json = '../queries/cimhubconfig.json'
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 # CA7CB1B6-BD68-44BF-8C6C-66BB4FA0081D
