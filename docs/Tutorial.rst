@@ -176,19 +176,77 @@ In this example:
 SPARQL Introduction
 -------------------
 
-Show the UML and SPARQL query in Python to list the feeders.
+The CIM is documented in Universal Modeling Language (UML). Essential UML diagrams for CIMHub
+are summarized in the section on :ref:`CIM Diagrams<cdpsm>`. If you have access to UML files, e.g., from the CIM User's Group,
+you can browse the full set of UML using the *Enterprise Architect* software.
+
+A query language called SPARQL is used to query a Blazegraph database containing CIM XML. These
+two references document SPARQL and provide a general introduction to SPARQL.
 
 - SPARQL 1.1 Query Language, https://www.w3.org/TR/sparql11-query/
 - Allemang, Hendler, and Gandon, *Semantic Web for the Working Ontologist: Effective 
   Modeling for Linked Data, RDFS, and OWL*, https://dl.acm.org/doi/book/10.1145/3382097
+
+These two references describe why SPARQL is a good fit for CIM and CIMHub. The first provides
+a walkthrough of *ACLineSegment* modeling, while the second provides a walkthrough of *TransformerTank*
+modeling for a single-phase, center-tapped service transformer. **Caveat**: the CIM has evolved since
+these papers were written; use CIMHub documentation and examples for the latest updates.
+
 - McDermott, Stephan, and Gibson, *Alternative Database Designs for the Distribution
   Common Information Model*, https://doi.org/10.1109/TDC.2018.8440470
 - Melton, et. al, *Leveraging Standards to Create an Open Platform for the Development 
   of Advanced Distribution Applications*, https://doi.org/10.1109/ACCESS.2018.2851186
 
+With the Blazegraph engine running, open a Web browser and navigate to http://localhost:999/blazegraph,
+as shown below.  This will take you to a Blazegraph splash screen.
+
 .. image:: media/Localhost_9999.png
 
+In the browser screen shot below, we have pasted in the ``DistFeeder`` query from
+``./queries/queries.txt`` of the CIMHub repository. That file contains many examples
+that might help you learn SPARQL and design your own queries. After clicking ``Execute``, 
+the query result appears at the bottom.  Near the top of the web page, an ``Update`` tab
+allows you to manually upload CIM XML files through the browser, i.e., without using *curl*.
+
 .. image:: media/SPARQL_Browser.png
+
+A SPARQL query consists of a series of triples that filter the results. There are three
+kinds of triple:
+
+- To match a type (class) of object
+- To match an association between objects
+- To match an object's attribute
+
+Each kind of triple corresponds to features on the UML diagram. The order of triples in 
+a SPARQL query doesn't affect the result, although it may affect the run time. With reference
+to the UML diagram below, the example SPARQL query contents are:
+
+- Lines 2-3 define shorthand prefixes for the RDF and CIM namespaces
+- Line 4 selects the name and mRID for a feeder, substation, subregion, and region.
+  The *?* refers to temporary variables created in the SPARQL query
+- Line 5 selects objects of **type** c:Feeder, which appears to the left in the UML diagram
+  The matched feeder object(s) will be in variable *?s*
+- Lines 6 and 7 select the ``name`` and ``mRID`` **attributes** for feeder *?s*, saving them in temporary variables
+  *?feeder* and *?fid*, to be returned in Line 4. These attributes are inherited from ``IdentifiedObject``, which
+  appears to the right in the UML diagram.  The arrows with triangles indicate inheritance in UML.
+  Note that Feeder also inherits from *EquipmentContainer*, *ConnectivityNodeContainer*, and
+  *PowerSystemResource* before it reaches *IdentifiedObject*. These three intermediate classes
+  are not of current interest, so they are not highlighted in the UML diagram.
+- Line 8 navigates from *Feeder* to *Substation*, using the **association** between them.
+  In the UML diagram, the link with a diamond indicates composition, which is a kind of association.
+  Most associations in CIM are simply lines. An association has cardinality at each end. This one has
+  ``0..*`` at the *Feeder* end, indicating that a *Substation* may have zero or more *NormalEnergizedFeeders*. The cardinality
+  is ``0..1`` at the *Substation* end, indicating that a *Feeder* may have zero or one *NormalEnergizingSubstation*.
+
+  - A *profile* of the CIM could be more restrictive, e.g., ``1`` *Feeder.NormalEnergizingSubstation*
+  - A *profile* of the CIM could specify when end of the association will be specified. This is usually
+    the end with minimal cardinality, e.g., *Feeder.NormalEnergizingSubstation* is used but
+    *Substation.NormalEnergizedFeeder* is not used.
+
+- Lines 9-16 are similar to those already described.
+- Line 18 applies optional ordering to the result.
+
+.. image:: media/SimpleFeeder.png
 
 
 Augmenting the Feeder with Houses
@@ -327,8 +385,30 @@ Toward the end of the output log, you should observe:
 The Role of mRIDs
 -----------------
 
-Reference the RFC and the OpenDSS technical note. Point out how the DER and House
-mRIDs are persisted. ``ieee123_der_uuid.dat`` and ``ieee123_uuids.dat`` and ``ieee123_house_uuids.json``
+In a CIM XML file, the objects are uniquely identified with an ``rdf:about`` attribute. These
+are Universally Unique Identifiers, compliant with web standard RFC 4122. The UUIDs can be used
+to reference other objects in the CIM XML. The *IdentifiedObject.mRID* is also a UUID that matches
+``rdf:about``.  CIMHub and some other implementations use these UUIDs as database keys. In contrast,
+the *IdentifiedObject.name* is not guaranteed to be unique and would not be suited to serve as a key.
+For example, in a GridLAB-D model names must be globally unique, e.g., you can't have a *load* and overhead_line
+both named *test*. In OpenDSS, the name is only required to be unique within a class, so you can have
+*line.test* and *load.test* in the same model. The use of *mRID* mitigates some of the complexity in
+naming objects in CIM.
+
+UUIDs can be created programmatically at the time of first use, but then we want to reuse the same ones.
+If not, model exchanges, test scripts, and applications that use *mRID* values might constantly break.
+OpenDSS and the CIMHub scripts do this automatically.  In OpenDSS, a *TNamedObject* class was inserted
+in the class hierarchy. This class creats UUIDs on demand, writes them to a file on command, and reloads
+them from a file on command.  In this tutorial example, *mRID* values are persisted as follows:
+
+- ``ieee123_uuids.dat`` maintains the base feeder model *mRID* values; used by OpenDSS
+- ``ieee123_der_uuid.dat`` maintains the additional DER *mRID* values; used by the *InsertDER* Python function
+- ``ieee123_house_uuids.json`` maintains the additional House *mRID* values; used by the *InsertHouses* Python function
+
+In GridAPPS-D, the *InsertMeasurements* Python function maintains *mRID* values, but these are not used in the 
+CIMHub tutorial.
+
+References:
 
 - A Universally Unique Identifier (UUID) URN Namespace, 
   https://datatracker.ietf.org/doc/html/rfc4122

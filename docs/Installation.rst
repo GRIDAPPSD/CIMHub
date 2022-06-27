@@ -49,3 +49,9 @@ most recent CIMHub enhancements. Plans for future support are not firm, because
 of recent changes in Docker terms. The main readme page for CIMHub still contains
 instructions for running an example with the Docker container.
 
+Source Code Installation
+------------------------
+
+- | From a command prompt, invoke 
+  | ``git clone -b feature/SETO https://github.com/GRIDAPPSD/CIMHub.git``
+

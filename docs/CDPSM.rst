@@ -889,7 +889,12 @@ always includes ABC. Units for SvTapStep.position are per-unit.
 
 Figure 41: The on/off value for a capacitor bank attaches directly to 
 LinearShuntCompensator.  If the phase attribute is not specified, then 
-this value applies to all phases.  
+this value applies to all phases.
+  
+Interoperability Testing
+------------------------
+  
+Describe the model changes from GMDM.  
 
 Other CIM Topics
 ----------------
