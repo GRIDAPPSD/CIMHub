@@ -172,10 +172,11 @@ The Python source code is now in ```src_python/cimhub```. To test it:
 The steps for deployment to PyPi are:
 
 1. ```rm -rf dist```
-2. ```python3 setup.py sdist```
-3. ```python3 setup.py bdist_wheel```
-4. ```twine check dist/*``` should not show any errors
-5. ```python3 -m twine upload dist/*``` requires project credentials for cimhub on pypi.org
+2. ```python3 -m build```
+3. ```twine check dist/*``` should not show any errors
+4. ```twine upload -r testpypi dist/*``` requires project credentials for cimhub on test.pypi.org
+5. ```pip install -i https://test.pypi.org/simple/ cimhub==1.0.4``` for local testing of the deployable package, example version 1.0.4
+6. ```twine upload dist/*``` final deployment; requires project credentials for cimhub on pypi.org
 
 ### GridAPPS-D Platform Circuit Validation
 

@@ -6,13 +6,15 @@ Python Reference
 Links to Dependencies
 ---------------------
 
-* GridLAB-D_
-* pip_
-* Python_
+* SPARQLWrapper_
+* numpy_
+* pandas_
+* lxml_
 
 .. include:: ./cimhub.inc
 
-.. _Python: http://www.python.org
-.. _pip: https://pip.pypa.io
-.. _GridLAB-D: http://gridlab-d.shoutwiki.com
+.. _SPARQLWrapper: https://pypi.org/project/SPARQLWrapper/
+.. _numpy: https://pypi.org/project/numpy/
+.. _pandas: https://pypi.org/project/pandas/
+.. _lxml: https://pypi.org/project/lxml/
 
