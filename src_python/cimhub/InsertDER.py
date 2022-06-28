@@ -445,15 +445,15 @@ class ieee1547:
     for tag in ['DERIEEEType1', 'DERNameplateData', 'DERNameplateDataApplied', 'ConstantReactivePowerSettings',
                 'ConstantPowerFactorSettings', 'VoltVarSettings', 'VoltWattSettings', 'WattVarSettings']:
       dct = self.cimparms[tag]
-      prefix = ' <{:s}#{:s}> '.format(CIMHubConfig.blazegraph_url, dct['IdentifiedObject.mRID'])
-      qtriples.append (prefix + 'a c:{:s}.'.format(tag))
+      prefix = ' <urn:uuid:{:s}> '.format (dct['IdentifiedObject.mRID'])
+      qtriples.append (prefix + 'a c:{:s}.\n'.format(tag))
       for key, val in dct.items():
         if ('.DER' in key) or ('.Power' in key):
-          qtriples.append (prefix + 'c:{:s} <{:s}#{:s}>.'.format(key, CIMHubConfig.blazegraph_url, str(val)))
+          qtriples.append (prefix + 'c:{:s} <urn:uuid:{:s}>.\n'.format(key, str(val)))
         elif 'Kind' in key:
-          qtriples.append (prefix + 'c:{:s} {:s}#{:s}>.'.format(key, CIMHubConfig.cim_ns, str(val)))
+          qtriples.append (prefix + 'c:{:s} {:s}#{:s}>.\n'.format(key, CIMHubConfig.cim_ns, str(val)))
         else:
-          qtriples.append (prefix + 'c:{:s} \"{:s}\".'.format (key, str(val)))
+          qtriples.append (prefix + 'c:{:s} \"{:s}\".\n'.format (key, str(val)))
 
 def ParsePhases (sphs):
   lst = []

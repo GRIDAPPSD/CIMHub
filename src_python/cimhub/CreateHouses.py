@@ -81,6 +81,7 @@ class CreateHouses():
         regionStr = self._getRegionStr(region=region)
         
         # Read data.
+        print ('looking for', THIS_DIR + os.sep + DATA_DIR + os.sep + OUTFILE)
         data = pd.read_json(THIS_DIR + os.sep + DATA_DIR + os.sep + OUTFILE)
         
         # Extract data only for the given region.
@@ -302,7 +303,7 @@ class CreateHouses():
                                            p=pD).astype(int))
         
         # Initialize return.
-        thermalIntegrity = pd.Series(index=year.index)
+        thermalIntegrity = pd.Series(dtype='float64', index=year.index)
         
         # Loop and select thermalIntegrity based on the combination of year,
         # insul, and draft.
@@ -457,7 +458,7 @@ class CreateHouses():
         
         # Map combination of hasHeat and heatType into 'none,' 'gas,'
         # 'heatPump,' or 'resistance'
-        heatingSystem = pd.Series(index=heatType.index)
+        heatingSystem = pd.Series(dtype='float64', index=heatType.index)
         for index, hH in hasHeat.iteritems():
             # Grab type
             hT = heatType.iloc[index]
@@ -548,7 +549,7 @@ class CreateHouses():
         # Map combination of hasAC and isHP into coolingSystem return.
         # NOTE: attempt to use Series.combine didn't work because mapping ints
         # to strings failed.
-        coolingSystem = pd.Series(index=hasAC.index)
+        coolingSystem = pd.Series(dtype='float64', index=hasAC.index)
         for index, hS in hasAC.iteritems():
             # Grab pointers to heatpump value
             HP = isHP.iloc[index]
