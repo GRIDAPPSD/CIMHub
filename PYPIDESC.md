@@ -14,10 +14,10 @@ Please see the [documentation](https://cimhub.readthedocs.io/en/latest/) or the
 
 * There are Docker and Java runtime options for Blazegraph installation.
 * Examples include the [IEEE test feeders](https://cmte.ieee.org/pes-testfeeders/resources/), a [PNNL taxonomy feeder](https://doi.org/10.1109/PES.2009.5275900), and many others.
-* The proposed IEEE 9500-node test feeder is maintaned here.
+* The proposed IEEE 9500-node test feeder is maintained here.
 * Voltage control functions from IEEE 1547-2018 are supported through CIM Dynamics, 61970-302, 2nd ed.
 * Features include scripts to add houses, distributed energy resources, and measurements to a CIM model.
-* Export formats include OpenDSS, GridLAB-D:tm:, comma-separated values, ePHASORSIM, and Alternative Transients Program.
+* Export formats include OpenDSS, GridLAB-D&trade;, comma-separated values, ePHASORSIM, and Alternative Transients Program.
 * CIMHub is a component of the [GridAPPS-D project](https://doi.org/10.1109/ACCESS.2018.2851186).
 
 
