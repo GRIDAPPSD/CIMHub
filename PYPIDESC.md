@@ -1,43 +1,30 @@
 # CIMHub
 
-Copyright (c) 2017-2021, Battelle Memorial Institute
+Copyright (c) 2017-2022, Battelle Memorial Institute
 
 This is a tool set for translating electric power distribution system models between
 various formats, using the IEC Standard 61970/61968 Common Information Model (CIM) as the "Hub".
 The CIM data is stored in an open-source triple-store called Blazegraph.
 Python 3 scripts depend on SPARQLWrapper.
 
-## Installation Instructions
+## Installation and Examples
 
-CIMHub requires Docker for the database engine, and it runs on Linux (best), Windows or Mac OS X.
-The database engine (Blazegraph) requires Java 8, which is no longer widely available for new installations.  Blazegraph isn't 
-compatible with Java 9 or newer versions. Therefore, we recommend using Blazegraph in a Docker container: 
+Please see the [documentation](https://cimhub.readthedocs.io/en/latest/) or the 
+[repository](https://github.com/GRIDAPPSD/CIMHub) for details.
 
-1. Install the [Docker Engine](https://docs.docker.com/install/)
-2. Install the Blazegraph engine with _docker pull lyrasis/blazegraph:2.1.5_
-3. Install the CIMHub Java-based extensions with _docker pull gridappsd/cimhub_
+* There are Docker and Java runtime options for Blazegraph installation.
+* Examples include the [IEEE test feeders](https://cmte.ieee.org/pes-testfeeders/resources/), a [PNNL taxonomy feeder](https://doi.org/10.1109/PES.2009.5275900), and many others.
+* The proposed IEEE 9500-node test feeder is maintaned here.
+* Voltage control functions from IEEE 1547-2018 are supported through CIM Dynamics, 61970-302, 2nd ed.
+* Features include scripts to add houses, distributed energy resources, and measurements to a CIM model.
+* Export formats include OpenDSS, GridLAB-D:tm:, comma-separated values, ePHASORSIM, and Alternative Transients Program.
+* CIMHub is a component of the [GridAPPS-D project](https://doi.org/10.1109/ACCESS.2018.2851186).
 
-## Examples
-
-See the README file and example files at [the repository](https://github.com/GRIDAPPSD/CIMHub)
-
-1. An example shell script (in the _example_ folder) runs inside the CIMHub Docker container, converting two versions of the IEEE 13-Bus circuit from OpenDSS to CIM XML, and then to OpenDSS and GridLAB-D. One version of the circuit, labeled _CDPSM_ uses phase impedance matrices for line segments. It also has two batteries and two solar installations, plus a single-phase center-tapped transformer. The other version,
-labeled _Assets_, uses wire and spacing data for the line segments, and transformer code data for the transformers.
-2. Example Python scripts (in the _tests_ folder) illustrate several operations:
-    * Listing feeders and component counts in the database
-    * Loading circuit models into the database
-    * Extracting OpenDSS and GridLAB-D models from the database
-    * Adding and removing distributed energy resources (DER) to a circuit 
-    * Adding and removing Houses to a circuit, for GridLAB-D simulations
-    * Adding and removing CIM Measurements to a circuit, for GridAPPS-D simulations
-    * Systematically comparing OpenDSS and GridLAB-D power flow solutions, before and after the conversion process
-    
-See the [GridAPPS-D documentation](https://gridappsd.readthedocs.io/en/latest/developer_resources/index.html#cim-documentation) for more information about the CIM.
 
 ## License
 
 <div>
-Copyright &copy; 2017-2021, Battelle Memorial Institute All rights reserved.
+Copyright &copy; 2017-2022, Battelle Memorial Institute All rights reserved.
 </div>
     
 
