@@ -1,6 +1,6 @@
 # CIMHub
 
-Copyright (c) 2017-2022, Battelle Memorial Institute
+Copyright &copy; 2017-2022, Battelle Memorial Institute
 
 This is a tool set for translating electric power distribution system models between
 various formats, using the IEC Standard 61970/61968 Common Information Model (CIM) as the "Hub".
