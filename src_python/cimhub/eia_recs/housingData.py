@@ -365,7 +365,7 @@ if __name__ == '__main__':
     print('Saving data to file: {}...'.format(OUTFILE), end='', flush=True)
     
     with open(OUTFILE, 'w') as outfile:
-        json.dump(out, outfile)
+        json.dump(out, outfile, indent=2)
         
     print('Done!')
 
