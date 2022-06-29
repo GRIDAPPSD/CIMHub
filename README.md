@@ -36,6 +36,7 @@ please consider the Docker option below.
 2. Install Java Development Kit (JDK) 11 or later [as instructed](https://docs.oracle.com/en/java/javase/11/install/index.html)
 3. Install Blazegraph 2.1.6 from [releases](https://github.com/blazegraph/database/releases)
 4. Install the CIMHub exporter by downloading a JAR file from [releases](https://github.com/GRIDAPPSD/CIMHub/tree/feature/SETO/releases)
+5. Install [opendsscmd](https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/)
 
 ### Option 2: Docker and Blazegraph Setup
 
@@ -46,6 +47,7 @@ encapsulates Java 8 with a compatible (and sufficient) version of Blazegraph.
 2. Install the [Docker Engine](https://docs.docker.com/install/)
 3. Install the Blazegraph engine with _docker pull lyrasis/blazegraph:2.1.5_
 4. Install the CIMHub exporter with _docker pull gridappsd/cimhub:1.0.4_
+5. Install [opendsscmd](https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/)
 
 ### Option 1: Getting Started Example with Java and Windows
 

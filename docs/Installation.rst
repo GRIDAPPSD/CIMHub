@@ -24,6 +24,7 @@ To install the pre-requisite components:
   You may also download the tutorial input files and sample queries from this web site.
 - Install the latest Python from https://www.python.org/ or https://docs.conda.io/en/latest/
 - Install the CIMHub Python package, and its dependencies, by invoking ``pip install cimhub`` from a command prompt.
+- Install opendsscmd from https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/
 
 At this point, the non-tutorial examples are only available from the GitHub repository. These
 will be packaged at a later time. For now:
@@ -44,6 +45,7 @@ encapsulates Java 8 with a compatible (and sufficient) version of Blazegraph.
 - Install the Docker Engine from https://docs.docker.com/install/
 - Install the Blazegraph engine with ``docker pull lyrasis/blazegraph:2.1.5``
 - Install the CIMHub exporter with ``docker pull gridappsd/cimhub:1.0.1``
+- Install opendsscmd from https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/
 
 **Caveats**: the CIMHub container has not been updated for the tutorial and the
 most recent CIMHub enhancements. Plans for future support are not firm, because
