@@ -7,14 +7,8 @@ import os
 import sys
 
 if sys.platform == 'win32':
-#  shfile_export = 'go.bat'
-#  shfile_glm = './glm/checkglm.bat'
-#  shfile_run = 'checkglm.bat'
   cfg_json = '../queries/cimhubjar.json'
 else:
-#  shfile_export = './go.sh'
-#  shfile_glm = './glm/checkglm.sh'
-#  shfile_run = './checkglm.sh'
   cfg_json = '../queries/cimhubdocker.json'
 
 test_mRID = 'F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29'  # 13-bus
