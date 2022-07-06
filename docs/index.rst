@@ -5,6 +5,7 @@ Common Information Model Conversion (CIMHub)
    :maxdepth: 4
    :caption: Contents:
 
+   Overview
    Installation
    Tutorial
    CDPSM
