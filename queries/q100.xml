@@ -943,8 +943,6 @@ SELECT ?rname ?pname ?tname ?wnum ?incr ?mode ?enabled ?highStep ?lowStep ?neutr
   ?pxf c:IdentifiedObject.name ?pname.
   ?pxf c:IdentifiedObject.mRID ?pxfid.
   ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
-  ?rtc c:RatioTapChanger.tculControlMode ?moderaw.
-   bind(strafter(str(?moderaw),"TransformerControlMode.") as ?mode)
   ?rtc c:TapChanger.controlEnabled ?enabled.
   ?rtc c:TapChanger.highStep ?highStep.
   ?rtc c:TapChanger.initialDelay ?initDelay.
