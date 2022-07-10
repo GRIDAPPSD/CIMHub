@@ -22,6 +22,10 @@ To install the pre-requisite components:
 - Install the CIMHub exporter by downloading a JAR file from https://github.com/GRIDAPPSD/CIMHub/tree/feature/SETO/releases
   This may be downloaded to the same directory as Blazegraph, or a different directory.
   You may also download the tutorial input files and sample queries from this web site.
+
+   - Please choose ``blazegraph.jar`` to download. The tutorial configuration file ``cimhubjar.json`` will match.
+   - If you download ``bigdata.jar``, the functionality is the same, but you'll have to change the namespace in ``cimhubjar.json``
+
 - Install the latest Python from https://www.python.org/ or https://docs.conda.io/en/latest/
 - Install the CIMHub Python package, and its dependencies, by invoking ``pip install cimhub`` from a command prompt.
 - Install opendsscmd from https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/
@@ -44,6 +48,9 @@ encapsulates Java 8 with a compatible (and sufficient) version of Blazegraph.
 - Install the Python package with ``pip install cimhub --upgrade``
 - Install the Docker Engine from https://docs.docker.com/install/
 - Install the Blazegraph engine with ``docker pull lyrasis/blazegraph:2.1.5``
+
+   - The namespace will have ``bigdata`` instead of ``blazegraph``. The ``cimhubdocker.json`` configuration file matches this assumption.
+
 - Install the CIMHub exporter with ``docker pull gridappsd/cimhub:1.0.1``
 - Install opendsscmd from https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/
 

@@ -28,7 +28,7 @@ cwd = os.getcwd()
 
 cases = [
   {'dssname':'ieee123', 'root':'ieee123houses', 'mRID':'CBE09B55-091B-4BB0-95DA-392237B12640',
-   'substation':'Fictitious', 'region':'Texas', 'subregion':'Austin',
+   'substation':'Fictitious', 'region':'Texas', 'subregion':'Austin', 'skip_gld': False,
    'glmvsrc': 2401.78, 'bases':[4160.0], 'export_options':' -l=1.0 -p=1.0 -h=1 -e=carson',
    'check_branches':[{'dss_link': 'LINE.L115', 'dss_bus': '149', 'gld_link': 'LINE_L115', 'gld_bus': '149'}]},
 ]

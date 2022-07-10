@@ -110,8 +110,8 @@ The Python script ``base123.py`` is shown below. As a roadmap to its contents:
     to be all constant power. (Use the ``-i`` and ``-z`` options to have constant current and
     constant impedance components of the load.)
   - **skip_gld** specify as ``True`` when you know that GridLAB-D won't support this test case.
-    (Not used in this tutorial. A typical use case is unsupported transformer connections, e.g.,
-    tertiary windings, open wye/open delta. The default value is ``false``)
+    (Not necessary in this tutorial. A typical use case is unsupported transformer connections, e.g.,
+    tertiary windings, open wye/open delta. The default value is ``False``)
   - **check_branches** an array of branches in the model to compare power flows and line-to-line voltages. 
     Each element contains:
 
@@ -128,20 +128,20 @@ The Python script ``base123.py`` is shown below. As a roadmap to its contents:
 
 - Line 41 configures the CIM namespace and Blazegraph port
 - Line 42 clears the Blazegraph database
-- Lines 44-62 create and execute a script for OpenDSS to solve the base case,
+- Lines 44-63 create and execute a script for OpenDSS to solve the base case,
   and export the CIM model. You should see ``ieee123.xml<=ieee123pv<-Fictitious<-Austin<-Texas``
   from this command in the output log. 
-- Lines 64-66 upload each exported CIM model into Blazegraph. Note that ``curl`` must
+- Lines 65-67 upload each exported CIM model into Blazegraph. Note that ``curl`` must
   be available; recent versions of Windows 10 and 11 seem to include this utility of
   Unix heritage.
-- Line 67 lists the feeders in the Blazegraph database. You should see 
+- Line 68 lists the feeders in the Blazegraph database. You should see 
   ``ieee123pv CBE09B55-091B-4BB0-95DA-392237B12640`` from this command in the output log.
-- Lines 69-72 create and execute a script that exports OpenDSS and GridLAB-D models from CIM.
+- Lines 70-73 create and execute a script that exports OpenDSS and GridLAB-D models from CIM.
   These models appear in directories ``./dss`` and ``./glm/``. A csv export option is also
   available, but not used in this tutorial.
-- Lines 74-77 solve power flow on the exported OpenDSS model, with output to ``./dss/``.
-- Lines 79-84 solve power flow on the exported GridLAB-D model, with output to ``./glm/``.
-- Lines 86-88 compare the three power flow solutions, as described under the Python script listing.
+- Lines 75-78 solve power flow on the exported OpenDSS model, with output to ``./dss/``.
+- Lines 80-85 solve power flow on the exported GridLAB-D model, with output to ``./glm/``.
+- Lines 87-88 compare the three power flow solutions, as described under the Python script listing.
 
 .. literalinclude:: ../tutorial/base123.py
   :language: Python
@@ -531,3 +531,61 @@ CIMHub can export Opal-RT/ePHASORSIM and Alternative Transient Program (ATP) mod
 - A similar script, ``makeATP.py``, has been created to produce ATP models that impute PMU
   and transient data for the OEDI project. This script is only available to licensed ATP users.
 
+Starting with a New OpenDSS File
+--------------------------------
+
+This last section will show how ``base123.py`` could be modified to work with your
+own OpenDSS file. The steps are:
+
+- First, you start with an OpenDSS file. You should know which buses and
+  branches are important to check, and what the voltage bases are. To illustrate, 
+  we will import from ``../example/IEEE13_Assets.dss``, which is available 
+  if you cloned the repository from GitHub.  This example file represents one 
+  you might create or obtain elsewhere. It's a version of the IEEE 13-bus system that 
+  uses wire spacings and transformer codes to define component impedances. The voltage 
+  bases are different, and we need to use a different feeder mRID.
+- Second, make a copy of ``base123.py``, and call it ``test_new.py``. Most of this file
+  can be used without changes.
+- Third, you need to make a new feeder mRID value.  The code at line 26 
+  does this, and we will just use the sample result from line 27.
+- Fourth, you need to modify the *cases* at lines 30-39. In the example below:
+
+  - the new *mRID* value has been copied from line 27
+  - the path to a different OpenDSS file has been provided as *dssname*
+  - the name for exported files has been provided as *root*
+  - *skip_gld* has been set to ``True`` for illustration, even though GridLAB-D will solve this case
+  - the new values for *substation*, *region*, and *subregion* are cosmetic for this case
+  - new *bases* match voltage bases in the 13-bus test case
+  - the *check_branches* have been updated for two illustrative locations in the 13-bus test case
+
+::
+
+  cases = [
+    {'dssname':'../example/IEEE13_Assets', 'root':'test_new', 'mRID':'CA7CB1B6-BD68-44BF-8C6C-66BB4FA0081D',
+     'substation':'Fictitious', 'region':'Massachusetts', 'subregion':'Cambridge', 'skip_gld': True,
+     'glmvsrc': 66395.3, 'bases':[480.0, 4160.0, 115000.0], 'export_options':' -l=1.0 -p=1.0 -e=carson',
+     'check_branches':[{'dss_link': 'TRANSFORMER.XFM1', 'dss_bus': '633'},
+                       {'dss_link': 'LINE.670671', 'dss_bus': '670'}]},
+  ]
+
+- Fifth, you need to comment out the *uuids* import command, around line 53, with two slashes (//) written to *cim_test.dss*.
+  Because this UUID file does not exist yet, OpenDSS would exit with an error (**TODO**: modify OpenDSS to ignore this error).
+
+::
+
+  print ('//uuids {:s}_uuids.dat'.format (root.lower()), file=fp)
+
+- Sixth, you may now run ``python test_new.py``.  The very last line of your output log should look like this:
+
+::
+
+  test_new Nbus=[41,41,0] Nlink=[64,64,0] MAEv=[ 0.0000,-1.0000] MAEi=[0.0007,-1.0000]
+
+The MAEv and MAEi values are considered to be good enough for OpenDSS. The values
+for GridLAB-D are -1, because no GridLAB-D model was produced or checked.
+
+If you run ``python test_new.py`` again, the *uuids* command around line 53 should be uncommented.
+Otherwise, OpenDSS will regenerate random mRID values for everything except the feeder,
+which would mean the mRID values can not be tracked.
+
+If you have cloned the full repository, there are many other examples to use as starting points.

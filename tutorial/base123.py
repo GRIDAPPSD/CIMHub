@@ -22,14 +22,14 @@ else:
 
 cwd = os.getcwd()
 
-
-# make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
+# make some random UUID values for additional feeders, from 
+# "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 # CA7CB1B6-BD68-44BF-8C6C-66BB4FA0081D
 # 
 
 cases = [
   {'dssname':'ieee123', 'root':'ieee123', 'mRID':'CBE09B55-091B-4BB0-95DA-392237B12640',
-   'substation':'Fictitious', 'region':'Texas', 'subregion':'Austin',
+   'substation':'Fictitious', 'region':'Texas', 'subregion':'Austin', 'skip_gld': False,
    'glmvsrc': 2401.78, 'bases':[4160.0], 'export_options':' -l=1.0 -p=1.0 -e=carson',
    'check_branches':[{'dss_link': 'TRANSFORMER.REG4A', 'dss_bus': '160'},
                      {'dss_link': 'TRANSFORMER.REG4B', 'dss_bus': '160'},
@@ -43,12 +43,13 @@ cimhub.clear_db (cfg_json)
 
 fp = open ('cim_test.dss', 'w')
 for row in cases:
+  dssname = row['dssname']
   root = row['root']
   mRID = row['mRID']
   sub = row['substation']
   subrgn = row['subregion']
   rgn = row['region']
-  print ('redirect {:s}.dss'.format (root), file=fp)
+  print ('redirect {:s}.dss'.format (dssname), file=fp)
   print ('uuids {:s}_uuids.dat'.format (root.lower()), file=fp)
   print ('export cim100 fid={:s} substation={:s} subgeo={:s} geo={:s} file={:s}.xml'.format (mRID, sub, subrgn, rgn, root), file=fp)
   print ('export uuids {:s}_uuids.dat'.format (root), file=fp)
