@@ -14,13 +14,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-#import os
-#import sys
-#sys.path.insert(0, os.path.abspath('.'))
-#sys.path.insert(0, os.path.abspath('../../install/Linux'))
-#sys.path.insert(0, os.path.abspath('../../install/MacOSX'))
-#sys.path.insert(0, os.path.abspath('../../install/Windows'))
-
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../src_python/cimhub'))
 
 # -- General configuration ------------------------------------------------
 
