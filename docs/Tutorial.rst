@@ -589,3 +589,29 @@ Otherwise, OpenDSS will regenerate random mRID values for everything except the 
 which would mean the mRID values can not be tracked.
 
 If you have cloned the full repository, there are many other examples to use as starting points.
+
+Starting with a CIM XML File
+----------------------------
+
+There are many different CIM versions and profiles, which may not match
+the CIMHub profile. To see if that's the case:
+
+- Load your CIM XML file into Blazegraph, through the Web browser
+- Try executing some of the SPARQL from ``queries/queries.txt`` in the repository, starting with ``DistFeeder``
+- If the query returns nothing, there are some general  queries at the 
+  top of the queries/queries.txt file that will help you identify class 
+  names, attributes, and name spaces used in your CIM XML file.  
+
+If there is a mismatch between CIMHub's profile and your CIM XML file,
+the model exports and other functions won't work. There are two options
+for mitigating the mismatch:
+
+- In the ``src_python`` and ``GMDM`` subdirectories, there are ``CIMadapter.py`` 
+  and some other scripts used to translate incoming CIM XML files from the GMDM 
+  profile to the CIMHub profile.  Those two profiles are close, but not identical.
+  By modifying the scripts, you could adapt your incoming CIM XML to fit CIMHub's profile.  
+- You could write your own SPARQL queries to work on the incoming CIM XML.  Test those 
+  in the web browser first, then translate them into a copy of ``queries/q100.xml``.  
+  Once you have working SPARQL queries, make a copy of ``CPYDAR/ePHASORSIM.py``, 
+  which can read and run SPARQL from a file like ``queries/q100.xml``.  You would
+  modify the Python code in this file to process the SPARQL result sets as needed.  

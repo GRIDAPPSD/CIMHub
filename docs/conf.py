@@ -3,7 +3,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../src_python/cimhub'))
+sys.path.insert(0, os.path.abspath('..'))
 
 # -- General configuration ------------------------------------------------
 needs_sphinx = '5.0.2'
