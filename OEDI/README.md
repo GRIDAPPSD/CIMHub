@@ -4,7 +4,7 @@ Copyright (c) 2017-2022, Battelle Memorial Institute
 
 ## Contents
 
-The archived files include:
+The archived files for a 123-bus system include:
 
 1. The CIM XML and UUID files are in _IEEE123_PV.xml_ and ieee123_pv_uuids.dat_. The CIM measurement UUID values are maintained in _IEEE123_PV_msid.json_
 2. The exported OpenDSS model files are in _dss_files.zip_
@@ -70,3 +70,9 @@ In an ungrounded system, MAEv can be large. Use the line-to-line voltage compari
 IEEE123_PV       Nbus=[   442,   442,   655] Nlink=[   564,   564,   639] MAEv=[ 0.0021, 0.0023] MAEi=[   0.1879,   0.9274]
 ```
 
+## Supplemental Files
+
+The file _convert\_extra.dss_ creates modified versions of two IEEE test systems, for the OEDI project:
+
+- _IEEE13\_PV_ is based on the 13-bus test case with solar and storage added. For use with ATP, switches were also added to separate solar and storage inverters that were connected to the same bus in the load flow model.
+- _IEEE390\_PV_ is based on the North American Low-Voltage test system, with 390 buses and the secondary cables in parallel. Eight 1-MW PV systems have been added to 480-Volt load buses.
