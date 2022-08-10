@@ -1016,7 +1016,7 @@ public class CIMImporter extends Object {
 
 	protected void WriteGLMFile (PrintWriter out, double load_scale, boolean bWantSched, String fSched,
 			boolean bWantZIP, boolean randomZIP, boolean useHouses, double Zcoeff,
-			double Icoeff, double Pcoeff, boolean bHaveEventGen) {
+			double Icoeff, double Pcoeff, boolean bHaveEventGen, List<String> separateLoads) {
 
 		// preparatory steps to build the list of nodes
 		ResultSet results = queryHandler.query (
@@ -1349,7 +1349,7 @@ public class CIMImporter extends Object {
 		boolean bWroteEventGen = bHaveEventGen;
 		for (HashMap.Entry<String,GldNode> pair : mapNodes.entrySet()) {
 			GldNode nd = pair.getValue();
-			out.print (pair.getValue().GetGLM (load_scale, bWantSched, fSched, bWantZIP, useHouses, Zcoeff, Icoeff, Pcoeff));
+			out.print (pair.getValue().GetGLM (load_scale, bWantSched, fSched, bWantZIP, useHouses, Zcoeff, Icoeff, Pcoeff, separateLoads));
 			if (!bWroteEventGen && nd.bSwingPQ) {
 				// we can't have two fault_check objects, and there may already be one for external event scripting
 				bWroteEventGen = true;
@@ -1960,7 +1960,7 @@ public class CIMImporter extends Object {
 			boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, boolean bHaveEventGen, ModelState ms, 
 			boolean bTiming) throws FileNotFoundException{
 		start(queryHandler, querySetter, fTarget, fRoot, fSched, load_scale, bWantSched, bWantZIP, randomZIP, useHouses,
-				Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming);
+				Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming, new ArrayList<String>());
 	}
 
 
@@ -1980,7 +1980,7 @@ public class CIMImporter extends Object {
 	public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, String fSched,
 			double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP,
 			boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff,
-			int maxMeasurements, boolean bHaveEventGen, ModelState ms, boolean bTiming) throws FileNotFoundException{
+			int maxMeasurements, boolean bHaveEventGen, ModelState ms, boolean bTiming, List<String> separateLoads) throws FileNotFoundException{
 
 		this.queryHandler = queryHandler;
 		this.querySetter = querySetter;
@@ -1998,7 +1998,7 @@ public class CIMImporter extends Object {
 			fOut = fRoot + "_base.glm";
 			fXY = fRoot + "_symbols.json";
 			PrintWriter pOut = new PrintWriter(fOut);
-			WriteGLMFile(pOut, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, bHaveEventGen);
+			WriteGLMFile(pOut, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, bHaveEventGen, separateLoads);
 			PrintWriter pXY = new PrintWriter(fXY);
 			WriteJSONSymbolFile (pXY);
 			PrintWriter pDict = new PrintWriter(fDict);
@@ -2047,7 +2047,7 @@ public class CIMImporter extends Object {
 			long t7 = System.nanoTime();
 			// write GridLAB-D and the dictionaries to match GridLAB-D
 			PrintWriter pGld = new PrintWriter(fRoot + "_base.glm");
-			WriteGLMFile(pGld, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, bHaveEventGen);
+			WriteGLMFile(pGld, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, bHaveEventGen, separateLoads);
 			long t8 = System.nanoTime();
 			PrintWriter pSym = new PrintWriter(fRoot + "_symbols.json");
 			WriteJSONSymbolFile (pSym);
@@ -2201,7 +2201,7 @@ public class CIMImporter extends Object {
 		}
 		CheckMaps();
 		ApplyCurrentLimits();
-		WriteGLMFile (out, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, bHaveEventGen);
+		WriteGLMFile (out, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, bHaveEventGen, new ArrayList<String>());
 	}
 
 	/**
