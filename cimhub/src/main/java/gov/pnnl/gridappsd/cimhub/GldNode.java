@@ -5,8 +5,10 @@ package gov.pnnl.gridappsd.cimhub;
 //	----------------------------------------------------------
 
 import java.text.DecimalFormat;
-import org.apache.commons.math3.complex.Complex;
+import java.util.List;
 import java.util.Random;
+
+import org.apache.commons.math3.complex.Complex;
 
 /** 
  Helper class to accumulate nodes and loads. 
