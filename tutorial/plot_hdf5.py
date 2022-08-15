@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import scipy.constants
 
-df = pd.read_hdf('aug11.hdf5')
+df = pd.read_hdf('./aug11.hdf5')
 df.info()
 pv_cols = []
 xf_cols = []
