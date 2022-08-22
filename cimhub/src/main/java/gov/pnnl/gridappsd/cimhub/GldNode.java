@@ -5,8 +5,10 @@ package gov.pnnl.gridappsd.cimhub;
 //	----------------------------------------------------------
 
 import java.text.DecimalFormat;
-import org.apache.commons.math3.complex.Complex;
+import java.util.List;
 import java.util.Random;
+
+import org.apache.commons.math3.complex.Complex;
 
 /** 
  Helper class to accumulate nodes and loads. 
@@ -391,7 +393,7 @@ public class GldNode {
 		buf.append ("}\n");
 	}
 
-	public String GetGLM (double load_scale, boolean bWantSched, String fSched, boolean bWantZIP, boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff) {
+	public String GetGLM (double load_scale, boolean bWantSched, String fSched, boolean bWantZIP, boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, List<String> separateLoads) {
 		StringBuilder buf = new StringBuilder();
 
 		if (bTertiaryWinding) { // we have to skip it
@@ -456,6 +458,7 @@ public class GldNode {
 			Complex vc = va.multiply (pos120);
 			Complex amps;
 			Complex vmagsq = new Complex (nomvln * nomvln);
+			Double leadOrLag = 1.0;
 			if (bSecondary) {
 				if (useHouses) {  // houses will be grandchildren of this, but triplex loads and primary loads cannot be grandchildren
 					buf.append ("object triplex_meter {\n");
@@ -476,65 +479,104 @@ public class GldNode {
 					if (base1.abs() > 0.0 && base2.abs() == 0.0) {
 						b12 = true;
 					}
-					if (bWantSched) {
+					if (separateLoads.contains(loadname)) {
 						if (b12) {
-							buf.append ("  base_power_12 " + fSched + ".value*" + df2.format(base1.abs()) + ";\n");
+							buf.append ("  constant_power_12 0.0+0.0j;\n");
 						} else {
-							buf.append ("  base_power_1 " + fSched + ".value*" + df2.format(base1.abs()) + ";\n");
-							buf.append ("  base_power_2 " + fSched + ".value*" + df2.format(base2.abs()) + ";\n");
+							buf.append ("  constant_power_1 0.0+0.0j;\n");
+							buf.append ("  constant_power_2 0.0+0.0j;\n");
 						}
 					} else {
-						if (b12) {
-							buf.append ("  base_power_12 " + df2.format(base1.abs()) + ";\n");
+						if (bWantSched) {
+							if (b12) {
+								buf.append ("  base_power_12 " + fSched + ".value*" + df2.format(base1.abs()) + ";\n");
+							} else {
+								buf.append ("  base_power_1 " + fSched + ".value*" + df2.format(base1.abs()) + ";\n");
+								buf.append ("  base_power_2 " + fSched + ".value*" + df2.format(base2.abs()) + ";\n");
+							}
 						} else {
-							buf.append ("  base_power_1 " + df2.format(base1.abs()) + ";\n");
-							buf.append ("  base_power_2 " + df2.format(base2.abs()) + ";\n");
+							if (b12) {
+								buf.append ("  base_power_12 " + df2.format(base1.abs()) + ";\n");
+							} else {
+								buf.append ("  base_power_1 " + df2.format(base1.abs()) + ";\n");
+								buf.append ("  base_power_2 " + df2.format(base2.abs()) + ";\n");
+							}
 						}
-					}
-					if (pa_p != 0.0) {
-						Complex base = new Complex(pa_p, qa_p);
-						if (b12) {
-							buf.append ("  power_pf_12 " + df2.format(pa_p / base.abs()) + ";\n");
-							buf.append ("  power_fraction_12 " + df2.format(pa_p / base1.getReal()) + ";\n");
-						} else {
-							buf.append ("  power_pf_1 " + df2.format(pa_p / base.abs()) + ";\n");
-							buf.append ("  power_fraction_1 " + df2.format(pa_p / base1.getReal()) + ";\n");
+						if (pa_p != 0.0) {
+							Complex base = new Complex(pa_p, qa_p);
+							if(qa_p >= 0.0) {
+								leadOrLag = 1.0;
+							} else {
+								leadOrLag = -1.0;
+							}
+							if (b12) {
+								buf.append ("  power_pf_12 " + df2.format(leadOrLag * pa_p / base.abs()) + ";\n");
+								buf.append ("  power_fraction_12 " + df2.format(pa_p / base1.getReal()) + ";\n");
+							} else {
+								buf.append ("  power_pf_1 " + df2.format(leadOrLag * pa_p / base.abs()) + ";\n");
+								buf.append ("  power_fraction_1 " + df2.format(pa_p / base1.getReal()) + ";\n");
+							}
 						}
-					}
-					if (pb_p != 0.0) {
-						Complex base = new Complex(pb_p, qb_p);
-						buf.append ("  power_pf_2 " + df2.format(pb_p / base.abs()) + ";\n");
-						buf.append ("  power_fraction_2 " + df2.format(pb_p / base2.getReal()) + ";\n");
-					}
-					if (pa_i != 0.0) {
-						Complex base = new Complex(pa_i, qa_i);
-						if (b12) {
-							buf.append ("  current_pf_12 " + df2.format(pa_i / base.abs()) + ";\n");
-							buf.append ("  current_fraction_12 " + df2.format(pa_i / base1.getReal()) + ";\n");
-						} else {
-							buf.append ("  current_pf_1 " + df2.format(pa_i / base.abs()) + ";\n");
-							buf.append ("  current_fraction_1 " + df2.format(pa_i / base1.getReal()) + ";\n");
+						if (pb_p != 0.0) {
+							Complex base = new Complex(pb_p, qb_p);
+							if(qb_p >= 0.0) {
+								leadOrLag = 1.0;
+							} else {
+								leadOrLag = -1.0;
+							}
+							buf.append ("  power_pf_2 " + df2.format(leadOrLag * pb_p / base.abs()) + ";\n");
+							buf.append ("  power_fraction_2 " + df2.format(pb_p / base2.getReal()) + ";\n");
 						}
-					}
-					if (pb_i != 0.0) {
-						Complex base = new Complex(pb_i, qb_i);
-						buf.append ("  current_pf_2 " + df2.format(pb_i / base.abs()) + ";\n");
-						buf.append ("  current_fraction_2 " + df2.format(pb_i / base2.getReal()) + ";\n");
-					}
-					if (pa_z != 0.0) {
-						Complex base = new Complex(pa_z, qa_z);
-						if (b12) {
-							buf.append ("  impedance_pf_12 " + df2.format(pa_z / base.abs()) + ";\n");
-							buf.append ("  impedance_fraction_12 " + df2.format(pa_z / base1.getReal()) + ";\n");
-						} else {
-							buf.append ("  impedance_pf_1 " + df2.format(pa_z / base.abs()) + ";\n");
-							buf.append ("  impedance_fraction_1 " + df2.format(pa_z / base1.getReal()) + ";\n");
+						if (pa_i != 0.0) {
+							Complex base = new Complex(pa_i, qa_i);
+							if(qa_i >= 0.0) {
+								leadOrLag = 1.0;
+							} else {
+								leadOrLag = -1.0;
+							}
+							if (b12) {
+								buf.append ("  current_pf_12 " + df2.format(leadOrLag * pa_i / base.abs()) + ";\n");
+								buf.append ("  current_fraction_12 " + df2.format(pa_i / base1.getReal()) + ";\n");
+							} else {
+								buf.append ("  current_pf_1 " + df2.format(leadOrLag * pa_i / base.abs()) + ";\n");
+								buf.append ("  current_fraction_1 " + df2.format(pa_i / base1.getReal()) + ";\n");
+							}
 						}
-					}
-					if (pb_z != 0.0) {
-						Complex base = new Complex(pb_z, qb_z);
-						buf.append ("  impedance_pf_2 " + df2.format(pb_z / base.abs()) + ";\n");
-						buf.append ("  impedance_fraction_2 " + df2.format(pb_z / base2.getReal()) + ";\n");
+						if (pb_i != 0.0) {
+							Complex base = new Complex(pb_i, qb_i);
+							if(qb_i >= 0.0) {
+								leadOrLag = 1.0;
+							} else {
+								leadOrLag = -1.0;
+							}
+							buf.append ("  current_pf_2 " + df2.format(leadOrLag * pb_i / base.abs()) + ";\n");
+							buf.append ("  current_fraction_2 " + df2.format(pb_i / base2.getReal()) + ";\n");
+						}
+						if (pa_z != 0.0) {
+							Complex base = new Complex(pa_z, qa_z);
+							if(qa_z >= 0.0) {
+								leadOrLag = 1.0;
+							} else {
+								leadOrLag = -1.0;
+							}
+							if (b12) {
+								buf.append ("  impedance_pf_12 " + df2.format(leadOrLag * pa_z / base.abs()) + ";\n");
+								buf.append ("  impedance_fraction_12 " + df2.format(pa_z / base1.getReal()) + ";\n");
+							} else {
+								buf.append ("  impedance_pf_1 " + df2.format(leadOrLag * pa_z / base.abs()) + ";\n");
+								buf.append ("  impedance_fraction_1 " + df2.format(pa_z / base1.getReal()) + ";\n");
+							}
+						}
+						if (pb_z != 0.0) {
+							Complex base = new Complex(pb_z, qb_z);
+							if(qb_z >= 0.0) {
+								leadOrLag = 1.0;
+							} else {
+								leadOrLag = -1.0;
+							}
+							buf.append ("  impedance_pf_2 " + df2.format(leadOrLag * pb_z / base.abs()) + ";\n");
+							buf.append ("  impedance_fraction_2 " + df2.format(pb_z / base2.getReal()) + ";\n");
+						}
 					}
 					buf.append ("}\n");
 				}
@@ -544,44 +586,149 @@ public class GldNode {
 				buf.append ("  parent \"" + name + "\";\n");
 				buf.append ("  phases " + GetPhases() + ";\n");
 				buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
-				if (pa_p != 0.0 || qa_p != 0.0)	{
-					buf.append ("  constant_power_A " + CFormat(new Complex(pa_p, qa_p)) + ";\n");
-				}
-				if (pb_p != 0.0 || qb_p != 0.0)	{
-					buf.append ("  constant_power_B " + CFormat(new Complex(pb_p, qb_p)) + ";\n");
-				}
-				if (pc_p != 0.0 || qc_p != 0.0)	{
-					buf.append ("  constant_power_C " + CFormat(new Complex(pc_p, qc_p)) + ";\n");
-				}
-				if (pa_z != 0.0 || qa_z != 0.0) {
-					Complex s = new Complex(pa_z, qa_z);
-					Complex z = vmagsq.divide(s.conjugate());
-					buf.append ("  constant_impedance_A " + CFormat(z) + ";\n");
-				}
-				if (pb_z != 0.0 || qb_z != 0.0) {
-					Complex s = new Complex(pb_z, qb_z);
-					Complex z = vmagsq.divide(s.conjugate());
-					buf.append ("  constant_impedance_B " + CFormat(z) + ";\n");
-				}
-				if (pc_z != 0.0 || qc_z != 0.0) {
-					Complex s = new Complex(pc_z, qc_z);
-					Complex z = vmagsq.divide(s.conjugate());
-					buf.append ("  constant_impedance_C " + CFormat(z) + ";\n");
-				}
-				if (pa_i != 0.0 || qa_i != 0.0) {
-					Complex s = new Complex(pa_i, qa_i);
-					amps = s.divide(va).conjugate();
-					buf.append ("  constant_current_A " + CFormat(amps) + ";\n");
-				}
-				if (pb_i != 0.0 || qb_i != 0.0) {
-					Complex s = new Complex(pb_i, qb_i);
-					amps = s.divide(va.multiply(neg120)).conjugate();
-					buf.append ("  constant_current_B " + CFormat(amps) + ";\n");
-				}
-				if (pc_i != 0.0 || qc_i != 0.0) {
-					Complex s = new Complex(pc_i, qc_i);
-					amps = s.divide(va.multiply(pos120)).conjugate();
-					buf.append ("  constant_current_C " + CFormat(amps) + ";\n");
+				if (separateLoads.contains(loadname) || !bWantSched) {
+					if (pa_p != 0.0 || qa_p != 0.0)	{
+						buf.append ("  constant_power_A " + CFormat(new Complex(pa_p, qa_p)) + ";\n");
+					}
+					if (pb_p != 0.0 || qb_p != 0.0)	{
+						buf.append ("  constant_power_B " + CFormat(new Complex(pb_p, qb_p)) + ";\n");
+					}
+					if (pc_p != 0.0 || qc_p != 0.0)	{
+						buf.append ("  constant_power_C " + CFormat(new Complex(pc_p, qc_p)) + ";\n");
+					}
+					if (pa_z != 0.0 || qa_z != 0.0) {
+						Complex s = new Complex(pa_z, qa_z);
+						Complex z = vmagsq.divide(s.conjugate());
+						buf.append ("  constant_impedance_A " + CFormat(z) + ";\n");
+					}
+					if (pb_z != 0.0 || qb_z != 0.0) {
+						Complex s = new Complex(pb_z, qb_z);
+						Complex z = vmagsq.divide(s.conjugate());
+						buf.append ("  constant_impedance_B " + CFormat(z) + ";\n");
+					}
+					if (pc_z != 0.0 || qc_z != 0.0) {
+						Complex s = new Complex(pc_z, qc_z);
+						Complex z = vmagsq.divide(s.conjugate());
+						buf.append ("  constant_impedance_C " + CFormat(z) + ";\n");
+					}
+					if (pa_i != 0.0 || qa_i != 0.0) {
+						Complex s = new Complex(pa_i, qa_i);
+						amps = s.divide(va).conjugate();
+						buf.append ("  constant_current_A " + CFormat(amps) + ";\n");
+					}
+					if (pb_i != 0.0 || qb_i != 0.0) {
+						Complex s = new Complex(pb_i, qb_i);
+						amps = s.divide(va.multiply(neg120)).conjugate();
+						buf.append ("  constant_current_B " + CFormat(amps) + ";\n");
+					}
+					if (pc_i != 0.0 || qc_i != 0.0) {
+						Complex s = new Complex(pc_i, qc_i);
+						amps = s.divide(va.multiply(pos120)).conjugate();
+						buf.append ("  constant_current_C " + CFormat(amps) + ";\n");
+					}
+				} else {
+					Complex baseA = new Complex(pa_p + pa_i + pa_z, qa_p + qa_i + qa_z);
+					Complex baseB = new Complex(pb_p + pb_i + pb_z, qb_p + qb_i + qb_z);
+					Complex baseC = new Complex(pc_p + pc_i + pc_z, qc_p + qc_i + qc_z);
+					if (baseA.abs() != 0.0)	{
+						buf.append ("  base_power_A " + fSched + ".value*" + df2.format(baseA.abs()) + ";\n");
+					}
+					if (baseB.abs() != 0.0)	{
+						buf.append ("  base_power_B " + fSched + ".value*" + df2.format(baseB.abs()) + ";\n");
+					}
+					if (baseC.abs() != 0.0)	{
+						buf.append ("  base_power_C " + fSched + ".value*" + df2.format(baseC.abs()) + ";\n");
+					}
+					if (pa_p != 0.0 || qa_p != 0.0)	{
+						Complex constPowerA = new Complex(pa_p,qa_p);
+						if(qa_p >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  power_pf_A " + df2.format(leadOrLag * pa_p / constPowerA.abs()) + ";\n");
+						buf.append("  power_fraction_A " + df2.format(constPowerA.abs() / baseA.abs()) + ";\n");
+					}
+					if (pb_p != 0.0 || qb_p != 0.0)	{
+						Complex constPowerB = new Complex(pb_p,qb_p);
+						if(qb_p >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  power_pf_B " + df2.format(leadOrLag * pb_p / constPowerB.abs()) + ";\n");
+						buf.append("  power_fraction_B " + df2.format(constPowerB.abs() / baseB.abs()) + ";\n");
+					}
+					if (pc_p != 0.0 || qc_p != 0.0)	{
+						Complex constPowerC = new Complex(pc_p,qc_p);
+						if(qc_p >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  power_pf_C " + df2.format(leadOrLag * pc_p / constPowerC.abs()) + ";\n");
+						buf.append("  power_fraction_C " + df2.format(constPowerC.abs() / baseC.abs()) + ";\n");
+					}
+					if (pa_z != 0.0 || qa_z != 0.0) {
+						Complex constImpedanceA = new Complex(pa_z,qa_z);
+						if(qa_z >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  impedance_pf_A " + df2.format(leadOrLag * pa_z / constImpedanceA.abs()) + ";\n");
+						buf.append("  impedance_fraction_A " + df2.format(constImpedanceA.abs() / baseA.abs()) + ";\n");
+					}
+					if (pb_z != 0.0 || qb_z != 0.0) {
+						Complex constImpedanceB = new Complex(pb_z,qb_z);
+						if(qb_z >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  impedance_pf_B " + df2.format(leadOrLag * pb_z / constImpedanceB.abs()) + ";\n");
+						buf.append("  impedance_fraction_B " + df2.format(constImpedanceB.abs() / baseB.abs()) + ";\n");
+					}
+					if (pc_z != 0.0 || qc_z != 0.0) {
+						Complex constImpedanceC = new Complex(pc_z,qa_i);
+						if(qa_i >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  impedance_pf_C " + df2.format(leadOrLag * pc_z / constImpedanceC.abs()) + ";\n");
+						buf.append("  impedance_fraction_C " + df2.format(constImpedanceC.abs() / baseC.abs()) + ";\n");
+					}
+					if (pa_i != 0.0 || qa_i != 0.0) {
+						Complex constCurrentA = new Complex(pa_i,qa_i);
+						if(qa_i >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  current_pf_A " + df2.format(leadOrLag * pa_i / constCurrentA.abs()) + ";\n");
+						buf.append("  current_fraction_A " + df2.format(constCurrentA.abs() / baseA.abs()) + ";\n");
+					}
+					if (pb_i != 0.0 || qb_i != 0.0) {
+						Complex constCurrentB = new Complex(pb_i,qb_i);
+						if(qb_i >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  current_pf_B " + df2.format(leadOrLag * pb_i / constCurrentB.abs()) + ";\n");
+						buf.append("  current_fraction_B " + df2.format(constCurrentB.abs() / baseB.abs()) + ";\n");
+					}
+					if (pc_i != 0.0 || qc_i != 0.0) {
+						Complex constCurrentC = new Complex(pc_i,qc_i);
+						if(qc_i >= 0.0) {
+							leadOrLag = 1.0;
+						} else {
+							leadOrLag = -1.0;
+						}
+						buf.append("  current_pf_C " + df2.format(leadOrLag * pc_i / constCurrentC.abs()) + ";\n");
+						buf.append("  current_fraction_C " + df2.format(constCurrentC.abs() / baseC.abs()) + ";\n");
+					}
 				}
 				buf.append ("}\n");
 			}
