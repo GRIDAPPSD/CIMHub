@@ -5,7 +5,7 @@ New Circuit.feeder_p9udt12866-p9uhs16_1247x bus1=p9udt12866-p9uhs16_1247x pu=1.0
 Redirect LineCodes.dss
 Redirect Lines.dss
 Redirect Transformers.dss
-Redirect LoadShapes.dss
+//Redirect LoadShapes.dss
 Redirect Loads.dss
 Redirect Capacitors.dss
 Redirect PVSystems.dss
@@ -20,9 +20,11 @@ Calcvoltagebases
 Buscoords Buscoords.dss
 set maxcontroliter=50
 
-Solve mode=yearly stepsize=15m number=35040
-Export monitors m1
-Plot monitor object= m1 channels=(7 9 11 )
-Export monitors m2
-Plot monitor object= m2 channels=(1 3 5 )
-Plot Profile Phases=All
+solve mode=snap
+
+//Solve mode=yearly stepsize=15m number=35040
+//Export monitors m1
+//Plot monitor object= m1 channels=(7 9 11 )
+//Export monitors m2
+//Plot monitor object= m2 channels=(1 3 5 )
+//Plot Profile Phases=All
