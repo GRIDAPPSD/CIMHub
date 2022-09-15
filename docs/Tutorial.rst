@@ -513,6 +513,24 @@ sampling scheme should be considered to remove the bias.
 
 .. image:: ../tutorial/transformers15min.png
 
+Meter Sampling at 15-Minute Intervals
+-------------------------------------
+
+To create 15-minute average data, without sampling bias, invoke ``3sec_data_resample.py``.
+This script applies the *pandas* functions taking the *mean* of *resample* output to
+create ``./15min/aug11avg.csv`` and ``./15min/aug11avg.hdf5`` data files. The plot below
+shows that real and reactive power measured at the substation are now smooth. These graphs
+may resemble actual utility data sampled at 5 to 60-minute intervals.
+
+.. image:: ../tutorial/15min/substation.png
+
+In this plot, the rapid on-off switching of HVAC load is also smoothed. The switching still
+occurs within each 15-minute interval, and it may create voltage fluctuations, but this
+does not appear in 15-minute interval data.
+
+.. image:: ../tutorial/15min/transformersAvg.png
+
+
 Creating an Opal-RT (ePHASORSIM) Model
 --------------------------------------
 
