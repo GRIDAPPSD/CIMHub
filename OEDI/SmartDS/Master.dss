@@ -20,6 +20,11 @@ Calcvoltagebases
 Buscoords Buscoords.dss
 set maxcontroliter=50
 
+batchedit invcontrol..* enabled=no
+//batchedit capcontrol..* enabled=no
+
+//set loadmult=0.1
+
 solve mode=snap
 
 //Solve mode=yearly stepsize=15m number=35040

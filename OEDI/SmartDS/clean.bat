@@ -1,0 +1,2 @@
+del *.dsv
+del *.dbl
