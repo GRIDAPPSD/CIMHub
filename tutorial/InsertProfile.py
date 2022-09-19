@@ -19,8 +19,32 @@ VALUES ?fdrid {{"{:s}"}}
  ?s c:EnergyConsumer.p ?p.
  ?s c:EnergyConsumer.q ?q.
 }}
-ORDER BY ?bus ?tid
+ORDER BY ?name ?id
 """
+
+creation_template = """
+ <urn:uuid:{res}> a c:EnergyConnectionProfile.
+ <urn:uuid:{res}> c:IdentifiedObject.mRID \"{res}\".
+ <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
+"""
+
+attribute_template = """
+ <urn:uuid:{res}> c:EnergyConnectionProfile.{attr} \"{value}\".
+"""
+
+link_template = """
+ <urn:uuid:{res}> c:EnergyConnectionProfile.EnergyConsumer <urn:uuid:{resLoad}>.
+"""
+
+def PostTriples (sparql, qtriples):  # TODO: batch
+  print ('==> inserting', len(qtriples), 'instances for DER')
+  qtriples.append ('}')
+  qstr = CIMHubConfig.prefix + ' INSERT DATA { ' + ''.join(qtriples)
+  print (qstr)
+  sparql.setQuery(qstr)
+  ret = sparql.query()
+  print (ret)
+  return
 
 def GetCIMID (cls, nm, uuids):
   if nm is not None:
@@ -104,9 +128,23 @@ def insert_profile (fname):
 
   # write the profiles
   for key, profile in profiles.items():
-    uuidProfile = GetCIMID ('EnergyConnectionProfile', key, uuids)
+    res = GetCIMID ('EnergyConnectionProfile', key, uuids)
+    triple = creation_template.format(res=res, nm=key)
+    qtriples.append(triple)
+    for attr, value in profile.items():
+      if attr == 'loads':
+        for load_name in value:
+          resLoad = loads[load_name]['id']
+          triple = link_template.format(res=res, resLoad=resLoad)
+          qtriples.append(triple)
+      else:
+        triple = attribute_template.format(res=res, attr=attr, value=value)
+        qtriples.append(triple)
 
-  # add profiles to loads
+  if len(qtriples) > 0:
+    PostTriples (sparql, qtriples)
+    qtriples = []
+
   if fuidname is not None:
     print ('saving identifiable instance mRIDs to', fuidname)
     fuid = open (fuidname, 'w')
