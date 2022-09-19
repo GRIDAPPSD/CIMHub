@@ -386,6 +386,15 @@ Extension for Profiles
 Figure 19a: Optional references to shapes for OpenDSS, and players or 
 schedules for GridLAB-D.  
 
+The extension class is EnergyConnectionProfile, each instance of which 
+could have many associations to EnergyConsumer, 
+PowerElectronicsConnection, or SynchronousMachine as appropriate.  One use 
+case is to represent residential loads with the House extension class, and 
+commercial spot loads with this extension class.  A Python script will add 
+the EnergyConnectionProfile instances, as other scripts presently insert 
+houses, DER, and measurements.  Then the CIMHub export function will 
+netlist them as appropriate for OpenDSS and GridLAB-D.  
+
 See attribute documentation for applicability.  The shapes, players, and 
 schedules are not maintained in CIM, i.e., they must be made available to 
 the simulator from an external source.  
