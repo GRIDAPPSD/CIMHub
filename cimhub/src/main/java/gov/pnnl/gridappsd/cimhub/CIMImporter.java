@@ -26,6 +26,7 @@ import gov.pnnl.gridappsd.cimhub.components.DistComponent;
 import gov.pnnl.gridappsd.cimhub.components.DistConcentricNeutralCable;
 import gov.pnnl.gridappsd.cimhub.components.DistCoordinates;
 import gov.pnnl.gridappsd.cimhub.components.DistDisconnector;
+import gov.pnnl.gridappsd.cimhub.components.DistEnergyConnectionProfile;
 import gov.pnnl.gridappsd.cimhub.components.DistFeeder;
 import gov.pnnl.gridappsd.cimhub.components.DistFuse;
 import gov.pnnl.gridappsd.cimhub.components.DistGroundDisconnector;
@@ -108,6 +109,7 @@ public class CIMImporter extends Object {
   HashMap<String,DistConcentricNeutralCable> mapCNCables = new HashMap<>();
   HashMap<String,DistCoordinates> mapCoordinates = new HashMap<>();
   HashMap<String,DistDisconnector> mapDisconnectors = new HashMap<>();
+  HashMap<String,DistEnergyConnectionProfile> mapProfiles = new HashMap<>();
   HashMap<String,DistFeeder> mapFeeders = new HashMap<>();
   HashMap<String,DistFuse> mapFuses = new HashMap<>();
   HashMap<String,DistGroundDisconnector> mapGroundDisconnectors = new HashMap<>();
@@ -196,6 +198,15 @@ public class CIMImporter extends Object {
     while (results.hasNext()) {
       DistSubstation obj = new DistSubstation (results);
       mapSubstations.put (obj.GetKey(), obj);
+    }
+    ((ResultSetCloseable)results).close();
+  }
+
+  void LoadEnergyConnectionProfiles() {
+    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistEnergyConnectionProfile"), "EnergyConnectionProfile");
+    while (results.hasNext()) {
+      DistEnergyConnectionProfile obj = new DistEnergyConnectionProfile (results);
+      mapProfiles.put (obj.GetKey(), obj);
     }
     ((ResultSetCloseable)results).close();
   }
@@ -647,6 +658,7 @@ public class CIMImporter extends Object {
     PrintOneMap (mapIEEE1547Connections, "** IEEE 1547 CONNECTIONS");
     PrintOneMap (mapIEEE1547Signals, "** IEEE 1547 SIGNALS");
     PrintOneMap (mapIEEE1547Used, "** IEEE 1547 USED");
+    PrintOneMap (mapProfiles, "** ENERGY CONNECTION PROFILES");
   }
 
   public void LoadAllMaps() {
@@ -696,6 +708,7 @@ public class CIMImporter extends Object {
     LoadIEEE1547Connections();
     LoadIEEE1547Signals();
     LoadIEEE1547Used();
+    LoadEnergyConnectionProfiles();
 
     MakeSwitchMap();
     MakeLineMap();
@@ -703,6 +716,7 @@ public class CIMImporter extends Object {
     oLimits = new OperationalLimits();
     oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
     allMapsLoaded = true;
+    PrintOneMap (mapProfiles, "** ENERGY CONNECTION PROFILES");
   }
 
   public boolean CheckMaps() {
@@ -1179,7 +1193,8 @@ public class CIMImporter extends Object {
 
   protected void WriteGLMFile (PrintWriter out, double load_scale, boolean bWantSched, String fSched,
       boolean bWantZIP, boolean randomZIP, boolean useHouses, double Zcoeff,
-      double Icoeff, double Pcoeff, boolean bHaveEventGen, boolean bLoadMeters) {
+      double Icoeff, double Pcoeff, boolean bHaveEventGen, boolean bLoadMeters,
+      boolean bUseProfiles, boolean bNameUUID) {
 
     // preparatory steps to build the list of nodes
     ResultSet results = queryHandler.query (
@@ -1260,9 +1275,13 @@ public class CIMImporter extends Object {
     }
     for (HashMap.Entry<String,DistLoad> pair : mapLoads.entrySet()) {
       DistLoad obj = pair.getValue();
+      DistEnergyConnectionProfile prf = mapProfiles.get(obj.id);
       GldNode nd = mapNodes.get (obj.bus);
       nd.nomvln = obj.basev / Math.sqrt(3.0);
       nd.AccumulateLoads (obj.name, obj.phases, obj.conn, obj.p, obj.q, obj.pe, obj.qe, obj.pz, obj.pi, obj.pp, obj.qz, obj.qi, obj.qp, randomZIP);
+      if (prf != null) {
+        nd.AccumulateProfiles (prf.gldPlayer, prf.gldSchedule, prf.gldWeather);
+      }
     }
     for (HashMap.Entry<String,DistCapacitor> pair : mapCapacitors.entrySet()) {
       DistCapacitor obj = pair.getValue();
@@ -1747,7 +1766,8 @@ public class CIMImporter extends Object {
   }
 
   protected void WriteDSSFile (PrintWriter out, PrintWriter outID, String fXY, String fID, double load_scale,
-      boolean bWantSched, String fSched, boolean bWantZIP, double Zcoeff, double Icoeff, double Pcoeff, String fEarth)  {
+      boolean bWantSched, String fSched, boolean bWantZIP, double Zcoeff, double Icoeff, double Pcoeff, String fEarth,
+      boolean bUseProfiles, boolean bNameUUID)  {
 
     out.println ("clear");
     out.println ("set defaultbasefrequency=" + String.valueOf (DistComponent.GetSystemFrequency()));
@@ -1822,7 +1842,8 @@ public class CIMImporter extends Object {
     }
     if (mapLoads.size() > 0) out.println();
     for (HashMap.Entry<String,DistLoad> pair : mapLoads.entrySet()) {
-      out.print (pair.getValue().GetDSS());
+      DistEnergyConnectionProfile prf = mapProfiles.get(pair.getValue().id);
+      out.print (pair.getValue().GetDSS(prf));
       outID.println ("Load." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapLoadBreakSwitches.size() > 0) out.println();
@@ -2213,9 +2234,9 @@ public class CIMImporter extends Object {
   public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, 
       String fSched, double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP, 
       boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, boolean bHaveEventGen, ModelState ms, 
-      boolean bTiming, String fEarth, boolean bLoadMeters) throws FileNotFoundException{
+      boolean bTiming, String fEarth, boolean bLoadMeters,boolean bUseProfiles, boolean bNameUUID) throws FileNotFoundException{
     start(queryHandler, querySetter, fTarget, fRoot, fSched, load_scale, bWantSched, bWantZIP, randomZIP, useHouses,
-        Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming, fEarth, bLoadMeters);
+        Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming, fEarth, bLoadMeters, bUseProfiles, bNameUUID);
   }
 
 
@@ -2243,7 +2264,11 @@ public class CIMImporter extends Object {
    * @param ms used only for testing switch operations
    * @param bTiming true for logging SPARQL query times
    * @param fEarth Deri, Carson, FullCarson for OpenDSS
-   * @param bLoadMeters true for metering each GridLAB-D load
+   * @param bLoadMeters true for metering each GridLAB-D load 
+   *                    (cannot be implemented due to grandkids)
+   * @param bUseProfiles true to use players, schedules and shapes 
+   * @param bNameUUID true to write UUID instead of name 
+   *                  identifiers
    * @throws FileNotFoundException may occur if a file cannot be 
    *                               opened in the specified
    *                               directory for writing
@@ -2251,7 +2276,7 @@ public class CIMImporter extends Object {
   public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, String fSched,
       double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP,
       boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, int maxMeasurements, boolean bHaveEventGen, 
-      ModelState ms, boolean bTiming, String fEarth, boolean bLoadMeters) throws FileNotFoundException{
+      ModelState ms, boolean bTiming, String fEarth, boolean bLoadMeters, boolean bUseProfiles, boolean bNameUUID) throws FileNotFoundException{
 
     this.queryHandler = queryHandler;
     this.querySetter = querySetter;
@@ -2267,7 +2292,8 @@ public class CIMImporter extends Object {
       fOut = fRoot + "_base.glm";
       fXY = fRoot + "_symbols.json";
       PrintWriter pOut = new PrintWriter(fOut);
-      WriteGLMFile(pOut, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, bHaveEventGen, bLoadMeters);
+      WriteGLMFile(pOut, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, 
+                   bHaveEventGen, bLoadMeters, bUseProfiles, bNameUUID);
       PrintWriter pXY = new PrintWriter(fXY);
       WriteJSONSymbolFile (pXY);
       PrintWriter pDict = new PrintWriter(fDict);
@@ -2287,7 +2313,7 @@ public class CIMImporter extends Object {
       fID = fRoot + "_uuid.dss";
       PrintWriter pOut = new PrintWriter(fOut);
       PrintWriter pID = new PrintWriter(fID);
-      WriteDSSFile (pOut, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, fEarth);
+      WriteDSSFile (pOut, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, fEarth, bUseProfiles, bNameUUID);
       PrintWriter pXY = new PrintWriter(fXY);
       WriteDSSCoordinates (pXY);
       PrintWriter pSym = new PrintWriter (fRoot + "_symbols.json");
@@ -2311,7 +2337,7 @@ public class CIMImporter extends Object {
       fID = fRoot + "_uuid.dss";
       PrintWriter pDss = new PrintWriter(fRoot + "_base.dss");
       PrintWriter pID = new PrintWriter(fID);
-      WriteDSSFile (pDss, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, fEarth);
+      WriteDSSFile (pDss, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, fEarth, bUseProfiles, bNameUUID);
       long t6 = System.nanoTime();
       PrintWriter pXY = new PrintWriter(fXY);
       WriteDSSCoordinates (pXY);
@@ -2319,7 +2345,7 @@ public class CIMImporter extends Object {
       // write GridLAB-D and the dictionaries to match GridLAB-D
       PrintWriter pGld = new PrintWriter(fRoot + "_base.glm");
       WriteGLMFile(pGld, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, 
-                   Icoeff, Pcoeff, bHaveEventGen, bLoadMeters);
+                   Icoeff, Pcoeff, bHaveEventGen, bLoadMeters, bUseProfiles, bNameUUID);
       long t8 = System.nanoTime();
       PrintWriter pSym = new PrintWriter(fRoot + "_symbols.json");
       WriteJSONSymbolFile (pSym);
@@ -2467,12 +2493,16 @@ public class CIMImporter extends Object {
    *                      it's own fault_check and eventgen
    *                      objects for electrical islands
    * @param bLoadMeters true for metering each GridLAB-D load
+   * @param bUseProfiles true to use players, schedules and shapes 
+   * @param bNameUUID true to write UUID instead of name 
+   *                  identifiers
    */
   public void generateGLMFile(QueryHandler queryHandler, CIMQuerySetter querySetter, 
       PrintWriter out, String fSched,
       double load_scale, boolean bWantSched, boolean bWantZIP,
       boolean randomZIP, boolean useHouses, double Zcoeff,
-      double Icoeff, double Pcoeff, boolean bHaveEventGen, boolean bLoadMeters) {
+      double Icoeff, double Pcoeff, boolean bHaveEventGen, boolean bLoadMeters,
+      boolean bUseProfiles, boolean bNameUUID) {
     this.queryHandler = queryHandler;
     if(this.querySetter==null) {
       this.querySetter = querySetter;
@@ -2483,7 +2513,8 @@ public class CIMImporter extends Object {
     CheckMaps();
     ApplyCurrentLimits();
     WriteGLMFile (out, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, 
-                  Zcoeff, Icoeff, Pcoeff, bHaveEventGen, bLoadMeters);
+                  Zcoeff, Icoeff, Pcoeff, bHaveEventGen, bLoadMeters,
+                  bUseProfiles, bNameUUID);
   }
 
   /**
@@ -2549,11 +2580,14 @@ public class CIMImporter extends Object {
    * @param Zcoeff fixed portion of constant-impedance load
    * @param Icoeff fixed portion of constant-current load
    * @param Pcoeff fixed portion of constant-power load
-   * @param fEarth Deri, Carson, FullCarson for OpenDSS
+   * @param fEarth Deri, Carson, FullCarson for OpenDSS 
+   * @param bUseProfiles true to use players, schedules and shapes 
+   * @param bNameUUID true to write UUID instead of name 
+   *                  identifiers
    */
   public void generateDSSFile(QueryHandler queryHandler, PrintWriter out, PrintWriter outID, String fXY, String fID,
       double load_scale, boolean bWantSched, String fSched, boolean bWantZIP,
-      double Zcoeff, double Icoeff, double Pcoeff, String fEarth){
+      double Zcoeff, double Icoeff, double Pcoeff, String fEarth, boolean bUseProfiles, boolean bNameUUID){
     this.queryHandler = queryHandler;
     if(this.querySetter==null) {
       this.querySetter=new CIMQuerySetter();
@@ -2563,7 +2597,8 @@ public class CIMImporter extends Object {
     }
     CheckMaps();
     ApplyCurrentLimits();
-    WriteDSSFile(out, outID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, fEarth);
+    WriteDSSFile(out, outID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, 
+                 fEarth, bUseProfiles, bNameUUID);
   }
 
   /**
@@ -2607,6 +2642,8 @@ public class CIMImporter extends Object {
     boolean bTiming = false;
     boolean bReadSPARQL = false;
     boolean bLoadMeters = false;
+    boolean bUseProfiles = false;
+    boolean bNameUUID = false;
     String fSched = "";
     String fTarget = "dss";
     String feeder_mRID = "";
@@ -2631,6 +2668,8 @@ public class CIMImporter extends Object {
       System.out.println ("       -h={0, 1}          // determine if house load objects should be added to the model or not");
       System.out.println ("       -x={0, 1}          // indicate whether for glm, the model will be called with a fault_check already created");
       System.out.println ("       -t={0, 1}          // request timing of top-level methods and SPARQL queries, requires -o=both for methods");
+      System.out.println ("       -a={0, 1}          // (advanced) use of EnergyConnectionProfile class (default 0)");
+      System.out.println ("       -d={0, 1}          // (advanced) use of mRID instead of name to identify simulator objects");
       System.out.println ("       -u={http://localhost:8889/bigdata/namespace/kb/sparql} // blazegraph uri (if connecting over HTTP); defaults to http://localhost:8889/bigdata/namespace/kb/sparql");
 
       System.out.println ("Example 1: java CIMImporter -l=1 -i=1 -n=zipload_schedule ieee8500");
@@ -2698,6 +2737,10 @@ public class CIMImporter extends Object {
           bReadSPARQL = true;
         } else if (opt == 'e') {
           fEarth = optVal.toLowerCase();
+        } else if (opt == 'a' && Integer.parseInt(optVal) == 1) {
+          bUseProfiles = true;
+        } else if (opt == 'd' && Integer.parseInt(optVal) == 1) {
+          bNameUUID = true;
         }
       } else {
         if (fTarget.equals("glm")) {
@@ -2738,7 +2781,8 @@ public class CIMImporter extends Object {
 
       new CIMImporter().start(qh, qs, fTarget, fRoot, fSched, load_scale,
           bWantSched, bWantZIP, randomZIP, useHouses,
-          Zcoeff, Icoeff, Pcoeff, bHaveEventGen, ms, bTiming, fEarth, bLoadMeters);
+          Zcoeff, Icoeff, Pcoeff, bHaveEventGen, ms, bTiming, fEarth, bLoadMeters,
+          bUseProfiles, bNameUUID);
     } catch (RuntimeException e) {
       System.out.println ("Can not produce a model: " + e.getMessage());
       e.printStackTrace();

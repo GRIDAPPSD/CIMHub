@@ -337,6 +337,34 @@ public class CIMQuerySetter extends Object {
 			"   bind(strafter(str(?useraw),\"WireUsageKind.\") as ?usage)"+
 			"} ORDER BY ?name ?seq");
 
+    mapQueries.put ("DistEnergyConnectionProfile",
+      "SELECT ?name ?id ?ldid ?ldname ?dssDaily ?dssDuty ?dssLoadCvrCurve ?dssLoadGrowth"+
+      " ?dssPVTDaily ?dssPVTDuty ?dssPVTYearly ?dssSpectrum ?dssYearly"+
+      " ?gldPlayer ?gldSchedule ?gldWeather WHERE {"+
+      " ?s r:type c:EnergyConnectionProfile."+
+      " ?ld c:Equipment.EquipmentContainer ?fdr."+
+      " ?ld r:type c:EnergyConsumer."+
+      " ?ld c:IdentifiedObject.mRID ?ldid."+
+      " ?ld c:IdentifiedObject.name ?ldname."+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?ecp c:IdentifiedObject.name ?name."+
+      " ?ecp c:IdentifiedObject.mRID ?id."+
+      " ?ecp c:EnergyConnectionProfile.EnergyConsumer ?ld."+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssDaily ?dssDaily.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssDuty ?dssDuty.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadCvrCurve ?dssLoadCvrCurve.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadGrowth ?dssLoadGrowth.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTDaily ?dssPVTDaily.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTDuty ?dssPVTDuty.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTYearly ?dssPVTYearly.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssSpectrum ?dssSpectrum.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssYearly ?dssYearly.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.gldPlayer ?gldPlayer.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.gldSchedule ?gldSchedule.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.gldWeather ?gldWeather.}"+
+      "}"+
+      "ORDER by ?name ?ldname");
+
 		mapQueries.put ("DistLoad",
 			"SELECT ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid ?t1id "+
 			"(group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+

@@ -145,7 +145,14 @@ public class GldNode {
   * transformer or triplex. 
   */ 
 
-  public boolean bSecondary; 
+  public boolean bSecondary;
+  
+  public boolean bPlayer;
+  public boolean bSchedule;
+  public boolean bWeather;
+  public String gldPlayer;
+  public String gldSchedule;
+  public String gldWeather;
 
   /** constructor defaults to zero load and zero phases present
    *  @param name CIM name of the bus */
@@ -168,6 +175,9 @@ public class GldNode {
     bStorageInverters = false;
     bSyncMachines = false;
     bTertiaryWinding = false;
+    bPlayer = false;
+    bSchedule = false;
+    bWeather = false;
   }
 
   public double TotalLoadRealPower() {
@@ -193,7 +203,9 @@ public class GldNode {
     buf.append (" bTert=" + Boolean.toString(bTertiaryWinding));
     buf.append (" bPV=" + Boolean.toString(bSolarInverters));
     buf.append (" bBat=" + Boolean.toString(bStorageInverters));
-    buf.append (" bMach=" + Boolean.toString(bSyncMachines));
+    if (bPlayer) buf.append (" player=" + gldPlayer);
+    if (bSchedule) buf.append (" schedule=" + gldSchedule);
+    if (bWeather) buf.append (" weather=" + gldWeather);
     return buf.toString();
   }
 
@@ -234,6 +246,21 @@ public class GldNode {
     return phases + "N";
   }
 
+  public void AccumulateProfiles (String gldPlayer, String gldSchedule, String gldWeather) {
+    if (gldPlayer.length() > 0) {
+      bPlayer = true;
+      this.gldPlayer = gldPlayer;
+    }
+    if (gldSchedule.length() > 0) {
+      bSchedule = true;
+      this.gldSchedule = gldSchedule;
+    }
+    if (gldWeather.length() > 0) {
+      bWeather = true;
+      this.gldWeather = gldWeather;
+    }
+  }
+
   /** Distributes a total load (pL+jqL) among the phases (phs) present on GridLAB-D node
   @param phs phases actually present at the node 
   @param pL total real power 
@@ -249,6 +276,7 @@ public class GldNode {
   @param ldname name of the load to prepend with ld_ 
   @param conn D for delta, otherwise wye 
   @param randomZIP true to randomize the ZIP coefficients  */ 
+
   public void AccumulateLoads (String ldname, String phs, String conn, double pL, double qL, double Pv, double Qv,
                                double Pz, double Pi, double Pp, double Qz, double Qi, double Qp, boolean randomZIP) {
     double fa = 0.0, fb = 0.0, fc = 0.0, fs1 = 0.0, fs2 = 0.0, fs12 = 0.0, denom = 0.0;
@@ -622,6 +650,10 @@ public class GldNode {
       }
       if (bWantSched) {
         buf.append ("  base_power_" + phs + " " + fSched + ".value*" + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
+      } else if (bSchedule) {
+        buf.append ("  base_power_" + phs + " " + gldSchedule + "*" + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
+      } else if (bPlayer) {
+        buf.append ("  base_power_" + phs + " " + gldPlayer + ".value*" + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
       } else {
         buf.append ("  base_power_" + phs + " " + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
       }

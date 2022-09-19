@@ -110,7 +110,7 @@ public class DistLoad extends DistComponent {
 		 + "," + df4.format(qi) + "," + df4.format(qp) + ",0.8]";
 	}
 
-	public String GetDSS() {
+	public String GetDSS (DistEnergyConnectionProfile prf) {
 		StringBuilder buf = new StringBuilder ("new Load." + name);
 
 		SetDSSLoadModel();
@@ -136,7 +136,12 @@ public class DistLoad extends DistComponent {
 		if (dss_load_model == 8) {
 			buf.append (" zipv=" + GetZIPV());
 		}
-		buf.append("\n");
+    if (prf != null) {
+      if (prf.dssDaily.length() > 0) {
+        buf.append (" daily=" + prf.dssDaily);
+      }
+    }
+    buf.append("\n");
 
 		return buf.toString();
 	}
