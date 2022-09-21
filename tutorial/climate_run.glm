@@ -32,8 +32,10 @@ object climate {
 
 module residential;
 #include "../support/appliance_schedules.glm";
+#include "../support/commercial_schedules.glm";
 #define VSOURCE=2401.78
-#include "glm/ieee123houseder_base.glm";
+// #include "glm/ieee123houseder_base.glm";
+#include "both/ieee123ecp_base.glm";
 #ifdef WANT_VI_DUMP
 object voltdump {
   filename climate_volt.csv;
