@@ -59,6 +59,8 @@ public class DistRegulator extends DistComponent {
 
   public String pxfid;
 
+  private String key;
+
   private void AddJSONDoubleArray (StringBuilder buf, String tag, double[] vals) {
     buf.append (",\"" + tag + "\":[");
     for (int i = 0; i < size; i++) {
@@ -261,8 +263,9 @@ public class DistRegulator extends DistComponent {
         buf.append (orderedPhases[i].replace("N","").replace("s", "").replace("1","").replace("2",""));
       }
       bankphases = buf.toString();
+      key = pname + ":" + Integer.toString(wnum[0]);
     }
-//        System.out.println (DisplayString());     
+//    System.out.println (DisplayString());     
   }
 
   public String DisplayString() {
@@ -484,7 +487,7 @@ public class DistRegulator extends DistComponent {
   }
 
   public String GetKey() {
-    return pname;
+    return key;
   }
 }
 

@@ -43,9 +43,10 @@ Transformer.Xf6c_1	7b64bf60-8239-4004-86fd-f90c4a9857ac
 Transformer.Xf5_2	6d7e47bf-a7d6-4201-8e22-d81aa8a6c5cd
 Transformer.Xf6b_1	f69f5c1b-35d2-47b3-b9c4-6467a7d759ef
 Transformer.Xf5_1	0735eb28-7457-4d85-8a0e-303bc5a72a48
-RegControl.rtc_Xf3_1_3	547f45b7-b8b2-4605-b34a-b5775d00fa64
-RegControl.rtc_Xf2_1_1	386360c6-9470-464a-be80-fd5802dfd306
 RegControl.rtc_Xf5_1	58a2dee3-37cd-4ed9-9b66-991060a6f84f
 RegControl.rtc_Xf5_2	ff9fe1e9-f25e-4582-8f6e-63924ff5ff41
 RegControl.rtc_Xf5_3	dabb4e8f-de28-421e-83a1-4441eb66a3eb
+RegControl.rtc_Xf3_1_3	547f45b7-b8b2-4605-b34a-b5775d00fa64
+RegControl.rtc_Xf3_1_2	a51496ed-fa0b-40c8-b3c1-90f1490162a9
+RegControl.rtc_Xf2_1_1	386360c6-9470-464a-be80-fd5802dfd306
 Capacitor.Cap_A1	1fb03597-4505-44a3-8a91-673a08a2d935

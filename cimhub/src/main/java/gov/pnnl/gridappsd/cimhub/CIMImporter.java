@@ -716,7 +716,8 @@ public class CIMImporter extends Object {
     oLimits = new OperationalLimits();
     oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
     allMapsLoaded = true;
-    PrintOneMap (mapProfiles, "** ENERGY CONNECTION PROFILES");
+//    PrintOneMap (mapRegulators, "** REGULATORS");
+//    PrintOneMap (mapProfiles, "** ENERGY CONNECTION PROFILES");
   }
 
   public boolean CheckMaps() {

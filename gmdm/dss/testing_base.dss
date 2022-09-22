@@ -129,16 +129,18 @@ new Transformer.Xf5_1 bank=Xf5 xfmrcode=2E_7200/7200_01
 ~ wdg=1 bus=f.1
 ~ wdg=2 bus=f1.1
 
-new RegControl.rtc_Xf3_1_3 transformer=Xf3_1 winding=3 TapNum=0 vreg=7200.00 band=180.00 ptratio=1.00 vlimit=7632.00 ptphase=2
-edit transformer.Xf3_1 wdg=3 tap=1.000000
-new RegControl.rtc_Xf2_1_1 transformer=Xf2_1 winding=1 TapNum=0
-edit transformer.Xf2_1 wdg=1 tap=1.000000
 new RegControl.rtc_Xf5_1 transformer=Xf5_1 winding=2 TapNum=0 vreg=120.00 band=3.00 ptratio=60.00 ctprim=100.00 delay=15.00 tapdelay=2.00 vlimit=127.00
 edit transformer.Xf5_1 wdg=2 tap=1.000000
 new RegControl.rtc_Xf5_2 transformer=Xf5_2 winding=2 TapNum=0 vreg=120.00 band=3.00 ptratio=60.00 ctprim=100.00 delay=15.00 tapdelay=2.00 vlimit=127.00
 edit transformer.Xf5_2 wdg=2 tap=1.000000
 new RegControl.rtc_Xf5_3 transformer=Xf5_3 winding=2 TapNum=0 vreg=120.00 band=3.00 ptratio=60.00 ctprim=100.00 delay=15.00 tapdelay=2.00 vlimit=127.00
 edit transformer.Xf5_3 wdg=2 tap=1.000000
+new RegControl.rtc_Xf3_1_3 transformer=Xf3_1 winding=3 TapNum=0 vreg=7200.00 band=180.00 ptratio=1.00 vlimit=7632.00 ptphase=2
+edit transformer.Xf3_1 wdg=3 tap=1.000000
+new RegControl.rtc_Xf3_1_2 transformer=Xf3_1 winding=2 TapNum=0 vreg=7200.00 band=180.00 ptratio=1.00 vlimit=7632.00 ptphase=2
+edit transformer.Xf3_1 wdg=2 tap=1.000000
+new RegControl.rtc_Xf2_1_1 transformer=Xf2_1 winding=1 TapNum=0
+edit transformer.Xf2_1 wdg=1 tap=1.000000
 
 new Capacitor.Cap_A1 phases=3 bus1=i1.1.3.2 conn=w kv=12.47 kvar=622.00 states=[1]
 new CapControl.Cap_A1 capacitor=Cap_A1 type=voltage on=7050.00 off=7350.00 delay=20.00 delayoff=20.00 element=capacitor.Cap_A1 terminal=1 ptratio=1 ptphase=3
