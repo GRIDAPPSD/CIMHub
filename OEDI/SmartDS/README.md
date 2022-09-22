@@ -6,17 +6,17 @@ Copyright (c) 2017-2022, Battelle Memorial Institute
 
 Changes to model as downloaded, to solve in OpenDSS 9.4.1.2 and OpenDSSCmd 1.7.5:
 
-1. Comment out yearly loadshape attributes in Loads.dss
-2. Comment out yearly loadshape attributes in PVSystems.dss
-3. Change kvarlimit to kvarmax in PVSystems.dss
-    a. Todo: set kvarmaxabs=kvarmax on each?
-4. Comment out the Loadshapes in Master.dss
-5. Disable inverter controls
-    a. batchedit invcontrol..* enabled=no
-    b. This was necessary for convergence
-6. Specify phases=2 on 926 PVSystems that had phases=1, phasing .1.2, kV=0.240
-    a. The default conn=wye was incorrect on phases=1, phasing .1.2
-    b. Tried to specify conn=d on these 926 PVSystems, keeping phases=1, but solution did not converge. Maybe one of these PVSystems doesn't have a parallel load to provide ground reference?
+- Comment out yearly loadshape attributes in Loads.dss
+- Comment out yearly loadshape attributes in PVSystems.dss
+- Change kvarlimit to kvarmax in PVSystems.dss
+    * Todo: set kvarmaxabs=kvarmax on each?
+- Comment out the Loadshapes in Master.dss
+- Disable inverter controls
+    * batchedit invcontrol..* enabled=no
+    * This was necessary for convergence
+- Specify phases=2 on 926 PVSystems that had phases=1, phasing .1.2, kV=0.240
+    * The default conn=wye was incorrect on phases=1, phasing .1.2
+    * Tried to specify conn=d on these 926 PVSystems, keeping phases=1, but solution did not converge. Maybe one of these PVSystems doesn't have a parallel load to provide ground reference?
 
 ```
   OpenDSS branch flow in LINE.L(R:P9UDT12866-P9UHS16_1247) from P9UDT12866-P9UHS16_1247X, Base case
