@@ -37,32 +37,32 @@ cases = [
 
 froot = cases[0]['root']
 
-## create the CIM XML and base case solution from GridAPPS-D's model
+# create the CIM XML and base case solution from GridAPPS-D's model
 #os.chdir(casepath)
 #p1 = subprocess.Popen ('opendsscmd convert_smartds.dss', shell=True)
 #p1.wait()
-#
-## upload the CIM XML file to Blazegraph
+
+# upload the CIM XML file to Blazegraph
 #os.chdir(casepath)
 #cimhub.clear_db ()
 #cmd = 'curl -D- -H "Content-Type: application/xml" --upload-file {:s}.xml -X POST '.format (froot) + CIMHubConfig.blazegraph_url
 #os.system (cmd)
 #cimhub.list_feeders ()
-#
-## create the OpenDSS, GridLAB-D and CSV versions
+
+# create the OpenDSS, GridLAB-D and CSV versions
 #os.chdir(casepath)
 #cimhub.make_export_script (shfile_export, cases, dsspath='dss/', glmpath='glm/', csvpath='csv/')
 #st = os.stat (shfile_export)
 #os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 #p1 = subprocess.call (shfile_export, shell=True)
-#
-## run some load flow comparisons
+
+# run some load flow comparisons
 #os.chdir(casepath)
 #cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss')
 #os.chdir('./dss')
 #p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
 #p1.wait()
-#
+
 #os.chdir(casepath)
 #cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', scriptname=shfile_glm, movefiles=False)
 #st = os.stat (shfile_glm)
