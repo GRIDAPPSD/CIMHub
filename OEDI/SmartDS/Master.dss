@@ -13,7 +13,8 @@ new monitor.m1 element=Line.l(r:p9udt12866-p9uhs16_1247) mode=0
 new monitor.m2 element=Line.l(r:p9udt12866-p9uhs16_1247) mode=1
 new energymeter.m3 Line.l(r:p9udt12866-p9uhs16_1247)
 
-Set Voltagebases=[0.12, 0.208, 0.24, 0.48, 7.2, 12.47]
+//Set Voltagebases=[0.12, 0.208, 0.24, 0.48, 7.2, 12.47]
+Set Voltagebases=[0.208, 0.480, 12.47]
 
 Calcvoltagebases
 
@@ -21,6 +22,7 @@ Buscoords Buscoords.dss
 set maxcontroliter=50
 
 batchedit invcontrol..* enabled=no
+//batchedit pvsystem..* enabled=no
 //batchedit capcontrol..* enabled=no
 
 //set loadmult=0.1

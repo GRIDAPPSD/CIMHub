@@ -118,8 +118,8 @@ public abstract class DistComponent {
     s = s.replace (']', '_');
     s = s.replace ('{', '_');
     s = s.replace ('}', '_');
-    s = s.replace ('(', '_');
-    s = s.replace (')', '_');
+//    s = s.replace ('(', '_');
+//    s = s.replace (')', '_');
     return s;
   }
 
@@ -140,6 +140,7 @@ public abstract class DistComponent {
     if (t.equals("ACLineSegment")) return "line"; // assumes we prefix both overhead and underground with line_
     if (t.equals("EnergyConsumer")) return "";  // TODO should we name load:?
     if (t.equals("PowerTransformer")) return "xf";
+    if (t.equals("LoadBreakSwitch")) return "swt";
     return "##UNKNOWN##";
   }
 
@@ -148,6 +149,7 @@ public abstract class DistComponent {
     if (t.equals("ACLineSegment")) return "line";
     if (t.equals("EnergyConsumer")) return "load";
     if (t.equals("PowerTransformer")) return "transformer";
+    if (t.equals("LoadBreakSwitch")) return "line";
     return "##UNKNOWN##";
   }
 
