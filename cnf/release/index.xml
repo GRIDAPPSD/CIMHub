@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<repository increment="1660940483776" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="0011c7c51ab55bb167fa7f165128483eda85511ee8dc581f60c2d4e0c47bc3db"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-0.0.1.jar"/>
+      <attribute name="size" type="Long" value="414"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.0.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.0.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.0.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.0.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.ggridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.0.1"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.1.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="cbd3b91d57a80b4502047d5b3b8b1a36d08f4b393a9f6a39e2e468507fef4e7a"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-0.1.0.jar"/>
+      <attribute name="size" type="Long" value="300071"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.1.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.1.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.1.0"/>
+      <directive name="uses" value="org.apache.jena.query"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.1.0"/>
+      <directive name="uses" value="gov.pnnl.gridappsd.cimhub.dto,gov.pnnl.gridappsd.cimhub.queryhandler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.ggridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.1.0"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.1.0"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=gov.pnnl.gridappsd.cimhub.dto)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.commons.math3.complex)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.jena.query)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.jena.rdf.model)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.2.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="1dfc0210ecd13f4c2cedfa66f6a11d5288734b27699a8eb58db36d4c78f03445"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-0.2.0.jar"/>
+      <attribute name="size" type="Long" value="304859"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.0"/>
+      <directive name="uses" value="org.apache.jena.query"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.0"/>
+      <directive name="uses" value="gov.pnnl.gridappsd.cimhub.dto,gov.pnnl.gridappsd.cimhub.queryhandler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.0"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=gov.pnnl.gridappsd.cimhub.dto)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.commons.math3.complex)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.jena.query)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.jena.rdf.model)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.2.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="8361c454153e0c9e3b58d4964383c942efaceaaab1ca0d5da452b171986d93f2"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-0.2.1.jar"/>
+      <attribute name="size" type="Long" value="304957"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.1"/>
+      <directive name="uses" value="org.apache.jena.query"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.1"/>
+      <directive name="uses" value="gov.pnnl.gridappsd.cimhub.dto,gov.pnnl.gridappsd.cimhub.queryhandler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.1"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=gov.pnnl.gridappsd.cimhub.dto)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.commons.math3.complex)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.jena.query)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.jena.rdf.model)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.2.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="3bee64816402c3ccbeb5bc32c1e575623b7e5f23a64a0250be9783251c8c31fa"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-0.2.2.jar"/>
+      <attribute name="size" type="Long" value="304981"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.2"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.2"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.2"/>
+      <directive name="uses" value="org.apache.jena.query"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.2"/>
+      <directive name="uses" value="gov.pnnl.gridappsd.cimhub.dto,gov.pnnl.gridappsd.cimhub.queryhandler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.2"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=gov.pnnl.gridappsd.cimhub.dto)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.commons.math3.complex)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.jena.query)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.apache.jena.rdf.model)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.2.3"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="05b801f78f82d171a9dba7f50dd43cbf903eabdac262085168812c92234148c0"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-0.2.3.jar"/>
+      <attribute name="size" type="Long" value="193416"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.3"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.2.3"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.3"/>
+      <directive name="uses" value="org.apache.jena.query"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="0.2.3"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.3"/>
+      <directive name="uses" value="gov.pnnl.gridappsd.cimhub.dto,gov.pnnl.gridappsd.cimhub.queryhandler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.2.3"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.3"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=gov.pnnl.gridappsd.cimhub.dto)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.math3.complex)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.jena.query)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.jena.rdf.model)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.2.4"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="0bc4def6a1a8bd29914f06f526455af1b57c6136727cd1622ac6faa9dd07029a"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-0.2.4.jar"/>
+      <attribute name="size" type="Long" value="305043"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.4"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.4"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.4"/>
+      <directive name="uses" value="org.apache.jena.query"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.4"/>
+      <directive name="uses" value="gov.pnnl.gridappsd.cimhub.dto,gov.pnnl.gridappsd.cimhub.queryhandler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="0.2.4"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=gov.pnnl.gridappsd.cimhub.dto)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.math3.complex)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.jena.query)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.jena.rdf.model)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="1721e467cb0016ca3ba62d3b75c629e8ad65204f4183ffd70df12655e37e0703"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="305438"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.2.3"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0"/>
+      <directive name="uses" value="org.apache.jena.query"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="0.2.3"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0"/>
+      <directive name="uses" value="gov.pnnl.gridappsd.cimhub.dto,gov.pnnl.gridappsd.cimhub.queryhandler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.2.3"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=gov.pnnl.gridappsd.cimhub.dto)(version&gt;=0.2.0)(!(version&gt;=1.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.math3.complex)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.jena.query)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.jena.rdf.model)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="cimhub.lib"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="c7338be833eccc62667d901e382cd22ef8e677faffd814e0b3af1023d2838ee5"/>
+      <attribute name="url" value="cimhub.lib/cimhub.lib-1.0.1.jar"/>
+      <attribute name="size" type="Long" value="307000"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.queryhandler"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1"/>
+      <directive name="uses" value="org.apache.jena.query"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1"/>
+      <directive name="uses" value="gov.pnnl.gridappsd.cimhub.dto,gov.pnnl.gridappsd.cimhub.queryhandler"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="gov.pnnl.gridappsd.cimhub.dto"/>
+      <attribute name="version" type="Version" value="0.0.1"/>
+      <attribute name="bundle-symbolic-name" value="cimhub.lib"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=gov.pnnl.gridappsd.cimhub.dto)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.math3.complex)(version&gt;=3.6.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.jena.query)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.jena.rdf.model)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+</repository>
