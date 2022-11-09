@@ -94,35 +94,36 @@ for b in ret.bindings:
 
 #################### regulators
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?wnum ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
- SELECT ?name ?wnum ?bus ?phs ?eqid ?trmid WHERE { """ + fidselect + """
+qstr = CIMHubConfig.prefix + """ SELECT ?name ?bus ?tname ?wnum ?phases ?eqid ?trmid ?fdrid { """ + fidselect + """
  ?rtc r:type c:RatioTapChanger.
  ?rtc c:IdentifiedObject.name ?rname.
- ?rtc c:IdentifiedObject.mRID ?rtcid.
  ?rtc c:RatioTapChanger.TransformerEnd ?end.
  ?end c:TransformerEnd.endNumber ?wnum.
  ?end c:TransformerEnd.Terminal ?trm.
- ?trm c:IdentifiedObject.mRID ?trmid. 
  ?trm c:Terminal.ConnectivityNode ?cn. 
  ?cn c:IdentifiedObject.name ?bus.
+ ?trm c:IdentifiedObject.mRID ?trmid. 
+ {?end c:PowerTransformerEnd.PowerTransformer ?s.}
+ UNION
+ {?end c:TransformerTankEnd.TransformerTank ?tank.
+ ?tank c:IdentifiedObject.name ?tname.
  OPTIONAL {?end c:TransformerTankEnd.phases ?phsraw.
-  bind(strafter(str(?phsraw),"PhaseCode.") as ?phs)}
- ?end c:TransformerTankEnd.TransformerTank ?tank.
- ?tank c:TransformerTank.PowerTransformer ?s.
+ bind(strafter(str(?phsraw),"PhaseCode.") as ?phases)}
+ ?tank c:TransformerTank.PowerTransformer ?s.}
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?eqid.
- ?tank c:IdentifiedObject.name ?tname.
- } ORDER BY ?name ?phs
 }
-GROUP BY ?name ?wnum ?bus ?eqid ?trmid
-ORDER BY ?name
+ORDER BY ?pname ?tname ?rname ?wnum
 """
 #print (qstr)
 sparql.setQuery(qstr)
 ret = sparql.query()
 #print ('\nRatioTapChanger binding keys are:',ret.variables)
 for b in ret.bindings:
-  phases = FlatPhases (b['phases'].value)
+  if 'phases' in b: # was OPTIONAL in the query
+    phases = FlatPhases (b['phases'].value)
+  else:
+    phases = FlatPhases ('ABC')
   for phs in phases:
     print ('PowerTransformer','RatioTapChanger',b['name'].value,b['wnum'].value,b['bus'].value,phs,b['eqid'].value,b['trmid'].value,file=op)
 
