@@ -1,8 +1,8 @@
 package gov.pnnl.gridappsd.cimhub.components;
-//	----------------------------------------------------------
-//	Copyright (c) 2017-2022, Battelle Memorial Institute
-//	All rights reserved.
-//	----------------------------------------------------------
+//  ----------------------------------------------------------
+//  Copyright (c) 2017-2022, Battelle Memorial Institute
+//  All rights reserved.
+//  ----------------------------------------------------------
 
 import org.apache.jena.query.*;
 import org.apache.commons.math3.complex.Complex;
@@ -17,51 +17,51 @@ public class DistSeriesCompensator extends DistComponent {
   public String t1id;
   public String t2id;
   public double basev;
-	public double r1; 
-	public double x1; 
-	public double r0; 
-	public double x0; 
+  public double r1; 
+  public double x1; 
+  public double r0; 
+  public double x0; 
 
   public double normalCurrentLimit = 0.0;
   public double emergencyCurrentLimit = 0.0;
 
-	public String GetJSONEntry () {
-		StringBuilder buf = new StringBuilder ();
+  public String GetJSONEntry () {
+    StringBuilder buf = new StringBuilder ();
 
-		buf.append ("{\"name\":\"" + name +"\"");
-		buf.append (",\"mRID\":\"" + id +"\"");
-		buf.append ("}");
-		return buf.toString();
-	}
+    buf.append ("{\"name\":\"" + name +"\"");
+    buf.append (",\"mRID\":\"" + id +"\"");
+    buf.append ("}");
+    return buf.toString();
+  }
 
-	public DistSeriesCompensator (ResultSet results) {
-		if (results.hasNext()) {
-			QuerySolution soln = results.next();
-			name = SafeName (soln.get("?name").toString());
-			id = soln.get("?id").toString();
+  public DistSeriesCompensator (ResultSet results) {
+    if (results.hasNext()) {
+      QuerySolution soln = results.next();
+      name = SafeName (soln.get("?name").toString());
+      id = soln.get("?id").toString();
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
-			bus1 = SafeName (soln.get("?bus1").toString()); 
-			bus2 = SafeName (soln.get("?bus2").toString()); 
-			phases = "ABC";
-			basev = Double.parseDouble (soln.get("?basev").toString());
-			r1 = Double.parseDouble (soln.get("?r").toString());
-			x1 = Double.parseDouble (soln.get("?x").toString());
-			r0 = OptionalDouble (soln, "?r0", 0.0);
-			x0 = OptionalDouble (soln, "?x0", 0.0);
-		}		
-	}
+      bus1 = SafeName (soln.get("?bus1").toString()); 
+      bus2 = SafeName (soln.get("?bus2").toString()); 
+      phases = "ABC";
+      basev = Double.parseDouble (soln.get("?basev").toString());
+      r1 = Double.parseDouble (soln.get("?r").toString());
+      x1 = Double.parseDouble (soln.get("?x").toString());
+      r0 = OptionalDouble (soln, "?r0", 0.0);
+      x0 = OptionalDouble (soln, "?x0", 0.0);
+    }   
+  }
 
-	public String DisplayString() {
-		StringBuilder buf = new StringBuilder ("");
-		buf.append (name + " from " + bus1 + " to " + bus2 + " phases=" + phases + " basev=" + df4.format(basev));
-		buf.append (" r1=" + df4.format(r1) + " x1=" + df4.format(x1));
-		buf.append (" r0=" + df4.format(r0) + " x0=" + df4.format(x0));
-		return buf.toString();
-	}
+  public String DisplayString() {
+    StringBuilder buf = new StringBuilder ("");
+    buf.append (name + " from " + bus1 + " to " + bus2 + " phases=" + phases + " basev=" + df4.format(basev));
+    buf.append (" r1=" + df4.format(r1) + " x1=" + df4.format(x1));
+    buf.append (" r0=" + df4.format(r0) + " x0=" + df4.format(x0));
+    return buf.toString();
+  }
 
-	public String GetGLM() {
-		StringBuilder buf = new StringBuilder ();
+  public String GetGLM() {
+    StringBuilder buf = new StringBuilder ();
 
     buf.append ("object series_reactor {\n");
     buf.append ("  name \"reac_" + name + "\";\n");
@@ -77,17 +77,17 @@ public class DistSeriesCompensator extends DistComponent {
     buf.append ("  phase_A_reactance " + sX + ";\n");
     buf.append ("  phase_B_reactance " + sX + ";\n");
     buf.append ("  phase_C_reactance " + sX + ";\n");
-		buf.append ("}\n");
-		return buf.toString();
-	}
+    buf.append ("}\n");
+    return buf.toString();
+  }
 
-	public String GetKey() {
-		return name;
-	}
+  public String GetKey() {
+    return name;
+  }
 
-	public String LabelString() {
-		return "Reac";
-	}
+  public String LabelString() {
+    return "Reac";
+  }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
     DistCoordinates pt1 = map.get("SeriesCompensator:" + name + ":1");
@@ -108,24 +108,24 @@ public class DistSeriesCompensator extends DistComponent {
   }
 
   public String GetDSS() {
-		StringBuilder buf = new StringBuilder ("new Reactor." + name);
+    StringBuilder buf = new StringBuilder ("new Reactor." + name);
 
-		buf.append (" phases=" + Integer.toString(DSSPhaseCount(phases, false)) + 
-								" bus1=" + DSSBusPhases(bus1, phases) + " bus2=" + DSSBusPhases (bus2, phases) + "\n");
-		AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
-		buf.append ("~ r=" + df6.format(r1) + " x=" + df6.format(x1) + "\n");
+    buf.append (" phases=" + Integer.toString(DSSPhaseCount(phases, false)) + 
+                " bus1=" + DSSBusPhases(bus1, phases) + " bus2=" + DSSBusPhases (bus2, phases) + "\n");
+    AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
+    buf.append ("~ r=" + df6.format(r1) + " x=" + df6.format(x1) + "\n");
 
-		return buf.toString();
-	}
+    return buf.toString();
+  }
   public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,R1,X1,R0,X0";
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name + "," + bus1 + "," + CSVPhaseString(phases) + "," +
-                                           bus2 + "," + CSVPhaseString(phases) + "," +
-                                           df6.format(r1) + "," +
-                                           df6.format(x1) + "," +
-                                           df6.format(r0) + "," +
-                                           df6.format(x0) + "\n");
+                         bus2 + "," + CSVPhaseString(phases) + "," +
+                         df6.format(r1) + "," +
+                         df6.format(x1) + "," +
+                         df6.format(r0) + "," +
+                         df6.format(x0) + "\n");
     return buf.toString();
   }
 }

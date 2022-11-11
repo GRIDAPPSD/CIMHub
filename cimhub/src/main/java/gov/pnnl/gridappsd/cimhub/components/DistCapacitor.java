@@ -1,8 +1,8 @@
 package gov.pnnl.gridappsd.cimhub.components;
-//      ----------------------------------------------------------
-//      Copyright (c) 2017-2022, Battelle Memorial Institute
-//      All rights reserved.
-//      ----------------------------------------------------------
+//    ----------------------------------------------------------
+//    Copyright (c) 2017-2022, Battelle Memorial Institute
+//    All rights reserved.
+//    ----------------------------------------------------------
 
 import org.apache.jena.query.*;
 import java.util.HashMap;
@@ -139,14 +139,14 @@ public class DistCapacitor extends DistComponent {
       kvar = nomu * nomu * bsection / 1000.0;
       sections_on = Double.parseDouble (soln.get("?sections").toString());
       if (ctrl.equals ("true")) {
-        mode = soln.get("?mode").toString();
-        setpoint = Double.parseDouble (soln.get("?setpoint").toString());
-        deadband = Double.parseDouble (soln.get("?deadband").toString());
-        delay = Double.parseDouble (soln.get("?delay").toString());
-        moneq = SafeName (soln.get("?moneq").toString());
-        monclass = soln.get("?monclass").toString();
-        monbus = soln.get("?monbus").toString();
-        monphs = soln.get("?monphs").toString();
+      mode = soln.get("?mode").toString();
+      setpoint = Double.parseDouble (soln.get("?setpoint").toString());
+      deadband = Double.parseDouble (soln.get("?deadband").toString());
+      delay = Double.parseDouble (soln.get("?delay").toString());
+      moneq = SafeName (soln.get("?moneq").toString());
+      monclass = soln.get("?monclass").toString();
+      monbus = soln.get("?monbus").toString();
+      monphs = soln.get("?monphs").toString();
       }
       SetDerivedParameters();
     }
@@ -242,13 +242,13 @@ public class DistCapacitor extends DistComponent {
       }
       String glmClass = GLMClassPrefix(monclass);
       if (!glmClass.equals("cap") || !moneq.equals(name)) {
-        buf.append("    remote_sense \"" + glmClass + "_" + moneq + "\";\n");
+        buf.append("  remote_sense \"" + glmClass + "_" + moneq + "\";\n");
       }
       buf.append ("  pt_phase " + monphs + ";\n");
       if (monphs.length() > 1) {
-        buf.append("    control_level INDIVIDUAL;\n");
+        buf.append("  control_level INDIVIDUAL;\n");
       } else {
-        buf.append("    control_level BANK;\n");
+        buf.append("  control_level BANK;\n");
       }
       buf.append ("  dwell_time " + df2.format(delay) + ";\n");
     }
@@ -261,7 +261,7 @@ public class DistCapacitor extends DistComponent {
     StringBuilder buf = new StringBuilder ("new Capacitor." + name);
 
     buf.append (" phases=" + Integer.toString(DSSPhaseCount(phs, bDelta)) + " bus1=" + DSSShuntPhases (bus, phs, bDelta) + 
-                 " conn=" + DSSConn(bDelta) + " kv=" + df2.format(0.001 * nomu) + " kvar=" + df2.format(kvar));
+           " conn=" + DSSConn(bDelta) + " kv=" + df2.format(0.001 * nomu) + " kvar=" + df2.format(kvar));
     if (sections_on > 0.0) {
       buf.append (" states=[1]");
     } else {
@@ -274,14 +274,14 @@ public class DistCapacitor extends DistComponent {
       double dOn = setpoint - 0.5 * deadband;
       double dOff = setpoint + 0.5 * deadband;
       if (mode.equals("reactivePower")) {
-        dOn /= 1000.0;
-        dOff /= 1000.0;
+      dOn /= 1000.0;
+      dOff /= 1000.0;
       }
       int nterm = 1;  // TODO: need to search for this
       buf.append ("new CapControl." + name + " capacitor=" + name + " type=" + DSSCapMode(mode) + 
-                  " on=" + df2.format(dOn) + " off=" + df2.format(dOff) + " delay=" + df2.format(delay) + 
-                  " delayoff=" + df2.format(delay) + " element=" + dssClass + "." + moneq +
-                  " terminal=" + Integer.toString(nterm) + " ptratio=1 ptphase=" + FirstDSSPhase(monphs));
+            " on=" + df2.format(dOn) + " off=" + df2.format(dOff) + " delay=" + df2.format(delay) + 
+            " delayoff=" + df2.format(delay) + " element=" + dssClass + "." + moneq +
+            " terminal=" + Integer.toString(nterm) + " ptratio=1 ptphase=" + FirstDSSPhase(monphs));
       buf.append("\n");
     }
     return buf.toString();
@@ -295,7 +295,7 @@ public class DistCapacitor extends DistComponent {
     int nphases = DSSPhaseCount(phs, bDelta);
     StringBuilder buf = new StringBuilder (name + "," + bus + "," + CSVPhaseString (phs) + ",");
     buf.append (df2.format(0.001 * nomu) + "," + df2.format(kvar) + "," + Integer.toString (nphases) + "," + 
-                DSSConn(bDelta) + "\n");
+          DSSConn(bDelta) + "\n");
     return buf.toString();
   }
 
@@ -313,7 +313,7 @@ public class DistCapacitor extends DistComponent {
 
     StringBuilder buf = new StringBuilder (name + "," + name + "," + dssClass + "." + moneq + ",");
     buf.append (Integer.toString(nterm) + "," + DSSCapMode(mode) + ",1,1," + df2.format(dOn) + "," + 
-                df2.format(dOff) + "," + df2.format(delay) + "\n");
+          df2.format(dOff) + "," + df2.format(delay) + "\n");
 
     return buf.toString();
   }

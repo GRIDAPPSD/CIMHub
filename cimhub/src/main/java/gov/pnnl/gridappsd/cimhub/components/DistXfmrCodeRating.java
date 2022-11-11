@@ -258,7 +258,7 @@ public class DistXfmrCodeRating extends DistComponent {
       }
     }
     StringBuilder buf = new StringBuilder("new Xfmrcode." + tname + " windings=" + Integer.toString(size) +
-                                          " phases=" + Integer.toString(phases));
+                        " phases=" + Integer.toString(phases));
 
     // short circuit tests - valid only up to 3 windings; put on the Winding 1 base
     for (i = 0; i < sct.size; i++) {
@@ -300,8 +300,8 @@ public class DistXfmrCodeRating extends DistComponent {
       }
       zbase = ratedU[i] * ratedU[i] / ratedS[0]; // PU impedances always on winding 1's kva base
       buf.append("~ wdg=" + Integer.toString(i + 1) + " conn=" + DSSConn(bDelta) +
-                 " kv=" + df3.format(0.001 * ratedU[i]) + " kva=" + df1.format(0.001 * ratedS[i]) +
-                 " %r=" + df6.format(100.0 * r[i] / zbase) + "\n");
+           " kv=" + df3.format(0.001 * ratedU[i]) + " kva=" + df1.format(0.001 * ratedS[i]) +
+           " %r=" + df6.format(100.0 * r[i] / zbase) + "\n");
     }
     return buf.toString();
   }
@@ -331,7 +331,7 @@ public class DistXfmrCodeRating extends DistComponent {
       }
       zbase = ratedU[i] * ratedU[i] / ratedS[i];
       buf.append ("," + df3.format(0.001 * ratedU[i]) + "," + df1.format(0.001 * ratedS[i]) + "," + DSSConn(bDelta) +
-                 "," + df6.format(100.0 * r[i] / zbase));
+           "," + df6.format(100.0 * r[i] / zbase));
     }
     if (size < 3) buf.append (",,,");
 

@@ -526,10 +526,10 @@ SELECT ?name ?bus (group_concat(distinct ?phs;separator="\n") as ?phases) ?rated
  ?s c:IdentifiedObject.name ?name.
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
- ?s c:SynchronousMachine.ratedS ?ratedS.
- ?s c:SynchronousMachine.ratedU ?ratedU.
- ?s c:SynchronousMachine.p ?p.
- ?s c:SynchronousMachine.q ?q. 
+ ?s c:RotatingMachine.ratedS ?ratedS.
+ ?s c:RotatingMachine.ratedU ?ratedU.
+ ?s c:RotatingMachine.p ?p.
+ ?s c:RotatingMachine.q ?q. 
  bind(strafter(str(?s),"#_") as ?id).
  OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s.
  ?smp c:SynchronousMachinePhase.phase ?phsraw.

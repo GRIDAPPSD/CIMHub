@@ -21,6 +21,7 @@ else:
 cwd = os.getcwd()
 
 cfg_json = '../queries/cimhubconfig.json'
+cfg_json = 'cimhubconfig.json'
 
 cases = [
   {'dssname':'IEEE13_Assets', 'root':'IEEE13_Assets', 'mRID':'DFBF372D-4291-49EF-ACCA-53DAFDE0338F',

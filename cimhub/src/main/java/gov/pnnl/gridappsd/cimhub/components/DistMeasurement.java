@@ -36,7 +36,7 @@ public class DistMeasurement extends DistComponent {
       phases = OptionalString (soln, "?phases", "ABC");
     }
     this.useHouses = useHouses;
-//    System.out.println (DisplayString());
+  //  System.out.println (DisplayString());
   }
 
   public String GetGldLoadName () {
@@ -124,7 +124,7 @@ public class DistMeasurement extends DistComponent {
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
     buf.append (name + ":" + id + ":" + eqid + ":" + trmid + ":" + measType + ":" + phases
-                 + ":" + measClass + ":" + eqtype + ":" + eqname + ":" + bus + ":" + useHouses);
+           + ":" + measClass + ":" + eqtype + ":" + eqname + ":" + bus + ":" + useHouses);
     return buf.toString();
   }
 

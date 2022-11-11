@@ -57,7 +57,7 @@ public class DistXfmrCodeSCTest extends DistComponent {
     StringBuilder buf = new StringBuilder (tname);
     for (int i = 0; i < size; i++) {
       buf.append ("\n  fwdg=" + Integer.toString(fwdg[i]) + " twdg=" + Integer.toString(twdg[i]) +
-                " z=" + df4.format(z[i]) + " LL=" + df4.format(ll[i]) + " base=" + df4.format(sbase[i]));
+          " z=" + df4.format(z[i]) + " LL=" + df4.format(ll[i]) + " base=" + df4.format(sbase[i]));
     }
     return buf.toString();
   }

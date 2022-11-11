@@ -1,8 +1,8 @@
 package gov.pnnl.gridappsd.cimhub.components;
-//      ----------------------------------------------------------
-//      Copyright (c) 2017-2022, Battelle Memorial Institute
-//      All rights reserved.
-//      ----------------------------------------------------------
+//    ----------------------------------------------------------
+//    Copyright (c) 2017-2022, Battelle Memorial Institute
+//    All rights reserved.
+//    ----------------------------------------------------------
 
 import org.apache.jena.query.*;
 
@@ -214,55 +214,55 @@ public class DistRegulator extends DistComponent {
       pxfid = soln.get("?pxfid").toString();
       SetSize (queryHandler);
       for (int i = 0; i < size; i++) {
-        id[i] = soln.get("?id").toString();
-        rname[i] = SafeName (soln.get("?rname").toString());
-        if (hasTanks) {
-          tname[i] = SafeName(soln.get("?tname").toString());
-          orderedPhases[i] = soln.get("?orderedPhases").toString();
-        } else {
-          tname[i] = "";
-          orderedPhases[i] = "ABC";
-        }
-        wnum[i] = Integer.parseInt (soln.get("?wnum").toString());
-        highStep[i] = Integer.parseInt (soln.get("?highStep").toString());
-        lowStep[i] = Integer.parseInt (soln.get("?lowStep").toString());
-        neutralStep[i] = Integer.parseInt (soln.get("?neutralStep").toString());
-        normalStep[i] = Integer.parseInt (soln.get("?normalStep").toString());
-        enabled[i] = Boolean.parseBoolean (soln.get("?enabled").toString());
-        ltc[i] = Boolean.parseBoolean (soln.get("?ltc").toString());
-        incr[i] = Double.parseDouble (soln.get("?incr").toString());
-        neutralU[i] = Double.parseDouble (soln.get("?neutralU").toString());
-        step[i] = Integer.parseInt (soln.get("?step").toString());
+      id[i] = soln.get("?id").toString();
+      rname[i] = SafeName (soln.get("?rname").toString());
+      if (hasTanks) {
+        tname[i] = SafeName(soln.get("?tname").toString());
+        orderedPhases[i] = soln.get("?orderedPhases").toString();
+      } else {
+        tname[i] = "";
+        orderedPhases[i] = "ABC";
+      }
+      wnum[i] = Integer.parseInt (soln.get("?wnum").toString());
+      highStep[i] = Integer.parseInt (soln.get("?highStep").toString());
+      lowStep[i] = Integer.parseInt (soln.get("?lowStep").toString());
+      neutralStep[i] = Integer.parseInt (soln.get("?neutralStep").toString());
+      normalStep[i] = Integer.parseInt (soln.get("?normalStep").toString());
+      enabled[i] = Boolean.parseBoolean (soln.get("?enabled").toString());
+      ltc[i] = Boolean.parseBoolean (soln.get("?ltc").toString());
+      incr[i] = Double.parseDouble (soln.get("?incr").toString());
+      neutralU[i] = Double.parseDouble (soln.get("?neutralU").toString());
+      step[i] = Integer.parseInt (soln.get("?step").toString());
 
-        ctl_enabled[i] = OptionalBoolean (soln, "?ctl_enabled", false);
-        discrete[i] = OptionalBoolean (soln, "?discrete", false);
-        ldc[i] = OptionalBoolean (soln, "?ldc", false);
-        monphs[i] = OptionalString (soln, "?monphs", "");
-        ctlmode[i] = OptionalString (soln, "?ctlmode", "");
-        initDelay[i] = OptionalDouble (soln, "?initDelay", 0.0);
-        subDelay[i] = OptionalDouble (soln, "?subDelay", 0.0);
-        vlim[i] = OptionalDouble (soln, "?vlim", 0.0);
-        vmin[i] = OptionalDouble (soln, "?vmin", 0.0);
-        vset[i] = OptionalDouble (soln, "?vset", 0.0);
-        vbw[i] = OptionalDouble (soln, "?vbw", 0.0);
-        fwdR[i] = OptionalDouble (soln, "?fwdR", 0.0);
-        fwdX[i] = OptionalDouble (soln, "?fwdX", 0.0);
-        revR[i] = OptionalDouble (soln, "?revR", 0.0);
-        revX[i] = OptionalDouble (soln, "?revX", 0.0);
-        ctRating[i] = OptionalDouble (soln, "?ctRating", 0.0);
-        ctRatio[i] = OptionalDouble (soln, "?ctRatio", 0.0);
-        ptRatio[i] = OptionalDouble (soln, "?ptRatio", 1.0); // if left at 0, GridLAB-D will use that value, and OpenDSS defaults to 60
-        if ((i + 1) < size) {
-          soln = results.next();
-        }
+      ctl_enabled[i] = OptionalBoolean (soln, "?ctl_enabled", false);
+      discrete[i] = OptionalBoolean (soln, "?discrete", false);
+      ldc[i] = OptionalBoolean (soln, "?ldc", false);
+      monphs[i] = OptionalString (soln, "?monphs", "");
+      ctlmode[i] = OptionalString (soln, "?ctlmode", "");
+      initDelay[i] = OptionalDouble (soln, "?initDelay", 0.0);
+      subDelay[i] = OptionalDouble (soln, "?subDelay", 0.0);
+      vlim[i] = OptionalDouble (soln, "?vlim", 0.0);
+      vmin[i] = OptionalDouble (soln, "?vmin", 0.0);
+      vset[i] = OptionalDouble (soln, "?vset", 0.0);
+      vbw[i] = OptionalDouble (soln, "?vbw", 0.0);
+      fwdR[i] = OptionalDouble (soln, "?fwdR", 0.0);
+      fwdX[i] = OptionalDouble (soln, "?fwdX", 0.0);
+      revR[i] = OptionalDouble (soln, "?revR", 0.0);
+      revX[i] = OptionalDouble (soln, "?revX", 0.0);
+      ctRating[i] = OptionalDouble (soln, "?ctRating", 0.0);
+      ctRatio[i] = OptionalDouble (soln, "?ctRatio", 0.0);
+      ptRatio[i] = OptionalDouble (soln, "?ptRatio", 1.0); // if left at 0, GridLAB-D will use that value, and OpenDSS defaults to 60
+      if ((i + 1) < size) {
+        soln = results.next();
+      }
       }
       StringBuilder buf = new StringBuilder ();
       for (int i = 0; i < size; i++) {
-        buf.append (orderedPhases[i].replace("N","").replace("s", "").replace("1","").replace("2",""));
+      buf.append (orderedPhases[i].replace("N","").replace("s", "").replace("1","").replace("2",""));
       }
       bankphases = buf.toString();
     }
-//        System.out.println (DisplayString());     
+//    System.out.println (DisplayString());   
   }
 
   public String DisplayString() {
@@ -304,8 +304,8 @@ public class DistRegulator extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map, 
-                               HashMap<String,DistXfmrTank> mapTank,
-                               HashMap<String,DistPowerXfmrWinding> mapXfmr) {
+                 HashMap<String,DistXfmrTank> mapTank,
+                 HashMap<String,DistPowerXfmrWinding> mapXfmr) {
     DistCoordinates pt1 = map.get("PowerTransformer:" + pname + ":1");
     DistCoordinates pt2 = map.get("PowerTransformer:" + pname + ":2");
     if (pt2 == null) {
@@ -369,12 +369,12 @@ public class DistRegulator extends DistComponent {
     }
     if (vset[0] > 0.0 && vbw[0] > 0.0 && ltc[0]) {  // for GridAPPS-D, we don't actually use the control modes from CIM
       if (ldc[0]) {
-        buf.append("    Control MANUAL; // LINE_DROP_COMP;\n");
+        buf.append("  Control MANUAL; // LINE_DROP_COMP;\n");
       } else {
-        buf.append("    Control MANUAL; // OUTPUT_VOLTAGE;\n");
+        buf.append("  Control MANUAL; // OUTPUT_VOLTAGE;\n");
       }
     } else {
-      buf.append("    Control MANUAL;\n");
+      buf.append("  Control MANUAL;\n");
     }
     buf.append ("  // use these for OUTPUT_VOLTAGE mode\n");
     buf.append ("  // band_center " + df6.format(vset[0] * ptRatio[0]) + ";\n");
@@ -396,7 +396,7 @@ public class DistRegulator extends DistComponent {
     buf.append ("  Type B;\n");
     if (hasTanks) {
       for (int i = 0; i < size; i++) {
-  //          int iTap = (int) Math.round((step[i] - 1.0) / incr[i] * 100.0); // TODO - verify this should be an offset from neutralStep
+        //      int iTap = (int) Math.round((step[i] - 1.0) / incr[i] * 100.0); // TODO - verify this should be an offset from neutralStep
         buf.append ("  compensator_r_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdR[i]) + ";\n"); // TODO
         buf.append ("  compensator_x_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdX[i]) + ";\n");
         buf.append ("  // comment out the manual tap setting if using automatic control\n");
@@ -440,7 +440,7 @@ public class DistRegulator extends DistComponent {
         xfName = pname;
       }
       buf.append("new RegControl." + rname[i] + " transformer=" + xfName + " winding=" + Integer.toString(wnum[i]) +
-                 " TapNum=" + Integer.toString(step[i]));
+           " TapNum=" + Integer.toString(step[i]));
       if (ltc[i]) {
         if (vset[i] > 0.0) buf.append(" vreg=" + df2.format(vset[i]));
         if (vbw[i] > 0.0) buf.append(" band=" + df2.format(vbw[i]));

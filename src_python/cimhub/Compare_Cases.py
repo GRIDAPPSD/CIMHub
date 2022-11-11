@@ -277,7 +277,7 @@ def load_taps(fname):
   for row in rd:
     bus = row[0].strip('\"').upper()
     if len(bus) > 0:
-      vtap[bus] = int (row[5])
+      vtap[bus] = int (row[6])
   fd.close()
   return vtap
 

@@ -30,10 +30,10 @@ public abstract class DistComponent {
   static final DecimalFormat df12 = new DecimalFormat("#0.000000000000");
 
 //  public static ResultSet RunQuery (String szQuery) {
-//    String qPrefix = "PREFIX r: <" + nsRDF + "> PREFIX c: <" + nsCIM + "> PREFIX xsd:<" + nsXSD + "> ";
-//    Query query = QueryFactory.create (qPrefix + szQuery);
-//    QueryExecution qexec = QueryExecutionFactory.sparqlService (szEND, query);
-//    return qexec.execSelect();
+//  String qPrefix = "PREFIX r: <" + nsRDF + "> PREFIX c: <" + nsCIM + "> PREFIX xsd:<" + nsXSD + "> ";
+//  Query query = QueryFactory.create (qPrefix + szQuery);
+//  QueryExecution qexec = QueryExecutionFactory.sparqlService (szEND, query);
+//  return qexec.execSelect();
 //  }
 
   public static void SetSystemFrequency (double freq) {
@@ -68,7 +68,7 @@ public abstract class DistComponent {
   }
 
   static double OptionalDouble (QuerySolution soln, String parm, double def) {
-    RDFNode nd = soln.get(parm);
+  RDFNode nd = soln.get(parm);
     if (nd != null) {
       String str = nd.toString();
       if (str.length() > 0) {
@@ -102,7 +102,7 @@ public abstract class DistComponent {
    *  @param arg the root bus or component name, aka CIM name
    *  @return the compatible name for GridLAB-D or OpenDSS
    */  
-  public static String SafeName (String arg) {      // GLD conversion
+  public static String SafeName (String arg) {    // GLD conversion
     if (arg == null) {
       return null;
     }
@@ -167,7 +167,7 @@ public abstract class DistComponent {
     if ((nphases < 3) && bDelta) {
       nphases = 1;
     }
-//    System.out.println (phs + "," + Boolean.toString(bDelta) + "," + Integer.toString(nphases));
+  //  System.out.println (phs + "," + Boolean.toString(bDelta) + "," + Integer.toString(nphases));
     return nphases;
   }
 
@@ -195,22 +195,22 @@ public abstract class DistComponent {
     if (!bDelta) {
       return DSSBusPhases(bus, phs);
     }
-//    if (phs_cnt == 1) {
-      if (phs.contains ("A")) {
-        return bus + ".1.2";
-      } else if (phs.contains ("B")) {
-        return bus + ".2.3";
-      } else if (phs.contains ("C")) {
-        return bus + ".3.1";
-      }
-//    }
-    // TODO - can we have two-phase delta in the CIM?
-//    if (phs.contains ("AB")) {
-//      return ".1.2.3";
-//    } else if (phs.contains ("AC")) {
-//      return ".3.1.2";
-//    }
-    // phs.contains ("BC")) for 2-phase delta
+//  if (phs_cnt == 1) {
+    if (phs.contains ("A")) {
+      return bus + ".1.2";
+    } else if (phs.contains ("B")) {
+      return bus + ".2.3";
+    } else if (phs.contains ("C")) {
+      return bus + ".3.1";
+    }
+//  }
+  // TODO - can we have two-phase delta in the CIM?
+//  if (phs.contains ("AB")) {
+//    return ".1.2.3";
+//  } else if (phs.contains ("AC")) {
+//    return ".3.1.2";
+//  }
+  // phs.contains ("BC")) for 2-phase delta
     return bus;// ".2.3.1";
   }
 
@@ -468,7 +468,7 @@ public abstract class DistComponent {
 
   /** 
    *  Rotates a phasor +120 degrees by multiplication
-     */
+   */
   static final Complex pos120 = new Complex (-0.5, 0.5 * Math.sqrt(3.0));
 
   /** 
@@ -479,7 +479,7 @@ public abstract class DistComponent {
   /** 
    *  @param c complex number
    *  @return formatted string for GridLAB-D input files with 'j' at the end
-     */
+   */
   static String CFormat (Complex c) {
     String sgn;
     if (c.getImaginary() < 0.0)  {
@@ -499,8 +499,7 @@ public abstract class DistComponent {
     if (nwdg == 3) {
       if (conn[0].equals("I") && conn[1].equals("I") && conn[1].equals("I")) return "SINGLE_PHASE_CENTER_TAPPED"; // supported in GridLAB-D
     }
-    if (conn[0].equals("D"))
-    {
+    if (conn[0].equals("D")) {
       if (conn[1].equals("D"))  {
         return "DELTA_DELTA";  // supported in GridLAB-D
       } else if (conn[1].equals("Y")) {
