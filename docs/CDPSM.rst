@@ -356,8 +356,8 @@ voltages. The applicable voltages depend on how the connection appears to the gr
 as conveyed in the attributes of DERIEEEType1. Hence, the RemoteInputSignal.phase
 attribute is not used. Instead, use all applicable voltages from the associated Terminal.
 
-Extensions for Houses and Faults
---------------------------------
+Extension for Houses
+--------------------
 
 |imghouses|
 
@@ -377,6 +377,44 @@ will switch on and off, responding to the ThermostatController and the
 weather.  The ThermostatController contains the minimum attributes needed 
 for PNNL's double-ramp, double-auction market mechanism.  In the future, 
 this will be harmonized with CIM market structures in the 62235 package.  
+
+Extension for Profiles
+----------------------
+
+|imgprofiles|
+
+Figure 19a: Optional references to shapes for OpenDSS, and players or 
+schedules for GridLAB-D.  
+
+The extension class is EnergyConnectionProfile, each instance of which 
+could have many associations to EnergyConsumer, 
+PowerElectronicsConnection, or SynchronousMachine as appropriate.  One use 
+case is to represent residential loads with the House extension class, and 
+commercial spot loads with this extension class.  A Python script will add 
+the EnergyConnectionProfile instances, as other scripts presently insert 
+houses, DER, and measurements.  Then the CIMHub export function will 
+netlist them as appropriate for OpenDSS and GridLAB-D.  
+
+See attribute documentation for applicability.  The shapes, players, and 
+schedules are not maintained in CIM, i.e., they must be made available to 
+the simulator from an external source.  
+
+
+- **dssDaily**: Reference to OpenDSS Daily curve, for Load, Storage, PVSystem, Generator, and WindGen power
+- **dssDuty**: Reference to OpenDSS Duty Cycle curve, for Load, Storage, PVSystem, Generator, and WindGen power
+- **dssLoadCvrCurve**: Reference to OpenDSS CvrCurve, for Load objects
+- **dssLoadGrowth**: Reference to OpenDSS Growth curve, for Load objects
+- **dssPVTDaily**: Reference to OpenDSS Daily curve, for PVSystem temperature
+- **dssPVTDuty**: Reference to OpenDSS Duty Cycle curve, for PVSystem temperature
+- **dssPVTYearly**: Reference to OpenDSS Yearly curve, for PVSystem temperature
+- **dssSpectrum**: Reference to OpenDSS harmonic current Spectrum, for Load, Storage, PVSystem, Generator, and WindGen power
+- **dssYearly**: Reference to OpenDSS Yearly curve, for Load, Storage, PVSystem, Generator, and WindGen power
+- **gldPlayer**: GridLAB-D Player for base_power attributes on Load and Triplex_Load objects, and P_Out for Battery objects. Netlisted as player.value.
+- **gldSchedule**: GridLAB-D schedule for base_power attributes on Load and Triplex_Load objects, and P_Out attributes on Battery objects.
+- **gldWeather**: Local GridLAB-D Climate for House and Solar objects. Defaults to global weather if not specified. 
+
+Extension for Faults
+--------------------
 
 |imgfaults|
  
@@ -1071,4 +1109,4 @@ Possible CIM enhancements:
 .. |imgcim302vq| image:: media/cim_302_VoltageControlGridAPPSD.png
 .. |imgcim302misc| image:: media/cim_302_DroopTripGridAPPSD.png
 .. |imgcim302signal| image:: media/cim_302_RemoteSignalsGridAPPSD.png
-
+.. |imgprofiles| image:: media/ext_EnergyConnectionProfiles.png

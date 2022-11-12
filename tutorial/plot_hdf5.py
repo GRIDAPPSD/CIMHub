@@ -1,9 +1,8 @@
 import sys
 import matplotlib.pyplot as plt
-#import numpy as np
-#import h5py
 import pandas as pd
 import scipy.constants
+import os
 
 df = pd.read_hdf('./aug11.hdf5')
 df.info()
@@ -38,6 +37,7 @@ df['primaryP'] = df['primaryS'].apply(lambda number: number.real)
 df['secondaryP'] = df['secondaryS'].apply(lambda number: number.real)
 
 # plot some of the 3-second data
+plt.rcParams['savefig.directory'] = os.getcwd()
 ax = df.plot (y=['pvP', 'primaryP', 'secondaryP'], title='Load and PV Total Real Power')
 plt.savefig('components.png')
 plt.show()

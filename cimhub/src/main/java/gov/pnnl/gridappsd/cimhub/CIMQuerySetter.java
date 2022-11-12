@@ -62,7 +62,7 @@ public class CIMQuerySetter extends Object {
        " ?bv c:BaseVoltage.nominalVoltage ?basev."+
        " ?s c:ShuntCompensator.nomU ?nomu."+
        " ?s c:LinearShuntCompensator.bPerSection ?bsection."+ 
-     " ?s c:ShuntCompensator.sections ?sections."+
+       " ?s c:ShuntCompensator.sections ?sections."+
        " ?s c:ShuntCompensator.phaseConnection ?connraw."+
        "  bind(strafter(str(?connraw),\"PhaseShuntConnectionKind.\") as ?conn)"+
        " ?s c:ShuntCompensator.grounded ?grnd."+
@@ -87,10 +87,10 @@ public class CIMQuerySetter extends Object {
        "  ?trm c:Terminal.ConnectivityNode ?moncn."+
        "  ?moncn c:IdentifiedObject.name ?monbus."+
        "  }" +
-     " ?s c:IdentifiedObject.mRID ?id."+
+       " ?s c:IdentifiedObject.mRID ?id."+
        " ?t c:Terminal.ConductingEquipment ?s."+
        " ?t c:Terminal.ConnectivityNode ?cn."+ 
-     " ?t c:IdentifiedObject.mRID ?t1id."+
+       " ?t c:IdentifiedObject.mRID ?t1id."+
        " ?cn c:IdentifiedObject.name ?bus" + 
        "}"+
      "GROUP BY ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id "+
@@ -210,12 +210,12 @@ public class CIMQuerySetter extends Object {
       " ?t1 c:Terminal.ConductingEquipment ?s."+
       " ?t1 c:Terminal.ConnectivityNode ?cn1."+
       " ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
-    " ?t1 c:IdentifiedObject.mRID ?t1id."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
       " ?cn1 c:IdentifiedObject.name ?bus1."+
       " ?t2 c:Terminal.ConductingEquipment ?s."+
       " ?t2 c:Terminal.ConnectivityNode ?cn2."+
       " ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
-    " ?t2 c:IdentifiedObject.mRID ?t2id."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
       " ?cn2 c:IdentifiedObject.name ?bus2."+
       " ?s c:IdentifiedObject.mRID ?id."+
       " OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s."+
@@ -244,12 +244,12 @@ public class CIMQuerySetter extends Object {
       " ?t1 c:Terminal.ConductingEquipment ?s."+
       " ?t1 c:Terminal.ConnectivityNode ?cn1."+
       " ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
-    " ?t1 c:IdentifiedObject.mRID ?t1id."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
       " ?cn1 c:IdentifiedObject.name ?bus1."+
       " ?t2 c:Terminal.ConductingEquipment ?s."+
       " ?t2 c:Terminal.ConnectivityNode ?cn2."+
       " ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
-    " ?t2 c:IdentifiedObject.mRID ?t2id."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
       " ?cn2 c:IdentifiedObject.name ?bus2"+
       "}"+
       " GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid ?t1id ?t2id"+
@@ -299,15 +299,15 @@ public class CIMQuerySetter extends Object {
       " ?t1 c:Terminal.ConductingEquipment ?s."+
       " ?t1 c:Terminal.ConnectivityNode ?cn1."+
       " ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
-    " ?t1 c:IdentifiedObject.mRID ?t1id."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
       " ?cn1 c:IdentifiedObject.name ?bus1."+
       " ?t2 c:Terminal.ConductingEquipment ?s."+
       " ?t2 c:Terminal.ConnectivityNode ?cn2."+
       " ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
-    " ?t2 c:IdentifiedObject.mRID ?t2id."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
       " ?cn2 c:IdentifiedObject.name ?bus2."+
       " ?acp c:ACLineSegmentPhase.ACLineSegment ?s."+
-    " ?acp c:ACLineSegmentPhase.sequenceNumber ?seq."+
+      " ?acp c:ACLineSegmentPhase.sequenceNumber ?seq."+
       " ?acp c:ACLineSegmentPhase.phase ?phsraw."+
       "   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs)."+
       " ?acp c:ACLineSegmentPhase.WireInfo ?phinf."+
@@ -337,6 +337,34 @@ public class CIMQuerySetter extends Object {
       "   bind(strafter(str(?useraw),\"WireUsageKind.\") as ?usage)"+
       "} ORDER BY ?name ?seq");
 
+    mapQueries.put ("DistEnergyConnectionProfile",
+      "SELECT ?name ?id ?ldid ?ldname ?dssDaily ?dssDuty ?dssLoadCvrCurve ?dssLoadGrowth"+
+      " ?dssPVTDaily ?dssPVTDuty ?dssPVTYearly ?dssSpectrum ?dssYearly"+
+      " ?gldPlayer ?gldSchedule ?gldWeather WHERE {"+
+      " ?s r:type c:EnergyConnectionProfile."+
+      " ?ld c:Equipment.EquipmentContainer ?fdr."+
+      " ?ld r:type c:EnergyConsumer."+
+      " ?ld c:IdentifiedObject.mRID ?ldid."+
+      " ?ld c:IdentifiedObject.name ?ldname."+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?ecp c:IdentifiedObject.name ?name."+
+      " ?ecp c:IdentifiedObject.mRID ?id."+
+      " ?ecp c:EnergyConnectionProfile.EnergyConsumer ?ld."+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssDaily ?dssDaily.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssDuty ?dssDuty.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadCvrCurve ?dssLoadCvrCurve.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadGrowth ?dssLoadGrowth.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTDaily ?dssPVTDaily.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTDuty ?dssPVTDuty.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTYearly ?dssPVTYearly.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssSpectrum ?dssSpectrum.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssYearly ?dssYearly.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.gldPlayer ?gldPlayer.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.gldSchedule ?gldSchedule.}"+
+      " OPTIONAL {?ecp c:EnergyConnectionProfile.gldWeather ?gldWeather.}"+
+      "}"+
+      "ORDER by ?name ?ldname");
+
     mapQueries.put ("DistLoad",
       "SELECT ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid ?t1id "+
       "(group_concat(distinct ?phs;separator=\"\\n\") as ?phases) "+
@@ -345,8 +373,8 @@ public class CIMQuerySetter extends Object {
       " ?s c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?s c:IdentifiedObject.name ?name."+
-       " ?s c:ConductingEquipment.BaseVoltage ?bv."+
-       " ?bv c:BaseVoltage.nominalVoltage ?basev."+
+      " ?s c:ConductingEquipment.BaseVoltage ?bv."+
+      " ?bv c:BaseVoltage.nominalVoltage ?basev."+
       " ?s c:EnergyConsumer.p ?p."+
       " ?s c:EnergyConsumer.q ?q."+
       " OPTIONAL {?s c:EnergyConsumer.customerCount ?cnt.}"+
@@ -367,7 +395,7 @@ public class CIMQuerySetter extends Object {
       " ?s c:IdentifiedObject.mRID ?id."+
       " ?t c:Terminal.ConductingEquipment ?s."+
       " ?t c:Terminal.ConnectivityNode ?cn."+
-    " ?t c:IdentifiedObject.mRID ?t1id."+
+      " ?t c:IdentifiedObject.mRID ?t1id."+
       " ?cn c:IdentifiedObject.name ?bus"+
       "} "+
       "GROUP BY ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?id ?fdrid ?t1id "+
@@ -393,7 +421,7 @@ public class CIMQuerySetter extends Object {
       "  ?trm c:Terminal.ConnectivityNode ?cn."+
       "  ?cn c:IdentifiedObject.name ?bus."+
       "  ?s c:Measurement.phases ?phsraw ."+
-      "  {bind(strafter(str(?phsraw),\"PhaseCode.\") as ?phases)}"+
+      "    {bind(strafter(str(?phsraw),\"PhaseCode.\") as ?phases)}"+
       " } ORDER BY ?class ?type ?name");
 
     mapQueries.put ("DistOverheadWire",
@@ -415,7 +443,7 @@ public class CIMQuerySetter extends Object {
       " OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}"+
       " OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}"+
       " OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw."+
-      "     bind(strafter(str(?insraw),\"WireInsulationKind.\") as ?insmat)}"+
+      "       bind(strafter(str(?insraw),\"WireInsulationKind.\") as ?insmat)}"+
       " OPTIONAL {?w c:WireInfo.insulated ?ins.}"+
       " OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}"+
       "} ORDER BY ?name");
@@ -489,7 +517,7 @@ public class CIMQuerySetter extends Object {
       " OPTIONAL {?end c:TransformerEnd.xground ?xground.}"+
       " ?end c:TransformerEnd.Terminal ?trm."+
       " ?trm c:Terminal.ConnectivityNode ?cn. "+
-    " ?trm c:IdentifiedObject.mRID ?t1id."+
+      " ?trm c:IdentifiedObject.mRID ?t1id."+
       " ?cn c:IdentifiedObject.name ?bus."+
       " ?end c:TransformerEnd.BaseVoltage ?bv."+
       " ?bv c:BaseVoltage.nominalVoltage ?basev"+
@@ -531,14 +559,14 @@ public class CIMQuerySetter extends Object {
       " ?rtc c:TapChanger.neutralU ?neutralU."+
       " ?rtc c:TapChanger.normalStep ?normalStep."+
       " ?rtc c:TapChanger.step ?step."+
-    " OPTIONAL {?rtc c:TapChanger.initialDelay ?initDelay."+
+      " OPTIONAL {?rtc c:TapChanger.initialDelay ?initDelay."+
       " ?rtc c:TapChanger.subsequentDelay ?subDelay."+
-    " ?rtc c:TapChanger.ctRating ?ctRating."+
-    " ?rtc c:TapChanger.ctRatio ?ctRatio."+
-    " ?rtc c:TapChanger.ptRatio ?ptRatio.}"+
+      " ?rtc c:TapChanger.ctRating ?ctRating."+
+      " ?rtc c:TapChanger.ctRatio ?ctRatio."+
+      " ?rtc c:TapChanger.ptRatio ?ptRatio.}"+
       " OPTIONAL {?rtc c:TapChanger.TapChangerControl ?ctl."+
       " ?ctl c:TapChangerControl.maxLimitVoltage ?vlim."+
-    " ?ctl c:TapChangerControl.minLimitVoltage ?vmin."+
+      " ?ctl c:TapChangerControl.minLimitVoltage ?vmin."+
       " ?ctl c:TapChangerControl.lineDropCompensation ?ldc."+
       " OPTIONAL {?ctl c:TapChangerControl.lineDropR ?fwdR.}"+
       " OPTIONAL {?ctl c:TapChangerControl.lineDropX ?fwdX.}"+
@@ -578,8 +606,8 @@ public class CIMQuerySetter extends Object {
       "WHERE {"+
       " ?s r:type c:PhotovoltaicUnit."+
       " ?s c:IdentifiedObject.name ?name."+
-    " ?s c:PowerElectronicsUnit.maxP ?maxP."+
-    " ?s c:PowerElectronicsUnit.minP ?minP."+
+      " ?s c:PowerElectronicsUnit.maxP ?maxP."+
+      " ?s c:PowerElectronicsUnit.minP ?minP."+
       " ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s."+
       " ?pec c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -587,19 +615,19 @@ public class CIMQuerySetter extends Object {
       " ?pec c:PowerElectronicsConnection.ratedU ?ratedU."+
       " ?pec c:PowerElectronicsConnection.p ?p."+
       " ?pec c:PowerElectronicsConnection.q ?q."+
-    " ?pec c:PowerElectronicsConnection.maxQ ?maxQ."+
-    " ?pec c:PowerElectronicsConnection.minQ ?minQ."+
-    " {?pec c:PowerElectronicsConnection.controlMode ?modeRaw."+
-    " bind(strafter(str(?modeRaw),\"ConverterControlModeKind.\") as ?controlMode)}"+
+      " ?pec c:PowerElectronicsConnection.maxQ ?maxQ."+
+      " ?pec c:PowerElectronicsConnection.minQ ?minQ."+
+      " {?pec c:PowerElectronicsConnection.controlMode ?modeRaw."+
+      " bind(strafter(str(?modeRaw),\"ConverterControlModeKind.\") as ?controlMode)}"+
       " ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
-    " ?pec c:IdentifiedObject.mRID ?pecid."+
+      " ?pec c:IdentifiedObject.mRID ?pecid."+
       " OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec."+
       " ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw."+
       "   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
       " ?s c:IdentifiedObject.mRID ?id."+
       " ?t c:Terminal.ConductingEquipment ?pec."+
       " ?t c:Terminal.ConnectivityNode ?cn."+ 
-    " ?t c:IdentifiedObject.mRID ?t1id."+
+      " ?t c:IdentifiedObject.mRID ?t1id."+
       " ?cn c:IdentifiedObject.name ?bus"+
       "} "+
       "GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id "+
@@ -617,14 +645,14 @@ public class CIMQuerySetter extends Object {
       " ?pec c:PowerElectronicsConnection.ratedU ?ratedU."+
       " ?pec c:PowerElectronicsConnection.p ?p."+
       " ?pec c:PowerElectronicsConnection.q ?q."+
-    " ?pec c:PowerElectronicsConnection.maxQ ?maxQ."+
-    " ?pec c:PowerElectronicsConnection.minQ ?minQ."+
-    " {?pec c:PowerElectronicsConnection.controlMode ?modeRaw."+
-    " bind(strafter(str(?modeRaw),\"ConverterControlModeKind.\") as ?controlMode)}"+
+      " ?pec c:PowerElectronicsConnection.maxQ ?maxQ."+
+      " ?pec c:PowerElectronicsConnection.minQ ?minQ."+
+      " {?pec c:PowerElectronicsConnection.controlMode ?modeRaw."+
+      " bind(strafter(str(?modeRaw),\"ConverterControlModeKind.\") as ?controlMode)}"+
       " ?pec c:PowerElectronicsConnection.maxIFault ?ipu."+
-    " ?pec c:IdentifiedObject.mRID ?pecid."+
-    " ?s c:PowerElectronicsUnit.maxP ?maxP."+
-    " ?s c:PowerElectronicsUnit.minP ?minP."+
+      " ?pec c:IdentifiedObject.mRID ?pecid."+
+      " ?s c:PowerElectronicsUnit.maxP ?maxP."+
+      " ?s c:PowerElectronicsUnit.minP ?minP."+
       " ?s c:BatteryUnit.ratedE ?ratedE."+
       " ?s c:BatteryUnit.storedE ?storedE."+
       " ?s c:BatteryUnit.batteryState ?stateraw."+
@@ -635,7 +663,7 @@ public class CIMQuerySetter extends Object {
       " ?s c:IdentifiedObject.mRID ?id."+
       " ?t c:Terminal.ConductingEquipment ?pec."+
       " ?t c:Terminal.ConnectivityNode ?cn."+ 
-    " ?t c:IdentifiedObject.mRID ?t1id."+
+      " ?t c:IdentifiedObject.mRID ?t1id."+
       " ?cn c:IdentifiedObject.name ?bus"+
       "} "+
       "GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id "+
@@ -657,9 +685,9 @@ public class CIMQuerySetter extends Object {
       " ?s c:EnergySource.r0 ?r0." + 
       " ?s c:EnergySource.x0 ?x0." + 
       " ?t c:Terminal.ConductingEquipment ?s." +
-    " ?s c:IdentifiedObject.mRID ?id."+
+      " ?s c:IdentifiedObject.mRID ?id."+
       " ?t c:Terminal.ConnectivityNode ?cn." + 
-    " ?t c:IdentifiedObject.mRID ?t1id."+
+      " ?t c:IdentifiedObject.mRID ?t1id."+
       " ?cn c:IdentifiedObject.name ?bus" +
       "}");
 
@@ -678,12 +706,12 @@ public class CIMQuerySetter extends Object {
       " ?t1 c:Terminal.ConductingEquipment ?s."+
       " ?t1 c:Terminal.ConnectivityNode ?cn1."+
       " ?t1 c:ACDCTerminal.sequenceNumber \"1\"."+
-    " ?t1 c:IdentifiedObject.mRID ?t1id."+
+      " ?t1 c:IdentifiedObject.mRID ?t1id."+
       " ?cn1 c:IdentifiedObject.name ?bus1."+
       " ?t2 c:Terminal.ConductingEquipment ?s."+
       " ?t2 c:Terminal.ConnectivityNode ?cn2."+
       " ?t2 c:ACDCTerminal.sequenceNumber \"2\"."+
-    " ?t2 c:IdentifiedObject.mRID ?t2id."+
+      " ?t2 c:IdentifiedObject.mRID ?t2id."+
       " ?cn2 c:IdentifiedObject.name ?bus2."+
       " ?s c:IdentifiedObject.mRID ?id."+
       " OPTIONAL {?swp c:SwitchPhase.Switch ?s."+
@@ -694,144 +722,144 @@ public class CIMQuerySetter extends Object {
       " ORDER BY ?name");
 
     mapQueries.put ("DistSyncMachine",
-       "SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?ratedS ?ratedU ?p ?q ?id ?fdrid ?t1id WHERE {"+
-       " ?s c:Equipment.EquipmentContainer ?fdr."+
-       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
-       " ?s r:type c:SynchronousMachine."+
-       " ?s c:IdentifiedObject.name ?name."+
-       " ?s c:RotatingMachine.ratedS ?ratedS."+
-       " ?s c:RotatingMachine.ratedU ?ratedU."+
-       " ?s c:RotatingMachine.p ?p."+
-       " ?s c:RotatingMachine.q ?q."+
-       " ?s c:IdentifiedObject.mRID ?id."+
-       " OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s."+
-       "  ?smp c:SynchronousMachinePhase.phase ?phsraw."+
-        " bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
-       " ?t c:Terminal.ConductingEquipment ?s."+
-       " ?t c:Terminal.ConnectivityNode ?cn."+ 
-     " ?t c:IdentifiedObject.mRID ?t1id."+
-       " ?cn c:IdentifiedObject.name ?bus" + 
-       "} " +
-       "GROUP by ?name ?bus ?ratedS ?ratedU ?p ?q ?id ?fdrid ?t1id " +
-       "ORDER by ?name");
+      "SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\\n\") as ?phases) ?ratedS ?ratedU ?p ?q ?id ?fdrid ?t1id WHERE {"+
+      " ?s c:Equipment.EquipmentContainer ?fdr."+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?s r:type c:SynchronousMachine."+
+      " ?s c:IdentifiedObject.name ?name."+
+      " ?s c:RotatingMachine.ratedS ?ratedS."+
+      " ?s c:RotatingMachine.ratedU ?ratedU."+
+      " ?s c:RotatingMachine.p ?p."+
+      " ?s c:RotatingMachine.q ?q."+
+      " ?s c:IdentifiedObject.mRID ?id."+
+      " OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s."+
+      "  ?smp c:SynchronousMachinePhase.phase ?phsraw."+
+      " bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) }"+
+      " ?t c:Terminal.ConductingEquipment ?s."+
+      " ?t c:Terminal.ConnectivityNode ?cn."+ 
+      " ?t c:IdentifiedObject.mRID ?t1id."+
+      " ?cn c:IdentifiedObject.name ?bus" + 
+      "} " +
+      "GROUP by ?name ?bus ?ratedS ?ratedU ?p ?q ?id ?fdrid ?t1id " +
+      "ORDER by ?name");
 
-  mapQueries.put ("DistIEEE1547Connection",
-    "SELECT ?name ?id ?fdrid (group_concat(distinct ?pid;separator=\"\\n\") as ?pids) WHERE {"+
-    " ?pec c:Equipment.EquipmentContainer ?fdr."+
-    " ?fdr c:IdentifiedObject.mRID ?fdrid."+
-    " ?s r:type c:DERIEEEType1."+
-    " ?s c:DERDynamics.PowerElectronicsConnection ?pec."+
-    " ?pec c:IdentifiedObject.mRID ?pid."+
-    " ?s c:IdentifiedObject.name ?name."+
-    " ?s c:IdentifiedObject.mRID ?id."+
-    "} "+
-    "GROUP by ?name ?id ?fdrid "+
-    "ORDER by ?name ?id");
+    mapQueries.put ("DistIEEE1547Connection",
+      "SELECT ?name ?id ?fdrid (group_concat(distinct ?pid;separator=\"\\n\") as ?pids) WHERE {"+
+      " ?pec c:Equipment.EquipmentContainer ?fdr."+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?s r:type c:DERIEEEType1."+
+      " ?s c:DERDynamics.PowerElectronicsConnection ?pec."+
+      " ?pec c:IdentifiedObject.mRID ?pid."+
+      " ?s c:IdentifiedObject.name ?name."+
+      " ?s c:IdentifiedObject.mRID ?id."+
+      "} "+
+      "GROUP by ?name ?id ?fdrid "+
+      "ORDER by ?name ?id");
 
-  mapQueries.put ("DistIEEE1547Signal",
-    "SELECT DISTINCT ?name ?id ?pecid ?rid ?kind ?tid ?fdrid WHERE {"+
-    " ?pec c:Equipment.EquipmentContainer ?fdr."+
-    " ?fdr c:IdentifiedObject.mRID ?fdrid."+
-    " ?s r:type c:DERIEEEType1."+
-    " ?s c:DERDynamics.PowerElectronicsConnection ?pec."+
-    " ?s c:IdentifiedObject.name ?name."+
-    " ?s c:IdentifiedObject.mRID ?id."+
-    " ?pec c:IdentifiedObject.mRID ?pecid."+
-    " ?s c:DERDynamics.RemoteInputSignal ?rsig."+
-    " ?rsig c:IdentifiedObject.mRID ?rid."+
-    " ?rsig c:RemoteInputSignal.Terminal ?trm."+
-    " ?rsig c:RemoteInputSignal.remoteSignalType ?kindraw. bind(strafter(str(?kindraw),\"RemoteSignalKind.\") as ?kind)"+
-    " ?trm c:IdentifiedObject.mRID ?tid."+
-    "} "+
-    "ORDER by ?name ?id");
+    mapQueries.put ("DistIEEE1547Signal",
+      "SELECT DISTINCT ?name ?id ?pecid ?rid ?kind ?tid ?fdrid WHERE {"+
+      " ?pec c:Equipment.EquipmentContainer ?fdr."+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?s r:type c:DERIEEEType1."+
+      " ?s c:DERDynamics.PowerElectronicsConnection ?pec."+
+      " ?s c:IdentifiedObject.name ?name."+
+      " ?s c:IdentifiedObject.mRID ?id."+
+      " ?pec c:IdentifiedObject.mRID ?pecid."+
+      " ?s c:DERDynamics.RemoteInputSignal ?rsig."+
+      " ?rsig c:IdentifiedObject.mRID ?rid."+
+      " ?rsig c:RemoteInputSignal.Terminal ?trm."+
+      " ?rsig c:RemoteInputSignal.remoteSignalType ?kindraw. bind(strafter(str(?kindraw),\"RemoteSignalKind.\") as ?kind)"+
+      " ?trm c:IdentifiedObject.mRID ?tid."+
+      "} "+
+      "ORDER by ?name ?id");
 
-  mapQueries.put ("DistIEEE1547Used",
-    "SELECT DISTINCT ?name ?id ?pecid ?enabled ?cat ?acVnom ?acVmin ?acVmax ?sMax ?pMax ?pMaxOverPF ?overPF ?pMaxUnderPF ?underPF ?qMaxInj ?qMaxAbs ?pMaxCharge ?apparentPowerChargeMax ?fdrid"+
-    " ?vvEnabled ?vvV1 ?vvV2 ?vvV3 ?vvV4 ?vvQ1 ?vvQ2 ?vvQ3 ?vvQ4 ?vvRef ?vvRefAuto ?vvRefOlrt ?vvOlrt"+
-    " ?wvEnabled ?wvP1gen ?wvP2gen ?wvP3gen ?wvQ1gen ?wvQ2gen ?wvQ3gen ?wvP1load ?wvP2load ?wvP3load ?wvQ1load ?wvQ2load ?wvQ3load"+
-    " ?pfEnabled ?powerFactor ?pfKind"+
-    " ?cqEnabled ?reactivePower"+
-    " ?vwEnabled ?vwV1 ?vwP1 ?vwV2 ?vwP2gen ?vwP2load ?vwOlrt "+
-    " ?hasConstPF ?hasConstQ ?hasPV ?hasQV ?hasQP ?hasPF ?usePG ?usePN ?usePP "+
-    "WHERE {"+
-    " ?pec c:Equipment.EquipmentContainer ?fdr."+
-    " ?fdr c:IdentifiedObject.mRID ?fdrid."+
-    " ?s r:type c:DERIEEEType1."+
-    " ?s c:DERDynamics.PowerElectronicsConnection ?pec."+
-    " ?s c:DERIEEEType1.phaseToGroundApplicable ?usePG."+
-    " ?s c:DERIEEEType1.phaseToNeutralApplicable ?usePN."+
-    " ?s c:DERIEEEType1.phaseToPhaseApplicable ?usePP."+
-    " ?pec c:IdentifiedObject.mRID ?pecid."+
-    " ?s c:IdentifiedObject.name ?name."+
-    " ?s c:IdentifiedObject.mRID ?id."+
-    " ?s c:DynamicsFunctionBlock.enabled ?enabled."+
-    " ?nd c:DERNameplateData.DERIEEEType1 ?s."+
-    " ?nd c:DERNameplateData.acVmin ?acVmin."+
-    " ?nd c:DERNameplateData.acVmax ?acVmax."+
-    " ?nd c:DERNameplateData.normalOPcatKind ?catraw. bind(strafter(str(?catraw),\"NormalOPcatKind.\") as ?cat)"+
-    " ?nd c:DERNameplateData.supportsConstPFmode ?hasConstPF."+
-    " ?nd c:DERNameplateData.supportsConstQmode ?hasConstQ."+
-    " ?nd c:DERNameplateData.supportsPVmode ?hasPV."+
-    " ?nd c:DERNameplateData.supportsQVmode ?hasQV."+
-    " ?nd c:DERNameplateData.supportsQPmode ?hasQP."+
-    " ?nd c:DERNameplateData.supportsPFmode ?hasPF."+
-    " ?ad c:DERNameplateDataApplied.DERNameplateData ?nd."+
-    " ?ad c:DERNameplateDataApplied.acVnom ?acVnom."+
-    " ?ad c:DERNameplateDataApplied.sMax ?sMax."+
-    " ?ad c:DERNameplateDataApplied.pMax ?pMax."+
-    " ?ad c:DERNameplateDataApplied.pMaxOverPF ?pMaxOverPF."+
-    " ?ad c:DERNameplateDataApplied.overPF ?overPF."+
-    " ?ad c:DERNameplateDataApplied.pMaxUnderPF ?pMaxUnderPF."+
-    " ?ad c:DERNameplateDataApplied.underPF ?underPF."+
-    " ?ad c:DERNameplateDataApplied.qMaxInj ?qMaxInj."+
-    " ?ad c:DERNameplateDataApplied.qMaxAbs ?qMaxAbs."+
-    " ?ad c:DERNameplateDataApplied.pMaxCharge ?pMaxCharge."+
-    " ?ad c:DERNameplateDataApplied.apparentPowerChargeMax ?apparentPowerChargeMax."+
-    " ?vv c:VoltVarSettings.DERIEEEType1 ?s."+
-    " ?vv c:VoltVarSettings.enabled ?vvEnabled."+
-    " ?vv c:VoltVarSettings.vRef ?vvRef."+
-    " ?vv c:VoltVarSettings.vRefAutoModeEnabled ?vvRefAuto."+
-    " ?vv c:VoltVarSettings.vRefOlrt ?vvRefOlrt."+
-    " ?vv c:VoltVarSettings.curveV1 ?vvV1."+
-    " ?vv c:VoltVarSettings.curveV2 ?vvV2."+
-    " ?vv c:VoltVarSettings.curveV3 ?vvV3."+
-    " ?vv c:VoltVarSettings.curveV4 ?vvV4."+
-    " ?vv c:VoltVarSettings.curveQ1 ?vvQ1."+
-    " ?vv c:VoltVarSettings.curveQ2 ?vvQ2."+
-    " ?vv c:VoltVarSettings.curveQ3 ?vvQ3."+
-    " ?vv c:VoltVarSettings.curveQ4 ?vvQ4."+
-    " ?vv c:VoltVarSettings.olrt ?vvOlrt."+
-    " ?wv c:WattVarSettings.DERIEEEType1 ?s."+
-    " ?wv c:WattVarSettings.enabled ?wvEnabled."+
-    " ?wv c:WattVarSettings.curveP1gen ?wvP1gen."+
-    " ?wv c:WattVarSettings.curveP1load ?wvP1load."+
-    " ?wv c:WattVarSettings.curveP2gen ?wvP2gen."+
-    " ?wv c:WattVarSettings.curveP2load ?wvP2load."+
-    " ?wv c:WattVarSettings.curveP3gen ?wvP3gen."+
-    " ?wv c:WattVarSettings.curveP3load ?wvP3load."+
-    " ?wv c:WattVarSettings.curveQ1gen ?wvQ1gen."+
-    " ?wv c:WattVarSettings.curveQ1load ?wvQ1load."+
-    " ?wv c:WattVarSettings.curveQ2gen ?wvQ2gen."+
-    " ?wv c:WattVarSettings.curveQ2load ?wvQ2load."+
-    " ?wv c:WattVarSettings.curveQ3gen ?wvQ3gen."+
-    " ?wv c:WattVarSettings.curveQ3load ?wvQ3load."+
-    " ?vw c:VoltWattSettings.DERIEEEType1 ?s."+
-    " ?vw c:VoltWattSettings.enabled ?vwEnabled."+
-    " ?vw c:VoltWattSettings.curveV1 ?vwV1."+
-    " ?vw c:VoltWattSettings.curveP1 ?vwP1."+
-    " ?vw c:VoltWattSettings.curveV2 ?vwV2."+
-    " ?vw c:VoltWattSettings.curveP2gen ?vwP2gen."+
-    " ?vw c:VoltWattSettings.curveP2load ?vwP2load."+
-    " ?vw c:VoltWattSettings.olrt ?vwOlrt."+
-    " ?pf c:ConstantPowerFactorSettings.DERIEEEType1 ?s."+
-    " ?pf c:ConstantPowerFactorSettings.enabled ?pfEnabled."+
-    " ?pf c:ConstantPowerFactorSettings.powerFactor ?powerFactor."+
-    " ?pf c:ConstantPowerFactorSettings.constantPowerFactorExcitationKind ?pfraw. bind(strafter(str(?pfraw),\"ConstantPowerFactorSettingKind.\") as ?pfKind)"+
-    " ?cq c:ConstantReactivePowerSettings.DERIEEEType1 ?s."+
-    " ?cq c:ConstantReactivePowerSettings.enabled ?cqEnabled."+
-    " ?cq c:ConstantReactivePowerSettings.reactivePower ?reactivePower."+
-    "} "+
-    "ORDER by ?name ?id");
+    mapQueries.put ("DistIEEE1547Used",
+      "SELECT DISTINCT ?name ?id ?pecid ?enabled ?cat ?acVnom ?acVmin ?acVmax ?sMax ?pMax ?pMaxOverPF ?overPF ?pMaxUnderPF ?underPF ?qMaxInj ?qMaxAbs ?pMaxCharge ?apparentPowerChargeMax ?fdrid"+
+      " ?vvEnabled ?vvV1 ?vvV2 ?vvV3 ?vvV4 ?vvQ1 ?vvQ2 ?vvQ3 ?vvQ4 ?vvRef ?vvRefAuto ?vvRefOlrt ?vvOlrt"+
+      " ?wvEnabled ?wvP1gen ?wvP2gen ?wvP3gen ?wvQ1gen ?wvQ2gen ?wvQ3gen ?wvP1load ?wvP2load ?wvP3load ?wvQ1load ?wvQ2load ?wvQ3load"+
+      " ?pfEnabled ?powerFactor ?pfKind"+
+      " ?cqEnabled ?reactivePower"+
+      " ?vwEnabled ?vwV1 ?vwP1 ?vwV2 ?vwP2gen ?vwP2load ?vwOlrt "+
+      " ?hasConstPF ?hasConstQ ?hasPV ?hasQV ?hasQP ?hasPF ?usePG ?usePN ?usePP "+
+      "WHERE {"+
+      " ?pec c:Equipment.EquipmentContainer ?fdr."+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?s r:type c:DERIEEEType1."+
+      " ?s c:DERDynamics.PowerElectronicsConnection ?pec."+
+      " ?s c:DERIEEEType1.phaseToGroundApplicable ?usePG."+
+      " ?s c:DERIEEEType1.phaseToNeutralApplicable ?usePN."+
+      " ?s c:DERIEEEType1.phaseToPhaseApplicable ?usePP."+
+      " ?pec c:IdentifiedObject.mRID ?pecid."+
+      " ?s c:IdentifiedObject.name ?name."+
+      " ?s c:IdentifiedObject.mRID ?id."+
+      " ?s c:DynamicsFunctionBlock.enabled ?enabled."+
+      " ?nd c:DERNameplateData.DERIEEEType1 ?s."+
+      " ?nd c:DERNameplateData.acVmin ?acVmin."+
+      " ?nd c:DERNameplateData.acVmax ?acVmax."+
+      " ?nd c:DERNameplateData.normalOPcatKind ?catraw. bind(strafter(str(?catraw),\"NormalOPcatKind.\") as ?cat)"+
+      " ?nd c:DERNameplateData.supportsConstPFmode ?hasConstPF."+
+      " ?nd c:DERNameplateData.supportsConstQmode ?hasConstQ."+
+      " ?nd c:DERNameplateData.supportsPVmode ?hasPV."+
+      " ?nd c:DERNameplateData.supportsQVmode ?hasQV."+
+      " ?nd c:DERNameplateData.supportsQPmode ?hasQP."+
+      " ?nd c:DERNameplateData.supportsPFmode ?hasPF."+
+      " ?ad c:DERNameplateDataApplied.DERNameplateData ?nd."+
+      " ?ad c:DERNameplateDataApplied.acVnom ?acVnom."+
+      " ?ad c:DERNameplateDataApplied.sMax ?sMax."+
+      " ?ad c:DERNameplateDataApplied.pMax ?pMax."+
+      " ?ad c:DERNameplateDataApplied.pMaxOverPF ?pMaxOverPF."+
+      " ?ad c:DERNameplateDataApplied.overPF ?overPF."+
+      " ?ad c:DERNameplateDataApplied.pMaxUnderPF ?pMaxUnderPF."+
+      " ?ad c:DERNameplateDataApplied.underPF ?underPF."+
+      " ?ad c:DERNameplateDataApplied.qMaxInj ?qMaxInj."+
+      " ?ad c:DERNameplateDataApplied.qMaxAbs ?qMaxAbs."+
+      " ?ad c:DERNameplateDataApplied.pMaxCharge ?pMaxCharge."+
+      " ?ad c:DERNameplateDataApplied.apparentPowerChargeMax ?apparentPowerChargeMax."+
+      " ?vv c:VoltVarSettings.DERIEEEType1 ?s."+
+      " ?vv c:VoltVarSettings.enabled ?vvEnabled."+
+      " ?vv c:VoltVarSettings.vRef ?vvRef."+
+      " ?vv c:VoltVarSettings.vRefAutoModeEnabled ?vvRefAuto."+
+      " ?vv c:VoltVarSettings.vRefOlrt ?vvRefOlrt."+
+      " ?vv c:VoltVarSettings.curveV1 ?vvV1."+
+      " ?vv c:VoltVarSettings.curveV2 ?vvV2."+
+      " ?vv c:VoltVarSettings.curveV3 ?vvV3."+
+      " ?vv c:VoltVarSettings.curveV4 ?vvV4."+
+      " ?vv c:VoltVarSettings.curveQ1 ?vvQ1."+
+      " ?vv c:VoltVarSettings.curveQ2 ?vvQ2."+
+      " ?vv c:VoltVarSettings.curveQ3 ?vvQ3."+
+      " ?vv c:VoltVarSettings.curveQ4 ?vvQ4."+
+      " ?vv c:VoltVarSettings.olrt ?vvOlrt."+
+      " ?wv c:WattVarSettings.DERIEEEType1 ?s."+
+      " ?wv c:WattVarSettings.enabled ?wvEnabled."+
+      " ?wv c:WattVarSettings.curveP1gen ?wvP1gen."+
+      " ?wv c:WattVarSettings.curveP1load ?wvP1load."+
+      " ?wv c:WattVarSettings.curveP2gen ?wvP2gen."+
+      " ?wv c:WattVarSettings.curveP2load ?wvP2load."+
+      " ?wv c:WattVarSettings.curveP3gen ?wvP3gen."+
+      " ?wv c:WattVarSettings.curveP3load ?wvP3load."+
+      " ?wv c:WattVarSettings.curveQ1gen ?wvQ1gen."+
+      " ?wv c:WattVarSettings.curveQ1load ?wvQ1load."+
+      " ?wv c:WattVarSettings.curveQ2gen ?wvQ2gen."+
+      " ?wv c:WattVarSettings.curveQ2load ?wvQ2load."+
+      " ?wv c:WattVarSettings.curveQ3gen ?wvQ3gen."+
+      " ?wv c:WattVarSettings.curveQ3load ?wvQ3load."+
+      " ?vw c:VoltWattSettings.DERIEEEType1 ?s."+
+      " ?vw c:VoltWattSettings.enabled ?vwEnabled."+
+      " ?vw c:VoltWattSettings.curveV1 ?vwV1."+
+      " ?vw c:VoltWattSettings.curveP1 ?vwP1."+
+      " ?vw c:VoltWattSettings.curveV2 ?vwV2."+
+      " ?vw c:VoltWattSettings.curveP2gen ?vwP2gen."+
+      " ?vw c:VoltWattSettings.curveP2load ?vwP2load."+
+      " ?vw c:VoltWattSettings.olrt ?vwOlrt."+
+      " ?pf c:ConstantPowerFactorSettings.DERIEEEType1 ?s."+
+      " ?pf c:ConstantPowerFactorSettings.enabled ?pfEnabled."+
+      " ?pf c:ConstantPowerFactorSettings.powerFactor ?powerFactor."+
+      " ?pf c:ConstantPowerFactorSettings.constantPowerFactorExcitationKind ?pfraw. bind(strafter(str(?pfraw),\"ConstantPowerFactorSettingKind.\") as ?pfKind)"+
+      " ?cq c:ConstantReactivePowerSettings.DERIEEEType1 ?s."+
+      " ?cq c:ConstantReactivePowerSettings.enabled ?cqEnabled."+
+      " ?cq c:ConstantReactivePowerSettings.reactivePower ?reactivePower."+
+      "} "+
+      "ORDER by ?name ?id");
 
     mapQueries.put ("DistTapeShieldCable",
       "SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat"+
@@ -874,8 +902,8 @@ public class CIMQuerySetter extends Object {
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?s c:IdentifiedObject.name ?name."+
       " ?s c:IdentifiedObject.mRID ?id."+
-       " ?s c:Thermostat.aggregatorName ?aggregatorName."+
-       " ?bv c:Thermostat.baseSetpoint ?baseSetpoint."+
+      " ?s c:Thermostat.aggregatorName ?aggregatorName."+
+      " ?bv c:Thermostat.baseSetpoint ?baseSetpoint."+
       " ?s c:Thermostat.controlMode ?controlMode."+
       " ?s c:Thermostat.priceCap ?priceCap."+
       " ?s c:Thermostat.rampHigh ?rampHigh."+
@@ -910,13 +938,13 @@ public class CIMQuerySetter extends Object {
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?xft c:TransformerTank.PowerTransformer ?eq."+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
-    " ?xft c:TransformerTank.TransformerTankInfo ?t."+
+      " ?xft c:TransformerTank.TransformerTankInfo ?t."+
       " ?t c:IdentifiedObject.name ?tname."+
       " ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
       " ?nlt c:NoLoadTest.EnergisedEnd ?e."+
       " ?nlt c:NoLoadTest.loss ?nll."+
       " ?nlt c:NoLoadTest.excitingCurrent ?iexc."+
-    " ?nlt c:TransformerTest.basePower ?base."+
+      " ?nlt c:TransformerTest.basePower ?base."+
       "} ORDER BY ?tname");
 
     mapQueries.put ("DistXfmrCodeRating",
@@ -924,7 +952,7 @@ public class CIMQuerySetter extends Object {
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?xft c:TransformerTank.PowerTransformer ?eq."+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
-    " ?xft c:TransformerTank.TransformerTankInfo ?t."+
+      " ?xft c:TransformerTank.TransformerTankInfo ?t."+
       " ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
       " ?e c:IdentifiedObject.mRID ?eid."+
       " ?t c:IdentifiedObject.name ?tname."+
@@ -944,7 +972,7 @@ public class CIMQuerySetter extends Object {
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?xft c:TransformerTank.PowerTransformer ?eq."+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
-    " ?xft c:TransformerTank.TransformerTankInfo ?t."+
+      " ?xft c:TransformerTank.TransformerTankInfo ?t."+
       " ?t c:IdentifiedObject.name ?tname."+
       " ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
       " ?e c:TransformerEndInfo.endNumber ?enum."+
@@ -953,7 +981,7 @@ public class CIMQuerySetter extends Object {
       " ?sct c:ShortCircuitTest.loss ?ll."+
       " ?sct c:ShortCircuitTest.GroundedEnds ?grnd."+
       " ?grnd c:TransformerEndInfo.endNumber ?gnum."+
-    " ?sct c:TransformerTest.basePower ?base."+
+      " ?sct c:TransformerTest.basePower ?base."+
       "} ORDER BY ?tname ?enum ?gnum");
 
     mapQueries.put ("DistXfmrTank",
@@ -979,7 +1007,7 @@ public class CIMQuerySetter extends Object {
       " OPTIONAL {?end c:TransformerEnd.xground ?xground.}"+
       " ?end c:TransformerEnd.Terminal ?trm."+
       " ?trm c:Terminal.ConnectivityNode ?cn."+ 
-    " ?trm c:IdentifiedObject.mRID ?t1id."+
+      " ?trm c:IdentifiedObject.mRID ?t1id."+
       " ?cn c:IdentifiedObject.name ?bus."+
       " ?t c:IdentifiedObject.mRID ?id."+
       " ?end c:TransformerEnd.BaseVoltage ?bv."+
@@ -1055,7 +1083,7 @@ public class CIMQuerySetter extends Object {
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?xft c:TransformerTank.PowerTransformer ?eq."+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
-    " ?xft c:TransformerTank.TransformerTankInfo ?t."+
+      " ?xft c:TransformerTank.TransformerTankInfo ?t."+
       " ?t c:IdentifiedObject.name ?key."+
       " ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
       " ?e c:TransformerEndInfo.endNumber ?enum."+
@@ -1067,7 +1095,7 @@ public class CIMQuerySetter extends Object {
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?xft c:TransformerTank.PowerTransformer ?eq."+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
-    " ?xft c:TransformerTank.TransformerTankInfo ?t."+
+      " ?xft c:TransformerTank.TransformerTankInfo ?t."+
       " ?t c:IdentifiedObject.name ?key."+
       " ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
       " ?sct c:ShortCircuitTest.EnergisedEnd ?e."+
@@ -1101,18 +1129,18 @@ public class CIMQuerySetter extends Object {
   }
 
   private String getCharacterDataFromElement(Element e) {
-  NodeList list = e.getChildNodes();
-  String data;
-  for(int index = 0; index < list.getLength(); index++){
-    if(list.item(index) instanceof CharacterData){
-    CharacterData child = (CharacterData) list.item(index);
-    data = child.getData();
-    if (data != null && data.trim().length() > 0) {
-      return child.getData();
+    NodeList list = e.getChildNodes();
+    String data;
+    for(int index = 0; index < list.getLength(); index++) {
+      if(list.item(index) instanceof CharacterData) {
+        CharacterData child = (CharacterData) list.item(index);
+        data = child.getData();
+        if (data != null && data.trim().length() > 0) {
+          return child.getData();
         }
+      }
     }
-  }
-  return "";
+    return "";
   }
 
   private String condenseQuery (String root) {

@@ -186,6 +186,8 @@ def load_voltages(fname):
   return vpu, vmag, vrad
 
 def print_dss_flow (vtag, itag, volts, vang, amps, iang, label=None):
+#  print (vtag, (vtag+'_A') in volts)
+#  print (itag, (itag+'.1') in amps)
   if vtag is None or itag is None:
     return
   ptot = 0.0

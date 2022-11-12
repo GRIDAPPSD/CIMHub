@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 # global constants
 SPARQL = None
 PREFIX = None
+DELIM = ':'
 
 def initialize_SPARQL (cfg_file=None):
   global SPARQL
@@ -47,7 +48,7 @@ def query_for_values (tbl, fid):
     row = {}
     key = b[keyflds[0]].value
     for i in range(1, len(keyflds)):
-      key = key + ':' + b[keyflds[i]].value
+      key = key + DELIM + b[keyflds[i]].value
     for fld in vars:
       if fld not in b:
         row[fld] = ''
@@ -105,8 +106,10 @@ def load_feeder (dict, fid, bTime=True):
   for key in delete: 
     del dict['DistFeeder']['vals'][key]
 
-def load_feeder_dict (cfg_file, xml_file, fid, bTime=True):
+def load_feeder_dict (cfg_file, xml_file, fid, bTime=True, keyDelimiter=':'):
   global PREFIX
+  global DELIM
+  DELIM = keyDelimiter
   initialize_SPARQL (cfg_file)
   # read the queries into dict
   tree = ET.parse(xml_file)

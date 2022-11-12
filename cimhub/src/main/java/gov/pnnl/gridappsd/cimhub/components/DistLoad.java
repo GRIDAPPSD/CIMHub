@@ -82,41 +82,41 @@ public class DistLoad extends DistComponent {
     } else {
       bDelta = false;
     }
-    if (pe == 1 && qe == 2) {
-      dss_load_model = 4;
-      return;
-    }
-    double sum = pz + pi + pp;
-    pz = pz / sum;
-    pi = pi / sum;
-    pp = pp / sum;
-    sum = qz + qi + qp;
-    qz = qz / sum;
-    qi = qi / sum;
-    qp = qp / sum;
-    if (pz >= 0.999999 && qz >= 0.999999) {
-      dss_load_model = 2;
-    } else if (pi >= 0.999999 && qi >= 0.999999) {
-      dss_load_model = 5;
-    } else if (pp >= 0.999999 && qp >= 0.999999) {
-      dss_load_model = 1;
-    } else {
-      dss_load_model = 8;
-    }
-  }
+		if (pe == 1 && qe == 2) {
+			dss_load_model = 4;
+			return;
+		}
+		double sum = pz + pi + pp;
+		pz = pz / sum;
+		pi = pi / sum;
+		pp = pp / sum;
+		sum = qz + qi + qp;
+		qz = qz / sum;
+		qi = qi / sum;
+		qp = qp / sum;
+		if (pz >= 0.999999 && qz >= 0.999999) {
+			dss_load_model = 2;
+		}	else if (pi >= 0.999999 && qi >= 0.999999) {
+			dss_load_model = 5;
+		} else if (pp >= 0.999999 && qp >= 0.999999) {
+			dss_load_model = 1;
+		} else {
+			dss_load_model = 8;
+		}
+	}
 
-  private String GetZIPV() {
-    return "[" + df4.format(pz) + "," + df4.format(pi) + "," + df4.format(pp) + "," + df4.format(qz)
-     + "," + df4.format(qi) + "," + df4.format(qp) + ",0.8]";
-  }
+	private String GetZIPV() {
+		return "[" + df4.format(pz) + "," + df4.format(pi) + "," + df4.format(pp) + "," + df4.format(qz)
+		 + "," + df4.format(qi) + "," + df4.format(qp) + ",0.8]";
+	}
 
-  public String GetDSS() {
-    StringBuilder buf = new StringBuilder ("new Load." + name);
+	public String GetDSS (DistEnergyConnectionProfile prf) {
+		StringBuilder buf = new StringBuilder ("new Load." + name);
 
-    SetDSSLoadModel();
-    int nphases = DSSPhaseCount(phases, bDelta);
-    double kv = 0.001 * basev;
-    if (nphases < 2 && !bDelta) { 
+		SetDSSLoadModel();
+		int nphases = DSSPhaseCount(phases, bDelta);
+		double kv = 0.001 * basev;
+		if (nphases < 2 && !bDelta) { 
       if (kv < 0.22) {
         kv /= Math.sqrt(3.0);
       } else if (kv < 0.26) {// TODO: this catches the 240-volt windings with center tap?
@@ -130,11 +130,16 @@ public class DistLoad extends DistComponent {
       }
     }
 
-    buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
-                " conn=" + DSSConn(bDelta) + " kw=" + df3.format(p) + " kvar=" + df3.format(q) +
-                " numcust=1 kv=" + df3.format(kv) + " model=" + Integer.toString(dss_load_model));
-    if (dss_load_model == 8) {
-      buf.append (" zipv=" + GetZIPV());
+		buf.append (" phases=" + Integer.toString(nphases) + " bus1=" + DSSShuntPhases (bus, phases, bDelta) + 
+								" conn=" + DSSConn(bDelta) + " kw=" + df3.format(p) + " kvar=" + df3.format(q) +
+								" numcust=1 kv=" + df3.format(kv) + " model=" + Integer.toString(dss_load_model));
+		if (dss_load_model == 8) {
+			buf.append (" zipv=" + GetZIPV());
+		}
+    if (prf != null) {
+      if (prf.dssDaily.length() > 0) {
+        buf.append (" daily=" + prf.dssDaily);
+      }
     }
     buf.append("\n");
 

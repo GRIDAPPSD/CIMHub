@@ -4773,7 +4773,7 @@ object house {
   parent "ld_s49a_ldmtr";
   floor_area 845.88;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 78.923;
   heating_system_type HEAT_PUMP;
@@ -6303,7 +6303,7 @@ object house {
   parent "ld_s79a_ldmtr";
   floor_area 1391.59;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 76.581;
   heating_system_type NONE;
@@ -6371,7 +6371,7 @@ object house {
   parent "ld_s113a_ldmtr";
   floor_area 1675.83;
   number_of_stories 2;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 75.037;
   heating_system_type GAS;
@@ -6439,7 +6439,7 @@ object house {
   parent "ld_s113a_ldmtr";
   floor_area 2114.65;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 75.669;
   heating_system_type NONE;
@@ -6541,7 +6541,7 @@ object house {
   parent "ld_s1a_ldmtr";
   floor_area 658.74;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type NONE;
   cooling_setpoint 200.000;
   heating_system_type GAS;
@@ -6983,7 +6983,7 @@ object house {
   parent "ld_s73c_ldmtr";
   floor_area 1210.28;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 75.806;
   heating_system_type GAS;
@@ -7459,7 +7459,7 @@ object house {
   parent "ld_s34c_ldmtr";
   floor_area 5757.48;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 75.141;
   heating_system_type HEAT_PUMP;
@@ -7799,7 +7799,7 @@ object house {
   parent "ld_s16c_ldmtr";
   floor_area 1968.52;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 72.696;
   heating_system_type HEAT_PUMP;
@@ -8003,7 +8003,7 @@ object house {
   parent "ld_s9a_ldmtr";
   floor_area 2312.06;
   number_of_stories 2;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 74.571;
   heating_system_type GAS;
@@ -8581,7 +8581,7 @@ object house {
   parent "ld_s50c_ldmtr";
   floor_area 981.58;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 71.182;
   heating_system_type RESISTANCE;
@@ -9125,7 +9125,7 @@ object house {
   parent "ld_s99b_ldmtr";
   floor_area 615.76;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 76.440;
   heating_system_type GAS;
@@ -9465,7 +9465,7 @@ object house {
   parent "ld_s10a_ldmtr";
   floor_area 962.76;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 74.772;
   heating_system_type NONE;
@@ -9839,7 +9839,7 @@ object house {
   parent "ld_s92c_ldmtr";
   floor_area 503.99;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 73.072;
   heating_system_type NONE;
@@ -9907,7 +9907,7 @@ object house {
   parent "ld_s92c_ldmtr";
   floor_area 978.02;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 71.703;
   heating_system_type HEAT_PUMP;
@@ -9941,7 +9941,7 @@ object house {
   parent "ld_s53a_ldmtr";
   floor_area 1024.13;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 69.435;
   heating_system_type NONE;
@@ -10179,7 +10179,7 @@ object house {
   parent "ld_s92c_ldmtr";
   floor_area 4022.33;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 71.933;
   heating_system_type GAS;
@@ -10315,7 +10315,7 @@ object house {
   parent "ld_s41c_ldmtr";
   floor_area 2786.97;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 72.418;
   heating_system_type GAS;
@@ -10687,7 +10687,7 @@ object house {
   parent "ld_s63a_ldmtr";
   floor_area 1668.53;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 73.392;
   heating_system_type GAS;
@@ -11061,7 +11061,7 @@ object house {
   parent "ld_s49b_ldmtr";
   floor_area 892.40;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 75.138;
   heating_system_type NONE;
@@ -11095,7 +11095,7 @@ object house {
   parent "ld_s22b_ldmtr";
   floor_area 665.04;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 80.744;
   heating_system_type NONE;
@@ -11501,7 +11501,7 @@ object house {
   parent "ld_s33a_ldmtr";
   floor_area 2939.48;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 75.321;
   heating_system_type HEAT_PUMP;
@@ -11807,7 +11807,7 @@ object house {
   parent "ld_s80b_ldmtr";
   floor_area 4891.35;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 72.928;
   heating_system_type GAS;
@@ -12079,7 +12079,7 @@ object house {
   parent "ld_s55a_ldmtr";
   floor_area 2047.46;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 73.927;
   heating_system_type HEAT_PUMP;
@@ -12113,7 +12113,7 @@ object house {
   parent "ld_s87b_ldmtr";
   floor_area 1561.72;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 76.369;
   heating_system_type GAS;
@@ -12147,7 +12147,7 @@ object house {
   parent "ld_s87b_ldmtr";
   floor_area 4918.34;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 76.197;
   heating_system_type HEAT_PUMP;
@@ -12181,7 +12181,7 @@ object house {
   parent "ld_s87b_ldmtr";
   floor_area 1027.36;
   number_of_stories 2;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 77.108;
   heating_system_type HEAT_PUMP;
@@ -12351,7 +12351,7 @@ object house {
   parent "ld_s98a_ldmtr";
   floor_area 3245.56;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 68.759;
   heating_system_type GAS;
@@ -12419,7 +12419,7 @@ object house {
   parent "ld_s98a_ldmtr";
   floor_area 1732.92;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 68.385;
   heating_system_type GAS;
@@ -12453,7 +12453,7 @@ object house {
   parent "ld_s49c_ldmtr";
   floor_area 2160.64;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 71.190;
   heating_system_type HEAT_PUMP;
@@ -12555,7 +12555,7 @@ object house {
   parent "ld_s5c_ldmtr";
   floor_area 3166.76;
   number_of_stories 1;
-  thermal_integrity_level NORMAL;
+  thermal_integrity_level ABOVE_NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 76.696;
   heating_system_type HEAT_PUMP;
@@ -13031,7 +13031,7 @@ object house {
   parent "ld_s4c_ldmtr";
   floor_area 1739.28;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 72.663;
   heating_system_type GAS;
@@ -14015,7 +14015,7 @@ object house {
   parent "ld_s2b_ldmtr";
   floor_area 2675.74;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 78.288;
   heating_system_type HEAT_PUMP;
@@ -14117,7 +14117,7 @@ object house {
   parent "ld_s56b_ldmtr";
   floor_area 1587.99;
   number_of_stories 1;
-  thermal_integrity_level ABOVE_NORMAL;
+  thermal_integrity_level NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 75.897;
   heating_system_type GAS;
