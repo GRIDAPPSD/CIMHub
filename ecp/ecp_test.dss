@@ -1,0 +1,32 @@
+clear
+new circuit.ecp basekv=13.2 pu=1.05 r1=1.210 x1=2.834 r0=3.961 x0=3.214
+
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=sourcebus bus2=bess len=0.2
+new line.seg2 bus1=bess      bus2=pv   len=1.0
+new line.seg3 bus1=pv        bus2=load len=1.0
+new line.seg4 bus1=load      bus2=gen  len=0.5
+
+new storage.bess1 bus1=bess kv=13.2 kw=1000
+new storage.bess2 bus1=bess kv=13.2 kw=1000
+~ daily=default duty=default yearly=default spectrum=pwm6
+
+New PVSystem.pv1 bus1=pv kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00
+New PVSystem.pv2 bus1=pv kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00
+~ daily=default duty=default yearly=default spectrum=dc6
+// ~ tdaily=default tduty= tyearly=
+
+new load.load1 bus1=load kv=13.2 kw=2000
+~ growth=default // cvrcurve=
+new load.load2 bus1=load kv=13.2 kw=2000
+~ daily=default duty=default yearly=default spectrum=pwm6
+
+new generator.gen1 bus1=gen kv=13.2 kw=500
+new generator.gen2 bus1=gen kv=13.2 kw=500
+~ daily=default duty=default yearly=default spectrum=linear
+
+Set Voltagebases=[13.2]
+calcv
+set maxcontroliter=100
+Solve
+
