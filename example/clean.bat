@@ -8,3 +8,6 @@ rm sum*.csv
 rm *_base.dss
 rm *_uuid.dss
 rm *_busxy.dss
+del *.dsv
+del *.dbl
+del DSSViewIntercom.Txt
