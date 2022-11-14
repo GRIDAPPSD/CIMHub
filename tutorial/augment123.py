@@ -29,7 +29,7 @@ cwd = os.getcwd()
 cases = [
   {'dssname':'ieee123', 'root':'ieee123houses', 'mRID':'CBE09B55-091B-4BB0-95DA-392237B12640',
    'substation':'Fictitious', 'region':'Texas', 'subregion':'Austin', 'skip_gld': False,
-   'glmvsrc': 2401.78, 'bases':[4160.0], 'export_options':' -l=1.0 -p=1.0 -h=1 -e=carson',
+   'glmvsrc': 2401.78, 'bases':[4160.0], 'export_options':' -l=1.0 -p=1.0 -h=1 -a=1 -e=carson',
    'check_branches':[{'dss_link': 'LINE.L115', 'dss_bus': '149', 'gld_link': 'LINE_L115', 'gld_bus': '149'}]},
 ]
 
@@ -81,7 +81,31 @@ cimhub.write_glm_flows (glmpath='./', rootname=cases[0]['root'],
                         voltagebases=cases[0]['bases'], 
                         check_branches=cases[0]['check_branches'])
 
-# count the elements in the database; should have 287 Houses, 14 PhotovoltaicUnits, 14 PowerElectronicsConnections
+#insert the player file references for spot loads, run GridLAB-D with houses, PV, variable spot loads
+os.chdir(cwd)
+cimhub.insert_profiles (cfg_json, 'oedi_profiles.dat')
+cases[0]['root'] = 'ieee123ecp'
+
+cimhub.make_export_script (cases=cases, glmpath='glm/', scriptname=shfile_export, clean_dirs=False)
+st = os.stat (shfile_export)
+os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+p1 = subprocess.call (shfile_export, shell=True)
+
+os.chdir(cwd)
+shutil.copyfile('../support/commercial_schedules.glm', './glm/commercial_schedules.glm')
+cimhub.make_glmrun_script (casefiles=cases, inpath='./glm/', outpath='./glm/', 
+                           scriptname=shfile_glm, bHouses=True, bProfiles=True, movefiles=False)
+st = os.stat (shfile_glm)
+os.chmod (shfile_glm, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+os.chdir('./glm')
+p1 = subprocess.call (shfile_run)
+cimhub.write_glm_flows (glmpath='./', rootname=cases[0]['root'], 
+                        voltagebases=cases[0]['bases'], 
+                        check_branches=cases[0]['check_branches'])
+
+# count the elements in the database; should have 287 Houses, 
+# 14 PhotovoltaicUnits, 14 PowerElectronicsConnections
+# 1 EnergyConnectionProfile
 os.chdir(cwd)
 cimhub.summarize_db (cfg_json)
 

@@ -2,7 +2,7 @@ import sys
 import os
 import stat
 
-def write_glm_case (c, v, fp, bHouses=False):
+def write_glm_case (c, v, fp, bHouses=False, bProfiles=False):
   print('clock {', file=fp)
   print('  timezone EST+5EDT;', file=fp)
   print('  starttime \'2000-01-01 0:00:00\';', file=fp)
@@ -30,6 +30,8 @@ def write_glm_case (c, v, fp, bHouses=False):
   if bHouses:
     print('module residential;', file=fp)
     print('#include "appliance_schedules.glm";', file=fp)
+  if bProfiles:
+    print('#include "commercial_schedules.glm";', file=fp)
   print('#define VSOURCE=' + str (v), file=fp)
   print('#include \"' + c + '_base.glm\";', file=fp)
   print('#ifdef WANT_VI_DUMP', file=fp)
@@ -43,7 +45,7 @@ def write_glm_case (c, v, fp, bHouses=False):
   print('};', file=fp)
   print('#endif', file=fp)
 
-def make_glmrun_script (casefiles, inpath, outpath, scriptname, movefiles=True, bHouses=False):
+def make_glmrun_script (casefiles, inpath, outpath, scriptname, movefiles=True, bHouses=False, bProfiles=False):
   bp = open (scriptname, 'w')
   bWindows = scriptname.endswith('.bat')
   if not bWindows:
@@ -59,7 +61,7 @@ def make_glmrun_script (casefiles, inpath, outpath, scriptname, movefiles=True, 
     if movefiles:
       print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
     fp = open (inpath + c + '_run.glm', 'w')
-    write_glm_case (c, row['glmvsrc'], fp, bHouses)
+    write_glm_case (c, row['glmvsrc'], fp, bHouses=bHouses, bProfiles=bProfiles)
     fp.close()
   bp.close()
 

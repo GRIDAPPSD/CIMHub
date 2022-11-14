@@ -6,8 +6,6 @@ import cimhub.CIMHubConfig as CIMHubConfig
 import sys
 import math
 
-cfg_file = 'cimhubjar.json'
-
 qload_template = """# list the loads by name, id and nominal power
 SELECT ?name ?id ?p ?q WHERE {{
 VALUES ?fdrid {{"{:s}"}}
@@ -40,10 +38,10 @@ def PostTriples (sparql, qtriples):  # TODO: batch
   print ('==> inserting', len(qtriples), 'instances for DER')
   qtriples.append ('}')
   qstr = CIMHubConfig.prefix + ' INSERT DATA { ' + ''.join(qtriples)
-  print (qstr)
+#  print (qstr)
   sparql.setQuery(qstr)
   ret = sparql.query()
-  print (ret)
+#  print (ret)
   return
 
 def GetCIMID (cls, nm, uuids):
@@ -60,8 +58,12 @@ def get_profile (profiles, load_name):
       return key
   return None
 
-def insert_profile (fname):
-  fdr_id = None # 'CBE09B55-091B-4BB0-95DA-392237B12640'
+def insert_profiles (cfg_file, fname):
+  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+  sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
+  sparql.method = 'POST'
+
+  fdr_id = None
   loads = {}
   profiles = {}
   fuidname = None
@@ -108,9 +110,6 @@ def insert_profile (fname):
   fp.close()
   print (profiles)
 
-  CIMHubConfig.ConfigFromJsonFile (cfg_file)
-  sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
-  sparql.method = 'POST'
   qload = CIMHubConfig.prefix + qload_template.format(fdr_id)
 
   sparql.setQuery(qload)
@@ -124,7 +123,7 @@ def insert_profile (fname):
     if profile is not None:
       loads[key] = {'id':eqid, 'kw':kw, 'kvar':kvar, 'profile':profile}
   print ('Retrieved', len(loads), 'loads from circuit model')
-  print (loads)
+#  print (loads)
 
   # write the profiles
   for key, profile in profiles.items():
@@ -152,9 +151,9 @@ def insert_profile (fname):
       print ('{:s},{:s}'.format (key.replace(':', ',', 1), val), file=fuid)
     fuid.close()
 
+# run from command line for GridAPPS-D platform circuits
 if __name__ == '__main__':
-#  cfg_file = sys.argv[1]
-#  fname = sys.argv[2]
-  fname = 'oedi_profiles.dat'
-  insert_profile (fname)
+  cfg_file = sys.argv[1]
+  fname = sys.argv[2]
+  insert_profiles (cfg_file, fname)
 

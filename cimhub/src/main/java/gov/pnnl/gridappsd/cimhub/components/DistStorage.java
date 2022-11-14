@@ -178,14 +178,14 @@ public class DistStorage extends DistComponent {
       }
     }
     buf.append ("  object battery {\n");
-    buf.append ("  name \"bat_" + name + "\";\n");
-    buf.append ("  nominal_voltage 48;\n");
-    buf.append ("  battery_capacity " + df1.format (ratedE) + ";\n");
-    buf.append ("  state_of_charge " + df4.format (storedE / ratedE) + ";\n");
-    buf.append ("  use_internal_battery_model true;\n");
-    buf.append ("  battery_type LI_ION;\n");
-    buf.append ("  round_trip_efficiency 0.86;\n");
-    buf.append ("  rated_power " + df3.format (ratedP) + ";\n");
+    buf.append ("    name \"bat_" + name + "\";\n");
+    buf.append ("    nominal_voltage 48;\n");
+    buf.append ("    battery_capacity " + df1.format (ratedE) + ";\n");
+    buf.append ("    state_of_charge " + df4.format (storedE / ratedE) + ";\n");
+    buf.append ("    use_internal_battery_model true;\n");
+    buf.append ("    battery_type LI_ION;\n");
+    buf.append ("    round_trip_efficiency 0.86;\n");
+    buf.append ("    rated_power " + df3.format (ratedP) + ";\n");
     buf.append ("  };\n");
     buf.append ("}\n");
 

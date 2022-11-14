@@ -255,8 +255,8 @@ Augmenting the Feeder with Houses
 ---------------------------------
 
 GridLAB-D includes "house models" that represent the behaviors of thermostat-controlled
-loads and end-use appliances (https://doi.org/10.1109/PES.2011.6039467). As depicted below,
-some or all of the metered residential load can be replaced with a house that includes
+loads and end-use appliances (https://doi.org/10.1109/PES.2011.6039467 and https://doi.org/10.2172/939875). 
+As depicted below, some or all of the metered residential load can be replaced with a house that includes
 a variety of load components and a second-order equivalent thermal parameter (ETP) model.
 Heating and cooling loads depend on weather, as does the output of any rooftop solar
 generation, so the weather can be a correlating factor between household load and generation.
@@ -375,14 +375,81 @@ residential rooftop solar.
 .. literalinclude:: ../tutorial/ieee123_der.dat
   :linenos:
 
-Toward the end of the output log, you should observe:
+Near the middle of the output log, you should observe:
 
 - The second power flow solution shows around -1510 kW at the feeder head,
   which means the addition of DER caused reverse power flow at the feeder head.
-- The second database summary should have 25339 tuples, including 271 House,
-  14 PhotovoltaicUnit (aka panel), and 14 PowerElectonicsConnection (aka inverter) 
-  instances. Some of these have ancillary phase, location, and terminal instances, which
-  contribute to the total increase in the number of tuples.
+
+We pick up the discussion of ``augment123.py`` in the next section.
+
+Augmenting the Feeder with Spot Load Profiles
+---------------------------------------------
+
+There are some spot loads connected to nodes on the feeder primary, which are not
+represented with Houses. GridLAB-D and OpenDSS each have mechanisms that allow spot
+loads to fluctuate. In CIM, the extension class EnergyConnectionProfile is used to
+associate these variations from individual loads (EnergyConsumer) to files on disk, e.g.,
+loadshapes for OpenDSS, schedules and player files for GridLAB-D. 
+
+Continuing with ``augment123.py``:
+
+- Lines 84-87 add spot load fluctuations to the model, which still has houses and DER.
+- Lines 89-104 export the GridLAB-D model with houses, DER, and EnergyConnectionProfile.
+  The model is run in GridLAB-D, and the feeder output power is summarized.
+  The **export_option** of ``-a=1`` at line 32 exports
+  the spot load schedules, along with DER and houses. The script copies commercial schedules
+  to ``./glm/``, which still contains the appliance schedules from before.
+
+The file used to create the EnergyConnectionProfile is shown below. 
+
+- Line 1 is a file to keep track of mRIDs for the EnergyConnectionProfiles inserted. 
+  This file does not have to exist beforehand.
+- Line 2 specifies the feeder mRID to receive the EnergyConnectionProfile. Even 
+  though we only have one feeder in the tutorial, a correct value is still required.
+- Lines 3-8 begin with // to indicate comments, which describe the comma-
+  separated fields in subsequent lines
+- Line 9 specifies one EnergyConnectionProfile per line
+
+  - Field 1 is the EnergyConnectionProfile name
+  - Field 2 is the name of an OpenDSS loadshape for the **daily** attribute of OpenDSS loads.
+  - Field 3 is the name of a GridLAB-D schedule applied as the scaling factor on the **base_power** attribute of GridLAB-D loads.
+  - Field 4 is a comma-separated list of EnergyConsumer (load) names that this EnergyConnectionProfile applies to. The user needs to determine these names from knowledge of the feeder model.
+    In this example, the three-phase loads at **s65** and **s76** are unbalanced, with different values of **base_power** on
+    each phase. The three-phase loads at **s47** and **s48** are balanced. There is a single-phase load on **s35a**.
+    In the exported GridLAB-D model, a scaling factor defined in **office_plugs** will apply to all the loads in this list.
+
+.. literalinclude:: ../tutorial/oedi_profiles.dat
+  :linenos:
+
+The **office_plugs** schedule is available in a file called **commercial_schedules.glm**, which
+comes with GridLAB-D.  The scaling factor changes hourly.  From 0000 hours to 0700 hours and 2100 to 2400
+hours on weekdays, the load scaling factor is 0.6866.  From 0900 to 1700 hours each weekday, the load 
+scaling factor is 1.4593. The scaling factor is lower on weekends.  The tutorial example runs with this
+schedule because the script copied the schedule file into GridLAB-D's working directory at line 95
+of ``augment123.py``.  You may create or obtain other schedules for GridLAB-D outside of CIMHub.
+To run your models with these external schedules:
+
+- Examine the output from **cimhub.make_glm_runscript**. For example, lines 95-96 in ``augment123.py`` create ``./glm/ieee123ecp_run.glm``. This is a small file that includes most of the power system network from ``./glm/ieee123ecp_base.glm``.
+- Around lines 26-27 of the **run** file, insert #include statements as needed to import your custom schedules. You can either reference local copies of the schedules, or specify full path names to a central location.
+- The **base** file should not require modification.
+
+There are more keywords available for EnergyConnectionProfile, but only **gldSchedule** is used in this tutorial,
+and only for the spot loads. The OpenDSS model would run using the EnergyConnectionProfile, because
+OpenDSS comes with a daily load shape called **default**. To use other loadshapes, the user would need
+to make them available to the solver with some manual edits to the exported OpenDSS file.
+
+Near the end of the output log, you should observe:
+
+- The third power flow solution shows around -1889 kW at the feeder head,
+  which means the spot load fluctuation caused more reverse power flow at 
+  the feeder head. The spot loads don't reach their peak values until the
+  middle of the day.
+- The second database summary should have 25353 tuples, including 287 House,
+  14 PhotovoltaicUnit (aka panel), and 14 PowerElectonicsConnection (aka inverter),
+  and 1 EnergyConnectionProfile instances. Some of these have ancillary phase, 
+  location, and terminal instances, which contribute to the total increase in 
+  the number of tuples.
+
 
 The Role of mRIDs
 -----------------
@@ -406,6 +473,7 @@ them from a file on command.  In this tutorial example, *mRID* values are persis
 - ``ieee123_uuids.dat`` maintains the base feeder model *mRID* values; used by OpenDSS
 - ``ieee123_der_uuid.dat`` maintains the additional DER *mRID* values; used by the *InsertDER* Python function
 - ``ieee123_house_uuids.json`` maintains the additional House *mRID* values; used by the *InsertHouses* Python function
+- ``ieee123_profiles_uuid.dat`` maintains the additional EnergyConnectionProfile *mRID* values; used by the *InsertProfiles* Python function
 
 In GridAPPS-D, the *InsertMeasurements* Python function maintains *mRID* values, but these are not used in the 
 CIMHub tutorial.
@@ -437,7 +505,7 @@ can shut down the database engine if desired. The steps to execute are:
   that data to ``aug11slow.hdf5`` and ``aug11slow.csv``
 
 Most of the new work appears in ``climate_run.glm``, reproduced below. This is a normal
-GridLAB-D input file, which was begun from a copy of ``./glm/ieee123houseder_run.glm``.
+GridLAB-D input file, which was begun from a copy of ``./glm/ieee123ecp_run.glm``.
 The significant additions are:
 
 - Lines 1-2 will enforce a time step of 3 seconds, typical of SCADA data rates
@@ -451,14 +519,14 @@ The significant additions are:
   latitude, and longitude of the weather station, which is important to solar output. If using CSV
   files, the altitude, latitude, and longitude are specifed manually as attributes of the climate
   object.
-- Line 36 points at the unaltered ``ieee123houseder_base.glm`` file exported from CIM. It contains
-  the houses and DER, along with the base feeder components.
-- Line 48 begins the definition of many GridLAB-D recorders for CSV output. Support files ``make_load_recorders.py``
+- Line 37 points at the unaltered ``ieee123ecp_base.glm`` file exported from CIM. It contains
+  the houses, DER, and spot load schedules, along with the base feeder components.
+- Line 49 begins the definition of many GridLAB-D recorders for CSV output. Support files ``make_load_recorders.py``
   and ``load_xfmrs.dat`` were used to help define many of these recorders.
 
 .. literalinclude:: ../tutorial/climate_run.glm
   :linenos:
-  :lines: 1-54
+  :lines: 1-55
 
 This graph shows the solar irradiance and temperature, along
 with less important humidity and pressure, over the 2-day simulation period.
@@ -487,9 +555,8 @@ phase unbalance.
 
 This plot separates the house load power (*secondaryP*), from loads connected to the
 primary (*primaryP*) and the DER output (*pvP*). We can observe that *secondaryP* is
-approximately compensated by *pvP* during much of the day. The *primaryP* load does not
-vary at all. We could fix that shortcoming by specifying "player files" or schedules for
-the primary-connected loads.
+approximately compensated by *pvP* during much of the day. The *primaryP* load varies 
+in hourly steps through the two week days according to the *office_plugs* schedule.
 
 .. image:: ../tutorial/components.png
 

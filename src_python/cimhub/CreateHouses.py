@@ -242,7 +242,7 @@ class CreateHouses():
             self.houseCount[housingType] += n
             
         # Print totals to the log. 
-        self.log.info(('{} loads were accounted for, totaling {} '
+        self.log.info(('Finally {} loads were accounted for, totaling {} '
                        + 'housing units').format(self.loadCount,
                                                  self.houseCount.sum())
                        )
@@ -601,7 +601,7 @@ class CreateHouses():
                               + 'depleted, falling back on the initial '
                               + 'distribution, which will cause deviations '
                               + 'from the distribution since.')
-                self.log.info(('{} loads were accounted for, totaling {} '
+                self.log.info(('  {} loads were accounted for, totaling {} '
                                + 'housing units').format(self.loadCount,
                                                          self.houseCount.sum())
                                )

@@ -6,5 +6,4 @@ feederID,CBE09B55-091B-4BB0-95DA-392237B12640
 //   last token must be loads=CSV, where CSV is a comma-separated
 //     list of EnergyConsumer (load) names
 //
-Spot,dssDaily=spotDaily,gldSchedule=office_plugs,loads=s35a,s47,s48,s65a,s65b,s65c,s76a,s76b,s76c
-
+Spot,dssDaily=default,gldSchedule=office_plugs,loads=s35a,s47,s48,s65a,s65b,s65c,s76a,s76b,s76c

@@ -26,6 +26,9 @@ from .DropMeasurements import drop_measurements
 from .DropDER import drop_der
 from .InsertDER import insert_der
 
+from .InsertProfiles import insert_profiles
+from .DropProfiles import drop_profiles
+
 from .InsertHouses import insert_houses
 from .DropHouses import drop_houses
 

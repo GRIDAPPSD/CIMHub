@@ -1,7 +1,77 @@
 object regulator_configuration {
+  name "rcon_reg3";
+  connect_type WYE_WYE;
+  Control MANUAL; // LINE_DROP_COMP;
+  // use these for OUTPUT_VOLTAGE mode
+  // band_center 2400.000000;
+  // band_width 20.000000;
+  // use these for LINE_DROP_COMP mode
+  // band_center 120.000000;
+  // band_width 1.000000;
+  // transducer ratios only apply to LINE_DROP_COMP mode
+  current_transducer_ratio 250.000000;
+  power_transducer_ratio 20.000000;
+  dwell_time 15.000000;
+  raise_taps 16;
+  lower_taps 16;
+  regulation 0.100000;
+  Type B;
+  compensator_r_setting_A 0.400000;
+  compensator_x_setting_A 0.400000;
+  // comment out the manual tap setting if using automatic control
+  tap_pos_A 2;
+  compensator_r_setting_C 0.400000;
+  compensator_x_setting_C 0.400000;
+  // comment out the manual tap setting if using automatic control
+  tap_pos_C 0;
+}
+object regulator {
+  name "reg_reg3";
+  from "25";
+  to "25r";
+  phases AC;
+  configuration "rcon_reg3";
+  continuous_rating_A 915.90;
+  continuous_rating_C 915.90;
+  emergency_rating_A 1248.96;
+  emergency_rating_C 1248.96;
+}
+object regulator_configuration {
+  name "rcon_reg2";
+  connect_type WYE_WYE;
+  Control MANUAL; // LINE_DROP_COMP;
+  // use these for OUTPUT_VOLTAGE mode
+  // band_center 2400.000000;
+  // band_width 40.000000;
+  // use these for LINE_DROP_COMP mode
+  // band_center 120.000000;
+  // band_width 2.000000;
+  // transducer ratios only apply to LINE_DROP_COMP mode
+  current_transducer_ratio 250.000000;
+  power_transducer_ratio 20.000000;
+  dwell_time 15.000000;
+  raise_taps 16;
+  lower_taps 16;
+  regulation 0.100000;
+  Type B;
+  compensator_r_setting_A 0.400000;
+  compensator_x_setting_A 0.400000;
+  // comment out the manual tap setting if using automatic control
+  tap_pos_A 0;
+}
+object regulator {
+  name "reg_reg2";
+  from "9";
+  to "9r";
+  phases A;
+  configuration "rcon_reg2";
+  continuous_rating_A 915.90;
+  emergency_rating_A 1248.96;
+}
+object regulator_configuration {
   name "rcon_reg1a";
   connect_type WYE_WYE;
-    Control MANUAL; // LINE_DROP_COMP;
+  Control MANUAL; // LINE_DROP_COMP;
   // use these for OUTPUT_VOLTAGE mode
   // band_center 2400.000000;
   // band_width 40.000000;
@@ -43,7 +113,7 @@ object regulator {
 object regulator_configuration {
   name "rcon_reg4";
   connect_type WYE_WYE;
-    Control MANUAL; // LINE_DROP_COMP;
+  Control MANUAL; // LINE_DROP_COMP;
   // use these for OUTPUT_VOLTAGE mode
   // band_center 2480.000000;
   // band_width 40.000000;
@@ -83,76 +153,6 @@ object regulator {
   emergency_rating_A 1248.96;
   emergency_rating_B 1248.96;
   emergency_rating_C 1248.96;
-}
-object regulator_configuration {
-  name "rcon_reg3";
-  connect_type WYE_WYE;
-    Control MANUAL; // LINE_DROP_COMP;
-  // use these for OUTPUT_VOLTAGE mode
-  // band_center 2400.000000;
-  // band_width 20.000000;
-  // use these for LINE_DROP_COMP mode
-  // band_center 120.000000;
-  // band_width 1.000000;
-  // transducer ratios only apply to LINE_DROP_COMP mode
-  current_transducer_ratio 250.000000;
-  power_transducer_ratio 20.000000;
-  dwell_time 15.000000;
-  raise_taps 16;
-  lower_taps 16;
-  regulation 0.100000;
-  Type B;
-  compensator_r_setting_A 0.400000;
-  compensator_x_setting_A 0.400000;
-  // comment out the manual tap setting if using automatic control
-  tap_pos_A 2;
-  compensator_r_setting_C 0.400000;
-  compensator_x_setting_C 0.400000;
-  // comment out the manual tap setting if using automatic control
-  tap_pos_C 0;
-}
-object regulator {
-  name "reg_reg3";
-  from "25";
-  to "25r";
-  phases AC;
-  configuration "rcon_reg3";
-  continuous_rating_A 915.90;
-  continuous_rating_C 915.90;
-  emergency_rating_A 1248.96;
-  emergency_rating_C 1248.96;
-}
-object regulator_configuration {
-  name "rcon_reg2";
-  connect_type WYE_WYE;
-    Control MANUAL; // LINE_DROP_COMP;
-  // use these for OUTPUT_VOLTAGE mode
-  // band_center 2400.000000;
-  // band_width 40.000000;
-  // use these for LINE_DROP_COMP mode
-  // band_center 120.000000;
-  // band_width 2.000000;
-  // transducer ratios only apply to LINE_DROP_COMP mode
-  current_transducer_ratio 250.000000;
-  power_transducer_ratio 20.000000;
-  dwell_time 15.000000;
-  raise_taps 16;
-  lower_taps 16;
-  regulation 0.100000;
-  Type B;
-  compensator_r_setting_A 0.400000;
-  compensator_x_setting_A 0.400000;
-  // comment out the manual tap setting if using automatic control
-  tap_pos_A 0;
-}
-object regulator {
-  name "reg_reg2";
-  from "9";
-  to "9r";
-  phases A;
-  configuration "rcon_reg2";
-  continuous_rating_A 915.90;
-  emergency_rating_A 1248.96;
 }
 object line_configuration {
   name "lcon_11_C";
@@ -5487,7 +5487,7 @@ object house {
   parent "ld_s52a_ldmtr";
   floor_area 2044.92;
   number_of_stories 1;
-  thermal_integrity_level GOOD;
+  thermal_integrity_level VERY_GOOD;
   cooling_system_type ELECTRIC;
   cooling_setpoint 79.866;
   heating_system_type GAS;
@@ -6201,7 +6201,7 @@ object house {
   parent "ld_s42a_ldmtr";
   floor_area 1718.68;
   number_of_stories 1;
-  thermal_integrity_level GOOD;
+  thermal_integrity_level VERY_GOOD;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 74.715;
   heating_system_type HEAT_PUMP;
@@ -6269,7 +6269,7 @@ object house {
   parent "ld_s42a_ldmtr";
   floor_area 864.01;
   number_of_stories 2;
-  thermal_integrity_level GOOD;
+  thermal_integrity_level VERY_GOOD;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 75.249;
   heating_system_type HEAT_PUMP;
@@ -8139,7 +8139,7 @@ object house {
   parent "ld_s66c_ldmtr";
   floor_area 1510.00;
   number_of_stories 1;
-  thermal_integrity_level VERY_GOOD;
+  thermal_integrity_level GOOD;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 78.393;
   heating_system_type HEAT_PUMP;
@@ -8207,7 +8207,7 @@ object house {
   parent "ld_s58b_ldmtr";
   floor_area 4986.37;
   number_of_stories 1;
-  thermal_integrity_level VERY_GOOD;
+  thermal_integrity_level GOOD;
   cooling_system_type ELECTRIC;
   cooling_setpoint 76.024;
   heating_system_type GAS;
@@ -8853,7 +8853,7 @@ object house {
   parent "ld_s6c_ldmtr";
   floor_area 1781.53;
   number_of_stories 1;
-  thermal_integrity_level GOOD;
+  thermal_integrity_level VERY_GOOD;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 69.776;
   heating_system_type HEAT_PUMP;
@@ -9091,7 +9091,7 @@ object house {
   parent "ld_s99b_ldmtr";
   floor_area 1831.50;
   number_of_stories 1;
-  thermal_integrity_level VERY_GOOD;
+  thermal_integrity_level GOOD;
   cooling_system_type ELECTRIC;
   cooling_setpoint 76.536;
   heating_system_type GAS;
@@ -9431,7 +9431,7 @@ object house {
   parent "ld_s112a_ldmtr";
   floor_area 3205.03;
   number_of_stories 1;
-  thermal_integrity_level LITTLE;
+  thermal_integrity_level BELOW_NORMAL;
   cooling_system_type ELECTRIC;
   cooling_setpoint 78.356;
   heating_system_type GAS;
@@ -9737,7 +9737,7 @@ object house {
   parent "ld_s71a_ldmtr";
   floor_area 3056.98;
   number_of_stories 1;
-  thermal_integrity_level GOOD;
+  thermal_integrity_level VERY_GOOD;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 74.988;
   heating_system_type HEAT_PUMP;
@@ -10755,7 +10755,7 @@ object house {
   parent "ld_s63a_ldmtr";
   floor_area 1172.43;
   number_of_stories 2;
-  thermal_integrity_level VERY_GOOD;
+  thermal_integrity_level GOOD;
   cooling_system_type ELECTRIC;
   cooling_setpoint 73.357;
   heating_system_type NONE;
@@ -11265,7 +11265,7 @@ object house {
   parent "ld_s22b_ldmtr";
   floor_area 936.40;
   number_of_stories 1;
-  thermal_integrity_level VERY_GOOD;
+  thermal_integrity_level GOOD;
   cooling_system_type NONE;
   cooling_setpoint 200.000;
   heating_system_type NONE;
@@ -12215,7 +12215,7 @@ object house {
   parent "ld_s87b_ldmtr";
   floor_area 2997.13;
   number_of_stories 1;
-  thermal_integrity_level GOOD;
+  thermal_integrity_level VERY_GOOD;
   cooling_system_type HEAT_PUMP;
   cooling_setpoint 76.900;
   heating_system_type HEAT_PUMP;
@@ -13235,7 +13235,7 @@ object house {
   parent "ld_s90b_ldmtr";
   floor_area 3393.84;
   number_of_stories 1;
-  thermal_integrity_level GOOD;
+  thermal_integrity_level VERY_GOOD;
   cooling_system_type ELECTRIC;
   cooling_setpoint 75.159;
   heating_system_type GAS;
