@@ -13,7 +13,7 @@ new loadshape.cvr npts=25 interval=1
 ~ pmult=[0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4]
 ~ qmult=[2.0 2.0 2.0 2.0 2.0 2.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0]
 
-new load.load1 bus1=load kv=13.2 kw=2000 daily=default model=1
+new load.load1 bus1=load kv=13.2 kw=500 vminpu=0.9 daily=default model=1
 new load.load2 bus1=load like=load1 model=4
 new load.load3 bus1=load like=load1 model=4 cvrwatts=0.8 cvrvars=3.0
 new load.load4 bus1=load like=load1 model=4 cvrwatts=0.8 cvrvars=3.0 growth=fast
