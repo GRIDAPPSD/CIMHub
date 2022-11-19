@@ -26,11 +26,6 @@ else:
   cfg_json = '../queries/cimhubdocker.json'
 
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
-# C4248C71-A0EE-4D78-AFEE-74F3359A2099 
-# D5B67D26-3B01-4556-854C-F01C8EDC662D
-# 20151F59-4331-485A-9F09-F8384A507E12
-# 6C504EEC-CCFB-4480-B8C6-DED0066E4D8F
-# 67B52EC3-6431-4089-A78B-2ACC954FFA8C
 #
 
 CIMHubConfig.ConfigFromJsonFile (cfg_json)

@@ -90,16 +90,19 @@ def make_export_script (cases, scriptname, bClearOutput=True):
     dsspath = None
     glmpath = None
     csvpath = None
+    opts = ''
+    if ('mRID' in row) and (len(row['mRID']) > 0):
+      opts += ' -s={:s}'.format(row['mRID'])
+    if 'export_options' in row:
+      opts += row['export_options']
+    else:
+      opts += ' -l=1.0 -i=1.0'
     if 'outpath_dss' in row:
       dsspath = row['outpath_dss']
     if 'outpath_glm' in row:
       glmpath = row['outpath_glm']
     if 'outpath_csv' in row:
       csvpath = row['outpath_csv']
-    if 'export_options' in row:
-      opts = row['export_options']
-    else:
-      opts = ' -l=1.0 -i=1.0'
     if dsspath is not None:
       print('java -cp', cp_string, '-o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
     if csvpath is not None:

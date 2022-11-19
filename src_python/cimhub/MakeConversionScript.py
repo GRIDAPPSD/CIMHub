@@ -1,4 +1,5 @@
 import sys
+import os
 
 def append_cases(casefiles, dsspath, outpath, region, subregion, fp):
     for c in casefiles:
@@ -66,8 +67,8 @@ def make_dss2xml_script (cases, outfile):
   fp = open (outfile, 'w')
   for row in cases:
     root = row['root']
-    inpath = row['inpath_dss']
-    outpath = row['path_xml']
+    inpath = os.path.abspath(row['inpath_dss'])
+    outpath = os.path.abspath(row['path_xml'])
     print('//', file=fp)
     print('cd', inpath, file=fp)
     print('redirect', row['dssname'], file=fp)
@@ -80,16 +81,21 @@ def make_dss2xml_script (cases, outfile):
     print('export currents ', root + '_i.csv', file=fp)
     print('export taps     ', root + '_t.csv', file=fp)
     print('export nodeorder', root + '_n.csv', file=fp)
-    print('export cim100 fid={:s}'.format (row['mRID']), 'file=' + root + '.xml', 
-      'substation=' + row['substation'], 
-      'geo=' + row['region'], 
-      'subgeo=' + row['subregion'], 
-      file=fp)
-    print('// export cim100fragments', 'file=' + root, 
-      'substation=' + row['substation'], 
-      'geo=' + row['region'], 
-      'subgeo=' + row['subregion'], 
-      file=fp)
+    suffix = ''
+    if ('substation' in row) and (len(row['substation']) > 0):
+      suffix += ' substation={:s}'.format(row['substation'])
+    if ('region' in row) and (len(row['region']) > 0):
+      suffix += ' geo={:s}'.format(row['region'])
+    if ('subregion' in row) and (len(row['subregion']) > 0):
+      suffix += ' subgeo={:s}'.format(row['subregion'])
+    if ('substationID' in row) and (len(row['substationID']) > 0):
+      suffix += ' sid={:s}'.format(row['substationID'])
+    if ('regionID' in row) and (len(row['regionID']) > 0):
+      suffix += ' rgnid={:s}'.format(row['regionID'])
+    if ('subregionID' in row) and (len(row['subregionID']) > 0):
+      suffix += ' sgrid={:s}'.format(row['subregionID'])
+    print('export cim100 fid={:s}'.format (row['mRID']), 'file=' + root + '.xml', suffix, file=fp)
+    print('// export cim100fragments fid={:s}'.format (row['mRID']), 'file=' + root, suffix, file=fp)
     print('export uuids {:s}_uuids.dat'.format (root), file=fp)
   fp.close()
 
