@@ -45,25 +45,28 @@ def write_glm_case (c, v, fp, bHouses=False, bProfiles=False):
   print('};', file=fp)
   print('#endif', file=fp)
 
-def make_glmrun_script (casefiles, inpath, outpath, scriptname, movefiles=True, bHouses=False, bProfiles=False):
+def make_glmrun_script (cases, scriptname, bHouses=False, bProfiles=False):
   bp = open (scriptname, 'w')
   bWindows = scriptname.endswith('.bat')
   if not bWindows:
     print ('#!/bin/bash', file=bp)
-  if movefiles:
-    print('cd', inpath, file=bp)
-  for row in casefiles:
-    c = row['root']
+#  if movefiles:
+#    print('cd', inpath, file=bp)
+  for row in cases:
     if 'skip_gld' in row:
       if row['skip_gld']:
         continue
-    print('gridlabd -D WANT_VI_DUMP=1', c + '_run.glm >' + c + '.log', file=bp)
-    if movefiles:
-      print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
-    fp = open (inpath + c + '_run.glm', 'w')
-    write_glm_case (c, row['glmvsrc'], fp, bHouses=bHouses, bProfiles=bProfiles)
+    root = row['root']
+    outpath_glm = os.path.abspath(row['outpath_glm'])
+    print('gridlabd -D WANT_VI_DUMP=1', root + '_run.glm >' + root + '.log', file=bp)
+#    if movefiles:
+#      print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)
+    fp = open (os.path.join (outpath_glm, root + '_run.glm'), 'w')
+    write_glm_case (root, row['glmvsrc'], fp, bHouses=bHouses, bProfiles=bProfiles)
     fp.close()
   bp.close()
+  st = os.stat (scriptname)
+  os.chmod (scriptname, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
 # run the script this way for GridAPPS-D platform circuits
 # python3 -m cimhub.MakeGlmTestScript $SRC_PATH

@@ -39,7 +39,7 @@ from .CIMAdapter import epri_to_pnnl
 
 from .MakeConversionScript import make_dss2xml_script
 from .MakeLoopScript import make_export_script
-from .MakeLoopScript import make_blazegraph_script
+from .MakeLoopScript import make_upload_script
 from .MakeLoopScript import make_dssrun_script
 from .MakeGlmTestScript import make_glmrun_script
 

@@ -395,19 +395,21 @@ def write_dss_flows(dsspath, rootname, check_branches):
 
 def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_branches=[], do_gld=True):
   dssroot = rootname.lower()
-  v1, magv1, angv1 = load_voltages (basepath + dssroot + '_v.csv')
-  t1 = load_taps (basepath + dssroot + '_t.csv')
-  i1, angi1 = load_currents (basepath + dssroot + '_i.csv', basepath + dssroot + '_n.csv')
-  s1 = load_summary (basepath + dssroot + '_s.csv')
+  v1, magv1, angv1 = load_voltages (os.path.join (basepath, dssroot + '_v.csv'))
+  t1 = load_taps (os.path.join (basepath, dssroot + '_t.csv'))
+  i1, angi1 = load_currents (os.path.join (basepath, dssroot + '_i.csv'),
+                             os.path.join (basepath, dssroot + '_n.csv'))
+  s1 = load_summary (os.path.join (basepath, dssroot + '_s.csv'))
   if dsspath:
-    v2, magv2, angv2 = load_voltages (dsspath + dssroot + '_v.csv')
-    t2 = load_taps (dsspath + dssroot + '_t.csv')
-    i2, angi2 = load_currents (dsspath + dssroot + '_i.csv', dsspath + dssroot + '_n.csv')
-    s2 = load_summary (dsspath + dssroot + '_s.csv')
+    v2, magv2, angv2 = load_voltages (os.path.join (dsspath, dssroot + '_v.csv'))
+    t2 = load_taps (os.path.join (dsspath, dssroot + '_t.csv'))
+    i2, angi2 = load_currents (os.path.join (dsspath, dssroot + '_i.csv'), 
+                               os.path.join (dsspath, dssroot + '_n.csv'))
+    s2 = load_summary (os.path.join (dsspath, dssroot + '_s.csv'))
 
   if do_gld:
-    gldbus, gldv, gldmagv, gldangv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
-    gldlink, gldi, gldangi = load_glm_currents (glmpath + rootname + '_curr.csv')
+    gldbus, gldv, gldmagv, gldangv = load_glm_voltages (os.path.join (glmpath, rootname + '_volt.csv'), voltagebases)
+    gldlink, gldi, gldangi = load_glm_currents (os.path.join (glmpath, rootname + '_curr.csv'))
   else:
     gldv = []
     gldi = []
@@ -577,14 +579,14 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
   print ('{:16s} Nbus=[{:6d},{:6d},{:6d}] Nlink=[{:6d},{:6d},{:6d}] MAEv=[{:7.4f},{:7.4f}] MAEi=[{:9.4f},{:9.4f}]'.format (
     rootname, len(v1), len(v2), len(gldv), len(i1), len(i2), len(gldi), err_v_dss, err_v_glm, err_i_dss, err_i_glm))
 
-def compare_cases (casefiles, basepath, dsspath, glmpath):
+def compare_cases (cases):
   global dir1, dir2, dir3
-  dir1 = basepath
-  dir2 = dsspath
-  dir3 = glmpath
-  for row in casefiles:
+  for row in cases:
     root = row['root']
     bases = row['bases']
+    dir1 = row['path_xml']
+    dir2 = row['outpath_dss']
+    dir3 = row['outpath_glm']
     check_branches = []
     do_gld = True
     if 'skip_gld' in row:

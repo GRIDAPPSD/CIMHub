@@ -1,0 +1,23 @@
+[
+    {
+        "root":"ecp_duty",
+        "inpath_dss":"./",
+        "dssname":"ecp_duty.dss",    
+        "path_xml":"./xml/",
+        "outpath_dss":"./dss/",
+        "outpath_glm":"./glm/",
+        "outpath_csv":"./csv/",
+        "mRID":"2CAF6651-0176-4D51-879E-8B4369716F31",
+        "glmvsrc": 7621.00,
+        "bases":[13200.0],
+        "substation":"subECP",
+        "region":"rgnECP",
+        "subregion":"subrgnECP",
+        "substationID":"",
+        "regionID":"",
+        "subregionID":"",
+        "export_options":" -l=1.0",
+        "check_branches":[{"dss_link": "LINE.SEG1", "dss_bus": "SOURCEBUS", "gld_link": "LINE_SEG1", "gld_bus": "SOURCEBUS"}]
+    }
+]
+

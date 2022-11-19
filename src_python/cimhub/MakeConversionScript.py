@@ -62,33 +62,35 @@ def append_cases(casefiles, dsspath, outpath, region, subregion, fp):
 #             ['./new_R5_35_00_1/Master', 'R5_35_00_1']]
 # input_name, output_name, fid, sid, sgrid, rgnid
 
-# casefiles is a list of [inpath, outpath]
-def make_dss2xml_script (casefiles, inpath, outpath, outfile):
+def make_dss2xml_script (cases, outfile):
   fp = open (outfile, 'w')
-  for row in casefiles:
+  for row in cases:
+    root = row['root']
+    inpath = row['inpath_dss']
+    outpath = row['path_xml']
     print('//', file=fp)
     print('cd', inpath, file=fp)
-    print('redirect', row['dssname'] + '.dss', file=fp)
+    print('redirect', row['dssname'], file=fp)
     print('set maxiterations=20', file=fp)
-    print('solve', file=fp)
-    print('// uuids file={:s}_UUIDS.dat'.format (row['root']), file=fp)
+    print('solve mode=snap', file=fp)
     print('cd', outpath, file=fp)
-    print('export summary  ', row['root'] + '_s.csv', file=fp)
-    print('export voltages ', row['root'] + '_v.csv', file=fp)
-    print('export currents ', row['root'] + '_i.csv', file=fp)
-    print('export taps     ', row['root'] + '_t.csv', file=fp)
-    print('export nodeorder', row['root'] + '_n.csv', file=fp)
-    print('export cim100', 'file=' + row['root'] + '.xml', 
+    print('uuids file={:s}_uuids.dat'.format (root), file=fp)
+    print('export summary  ', root + '_s.csv', file=fp)
+    print('export voltages ', root + '_v.csv', file=fp)
+    print('export currents ', root + '_i.csv', file=fp)
+    print('export taps     ', root + '_t.csv', file=fp)
+    print('export nodeorder', root + '_n.csv', file=fp)
+    print('export cim100 fid={:s}'.format (row['mRID']), 'file=' + root + '.xml', 
       'substation=' + row['substation'], 
       'geo=' + row['region'], 
       'subgeo=' + row['subregion'], 
       file=fp)
-    print('// export cim100fragments', 'file=' + row['root'], 
+    print('// export cim100fragments', 'file=' + root, 
       'substation=' + row['substation'], 
       'geo=' + row['region'], 
       'subgeo=' + row['subregion'], 
       file=fp)
-    print('export uuids', file=fp)
+    print('export uuids {:s}_uuids.dat'.format (root), file=fp)
   fp.close()
 
 if __name__ == '__main__':

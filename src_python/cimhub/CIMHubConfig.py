@@ -1,9 +1,13 @@
-# Copyright (C) 2018-2021 Battelle Memorial Institute
+# Copyright (C) 2018-2022 Battelle Memorial Institute
 # file: CIMHubConfig.py
 """Set the CIM namespace and Blazegraph URL
 """
 import json
 import urllib.request
+
+DB_URL = ''
+CIMHUB_PATH = ''
+CIMHUB_PROG = ''
 
 #******************************************************************************
 # Default URL for blazegraph
@@ -52,11 +56,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 #blazegraph_url = "http://blazegraph:8080/bigdata/sparql"
 
 def ConfigFromJsonFile (fname):
-  global blazegraph_url, prefix, cim_ns
+  global blazegraph_url, prefix, cim_ns, DB_URL, CIMHUB_PATH, CIMHUB_PROG
   with open(fname) as fp: 
     cfg = json.load(fp)
     if 'blazegraph_url' in cfg:
       blazegraph_url = cfg['blazegraph_url']
+      DB_URL = blazegraph_url
 #      print ('Configured URL to', blazegraph_url)
     if 'cim_ns' in cfg:
       cim_ns = cfg['cim_ns']
@@ -70,4 +75,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         proxy_support = urllib.request.ProxyHandler({})
         opener = urllib.request.build_opener(proxy_support)
         urllib.request.install_opener(opener)
+    if 'CIMHUB_PATH' in cfg:
+      CIMHUB_PATH = cfg['CIMHUB_PATH']
+    if 'CIMHUB_PROG' in cfg:
+      CIMHUB_PROG = cfg['CIMHUB_PROG']
 
