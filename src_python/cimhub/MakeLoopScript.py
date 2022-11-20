@@ -118,10 +118,11 @@ def make_export_script (cases, scriptname, bClearOutput=True):
 
 def make_dssrun_script (cases, scriptname, bControls=False, tol=1e-8):
   fp = open (scriptname, 'w')
-#  print('cd', dsspath, file=fp)
   for row in cases:
     c = row['root']
+    dsspath = os.path.abspath(row['outpath_dss'])
     print('//', file=fp)
+    print('cd', dsspath, file=fp)
     print('clear', file=fp)
     print('redirect', c + '_base.dss', file=fp)
     print('set maxiterations=80', file=fp)

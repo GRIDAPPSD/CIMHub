@@ -10,3 +10,6 @@ rd /s /q dss
 rd /s /q glm
 del xml\*.xml
 del xml\*.csv
+del _*.bat
+del _*.dss
+

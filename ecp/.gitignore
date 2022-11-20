@@ -1,0 +1,9 @@
+glm/
+dss/
+csv/
+xml/*.csv
+xml/*.xml
+*Mon*.csv
+*.dbl
+_*.bat
+_*.dss

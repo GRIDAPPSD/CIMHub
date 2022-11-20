@@ -58,6 +58,7 @@ def make_glmrun_script (cases, scriptname, bHouses=False, bProfiles=False):
         continue
     root = row['root']
     outpath_glm = os.path.abspath(row['outpath_glm'])
+    print('cd', outpath_glm, file=bp)
     print('gridlabd -D WANT_VI_DUMP=1', root + '_run.glm >' + root + '.log', file=bp)
 #    if movefiles:
 #      print('mv {:s}*.csv {:s}'.format (c[0], outpath), file=bp)

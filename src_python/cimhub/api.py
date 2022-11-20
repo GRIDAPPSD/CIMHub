@@ -47,6 +47,8 @@ from .Compare_Cases import compare_cases
 from .Compare_Cases import write_glm_flows
 from .Compare_Cases import write_dss_flows
 
+from .ConvertModels import convert_and_check_models
+
 from .SPARQL_Dict import load_feeder_dict
 from .SPARQL_Dict import summarize_feeder_dict
 from .SPARQL_Dict import list_dict_table
