@@ -7,3 +7,6 @@ xml/*.xml
 *.dbl
 _*.bat
 _*.dss
+cim_test.dss
+export.bat
+upload.bat
