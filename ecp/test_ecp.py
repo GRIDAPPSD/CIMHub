@@ -30,7 +30,7 @@ else:
 
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 
-fp = open('ecp_cases.json')
+fp = open('cases.json')
 cases = json.load(fp)
 fp.close()
 

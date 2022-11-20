@@ -1,6 +1,7 @@
 import sys
 import os
 import stat
+import shutil
 import cimhub.CIMHubConfig as CIMHubConfig
 
 def append_dss_case(cases, inpath, outpath, fp):
@@ -68,24 +69,25 @@ def make_upload_script (cases, scriptname, bClearDB=True):
 def make_export_script (cases, scriptname, bClearOutput=True):
   fp = open (scriptname, 'w')
   bWindows = scriptname.endswith('.bat')
-  cp_string = ''
   if bWindows:
     cp_string = '%CIMHUB_PATH% %CIMHUB_PROG% -u=%DB_URL%'
-    clear_template = 'rd /s /q {outdir}\nmd {outdir}\n'
   else:
     cp_string = '$CIMHUB_PATH $CIMHUB_PROG -u=$DB_URL'
-    clear_template = 'rm -rf {outdir}\nmkdir {outdir}\n'
   append_cimhub_envars (fp, bWindows)
+  outdirs = []
+  for row in cases:
+    for key in ['outpath_glm', 'outpath_dss', 'outpath_csv']:
+      if key in row:
+        outdir = os.path.abspath(row[key])
+        if (len(outdir) > 0) and (outdir not in outdirs):
+          outdirs.append(outdir)
   if bClearOutput:
-    outdirs = []
-    for row in cases:
-      for key in ['outpath_glm', 'outpath_dss', 'outpath_csv']:
-        if key in row:
-          outdir = os.path.abspath(row[key])
-          if (len(outdir) > 0) and (outdir not in outdirs):
-            outdirs.append(outdir)
     for outdir in outdirs:
-      print (clear_template.format(outdir=outdir), file=fp)
+      if os.path.exists(outdir):
+        shutil.rmtree (outdir)
+  for outdir in outdirs:
+    if not os.path.exists(outdir):
+      os.mkdir(outdir)
   for row in cases:
     dsspath = None
     glmpath = None
