@@ -31,13 +31,13 @@ def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None
   glm_dirs = set()
   xml_dirs = set()
   for row in cases:
-    if 'path_xml' in row:
+    if ('path_xml' in row) and (len(row['path_xml']) > 0):
       xml_dirs.add(os.path.abspath(row['path_xml']))
-    if 'outpath_csv' in row:
+    if ('outpath_csv' in row) and (len(row['outpath_csv']) > 0):
       csv_dirs.add(os.path.abspath(row['outpath_csv']))
-    if 'outpath_dss' in row:
+    if ('outpath_dss' in row) and (len(row['outpath_dss']) > 0):
       dss_dirs.add(os.path.abspath(row['outpath_dss']))
-    if 'outpath_glm' in row:
+    if ('outpath_glm' in row) and (len(row['outpath_glm']) > 0):
       glm_dirs.add(os.path.abspath(row['outpath_glm']))
 
   if bClearOutput:
