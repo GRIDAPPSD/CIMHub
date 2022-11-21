@@ -1,6 +1,6 @@
 rm convert*.dss
 rm *.csv
 rm go.sh
-rm dss/
-rm csv/
-rm glm/
+rm -rf dss
+rm -rf csv
+rm -rf glm
