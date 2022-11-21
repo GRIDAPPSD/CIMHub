@@ -51,6 +51,18 @@ cases = [
                       {'dss_link': 'LINE.670671', 'dss_bus': '670', 'gld_link': 'LINE_670671', 'gld_bus': '670'}]},
 ]
 
+import json
+for row in cases:
+  row["inpath_dss"] = "../example"
+  row["dssname"] = row["root"] + ".dss"
+  row["path_xml"] = "./xml/"
+  row["outpath_dss"] = "./dss/"
+  row["outpath_glm"] = "./glm/"
+  row["outpath_csv"] = ""
+with open('cases.json', 'w') as fp:
+  json.dump(cases, fp, indent=True)
+quit()
+
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 cimhub.clear_db (cfg_json)
 
