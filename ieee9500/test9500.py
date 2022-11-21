@@ -37,6 +37,19 @@ for froot in ['ieee9500bal', 'ieee9500unbal']:
                       {'dss_link': 'LINE.LN6350537-1', 'dss_bus': 'M1026907', 'gld_link': 'LINE_LN6350537-1', 'gld_bus': 'M1026907'},
                       ]})
 
+import json
+for row in cases:
+  row["inpath_dss"] = "./base"
+  row["dssname"] = row["root"] + ".dss"
+  row["path_xml"] = "./xml/"
+  row["outpath_dss"] = "./dss/"
+  row["outpath_glm"] = "./glm/"
+  row["outpath_csv"] = "./csv/"
+with open('cases.json', 'w') as fp:
+  json.dump(cases, fp, indent=True)
+quit()
+
+
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 p1 = subprocess.call (sh_clean, shell=True)
 cimhub.clear_db (cfg_json)
