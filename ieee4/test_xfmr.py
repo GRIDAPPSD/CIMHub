@@ -109,6 +109,19 @@ cases = [
    'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
 ]
 
+import json
+for row in cases:
+  row["inpath_dss"] = "../example"
+  row["dssname"] = row["root"] + ".dss"
+  row["path_xml"] = "./xml/"
+  row["outpath_dss"] = "./dss/"
+  row["outpath_glm"] = "./glm/"
+  row["outpath_csv"] = ""
+with open('cases.json', 'w') as fp:
+  json.dump(cases, fp, indent=True)
+quit()
+
+
 # exluding cases with IndMotor: 4wire_lagging.dss, 4wire_leading.dss, 4wire_motor.dss, the three-winding cases and the open wye/delta cases
 #cimhub.compare_cases (casefiles=cases, basepath='./', dsspath='./dss/', glmpath='./glm/')
 #quit()

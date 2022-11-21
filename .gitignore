@@ -6,3 +6,6 @@ enroute.zip
 __pycache__
 dist
 distrib
+_*.dss
+_*.sh
+_*.bat

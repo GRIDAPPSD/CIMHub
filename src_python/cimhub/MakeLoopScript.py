@@ -99,11 +99,11 @@ def make_export_script (cases, scriptname, bClearOutput=True):
       opts += row['export_options']
     else:
       opts += ' -l=1.0 -i=1.0'
-    if 'outpath_dss' in row:
+    if ('outpath_dss' in row) and (len(row['outpath_dss']) > 0):
       dsspath = row['outpath_dss']
-    if 'outpath_glm' in row:
+    if ('outpath_glm' in row) and (len(row['outpath_glm']) > 0):
       glmpath = row['outpath_glm']
-    if 'outpath_csv' in row:
+    if ('outpath_csv' in row) and (len(row['outpath_csv']) > 0):
       csvpath = row['outpath_csv']
     if dsspath is not None:
       print('java -cp', cp_string, '-o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
