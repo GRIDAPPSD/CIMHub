@@ -27,7 +27,7 @@ fp = open('cases.json')
 cases = json.load(fp)
 fp.close()
 
-fp = open ('cim_test.dss', 'w')
+fp = open ('_cim_test.dss', 'w')
 for row in cases:
   root = row['root']
   mRID = row['mRID']
@@ -44,7 +44,7 @@ for row in cases:
   print ('export taps      {:s}_t.csv'.format (root), file=fp)
   print ('export nodeorder {:s}_n.csv'.format (root), file=fp)
 fp.close ()
-p1 = subprocess.Popen ('opendsscmd cim_test.dss', shell=True)
+p1 = subprocess.Popen ('opendsscmd _cim_test.dss', shell=True)
 p1.wait()
 
 for row in cases:
@@ -52,7 +52,7 @@ for row in cases:
   os.system (cmd)
 cimhub.list_feeders (cfg_json)
 
-cimhub.make_export_script (cases, shfile_export, bClearOutput=True)
+cimhub.make_export_script (cases, shfile_export, bClearOutput=False)
 p1 = subprocess.call (shfile_export, shell=True)
 
 cimhub.make_dssrun_script (cases, scriptname='./dss/check.dss', bControls=False)

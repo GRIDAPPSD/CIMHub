@@ -8,6 +8,7 @@ import stat
 import shutil
 import os
 import sys
+import json
 
 cwd = os.getcwd()
 
@@ -109,7 +110,6 @@ cases = [
    'check_branches':[{'dss_link': 'LOAD.TEST', 'dss_bus': 'LOW'}]},
 ]
 
-import json
 for row in cases:
   row["inpath_dss"] = "../example"
   row["dssname"] = row["root"] + ".dss"
@@ -120,7 +120,6 @@ for row in cases:
 with open('cases.json', 'w') as fp:
   json.dump(cases, fp, indent=True)
 quit()
-
 
 # exluding cases with IndMotor: 4wire_lagging.dss, 4wire_leading.dss, 4wire_motor.dss, the three-winding cases and the open wye/delta cases
 #cimhub.compare_cases (casefiles=cases, basepath='./', dsspath='./dss/', glmpath='./glm/')
@@ -146,9 +145,7 @@ fp.close ()
 p1 = subprocess.Popen ('opendsscmd cim_test.dss', shell=True)
 p1.wait()
 
-cimhub.make_blazegraph_script (cases, './', 'dss/', 'glm/', shfile_export)
-st = os.stat (shfile_export)
-os.chmod (shfile_export, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+cimhub.make_export_script (cases, shfile_export)
 p1 = subprocess.call (shfile_export, shell=True)
 
 cimhub.make_dssrun_script (casefiles=cases, scriptname='./dss/check.dss')
