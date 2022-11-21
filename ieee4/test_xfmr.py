@@ -111,7 +111,7 @@ cases = [
 ]
 
 for row in cases:
-  row["inpath_dss"] = "../example"
+  row["inpath_dss"] = "./base"
   row["dssname"] = row["root"] + ".dss"
   row["path_xml"] = "./xml/"
   row["outpath_dss"] = "./dss/"

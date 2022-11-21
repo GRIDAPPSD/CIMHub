@@ -106,6 +106,19 @@ cases = [
    'check_branches':[{'dss_link': 'TRANSFORMER.DER', 'dss_bus': 'HIGH', 'gld_link': 'XF_DER', 'gld_bus': 'HIGH'}]},
 ]
 
+import json
+for row in cases:
+  row["inpath_dss"] = "./base"
+  row["dssname"] = row["root"] + ".dss"
+  row["path_xml"] = "./xml/"
+  row["outpath_dss"] = "./dss/"
+  row["outpath_glm"] = "./glm/"
+  row["outpath_csv"] = ""
+with open('cases.json', 'w') as fp:
+  json.dump(cases, fp, indent=True)
+quit()
+
+
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 cimhub.clear_db (cfg_json)
 

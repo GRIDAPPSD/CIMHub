@@ -2,6 +2,4 @@ dss
 glm
 *.csv
 upload_1547.*
-checkglm.*
-base/convert_1547.dss
-base/*.xml
+xml/*.xml
