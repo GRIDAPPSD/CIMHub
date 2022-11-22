@@ -29,7 +29,7 @@ if __name__ == '__main__':
   t = None
   for idx in range(5):
     key = 'load{:d}'.format(idx+1)
-    d = np.loadtxt('ecp_growthcvr_Mon_{:s}_1.csv'.format(key), skiprows=1, delimiter=',')
+    d = np.loadtxt('./base/ecp_growthcvr_Mon_{:s}_1.csv'.format(key), skiprows=1, delimiter=',')
     if t is None:
       t = make_timebase (d, base=tbase)
     p = collect_columns (d, cols=[2,4,6])

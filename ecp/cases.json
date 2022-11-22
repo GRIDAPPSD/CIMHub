@@ -2,7 +2,7 @@
 {
     "mRID":"C4248C71-A0EE-4D78-AFEE-74F3359A2099",
     "root":"ecp_daily",
-    "inpath_dss":"./",
+    "inpath_dss":"./base/",
     "dssname":"ecp_daily.dss",    
     "path_xml":"./xml/",
     "outpath_dss":"./dss/",
@@ -22,7 +22,7 @@
 {
     "mRID":"2CAF6651-0176-4D51-879E-8B4369716F31",
     "root":"ecp_duty",
-    "inpath_dss":"./",
+    "inpath_dss":"./base/",
     "dssname":"ecp_duty.dss",    
     "path_xml":"./xml/",
     "outpath_dss":"./dss/",
@@ -42,7 +42,7 @@
 {
     "mRID":"D5B67D26-3B01-4556-854C-F01C8EDC662D",
     "root":"ecp_growthcvr",
-    "inpath_dss":"./",
+    "inpath_dss":"./base/",
     "dssname":"ecp_growthcvr.dss",    
     "path_xml":"./xml/",
     "outpath_dss":"./dss/",
@@ -62,7 +62,7 @@
 {
     "mRID":"20151F59-4331-485A-9F09-F8384A507E12",
     "root":"ecp_harmonic",
-    "inpath_dss":"./",
+    "inpath_dss":"./base/",
     "dssname":"ecp_harmonic.dss",    
     "path_xml":"./xml/",
     "outpath_dss":"./dss/",
@@ -82,7 +82,7 @@
 {
     "mRID":"6C504EEC-CCFB-4480-B8C6-DED0066E4D8F",
     "root":"ecp_temperature",
-    "inpath_dss":"./",
+    "inpath_dss":"./base/",
     "dssname":"ecp_temperature.dss",    
     "path_xml":"./xml/",
     "outpath_dss":"./dss/",
@@ -102,7 +102,7 @@
 {
     "mRID":"67B52EC3-6431-4089-A78B-2ACC954FFA8C",
     "root":"ecp_yearly",
-    "inpath_dss":"./",
+    "inpath_dss":"./base/",
     "dssname":"ecp_yearly.dss",    
     "path_xml":"./xml/",
     "outpath_dss":"./dss/",

@@ -24,10 +24,10 @@ def make_timebase (d, base=1.0):
   return np.linspace (0.0, tstep * float(n - 1) / base, n)
 
 if __name__ == '__main__':
-  d1 = np.loadtxt('ecp_temperature_Mon_pv1_pq_1.csv', skiprows=1, delimiter=',')
-  d2 = np.loadtxt('ecp_temperature_Mon_pv1_vi_1.csv', skiprows=1, delimiter=',')
-  d3 = np.loadtxt('ecp_temperature_Mon_pv2_pq_1.csv', skiprows=1, delimiter=',')
-  d4 = np.loadtxt('ecp_temperature_Mon_pv2_vi_1.csv', skiprows=1, delimiter=',')
+  d1 = np.loadtxt('./base/ecp_temperature_Mon_pv1_pq_1.csv', skiprows=1, delimiter=',')
+  d2 = np.loadtxt('./base/ecp_temperature_Mon_pv1_vi_1.csv', skiprows=1, delimiter=',')
+  d3 = np.loadtxt('./base/ecp_temperature_Mon_pv2_pq_1.csv', skiprows=1, delimiter=',')
+  d4 = np.loadtxt('./base/ecp_temperature_Mon_pv2_vi_1.csv', skiprows=1, delimiter=',')
   p1 = collect_columns (d1, cols=[2,4,6])
   v1 = collect_columns (d2, cols=[2,4,6], base=3.0*vbase)
   p2 = collect_columns (d3, cols=[2,4,6])

@@ -14,7 +14,7 @@ if __name__ == '__main__':
   for col in range(4):
     for row in range(2):
       key = '{:s}{:d}'.format(classes[col], row+1)
-      d = np.loadtxt('ecp_harmonic_Mon_{:s}_1.csv'.format(key), skiprows=1, delimiter=',')
+      d = np.loadtxt('./base/ecp_harmonic_Mon_{:s}_1.csv'.format(key), skiprows=1, delimiter=',')
       h = d[:,1]
       v = d[:,2] / d[0,2]
       i = d[:,3] / d[0,3]

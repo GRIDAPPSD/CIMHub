@@ -24,8 +24,8 @@ def make_timebase (d, base=1.0):
   return np.linspace (0.0, tstep * float(n - 1) / base, n)
 
 if __name__ == '__main__':
-  d1 = np.loadtxt('ecp_yearly_Mon_pq1_1.csv', skiprows=1, delimiter=',')
-  d2 = np.loadtxt('ecp_yearly_Mon_pq2_1.csv', skiprows=1, delimiter=',')
+  d1 = np.loadtxt('./base/ecp_yearly_Mon_pq1_1.csv', skiprows=1, delimiter=',')
+  d2 = np.loadtxt('./base/ecp_yearly_Mon_pq2_1.csv', skiprows=1, delimiter=',')
   p1 = collect_columns (d1, cols=[2,4,6])
   q1 = collect_columns (d1, cols=[3,5,7])
   p2 = collect_columns (d2, cols=[2,4,6])
