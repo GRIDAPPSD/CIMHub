@@ -9,7 +9,7 @@ import os
 import sys
 import json
 
-def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None):
+def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None, bDssControls=False, dssTol=1e-8):
   cwd = os.getcwd()
   if sys.platform == 'win32':
     shfile_upload = '_upload.bat'
@@ -60,7 +60,7 @@ def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None
       shutil.copyfile(fAppliances, os.path.join(outdir, 'appliance_schedules.glm'))
       shutil.copyfile(fCommercial, os.path.join(outdir, 'commercial_schedules.glm'))
 
-  cimhub.make_dss2xml_script (cases, outfile=dssfile_cim)
+  cimhub.make_dss2xml_script (cases, outfile=dssfile_cim, bControls=bDssControls, tol=dssTol)
   p1 = subprocess.Popen ('opendsscmd {:s}'.format(dssfile_cim), shell=True)
   p1.wait()
  
@@ -70,7 +70,7 @@ def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None
   cimhub.make_export_script (cases, scriptname=shfile_export, bClearOutput=False)
   p1 = subprocess.call (shfile_export, shell=True)
 
-  cimhub.make_dssrun_script (cases, scriptname=dssfile_run)
+  cimhub.make_dssrun_script (cases, scriptname=dssfile_run, bControls=bDssControls, tol=dssTol)
   p1 = subprocess.Popen ('opendsscmd {:s}'.format(dssfile_run), shell=True)
   p1.wait()
 

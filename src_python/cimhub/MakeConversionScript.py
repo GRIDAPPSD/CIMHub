@@ -63,7 +63,7 @@ def append_cases(casefiles, dsspath, outpath, region, subregion, fp):
 #             ['./new_R5_35_00_1/Master', 'R5_35_00_1']]
 # input_name, output_name, fid, sid, sgrid, rgnid
 
-def make_dss2xml_script (cases, outfile):
+def make_dss2xml_script (cases, outfile, bControls=False, tol=1e-8):
   fp = open (outfile, 'w')
   for row in cases:
     root = row['root']
@@ -72,7 +72,13 @@ def make_dss2xml_script (cases, outfile):
     print('//', file=fp)
     print('cd', inpath, file=fp)
     print('redirect', row['dssname'], file=fp)
-    print('set maxiterations=20', file=fp)
+    print('set maxiterations=80', file=fp)
+    print('set tolerance={:g}'.format(tol), file=fp)
+    if bControls:
+      print('set controlmode=static', file=fp)
+      print('set maxcontroliter=100', file=fp)
+    else:
+      print('set controlmode=off', file=fp)
     print('solve mode=snap', file=fp)
     print('cd', outpath, file=fp)
     print('uuids file={:s}_uuids.dat'.format (root), file=fp)

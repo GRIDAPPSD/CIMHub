@@ -90,11 +90,11 @@ open LINE.LN0653457_SW
 open LINE.V7173_48332_SW
 open LINE.TSW803273_SW 
 open LINE.A333_48332_SW 
-solve
+//solve
 open LINE.TSW320328_SW  
 open LINE.A8645_48332_SW
 open LINE.TSW568613_SW
-solve
+//solve
 
 
 set MarkPVSystems=true PVMarkerCode=18
