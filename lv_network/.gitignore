@@ -1,7 +1,5 @@
-base/*.csv
-base/*.xml
-cim_base.dss
-go.*
-checkglm.*
+xml/*.csv
+xml/*.xml
+_*.*
 dss
 glm

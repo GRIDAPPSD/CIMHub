@@ -26,7 +26,7 @@ else:
 # make some random UUID values for additional feeders, from "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
 # 
 cases = [
-  { 'dsspath':dssroot+'LVTestCaseNorthAmerican', 
+  { 'inpath_dss':'LVTestCaseNorthAmerican', 
     'skip_gld':False,
     'dssname':'SecPar', 'root':'IEEE390par', 'mRID':'EE33AEC3-8835-45BC-85B1-0E019F5EE070',
     'substation':'sub1', 'region':'NorthAmerica', 'subregion':'test_subregion',
@@ -36,7 +36,7 @@ cases = [
       {'dss_link': 'TRANSFORMER.2', 'dss_bus': 'P8', 'gld_link': 'XF_2', 'gld_bus': 'P8'},
     ]
   },
-  { 'dsspath':dssroot+'LVTestCaseNorthAmerican', 
+  { 'inpath_dss':'LVTestCaseNorthAmerican', 
     'skip_gld':True,
     'dssname':'Master', 'root':'IEEE390', 'mRID':'F4127C61-BD06-47DF-9558-28785E0934D9',
     'substation':'sub1', 'region':'NorthAmerica', 'subregion':'test_subregion',
@@ -46,7 +46,7 @@ cases = [
       {'dss_link': 'TRANSFORMER.2', 'dss_bus': 'P8', 'gld_link': 'XF_2', 'gld_bus': 'P8'},
     ]
   },
-  { 'dsspath':dssroot+'LVTestCase', 
+  { 'inpath_dss':'LVTestCase', 
     'skip_gld':False,
     'dssname':'Master', 'root':'LVTest', 'mRID':'2DD6F13C-58B8-4D3A-8DE7-67FDA0560293',
     'substation':'sub1', 'region':'Europe', 'subregion':'test_subregion',
@@ -56,6 +56,19 @@ cases = [
     ]
   },
 ]
+
+dssroot = os.path.abspath ('../../OpenDSS/Distrib/IEEETestCases/')
+import json
+for row in cases:
+#  row["inpath_dss"] = os.path.join (dssroot, row["inpath_dss"])
+  row["dssname"] = row["dssname"] + ".dss"
+  row["path_xml"] = "./xml/"
+  row["outpath_dss"] = "./dss/"
+  row["outpath_glm"] = "./glm/"
+  row["outpath_csv"] = ""
+with open('cases.json', 'w') as fp:
+  json.dump(cases, fp, indent=True)
+quit()
 
 #cimhub.compare_cases (casefiles=cases, basepath='./base/', dsspath='./dss/', glmpath='./glm/')
 #quit()

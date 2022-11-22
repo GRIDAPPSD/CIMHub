@@ -1,7 +1,7 @@
 del *.dbl
 del *.dsv
 del *.txt
-del base\*.csv
+del xml\*.csv
 rd /s /q csv
 rd /s /q dss
 rd /s /q glm

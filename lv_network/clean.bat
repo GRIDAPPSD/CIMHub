@@ -1,4 +1,5 @@
-rm cim_base.dss
-rm go.bat
-rm base\*.csv
-rm base\*.xml
+rm _*.*
+rm xml\*.csv
+rm xml\*.xml
+rd /s /q dss
+rd /s /q glm
