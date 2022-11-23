@@ -558,7 +558,6 @@ def insert_der (fname, cfg_file=None):
         nmUnit = name + '_' + unit
         nmTrm = name + '_T1'
         nmLoc = name + '_Loc'
-        idUnit = GetCIMID(unit + 'Unit', nmUnit, uuids)
         idLoc = GetCIMID('Location', nmLoc, uuids)
         idPt = GetCIMID('PositionPoint', None, uuids)
         idTrm = GetCIMID('Terminal', nmTrm, uuids)
@@ -573,9 +572,10 @@ def insert_der (fname, cfg_file=None):
         if unit == 'SynchronousMachine':
           idSYN = GetCIMID('SynchronousMachine', name, uuids)
           inssyn = ins_syn_template.format(url=CIMHubConfig.blazegraph_url, res=idSYN, nm=name, resLoc=idLoc, resFdr=fdr_id,
-                                           resUnit=idUnit, p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0) 
+                                           resUnit=None, p=kW*1000.0, q=kVAR*1000.0, ratedS=kVA*1000.0, ratedU=kV*1000.0) 
           qtriples.append(inssyn)
         else:
+          idUnit = GetCIMID(unit + 'Unit', nmUnit, uuids)
           if category == 'catA':
             if (kVA/kWmax) < CATA_MIN_SBYP:
               print ('** {:s} {:s} inverter kVA should be >= {:.3f} for category A'.format (unit, name, kWmax*CATA_MIN_SBYP))
