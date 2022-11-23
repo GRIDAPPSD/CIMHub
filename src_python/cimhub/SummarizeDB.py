@@ -28,7 +28,7 @@ def run_query (sparql, prefix, lbl, qstr):
     else:
       print('  {:d} tuples'.format(int(b['cnt'].value)))
 
-def summarize_db (cfg_file):
+def summarize_db (cfg_file=None):
   if cfg_file is not None:
     CIMHubConfig.ConfigFromJsonFile (cfg_file)
   sparql = SPARQLWrapper2 (CIMHubConfig.blazegraph_url)

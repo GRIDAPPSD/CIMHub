@@ -58,8 +58,9 @@ def get_profile (profiles, load_name):
       return key
   return None
 
-def insert_profiles (cfg_file, fname):
-  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+def insert_profiles (fname, cfg_file=None):
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
   sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
   sparql.method = 'POST'
 
@@ -155,5 +156,5 @@ def insert_profiles (cfg_file, fname):
 if __name__ == '__main__':
   cfg_file = sys.argv[1]
   fname = sys.argv[2]
-  insert_profiles (cfg_file, fname)
+  insert_profiles (fname, cfg_file)
 

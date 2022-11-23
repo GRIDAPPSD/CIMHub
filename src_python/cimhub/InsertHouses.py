@@ -31,7 +31,8 @@ qtriples = []
 sparql = None
 def ConfigureCIMHub (fname): # this is now required before initiating SPARQL engine
   global sparql
-  CIMHubConfig.ConfigFromJsonFile (fname)
+  if fname is not None:
+    CIMHubConfig.ConfigFromJsonFile (fname)
   sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
   sparql.method = 'POST'
 
@@ -308,8 +309,8 @@ def insertHouse (ecName, ecID, houseNum, houseData, uuids):
     atts += (house + ' c:House.' + name + ' ' + valStr)    
   qtriples.append (qdata + atts)
 
-def insert_houses (cfgfile, mRID, region, seed, uuidfile, scale):
-  ConfigureCIMHub (cfgfile)
+def insert_houses (mRID, region, seed, uuidfile, scale, cfg_file=None):
+  ConfigureCIMHub (cfg_file)
   main (fdrid=mRID, region=region, seed=seed, uuidfile=uuidfile, scale=scale)
 
 # run from command line for GridAPPS-D platform circuits

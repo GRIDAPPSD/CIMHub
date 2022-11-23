@@ -491,7 +491,7 @@ def get_cim_control_mode (mode):
     return 'constantPowerFactor'
   return 'dynamic'
 
-def insert_der (cfg_file, fname):
+def insert_der (fname, cfg_file=None):
   fdr_id = ''
   crs_id = ''
   qbus = None
@@ -504,7 +504,8 @@ def insert_der (cfg_file, fname):
   qtriples = []
   settings = ieee1547()
 
-  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
   sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
   sparql.method = 'POST'
 
@@ -686,5 +687,5 @@ def insert_der (cfg_file, fname):
 if __name__ == '__main__':
   cfg_file = sys.argv[1]
   fname = sys.argv[2]
-  insert_der (cfg_file, fname)
+  insert_der (fname, cfg_file)
 
