@@ -29,8 +29,5 @@ if __name__ == '__main__':
   cases = json.load(fp)
   fp.close()
 
-#  for row in cases:
-#    row['inpath_dss'] = os.path.join (dssroot, row['inpath_dss'])
-
   cimhub.convert_and_check_models (cases, bClearDB=True, bClearOutput=True)
 

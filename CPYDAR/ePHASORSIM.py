@@ -496,6 +496,7 @@ def write_ephasor_model (dict, filename):
   df4 = pd.DataFrame (data4)
   df5 = pd.DataFrame (data5)
   df6 = pd.DataFrame (data6)
+  print ('Writing', len(df1) + len(df2) + len(df3) + len(df4) + len(df5) + len(df6), 'loads and DER')
   add_template_block (xlw, 'Load', col0_labels = ['PositiveSeqZload',
                                                   'PositiveSeqPload',
                                                   'PositiveSeqIload',
@@ -585,6 +586,7 @@ def write_ephasor_model (dict, filename):
   df2 = pd.DataFrame (data2)
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
+  print ('Writing', len(df1) + len(df2) + len(df3) + len(df4), 'shunts')
   add_template_block (xlw, 'Shunt', col0_labels = ['PositiveSeqShunt',
                                                    'SinglePhaseShunt',
                                                    'TwoPhaseShunt',
@@ -718,6 +720,7 @@ def write_ephasor_model (dict, filename):
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
   df5 = pd.DataFrame (data5)
+  print ('Writing', len(df1) + len(df2) + len(df3) + len(df4) + len(df5), 'lines')
   add_template_block (xlw, 'Line', col0_labels = ['PositiveSeqLine',
                                                   'SinglePhaseLine',
                                                   'TwoPhaseLine',
@@ -1011,6 +1014,7 @@ def write_ephasor_model (dict, filename):
   df2 = pd.DataFrame (data2)
   df3 = pd.DataFrame (data3)
   df4 = pd.DataFrame (data4)
+  print ('Writing', len(df1) + len(df2) + len(df3) + len(df4), 'transformers')
   add_template_block (xlw, 'Transformer', col0_labels = ['PositiveSeq2wXF',
                                                    'PositiveSeq3wXF',
                                                    'Multiphase2wXF',
@@ -1085,6 +1089,7 @@ def write_ephasor_model (dict, filename):
   df5 = pd.DataFrame (data5)
   df6 = pd.DataFrame (data6)
   df7 = pd.DataFrame (data7)
+  print ('Writing', len(df1) + len(df2) + len(df3) + len(df4) + len(df5) + len(df6) + len(df7), 'machines')
   add_template_block (xlw, 'Machine', col0_labels = ['SyncGenGENCLS',
                                                      'SyncGenGENROE',
                                                      'SyncGenGENROU',
@@ -1167,6 +1172,7 @@ def write_ephasor_model (dict, filename):
     data['Angle (deg)'].append(angle)
     data['Type'].append('PQ')
   df = pd.DataFrame (data)
+  print ('Writing', len(df), 'buses')
   df.to_excel (xlw, sheet_name='Bus', header=True, index=False)
 
   # switches
@@ -1184,6 +1190,7 @@ def write_ephasor_model (dict, filename):
         else:
           data['Status'].append(1)
   df = pd.DataFrame (data)
+  print ('Writing', len(df), 'switches')
   df.to_excel (xlw, sheet_name='Switch', header=True, index=False)
 
   xlw.save()

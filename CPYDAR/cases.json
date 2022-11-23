@@ -79,5 +79,35 @@
   "outpath_dss": "./dss/",
   "outpath_glm": "./glm/",
   "outpath_csv": "./csv/"
+ },
+ {
+  "dssname": "ACEP_PSIL.dss",
+  "root": "ACEP_PSIL",
+  "mRID": "77966920-E1EC-EE8A-23EE-4EFD23B205BD",
+  "glmvsrc": 277.13,
+  "substation":"UAF",
+  "region":"Alaska",
+  "subregion":"Fairbanks",
+  "substationID": "22B12048-23DF-007B-9291-826A16DBCB21",
+  "regionID": "96465E7A-6EC3-ECCA-BC27-31B53F05C96E",
+  "subregionID": "2F8FC9BF-FF32-A197-D541-0A2529D04DF7",
+  "bases": [
+   318.0,
+   480.0
+  ],
+  "inpath_dss": "../../Powergrid-Models/platform/dss/UAF/",
+  "export_options": " -e=carson",
+  "check_branches": [
+   {
+    "dss_link": "LINE.SEG4",
+    "dss_bus": "BATT",
+    "gld_link": "LINE_SEG4",
+    "gld_bus": "BATT"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": "./csv/"
  }
 ]

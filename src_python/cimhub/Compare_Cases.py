@@ -9,7 +9,7 @@ DEG_TO_RAD = math.pi / 180.0
 # Do all of the name-matching in upper case!!
 
 # 208/120 is always used as a candidate base voltage
-casefiles = [{'root':'ACEP_PSIL',      'do_gld':True,  'bases':[314.0,480.0], 'check_branches':[{'dss_link': 'LINE.SEG4', 'dss_bus': 'BATT', 'gld_link': 'LINE_SEG4', 'gld_bus': 'BATT'}]},
+casefiles = [{'root':'ACEP_PSIL',      'do_gld':True,  'bases':[318.0,480.0], 'check_branches':[{'dss_link': 'LINE.SEG4', 'dss_bus': 'BATT', 'gld_link': 'LINE_SEG4', 'gld_bus': 'BATT'}]},
              {'root':'EPRI_DPV_J1',    'do_gld':True,  'bases':[416.0,12470.0,69000.0], 'check_branches':[]},
              {'root':'IEEE123',        'do_gld':True,  'bases':[480.0,4160.0], 'check_branches':[]},
              {'root':'IEEE123_PV',     'do_gld':True,  'bases':[4160.0], 'check_branches':[]},
