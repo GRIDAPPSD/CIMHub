@@ -3,13 +3,10 @@
 if (($# > 0)) 
 then
   declare -r DB_URL="http://localhost:8889/bigdata/namespace/kb/sparql"
-#  declare -r CIMHUB_PATH="../cimhub/target/libs/*:../cimhub/target/cimhub-1.0.4-SNAPSHOT.jar"
-#  declare -r CIMHUB_PATH="../cimhub/target/cimhub-1.0.4.jar"
-  declare -r CIMHUB_PATH="../releases/cimhub-1.0.4.jar"
-#  declare -r CIMHUB_PATH="../cimhub/target/cimhub-1.0.4-jar-with-dependencies.jar"
+  declare -r CIMHUB_PATH="../releases/cimhub-1.1.0.jar"
 else
   declare -r DB_URL="http://blazegraph:8080/bigdata/namespace/kb/sparql"
-  declare -r CIMHUB_PATH="../releases/cimhub-1.0.4.jar"
+  declare -r CIMHUB_PATH="../releases/cimhub-1.1.0.jar"
 fi
 declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
 
