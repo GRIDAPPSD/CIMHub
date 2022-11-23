@@ -69,6 +69,8 @@ def make_dss2xml_script (cases, outfile, bControls=False, tol=1e-8):
     root = row['root']
     inpath = os.path.abspath(row['inpath_dss'])
     outpath = os.path.abspath(row['path_xml'])
+    if not os.path.exists(outpath):
+      os.mkdir(outpath)
     print('//', file=fp)
     print('cd', inpath, file=fp)
     print('redirect', row['dssname'], file=fp)

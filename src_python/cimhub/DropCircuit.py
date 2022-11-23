@@ -95,7 +95,7 @@ def run_query (lbl, qstr):
   ret = sparql.query()
   print_count (lbl, ret.response.read())
 
-def drop_circuit (cfg_file, mRID):
+def drop_circuit (mRID, cfg_file=None):
   cim_ns = ''
   blz_url = ''
   global sparql, prefix

@@ -2,8 +2,9 @@ from SPARQLWrapper import SPARQLWrapper2#, JSON
 import cimhub.CIMHubConfig as CIMHubConfig
 import sys
 
-def drop_houses (cfg_file, mRID):
-  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+def drop_houses (mRID, cfg_file=None):
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
   sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
   sparql.method = 'POST'
 
@@ -50,4 +51,4 @@ def drop_houses (cfg_file, mRID):
 if __name__ == '__main__':
   cfg_file = sys.argv[1]
   mRID = sys.argv[2]
-  drop_houses (cfg_file, mRID)
+  drop_houses (mRID, cfg_file)

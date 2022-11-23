@@ -410,8 +410,9 @@ drop_wattvar_template = """DELETE {{
 }}
 """
 
-def drop_der (cfg_file, uuid_fname):
-  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+def drop_der (uuid_fname, cfg_file=None):
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
   sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
   sparql.method = 'POST'
 
@@ -469,5 +470,5 @@ def drop_der (cfg_file, uuid_fname):
 if __name__ == '__main__':
   cfg_file = sys.argv[1]
   uuid_fname = sys.argv[2]
-  drop_der (cfg_file, uuid_fname)
+  drop_der (uuid_fname, cfg_file)
 

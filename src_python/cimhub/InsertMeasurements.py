@@ -56,7 +56,7 @@ def PostMeasurements (fname):
 #  print (ret)
   return
 
-def insert_measurements (cfg_file, fname, uuidfile=None):
+def insert_measurements (fname, uuidfile=None, cfg_file=None):
   global sparql, uuidDict, qtriples
 
   fp = open (fname, 'r')
@@ -65,7 +65,8 @@ def insert_measurements (cfg_file, fname, uuidfile=None):
       fp_uuid = open (uuidfile).read()
       uuidDict = json.loads(fp_uuid)
 
-  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
   sparql = SPARQLWrapper2 (CIMHubConfig.blazegraph_url)
   sparql.method = 'POST'
 
@@ -211,4 +212,4 @@ if __name__ == '__main__':
   uuidfile = None
   if len(sys.argv) > 3:
     uuidfile = sys.argv[3]
-  insert_measurements (cfg_file, fname, uuidfile)
+  insert_measurements (fname, uuidfile, cfg_file)

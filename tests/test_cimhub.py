@@ -40,7 +40,7 @@ der_fname = test_froot + '_new_der.dat'
 der_uuids = test_froot + '_new_der_uuid.txt'
 cimhub.insert_der (der_fname)
 cimhub.summarize_db ()
-cimhub.drop_der (cder_uuids)
+cimhub.drop_der (der_uuids)
 
 # house testing
 cimhub.insert_houses (test_mRID, 3, 0, 'test13_house_uuids.json', 1.0)

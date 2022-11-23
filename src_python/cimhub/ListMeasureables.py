@@ -30,12 +30,13 @@ def FlatPhases (phases):
     return ['s2']
   return []
 
-def list_measurables (cfg_file, froot, mRID, outpath=None, taxonomy=False):
+def list_measurables (froot, mRID, outpath=None, taxonomy=False, cfg_file=None):
   if outpath is not None:
     froot = './{:s}/{:s}'.format (outpath, froot)
   op = open (froot + '_special.txt', 'w')
   np = open (froot + '_node_v.txt', 'w')
-  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
   sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
 
   fidselect = """ VALUES ?fdrid {\"""" + mRID + """\"}
@@ -403,4 +404,4 @@ if __name__ == '__main__':
     outpath = sys.argv[4]
   if len(sys.argv) > 5:
     taxonomy = bool (int(sys.argv[5]))
-  list_measurables (cfg_file, froot, mRID, outpath, taxonomy)
+  list_measurables (froot, mRID, outpath, taxonomy, cfg_file)

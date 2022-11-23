@@ -2,8 +2,9 @@ from SPARQLWrapper import SPARQLWrapper2
 import cimhub.CIMHubConfig as CIMHubConfig
 import sys
 
-def drop_measurements (cfg_file, mRID):
-  CIMHubConfig.ConfigFromJsonFile (cfg_file)
+def drop_measurements (mRID, cfg_file = None):
+  if cfg_file is not None:
+    CIMHubConfig.ConfigFromJsonFile (cfg_file)
   sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
   sparql.method = 'POST'
 
@@ -41,4 +42,4 @@ def drop_measurements (cfg_file, mRID):
 if __name__ == '__main__':
   cfg_file = sys.argv[1]
   mRID = sys.argv[2]
-  drop_measurements (cfg_file, mRID)
+  drop_measurements (mRID, cfg_file)

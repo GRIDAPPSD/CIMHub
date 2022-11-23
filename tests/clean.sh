@@ -10,6 +10,7 @@ rm *.CSV
 rm *.csv
 rm -rf dss
 rm -rf glm
+rm -rf xml
 rm convert_xml.sh
 rm go.sh
 rm test*.json
