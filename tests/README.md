@@ -4,11 +4,11 @@ Copyright (c) 2017-2022, Battelle Memorial Institute
 
 ## Process
 
-The test cases are executed with ```python3 test13.py```. They cover the IEEE 13-bus system
+The test cases are executed with _python3 onestep.py_. They cover the IEEE 13-bus system
 with photovoltaic, storage, and single-phase centertap secondary transformer added. The option
 for assets-based line and transformer modeling are also covered.
 
-The test cases are configured by entries in the ```cases``` array near the top of ```test_xfmr.py```.
+The test cases are configured by entries in the _cases.json_ file.
 Each array element is a dictionary with the following keys:
 
 - **dssname** is the root file name of the original OpenDSS base case
