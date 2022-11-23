@@ -103,26 +103,3 @@ Object counts (with non-zero current flow):
 Accumulated Load P=349.15 kW   Q=139.10 kVAR
 ```
 
-## Limitations on Validation
-
-GridLAB-D has assumptions and component models that differ from those in OpenDSS, which may affect
-the comparison of solutions between them:
-
-1. There is no neutral impedance for transformer connections in GridLAB-D.
-2. The ```shunt_impedance``` is only implemented for WYE-WYE or SINGLE_PHASE transfromers in GridLAB-D.
-3. GridLAB-D transformers only have two windings.
-4. The regulator impedance is modeled differently.
-5. Capacitor banks are always on in the converted GridLAB-D model; control parameters are translated but not activated.
-6. In a constant-current load model, the angle rotations are not exactly correct, especially for unbalanced loads or loads connected in Delta. See [GridLAB-D Issue 1312](https://github.com/gridlab-d/gridlab-d/issues/1312). This has been corrected in GridLAB-D version 5.
-7. GridLAB-D calculates line parameters with Carson's equations, as simplified in Kersting's book. OpenDSS defaults to Deri's method, but it offers Full Carson and Carson options. Specify ```Carson``` for compatibility. (Deri is the OpenDSS default because it's easy to calculate, and it closely matches Full Carson.)
-8. In GridLAB-D, wye/delta transformers have to be converted to delta/wye, swapping primary and secondary windings. With **check_branches**, choose an adjacent branch for proper comparisons.
-9. In GridLAB-D, the IEEE13 results are affected by a bug in default solar insolation.  See [GridLAB-D Issue 1333] (https://github.com/gridlab-d/gridlab-d/issues/1333)
-
-If these effects cannot be mitigated, one could either remove the unsupported feature from the test case, or
-use **skip_gld** for the test case.
-
-Some other limitations on the validation process include:
-
-1. MAEv is limited to the line-to-neutral voltages. Using **check_branches** can partially mitigate this, but it does not implement a systematic comparison of line-to-line voltages.
-2. MAEi misses the regulators; it captures lines, transformers and switches.
-3. MAEi misses the shunt components, e.g., loads, capacitors, DER.
