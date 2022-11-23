@@ -18,9 +18,9 @@ def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None
     dssfile_cim = '_conv_cim.dss'
     dssfile_run = '_check.dss'
   else:
-    shfile_upload = '_upload.sh'
-    shfile_export = '_export.sh'
-    shfile_glm = '_checkglm.sh'
+    shfile_upload = './_upload.sh'
+    shfile_export = './_export.sh'
+    shfile_glm = './_checkglm.sh'
     dssfile_cim = '_conv_cim.dss'
     dssfile_run = '_check.dss'
 
