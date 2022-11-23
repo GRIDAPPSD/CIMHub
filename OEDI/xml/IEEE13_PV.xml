@@ -2758,38 +2758,60 @@
   <cim:PositionPoint.xPosition>402</cim:PositionPoint.xPosition>
   <cim:PositionPoint.yPosition>248</cim:PositionPoint.yPosition>
 </cim:PositionPoint>
-<cim:LoadBreakSwitch rdf:about="urn:uuid:C32D130F-4F22-49C8-866E-6E76DB4391CF">
+<cim:ACLineSegment rdf:about="urn:uuid:C32D130F-4F22-49C8-866E-6E76DB4391CF">
   <cim:IdentifiedObject.mRID>C32D130F-4F22-49C8-866E-6E76DB4391CF</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>sw_bat3</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:8122F968-1805-4CDA-826D-E7006985C23B"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:2D548722-9409-4CC0-8820-63AE75206866"/>
-  <cim:ProtectedSwitch.breakingCapacity>400</cim:ProtectedSwitch.breakingCapacity>
-  <cim:Switch.ratedCurrent>400</cim:Switch.ratedCurrent>
-  <cim:Switch.normalOpen>false</cim:Switch.normalOpen>
-  <cim:Switch.open>false</cim:Switch.open>
-  <cim:Switch.retained>true</cim:Switch.retained>
+  <cim:ACLineSegment.PerLengthImpedance rdf:resource="urn:uuid:9810B1C0-EC92-475B-9326-475A483B4272"/>
+  <cim:Conductor.length>1</cim:Conductor.length>
   <cim:PowerSystemResource.Location rdf:resource="urn:uuid:6A5CBA09-F14A-42D0-9926-95BF61992FC7"/>
-</cim:LoadBreakSwitch>
-<cim:SwitchPhase rdf:about="urn:uuid:7626126F-666D-4AF1-A081-D1059E5B5FBE">
+</cim:ACLineSegment>
+<cim:ACLineSegmentPhase rdf:about="urn:uuid:7626126F-666D-4AF1-A081-D1059E5B5FBE">
   <cim:IdentifiedObject.mRID>7626126F-666D-4AF1-A081-D1059E5B5FBE</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>sw_bat3_s1</cim:IdentifiedObject.name>
-  <cim:SwitchPhase.closed>true</cim:SwitchPhase.closed>
-  <cim:SwitchPhase.normalOpen>false</cim:SwitchPhase.normalOpen>
-  <cim:SwitchPhase.phaseSide1 rdf:resource="http://iec.ch/TC57/CIM100#SinglePhaseKind.s1"/>
-  <cim:SwitchPhase.phaseSide2 rdf:resource="http://iec.ch/TC57/CIM100#SinglePhaseKind.s1"/>
-  <cim:SwitchPhase.Switch rdf:resource="urn:uuid:C32D130F-4F22-49C8-866E-6E76DB4391CF"/>
+  <cim:ACLineSegmentPhase.phase rdf:resource="http://iec.ch/TC57/CIM100#SinglePhaseKind.s1"/>
+  <cim:ACLineSegmentPhase.sequenceNumber>2</cim:ACLineSegmentPhase.sequenceNumber>
+  <cim:ACLineSegmentPhase.ACLineSegment rdf:resource="urn:uuid:C32D130F-4F22-49C8-866E-6E76DB4391CF"/>
   <cim:PowerSystemResource.Location rdf:resource="urn:uuid:6A5CBA09-F14A-42D0-9926-95BF61992FC7"/>
-</cim:SwitchPhase>
-<cim:SwitchPhase rdf:about="urn:uuid:7C3691EB-B8A1-4C88-B385-FC94788637D2">
+</cim:ACLineSegmentPhase>
+<cim:ACLineSegmentPhase rdf:about="urn:uuid:7C3691EB-B8A1-4C88-B385-FC94788637D2">
   <cim:IdentifiedObject.mRID>7C3691EB-B8A1-4C88-B385-FC94788637D2</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>sw_bat3_s2</cim:IdentifiedObject.name>
-  <cim:SwitchPhase.closed>true</cim:SwitchPhase.closed>
-  <cim:SwitchPhase.normalOpen>false</cim:SwitchPhase.normalOpen>
-  <cim:SwitchPhase.phaseSide1 rdf:resource="http://iec.ch/TC57/CIM100#SinglePhaseKind.s2"/>
-  <cim:SwitchPhase.phaseSide2 rdf:resource="http://iec.ch/TC57/CIM100#SinglePhaseKind.s2"/>
-  <cim:SwitchPhase.Switch rdf:resource="urn:uuid:C32D130F-4F22-49C8-866E-6E76DB4391CF"/>
+  <cim:ACLineSegmentPhase.phase rdf:resource="http://iec.ch/TC57/CIM100#SinglePhaseKind.s2"/>
+  <cim:ACLineSegmentPhase.sequenceNumber>3</cim:ACLineSegmentPhase.sequenceNumber>
+  <cim:ACLineSegmentPhase.ACLineSegment rdf:resource="urn:uuid:C32D130F-4F22-49C8-866E-6E76DB4391CF"/>
   <cim:PowerSystemResource.Location rdf:resource="urn:uuid:6A5CBA09-F14A-42D0-9926-95BF61992FC7"/>
-</cim:SwitchPhase>
+</cim:ACLineSegmentPhase>
+<cim:PerLengthPhaseImpedance rdf:about="urn:uuid:9810B1C0-EC92-475B-9326-475A483B4272">
+  <cim:IdentifiedObject.mRID>9810B1C0-EC92-475B-9326-475A483B4272</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>sw_bat3_PUZ</cim:IdentifiedObject.name>
+  <cim:PerLengthPhaseImpedance.conductorCount>2</cim:PerLengthPhaseImpedance.conductorCount>
+</cim:PerLengthPhaseImpedance>
+<cim:PhaseImpedanceData rdf:about="urn:uuid:DE3FD28D-2674-42DE-BB57-8A9EB0D26139">
+  <cim:PhaseImpedanceData.PhaseImpedance rdf:resource="urn:uuid:9810B1C0-EC92-475B-9326-475A483B4272"/>
+  <cim:PhaseImpedanceData.row>1</cim:PhaseImpedanceData.row>
+  <cim:PhaseImpedanceData.column>1</cim:PhaseImpedanceData.column>
+  <cim:PhaseImpedanceData.r>6.2137274E-8</cim:PhaseImpedanceData.r>
+  <cim:PhaseImpedanceData.x>6.2137274E-8</cim:PhaseImpedanceData.x>
+  <cim:PhaseImpedanceData.b>0</cim:PhaseImpedanceData.b>
+</cim:PhaseImpedanceData>
+<cim:PhaseImpedanceData rdf:about="urn:uuid:2D97BABC-EB8D-4AE4-A210-9AEA90F460BC">
+  <cim:PhaseImpedanceData.PhaseImpedance rdf:resource="urn:uuid:9810B1C0-EC92-475B-9326-475A483B4272"/>
+  <cim:PhaseImpedanceData.row>2</cim:PhaseImpedanceData.row>
+  <cim:PhaseImpedanceData.column>1</cim:PhaseImpedanceData.column>
+  <cim:PhaseImpedanceData.r>0</cim:PhaseImpedanceData.r>
+  <cim:PhaseImpedanceData.x>0</cim:PhaseImpedanceData.x>
+  <cim:PhaseImpedanceData.b>0</cim:PhaseImpedanceData.b>
+</cim:PhaseImpedanceData>
+<cim:PhaseImpedanceData rdf:about="urn:uuid:BB299975-466F-4D51-8602-A98EF4920EDE">
+  <cim:PhaseImpedanceData.PhaseImpedance rdf:resource="urn:uuid:9810B1C0-EC92-475B-9326-475A483B4272"/>
+  <cim:PhaseImpedanceData.row>2</cim:PhaseImpedanceData.row>
+  <cim:PhaseImpedanceData.column>2</cim:PhaseImpedanceData.column>
+  <cim:PhaseImpedanceData.r>6.2137274E-8</cim:PhaseImpedanceData.r>
+  <cim:PhaseImpedanceData.x>6.2137274E-8</cim:PhaseImpedanceData.x>
+  <cim:PhaseImpedanceData.b>0</cim:PhaseImpedanceData.b>
+</cim:PhaseImpedanceData>
 <cim:Terminal rdf:about="urn:uuid:3721C4CE-A8FF-48F4-91F3-A02285009EB2">
   <cim:IdentifiedObject.mRID>3721C4CE-A8FF-48F4-91F3-A02285009EB2</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>sw_bat3_T1</cim:IdentifiedObject.name>

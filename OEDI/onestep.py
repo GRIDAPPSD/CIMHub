@@ -19,10 +19,8 @@ import os
 
 if sys.platform == 'win32':
   cfg_json = '../queries/cimhubconfig.json'
-  dssroot = os.path.abspath ('../../OpenDSS/Version8/Distrib/IEEETestCases/')
 else:
   cfg_json = '../queries/cimhubdocker.json'
-  dssroot = os.path.abspath ('../../OpenDSS/Distrib/IEEETestCases/')
 
 if __name__ == '__main__':
   CIMHubConfig.ConfigFromJsonFile (cfg_json)

@@ -1526,15 +1526,18 @@ public class CIMImporter extends Object {
     }
     for (HashMap.Entry<String,DistSwitch> pair : mapSwitches.entrySet()) {
       DistSwitch obj = pair.getValue();
-      if (obj.glm_phases.contains ("S")) { // need to parent the nodes instead of writing a switch - TODO: this is hard-wired to PNNL taxonomy
+      if (obj.glm_phases.contains ("S")) { // TODO: this is hard-wired to PNNL taxonomy, needing to parent the nodes instead of writing a switch.
         GldNode nd1 = mapNodes.get (obj.bus1);
         GldNode nd2 = mapNodes.get (obj.bus2);
-        if (nd1.name.contains ("_tn_")) {
+        if (nd1.name.contains ("_tn_") && nd2.name.contains ("_tm_")) {
           nd2.CopyLoad (nd1);
           mapNodes.remove (obj.bus1);
-        } else {
+        } else if (nd1.name.contains ("_tn_") && nd2.name.contains ("_tm_")) {
           nd1.CopyLoad (nd2);
           mapNodes.remove (obj.bus2);
+        } else { // TODO: doesn't seem to be a taxonomy feeder, so write the secondary switch as-is, although GridLAB-D will not solve it.
+          out.print(obj.GetGLM());
+          System.out.println ("** secondary switch: " + obj.name + " is not supported in GridLAB-D");
         }
       } else {
         out.print(obj.GetGLM());

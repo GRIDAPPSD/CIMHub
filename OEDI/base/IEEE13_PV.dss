@@ -118,7 +118,7 @@ New XfmrCode.CT5  phases=1 windings=3 kvs=[2.4 0.12 0.12] kVAs=[5.0 5.0 5.0]
 New Transformer.Tpoletop XfmrCode=CT5 buses=[670.2 House.1.0 House.0.2]
 New Load.House     phases=2 Bus1=House.1.2 kv=0.208 conn=wye model=1 kW=5.0 pf=0.85 Vminpu=.88
 New PVSystem.House phases=2 bus1=House.1.2 kv=0.208 conn=wye kVA=5 irrad=0.8 Pmpp=5 PF=1 
-New Line.sw_bat3   phases=2 Bus1=House.1.2 Bus2=House_bat.1.2 Switch=y 
+New Line.sw_bat3   phases=2 Bus1=House.1.2 Bus2=House_bat.1.2 // don't use Switch=y because GridLAB-D won't support it
 ~ rmatrix=[1e-4|0 1e-4] xmatrix=[1e-4|0 1e-4] cmatrix=[0|0 0]
 New Storage.House  phases=2 bus1=House_bat.1.2 kv=0.208 conn=wye kWRated=5 kWhRated=13.5 kWhStored=5 state=charging %charge=90.0
 

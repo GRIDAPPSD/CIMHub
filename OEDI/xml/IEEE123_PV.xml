@@ -22,8 +22,8 @@
   <cim:IdentifiedObject.name>Medium</cim:IdentifiedObject.name>
   <cim:SubGeographicalRegion.Region rdf:resource="urn:uuid:73C512BD-7249-4F50-50DA-D93849B89C43"/>
 </cim:SubGeographicalRegion>
-<cim:Substation rdf:about="urn:uuid:FE44B314-385E-C2BF-3983-3A10C6060022">
-  <cim:IdentifiedObject.mRID>FE44B314-385E-C2BF-3983-3A10C6060022</cim:IdentifiedObject.mRID>
+<cim:Substation rdf:about="urn:uuid:D24C7947-29A3-4BF2-A112-B1099DFF5266">
+  <cim:IdentifiedObject.mRID>D24C7947-29A3-4BF2-A112-B1099DFF5266</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>IEEE123</cim:IdentifiedObject.name>
   <cim:Substation.Region rdf:resource="urn:uuid:1CD7D2EE-3C91-3248-5662-A43EFEFAC224"/>
 </cim:Substation>
@@ -35,7 +35,7 @@
 <cim:Feeder rdf:about="urn:uuid:E407CBB6-8C8D-9BC9-589C-AB83FBF0826D">
   <cim:IdentifiedObject.mRID>E407CBB6-8C8D-9BC9-589C-AB83FBF0826D</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>ieee123pv</cim:IdentifiedObject.name>
-  <cim:Feeder.NormalEnergizingSubstation rdf:resource="urn:uuid:FE44B314-385E-C2BF-3983-3A10C6060022"/>
+  <cim:Feeder.NormalEnergizingSubstation rdf:resource="urn:uuid:D24C7947-29A3-4BF2-A112-B1099DFF5266"/>
   <cim:PowerSystemResource.Location rdf:resource="urn:uuid:E85FCB99-6A34-4739-B873-B4CFD734C661"/>
 </cim:Feeder>
 <cim:OperationalLimitType rdf:about="urn:uuid:12ADFB01-3EF3-4D08-A652-9CAC06E8F6C0">
@@ -12995,7 +12995,7 @@
   <cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
   <cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
   <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
-  <cim:TapChanger.step>2</cim:TapChanger.step>
+  <cim:TapChanger.step>3</cim:TapChanger.step>
   <cim:TapChanger.ptRatio>20</cim:TapChanger.ptRatio>
   <cim:TapChanger.ctRatio>1500</cim:TapChanger.ctRatio>
   <cim:TapChanger.ctRating>300</cim:TapChanger.ctRating>
