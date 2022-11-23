@@ -164,12 +164,15 @@ authorized developer can push the new image to DockerHub, e.g., _docker push gri
 
 ### cimhub Python Package Testing and Deployment
 
-The Python source code is now in ```src_python/cimhub```. To test it:
+The Python source code is now in ```src\_python/cimhub```. To test it:
 
 1. ```cd tests```
 2. ```python3 test_cimhub.py``` checks the basic functionality of circuit conversion, measurements, houses and DER. Six tuples are left in the database; these are CIM version strings.
 3. ```python3 test_comparisons.py``` compares OpenDSS and GridLAB-D solutions, to the pre-conversion OpenDSS model
 4. ```./test_combiner.sh``` uses ```test_combiner.py``` to combine 6 CDPSM profiles into a single CIM XML file. Note: you must first run _./example.sh arg_ from the _example_ subdirectory, as described above.
+5. ```python3 test_drop.py``` checks the drop\_circuit function
+6. ```python3 test_der.py``` checks the insert\_der and drop\_der functions
+7. ```python3 onestep.py``` checks power flow solutions on 5 variants of the IEEE 13-bus system
 
 The steps for deployment to PyPi are:
 
@@ -177,7 +180,7 @@ The steps for deployment to PyPi are:
 2. ```python3 -m build```
 3. ```twine check dist/*``` should not show any errors
 4. ```twine upload -r testpypi dist/*``` requires project credentials for cimhub on test.pypi.org
-5. ```pip install -i https://test.pypi.org/simple/ cimhub==1.0.4``` for local testing of the deployable package, example version 1.0.4
+5. ```pip install -i https://test.pypi.org/simple/ cimhub==1.1.0``` for local testing of the deployable package, example version 1.0.4
 6. ```twine upload dist/*``` final deployment; requires project credentials for cimhub on pypi.org
 
 ### GridAPPS-D Platform Circuit Validation

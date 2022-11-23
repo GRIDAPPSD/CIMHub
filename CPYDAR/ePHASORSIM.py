@@ -1199,9 +1199,10 @@ def write_ephasor_model (dict, filename):
 
 if __name__ == '__main__':
   if sys.platform == 'win32':
-    cfg_file = '../queries/cimhubconfig.json'
+    cfg_json = '../queries/cimhubconfig.json'
   else:
-    cfg_file = '../queries/cimhubdocker.json'
+    cfg_json = '../queries/cimhubdocker.json'
+  CIMHubConfig.ConfigFromJsonFile (cfg_json)
   xml_file = '../queries/q100.xml'
   case_id = 0
   if len(sys.argv) > 1:
@@ -1209,7 +1210,7 @@ if __name__ == '__main__':
   fid = CASES[case_id]['fid']
   fname = CASES[case_id]['fname']
 
-  dict = cimhub.load_feeder_dict (cfg_file, xml_file, fid, bTime=False)
+  dict = cimhub.load_feeder_dict (xml_file, fid, bTime=False)
   cimhub.summarize_feeder_dict (dict)
 #  cimhub.list_dict_table (dict, 'DistSequenceMatrix')
 

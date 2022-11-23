@@ -9,7 +9,7 @@ from SPARQLWrapper import SPARQLWrapper2
 cfg_json = '../queries/cimhubconfig.json'
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 
-cimhub.summarize_db(cfg_json)
+cimhub.summarize_db()
 
 sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
 sparql.method = 'POST'

@@ -1,12 +1,11 @@
 import cimhub.api as cimhub
-import numpy as np
-import math
-import sys
+import cimhub.CIMHubConfig as CIMHubConfig
 
 cfg_json = '../queries/cimhubconfig.json'
+CIMHubConfig.ConfigFromJsonFile (cfg_json)
 xml_file = '../queries/q100.xml'
 
-dict = cimhub.load_feeder_dict (cfg_json, xml_file, fid=None, bTime=False)
+dict = cimhub.load_feeder_dict (xml_file, fid=None, bTime=False)
 cimhub.summarize_feeder_dict (dict)
 
 tables = ['DistFuse', 'DistBreaker', 'DistLoadBreakSwitch', 'DistRecloser', 'DistCapacitor', 'DistSubstation',

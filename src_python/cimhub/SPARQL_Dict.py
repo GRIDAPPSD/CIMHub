@@ -106,7 +106,7 @@ def load_feeder (dict, fid, bTime=True):
   for key in delete: 
     del dict['DistFeeder']['vals'][key]
 
-def load_feeder_dict (cfg_file, xml_file, fid, bTime=True, keyDelimiter=':'):
+def load_feeder_dict (xml_file, fid, bTime=True, keyDelimiter=':', cfg_file=None):
   global PREFIX
   global DELIM
   DELIM = keyDelimiter
