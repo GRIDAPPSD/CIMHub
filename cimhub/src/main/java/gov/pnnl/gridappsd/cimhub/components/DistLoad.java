@@ -140,6 +140,21 @@ public class DistLoad extends DistComponent {
       if (prf.dssDaily.length() > 0) {
         buf.append (" daily=" + prf.dssDaily);
       }
+      if (prf.dssDuty.length() > 0) {
+        buf.append (" duty=" + prf.dssDuty);
+      }
+      if (prf.dssYearly.length() > 0) {
+        buf.append (" yearly=" + prf.dssYearly);
+      }
+      if (prf.dssLoadGrowth.length() > 0) {
+        buf.append (" growth=" + prf.dssLoadGrowth);
+      }
+      if (prf.dssLoadCvrCurve.length() > 0) {
+        buf.append (" cvrcurve=" + prf.dssLoadCvrCurve);
+      }
+      if (prf.dssSpectrum.length() > 0) {
+        buf.append (" spectrum=" + prf.dssSpectrum);
+      }
     }
     buf.append("\n");
 

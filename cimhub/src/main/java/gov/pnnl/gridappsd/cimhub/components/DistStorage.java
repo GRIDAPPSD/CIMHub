@@ -192,7 +192,7 @@ public class DistStorage extends DistComponent {
     return buf.toString();
   }
 
-  public String GetDSS() {
+  public String GetDSS(DistEnergyConnectionProfile prf) {
     StringBuilder buf = new StringBuilder ("new Storage." + name);
 
     int nphases = DSSPhaseCount(phases, bDelta);
@@ -240,6 +240,20 @@ public class DistStorage extends DistComponent {
       buf.append (" pf=" + df4.format(pf));
     } else {
       buf.append (" kvar=" + df2.format(kvar));
+    }
+    if (prf != null) {
+      if (prf.dssDaily.length() > 0) {
+        buf.append (" daily=" + prf.dssDaily);
+      }
+      if (prf.dssDuty.length() > 0) {
+        buf.append (" duty=" + prf.dssDuty);
+      }
+      if (prf.dssYearly.length() > 0) {
+        buf.append (" yearly=" + prf.dssYearly);
+      }
+      if (prf.dssSpectrum.length() > 0) {
+        buf.append (" spectrum=" + prf.dssSpectrum);
+      }
     }
     buf.append("\n");
 

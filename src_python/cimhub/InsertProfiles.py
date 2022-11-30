@@ -31,7 +31,7 @@ attribute_template = """
 """
 
 link_template = """
- <urn:uuid:{res}> c:EnergyConnectionProfile.EnergyConsumer <urn:uuid:{resLoad}>.
+ <urn:uuid:{res}> c:EnergyConnectionProfile.EnergyConnections <urn:uuid:{resLoad}>.
 """
 
 def PostTriples (sparql, qtriples):  # TODO: batch

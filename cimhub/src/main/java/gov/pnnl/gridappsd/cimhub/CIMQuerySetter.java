@@ -343,13 +343,17 @@ public class CIMQuerySetter extends Object {
       " ?gldPlayer ?gldSchedule ?gldWeather WHERE {"+
       " ?s r:type c:EnergyConnectionProfile."+
       " ?ld c:Equipment.EquipmentContainer ?fdr."+
-      " ?ld r:type c:EnergyConsumer."+
+      " {?ld r:type c:SynchronousMachine.}"+
+      "   UNION"+
+      " {?ld r:type c:PowerElectronicsConnection.}"+
+      "   UNION"+
+      " {?ld r:type c:EnergyConsumer.}"+
       " ?ld c:IdentifiedObject.mRID ?ldid."+
       " ?ld c:IdentifiedObject.name ?ldname."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?ecp c:IdentifiedObject.name ?name."+
       " ?ecp c:IdentifiedObject.mRID ?id."+
-      " ?ecp c:EnergyConnectionProfile.EnergyConsumer ?ld."+
+      " ?ecp c:EnergyConnectionProfile.EnergyConnections ?ld."+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssDaily ?dssDaily.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssDuty ?dssDuty.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadCvrCurve ?dssLoadCvrCurve.}"+

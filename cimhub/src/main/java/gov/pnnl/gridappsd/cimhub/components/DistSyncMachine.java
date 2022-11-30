@@ -119,11 +119,25 @@ public class DistSyncMachine extends DistComponent {
     return buf.toString();
   }
 
-  public String GetDSS() {
+  public String GetDSS(DistEnergyConnectionProfile prf) {
     StringBuilder buf = new StringBuilder ("new Generator." + name);
     buf.append (" phases=" + Integer.toString(DSSPhaseCount(phases, false)) + " bus1=" + DSSShuntPhases (bus, phases, false) + 
                 " model=1 kv=" + df2.format(0.001*ratedU) + " kva=" + df2.format(0.001*ratedS) + 
                 " kw=" + df2.format(0.001*p) + " kvar=" + df2.format(0.001*q));
+    if (prf != null) {
+      if (prf.dssDaily.length() > 0) {
+        buf.append (" daily=" + prf.dssDaily);
+      }
+      if (prf.dssDuty.length() > 0) {
+        buf.append (" duty=" + prf.dssDuty);
+      }
+      if (prf.dssYearly.length() > 0) {
+        buf.append (" yearly=" + prf.dssYearly);
+      }
+      if (prf.dssSpectrum.length() > 0) {
+        buf.append (" spectrum=" + prf.dssSpectrum);
+      }
+    }
     buf.append("\n");
     return buf.toString();
   }

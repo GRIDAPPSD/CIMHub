@@ -162,7 +162,7 @@ public class DistSolar extends DistComponent {
     return buf.toString();
   }
 
-  public String GetDSS() {
+  public String GetDSS(DistEnergyConnectionProfile prf) {
     StringBuilder buf = new StringBuilder ("new PVSystem." + name);
 
     int nphases = DSSPhaseCount(phases, bDelta);
@@ -198,6 +198,29 @@ public class DistSolar extends DistComponent {
       buf.append (" pf=" + df4.format(pf));
     } else {
       buf.append (" kvar=" + df2.format(kvar));
+    }
+    if (prf != null) {
+      if (prf.dssDaily.length() > 0) {
+        buf.append (" daily=" + prf.dssDaily);
+      }
+      if (prf.dssDuty.length() > 0) {
+        buf.append (" duty=" + prf.dssDuty);
+      }
+      if (prf.dssYearly.length() > 0) {
+        buf.append (" yearly=" + prf.dssYearly);
+      }
+      if (prf.dssSpectrum.length() > 0) {
+        buf.append (" spectrum=" + prf.dssSpectrum);
+      }
+      if (prf.dssPVTDaily.length() > 0) {
+        buf.append (" Tdaily=" + prf.dssPVTDaily);
+      }
+      if (prf.dssPVTDuty.length() > 0) {
+        buf.append (" Tduty=" + prf.dssPVTDuty);
+      }
+      if (prf.dssPVTYearly.length() > 0) {
+        buf.append (" Tyearly=" + prf.dssPVTYearly);
+      }
     }
     buf.append("\n");
 

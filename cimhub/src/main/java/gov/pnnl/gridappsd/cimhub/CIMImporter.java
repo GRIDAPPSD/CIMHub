@@ -1831,17 +1831,20 @@ public class CIMImporter extends Object {
 
     if (mapSolars.size() > 0) out.println();
     for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
-      out.print (pair.getValue().GetDSS());
+      DistEnergyConnectionProfile prf = mapProfiles.get(pair.getValue().pecid);
+      out.print (pair.getValue().GetDSS(prf));
       outID.println ("PVSystem." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapStorages.size() > 0) out.println();
     for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
-      out.print (pair.getValue().GetDSS());
+      DistEnergyConnectionProfile prf = mapProfiles.get(pair.getValue().pecid);
+      out.print (pair.getValue().GetDSS(prf));
       outID.println ("Storage." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapSyncMachines.size() > 0) out.println();
     for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
-      out.print (pair.getValue().GetDSS());
+      DistEnergyConnectionProfile prf = mapProfiles.get(pair.getValue().id);
+      out.print (pair.getValue().GetDSS(prf));
       outID.println ("Generator." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapLoads.size() > 0) out.println();

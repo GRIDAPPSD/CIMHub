@@ -44,22 +44,22 @@ if __name__ == '__main__':
   for row in cases:
     row['outpath_csv'] = ''
     row['outpath_dss'] = dssout
-    row['outpath_glm'] = glmout
+    row['outpath_glm'] = '' # glmout
     row['export_options'] = ' -l=1.0 -a=1 -e=carson'
 
-# cimhub.make_upload_script (cases, scriptname=shfile_upload, bClearDB=True)
-# p1 = subprocess.call (shfile_upload, shell=True)
-#
-# cimhub.make_export_script (cases, scriptname=shfile_export, bClearOutput=True)
-# p1 = subprocess.call (shfile_export, shell=True)
-#
-# cimhub.make_dssrun_script (cases, scriptname=dssfile_run) # , bControls=bDssControls, tol=dssTol)
-# p1 = subprocess.Popen ('opendsscmd {:s}'.format(dssfile_run), shell=True)
-# p1.wait()
+  cimhub.make_upload_script (cases, scriptname=shfile_upload, bClearDB=True)
+  p1 = subprocess.call (shfile_upload, shell=True)
 
-  cimhub.make_glmrun_script (cases, scriptname=shfile_glm, bProfiles=True, bHouses=False)
-  shutil.copyfile('../support/commercial_schedules.glm', './glma/commercial_schedules.glm')
-  p1 = subprocess.call (shfile_glm)
+  cimhub.make_export_script (cases, scriptname=shfile_export, bClearOutput=True)
+  p1 = subprocess.call (shfile_export, shell=True)
+
+  cimhub.make_dssrun_script (cases, scriptname=dssfile_run) # , bControls=bDssControls, tol=dssTol)
+  p1 = subprocess.Popen ('opendsscmd {:s}'.format(dssfile_run), shell=True)
+  p1.wait()
+
+# cimhub.make_glmrun_script (cases, scriptname=shfile_glm, bProfiles=True, bHouses=False)
+# shutil.copyfile('../support/commercial_schedules.glm', './glma/commercial_schedules.glm')
+# p1 = subprocess.call (shfile_glm)
 
   cimhub.compare_cases (cases)
 
