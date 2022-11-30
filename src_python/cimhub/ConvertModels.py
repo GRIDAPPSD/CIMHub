@@ -9,6 +9,13 @@ import os
 import sys
 import json
 
+def add_actual_directory (row, key, aSet):
+  if key in row:
+    val = row[key]
+    if val is not None:
+      if len(val) > 0:
+        aSet.add (os.path.abspath(val))
+
 def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None, bDssControls=False, dssTol=1e-8):
   cwd = os.getcwd()
   if sys.platform == 'win32':
@@ -31,14 +38,10 @@ def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None
   glm_dirs = set()
   xml_dirs = set()
   for row in cases:
-    if ('path_xml' in row) and (len(row['path_xml']) > 0):
-      xml_dirs.add(os.path.abspath(row['path_xml']))
-    if ('outpath_csv' in row) and (len(row['outpath_csv']) > 0):
-      csv_dirs.add(os.path.abspath(row['outpath_csv']))
-    if ('outpath_dss' in row) and (len(row['outpath_dss']) > 0):
-      dss_dirs.add(os.path.abspath(row['outpath_dss']))
-    if ('outpath_glm' in row) and (len(row['outpath_glm']) > 0):
-      glm_dirs.add(os.path.abspath(row['outpath_glm']))
+    add_actual_directory (row, 'path_xml', xml_dirs)
+    add_actual_directory (row, 'outpath_csv', csv_dirs)
+    add_actual_directory (row, 'outpath_dss', dss_dirs)
+    add_actual_directory (row, 'outpath_glm', glm_dirs)
 
   if bClearOutput:
     for outdir in csv_dirs.union(dss_dirs, glm_dirs):

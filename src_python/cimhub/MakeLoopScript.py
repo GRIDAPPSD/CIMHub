@@ -66,6 +66,14 @@ def make_upload_script (cases, scriptname, bClearDB=True):
   st = os.stat (scriptname)
   os.chmod (scriptname, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
+def get_actual_directory (row, key):
+  if key in row:
+    val = row[key]
+    if val is not None:
+      if len(val) > 0:
+        return os.path.abspath(val)
+  return None
+
 def make_export_script (cases, scriptname, bClearOutput=True):
   fp = open (scriptname, 'w')
   bWindows = scriptname.endswith('.bat')
@@ -78,9 +86,10 @@ def make_export_script (cases, scriptname, bClearOutput=True):
   for row in cases:
     for key in ['outpath_glm', 'outpath_dss', 'outpath_csv']:
       if key in row:
-        outdir = os.path.abspath(row[key])
-        if (len(outdir) > 0) and (outdir not in outdirs):
-          outdirs.append(outdir)
+        outdir = get_actual_directory (row, key)
+        if outdir is not None:
+          if outdir not in outdirs:
+            outdirs.append(outdir)
   if bClearOutput:
     for outdir in outdirs:
       if os.path.exists(outdir):
@@ -99,21 +108,18 @@ def make_export_script (cases, scriptname, bClearOutput=True):
       opts += row['export_options']
     else:
       opts += ' -l=1.0 -i=1.0'
-    if ('outpath_dss' in row) and (len(row['outpath_dss']) > 0):
-      dsspath = row['outpath_dss']
-    if ('outpath_glm' in row) and (len(row['outpath_glm']) > 0):
-      glmpath = row['outpath_glm']
-    if ('outpath_csv' in row) and (len(row['outpath_csv']) > 0):
-      csvpath = row['outpath_csv']
+    dsspath = get_actual_directory (row, 'outpath_dss')
+    glmpath = get_actual_directory (row, 'outpath_glm')
+    csvpath = get_actual_directory (row, 'outpath_csv')
     if dsspath is not None:
-      print('java -cp', cp_string, '-o=dss {:s}'.format (opts), dsspath + row['root'], file=fp)
+      print('java -cp', cp_string, '-o=dss {:s}'.format (opts), os.path.join (dsspath, row['root']), file=fp)
     if csvpath is not None:
-      print('java -cp', cp_string, '-o=csv {:s}'.format (opts), csvpath + row['root'], file=fp)
+      print('java -cp', cp_string, '-o=csv {:s}'.format (opts), os.path.join (csvpath, row['root']), file=fp)
     if glmpath is not None:
       if 'skip_gld' in row:
         if row['skip_gld']:
           continue
-      print('java -cp', cp_string, '-o=glm {:s}'.format (opts), glmpath + row['root'], file=fp)
+      print('java -cp', cp_string, '-o=glm {:s}'.format (opts), os.path.join (glmpath, row['root']), file=fp)
   fp.close()
   st = os.stat (scriptname)
   os.chmod (scriptname, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
