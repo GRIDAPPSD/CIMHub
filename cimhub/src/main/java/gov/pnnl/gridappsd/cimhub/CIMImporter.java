@@ -716,8 +716,7 @@ public class CIMImporter extends Object {
     oLimits = new OperationalLimits();
     oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
     allMapsLoaded = true;
-//    PrintOneMap (mapRegulators, "** REGULATORS");
-//    PrintOneMap (mapProfiles, "** ENERGY CONNECTION PROFILES");
+//    PrintOneMap (mapSubstations, "** SUBSTATIONS");
   }
 
   public boolean CheckMaps() {
@@ -1785,8 +1784,10 @@ public class CIMImporter extends Object {
       outID.println ("Circuit." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     out.println ("set earthmodel=" + fEarth);
+
+    // reference the include file by a local name
     if ((fInclude != null) && !fInclude.isEmpty()) {
-      File fIncludeFile = new File(fInclude); // use a local file name
+      File fIncludeFile = new File(fInclude);
       out.println ("redirect " + fIncludeFile.getName());
     }
 

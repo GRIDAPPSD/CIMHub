@@ -1234,12 +1234,13 @@ ORDER by ?name
 # substation source - DistSubstation
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?t1id WHERE {
+SELECT ?name ?fdrname ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?t1id WHERE {
  ?s r:type c:EnergySource.
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?fdr c:IdentifiedObject.name ?fdrname.
  ?s c:IdentifiedObject.name ?name.
  ?s c:ConductingEquipment.BaseVoltage ?bv.
  ?bv c:BaseVoltage.nominalVoltage ?basev.
@@ -1255,7 +1256,7 @@ SELECT ?name ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?t1id WHERE {
  ?t c:IdentifiedObject.mRID ?t1id.
  ?cn c:IdentifiedObject.name ?bus
 }
-ORDER by ?name
+ORDER by ?name ?fdrname
 
 # CAUTION: switched to phase group_concat for the GMDM interop.  Needs a regression test.
 # capacitors (does not account for 2+ unequal phases on same LinearShuntCompensator) - DistCapacitor

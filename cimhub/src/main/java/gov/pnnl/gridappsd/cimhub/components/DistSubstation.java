@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class DistSubstation extends DistComponent {
   public String id;
   public String name;
+  public String fdrname;
   public String bus;
   public String t1id;
   public double basev;
@@ -34,6 +35,7 @@ public class DistSubstation extends DistComponent {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
       name = SafeName (soln.get("?name").toString());
+      fdrname = SafeName (soln.get("?fdrname").toString());
       id = soln.get("?id").toString();
       bus = SafeName (soln.get("?bus").toString());
       t1id = soln.get("?t1id").toString();
@@ -50,7 +52,7 @@ public class DistSubstation extends DistComponent {
 
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (name + " @ " + bus + " basev=" + df4.format(basev) + " nomv=" + df4.format(nomv));
+    buf.append (name + ":" + fdrname + " @ " + bus + " basev=" + df4.format(basev) + " nomv=" + df4.format(nomv));
     buf.append (" vmag=" + df4.format(vmag));
     buf.append (" vang=" + df4.format(vang));
     buf.append (" r1=" + df4.format(r1));
@@ -66,6 +68,7 @@ public class DistSubstation extends DistComponent {
     StringBuilder buf = new StringBuilder ();
 
     buf.append ("{\"name\":\"" + name +"\"");
+    buf.append ("{\"fdrname\":\"" + fdrname +"\"");
     buf.append (",\"bus\":\"" + bus +"\"");
     buf.append (",\"phases\":\"ABC\"");
     buf.append (",\"nominal_voltage\":" + df1.format(nomv / Math.sqrt(3.0)));
@@ -78,7 +81,7 @@ public class DistSubstation extends DistComponent {
   }
 
   public String GetDSS() {
-    StringBuilder buf = new StringBuilder ("new Circuit." + name);
+    StringBuilder buf = new StringBuilder ("new Circuit." + fdrname);
 
     buf.append (" phases=3 bus1=" + bus + " basekv=" + df3.format(0.001 * nomv) + " pu=" + df5.format(vmag/nomv) +
                 " angle=" + df5.format(vang * 180.0 / Math.PI) + " r0=" + df5.format(r0) + 
@@ -88,10 +91,10 @@ public class DistSubstation extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,Bus,kV,pu,X";
+  public static String szCSVHeader = "Name,FdrName,Bus,kV,pu,X";
 
   public String GetCSV () {
-    StringBuilder buf = new StringBuilder (name + "," + bus + "," + df3.format(0.001 * nomv) + "," +
+    StringBuilder buf = new StringBuilder (name + "," + fdrname + "," + bus + "," + df3.format(0.001 * nomv) + "," +
                          df5.format(vmag/nomv) + "," + df5.format(x1) + "\n");
     return buf.toString();
   }

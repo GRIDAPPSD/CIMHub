@@ -699,10 +699,11 @@ ORDER BY ?vnom
 <description>EnergySource for Thevenin equivalent, not the CIM Substation</description>
 <value>
 <![CDATA[
-SELECT ?name ?id ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 WHERE {
+SELECT ?name ?fdrname ?id ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 WHERE {
  ?s r:type c:EnergySource.
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?fdr c:IdentifiedObject.name ?fdrname.
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?id.
  ?s c:ConductingEquipment.BaseVoltage ?bv.
@@ -718,7 +719,7 @@ SELECT ?name ?id ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 WHERE {
  ?t c:Terminal.ConnectivityNode ?cn. 
  ?cn c:IdentifiedObject.name ?bus
 }
-ORDER by ?name
+ORDER by ?name ?fdrname
 ]]>
 </value>
 </query>
