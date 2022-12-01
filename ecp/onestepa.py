@@ -44,8 +44,8 @@ if __name__ == '__main__':
   for row in cases:
     row['outpath_csv'] = ''
     row['outpath_dss'] = dssout
-    row['outpath_glm'] = '' # glmout
-    row['export_options'] = ' -l=1.0 -a=1 -e=carson'
+    row['outpath_glm'] = ''
+    row['export_options'] = ' -l=1.0 -m=1 -a=1 -e=carson'
 
   cimhub.make_upload_script (cases, scriptname=shfile_upload, bClearDB=True)
   p1 = subprocess.call (shfile_upload, shell=True)
