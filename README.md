@@ -98,7 +98,7 @@ If you don't have an OpenDSS model, see the [converters](./converters) provided 
 
 ### Command-line Reference
 
-Usage and options for ```java gov.pnnl.gridappsd.cimhub.CIMImporter [options] output_root```
+Usage and options for ```java gov.pnnl.gridappsd.cimhub.CIMImporter [options] output\_root```
 
 * ```-q={queries file}  // optional file with CIM namespace and component queries (defaults to CIM100)```
 * ```-s={mRID}          // select one feeder by CIM mRID; selects all feeders if not specified```
@@ -106,15 +106,18 @@ Usage and options for ```java gov.pnnl.gridappsd.cimhub.CIMImporter [options] ou
 * ```-l={0..1}          // load scaling factor; defaults to 1```
 * ```-f={50|60}         // system frequency; defaults to 60```
 * ```-e={Deri|Carson|FullCarson} // earth model for OpenDSS, defaults to Deri but GridLAB-D supports only Carson```
-* ```-n={schedule_name} // root filename for scheduled ZIP loads (defaults to none), valid only for -o=glm```
+* ```-n={schedule\_name} // root filename for scheduled ZIP loads (defaults to none), valid only for -o=glm```
 * ```-z={0..1}          // constant Z portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)```
 * ```-i={0..1}          // constant I portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)```
 * ```-p={0..1}          // constant P portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)```
 * ```-r={0..1}          // determine ZIP load fraction based on given xml file or randomized fractions```
-* ```-h={0..1}          // determine if house load objects should be added to supplement EnergyConsumers```
-* ```-x={0, 1}          // indicate whether for glm, the model will be called with a fault_check already created```
+* ```-h={0..1}          // ask for house load objects exported to supplement EnergyConsumers```
+* ```-x={0, 1}          // indicate whether for glm, the model will be called with a fault\_check already created```
 * ```-t={0, 1}          // request timing of top-level methods and SPARQL queries, requires -o=both for methods```
 * ```-u={http://localhost:8889/bigdata/namespace/kb/sparql} // blazegraph uri (if connecting over HTTP); defaults to http://localhost:8889/bigdata/namespace/kb/sparql```
+* ```-a={0, 1}          // ask for shape, schedule, and player references to be exported for time-series power flow```
+* ```-m={0, 1}          // insert a reference to an include file of manual edits to exported models```
+* ```-d={0, 1}          // ask for exporting mRIDs in place of names on components```
 
 The output format options are:
 

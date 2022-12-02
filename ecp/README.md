@@ -10,24 +10,63 @@ the simulator, i.e., CIM classes are not used for the profile data itself.
 
 ## Process
 
-The test cases are executed with as follows:
+The test cases are executed as follows:
 
 1. Start the Blazegraph engine
 2. Invoke `python3 onestep.py` to perform the base model conversion
 3. Invoke `python3 onestepa.py` to perform the time-series model conversion for OpenDSS
 
-The test cases are configured by entries in the `cases.json` file. These are:
+The test cases are configured by entries in the `cases.json` file. These cases are:
 
-1. _ecp\_daily_ tests
-2. _ecp\_duty_ tests
-3. _ecp\_growthcvr_ tests
-4. _ecp\_harmonic_ tests
-5. _ecp\_temperature_ tests
-6. _ecp\_yearly_ tests
+1. _ecp\_daily_ tests the OpenDSS _daily_ shape with solar, storage, load, and generator components
+2. _ecp\_duty_ tests the OpenDSS _duty cycle_ shape with solar and storage components
+3. _ecp\_growthcvr_ tests the OpenDSS _loadgrowth_ and _cvrcurve_ with Conservation Load Reduction (CVR) loads
+4. _ecp\_harmonic_ tests the OpenDSS _spectrum_ with solar, storage, load, and generator components
+5. _ecp\_temperature_ tests the OpenDSS _daily_ and _Tdaily_ shaps with solar components
+6. _ecp\_yearly_ tests the OpenDSS _yearly_ shape with a load component
+
+The `cases.json` file contains an array of case definitions, where each case has the following attributes:
+
+- _mRID_ master resource identifier (mRID) of the Feeder to select from Blazegraph for this case. Most CIM objects have a mRID, which is a universally unique identifier (UUID) following the Web standard RFC 4122.
+- _root_ common part of case file names, usually matches the incoming OpenDSS circuit name
+- _inpath\_dss_ relative path to incoming OpenDSS models, including shapes. Will store base _time-series_ power flow results in this example. Must be specified. In this example, it's `./base/`
+- _dssname_ file name of the incoming "master" OpenDSS file, often _root.dss_
+- _path\_xml_ relative path to output CIM XML files, including archived UUID files to persist the mRIDs. Stores the base _snapshot_ power flow results. In this example, it's `./xml/`
+- _outpath\_dss_ relative path to output OpenDSS files, `./dss/` in this example. WARNING: contents may be deleted and rewritten on subsequent exports. To forego OpenDSS export, omit this attribute, or specify as None or an empty string.
+- _outpath\_glm_ relative path to output GridLAB-D files, `./glm/` in this example. WARNING: contents may be deleted and rewritten on subsequent exports. To forego GridLAB-D export, omit this attribute, or specify as None or an empty string.
+- _outpath\_csv_ relative path to output comma-separated value (CSV) files, `./csv/` in this example. WARNING: contents may be deleted and rewritten on subsequent exports. To forego CSV export, omit this attribute, or specify as None or an empty string.
+- _glmvsrc_ RMS line-to-neutral voltage for the GridLAB-D _substation_ source. Use nominal line-to-line voltage, divided by square root of three, then multiplied by per-unit voltage from the OpenDSS circuit definition.
+- _bases_ array of nominal line-to-line voltage bases for power flow comparisons of per-unit voltages. Specify in ascending order, not including 208.0, which is always considered.
+- _substation_ optional name of the CIM Substation. This may be used to help organize multiple feeders.
+- _region_ optional name of the CIM GeographicalRegion. This may be used to help organize multiple feeders.
+- _subregion_ optional name of the CIM SubGeographicalRegion. This may be used to help organize multiple feeders.
+- _substationID_ optional mRID of the CIM Substation. This may be used to help organize multiple feeders.
+- _regionID_ optional mRID of the CIM GeographicalRegion. This may be used to help organize multiple feeders.
+- _subregionID_ optional mRID of the CIM SubGeographicalRegion. This may be used to help organize multiple feeders.
+- _export\_options_ command-line options passed to the Java model exporter.  See [Command-line Reference](../README.md) for more details.
+- _check\_branches_ optional array of individual branches to compare pre-conversion and post-conversion snapshot power flow solutions. Either the _dss_ or _gld_ pairs may be omitted.
+    - _dss\_link_ name of an OpenDSS branch to compare the current and power flow.
+    - _dss\_bus_ name of an OpenDSS bus at one end of the _dss\_link_ for comparing voltages, and calculating power from the current flow.
+    - _gld\_link_ name of a GridLAB-D branch to compare the current and power flow.
+    - _gld\_bus_ name of a GridLAB-D bus at one end of the _gld\_link_ for comparing voltages, and calculating power from the current flow.
+
+The `onestep.py` file reads `cases.json` into a Python dictionary, then processes it. Alternatively, you may create
+this dictionary programmatically in the Python script.
+
+- The last line of the script, calling _convert\_and\_check\_models_, performs all steps in sequence.
+- The first argument is the _case_ dictionary, in which attribute values control how the conversions and comparisons are done.
+- The second argument _bClearDB_, will empty the Blazegraph database right away. This is most convenenient for testing, but use caution if the database may contain other circuits.
+- The third argument, _bClearOutput_, will remove any _outpath\_dss_, _outpath\_glm_, _outpath\_csv_ specified in _cases_. USE CAUTION if these directories may contain other files, or manual edits. They output directories are created or re-created as necessary.
+- The fourth argument, _glmScheduleDir_, specifies where to find GridLAB-D's appliance and commercial schedules, which may be needed for the -h and -a export options.
 
 ## Snapshot Results
 
-The result from _onestep.py_ follows.
+The results from _onestep.py_ follow, comparing the single snap shot load flow solutions before
+and after model conversion through CIMHub. The OpenDSS MAEv and MAEi values match closely, except
+for the _ecp\_growthcvr_ case. The reason is that the pre-conversion solution is at year 10, while the
+post-conversion solution is at year 0, i.e., with no load growth. This is an automated comparison, which
+does not allow year 10 to be specified post-conversion. These test cases include features not
+supported in GridLAB-D, so the post-conversion GridLAB-D solution doesn't match MAEv and MAEi.
 
 ```
   OpenDSS branch flow in LINE.SEG1 from FDRHEAD, Base case
@@ -146,11 +185,26 @@ ecp_temperature  Nbus=[    18,    18,    21] Nlink=[    24,    24,    15] MAEv=[
 ecp_yearly       Nbus=[    18,    18,    21] Nlink=[    24,    24,    15] MAEv=[ 0.0000, 0.0093] MAEi=[   0.0000,  20.7317]
 
 ```
-## Time Series Results
+## Time Series Results (OpenDSS)
 
-The result from _onestepa.py_ follows.
+The results from executing _onestepa.py_ follow. The CIM XML files must already have been created
+from _onestep.py_. The time series script in _onstepa.py_ is more complicated, as it customizes the steps that
+were embedded in _convert\_and\_check\_models_ for snapshot power flow.
+
+- The outputs and export options are customized in lines 155-161.
+- The CIM XML upload and export steps are broken out in lines 163-167.
+- Lines 169-179 set up the time-series power flow tests under `./dssa/`, by copying custom OpenDSS files defined as templates in lines 21-133.
+    - Include files named _*edits.dss_ were referenced by the -m _export\_option_. They define necessary OpenDSS shapes for these cases to run.
+    - Files named _*run.dss_ call and execute the exported models in _*base.dss_. In general, these custom files define and export monitors for the time-series data. They also call for solution modes other than snapshot, e.g., daily, yearly, duty, harmonic.
+    - In three cases, _*run.dss_ perform manual edits before the time-series / harmonic solution, as required for a few attributes not translated through CIM. Details are explained below.
+- Lines 180-181 execute six time-series / harmonic solutions on the exported models.
+
+The built-in function to compare snapshot power flow solutions doesn't compare time-series or harmonic solutions. Therefore, six custom Python
+post-processing programs are provided to compare pre-conversion and post-conversion solutions.
 
 ### ecp_daily
+
+Executing `python ecp\_daily.py` produces the tabular and plotted output shown below, in which both solutions match.
 
 ```
 Results from base
@@ -167,6 +221,10 @@ Total Energy Load1=46696.12 Load2=38556.70 kwh
 
 ### ecp_duty
 
+Executing `python ecp\_duty.py` produces the tabular and plotted output shown below, in which both solutions match.
+The _dispmode=follow_ parameter was manually specified at line 49 of _onestepa.py_ to achieve this match.
+This solver-specific parameter is not included in CIM, nor presently planned as a CIMHub extension.
+
 ```
 Results from base
 Total Energy PV1=-805.28 PV2=-522.46 kwh
@@ -179,6 +237,11 @@ Total Energy BESS1=-402.64 BESS2=3.86 kwh
 ![ECP Duty](../docs/media/ecp_duty.png)
 
 ### ecp_growthcvr
+
+Executing `python ecp\_growthcvr.py` produces the tabular and plotted output shown below, in which both solutions match.
+Recall that the snapshot power flow solutions did not match, but the time series solutions match because both specify year=10.
+Some _vminpu_, _cvrwatts_, and _cvrvars_ parameters were manually specified at lines 77-79 of _onestepa.py_ to achieve this match.
+These solver-specific parameters are not included in CIM, nor presently planned as CIMHub extensions.
 
 ```
 Results from base
@@ -198,6 +261,8 @@ Total Energy LOAD5 = 12682.08 kwh
 ![ECP Growth CVR](../docs/media/ecp_growthcvr.png)
 
 ### ecp_harmonic
+
+Executing `python ecp\_harmonic.py` produces the tabular and plotted output shown below, in which both solutions match.
 
 ```
 Results from base
@@ -224,6 +289,11 @@ THDi BESS2  =  60.54 %
 
 ### ecp_temperature
 
+Executing `python ecp\_duty.py` produces the tabular and plotted output shown below, in which both solutions match.
+The _effcurve_, _irradiance_, and _P-TCurve_ parameters were manually specified at lines 100-101 of _onestepa.py_ to achieve this match.
+These parameters are not included in CIM, nor are they planned as CIM extensions. In many cases, _irradiance_ converts as expected,
+but not when the inverter efficiency has been defined by the user, as done here.
+
 ```
 Results from base
 Total Energy PV1=-751.10 PV2=-779.94 kWh
@@ -235,6 +305,8 @@ Total Energy PV1=-751.10 PV2=-779.94 kWh
 
 ### ecp_yearly
 
+Executing `python ecp\_yearly.py` produces the tabular and plotted output shown below, in which both solutions match.
+
 ```
 Results from base
 Total Energy Load1=16859.94 Load2=7004.20 MWh
@@ -244,7 +316,16 @@ Total Energy Load1=16859.94 Load2=7004.20 MWh
 
 ![ECP Yearly](../docs/media/ecp_yearly.png)
 
-## Adjustments After Conversion
+## Manual Adjustments to the Exported Model
 
-Explain irradiance and efficiency curves. Explain CVR coefficients.
+In half of the six cases, manual adjustments were needed to obtain matching solutions.
+This will occur any time the solution depends on parameters not included in CIM. To make
+these adjustments, two options are available:
+
+1. Add extra definitions and options to a file like _ecp\_duty\_edits.dss_, which is included just after the circuit definition, i.e., before other components have been defined.
+2. Add monitors, energymeters, edits, batchedits, solution options, and solution modes to a file like _ecp\_duty\_run.dss_, just after it includes _ecp\_duty\_base.dss_. The _base_ file will have defined all the network components and calculated the voltage bases.
+
+## Time Series Results (GridLAB-D)
+
+To be written. Will use the InsertProfiles function for daily, duty, yearly.
 
