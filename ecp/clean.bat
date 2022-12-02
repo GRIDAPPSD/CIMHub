@@ -12,6 +12,9 @@ rd /s /q dssa
 rd /s /q glma
 del xml\*.xml
 del xml\*.csv
+del base\*.csv
+del base\*.dbl
+del base\*.txt
 del _*.bat
 del _*.dss
 

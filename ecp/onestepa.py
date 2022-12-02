@@ -46,7 +46,7 @@ New Loadshape.cycle npts=10 interval=0 hour=[0.00,0.09,0.10,0.29,0.30,0.49, 0.50
 ~ action=normalize"""
 
 template_files['ecp_duty_run.dss'] = """redirect ecp_duty_base.dss
-edit storage.bess2 dispmode=follow kWrated=1000 // TODO
+edit storage.bess2 dispmode=follow // TODO
 new monitor.pv1 pvsystem.pv1 1 mode=1 ppolar=no
 new monitor.pv2 pvsystem.pv2 1 mode=1 ppolar=no
 new monitor.bess1 storage.bess1 1 mode=1 ppolar=no
