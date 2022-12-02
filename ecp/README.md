@@ -56,7 +56,7 @@ this dictionary programmatically in the Python script.
 - The last line of the script, calling _convert\_and\_check\_models_, performs all steps in sequence.
 - The first argument is the _case_ dictionary, in which attribute values control how the conversions and comparisons are done.
 - The second argument _bClearDB_, will empty the Blazegraph database right away. This is most convenenient for testing, but use caution if the database may contain other circuits.
-- The third argument, _bClearOutput_, will remove any _outpath\_dss_, _outpath\_glm_, _outpath\_csv_ specified in _cases_. USE CAUTION if these directories may contain other files, or manual edits. They output directories are created or re-created as necessary.
+- The third argument, _bClearOutput_, will remove any _outpath\_dss_, _outpath\_glm_, _outpath\_csv_ specified in _cases_. USE CAUTION if these directories may contain other files, or manual edits. The output directories are created or re-created as necessary.
 - The fourth argument, _glmScheduleDir_, specifies where to find GridLAB-D's appliance and commercial schedules, which may be needed for the -h and -a export options.
 
 ## Snapshot Results

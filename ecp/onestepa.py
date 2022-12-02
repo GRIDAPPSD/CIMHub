@@ -180,13 +180,3 @@ if __name__ == '__main__':
   p1 = subprocess.Popen ('opendsscmd {:s}'.format(dssfile_run), shell=True)
   p1.wait()
 
-#  cimhub.make_dssrun_script (cases, scriptname=dssfile_run) # , bControls=bDssControls, tol=dssTol)
-# p1 = subprocess.Popen ('opendsscmd {:s}'.format(dssfile_run), shell=True)
-# p1.wait()
-
-# cimhub.make_glmrun_script (cases, scriptname=shfile_glm, bProfiles=True, bHouses=False)
-# shutil.copyfile('../support/commercial_schedules.glm', './glma/commercial_schedules.glm')
-# p1 = subprocess.call (shfile_glm)
-
-#  cimhub.compare_cases (cases)
-
