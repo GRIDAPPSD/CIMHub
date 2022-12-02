@@ -74,6 +74,9 @@ new loadshape.cvr npts=25 interval=1
 ~ qmult=[2.0 2.0 2.0 2.0 2.0 2.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0]"""
 
 template_files['ecp_growthcvr_run.dss'] = """redirect ecp_growthcvr_base.dss
+batchedit load..* vminpu=0.9
+edit load.load3 cvrwatts=0.8 cvrvars=3.0
+edit load.load4 cvrwatts=0.8 cvrvars=3.0
 new monitor.load1 load.load1 1 mode=1 ppolar=no
 new monitor.load2 load.load2 1 mode=1 ppolar=no
 new monitor.load3 load.load3 1 mode=1 ppolar=no
@@ -89,9 +92,13 @@ export monitors load4
 export monitors load5"""
 
 template_files['ecp_temperature_edits.dss'] = """New Loadshape.MyIrrad npts=781 minterval=1 csvfile=..\\base\\irrad.dat
-New Tshape.MyTemp npts=781 minterval=1 csvfile=..\\base\\temp.dat"""
+New Tshape.MyTemp npts=781 minterval=1 csvfile=..\\base\\temp.dat
+New XYCurve.MyPvsT npts=4  xarray=[0  25  75  100]  yarray=[1.2 1.0 0.8  0.6] 
+New XYCurve.MyEff npts=4  xarray=[.1  .2  .4  1.0]  yarray=[.94  .96  .96  .96]"""
 
 template_files['ecp_temperature_run.dss'] = """redirect ecp_temperature_base.dss
+batchedit pvsystem..* effcurve=MyEff irradiance=0.983 // TODO
+edit pvsystem.pv2 P-TCurve=MyPvsT
 new monitor.pv1_pq PVSystem.pv1  1 mode=1 ppolar=no
 new monitor.pv1_vi PVSystem.pv1  1 
 new monitor.pv2_pq PVSystem.pv2  1 mode=1 ppolar=no

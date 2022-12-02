@@ -29,8 +29,8 @@ master_doc = 'index'
 project = 'CIMHub'
 copyright = '2017-2022, Battelle Memorial Institute'
 author = 'Pacific Northwest National Laboratory'
-version = '1.0.8'
-release = '1.0.8'
+version = '1.1.0'
+release = '1.1.0'
 language = 'en'
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
