@@ -716,7 +716,7 @@ public class CIMImporter extends Object {
     oLimits = new OperationalLimits();
     oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
     allMapsLoaded = true;
-//    PrintOneMap (mapSubstations, "** SUBSTATIONS");
+//    PrintOneMap (mapProfiles, "** PROFILES");
   }
 
   public boolean CheckMaps() {
@@ -1195,10 +1195,15 @@ public class CIMImporter extends Object {
       boolean bWantZIP, boolean randomZIP, boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, 
       boolean bHaveEventGen, boolean bUseProfiles, boolean bNameUUID, String fInclude) {
 
+    DistEnergyConnectionProfile prf = null;
+    HashMap<String,String> mapUsedProfiles = new HashMap<>(); // name, and one of the keys that uses it
+    boolean bIncludeFileReferenced = false;
+
     // reference the include file by a local name
     if ((fInclude != null) && !fInclude.isEmpty()) {
       File fIncludeFile = new File(fInclude);
       out.println ("#include \"" + fIncludeFile.getName() + "\"");
+      bIncludeFileReferenced = true;
     }
     // preparatory steps to build the list of nodes
     ResultSet results = queryHandler.query (
@@ -1279,12 +1284,13 @@ public class CIMImporter extends Object {
     }
     for (HashMap.Entry<String,DistLoad> pair : mapLoads.entrySet()) {
       DistLoad obj = pair.getValue();
-      DistEnergyConnectionProfile prf = mapProfiles.get(obj.id);
+      if (bUseProfiles) prf = mapProfiles.get(obj.id);
       GldNode nd = mapNodes.get (obj.bus);
       nd.nomvln = obj.basev / Math.sqrt(3.0);
       nd.AccumulateLoads (obj.name, obj.phases, obj.conn, obj.p, obj.q, obj.pe, obj.qe, obj.pz, obj.pi, obj.pp, obj.qz, obj.qi, obj.qp, randomZIP);
       if (prf != null) {
         nd.AccumulateProfiles (prf.gldPlayer, prf.gldSchedule, prf.gldWeather);
+        mapUsedProfiles.put(prf.name, prf.GetKey());
       }
     }
     for (HashMap.Entry<String,DistCapacitor> pair : mapCapacitors.entrySet()) {
@@ -1628,6 +1634,17 @@ public class CIMImporter extends Object {
                 " or bus for " + Integer.toString (measurements_no_bus) + 
                 " out of " + Integer.toString(mapMeasurements.size()) + " Measurements");
     }
+
+    if (mapUsedProfiles.size() > 0) {
+      out.print ("// referenced EnergyConnectionProfiles that must be defined\n");
+      if (!bIncludeFileReferenced) {
+        out.print ("// (consider re-exporting with -m option to reference an include file)\n");
+      }
+      for (HashMap.Entry<String,String> pair : mapUsedProfiles.entrySet()) {
+        out.print (mapProfiles.get(pair.getValue()).GetGLM());
+      }
+    }
+
     out.close();
   }
 
@@ -1776,6 +1793,11 @@ public class CIMImporter extends Object {
       boolean bWantSched, String fSched, boolean bWantZIP, double Zcoeff, double Icoeff, double Pcoeff, String fEarth,
       boolean bUseProfiles, boolean bNameUUID, String fInclude)  {
 
+
+    DistEnergyConnectionProfile prf = null;
+    HashMap<String,String> mapUsedProfiles = new HashMap<>(); // name, and one of the keys that uses it
+    boolean bIncludeFileReferenced = false;
+
     out.println ("clear");
     out.println ("set defaultbasefrequency=" + String.valueOf (DistComponent.GetSystemFrequency()));
 
@@ -1789,6 +1811,7 @@ public class CIMImporter extends Object {
     if ((fInclude != null) && !fInclude.isEmpty()) {
       File fIncludeFile = new File(fInclude);
       out.println ("redirect " + fIncludeFile.getName());
+      bIncludeFileReferenced = true;
     }
 
     if (mapWires.size() > 0) out.println();
@@ -1840,25 +1863,45 @@ public class CIMImporter extends Object {
 
     if (mapSolars.size() > 0) out.println();
     for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
-      DistEnergyConnectionProfile prf = mapProfiles.get(pair.getValue().pecid);
+      if (bUseProfiles) {
+        prf = mapProfiles.get(pair.getValue().pecid);
+        if (prf != null) {
+          mapUsedProfiles.put(prf.name, prf.GetKey());
+        }
+      }
       out.print (pair.getValue().GetDSS(prf));
       outID.println ("PVSystem." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapStorages.size() > 0) out.println();
     for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
-      DistEnergyConnectionProfile prf = mapProfiles.get(pair.getValue().pecid);
+      if (bUseProfiles) {
+        prf = mapProfiles.get(pair.getValue().pecid);
+        if (prf != null) {
+          mapUsedProfiles.put(prf.name, prf.GetKey());
+        }
+      }
       out.print (pair.getValue().GetDSS(prf));
       outID.println ("Storage." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapSyncMachines.size() > 0) out.println();
     for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
-      DistEnergyConnectionProfile prf = mapProfiles.get(pair.getValue().id);
+      if (bUseProfiles) {
+        prf = mapProfiles.get(pair.getValue().id);
+        if (prf != null) {
+          mapUsedProfiles.put(prf.name, prf.GetKey());
+        }
+      }
       out.print (pair.getValue().GetDSS(prf));
       outID.println ("Generator." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapLoads.size() > 0) out.println();
     for (HashMap.Entry<String,DistLoad> pair : mapLoads.entrySet()) {
-      DistEnergyConnectionProfile prf = mapProfiles.get(pair.getValue().id);
+      if (bUseProfiles) {
+        prf = mapProfiles.get(pair.getValue().id);
+        if (prf != null) {
+          mapUsedProfiles.put(prf.name, prf.GetKey());
+        }
+      }
       out.print (pair.getValue().GetDSS(prf));
       outID.println ("Load." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
@@ -1989,6 +2032,16 @@ public class CIMImporter extends Object {
 
     out.println ("buscoords " + fXYFile.getName());
     out.println ("uuids " + fIDFile.getName());
+
+    if (mapUsedProfiles.size() > 0) {
+      out.print ("// referenced EnergyConnectionProfiles that must be defined\n");
+      if (!bIncludeFileReferenced) {
+        out.print ("// (consider re-exporting with -m option to reference an include file)\n");
+      }
+      for (HashMap.Entry<String,String> pair : mapUsedProfiles.entrySet()) {
+        out.print (mapProfiles.get(pair.getValue()).GetDSS());
+      }
+    }
 
     out.println();
 

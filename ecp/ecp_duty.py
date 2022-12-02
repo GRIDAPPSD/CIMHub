@@ -1,11 +1,10 @@
 #  Copyright (c) 2022, Battelle Memorial Institute
 import os
-#import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import trapz
 
-plt.rcParams['savefig.directory'] = os.getcwd()
+plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
 
 vbase = 7621.0
 tstep = 1.0
@@ -23,11 +22,13 @@ def make_timebase (d, base=1.0):
   n = d.shape[0]
   return np.linspace (0.0, tstep * float(n - 1) / base, n)
 
-if __name__ == '__main__':
-  d1 = np.loadtxt('./base/ecp_duty_Mon_pv1_1.csv', skiprows=1, delimiter=',')
-  d2 = np.loadtxt('./base/ecp_duty_Mon_pv2_1.csv', skiprows=1, delimiter=',')
-  d3 = np.loadtxt('./base/ecp_duty_Mon_bess1_1.csv', skiprows=1, delimiter=',')
-  d4 = np.loadtxt('./base/ecp_duty_Mon_bess2_1.csv', skiprows=1, delimiter=',')
+def add_case (ax, dsspath):
+  print ('Results from', dsspath)
+
+  d1 = np.loadtxt('./{:s}/ecp_duty_Mon_pv1_1.csv'.format(dsspath), skiprows=1, delimiter=',')
+  d2 = np.loadtxt('./{:s}/ecp_duty_Mon_pv2_1.csv'.format(dsspath), skiprows=1, delimiter=',')
+  d3 = np.loadtxt('./{:s}/ecp_duty_Mon_bess1_1.csv'.format(dsspath), skiprows=1, delimiter=',')
+  d4 = np.loadtxt('./{:s}/ecp_duty_Mon_bess2_1.csv'.format(dsspath), skiprows=1, delimiter=',')
   pv1 = collect_columns (d1, cols=[2,4,6])
   pv2 = collect_columns (d2, cols=[2,4,6])
   bess1 = collect_columns (d3, cols=[2,4,6])
@@ -41,17 +42,25 @@ if __name__ == '__main__':
   b2 = np.trapz (bess2, dx=tstep/tbase)
   print ('Total Energy BESS1={:.2f} BESS2={:.2f} kwh'.format (b1, b2))
 
+  ax[0].plot(t, pv1, label='PV 1 {:s}'.format(dsspath))
+  ax[0].plot(t, pv2, label='PV 2 {:s}'.format(dsspath))
+  ax[1].plot(t, bess1, label='BESS 1 {:s}'.format(dsspath))
+  ax[1].plot(t, bess2, label='BESS 2 {:s}'.format(dsspath))
+
+if __name__ == '__main__':
+
   fig, ax = plt.subplots(1, 2, figsize=(10,6))
+  plt.suptitle ('Case ecp_duty')
+
+  for dsspath in ['base', 'dssa']:
+    add_case (ax, dsspath)
+
   ax[0].set_ylabel('Solar Power [kW]')
-  ax[0].plot(t, pv1, color='red', label='PV 1 orig')
-  ax[0].plot(t, pv2, color='blue', label='PV 2 orig')
   ax[0].set_xlabel('Time [hr]')
   ax[0].legend()
   ax[0].grid()
 
   ax[1].set_ylabel('Battery Power [kW]')
-  ax[1].plot(t, bess1, color='red', label='BESS 1 orig')
-  ax[1].plot(t, bess2, color='blue', label='BESS 2 orig')
   ax[1].set_xlabel('Time [hr]')
   ax[1].legend()
   ax[1].grid()

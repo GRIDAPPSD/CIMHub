@@ -1,11 +1,10 @@
 #  Copyright (c) 2022, Battelle Memorial Institute
 import os
-#import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import trapz
 
-plt.rcParams['savefig.directory'] = os.getcwd()
+plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
 
 vbase = 7621.0
 tstep = 3600.0
@@ -23,9 +22,10 @@ def make_timebase (d, base=1.0):
   n = d.shape[0]
   return np.linspace (0.0, tstep * float(n - 1) / base, n)
 
-if __name__ == '__main__':
-  d1 = np.loadtxt('./base/ecp_yearly_Mon_pq1_1.csv', skiprows=1, delimiter=',')
-  d2 = np.loadtxt('./base/ecp_yearly_Mon_pq2_1.csv', skiprows=1, delimiter=',')
+def add_case (ax, dsspath):
+  print ('Results from', dsspath)
+  d1 = np.loadtxt('./{:s}/ecp_yearly_Mon_pq1_1.csv'.format(dsspath), skiprows=1, delimiter=',')
+  d2 = np.loadtxt('./{:s}/ecp_yearly_Mon_pq2_1.csv'.format(dsspath), skiprows=1, delimiter=',')
   p1 = collect_columns (d1, cols=[2,4,6])
   q1 = collect_columns (d1, cols=[3,5,7])
   p2 = collect_columns (d2, cols=[2,4,6])
@@ -36,17 +36,24 @@ if __name__ == '__main__':
   e2 = 0.001 * np.trapz (p2, dx=tstep/tbase)
   print ('Total Energy Load1={:.2f} Load2={:.2f} MWh'.format (e1, e2))
 
+  ax[0].plot(t, p1, label='Load 1 {:s}'.format(dsspath))
+  ax[0].plot(t, p2, label='Load 2 {:s}'.format(dsspath))
+  ax[1].plot(t, q1, label='Load 1 {:s}'.format(dsspath))
+  ax[1].plot(t, q2, label='Load 2 {:s}'.format(dsspath))
+
+if __name__ == '__main__':
+
   fig, ax = plt.subplots(1, 2, figsize=(10,6))
+  plt.suptitle ('Case ecp_yearly')
+  for dsspath in ['base', 'dssa']:
+    add_case (ax, dsspath)
+
   ax[0].set_ylabel('Power [kW]')
-  ax[0].plot(t, p1, color='red', label='Load 1 orig')
-  ax[0].plot(t, p2, color='blue', label='Load 2 orig')
   ax[0].set_xlabel('Time [hr]')
   ax[0].legend()
   ax[0].grid()
 
   ax[1].set_ylabel('Reactive Power [kvarh]')
-  ax[1].plot(t, q1, color='red', label='Load 1 orig')
-  ax[1].plot(t, q2, color='blue', label='Load 2 orig')
   ax[1].set_xlabel('Time [hr]')
   ax[1].legend()
   ax[1].grid()

@@ -59,6 +59,41 @@ public class DistEnergyConnectionProfile extends DistComponent {
     return load_id;
   }
 
+  public String GetGLM() {
+    StringBuilder buf = new StringBuilder ("// for:"+load_name);
+    if (!gldPlayer.isEmpty()) buf.append (" player="+gldPlayer);
+    if (!gldSchedule.isEmpty()) buf.append (" schedule="+gldSchedule);
+    if (!gldWeather.isEmpty()) buf.append (" climate="+gldWeather);
+    buf.append("\n");
+    return buf.toString();
+  }
+
+  public String GetDSS() {
+    StringBuilder buf = new StringBuilder ("// ");
+    if (name.startsWith("Load:")) {
+      buf.append ("for loads: ");
+    } else if (name.startsWith("Gen:")) {
+      buf.append ("for generators: ");
+    } else if (name.startsWith("PV:")) {
+      buf.append ("for PVsystems: ");
+    } else if (name.startsWith("Bat:")) {
+      buf.append ("for storages: ");
+    } else {
+      buf.append ("for:" + load_name);
+    }
+    if (!dssDaily.isEmpty()) buf.append (" daily="+dssDaily);
+    if (!dssDuty.isEmpty()) buf.append (" duty="+dssDuty);
+    if (!dssYearly.isEmpty()) buf.append (" yearly="+dssYearly);
+    if (!dssLoadGrowth.isEmpty()) buf.append (" growth="+dssLoadGrowth);
+    if (!dssLoadCvrCurve.isEmpty()) buf.append (" cvrcurve="+dssLoadCvrCurve);
+    if (!dssPVTDaily.isEmpty()) buf.append (" Tdaily="+dssPVTDaily);
+    if (!dssPVTDuty.isEmpty()) buf.append (" Tduty="+dssPVTDuty);
+    if (!dssPVTYearly.isEmpty()) buf.append (" Tyearly="+dssPVTYearly);
+    if (!dssSpectrum.isEmpty()) buf.append (" spectrum="+dssSpectrum);
+    buf.append("\n");
+    return buf.toString();
+  }
+
   @Override
   public String GetJSONEntry() {
     StringBuilder buf = new StringBuilder ();
