@@ -97,7 +97,7 @@ New XYCurve.MyPvsT npts=4  xarray=[0  25  75  100]  yarray=[1.2 1.0 0.8  0.6]
 New XYCurve.MyEff npts=4  xarray=[.1  .2  .4  1.0]  yarray=[.94  .96  .96  .96]"""
 
 template_files['ecp_temperature_run.dss'] = """redirect ecp_temperature_base.dss
-batchedit pvsystem..* effcurve=MyEff irradiance=0.983 // TODO
+batchedit pvsystem..* effcurve=MyEff irradiance=0.983 // back out exported effect of MyEff: 0.983*0.96=0.944 in base file
 edit pvsystem.pv2 P-TCurve=MyPvsT
 new monitor.pv1_pq PVSystem.pv1  1 mode=1 ppolar=no
 new monitor.pv1_vi PVSystem.pv1  1 
