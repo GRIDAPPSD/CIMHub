@@ -15,6 +15,7 @@ import json
 
 # URL for the lyrasis Blazegraph container, i.e., not part of GridAPPS-D:
 blazegraph_url = "http://localhost:8889/bigdata/namespace/kb/sparql"
+blazegraph_prefix = "http://localhost:8889/bigdata/namespace/kb/sparql"
 
 #******************************************************************************
 # Default prefix for blazegraph queries; canonical version is now CIM100
@@ -51,12 +52,17 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 #blazegraph_url = "http://blazegraph:8080/bigdata/sparql"
 
 def ConfigFromJsonFile (fname):
-  global blazegraph_url, prefix, cim_ns
+  global blazegraph_url, blazegraph_prefix, prefix, cim_ns
   with open(fname) as fp: 
     cfg = json.load(fp)
     if 'blazegraph_url' in cfg:
       blazegraph_url = cfg['blazegraph_url']
 #      print ('Configured URL to', blazegraph_url)
+    
+    if 'blazegraph_prefix' in cfg:
++     blazegraph_prefix = cfg['blazegraph_prefix']
+    else:
+      blazegraph_prefix = blazegraph_url
     if 'cim_ns' in cfg:
       cim_ns = cfg['cim_ns']
       prefix = """PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

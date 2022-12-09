@@ -282,8 +282,8 @@ def insertHouse (ecName, ecID, houseNum, houseData, uuids):
     uuids[key] = hIDStr
 
   # Define strings for the house and energy consumer.
-  house = '<' + CIMHubConfig.blazegraph_url + '#' + hIDStr + '>'
-  ec = '<' + CIMHubConfig.blazegraph_url + '#' + ecIDStr + '>'
+  house = '<' + CIMHubConfig.blazegraph_prefix + '#' + hIDStr + '>'
+  ec = '<' + CIMHubConfig.blazegraph_prefix + '#' + ecIDStr + '>'
   
   # Define string for attaching house to energy consumer
   qdata = (house + ' a c:House. ' +
