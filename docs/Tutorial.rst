@@ -33,15 +33,6 @@ The Windows/tutorial ``cimhubjar.json`` is shown below.
 .. literalinclude:: ../tutorial/cimhubjar.json
   :linenos:
 
-The Windows/tutorial ``envars.bat`` is shown below.
-
-- Line 2 provides the Blazegraph port and namespace for shell scripts
-- Line 3 provides the path to the CIMHub Java program
-- Line 4 names the CIMHub Java program
-
-.. literalinclude:: ../tutorial/envars.bat
-  :linenos:
-
 A sample Linux ``cimhubdocker.json`` is shown below. This is configured
 to use Blazegraph in Docker, with changes in Line 2:
 
@@ -49,16 +40,6 @@ to use Blazegraph in Docker, with changes in Line 2:
 - The namespace for v2.1.5 defaults to ``bigdata`` instead of blazegraph
 
 .. literalinclude:: ../tutorial/cimhubdocker.json
-  :linenos:
-
-A sample Linux ``envars.sh`` is shown below. The significant differences to ``envars.bat`` are:
-
-- Line 2 is updated for port ``8889`` and ``bigdata`` in the namespace
-- Line 3 is configured for a Java developer using a local build of the Java program.
-  In this configuration, the Java dependencies are built to ``target/libs``, not
-  packaged with the CIMHub Jar.
-
-.. literalinclude:: ../tutorial/envars.sh
   :linenos:
 
 IEEE 123-Bus Base Case

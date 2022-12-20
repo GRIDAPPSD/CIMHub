@@ -316,6 +316,12 @@ Total Energy Load1=16859.94 Load2=7004.20 MWh
 
 ![ECP Yearly](../docs/media/ecp_yearly.png)
 
+### gld_daily
+
+![GLD Daily OpenDSS](../docs/media/gld_daily_dss.png)
+
+![GLD Daily GridLAB-D](../docs/media/gld_daily_gld.png)
+
 ## Manual Adjustments to the Exported Model
 
 In half of the six cases, manual adjustments were needed to obtain matching solutions.

@@ -338,9 +338,9 @@ public class CIMQuerySetter extends Object {
       "} ORDER BY ?name ?seq");
 
     mapQueries.put ("DistEnergyConnectionProfile",
-      "SELECT ?name ?id ?ldid ?ldname ?dssDaily ?dssDuty ?dssLoadCvrCurve ?dssLoadGrowth"+
+      "SELECT DISTINCT ?name ?id ?ldid ?ldname ?dssDaily ?dssDuty ?dssLoadCvrCurve ?dssLoadGrowth"+
       " ?dssPVTDaily ?dssPVTDuty ?dssPVTYearly ?dssSpectrum ?dssYearly"+
-      " ?gldPlayer ?gldSchedule ?gldWeather WHERE {"+
+      " ?gldPlayer ?gldSchedule WHERE {"+
       " ?s r:type c:EnergyConnectionProfile."+
       " ?ld c:Equipment.EquipmentContainer ?fdr."+
       " {?ld r:type c:SynchronousMachine.}"+
@@ -365,7 +365,6 @@ public class CIMQuerySetter extends Object {
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssYearly ?dssYearly.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.gldPlayer ?gldPlayer.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.gldSchedule ?gldSchedule.}"+
-      " OPTIONAL {?ecp c:EnergyConnectionProfile.gldWeather ?gldWeather.}"+
       "}"+
       "ORDER by ?name ?ldname");
 

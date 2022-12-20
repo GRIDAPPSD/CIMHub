@@ -113,7 +113,8 @@ public class DistStorage extends DistComponent {
     return buf.toString();
   }
 
-  public String GetGLM(HashMap<String,DistIEEE1547Connection> mapConnections, HashMap<String,DistIEEE1547Used> mapUsed) {
+  public String GetGLM(HashMap<String,DistIEEE1547Connection> mapConnections, HashMap<String,DistIEEE1547Used> mapUsed,
+                       DistEnergyConnectionProfile prf) {
     StringBuilder buf = new StringBuilder ("object inverter {\n");
 
     double pf = 1.0;
@@ -150,8 +151,22 @@ public class DistStorage extends DistComponent {
     buf.append ("  rated_power " + df3.format (ratedS/GLMPhaseCount(phases)) + "; // per phase!\n");
     buf.append ("  max_charge_rate " + df3.format (-minP) + ";\n");
     buf.append ("  max_discharge_rate " + df3.format (maxP) + ";\n");
-    buf.append ("  P_Out " + df3.format (p) + ";\n");
-    if (mode == ConverterControlMode.CONSTANT_PF) {
+    String Pout = df3.format (p);
+    boolean bDispatchCurve = false;
+    if (prf != null) {
+      if (prf.gldPlayer.length() > 0) {
+        Pout = prf.gldPlayer + ".value*" + df3.format(ratedP);
+        bDispatchCurve = true;
+      } else if (prf.gldSchedule.length() > 0) {
+        Pout = prf.gldSchedule + "*" + df3.format(ratedP);
+        bDispatchCurve = true;
+      }
+    }
+    buf.append ("  P_Out " + Pout + ";\n");
+    if (bDispatchCurve) {
+      buf.append ("  four_quadrant_control_mode CONSTANT_PQ; // required for player or schedule control \n");
+      buf.append ("  Q_Out " + df3.format (q) + ";\n");
+    } else if (mode == ConverterControlMode.CONSTANT_PF) {
       buf.append ("  four_quadrant_control_mode CONSTANT_PF;\n");
       buf.append ("  power_factor " + df4.format (pf) + ";\n");
     } else if (mode == ConverterControlMode.CONSTANT_Q) {
@@ -244,12 +259,15 @@ public class DistStorage extends DistComponent {
     if (prf != null) {
       if (prf.dssDaily.length() > 0) {
         buf.append (" daily=" + prf.dssDaily);
+        buf.append (" dispmode=follow");
       }
       if (prf.dssDuty.length() > 0) {
         buf.append (" duty=" + prf.dssDuty);
+        buf.append (" dispmode=follow");
       }
       if (prf.dssYearly.length() > 0) {
         buf.append (" yearly=" + prf.dssYearly);
+        buf.append (" dispmode=follow");
       }
       if (prf.dssSpectrum.length() > 0) {
         buf.append (" spectrum=" + prf.dssSpectrum);

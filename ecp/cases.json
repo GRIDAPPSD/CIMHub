@@ -118,6 +118,25 @@
     "subregionID":"3294CD2B-B48C-41D2-821C-EFCA383872AD",
     "export_options":" -l=1.0",
     "check_branches":[{"dss_link": "LINE.SEG1", "dss_bus": "FDRHEAD", "gld_link": "LINE_SEG1", "gld_bus": "FDRHEAD"}]
+},
+{
+    "mRID":"6C3BD8BB-3BEA-4974-BBDE-903681A7ED71",
+    "root":"gld_daily",
+    "inpath_dss":"./base/",
+    "dssname":"gld_daily.dss",    
+    "path_xml":"./xml/",
+    "outpath_dss":"./dss/",
+    "outpath_glm":"./glm/",
+    "glmvsrc": 7621.02,
+    "bases":[13200.0],
+    "substation":"subECP",
+    "region":"rgnECP",
+    "subregion":"subrgnECP",
+    "substationID":"E9F5326B-13AD-4644-9EFF-0B1F18D1B277",
+    "regionID":"57615922-4788-4677-971F-C9787AD81DB9",
+    "subregionID":"3294CD2B-B48C-41D2-821C-EFCA383872AD",
+    "export_options":" -l=1.0",
+    "check_branches":[{"dss_link": "LINE.SEG1", "dss_bus": "FDRHEAD", "gld_link": "LINE_SEG1", "gld_bus": "FDRHEAD"}]
 }
 ]
 

@@ -2304,12 +2304,13 @@ ORDER BY ?name
 # shapes and profiles for loads and DER - DistEnergyConnectionProfile
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?id ?ldid ?ldname ?dssDaily ?dssDuty ?dssLoadCvrCurve ?dssLoadGrowth
+SELECT DISTINCT ?name ?id ?ldid ?ldname ?dssDaily ?dssDuty ?dssLoadCvrCurve ?dssLoadGrowth
  ?dssPVTDaily ?dssPVTDuty ?dssPVTYearly ?dssSpectrum ?dssYearly
- ?gldPlayer ?gldSchedule ?gldWeather WHERE {
+ ?gldPlayer ?gldSchedule WHERE {
  ?s r:type c:EnergyConnectionProfile.
 # feeder selection options - if all commented out, query matches all feeders
-VALUES ?fdrid {"CBE09B55-091B-4BB0-95DA-392237B12640"}  # 123 bus
+#VALUES ?fdrid {"CBE09B55-091B-4BB0-95DA-392237B12640"}  # 123 bus
+VALUES ?fdrid {"C4248C71-A0EE-4D78-AFEE-74F3359A2099"}  # ecp_daily
  ?ld c:Equipment.EquipmentContainer ?fdr.
  {?ld r:type c:SynchronousMachine.}
    UNION
@@ -2333,7 +2334,6 @@ VALUES ?fdrid {"CBE09B55-091B-4BB0-95DA-392237B12640"}  # 123 bus
  OPTIONAL {?ecp c:EnergyConnectionProfile.dssYearly ?dssYearly.}
  OPTIONAL {?ecp c:EnergyConnectionProfile.gldPlayer ?gldPlayer.}
  OPTIONAL {?ecp c:EnergyConnectionProfile.gldSchedule ?gldSchedule.}
- OPTIONAL {?ecp c:EnergyConnectionProfile.gldWeather ?gldWeather.}
 }
 ORDER by ?name ?ldname
 

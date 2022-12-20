@@ -23,7 +23,6 @@ public class DistEnergyConnectionProfile extends DistComponent {
   public String dssYearly;
   public String gldPlayer;
   public String gldSchedule;
-  public String gldWeather;
 
   public DistEnergyConnectionProfile (ResultSet results) {
     if (results.hasNext()) {
@@ -43,7 +42,6 @@ public class DistEnergyConnectionProfile extends DistComponent {
       dssYearly = OptionalString (soln, "?dssYearly", "");
       gldPlayer = OptionalString (soln, "?gldPlayer", "");
       gldSchedule = OptionalString (soln, "?gldSchedule", "");
-      gldWeather = OptionalString (soln, "?gldWeather", "");
     }
   }
 
@@ -51,7 +49,7 @@ public class DistEnergyConnectionProfile extends DistComponent {
     StringBuilder buf = new StringBuilder ("");
     buf.append (name + ":" + id + ":" + dssDaily + ":" + dssDuty + ":" + dssLoadCvrCurve + ":" + dssLoadGrowth
                 + ":" + dssPVTDaily + ":" + dssPVTDuty + ":" + dssPVTYearly + ":" + dssSpectrum + ":" + dssYearly
-                + ":" + gldPlayer + ":" + gldSchedule + ":" + gldWeather + ":" + load_name + ":" + load_id);
+                + ":" + gldPlayer + ":" + gldSchedule + ":" + load_name + ":" + load_id);
     return buf.toString();
   }
 
@@ -59,11 +57,29 @@ public class DistEnergyConnectionProfile extends DistComponent {
     return load_id;
   }
 
+  public boolean ForGLM() {
+    if (!gldPlayer.isEmpty()) return true;
+    if (!gldSchedule.isEmpty()) return true;
+    return false;
+  }
+
+  public boolean ForDSS() {
+    if (!dssDaily.isEmpty()) return true;
+    if (!dssDuty.isEmpty()) return true;
+    if (!dssYearly.isEmpty()) return true;
+    if (!dssLoadGrowth.isEmpty()) return true;
+    if (!dssLoadCvrCurve.isEmpty()) return true;
+    if (!dssPVTDaily.isEmpty()) return true;
+    if (!dssPVTDuty.isEmpty()) return true;
+    if (!dssPVTYearly.isEmpty()) return true;
+    if (!dssSpectrum.isEmpty()) return true;
+    return false;
+  }
+
   public String GetGLM() {
     StringBuilder buf = new StringBuilder ("// for:"+load_name);
     if (!gldPlayer.isEmpty()) buf.append (" player="+gldPlayer);
     if (!gldSchedule.isEmpty()) buf.append (" schedule="+gldSchedule);
-    if (!gldWeather.isEmpty()) buf.append (" climate="+gldWeather);
     buf.append("\n");
     return buf.toString();
   }

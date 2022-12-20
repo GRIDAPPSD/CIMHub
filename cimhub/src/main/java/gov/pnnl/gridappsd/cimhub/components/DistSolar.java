@@ -94,7 +94,8 @@ public class DistSolar extends DistComponent {
     return buf.toString();
   }
 
-  public String GetGLM(HashMap<String,DistIEEE1547Connection> mapConnections, HashMap<String,DistIEEE1547Used> mapUsed) {
+  public String GetGLM(HashMap<String,DistIEEE1547Connection> mapConnections, HashMap<String,DistIEEE1547Used> mapUsed,
+                       DistEnergyConnectionProfile prf) {
     StringBuilder buf = new StringBuilder("object inverter {\n");
 
     double pf = 1.0;
@@ -155,6 +156,15 @@ public class DistSolar extends DistComponent {
     buf.append ("    derating 1.0;\n");
     buf.append ("    soiling 1.0;\n");
     buf.append ("    rated_power " + df3.format (maxP) + ";\n");
+    if (prf != null) {
+      if (prf.gldPlayer.length() > 0) {
+        buf.append ("    SOLAR_TILT_MODEL PLAYERVALUE;\n");
+        buf.append ("    Insolation " + prf.gldPlayer + ".value*92.9;\n");
+      } else if (prf.gldSchedule.length() > 0) {
+        buf.append ("    SOLAR_TILT_MODEL PLAYERVALUE;\n");
+        buf.append ("    Insolation " + prf.gldSchedule + "*92.9;\n");
+      }
+    }
     buf.append ("  };\n");
 
     buf.append("}\n");

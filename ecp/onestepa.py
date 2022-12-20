@@ -46,7 +46,6 @@ New Loadshape.cycle npts=10 interval=0 hour=[0.00,0.09,0.10,0.29,0.30,0.49, 0.50
 ~ action=normalize"""
 
 template_files['ecp_duty_run.dss'] = """redirect ecp_duty_base.dss
-edit storage.bess2 dispmode=follow // TODO
 new monitor.pv1 pvsystem.pv1 1 mode=1 ppolar=no
 new monitor.pv2 pvsystem.pv2 1 mode=1 ppolar=no
 new monitor.bess1 storage.bess1 1 mode=1 ppolar=no
@@ -132,17 +131,45 @@ export monitors load2
 export monitors gen1
 export monitors gen2"""
 
+template_files['gld_daily_edits.dss'] = """New Loadshape.Cloud npts=86401 sinterval=1 csvfile=..\\base\\pcloud.dat action=normalize
+New Loadshape.Clear npts=86401 sinterval=1 csvfile=..\\base\\pclear.dat action=normalize
+New Loadshape.cycle npts=10 interval=0 hour=[0.0,4.0,4.1,8.0,8.1,16.0,16.1,20.0,20.1,24.0] 
+~                                      mult=[0.0,0.0,1.0,1.0,0.0, 0.0,-1.0,-1.0, 0.0, 0.0]
+New Loadshape.bump npts=6 interval=0 hour=[0.0,6.0,7.0,19.0,20.0,24.0] 
+~                                    mult=[0.0,0.0,1.0, 1.0, 0.0, 0.0]
+New Loadshape.peaking npts=6 interval=0 hour=[0.0,12.0,12.1,17.0,17.1,24.0] 
+~                                       mult=[0.0, 0.0, 1.0, 1.0, 0.0, 0.0]"""
+
+template_files['gld_daily_run.dss'] = """redirect gld_daily_base.dss
+batchedit storage..* %reserve=5
+new monitor.bess1 storage.bess1 1 mode=1 ppolar=no
+new monitor.bess2 storage.bess2 1 mode=1 ppolar=no
+new monitor.pv1 pvsystem.pv1 1 mode=1 ppolar=no
+new monitor.pv2 pvsystem.pv2 1 mode=1 ppolar=no
+new monitor.load1 load.load1 1 mode=1 ppolar=no
+new monitor.load2 load.load2 1 mode=1 ppolar=no
+new monitor.gen1 generator.gen1 1 mode=1 ppolar=no
+new monitor.gen2 generator.gen2 1 mode=1 ppolar=no
+solve
+solve mode=daily stepsize=1s number=86400
+export monitors gen1
+export monitors gen2
+export monitors pv1
+export monitors pv2
+export monitors load1
+export monitors load2
+export monitors bess1
+export monitors bess2"""
+
 if sys.platform == 'win32':
   cfg_json = '../queries/cimhubconfig.json'
   shfile_upload = '_upload.bat'
   shfile_export = '_export.bat'
-  shfile_glm = '_checkglm.bat'
   dssfile_run = '_check.dss'
 else:
   cfg_json = '../queries/cimhubdocker.json'
   shfile_upload = './_upload.sh'
   shfile_export = './_export.sh'
-  shfile_glm = './_checkglm.sh'
   dssfile_run = '_check.dss'
 
 if __name__ == '__main__':
@@ -153,11 +180,10 @@ if __name__ == '__main__':
   fp.close()
 
   dssout = './dssa/'
-  glmout = './glma/'
   for row in cases:
     row['outpath_csv'] = ''
-    row['outpath_dss'] = dssout
     row['outpath_glm'] = ''
+    row['outpath_dss'] = dssout
     row['export_options'] = ' -l=1.0 -m=1 -a=1 -e=carson'
 
   cimhub.make_upload_script (cases, scriptname=shfile_upload, bClearDB=True)

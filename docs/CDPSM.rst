@@ -409,9 +409,8 @@ the simulator from an external source.
 - **dssPVTYearly**: Reference to OpenDSS Yearly curve, for PVSystem temperature
 - **dssSpectrum**: Reference to OpenDSS harmonic current Spectrum, for Load, Storage, PVSystem, Generator, and WindGen power
 - **dssYearly**: Reference to OpenDSS Yearly curve, for Load, Storage, PVSystem, Generator, and WindGen power
-- **gldPlayer**: GridLAB-D Player for base_power attributes on Load and Triplex_Load objects, and P_Out for Battery objects. Netlisted as player.value.
-- **gldSchedule**: GridLAB-D schedule for base_power attributes on Load and Triplex_Load objects, and P_Out attributes on Battery objects.
-- **gldWeather**: Local GridLAB-D Climate for House and Solar objects. Defaults to global weather if not specified. 
+- **gldPlayer**: GridLAB-D Player for base_power attributes on Load and Triplex_Load objects, real and reactive power for Diesel DG objects, P_Out for Battery objects, and Insolation for Solar objects. Netlisted as player.value.
+- **gldSchedule**: GridLAB-D schedule for base_power attributes on Load and Triplex_Load objects, real and reactive power for Diesel DG objects, P_Out for Battery objects, and Insolation for Solar objects.
 
 Extension for Faults
 --------------------

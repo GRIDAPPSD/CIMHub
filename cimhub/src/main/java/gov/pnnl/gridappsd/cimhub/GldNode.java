@@ -149,10 +149,8 @@ public class GldNode {
   
   public boolean bPlayer;
   public boolean bSchedule;
-  public boolean bWeather;
   public String gldPlayer;
   public String gldSchedule;
-  public String gldWeather;
 
   /** constructor defaults to zero load and zero phases present
    *  @param name CIM name of the bus */
@@ -177,7 +175,6 @@ public class GldNode {
     bTertiaryWinding = false;
     bPlayer = false;
     bSchedule = false;
-    bWeather = false;
   }
 
   public double TotalLoadRealPower() {
@@ -205,7 +202,6 @@ public class GldNode {
     buf.append (" bBat=" + Boolean.toString(bStorageInverters));
     if (bPlayer) buf.append (" player=" + gldPlayer);
     if (bSchedule) buf.append (" schedule=" + gldSchedule);
-    if (bWeather) buf.append (" weather=" + gldWeather);
     return buf.toString();
   }
 
@@ -246,7 +242,7 @@ public class GldNode {
     return phases + "N";
   }
 
-  public void AccumulateProfiles (String gldPlayer, String gldSchedule, String gldWeather) {
+  public void AccumulateProfiles (String gldPlayer, String gldSchedule) {
     if (gldPlayer.length() > 0) {
       bPlayer = true;
       this.gldPlayer = gldPlayer;
@@ -254,10 +250,6 @@ public class GldNode {
     if (gldSchedule.length() > 0) {
       bSchedule = true;
       this.gldSchedule = gldSchedule;
-    }
-    if (gldWeather.length() > 0) {
-      bWeather = true;
-      this.gldWeather = gldWeather;
     }
   }
 
@@ -649,13 +641,13 @@ public class GldNode {
         base_power += sp;
       }
       if (bWantSched) {
-        buf.append ("  base_power_" + phs + " " + fSched + ".value*" + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
+        buf.append ("  base_power_" + phs + " " + fSched + ".value*" + df2.format(base_power) + ";\n");
       } else if (bSchedule) {
-        buf.append ("  base_power_" + phs + " " + gldSchedule + "*" + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
+        buf.append ("  base_power_" + phs + " " + gldSchedule + "*" + df2.format(base_power) + ";\n");
       } else if (bPlayer) {
-        buf.append ("  base_power_" + phs + " " + gldPlayer + ".value*" + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
+        buf.append ("  base_power_" + phs + " " + gldPlayer + ".value*" + df2.format(base_power) + ";\n");
       } else {
-        buf.append ("  base_power_" + phs + " " + df2.format(base_power) + "; // adjusted for use with fractions and pfs\n");
+        buf.append ("  base_power_" + phs + " " + df2.format(base_power) + ";\n");
       }
       if (sz > 0.0) {
         buf.append ("  impedance_fraction_" + phs + " " + df6.format(sz/base_power) + ";\n");

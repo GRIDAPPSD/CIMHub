@@ -77,7 +77,7 @@ public class DistSyncMachine extends DistComponent {
     return buf.toString();
   }
 
-  public String GetGLM() {
+  public String GetGLM(DistEnergyConnectionProfile prf) {
 //    if (!phases.contains("ABC")) {
 //      return "";
 //    }
@@ -102,14 +102,35 @@ public class DistSyncMachine extends DistComponent {
       }
     } else {
       buf.append("  phases " + phases.replace (":", "") + "N;\n");
-      if (q < 0.0) {
-        Sphase = df2.format(p/3.0) + "-" + df2.format(-q/3.0) + "j";
+      String Pphase = df2.format(p/3.0);
+      String Qphase = df2.format(q/3.0);
+      if (prf != null) {
+        if (prf.gldPlayer.length() > 0) {
+          Pphase = prf.gldPlayer + ".value*" + df2.format(p/3.0);
+          Qphase = prf.gldPlayer + ".value*" + df2.format(q/3.0);
+        } else if (prf.gldSchedule.length() > 0) {
+          Pphase = prf.gldSchedule + "*" + df2.format(p/3.0);
+          Qphase = prf.gldSchedule + "*" + df2.format(q/3.0);
+        } else {
+          Pphase = df2.format(p/3.0);
+          Qphase = df2.format(q/3.0);
+        }
+        buf.append ("  real_power_out_A " + Pphase + ";\n");
+        buf.append ("  real_power_out_B " + Pphase + ";\n");
+        buf.append ("  real_power_out_C " + Pphase + ";\n");
+        buf.append ("  reactive_power_out_A " + Qphase + ";\n");
+        buf.append ("  reactive_power_out_B " + Qphase + ";\n");
+        buf.append ("  reactive_power_out_C " + Qphase + ";\n");
       } else {
-        Sphase = df2.format(p/3.0) + "+" + df2.format(q/3.0) + "j";
+        if (q < 0.0) {
+          Sphase = df2.format(p/3.0) + "-" + df2.format(-q/3.0) + "j";
+        } else {
+          Sphase = df2.format(p/3.0) + "+" + df2.format(q/3.0) + "j";
+        }
+        buf.append ("  power_out_A " + Sphase + ";\n");
+        buf.append ("  power_out_B " + Sphase + ";\n");
+        buf.append ("  power_out_C " + Sphase + ";\n");
       }
-      buf.append ("  power_out_A " + Sphase + ";\n");
-      buf.append ("  power_out_B " + Sphase + ";\n");
-      buf.append ("  power_out_C " + Sphase + ";\n");
     }
     buf.append ("  Gen_type CONSTANT_PQ;\n");
     buf.append ("  Rated_V " + df2.format(ratedU) + ";\n");

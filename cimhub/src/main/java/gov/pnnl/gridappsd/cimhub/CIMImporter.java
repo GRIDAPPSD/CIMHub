@@ -109,7 +109,8 @@ public class CIMImporter extends Object {
   HashMap<String,DistConcentricNeutralCable> mapCNCables = new HashMap<>();
   HashMap<String,DistCoordinates> mapCoordinates = new HashMap<>();
   HashMap<String,DistDisconnector> mapDisconnectors = new HashMap<>();
-  HashMap<String,DistEnergyConnectionProfile> mapProfiles = new HashMap<>();
+  HashMap<String,DistEnergyConnectionProfile> mapDssProfiles = new HashMap<>();
+  HashMap<String,DistEnergyConnectionProfile> mapGlmProfiles = new HashMap<>();
   HashMap<String,DistFeeder> mapFeeders = new HashMap<>();
   HashMap<String,DistFuse> mapFuses = new HashMap<>();
   HashMap<String,DistGroundDisconnector> mapGroundDisconnectors = new HashMap<>();
@@ -206,7 +207,8 @@ public class CIMImporter extends Object {
     ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistEnergyConnectionProfile"), "EnergyConnectionProfile");
     while (results.hasNext()) {
       DistEnergyConnectionProfile obj = new DistEnergyConnectionProfile (results);
-      mapProfiles.put (obj.GetKey(), obj);
+      if (obj.ForDSS()) mapDssProfiles.put (obj.GetKey(), obj);
+      if (obj.ForGLM()) mapGlmProfiles.put (obj.GetKey(), obj);
     }
     ((ResultSetCloseable)results).close();
   }
@@ -658,7 +660,8 @@ public class CIMImporter extends Object {
     PrintOneMap (mapIEEE1547Connections, "** IEEE 1547 CONNECTIONS");
     PrintOneMap (mapIEEE1547Signals, "** IEEE 1547 SIGNALS");
     PrintOneMap (mapIEEE1547Used, "** IEEE 1547 USED");
-    PrintOneMap (mapProfiles, "** ENERGY CONNECTION PROFILES");
+    PrintOneMap (mapDssProfiles, "** ENERGY CONNECTION PROFILES (DSS)");
+    PrintOneMap (mapGlmProfiles, "** ENERGY CONNECTION PROFILES (GLM)");
   }
 
   public void LoadAllMaps() {
@@ -716,7 +719,8 @@ public class CIMImporter extends Object {
     oLimits = new OperationalLimits();
     oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
     allMapsLoaded = true;
-//    PrintOneMap (mapProfiles, "** PROFILES");
+    //PrintOneMap (mapDssProfiles, "** OpenDSS PROFILES");
+    //PrintOneMap (mapGlmProfiles, "** GridLAB-D PROFILES");
   }
 
   public boolean CheckMaps() {
@@ -1284,12 +1288,12 @@ public class CIMImporter extends Object {
     }
     for (HashMap.Entry<String,DistLoad> pair : mapLoads.entrySet()) {
       DistLoad obj = pair.getValue();
-      if (bUseProfiles) prf = mapProfiles.get(obj.id);
+      if (bUseProfiles) prf = mapGlmProfiles.get(obj.id);
       GldNode nd = mapNodes.get (obj.bus);
       nd.nomvln = obj.basev / Math.sqrt(3.0);
       nd.AccumulateLoads (obj.name, obj.phases, obj.conn, obj.p, obj.q, obj.pe, obj.qe, obj.pz, obj.pi, obj.pp, obj.qz, obj.qi, obj.qp, randomZIP);
       if (prf != null) {
-        nd.AccumulateProfiles (prf.gldPlayer, prf.gldSchedule, prf.gldWeather);
+        nd.AccumulateProfiles (prf.gldPlayer, prf.gldSchedule);
         mapUsedProfiles.put(prf.name, prf.GetKey());
       }
     }
@@ -1409,6 +1413,8 @@ public class CIMImporter extends Object {
     }
     for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
       DistSolar obj = pair.getValue();
+      if (bUseProfiles) prf = mapGlmProfiles.get(obj.pecid);
+      if (prf != null) mapUsedProfiles.put(prf.name, prf.GetKey());
       GldNode nd = mapNodes.get (obj.bus);
       nd.bSolarInverters = true;
       if (nd.nomvln < 0.0) {
@@ -1425,6 +1431,8 @@ public class CIMImporter extends Object {
     }
     for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
       DistStorage obj = pair.getValue();
+      if (bUseProfiles) prf = mapGlmProfiles.get(obj.pecid);
+      if (prf != null) mapUsedProfiles.put(prf.name, prf.GetKey());
       GldNode nd = mapNodes.get (obj.bus);
       nd.bStorageInverters = true;
       if (nd.nomvln < 0.0) {
@@ -1442,6 +1450,8 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) { // TODO: GridLAB-D doesn't actually support 1-phase generators
       DistSyncMachine obj = pair.getValue();
       GldNode nd = mapNodes.get (obj.bus);
+      if (bUseProfiles) prf = mapGlmProfiles.get(obj.id);
+      if (prf != null) mapUsedProfiles.put(prf.name, prf.GetKey());
       nd.bSyncMachines = true;
       if (nd.nomvln < 0.0) {
         if (obj.phases.equals("ABC") || obj.phases.equals("AB") || obj.phases.equals("AC") || obj.phases.equals("BC")) {
@@ -1513,13 +1523,16 @@ public class CIMImporter extends Object {
       out.print (pair.getValue().GetGLM());
     }
     for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
-      out.print (pair.getValue().GetGLM(mapIEEE1547Connections, mapIEEE1547Used));
+      if (bUseProfiles) prf = mapGlmProfiles.get(pair.getValue().pecid);
+      out.print (pair.getValue().GetGLM(mapIEEE1547Connections, mapIEEE1547Used, prf));
     }
     for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
-      out.print (pair.getValue().GetGLM(mapIEEE1547Connections, mapIEEE1547Used));
+      if (bUseProfiles) prf = mapGlmProfiles.get(pair.getValue().pecid);
+      out.print (pair.getValue().GetGLM(mapIEEE1547Connections, mapIEEE1547Used, prf));
     }
     for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
-      out.print (pair.getValue().GetGLM());
+      if (bUseProfiles) prf = mapGlmProfiles.get(pair.getValue().id);
+      out.print (pair.getValue().GetGLM(prf));
     }
     for (HashMap.Entry<String,DistLinesSpacingZ> pair : mapLinesSpacingZ.entrySet()) {
       out.print (pair.getValue().GetGLM());
@@ -1641,7 +1654,7 @@ public class CIMImporter extends Object {
         out.print ("// (consider re-exporting with -m option to reference an include file)\n");
       }
       for (HashMap.Entry<String,String> pair : mapUsedProfiles.entrySet()) {
-        out.print (mapProfiles.get(pair.getValue()).GetGLM());
+        out.print (mapGlmProfiles.get(pair.getValue()).GetGLM());
       }
     }
 
@@ -1864,7 +1877,7 @@ public class CIMImporter extends Object {
     if (mapSolars.size() > 0) out.println();
     for (HashMap.Entry<String,DistSolar> pair : mapSolars.entrySet()) {
       if (bUseProfiles) {
-        prf = mapProfiles.get(pair.getValue().pecid);
+        prf = mapDssProfiles.get(pair.getValue().pecid);
         if (prf != null) {
           mapUsedProfiles.put(prf.name, prf.GetKey());
         }
@@ -1875,7 +1888,7 @@ public class CIMImporter extends Object {
     if (mapStorages.size() > 0) out.println();
     for (HashMap.Entry<String,DistStorage> pair : mapStorages.entrySet()) {
       if (bUseProfiles) {
-        prf = mapProfiles.get(pair.getValue().pecid);
+        prf = mapDssProfiles.get(pair.getValue().pecid);
         if (prf != null) {
           mapUsedProfiles.put(prf.name, prf.GetKey());
         }
@@ -1886,7 +1899,7 @@ public class CIMImporter extends Object {
     if (mapSyncMachines.size() > 0) out.println();
     for (HashMap.Entry<String,DistSyncMachine> pair : mapSyncMachines.entrySet()) {
       if (bUseProfiles) {
-        prf = mapProfiles.get(pair.getValue().id);
+        prf = mapDssProfiles.get(pair.getValue().id);
         if (prf != null) {
           mapUsedProfiles.put(prf.name, prf.GetKey());
         }
@@ -1897,7 +1910,7 @@ public class CIMImporter extends Object {
     if (mapLoads.size() > 0) out.println();
     for (HashMap.Entry<String,DistLoad> pair : mapLoads.entrySet()) {
       if (bUseProfiles) {
-        prf = mapProfiles.get(pair.getValue().id);
+        prf = mapDssProfiles.get(pair.getValue().id);
         if (prf != null) {
           mapUsedProfiles.put(prf.name, prf.GetKey());
         }
@@ -2039,7 +2052,7 @@ public class CIMImporter extends Object {
         out.print ("// (consider re-exporting with -m option to reference an include file)\n");
       }
       for (HashMap.Entry<String,String> pair : mapUsedProfiles.entrySet()) {
-        out.print (mapProfiles.get(pair.getValue()).GetDSS());
+        out.print (mapDssProfiles.get(pair.getValue()).GetDSS());
       }
     }
 
