@@ -21,12 +21,14 @@ import org.apache.jena.query.ResultSetCloseable;
 import gov.pnnl.gridappsd.cimhub.CIMQuerySetter;
 import gov.pnnl.gridappsd.cimhub.components.DistBaseVoltage;
 import gov.pnnl.gridappsd.cimhub.components.DistBreaker;
+import gov.pnnl.gridappsd.cimhub.components.DistBus;
 import gov.pnnl.gridappsd.cimhub.components.DistCapacitor;
 import gov.pnnl.gridappsd.cimhub.components.DistComponent;
 import gov.pnnl.gridappsd.cimhub.components.DistConcentricNeutralCable;
 import gov.pnnl.gridappsd.cimhub.components.DistCoordinates;
 import gov.pnnl.gridappsd.cimhub.components.DistDisconnector;
 import gov.pnnl.gridappsd.cimhub.components.DistEnergyConnectionProfile;
+import gov.pnnl.gridappsd.cimhub.components.DistEquipment;
 import gov.pnnl.gridappsd.cimhub.components.DistFeeder;
 import gov.pnnl.gridappsd.cimhub.components.DistFuse;
 import gov.pnnl.gridappsd.cimhub.components.DistGroundDisconnector;
@@ -150,6 +152,9 @@ public class CIMImporter extends Object {
   HashMap<String,DistSwitch> mapSwitches = new HashMap<>(); // polymorphic
   HashMap<String,DistLineSegment> mapLines = new HashMap<>(); // polymorphic
 
+  HashMap<String,DistBus> mapBusNames = new HashMap<>();
+  HashMap<String,DistEquipment> mapEquipmentNames = new HashMap<>();
+
   boolean allMapsLoaded = false;
 
   void LoadOneCountMap (HashMap<String,Integer> map, String szTag) {
@@ -192,6 +197,24 @@ public class CIMImporter extends Object {
       DistBaseVoltage bvCust = new DistBaseVoltage("208", 208.0);
       mapBaseVoltages.put(bvCust.GetKey(), bvCust);
     }
+  }
+
+  void LoadBusNames() {
+    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistBus"), "BusName");
+    while (results.hasNext()) {
+      DistBus obj = new DistBus (results);
+      mapBusNames.put (obj.GetKey(), obj);
+    }
+    ((ResultSetCloseable)results).close();
+  }
+
+  void LoadEquipmentNames() {
+    ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistEquipment"), "EquipmentName");
+    while (results.hasNext()) {
+      DistEquipment obj = new DistEquipment (results);
+      mapEquipmentNames.put (obj.GetKey(), obj);
+    }
+    ((ResultSetCloseable)results).close();
   }
 
   void LoadSubstations() {
@@ -662,6 +685,8 @@ public class CIMImporter extends Object {
     PrintOneMap (mapIEEE1547Used, "** IEEE 1547 USED");
     PrintOneMap (mapDssProfiles, "** ENERGY CONNECTION PROFILES (DSS)");
     PrintOneMap (mapGlmProfiles, "** ENERGY CONNECTION PROFILES (GLM)");
+    PrintOneMap (mapBusNames, "** BUS NAMES");
+    PrintOneMap (mapEquipmentNames, "** CONDUCTING EQUIPMENT NAMES");
   }
 
   public void LoadAllMaps() {
@@ -671,6 +696,9 @@ public class CIMImporter extends Object {
 
   public void LoadAllMaps(boolean useHouses) {
     LoadCountMaps();
+    LoadBusNames();
+    LoadEquipmentNames();
+
     LoadBaseVoltages();
     LoadBreakers();
     LoadCapacitors();
@@ -719,8 +747,8 @@ public class CIMImporter extends Object {
     oLimits = new OperationalLimits();
     oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
     allMapsLoaded = true;
-    //PrintOneMap (mapDssProfiles, "** OpenDSS PROFILES");
-    //PrintOneMap (mapGlmProfiles, "** GridLAB-D PROFILES");
+    //PrintOneMap (mapBusNames, "** Bus (ConnectivityNode) names");
+    //PrintOneMap (mapEquipmentNames, "** ConductingEquipment names");
   }
 
   public boolean CheckMaps() {
@@ -874,6 +902,8 @@ public class CIMImporter extends Object {
         out.println("\"regionID\":\"" + fdr.regionID + "\",");
       }
     }
+    WriteMapDictionary (mapBusNames, "busnames", false, out);
+    WriteMapDictionary (mapEquipmentNames, "equipmentnames", false, out);
     WriteMapDictionary (mapSyncMachines, "synchronousmachines", false, out);
     WriteMapDictionary (mapCapacitors, "capacitors", false, out);
     WriteMapDictionary (mapRegulators, "regulators", false, out);

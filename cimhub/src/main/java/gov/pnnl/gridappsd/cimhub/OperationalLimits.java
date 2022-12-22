@@ -18,24 +18,24 @@ import gov.pnnl.gridappsd.cimhub.queryhandler.impl.HTTPBlazegraphQueryHandler;
 
 public class OperationalLimits extends Object {
   class VoltageLimit {
-  public String id;
-  public String bus;
-  public double x;
-  public double y;
-  public double Alo;
-  public double Ahi;
-  public double Blo;
-  public double Bhi;
-  public VoltageLimit (String id, String bus, double x, double y, double Blo, double Alo, double Ahi, double Bhi) {
-    this.id = id;
-    this.bus = bus;
-    this.x = x;
-    this.y = y;
-    this.Alo = Alo;
-    this.Ahi = Ahi;
-    this.Blo = Blo;
-    this.Bhi = Bhi;
-  }
+    public String id;
+    public String bus;
+    public double x;
+    public double y;
+    public double Alo;
+    public double Ahi;
+    public double Blo;
+    public double Bhi;
+    public VoltageLimit (String id, String bus, double x, double y, double Blo, double Alo, double Ahi, double Bhi) {
+      this.id = id;
+      this.bus = bus;
+      this.x = x;
+      this.y = y;
+      this.Alo = Alo;
+      this.Ahi = Ahi;
+      this.Blo = Blo;
+      this.Bhi = Bhi;
+    }
   }
 
   QueryHandler queryHandler;
@@ -66,7 +66,7 @@ public class OperationalLimits extends Object {
     " ?fdr c:IdentifiedObject.mRID ?fdrid."+
     " ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr."+
     " ?s r:type c:ConnectivityNode."+
-  " ?s c:IdentifiedObject.name ?bus."+
+    " ?s c:IdentifiedObject.name ?bus."+
     " ?s c:IdentifiedObject.mRID ?id."+
     " ?s c:ConnectivityNode.OperationalLimitSet ?ols."+
     " ?vlim c:OperationalLimit.OperationalLimitSet ?ols."+
@@ -95,36 +95,36 @@ public class OperationalLimits extends Object {
     "} ORDER by ?id ?val";
 
   private void LoadVoltageMap (HashMap<String,DistCoordinates> mapCoordinates) {
-  ResultSet resTemp = queryHandler.query (szBUSEQ, "bus-equipment map");
-  while (resTemp.hasNext()) {
-    QuerySolution soln = resTemp.next();
-    String cnid = soln.get("?cnid").toString();
-    String key = soln.get("?eqtype").toString() + ":" + soln.get("?eqname").toString() + ":" + soln.get("?tseq").toString();
-    if (!mapBusEquipment.containsKey (cnid)) {
-    mapBusEquipment.put (cnid, new ArrayList<String>());
+    ResultSet resTemp = queryHandler.query (szBUSEQ, "bus-equipment map");
+    while (resTemp.hasNext()) {
+      QuerySolution soln = resTemp.next();
+      String cnid = soln.get("?cnid").toString();
+      String key = soln.get("?eqtype").toString() + ":" + soln.get("?eqname").toString() + ":" + soln.get("?tseq").toString();
+      if (!mapBusEquipment.containsKey (cnid)) {
+        mapBusEquipment.put (cnid, new ArrayList<String>());
+      }
+      mapBusEquipment.get(cnid).add(key);
     }
-    mapBusEquipment.get(cnid).add(key);
-  }
-  ((ResultSetCloseable)resTemp).close();
+    ((ResultSetCloseable)resTemp).close();
 
     ResultSet results = queryHandler.query (szVOLT, "voltage map");
     String lastID = "";
-  String bus = "";
+    String bus = "";
     double Alo = 0.0, Ahi = 1.0e9, Blo = 1.0e9, Bhi = 0.0, x = 0.0, y = 0.0;
     while (results.hasNext()) {
       QuerySolution soln = results.next();
       String id = soln.get("?id").toString();
-    if (!id.equals(lastID) && mapBusEquipment.containsKey (id)) {
-    ArrayList<String> keys = mapBusEquipment.get(id);
-    for (String key : keys) {
-      if (mapCoordinates.containsKey (key)) {
-      DistCoordinates pt1 = mapCoordinates.get(key);
-      x = pt1.x;
-      y = pt1.y;
-      break;
+      if (!id.equals(lastID) && mapBusEquipment.containsKey (id)) {
+        ArrayList<String> keys = mapBusEquipment.get(id);
+        for (String key : keys) {
+          if (mapCoordinates.containsKey (key)) {
+            DistCoordinates pt1 = mapCoordinates.get(key);
+            x = pt1.x;
+            y = pt1.y;
+            break;
+          }
+        }
       }
-    }
-    }
       if (!id.equals(lastID)) {
         if (!lastID.equals("")) {
           mapVoltageLimits.put(lastID, new VoltageLimit (lastID, bus, x, y, Blo, Alo, Ahi, Bhi));
@@ -136,7 +136,7 @@ public class OperationalLimits extends Object {
         lastID = id;
       }
       String dir = soln.get("?dir").toString();
-    bus = soln.get("?bus").toString();
+      bus = soln.get("?bus").toString();
       double dur = Double.parseDouble (soln.get("?dur").toString());
       double val = Double.parseDouble (soln.get("?val").toString());
       if (dir.equals("low")) {
@@ -157,13 +157,13 @@ public class OperationalLimits extends Object {
     }
     ((ResultSetCloseable)results).close();
     if (!mapVoltageLimits.containsKey (lastID)) {
-    mapVoltageLimits.put(lastID, new VoltageLimit (lastID, bus, x, y, Blo, Alo, Ahi, Bhi));
+      mapVoltageLimits.put(lastID, new VoltageLimit (lastID, bus, x, y, Blo, Alo, Ahi, Bhi));
     }
   }
 
   public void VoltageMapToJSON (PrintWriter out) {
     DecimalFormat df2 = new DecimalFormat("#0.00");
-  DecimalFormat df4 = new DecimalFormat("#0.0000");
+    DecimalFormat df4 = new DecimalFormat("#0.0000");
     int idxLast = mapVoltageLimits.size() - 1;
     int idx = 0;
     String sTerm = "},";

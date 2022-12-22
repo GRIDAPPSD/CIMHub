@@ -518,6 +518,33 @@ SELECT ?eqtype ?eqname ?eqid ?val ?dur ?dir WHERE {
 }
 ORDER by ?eqtype ?eqname ?eqid ?val ?dur
 
+# DistBus - for map of bus names
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?id ?name WHERE {
+# VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?bus c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?bus r:type c:ConnectivityNode.
+ ?bus c:IdentifiedObject.name ?name.
+ ?bus c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?name
+
+# DistEquipment - for map of conducting equipment name and class
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?id ?cimclass ?name WHERE {
+# VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?eq a ?classraw.
+   bind(strafter(str(?classraw),"CIM100#") as ?cimclass)
+ ?eq c:IdentifiedObject.name ?name.
+ ?eq c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?cimclass ?name
+
 # SynchronousMachine - DistSyncMachine
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>

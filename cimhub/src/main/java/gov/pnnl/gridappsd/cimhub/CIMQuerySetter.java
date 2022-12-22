@@ -37,6 +37,25 @@ public class CIMQuerySetter extends Object {
     mapSwitchClasses.put ("DistRecloser", DistRecloser.szCIMClass);
     mapSwitchClasses.put ("DistSectionaliser", DistSectionaliser.szCIMClass);
 
+    mapQueries.put ("DistBus",
+      "SELECT DISTINCT ?id ?name WHERE {"+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?bus c:ConnectivityNode.ConnectivityNodeContainer ?fdr."+
+      " ?bus r:type c:ConnectivityNode."+
+      " ?bus c:IdentifiedObject.name ?name."+
+      " ?bus c:IdentifiedObject.mRID ?id."+
+      "} ORDER by ?name");
+
+    mapQueries.put ("DistEquipment",
+      "SELECT DISTINCT ?id ?cimclass ?name WHERE {"+
+      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
+      " ?eq c:Equipment.EquipmentContainer ?fdr."+
+      " ?eq a ?classraw."+
+      "   bind(strafter(str(?classraw),\"CIM100#\") as ?cimclass)"+
+      " ?eq c:IdentifiedObject.name ?name."+
+      " ?eq c:IdentifiedObject.mRID ?id."+
+      "} ORDER by ?cimclass ?name");
+
     mapQueries.put ("DistBaseVoltage",
       "SELECT DISTINCT ?vnom WHERE {"+      
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
