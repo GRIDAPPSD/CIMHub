@@ -754,7 +754,7 @@ public class GldNode {
       } else {
         buf.append ("object load {\n");
         buf.append ("  name \"" + loadname + "\";\n");
-        buf.append("  parent \"" + name + "\";\n");
+        buf.append ("  parent \"" + name + "\";\n");
         buf.append ("  phases " + GetPhases(true) + ";\n");
         buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
         AppendPowerByFraction (buf, "A", pa_z, pa_i, pa_p, qa_z, qa_i, qa_p, bWantSched, fSched);
