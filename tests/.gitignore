@@ -4,6 +4,8 @@
 *.xml
 glm
 dss
+glmn
+dssn
 *.csv
 *.CSV
 cim_test.dss

@@ -37,12 +37,12 @@ public class DistSeriesCompensator extends DistComponent {
   public DistSeriesCompensator (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
-      bus1 = SafeName (soln.get("?bus1").toString()); 
-      bus2 = SafeName (soln.get("?bus2").toString()); 
+      bus1 = soln.get("?bus1").toString(); 
+      bus2 = soln.get("?bus2").toString(); 
       phases = "ABC";
       basev = Double.parseDouble (soln.get("?basev").toString());
       r1 = Double.parseDouble (soln.get("?r").toString());
@@ -82,7 +82,7 @@ public class DistSeriesCompensator extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 
   public String LabelString() {

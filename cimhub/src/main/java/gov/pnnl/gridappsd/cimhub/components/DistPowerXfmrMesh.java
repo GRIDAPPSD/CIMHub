@@ -34,9 +34,9 @@ public class DistPowerXfmrMesh extends DistComponent {
   public DistPowerXfmrMesh (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      String pname = soln.get("?pname").toString();
-      name = SafeName (pname);
-      SetSize (map.get(pname));
+      String pid = soln.get("?pid").toString();
+      name = SafeName (pid);
+      SetSize (map.get(pid));
       for (int i = 0; i < size; i++) {
         fwdg[i] = Integer.parseInt (soln.get("?fnum").toString());
         twdg[i] = Integer.parseInt (soln.get("?tnum").toString());
@@ -60,7 +60,7 @@ public class DistPowerXfmrMesh extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return name; // id;
   }
 }
 

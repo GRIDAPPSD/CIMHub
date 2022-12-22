@@ -7,7 +7,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistXfmrCodeNLTest extends DistComponent {
-  public String tname;
+  public String id;
   public double nll;
   public double iexc;
   public double sbase;
@@ -15,7 +15,7 @@ public class DistXfmrCodeNLTest extends DistComponent {
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"name\":\"" + tname +"\"");
+    buf.append ("{\"name\":\"" + id +"\"");
     buf.append ("}");
     return buf.toString();
   }
@@ -23,7 +23,7 @@ public class DistXfmrCodeNLTest extends DistComponent {
   public DistXfmrCodeNLTest (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      tname = SafeName (soln.get("?tname").toString());
+      id = soln.get("?tid").toString();
       nll = Double.parseDouble (soln.get("?nll").toString());
       iexc = Double.parseDouble (soln.get("?iexc").toString());
       sbase = Double.parseDouble (soln.get("?base").toString());
@@ -32,12 +32,12 @@ public class DistXfmrCodeNLTest extends DistComponent {
 
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (tname + " NLL=" + df4.format(nll) + " iexc=" + df4.format(iexc) + " base=" + df4.format(sbase));
+    buf.append (id + " NLL=" + df4.format(nll) + " iexc=" + df4.format(iexc) + " base=" + df4.format(sbase));
     return buf.toString();
   }
 
   public String GetKey() {
-    return tname;
+    return id;
   }
 }
 

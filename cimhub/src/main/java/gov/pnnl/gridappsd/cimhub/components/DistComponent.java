@@ -10,11 +10,14 @@ import org.apache.commons.math3.complex.Complex;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import gov.pnnl.gridappsd.cimhub.components.ConverterControlMode;
+import gov.pnnl.gridappsd.cimhub.components.ExportNameMode;
 
 public abstract class DistComponent {
   public static String nsCIM = "http://iec.ch/TC57/CIM100#";
   public static final String nsRDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   public static final String nsXSD = "http://www.w3.org/2001/XMLSchema#";
+
+  static ExportNameMode gExportNames = ExportNameMode.SAFENAME;
 
   static double gFREQ = 60.0;
   static double gOMEGA = gFREQ * 2.0 * Math.PI; // 376.9911
@@ -29,12 +32,9 @@ public abstract class DistComponent {
   static final DecimalFormat df6 = new DecimalFormat("#0.000000");
   static final DecimalFormat df12 = new DecimalFormat("#0.000000000000");
 
-//  public static ResultSet RunQuery (String szQuery) {
-//  String qPrefix = "PREFIX r: <" + nsRDF + "> PREFIX c: <" + nsCIM + "> PREFIX xsd:<" + nsXSD + "> ";
-//  Query query = QueryFactory.create (qPrefix + szQuery);
-//  QueryExecution qexec = QueryExecutionFactory.sparqlService (szEND, query);
-//  return qexec.execSelect();
-//  }
+  public static void SetExportNames (ExportNameMode choice) {
+    gExportNames = choice;
+  }
 
   public static void SetSystemFrequency (double freq) {
     gFREQ = freq;

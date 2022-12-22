@@ -28,10 +28,10 @@ public class DistLinesInstanceZ extends DistLineSegment {
   public DistLinesInstanceZ (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus1 = SafeName (soln.get("?bus1").toString()); 
-      bus2 = SafeName (soln.get("?bus2").toString()); 
+      bus1 = soln.get("?bus1").toString(); 
+      bus2 = soln.get("?bus2").toString(); 
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
       phases = "ABC";
@@ -84,7 +84,7 @@ public class DistLinesInstanceZ extends DistLineSegment {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 
   public String LabelString() {

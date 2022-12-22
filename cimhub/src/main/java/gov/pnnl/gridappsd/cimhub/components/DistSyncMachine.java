@@ -36,9 +36,9 @@ public class DistSyncMachine extends DistComponent {
   public DistSyncMachine (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus = SafeName (soln.get("?bus").toString());
+      bus = soln.get("?bus").toString();
       t1id = soln.get("?t1id").toString();
       phases = OptionalString (soln, "?phases", "ABC");
       phases = phases.replace ('\n', ':');
@@ -49,7 +49,7 @@ public class DistSyncMachine extends DistComponent {
     }
   }
   public DistSyncMachine (String name, Double p, Double q) {
-    this.name = SafeName (name);
+    this.name = name;
     this.p = p;
     this.q = q;
   }
@@ -190,7 +190,7 @@ public class DistSyncMachine extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

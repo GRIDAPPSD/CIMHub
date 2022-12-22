@@ -8,6 +8,7 @@ import org.apache.jena.query.*;
 
 public class DistCoordinates extends DistComponent {
   public String name;
+  public String id;
   public double x;
   public double y;
   public int seq;
@@ -24,7 +25,8 @@ public class DistCoordinates extends DistComponent {
   public DistCoordinates (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
+      id = soln.get("?id").toString();
       x = Double.parseDouble (soln.get("?x").toString());
       y = Double.parseDouble (soln.get("?y").toString());
       seq = Integer.parseInt (soln.get("?seq").toString());

@@ -34,10 +34,10 @@ public class DistSubstation extends DistComponent {
   public DistSubstation (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
-      fdrname = SafeName (soln.get("?fdrname").toString());
+      name = soln.get("?name").toString();
+      fdrname = soln.get("?fdrname").toString();
       id = soln.get("?id").toString();
-      bus = SafeName (soln.get("?bus").toString());
+      bus = soln.get("?bus").toString();
       t1id = soln.get("?t1id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       nomv = Double.parseDouble (soln.get("?nomv").toString());
@@ -100,7 +100,7 @@ public class DistSubstation extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

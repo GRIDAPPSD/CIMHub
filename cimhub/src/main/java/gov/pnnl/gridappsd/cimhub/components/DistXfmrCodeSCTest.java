@@ -8,7 +8,7 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistXfmrCodeSCTest extends DistComponent {
-  public String tname;
+  public String tid;
   public int[] fwdg;
   public int[] twdg;
   public double[] z;
@@ -20,7 +20,7 @@ public class DistXfmrCodeSCTest extends DistComponent {
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"name\":\"" + tname +"\"");
+    buf.append ("{\"name\":\"" + tid +"\"");
     buf.append ("}");
     return buf.toString();
   }
@@ -37,9 +37,8 @@ public class DistXfmrCodeSCTest extends DistComponent {
   public DistXfmrCodeSCTest (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      String t = soln.get("?tname").toString();
-      tname = SafeName (t);
-      SetSize (map.get(tname));
+      tid = soln.get("?tid").toString();
+      SetSize (map.get(tid));
       for (int i = 0; i < size; i++) {
         fwdg[i] = Integer.parseInt (soln.get("?enum").toString());
         twdg[i] = Integer.parseInt (soln.get("?gnum").toString());
@@ -54,7 +53,7 @@ public class DistXfmrCodeSCTest extends DistComponent {
   }
 
   public String DisplayString() {
-    StringBuilder buf = new StringBuilder (tname);
+    StringBuilder buf = new StringBuilder (tid);
     for (int i = 0; i < size; i++) {
       buf.append ("\n  fwdg=" + Integer.toString(fwdg[i]) + " twdg=" + Integer.toString(twdg[i]) +
           " z=" + df4.format(z[i]) + " LL=" + df4.format(ll[i]) + " base=" + df4.format(sbase[i]));
@@ -63,7 +62,7 @@ public class DistXfmrCodeSCTest extends DistComponent {
   }
 
   public String GetKey() {
-    return tname;
+    return tid;
   }
 }
 

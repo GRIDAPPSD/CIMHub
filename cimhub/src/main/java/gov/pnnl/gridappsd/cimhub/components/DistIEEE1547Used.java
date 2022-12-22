@@ -92,7 +92,7 @@ public class DistIEEE1547Used extends DistComponent {
   public DistIEEE1547Used (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       pecid = soln.get("?pecid").toString();
       enabled = Boolean.parseBoolean (soln.get("?enabled").toString());
@@ -225,7 +225,7 @@ public class DistIEEE1547Used extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 
   public String GetExpControl() {

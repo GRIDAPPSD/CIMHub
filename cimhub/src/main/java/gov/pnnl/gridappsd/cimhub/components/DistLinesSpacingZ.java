@@ -31,17 +31,16 @@ public class DistLinesSpacingZ extends DistLineSegment {
   public DistLinesSpacingZ (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus1 = SafeName (soln.get("?bus1").toString()); 
-      bus2 = SafeName (soln.get("?bus2").toString()); 
+      bus1 = soln.get("?bus1").toString(); 
+      bus2 = soln.get("?bus2").toString(); 
       len = Double.parseDouble (soln.get("?len").toString());
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
-      spacing = SafeName (soln.get("?spacing").toString());
       spcid = soln.get("?spcid").toString();
-      nwires = map.get (name);
+      nwires = map.get (id);
       wire_phases = new String[nwires];
       wire_names = new String[nwires];
       wire_classes = new String[nwires];
@@ -49,7 +48,7 @@ public class DistLinesSpacingZ extends DistLineSegment {
       for (int i = 0; i < nwires; i++) {
         wire_phases[i] = soln.get("?phs").toString();
         wire_classes[i] = soln.get("?phclass").toString();
-        wire_names[i] = soln.get("?phname").toString();
+        wire_names[i] = soln.get("?phid").toString();
         if (wire_phases[i].equals("N") == false) {
           buf.append (wire_phases[i]);
         } else {
@@ -89,7 +88,7 @@ public class DistLinesSpacingZ extends DistLineSegment {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 
   public String LabelString() {

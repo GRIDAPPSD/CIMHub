@@ -96,7 +96,7 @@ public class DistPhaseMatrix extends DistComponent {
       int row = Integer.parseInt (soln.get("?row").toString());
       int col = Integer.parseInt (soln.get("?col").toString());
       if (size == 0) {
-        name = SafeName (soln.get("?name").toString());
+        name = soln.get("?name").toString();
         id = soln.get("?id").toString();
         cnt = Integer.parseInt (soln.get("?cnt").toString());
         SetMatSize();
@@ -231,7 +231,7 @@ public class DistPhaseMatrix extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

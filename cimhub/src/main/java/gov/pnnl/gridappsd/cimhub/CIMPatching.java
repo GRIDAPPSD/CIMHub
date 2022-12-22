@@ -42,7 +42,7 @@ public class CIMPatching extends Object {
     for (HashMap.Entry<String,DistXfmrCodeSCTest> pair : mapCodeSCTests.entrySet()) {
       DistXfmrCodeSCTest obj = pair.getValue();
       if (obj.z[0] <= 0.0) {
-        DistXfmrCodeRating rat = mapCodeRatings.get (obj.tname);
+        DistXfmrCodeRating rat = mapCodeRatings.get (obj.tid);
         for (int i = 0; i < obj.size; i++) {
           fwdg = obj.fwdg[i];
           twdg = obj.twdg[i];
@@ -71,7 +71,7 @@ public class CIMPatching extends Object {
               obj.ll[i] = 0.01 * 2.0 * sbase;
             }
           } else {
-            System.out.println ("*** Trying to patch the short-circuit tests on a transformer with more than 3 windings:" + obj.tname);
+            System.out.println ("*** Trying to patch the short-circuit tests on a transformer with more than 3 windings:" + obj.tid);
           }
         }
       }

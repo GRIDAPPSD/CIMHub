@@ -24,15 +24,15 @@ public class DistMeasurement extends DistComponent {
   public DistMeasurement (ResultSet results, boolean useHouses) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
-      eqname = SafeName (soln.get("?eqname").toString());
-      eqtype = SafeName (soln.get("?eqtype").toString());
-      measType = SafeName (soln.get("?type").toString());
-      measClass = SafeName (soln.get("?class").toString());
+      name = soln.get("?name").toString();
+      eqname = soln.get("?eqname").toString();
+      eqtype = soln.get("?eqtype").toString();
+      measType = soln.get("?type").toString();
+      measClass = soln.get("?class").toString();
       id = soln.get("?id").toString();
       eqid = soln.get("?eqid").toString();
       trmid = soln.get("?trmid").toString();
-      bus = SafeName (soln.get("?bus").toString());
+      bus = soln.get("?bus").toString();
       phases = OptionalString (soln, "?phases", "ABC");
     }
     this.useHouses = useHouses;

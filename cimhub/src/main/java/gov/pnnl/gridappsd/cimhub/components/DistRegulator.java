@@ -212,14 +212,14 @@ public class DistRegulator extends DistComponent {
   public DistRegulator (ResultSet results, QueryHandler queryHandler) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      pname = SafeName (soln.get("?pname").toString());
+      pname = soln.get("?pname").toString();
       pxfid = soln.get("?pxfid").toString();
       SetSize (queryHandler);
       for (int i = 0; i < size; i++) {
       id[i] = soln.get("?id").toString();
-      rname[i] = SafeName (soln.get("?rname").toString());
+      rname[i] = soln.get("?rname").toString();
       if (hasTanks) {
-        tname[i] = SafeName(soln.get("?tname").toString());
+        tname[i] = soln.get("?tname").toString();
         orderedPhases[i] = soln.get("?orderedPhases").toString();
       } else {
         tname[i] = "";

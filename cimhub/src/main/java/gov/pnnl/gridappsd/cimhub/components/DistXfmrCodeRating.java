@@ -12,7 +12,6 @@ public class DistXfmrCodeRating extends DistComponent {
   public String tname;
   public String id;
   public String[] eid;
-  public String[] ename;
   public int[] wdg;
   public String[] conn;
   public int[] ang;
@@ -38,7 +37,6 @@ public class DistXfmrCodeRating extends DistComponent {
   private void SetSize (int val) {
     size = val;
     eid = new String[size];
-    ename = new String[size];
     wdg = new int[size];
     conn = new String[size];
     ang = new int[size];
@@ -50,13 +48,10 @@ public class DistXfmrCodeRating extends DistComponent {
   public DistXfmrCodeRating (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      String t = soln.get("?tname").toString();
-      tname = SafeName (t);
-      id = soln.get("?id").toString();
-      SetSize (map.get(tname));
+      id = soln.get("?tid").toString();
+      SetSize (map.get(id));
       for (int i = 0; i < size; i++) {
         eid[i] = soln.get("?eid").toString();
-        ename[i] = SafeName (soln.get("?ename").toString());
         wdg[i] = Integer.parseInt (soln.get("?enum").toString());
         conn[i] = soln.get("?conn").toString();
         ang[i] = Integer.parseInt (soln.get("?ang").toString());
@@ -71,7 +66,7 @@ public class DistXfmrCodeRating extends DistComponent {
   }
 
   public String DisplayString() {
-    StringBuilder buf = new StringBuilder (tname);
+    StringBuilder buf = new StringBuilder (id);
     for (int i = 0; i < size; i++) {
       buf.append ("\n  wdg=" + Integer.toString(wdg[i]) + " conn=" + conn[i] + " ang=" + Integer.toString(ang[i]));
       buf.append (" U=" + df4.format(ratedU[i]) + " S=" + df4.format(ratedS[i]) + " r=" + df4.format(r[i]));
@@ -366,7 +361,7 @@ public class DistXfmrCodeRating extends DistComponent {
   }
 
   public String GetKey() {
-    return tname;
+    return id;
   }
 }
 

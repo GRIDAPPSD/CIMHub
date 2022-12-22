@@ -51,9 +51,9 @@ public class DistHouse extends DistComponent {
   public DistHouse (ResultSet result) {
     if(result.hasNext()) {
       QuerySolution soln = result.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      parent = SafeName (soln.get("?parent").toString());
+      parent = soln.get("?parent").toString();
       coolingSetpoint = Double.parseDouble(OptionalString(soln, "?coolingSetpoint", "200.0"));
       coolingSystem = HouseCooling.valueOf(soln.get("?coolingSystem").toString());
       floorArea = Double.parseDouble(soln.get("?floorArea").toString());
@@ -83,7 +83,7 @@ public class DistHouse extends DistComponent {
 
   @Override
   public String GetKey() {
-    return name;
+    return id;
   }
 
   @Override

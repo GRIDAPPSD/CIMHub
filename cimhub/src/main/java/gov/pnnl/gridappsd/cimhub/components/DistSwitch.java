@@ -51,13 +51,13 @@ public class DistSwitch extends DistComponent {
   public DistSwitch (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       rated = OptionalDouble (soln, "?rated", 0.0);
       breaking = OptionalDouble (soln, "?breaking", 0.0);
-      bus1 = SafeName (soln.get("?bus1").toString()); 
-      bus2 = SafeName (soln.get("?bus2").toString()); 
+      bus1 = soln.get("?bus1").toString(); 
+      bus2 = soln.get("?bus2").toString(); 
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
       phases = OptionalString (soln, "?phases", "ABC");
@@ -78,7 +78,7 @@ public class DistSwitch extends DistComponent {
   }
   
   public DistSwitch (String name, boolean open) {
-    this.name = SafeName (name);
+    this.name = name;
     this.open = open;
   }
 
@@ -107,7 +107,7 @@ public class DistSwitch extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {

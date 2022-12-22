@@ -25,7 +25,7 @@ public class DistConcentricNeutralCable extends DistCable {
   public DistConcentricNeutralCable (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       rad = Double.parseDouble (soln.get("?rad").toString());
       gmr = Double.parseDouble (soln.get("?gmr").toString());
@@ -92,7 +92,7 @@ public class DistConcentricNeutralCable extends DistCable {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

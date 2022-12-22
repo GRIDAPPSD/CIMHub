@@ -21,7 +21,7 @@ public class DistOverheadWire extends DistWire {
   public DistOverheadWire (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       rad = Double.parseDouble (soln.get("?rad").toString());
       gmr = Double.parseDouble (soln.get("?gmr").toString());
@@ -87,7 +87,7 @@ public class DistOverheadWire extends DistWire {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

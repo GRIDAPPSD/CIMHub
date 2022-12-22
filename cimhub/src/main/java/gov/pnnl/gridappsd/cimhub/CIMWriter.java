@@ -519,7 +519,7 @@ public class CIMWriter extends Object {
       PSRType (miscXfid, "OtherTransformer", out);
       for (HashMap.Entry<String,DistXfmrBank> pair : mdl.mapBanks.entrySet()) {
         DistXfmrBank obj = pair.getValue();
-        objID = ShortenUUID (obj.pid);
+        objID = ShortenUUID (obj.id);
         StartInstance ("TransformerBank", objID, out);
         StringNode ("IdentifiedObject.mRID", objID, out);
         StringNode ("IdentifiedObject.name", obj.pname, out);
@@ -550,7 +550,7 @@ public class CIMWriter extends Object {
           eID = ShortenUUID (obj.eid[i]);
           StartInstance ("DistributionTransformerWinding", eID, out);
           StringNode ("IdentifiedObject.mRID", eID, out);
-          StringNode ("IdentifiedObject.name", obj.ename[i], out);
+          // StringNode ("IdentifiedObject.name", obj.ename[i], out); // TODO
           RefNode ("Equipment.EquipmentContainer", fdrID, out);
           RefNode("DistributionTransformerWinding.WindingInfo", 
                   mapWindings.get(infID).get(i), out); 
@@ -570,7 +570,7 @@ public class CIMWriter extends Object {
           eID = ShortenUUID (obj.eid[i]);
           StartInstance("WindingInfo", eID, out);
           StringNode ("IdentifiedObject.mRID", eID, out);
-          StringNode ("IdentifiedObject.name", obj.ename[i], out);
+//          StringNode ("IdentifiedObject.name", obj.ename[i], out); // TODO
           IntegerNode ("WindingInfo.sequenceNumber", obj.wdg[i], out);
           WindingConnectionEnum (obj.conn[i], out);
           IntegerNode ("WindingInfo.phaseAngle", obj.ang[i], out);
@@ -594,7 +594,7 @@ public class CIMWriter extends Object {
           eID = ShortenUUID (obj.eid[i]);
           StartInstance ("TransformerWinding", eID, out);
           StringNode ("IdentifiedObject.mRID", eID, out);
-          StringNode ("IdentifiedObject.name", obj.ename[i], out);
+//          StringNode ("IdentifiedObject.name", obj.ename[i], out); // TODO
           RefNode ("Equipment.EquipmentContainer", fdrID, out);
           DoubleNode ("TransformerWinding.ratedS", obj.ratedS[i], out);
           DoubleNode ("TransformerWinding.ratedU", obj.ratedU[i], out);

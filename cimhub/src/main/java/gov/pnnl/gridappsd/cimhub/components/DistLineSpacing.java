@@ -72,13 +72,13 @@ public class DistLineSpacing extends DistComponent {
   public DistLineSpacing (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       cable = OptionalBoolean (soln, "?cable", false);
       usage = OptionalString (soln, "?usage", "distribution");
       b_sep = OptionalDouble (soln, "?bundle_sep", 0.0);
       b_cnt = OptionalInt (soln, "?bundle_count", 0);
-      nwires = map.get (name);
+      nwires = map.get (id);
       xarray = new double[nwires];
       yarray = new double[nwires];
       xarray[0] = OptionalDouble (soln, "?x", 0.0);
@@ -268,7 +268,7 @@ public class DistLineSpacing extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

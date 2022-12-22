@@ -34,7 +34,7 @@ public class DistSequenceMatrix extends DistComponent {
   public DistSequenceMatrix (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       r1 = Double.parseDouble (soln.get("?r1").toString());
       x1 = Double.parseDouble (soln.get("?x1").toString());
@@ -106,7 +106,7 @@ public class DistSequenceMatrix extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

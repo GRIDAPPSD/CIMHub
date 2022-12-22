@@ -27,9 +27,9 @@ public class DistEnergyConnectionProfile extends DistComponent {
   public DistEnergyConnectionProfile (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      load_name = SafeName (soln.get("?ldname").toString());
+      load_name = soln.get("?ldname").toString();
       load_id = soln.get("?ldid").toString();
       dssDaily = OptionalString (soln, "?dssDaily", "");
       dssDuty = OptionalString (soln, "?dssDuty", "");

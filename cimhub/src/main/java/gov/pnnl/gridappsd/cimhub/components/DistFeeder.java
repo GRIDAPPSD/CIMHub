@@ -35,13 +35,13 @@ public class DistFeeder extends DistComponent {
   public DistFeeder (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      feederName = SafeName (soln.get("?feeder").toString());
+      feederName = soln.get("?feeder").toString();
       feederID = soln.get("?fid").toString();
-      regionName = SafeName (soln.get("?region").toString());
+      regionName = soln.get("?region").toString();
       regionID = soln.get("?rgnid").toString();
-      substationName = SafeName (OptionalString (soln, "?station", null));
+      substationName = OptionalString (soln, "?station", null);
       substationID = OptionalString (soln, "?sid", null);
-      subregionName = SafeName (OptionalString (soln, "?subregion", null));
+      subregionName = OptionalString (soln, "?subregion", null);
       subregionID = OptionalString (soln, "?sgrid", null);
     }   
   }
@@ -56,7 +56,7 @@ public class DistFeeder extends DistComponent {
   }
 
   public String GetKey() {
-    return feederName;
+    return feederID;
   }
 }
 

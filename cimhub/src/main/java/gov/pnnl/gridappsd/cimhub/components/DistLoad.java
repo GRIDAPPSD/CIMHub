@@ -42,9 +42,9 @@ public class DistLoad extends DistComponent {
   public DistLoad (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus = SafeName (soln.get("?bus").toString());
+      bus = soln.get("?bus").toString();
       t1id = soln.get("?t1id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       phases = OptionalString (soln, "?phases", "ABC");
@@ -162,7 +162,7 @@ public class DistLoad extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 
   public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,Model,Connection,kW,pf";

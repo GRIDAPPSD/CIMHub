@@ -34,9 +34,9 @@ public class DistThermostat extends DistComponent{
   public DistThermostat (ResultSet result) {
     if(result.hasNext()) {
       QuerySolution soln = result.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      aggregatorName = SafeName (soln.get("?aggregatorName").toString());
+      aggregatorName = soln.get("?aggregatorName").toString();
       baseSetpoint = Double.parseDouble(soln.get("?baseSetpoint").toString());
       controlMode = thermostatControlModeList[Integer.parseInt(soln.get("?controlMode").toString())];
       priceCap = Double.parseDouble(soln.get("?priceCap").toString());
@@ -64,7 +64,7 @@ public class DistThermostat extends DistComponent{
 
   @Override
   public String GetKey() {
-    return name;
+    return id;
   }
 
 

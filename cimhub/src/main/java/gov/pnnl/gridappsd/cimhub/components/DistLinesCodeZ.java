@@ -23,17 +23,16 @@ public class DistLinesCodeZ extends DistLineSegment {
   public DistLinesCodeZ (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus1 = SafeName (soln.get("?bus1").toString()); 
-      bus2 = SafeName (soln.get("?bus2").toString());
+      bus1 = soln.get("?bus1").toString(); 
+      bus2 = soln.get("?bus2").toString();
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       len = Double.parseDouble (soln.get("?len").toString());
-      lname = SafeName (soln.get("?lname").toString());
       codeid = soln.get("?codeid").toString();
-      int nphs = map.get (name);
+      int nphs = map.get (id);
       if (nphs > 0) {
         StringBuilder buf = new StringBuilder(soln.get("?phs").toString());
         for (int i = 1; i < nphs; i++) {
@@ -60,7 +59,7 @@ public class DistLinesCodeZ extends DistLineSegment {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 
   public String LabelString() {

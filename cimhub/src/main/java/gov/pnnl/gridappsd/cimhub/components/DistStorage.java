@@ -63,10 +63,10 @@ public class DistStorage extends DistComponent {
   public DistStorage (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       pecid = soln.get("?pecid").toString();
-      bus = SafeName (soln.get("?bus").toString());
+      bus = soln.get("?bus").toString();
       t1id = soln.get("?t1id").toString();
       phases = OptionalString (soln, "?phases", "ABC");
       phases = phases.replace ('\n', ':');
@@ -306,7 +306,7 @@ public class DistStorage extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

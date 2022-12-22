@@ -25,7 +25,7 @@ public class DistIEEE1547Signal extends DistComponent {
   public DistIEEE1547Signal (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       pecid = soln.get("?pecid").toString();
       kind = soln.get("?kind").toString();
@@ -47,7 +47,7 @@ public class DistIEEE1547Signal extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 
   public String GetDSS () {

@@ -9,15 +9,15 @@ import java.util.HashMap;
 
 public class DistXfmrTank extends DistComponent {
   public String id;
-  public String pname;
+  public String pid;
   public String vgrp;
   public String tname;
-  public String tankinfo;
+  public String pname; // TODO
+  public String tankinfo; // TODO
   public String infoid;
   public String[] bus;
   public String[] t1id;
   public String[] orderedPhases;
-  public String[] ename;
   public String[] eid;
   public double[] basev;
   public double[] rg;
@@ -46,7 +46,6 @@ public class DistXfmrTank extends DistComponent {
     bus = new String[size];
     t1id = new String[size];
     orderedPhases = new String[size];
-    ename = new String[size];
     eid = new String[size];
     wdg = new int[size];
     grounded = new boolean[size];
@@ -58,18 +57,16 @@ public class DistXfmrTank extends DistComponent {
   public DistXfmrTank (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      pname = SafeName (soln.get("?pname").toString());
+      pid = soln.get("?pid").toString();
       id = soln.get("?id").toString();
       infoid = soln.get("?infoid").toString();
       vgrp = soln.get("?vgrp").toString();
-      tname = SafeName (soln.get("?tname").toString());
-      tankinfo = SafeName (soln.get("?xfmrcode").toString());
-      SetSize (map.get(tname));
+      tname = soln.get("?tname").toString();
+      SetSize (map.get(id));
       glmUsed = true;
       for (int i = 0; i < size; i++) {
         eid[i] = soln.get("?eid").toString();
-        ename[i] = SafeName (soln.get("?ename").toString());
-        bus[i] = SafeName (soln.get("?bus").toString());
+        bus[i] = soln.get("?bus").toString();
         t1id[i] = soln.get("?t1id").toString();
         basev[i] = Double.parseDouble (soln.get("?basev").toString());
         orderedPhases[i] = soln.get("?orderedPhases").toString();
@@ -95,8 +92,8 @@ public class DistXfmrTank extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt1 = map.get("PowerTransformer:" + pname + ":1");
-    DistCoordinates pt2 = map.get("PowerTransformer:" + pname + ":2");
+    DistCoordinates pt1 = map.get("PowerTransformer:" + pid + ":1");
+    DistCoordinates pt2 = map.get("PowerTransformer:" + pid + ":2");
     if (pt2 == null) { // catches the one-bus, multiphase autotransformer exception
       pt2 = pt1;
     }
@@ -172,7 +169,7 @@ public class DistXfmrTank extends DistComponent {
   }
 
   public String GetKey() {
-    return tname;
+    return id;
   }
 }
 

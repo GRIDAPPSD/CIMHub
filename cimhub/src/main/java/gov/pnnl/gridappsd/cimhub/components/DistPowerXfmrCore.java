@@ -23,7 +23,7 @@ public class DistPowerXfmrCore extends DistComponent {
   public DistPowerXfmrCore (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?pname").toString());
+      name = soln.get("?pid").toString();
       wdg = Integer.parseInt (soln.get("?enum").toString());
       b = Math.abs(Double.parseDouble (soln.get("?b").toString()));
       g = Double.parseDouble (soln.get("?g").toString());
@@ -37,7 +37,7 @@ public class DistPowerXfmrCore extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return name; // id;
   }
 }
 

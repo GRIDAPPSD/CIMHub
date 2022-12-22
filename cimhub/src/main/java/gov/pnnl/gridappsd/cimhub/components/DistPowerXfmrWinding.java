@@ -62,16 +62,13 @@ public class DistPowerXfmrWinding extends DistComponent {
   public DistPowerXfmrWinding (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      String pname = soln.get("?pname").toString();
-      name = SafeName (pname);
-      id = soln.get("?id").toString();
+      id = soln.get("?pid").toString();
       vgrp = soln.get("?vgrp").toString();
-      SetSize (map.get(pname));
+      SetSize (map.get(id));
       glmUsed = true;
       for (int i = 0; i < size; i++) {
         eid[i] = soln.get("?eid").toString();
-        ename[i] = SafeName (soln.get("?ename").toString());
-        bus[i] = SafeName (soln.get("?bus").toString());
+        bus[i] = soln.get("?bus").toString();
         t1id[i] = soln.get("?t1id").toString();
         basev[i] = Double.parseDouble (soln.get("?basev").toString());
         conn[i] = soln.get("?conn").toString();
@@ -322,7 +319,7 @@ public class DistPowerXfmrWinding extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

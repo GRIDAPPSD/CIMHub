@@ -125,9 +125,9 @@ public class DistCapacitor extends DistComponent {
   public DistCapacitor (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus = SafeName (soln.get("?bus").toString());
+      bus = soln.get("?bus").toString();
       t1id = soln.get("?t1id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       phs = OptionalString (soln, "?phases", "ABC");
@@ -143,7 +143,7 @@ public class DistCapacitor extends DistComponent {
       setpoint = Double.parseDouble (soln.get("?setpoint").toString());
       deadband = Double.parseDouble (soln.get("?deadband").toString());
       delay = Double.parseDouble (soln.get("?delay").toString());
-      moneq = SafeName (soln.get("?moneq").toString());
+      moneq = soln.get("?moneq").toString();
       monclass = soln.get("?monclass").toString();
       monbus = soln.get("?monbus").toString();
       monphs = soln.get("?monphs").toString();
@@ -319,7 +319,7 @@ public class DistCapacitor extends DistComponent {
   }
 
   public String GetKey() {
-    return name;
+    return id;
   }
 }
 

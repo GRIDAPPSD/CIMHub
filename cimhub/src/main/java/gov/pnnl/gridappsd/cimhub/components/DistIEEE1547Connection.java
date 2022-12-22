@@ -28,7 +28,7 @@ public class DistIEEE1547Connection extends DistComponent {
   public DistIEEE1547Connection (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = SafeName (soln.get("?name").toString());
+      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
       pids = soln.get("?pids").toString();
       pids = pids.replace ('\n', ':');
@@ -49,7 +49,7 @@ public class DistIEEE1547Connection extends DistComponent {
   }
 
   public String GetKey() {
-    return name;  // need a PID?
+    return id;
   }
 
   public String GetDSS (HashMap<String,DistSolar> mapSolars, HashMap<String,DistStorage> mapStorages,

@@ -8,10 +8,10 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistXfmrBank extends DistComponent {
-  public String pid;
+  public String id;
   public String pname;
   public String vgrp;
-  public String[] tname;
+  public String[] tid;
 
   public int size;
 
@@ -25,18 +25,18 @@ public class DistXfmrBank extends DistComponent {
 
   private void SetSize (int val) {
     size = val;
-    tname = new String[size];
+    tid = new String[size];
   }
 
   public DistXfmrBank (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      pname = SafeName (soln.get("?pname").toString());
-      pid = soln.get("?id").toString();
+      pname = soln.get("?pname").toString();
+      id = soln.get("?id").toString();
       vgrp = soln.get("?vgrp").toString();
-      SetSize (map.get(pname));
+      SetSize (map.get(id));
       for (int i = 0; i < size; i++) {
-        tname[i] = SafeName (soln.get("?tname").toString());
+        tid[i] = soln.get("?tid").toString();
         if ((i + 1) < size) {
           soln = results.next();
         }
@@ -48,13 +48,13 @@ public class DistXfmrBank extends DistComponent {
     StringBuilder buf = new StringBuilder ("");
     buf.append (pname + " vgrp=" + vgrp);
     for (int i = 0; i < size; i++) {
-      buf.append ("\n  tname=" + tname[i]);
+      buf.append ("\n  tid=" + tid[i]);
     }
     return buf.toString();
   }
 
   public String GetKey() {
-    return pname;
+    return id;
   }
 }
 
