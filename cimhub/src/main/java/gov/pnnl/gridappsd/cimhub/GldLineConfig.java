@@ -4,6 +4,8 @@ package gov.pnnl.gridappsd.cimhub;
 //  All rights reserved.
 //  ----------------------------------------------------------
 
+import gov.pnnl.gridappsd.cimhub.components.DistComponent;
+
 /** 
  Helper class to accumulate spacings and conductors. 
 */
@@ -26,15 +28,15 @@ public class GldLineConfig {
 
   static String GetMatchWire (String wclass, String name, boolean buried) {
     if (wclass.equals("OverheadWireInfo")) {
-    if (buried) {
-    return "ugwire_" + name;
-    } else {
-    return "wire_" + name;
-    }
+      if (buried) {
+        return DistComponent.GLMObjectPrefix ("ugwire_", true) + name;
+      } else {
+        return DistComponent.GLMObjectPrefix ("wire_") + name;
+      }
     } else if (wclass.equals("ConcentricNeutralCableInfo")) {
-      return "cncab_" + name;
+      return DistComponent.GLMObjectPrefix ("cncab_") + name;
     } else if (wclass.equals("TapeShieldCableInfo")) {
-      return "tscab_" + name;
+      return DistComponent.GLMObjectPrefix ("tscab_") + name;
     }
     return "unknown_" + name;
   }

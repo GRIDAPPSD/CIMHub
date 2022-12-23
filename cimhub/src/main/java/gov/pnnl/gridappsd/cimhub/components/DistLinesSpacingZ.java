@@ -12,6 +12,7 @@ public class DistLinesSpacingZ extends DistLineSegment {
   public String spcid;
   public int nwires;
   public String[] wire_phases;
+  public String[] wire_ids;
   public String[] wire_names;
   public String[] wire_classes;
 
@@ -43,12 +44,13 @@ public class DistLinesSpacingZ extends DistLineSegment {
       nwires = map.get (id);
       wire_phases = new String[nwires];
       wire_names = new String[nwires];
+      wire_ids = new String[nwires];
       wire_classes = new String[nwires];
       StringBuilder buf = new StringBuilder ("");
       for (int i = 0; i < nwires; i++) {
         wire_phases[i] = soln.get("?phs").toString();
         wire_classes[i] = soln.get("?phclass").toString();
-        wire_names[i] = soln.get("?phid").toString();
+        wire_ids[i] = soln.get("?phid").toString();
         if (wire_phases[i].equals("N") == false) {
           buf.append (wire_phases[i]);
         } else {
@@ -65,7 +67,7 @@ public class DistLinesSpacingZ extends DistLineSegment {
   public void PrepForExport() {
     spacing = GetEquipmentExportName (spcid);
     for (int i = 0; i < nwires; i++) {
-      wire_names[i] = GetEquipmentExportName (wire_names[i]);
+      wire_names[i] = GetEquipmentExportName (wire_ids[i]);
     }
   }
 

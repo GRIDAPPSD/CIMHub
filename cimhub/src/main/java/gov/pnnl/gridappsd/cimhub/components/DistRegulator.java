@@ -364,7 +364,7 @@ public class DistRegulator extends DistComponent {
     double dReg = 0.01 * 0.5 * incr[0] * (highStep[0] - lowStep[0]);
     boolean bDeltaRegulator = false;
 
-    buf.append ("  name \"rcon_" + pname + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("rcon_") + name[0] + "\";\n");
     if (vgrp.contains("D") || vgrp.contains("d"))  {
       bDeltaRegulator = true;
       if (bankphases.equals ("ABBC")) {
@@ -430,11 +430,11 @@ public class DistRegulator extends DistComponent {
     buf.append ("}\n");
 
     buf.append ("object regulator {\n");
-    buf.append ("  name \"reg_" + pname + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("reg_") + pname + "\";\n");
     buf.append ("  from \"" + bus1 + "\";\n");
     buf.append ("  to \"" + bus2 + "\";\n");
     buf.append ("  phases " + bankphases + ";\n");
-    buf.append ("  configuration \"rcon_" + pname + "\";\n");
+    buf.append ("  configuration \"" + GLMObjectPrefix ("rcon_") + name[0] + "\";\n");
     AppendGLMRatings (buf, bankphases, normalCurrentLimit, emergencyCurrentLimit);
     buf.append ("}\n");
     return buf.toString();

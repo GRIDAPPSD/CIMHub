@@ -178,7 +178,7 @@ public class DistXfmrCodeRating extends DistComponent {
 
   private void AppendOneTank (StringBuilder buf, String name, String sKVA, boolean useA, boolean useB, boolean useC, String parms) {
     buf.append ("object transformer_configuration {\n");
-    buf.append ("  name \"xcon_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("xcon_") + name + "\";\n");
     buf.append ("  power_rating " + sKVA + ";\n");
     if (useA) {
       buf.append ("  powerA_rating " + sKVA + ";\n");

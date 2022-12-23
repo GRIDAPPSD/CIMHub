@@ -113,7 +113,7 @@ public class DistHouse extends DistComponent {
     double[] techdata = {0.9,1.0,0.9,1.0,0.0,1.0,0.0};
     StringBuilder buf = new StringBuilder("object house {\n");
     buf.append("  name \"" + name + "\";\n");
-    buf.append("  parent \"ld_" + parent + "_ldmtr\";\n");
+    buf.append("  parent \"" + GLMObjectPrefix ("ld_") + parent + "_ldmtr\";\n");
     buf.append("  floor_area " +  df2.format(floorArea) + ";\n");
     buf.append("  number_of_stories " + String.valueOf(numberOfStories) + ";\n");
     buf.append("  thermal_integrity_level " + gldHouseThermalIntegrity.get(thermalIntegrity) + ";\n");

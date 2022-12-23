@@ -59,7 +59,7 @@ public class DistOverheadWire extends DistWire {
     double gmrOut = gmr * gFTperM;
 
     StringBuilder buf = new StringBuilder("object overhead_line_conductor {\n");
-      buf.append ("  name \"wire_" + name + "\";\n");
+      buf.append ("  name \"" + GLMObjectPrefix ("wire_") + name + "\";\n");
       buf.append ("  geometric_mean_radius " + df6.format (gmrOut) + ";\n");
       buf.append ("  diameter " + df6.format (diaOut) + ";\n");
       buf.append ("  resistance " + df6.format (resOut) + ";\n");
@@ -68,7 +68,7 @@ public class DistOverheadWire extends DistWire {
 
     if (canBury) {
       buf.append ("object underground_line_conductor {\n");
-      buf.append ("  name \"ugwire_" + name + "\";\n");
+      buf.append ("  name \"" + GLMObjectPrefix ("ugwire_", true) + name + "\";\n");
       buf.append ("  conductor_gmr " + df6.format (gmrOut) + ";\n");
       buf.append ("  conductor_diameter " + df6.format (diaOut) + ";\n");
       buf.append ("  outer_diameter " + df6.format (1.2 * diaOut) + ";\n");

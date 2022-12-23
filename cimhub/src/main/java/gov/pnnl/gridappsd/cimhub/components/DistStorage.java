@@ -128,7 +128,7 @@ public class DistStorage extends DistComponent {
       pf *= -1.0;
     }
 
-    buf.append ("  name \"inv_bat_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("inv_bat_") + name + "\";\n");
     buf.append ("  parent \"" + bus + "_stmtr\";\n");
     if (bDelta && !phases.contains("D")) {
       buf.append ("  phases " + phases.replace (":", "") + "D;\n");
@@ -195,7 +195,7 @@ public class DistStorage extends DistComponent {
       }
     }
     buf.append ("  object battery {\n");
-    buf.append ("    name \"bat_" + name + "\";\n");
+    buf.append ("    name \"" + GLMObjectPrefix ("bat_", true) + name + "\";\n");
     buf.append ("    nominal_voltage 48;\n");
     buf.append ("    battery_capacity " + df1.format (ratedE) + ";\n");
     buf.append ("    state_of_charge " + df4.format (storedE / ratedE) + ";\n");

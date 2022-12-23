@@ -73,7 +73,7 @@ public class DistConcentricNeutralCable extends DistCable {
   public String GetGLM() {
     StringBuilder buf = new StringBuilder("object underground_line_conductor {\n");
 
-    buf.append ("  name \"cncab_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("cncab_") + name + "\";\n");
     buf.append ("  neutral_gmr " + df6.format (strand_gmr * gFTperM) + ";\n");
     buf.append ("  neutral_diameter " + df6.format (2.0 * strand_rad * gFTperM * 12.0) + ";\n");
     buf.append ("  neutral_resistance " + df6.format (strand_rdc * gMperMILE) + ";\n");

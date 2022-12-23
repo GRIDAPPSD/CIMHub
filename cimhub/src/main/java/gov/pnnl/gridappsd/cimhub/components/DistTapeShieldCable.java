@@ -69,7 +69,7 @@ public class DistTapeShieldCable extends DistCable {
     //  where ds is shield diameter [in] and T is tape thickness [mil]
     double rshield = 1.214583e-5 / dscreen / tthick; // for dscreen and tthick in [m]
 
-    buf.append ("  name \"tscab_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("tscab_") + name + "\";\n");
     buf.append ("  shield_gmr " + df6.format (0.5 * dscreen * gFTperM) + ";\n");
     buf.append ("  shield_diameter " + df6.format (dscreen * gFTperM * 12.0) + ";\n");
     buf.append ("  shield_resistance " + df6.format (rshield) + ";\n");

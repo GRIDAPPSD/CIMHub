@@ -109,7 +109,7 @@ public class DistSolar extends DistComponent {
       pf *= -1.0;
     }
 
-    buf.append ("  name \"inv_pv_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("inv_pv_") + name + "\";\n");
     buf.append ("  parent \"" + bus + "_pvmtr\";\n");
     if (bDelta && !phases.contains("D")) {
       buf.append ("  phases " + phases.replace (":", "") + "D;\n");
@@ -152,7 +152,7 @@ public class DistSolar extends DistComponent {
       }
     }
     buf.append ("  object solar {\n");
-    buf.append ("    name \"pv_" + name + "\";\n");
+    buf.append ("    name \"" + GLMObjectPrefix ("pv_", true) + name + "\";\n");
     buf.append ("    panel_type SINGLE_CRYSTAL_SILICON;\n");
     buf.append ("    efficiency 0.2;\n");
     buf.append ("    derating 1.0;\n");

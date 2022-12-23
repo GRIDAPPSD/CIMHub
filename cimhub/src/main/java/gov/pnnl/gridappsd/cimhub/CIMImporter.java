@@ -1080,7 +1080,7 @@ public class CIMImporter extends Object {
     String match_N = "";
     String config_name;
     boolean bCable = false;
-    StringBuilder buf = new StringBuilder ("spc_" + ln.spacing + "_");
+    StringBuilder buf = new StringBuilder (DistComponent.GLMObjectPrefix ("spc_") + ln.spacing + "_");
 
     // what are we looking for?
     for (int i = 0; i < ln.nwires; i++) {
@@ -1110,7 +1110,7 @@ public class CIMImporter extends Object {
         match_N = GldLineConfig.GetMatchWire(ln.wire_classes[i], ln.wire_names[i], bCable);
         // we may need to write this as an unshielded underground line conductor
         if (bCable && ln.wire_classes[i].equals ("OverheadWireInfo")) {
-          DistOverheadWire oh_wire = mapWires.get (ln.wire_names[i]);
+          DistOverheadWire oh_wire = mapWires.get (ln.wire_ids[i]);
           oh_wire.canBury = true;
         }
         buf.append ("N");
@@ -1136,7 +1136,7 @@ public class CIMImporter extends Object {
     }
 
     // need to make a new one
-    config_name = "lcon_" + ln.spacing + "_" + ln.name;
+    config_name = "lcon_" + ln.spacing + "_" + Integer.toString(mapLineConfigs.size());
     GldLineConfig cfg = new GldLineConfig (config_name);
     cfg.spacing = match_SPC;
     cfg.conductor_A = match_A;
@@ -1252,28 +1252,30 @@ public class CIMImporter extends Object {
     }
     // preparatory steps to build the list of nodes
     ResultSet results = queryHandler.query (
-        "SELECT ?name WHERE {"+
+        "SELECT ?id WHERE {"+
             " ?fdr c:IdentifiedObject.mRID ?fdrid."+
             " ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr."+
             " ?s r:type c:ConnectivityNode."+
-            " ?s c:IdentifiedObject.name ?name."+
-        "} ORDER by ?name", "list nodes");
+            " ?s c:IdentifiedObject.mRID ?id."+
+        "} ORDER by ?id", "list nodes");
     if (!results.hasNext()) {
       System.out.println ("== no ConnectivityNodes found in a ConnectivityNodeContainer for GridLAB-D; trying a less restrictive query");
       results = queryHandler.query (
-          "SELECT ?name WHERE {"+
+          "SELECT ?id WHERE {"+
               " ?s r:type c:ConnectivityNode."+
-              " ?s c:IdentifiedObject.name ?name."+
-          "} ORDER by ?name", "list nodes");
+              " ?s c:IdentifiedObject.mRID ?id."+
+          "} ORDER by ?id", "list nodes");
     }
     while (results.hasNext()) {
       QuerySolution soln = results.next();
-      String bus = DistComponent.SafeName (soln.get ("?name").toString());
+      String id = soln.get ("?id").toString();
+      String bus = DistComponent.GetBusExportName (id);
       mapNodes.put (bus, new GldNode(bus));
     }
     // PrintGldNodeMap (mapNodes, "*** GldNode Map Before Accumulation");
     for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
       DistSubstation obj = pair.getValue();
+      System.out.print (obj.DisplayString());
       GldNode nd = mapNodes.get (obj.bus);
       nd.bSwing = true;
       nd.nomvln = obj.basev / Math.sqrt(3.0);
@@ -1282,7 +1284,7 @@ public class CIMImporter extends Object {
     // do the Tanks first, because they assign primary and secondary phasings
     for (HashMap.Entry<String,DistXfmrTank> pair : mapTanks.entrySet()) {
       DistXfmrTank obj = pair.getValue();
-      DistXfmrCodeRating code = mapCodeRatings.get (obj.tankinfo);
+      DistXfmrCodeRating code = mapCodeRatings.get (obj.infoid);
       code.glmUsed = true;
       boolean bServiceTransformer = false;
       String primaryPhase = "";
@@ -1305,8 +1307,8 @@ public class CIMImporter extends Object {
           GldNode nd = mapNodes.get(obj.bus[i]);
           if (nd.bSecondary) {
             nd.AddPhases (primaryPhase);
-            DistCoordinates pt1 = mapCoordinates.get("PowerTransformer:" + obj.pname + ":1");
-            DistCoordinates pt2 = mapCoordinates.get("PowerTransformer:" + obj.pname + ":2");
+            DistCoordinates pt1 = mapCoordinates.get("PowerTransformer:" + obj.pid + ":1");
+            DistCoordinates pt2 = mapCoordinates.get("PowerTransformer:" + obj.pid + ":2");
             if (pt2 == null) {
               pt2 = pt1;
             } else if (pt1 == null) {
@@ -1364,11 +1366,11 @@ public class CIMImporter extends Object {
     }
     for (HashMap.Entry<String,DistLinesCodeZ> pair : mapLinesCodeZ.entrySet()) {
       DistLinesCodeZ obj = pair.getValue();
-      DistPhaseMatrix zmat = mapPhaseMatrices.get (obj.lname);
+      DistPhaseMatrix zmat = mapPhaseMatrices.get (obj.codeid);
       if (zmat != null) {
         zmat.MarkGLMPermutationsUsed(obj.phases);
       } else {
-        DistSequenceMatrix zseq = mapSequenceMatrices.get (obj.lname);
+        DistSequenceMatrix zseq = mapSequenceMatrices.get (obj.codeid);
         if (zseq != null) {
           //          System.out.println ("Sequence Z " + zseq.name + " using " + obj.phases + " for " + obj.name);
         }
@@ -1387,8 +1389,8 @@ public class CIMImporter extends Object {
           nd2.AddPhases (nd1.phases);
           obj.phases = obj.phases + ":" + nd1.phases;
         }
-        DistCoordinates pt1 = mapCoordinates.get("ACLineSegment:" + obj.name + ":1");
-        DistCoordinates pt2 = mapCoordinates.get("ACLineSegment:" + obj.name + ":2");
+        DistCoordinates pt1 = mapCoordinates.get("ACLineSegment:" + obj.id + ":1");
+        DistCoordinates pt2 = mapCoordinates.get("ACLineSegment:" + obj.id + ":2");
         if (pt1.x == 0.0 && pt1.y == 0.0) {
           if (pt2.x != 0.0 || pt2.y != 0.0) {
             pt1.x = pt2.x + 3.0;
@@ -1509,24 +1511,24 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String,DistRegulator> pair : mapRegulators.entrySet()) {
       DistRegulator reg = pair.getValue();
       if (reg.hasTanks) {
-        DistXfmrTank tank = mapTanks.get(reg.tname[0]); // TODO: revisit if GridLAB-D can model un-banked regulator tanks
-        DistXfmrCodeRating code = mapCodeRatings.get (tank.tankinfo);
+        DistXfmrTank tank = mapTanks.get(reg.tid[0]); // TODO: revisit if GridLAB-D can model un-banked regulator tanks
+        DistXfmrCodeRating code = mapCodeRatings.get (tank.infoid);
         out.print (reg.GetTankedGLM (tank));
         code.glmUsed = false;
         tank.glmUsed = false;
         for (int i = 1; i < reg.size; i++) {
-          tank = mapTanks.get (reg.tname[i]);
-          code = mapCodeRatings.get (tank.tankinfo);
+          tank = mapTanks.get (reg.tid[i]);
+          code = mapCodeRatings.get (tank.infoid);
           code.glmUsed = false;
           tank.glmUsed = false;
         }
       } else {
-        DistPowerXfmrWinding xfmr = mapXfmrWindings.get(reg.pname);
+        DistPowerXfmrWinding xfmr = mapXfmrWindings.get(reg.pid);
         out.print (reg.GetGangedGLM (xfmr));
         xfmr.glmUsed = false;
       }
     }
-    // PrintGldNodeMap (mapNodes, "*** GldNode Map After Accumulation");
+    //PrintGldNodeMap (mapNodes, "*** GldNode Map After Accumulation");
 
     // GLM configurations
     for (HashMap.Entry<String,DistOverheadWire> pair : mapWires.entrySet()) {

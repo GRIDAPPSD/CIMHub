@@ -63,7 +63,7 @@ public class DistSequenceMatrix extends DistComponent {
     int cnt = permidx.length;
 
     buf.append("object line_configuration {\n");
-    buf.append("  name \"lcon_" + name + "_" + perm + "\";\n");
+    buf.append("  name \"" + GLMObjectPrefix ("lcon_") + name + "_" + perm + "\";\n");
     for (int i = 0; i < cnt; i++) {
       for (int j = 0; j < cnt; j++) {
         String indices = Integer.toString(permidx[i]) + Integer.toString(permidx[j]) + " ";

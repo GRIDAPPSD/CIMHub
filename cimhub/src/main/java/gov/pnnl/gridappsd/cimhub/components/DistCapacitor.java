@@ -188,10 +188,28 @@ public class DistCapacitor extends DistComponent {
     return buf.toString();
   }
 
+  private String GLMClassPrefix (String t) {
+    if (t.equals("LinearShuntCompensator")) return "cap_";
+    if (t.equals("ACLineSegment")) return "line_"; // assumes we prefix both overhead and underground with line_
+    if (t.equals("EnergyConsumer")) return "";  // TODO should we name load:?
+    if (t.equals("PowerTransformer")) return "xf_";
+    if (t.equals("LoadBreakSwitch")) return "swt_";
+    return "##UNKNOWN##";
+  }
+
+  private String DSSClassPrefix (String t) {
+    if (t.equals("LinearShuntCompensator")) return "capacitor";
+    if (t.equals("ACLineSegment")) return "line";
+    if (t.equals("EnergyConsumer")) return "load";
+    if (t.equals("PowerTransformer")) return "transformer";
+    if (t.equals("LoadBreakSwitch")) return "line";
+    return "##UNKNOWN##";
+  }
+
   public String GetGLM() {
     StringBuilder buf = new StringBuilder ("object capacitor {\n");
 
-    buf.append ("  name \"cap_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("cap_") + name + "\";\n");
     buf.append ("  parent \"" + bus + "\";\n");
     if (bDelta) {
       buf.append ("  phases " + phs + "D;\n");
@@ -249,8 +267,8 @@ public class DistCapacitor extends DistComponent {
         buf.append ("  // CIM timeScheduled on=" + df2.format(dOn) + " off=" + df2.format(dOff) + ";\n");
       }
       String glmClass = GLMClassPrefix(monclass);
-      if (!glmClass.equals("cap") || !moneq.equals(name)) {
-        buf.append("  remote_sense \"" + glmClass + "_" + moneq + "\";\n");
+      if (!glmClass.equals("cap_") || !moneq.equals(name)) {
+        buf.append("  remote_sense \"" + GLMObjectPrefix (glmClass) + moneq + "\";\n");
       }
       buf.append ("  pt_phase " + monphs + ";\n");
       if (monphs.length() > 1) {

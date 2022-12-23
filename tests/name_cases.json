@@ -30,7 +30,7 @@
   "inpath_dss": "../example",
   "path_xml": "./xml/",
   "outpath_dss": "./dssn/",
-  "outpath_glm": "",
+  "outpath_glm": "./glmn/",
   "outpath_csv": ""
  },
  {
@@ -65,7 +65,7 @@
   "inpath_dss": "../example",
   "path_xml": "./xml/",
   "outpath_dss": "./dssn/",
-  "outpath_glm": "",
+  "outpath_glm": "./glmn/",
   "outpath_csv": ""
  }
 ]

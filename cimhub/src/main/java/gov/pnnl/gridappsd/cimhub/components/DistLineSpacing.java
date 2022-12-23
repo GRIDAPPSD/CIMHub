@@ -171,9 +171,9 @@ public class DistLineSpacing extends DistComponent {
     }
     buf.append("object line_spacing {\n");
     if (has_neutral) {
-      buf.append("  name \"spc_" + name + "_" + perm + "N\";\n");
+      buf.append("  name \"" + GLMObjectPrefix ("spc_") + name + "_" + perm + "N\";\n");
     } else {
-      buf.append("  name \"spc_" + name + "_" + perm + "\";\n");
+      buf.append("  name \"" + GLMObjectPrefix ("spc_") + name + "_" + perm + "\";\n");
     }
 
     int idxA=0, idxB=0, idxC=0;

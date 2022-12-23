@@ -137,7 +137,7 @@ public class DistXfmrTank extends DistComponent {
   public String GetGLM () {
     StringBuilder buf = new StringBuilder ("object transformer {\n");
 
-    buf.append ("  name \"xf_" + pname + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("xf_") + pname + "\";\n");
     buf.append ("  from \"" + bus[0] + "\";\n");
     buf.append ("  to \"" + bus[1] + "\";\n");
     if (orderedPhases[1].contains("s")) {
@@ -145,7 +145,7 @@ public class DistXfmrTank extends DistComponent {
     } else {
       buf.append("  phases " + PhaseCodeFromOrderedPhases(orderedPhases[0]) + ";\n");
     }
-    buf.append ("  configuration \"xcon_" + PhasedTankName() + "\";\n");
+    buf.append ("  configuration \"" + GLMObjectPrefix ("xcon_") + PhasedTankName() + "\";\n");
     AppendGLMRatings (buf, orderedPhases[0], normalCurrentLimit, emergencyCurrentLimit);
     buf.append ("  // vector group " + vgrp + ";\n");
     buf.append("}\n");

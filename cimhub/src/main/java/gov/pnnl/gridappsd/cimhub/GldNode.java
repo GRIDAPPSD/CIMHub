@@ -7,6 +7,7 @@ package gov.pnnl.gridappsd.cimhub;
 import java.text.DecimalFormat;
 import java.util.Random;
 import org.apache.commons.math3.complex.Complex;
+import gov.pnnl.gridappsd.cimhub.components.DistComponent;
 
 /** 
  Helper class to accumulate nodes and loads. 
@@ -273,7 +274,7 @@ public class GldNode {
                  double Pz, double Pi, double Pp, double Qz, double Qi, double Qp, boolean randomZIP) {
     double fa = 0.0, fb = 0.0, fc = 0.0, fs1 = 0.0, fs2 = 0.0, fs12 = 0.0, denom = 0.0;
   //  System.out.println ("AccumulateLoads:" + ldname + ":" + phs + ":" + conn + ":" + df2.format(pL) + ":" + df2.format(qL));
-    loadname = "ld_" + ldname;
+    loadname =  DistComponent.GLMObjectPrefix ("ld_") + ldname;
     if (phs.contains("A")) {
       fa = 1.0;
       denom += 1.0;

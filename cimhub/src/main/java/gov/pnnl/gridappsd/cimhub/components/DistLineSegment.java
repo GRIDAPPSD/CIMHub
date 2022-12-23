@@ -34,7 +34,7 @@ public abstract class DistLineSegment extends DistComponent {
     if (phases.contains ("s")) {
       bTriplex = true;
       buf.append ("object triplex_line {\n");
-      buf.append ("  name \"tpx_" + name + "\";\n");
+      buf.append ("  name \"" + GLMObjectPrefix ("tpx_") + name + "\";\n");
     } else {
       bTriplex = false;
       if (bCable) {
@@ -42,7 +42,7 @@ public abstract class DistLineSegment extends DistComponent {
       } else {
         buf.append("object overhead_line {\n");
       }
-      buf.append ("  name \"line_" + name + "\";\n");
+      buf.append ("  name \"" + GLMObjectPrefix ("line_") + name + "\";\n");
     }
 
     buf.append ("  from \"" + bus1 + "\";\n");
@@ -57,9 +57,9 @@ public abstract class DistLineSegment extends DistComponent {
     if (bSpacing) {
       buf.append("  configuration \"" + config_root + "\";\n");
     } else if (bTriplex) {
-      buf.append("  configuration \"tcon_" + config_root + "_12\";\n");
+      buf.append("  configuration \"" + GLMObjectPrefix ("tcon_") + config_root + "_12\";\n");
     } else {
-      buf.append("  configuration \"lcon_" + config_root + "_" + glm_phases + "\";\n");
+      buf.append("  configuration \"" + GLMObjectPrefix ("lcon_") + config_root + "_" + glm_phases + "\";\n");
     }
     buf.append ("}\n");
   }

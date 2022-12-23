@@ -139,10 +139,10 @@ public class DistPhaseMatrix extends DistComponent {
   private void AppendPermutation (StringBuilder buf, String perm, int[] permidx) {
     if (glmTriplex) {
       buf.append("object triplex_line_configuration {\n");
-      buf.append("  name \"tcon_" + name + "_" + perm + "\";\n");
+      buf.append("  name \"" + GLMObjectPrefix ("tcon_") + name + "_" + perm + "\";\n");
     } else {
       buf.append("object line_configuration {\n");
-      buf.append("  name \"lcon_" + name + "_" + perm + "\";\n");
+      buf.append("  name \"" + GLMObjectPrefix ("lcon_") + name + "_" + perm + "\";\n");
     }
     for (int i = 0; i < cnt; i++) {
       for (int j = 0; j < cnt; j++) {

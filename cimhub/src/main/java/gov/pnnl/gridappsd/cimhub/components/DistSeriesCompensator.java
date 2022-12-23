@@ -66,7 +66,7 @@ public class DistSeriesCompensator extends DistComponent {
     StringBuilder buf = new StringBuilder ();
 
     buf.append ("object series_reactor {\n");
-    buf.append ("  name \"reac_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("reac_") + name + "\";\n");
     buf.append ("  from \"" + bus1 + "\";\n");
     buf.append ("  to \"" + bus2 + "\";\n");
     buf.append ("  phases ABC;\n");

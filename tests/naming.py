@@ -35,6 +35,7 @@ if __name__ == '__main__':
   fp.close()
   for row in cases:
     row['export_options'] = row['export_options'] + ' -d=2'
+    row['outpath_dss'] = ''
 
   cimhub.make_upload_script (cases, scriptname=shfile_upload, bClearDB=True)
   p1 = subprocess.call (shfile_upload, shell=True)
@@ -46,5 +47,6 @@ if __name__ == '__main__':
   p1 = subprocess.Popen ('opendsscmd {:s}'.format(dssfile_run), shell=True)
   p1.wait()
 
-#  cimhub.make_glmrun_script (cases, scriptname=shfile_glm)
+  cimhub.make_glmrun_script (cases, scriptname=shfile_glm)
+  p1 = subprocess.call (shfile_glm, shell=True)
 

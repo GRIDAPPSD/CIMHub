@@ -168,22 +168,13 @@ public abstract class DistComponent {
     return s;
   }
 
-  static String GLMClassPrefix (String t) {  // GLD conversion
-    if (t.equals("LinearShuntCompensator")) return "cap";
-    if (t.equals("ACLineSegment")) return "line"; // assumes we prefix both overhead and underground with line_
-    if (t.equals("EnergyConsumer")) return "";  // TODO should we name load:?
-    if (t.equals("PowerTransformer")) return "xf";
-    if (t.equals("LoadBreakSwitch")) return "swt";
-    return "##UNKNOWN##";
+  // only used for SAFENAME and NAME, which may not be unique
+  public static String GLMObjectPrefix (String t, boolean bForce) { 
+    if ((gExportNames == ExportNameMode.MRID) && !bForce) return "";
+    return t;
   }
-
-  static String DSSClassPrefix (String t) {  // DSS conversion
-    if (t.equals("LinearShuntCompensator")) return "capacitor";
-    if (t.equals("ACLineSegment")) return "line";
-    if (t.equals("EnergyConsumer")) return "load";
-    if (t.equals("PowerTransformer")) return "transformer";
-    if (t.equals("LoadBreakSwitch")) return "line";
-    return "##UNKNOWN##";
+  public static String GLMObjectPrefix (String t) {
+    return GLMObjectPrefix (t, false);
   }
 
   static String FirstDSSPhase (String phs) {

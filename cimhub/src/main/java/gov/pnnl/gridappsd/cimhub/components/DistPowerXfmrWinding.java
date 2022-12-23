@@ -122,7 +122,7 @@ public class DistPowerXfmrWinding extends DistComponent {
 
   public String GetGLM (DistPowerXfmrMesh mesh, DistPowerXfmrCore core) {
     StringBuilder buf = new StringBuilder ("object transformer_configuration {\n"); 
-    buf.append ("  name \"xcon_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("xcon_", true) + name + "\";\n");
     String sConnect = GetGldTransformerConnection (conn, size);
     boolean bSwap = false;
     if (sConnect.equals ("Y_D")) {
@@ -174,7 +174,7 @@ public class DistPowerXfmrWinding extends DistComponent {
     buf.append ("}\n");
 
     buf.append ("object transformer {\n");
-    buf.append ("  name \"xf_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("xf_") + name + "\";\n");
     if (bSwap) {
       buf.append ("  from \"" + bus[1] + "\";\n");
       buf.append ("  to \"" + bus[0] + "\";\n");
@@ -187,7 +187,7 @@ public class DistPowerXfmrWinding extends DistComponent {
     } else {
       buf.append ("  phases ABCN;\n");
     }
-    buf.append ("  configuration \"xcon_" + name + "\";\n");
+    buf.append ("  configuration \"" + GLMObjectPrefix ("xcon_", true) + name + "\";\n");
     AppendGLMRatings (buf, "ABC", normalCurrentLimit, emergencyCurrentLimit);
     buf.append ("  // vector group " + vgrp + ";\n");
     buf.append("}\n");
