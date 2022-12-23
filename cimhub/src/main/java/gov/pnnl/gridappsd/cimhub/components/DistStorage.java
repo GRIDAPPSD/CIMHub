@@ -10,6 +10,8 @@ import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Connection;
 import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Used;
 
 public class DistStorage extends DistComponent {
+  public static final String szCIMClass = "BatteryUnit";
+
   public String id;
   public String name;
   public String bus;
@@ -63,10 +65,10 @@ public class DistStorage extends DistComponent {
   public DistStorage (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      bus = GetBusExportName (soln.get("?bus").toString());
       pecid = soln.get("?pecid").toString();
-      bus = soln.get("?bus").toString();
       t1id = soln.get("?t1id").toString();
       phases = OptionalString (soln, "?phases", "ABC");
       phases = phases.replace ('\n', ':');
@@ -99,7 +101,7 @@ public class DistStorage extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt = map.get("BatteryUnit:" + name + ":1");
+    DistCoordinates pt = map.get("BatteryUnit:" + id + ":1");
 
     StringBuilder buf = new StringBuilder ();
 

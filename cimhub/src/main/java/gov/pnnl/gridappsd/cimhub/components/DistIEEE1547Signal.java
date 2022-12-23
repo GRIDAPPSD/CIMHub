@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistIEEE1547Signal extends DistComponent {
+  public static final String szCIMClass = "RemoteInputSignal";
+
   public String id;
   public String pecid;
   public String name;
@@ -25,8 +27,8 @@ public class DistIEEE1547Signal extends DistComponent {
   public DistIEEE1547Signal (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       pecid = soln.get("?pecid").toString();
       kind = soln.get("?kind").toString();
       tid = soln.get("?tid").toString();

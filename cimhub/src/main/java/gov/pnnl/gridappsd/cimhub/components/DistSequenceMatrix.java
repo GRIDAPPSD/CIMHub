@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import org.apache.commons.math3.complex.Complex;
 
 public class DistSequenceMatrix extends DistComponent {
+  public static final String szCIMClass = "PerLengthSequenceImpedance";
+
   public String name;
   public String id;
   public double r1;
@@ -34,8 +36,8 @@ public class DistSequenceMatrix extends DistComponent {
   public DistSequenceMatrix (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       r1 = Double.parseDouble (soln.get("?r1").toString());
       x1 = Double.parseDouble (soln.get("?x1").toString());
       b1 = Double.parseDouble (soln.get("?b1").toString());
@@ -52,8 +54,8 @@ public class DistSequenceMatrix extends DistComponent {
 
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (name + " r1=" + df4.format(r1) + " x1=" + df4.format(x1) + " b1=" + df4.format(b1));
-    buf.append (" r0=" + df4.format(r0) + " x0=" + df4.format(x0) + " b0=" + df4.format(b0));
+    buf.append (name + " r1=" + df6.format(r1) + " x1=" + df6.format(x1) + " b1=" + df9.format(b1));
+    buf.append (" r0=" + df6.format(r0) + " x0=" + df6.format(x0) + " b0=" + df9.format(b0));
     return buf.toString();
   }
 

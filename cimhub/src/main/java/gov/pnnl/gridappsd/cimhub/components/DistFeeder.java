@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistFeeder extends DistComponent {
+  public static final String szCIMClass = "Feeder";
+
   public String feederName;
   public String feederID;
   public String substationName;
@@ -35,8 +37,8 @@ public class DistFeeder extends DistComponent {
   public DistFeeder (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      feederName = soln.get("?feeder").toString();
       feederID = soln.get("?fid").toString();
+      feederName = PushExportName (soln.get("?feeder").toString(), feederID, szCIMClass);
       regionName = soln.get("?region").toString();
       regionID = soln.get("?rgnid").toString();
       substationName = OptionalString (soln, "?station", null);

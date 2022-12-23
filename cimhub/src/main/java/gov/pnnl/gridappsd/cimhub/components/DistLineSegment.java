@@ -8,6 +8,8 @@ import java.io.*;
 import java.util.HashMap;
 
 public abstract class DistLineSegment extends DistComponent {
+  public static final String szCIMClass = "ACLineSegment";
+
   public String id;
   public String name;
   public String bus1;
@@ -63,8 +65,8 @@ public abstract class DistLineSegment extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt1 = map.get("ACLineSegment:" + name + ":1");
-    DistCoordinates pt2 = map.get("ACLineSegment:" + name + ":2");
+    DistCoordinates pt1 = map.get("ACLineSegment:" + id + ":1");
+    DistCoordinates pt2 = map.get("ACLineSegment:" + id + ":2");
     StringBuilder lbl_phs = new StringBuilder ();
     if (phases.contains("A")) lbl_phs.append("A");
     if (phases.contains("B")) lbl_phs.append("B");

@@ -17,7 +17,7 @@ public abstract class DistComponent {
   public static final String nsRDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   public static final String nsXSD = "http://www.w3.org/2001/XMLSchema#";
 
-  static ExportNameMode gExportNames = ExportNameMode.SAFENAME;
+  public static ExportNameMode gExportNames = ExportNameMode.SAFENAME;
 
   static double gFREQ = 60.0;
   static double gOMEGA = gFREQ * 2.0 * Math.PI; // 376.9911
@@ -30,7 +30,11 @@ public abstract class DistComponent {
   static final DecimalFormat df4 = new DecimalFormat("#0.0000");
   static final DecimalFormat df5 = new DecimalFormat("#0.00000");
   static final DecimalFormat df6 = new DecimalFormat("#0.000000");
+  static final DecimalFormat df9 = new DecimalFormat("#0.000000000");
   static final DecimalFormat df12 = new DecimalFormat("#0.000000000000");
+
+  public static HashMap<String,DistBus> mapBusNames = new HashMap<>();
+  public static HashMap<String,DistEquipment> mapEquipmentNames = new HashMap<>();
 
   public static void SetExportNames (ExportNameMode choice) {
     gExportNames = choice;
@@ -94,6 +98,9 @@ public abstract class DistComponent {
    *  @return nd_arg
    */
   static String GldBusName (String arg) {
+    if (gExportNames == ExportNameMode.MRID) {
+      return arg;
+    }
     return "nd_" + arg;
   }
 
@@ -121,6 +128,32 @@ public abstract class DistComponent {
 //    s = s.replace ('(', '_');
 //    s = s.replace (')', '_');
     return s;
+  }
+
+  public static String MakeExportName (String name, String id) {
+    switch (gExportNames) {
+    case SAFENAME:
+      return SafeName (name);
+    case NAME:
+      return name;
+    case MRID:
+      return id;
+    }
+    return name;
+  }
+
+  public static String PushExportName (String name, String id, String eqClass) {
+    String exportName = MakeExportName (name, id);
+    mapEquipmentNames.put (id, new DistEquipment (name, id, exportName, eqClass));
+    return exportName;
+  }
+
+  public static String GetBusExportName (String id) {
+    return mapBusNames.get(id).exportName;
+  }
+
+  public static String GetEquipmentExportName (String id) {
+    return mapEquipmentNames.get(id).exportName;
   }
 
   public static ConverterControlMode ParseControlMode (String arg) {

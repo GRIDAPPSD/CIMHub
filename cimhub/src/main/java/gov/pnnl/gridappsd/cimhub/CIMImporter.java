@@ -153,9 +153,6 @@ public class CIMImporter extends Object {
   HashMap<String,DistSwitch> mapSwitches = new HashMap<>(); // polymorphic
   HashMap<String,DistLineSegment> mapLines = new HashMap<>(); // polymorphic
 
-  HashMap<String,DistBus> mapBusNames = new HashMap<>();
-  HashMap<String,DistEquipment> mapEquipmentNames = new HashMap<>();
-
   boolean allMapsLoaded = false;
 
   void LoadOneCountMap (HashMap<String,Integer> map, String szTag) {
@@ -204,11 +201,11 @@ public class CIMImporter extends Object {
     ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistBus"), "BusName");
     while (results.hasNext()) {
       DistBus obj = new DistBus (results);
-      mapBusNames.put (obj.GetKey(), obj);
+      DistComponent.mapBusNames.put (obj.GetKey(), obj);
     }
     ((ResultSetCloseable)results).close();
   }
-
+/*
   void LoadEquipmentNames() {
     ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistEquipment"), "EquipmentName");
     while (results.hasNext()) {
@@ -217,7 +214,7 @@ public class CIMImporter extends Object {
     }
     ((ResultSetCloseable)results).close();
   }
-
+*/
   void LoadSubstations() {
     ResultSet results = queryHandler.query (querySetter.getSelectionQuery ("DistSubstation"), "Substation");
     while (results.hasNext()) {
@@ -686,8 +683,8 @@ public class CIMImporter extends Object {
     PrintOneMap (mapIEEE1547Used, "** IEEE 1547 USED");
     PrintOneMap (mapDssProfiles, "** ENERGY CONNECTION PROFILES (DSS)");
     PrintOneMap (mapGlmProfiles, "** ENERGY CONNECTION PROFILES (GLM)");
-    PrintOneMap (mapBusNames, "** BUS NAMES");
-    PrintOneMap (mapEquipmentNames, "** CONDUCTING EQUIPMENT NAMES");
+    PrintOneMap (DistComponent.mapBusNames, "** BUS NAMES");
+    PrintOneMap (DistComponent.mapEquipmentNames, "** CONDUCTING EQUIPMENT NAMES");
   }
 
   public void LoadAllMaps() {
@@ -698,7 +695,7 @@ public class CIMImporter extends Object {
   public void LoadAllMaps(boolean useHouses) {
     LoadCountMaps();
     LoadBusNames();
-    LoadEquipmentNames();
+//    LoadEquipmentNames();
 
     LoadBaseVoltages();
     LoadBreakers();
@@ -748,11 +745,20 @@ public class CIMImporter extends Object {
     oLimits = new OperationalLimits();
     oLimits.BuildLimitMaps (this, queryHandler, mapCoordinates);
     allMapsLoaded = true;
-    //PrintOneMap (mapBusNames, "** Bus (ConnectivityNode) names");
-    //PrintOneMap (mapEquipmentNames, "** ConductingEquipment names");
+    //PrintOneMap (DistComponent.mapBusNames, "** Bus (ConnectivityNode) names");
+    //PrintOneMap (DistComponent.mapEquipmentNames, "** ConductingEquipment names");
   }
 
   public void PrepMapsForExport() { // apply ExportNameMode
+    for (HashMap.Entry<String, DistCapacitor> pair: mapCapacitors.entrySet()) pair.getValue().PrepForExport();
+    for (HashMap.Entry<String, DistEnergyConnectionProfile> pair: mapDssProfiles.entrySet()) pair.getValue().PrepForExport();
+    for (HashMap.Entry<String, DistEnergyConnectionProfile> pair: mapGlmProfiles.entrySet()) pair.getValue().PrepForExport();
+    for (HashMap.Entry<String, DistHouse> pair: mapHouses.entrySet()) pair.getValue().PrepForExport();
+    for (HashMap.Entry<String, DistLinesCodeZ> pair: mapLinesCodeZ.entrySet()) pair.getValue().PrepForExport();
+    for (HashMap.Entry<String, DistLinesSpacingZ> pair: mapLinesSpacingZ.entrySet()) pair.getValue().PrepForExport();
+    for (HashMap.Entry<String, DistMeasurement> pair: mapMeasurements.entrySet()) pair.getValue().PrepForExport();
+    for (HashMap.Entry<String, DistRegulator> pair: mapRegulators.entrySet()) pair.getValue().PrepForExport();
+    for (HashMap.Entry<String, DistXfmrTank> pair: mapTanks.entrySet()) pair.getValue().PrepForExport();
   }
 
   public boolean CheckMaps() {
@@ -829,8 +835,8 @@ public class CIMImporter extends Object {
     // TODO: we can also use the CT primary ratings if pxfid fails to work in some cases
     for (HashMap.Entry<String,DistRegulator> pair : mapRegulators.entrySet()) {
       DistRegulator obj = pair.getValue();
-      if (oLimits.mapCurrentLimits.containsKey (obj.pxfid)) {
-        double[] vals = oLimits.mapCurrentLimits.get(obj.pxfid);
+      if (oLimits.mapCurrentLimits.containsKey (obj.pid)) {
+        double[] vals = oLimits.mapCurrentLimits.get(obj.pid);
         obj.normalCurrentLimit = vals[0];
         obj.emergencyCurrentLimit = vals[1];
       }
@@ -892,7 +898,8 @@ public class CIMImporter extends Object {
   }
 
   public void WriteDictionaryFile (PrintWriter out, int maxMeasurements) {
-    out.println("{\"feeders\":[");
+    out.println("{\"exportNameMode\":\"" + DistComponent.gExportNames + "\",");
+    out.println("\"feeders\":[");
     for (HashMap.Entry<String,DistFeeder> pair : mapFeeders.entrySet()) {
       DistFeeder fdr = pair.getValue();
       if (fdr.feederID.equals (queryHandler.getFeederSelection())) {
@@ -906,8 +913,8 @@ public class CIMImporter extends Object {
         out.println("\"regionID\":\"" + fdr.regionID + "\",");
       }
     }
-    WriteMapDictionary (mapBusNames, "busnames", false, out);
-    WriteMapDictionary (mapEquipmentNames, "equipmentnames", false, out);
+    WriteMapDictionary (DistComponent.mapBusNames, "busnames", false, out);
+    WriteMapDictionary (DistComponent.mapEquipmentNames, "equipmentnames", false, out);
     WriteMapDictionary (mapSyncMachines, "synchronousmachines", false, out);
     WriteMapDictionary (mapCapacitors, "capacitors", false, out);
     WriteMapDictionary (mapRegulators, "regulators", false, out);
@@ -1402,7 +1409,7 @@ public class CIMImporter extends Object {
       DistLinesSpacingZ obj = pair.getValue();
       // TODO - make line configurations on the fly, mark the wires and spacings used
       obj.glm_config = GetGLMLineConfiguration (obj);
-      DistLineSpacing spc = mapSpacings.get (obj.spacing);
+      DistLineSpacing spc = mapSpacings.get (obj.spcid);
       if (spc != null) {
         spc.MarkPermutationsUsed(obj.phases);
       }
@@ -1546,8 +1553,8 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
       DistXfmrCodeRating code = pair.getValue();
       if (code.glmUsed) {
-        DistXfmrCodeSCTest sct = mapCodeSCTests.get (code.tname);
-        DistXfmrCodeNLTest oct = mapCodeNLTests.get (code.tname);
+        DistXfmrCodeSCTest sct = mapCodeSCTests.get (code.id);
+        DistXfmrCodeNLTest oct = mapCodeNLTests.get (code.id);
         out.print (code.GetGLM(sct, oct));
       }
     }
@@ -1602,8 +1609,8 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String,DistPowerXfmrWinding> pair : mapXfmrWindings.entrySet()) {
       DistPowerXfmrWinding obj = pair.getValue();
       if (obj.glmUsed) {
-        DistPowerXfmrMesh mesh = mapXfmrMeshes.get(obj.name);
-        DistPowerXfmrCore core = mapXfmrCores.get (obj.name);
+        DistPowerXfmrMesh mesh = mapXfmrMeshes.get (obj.id);
+        DistPowerXfmrCore core = mapXfmrCores.get (obj.id);
         out.print (pair.getValue().GetGLM(mesh, core));
       }
     }
@@ -1705,31 +1712,31 @@ public class CIMImporter extends Object {
       DistCoordinates obj = pair.getValue();
       if ((obj.x != 0) || (obj.y != 0)) {
         if (obj.cname.equals("EnergyConsumer")) {
-          bus = mapLoads.get(obj.name).bus;
+          bus = mapLoads.get(obj.id).bus;
           mapBusXY.put(bus, new Double[] {obj.x, obj.y});
         } else if (obj.cname.equals("LinearShuntCompensator")) {
-          bus = mapCapacitors.get(obj.name).bus;
+          bus = mapCapacitors.get(obj.id).bus;
           mapBusXY.put(bus, new Double[] {obj.x, obj.y});
         } else if (obj.cname.equals("EnergySource")) {
-          bus = mapSubstations.get(obj.name).bus;
+          bus = mapSubstations.get(obj.id).bus;
           mapBusXY.put(bus, new Double[] {obj.x, obj.y});
         } else if (obj.cname.equals("BatteryUnit")) {
-          bus = mapStorages.get(obj.name).bus;
+          bus = mapStorages.get(obj.id).bus;
           mapBusXY.put(bus, new Double[] {obj.x, obj.y});
         } else if (obj.cname.equals("PhotovoltaicUnit")) {
-          bus = mapSolars.get(obj.name).bus;
+          bus = mapSolars.get(obj.id).bus;
           mapBusXY.put(bus, new Double[] {obj.x, obj.y});
         } else if (obj.cname.equals("SynchronousMachine")) {
-          bus = mapSyncMachines.get(obj.name).bus;
+          bus = mapSyncMachines.get(obj.id).bus;
           mapBusXY.put(bus, new Double[] {obj.x, obj.y});
         } else if (obj.cname.equals("PowerTransformer")) {
-          DistXfmrTank tnk = mapTanks.get(obj.name);
+          DistXfmrTank tnk = mapTanks.get(obj.id);
           if (tnk != null) {
             for (int i = 0; i < tnk.size; i++) {
               mapBusXY.put(tnk.bus[i], new Double[] { obj.x, obj.y });
             }
           } else {
-            DistPowerXfmrWinding wdg = mapXfmrWindings.get(obj.name);
+            DistPowerXfmrWinding wdg = mapXfmrWindings.get(obj.id);
             if (wdg != null) {
               mapBusXY.put(wdg.bus[obj.seq - 1], new Double[] { obj.x, obj.y });
             }
@@ -1880,7 +1887,7 @@ public class CIMImporter extends Object {
     // DistLineSpacing can be transposed, so mark the permutations (i.e. transpositions) actually neede
     for (HashMap.Entry<String,DistLinesSpacingZ> pair : mapLinesSpacingZ.entrySet()) {
       DistLinesSpacingZ obj = pair.getValue();
-      DistLineSpacing spc = mapSpacings.get (obj.spacing);
+      DistLineSpacing spc = mapSpacings.get (obj.spcid);
       if (spc != null) {
         spc.MarkPermutationsUsed(obj.phases);
       }
@@ -1902,10 +1909,10 @@ public class CIMImporter extends Object {
     if (mapCodeRatings.size() > 0) out.println();
     for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
       DistXfmrCodeRating obj = pair.getValue();
-      DistXfmrCodeSCTest sct = mapCodeSCTests.get (obj.tname);
-      DistXfmrCodeNLTest oct = mapCodeNLTests.get (obj.tname);
+      DistXfmrCodeSCTest sct = mapCodeSCTests.get (obj.id);
+      DistXfmrCodeNLTest oct = mapCodeNLTests.get (obj.id);
       out.print (obj.GetDSS(sct, oct));
-      outID.println ("Xfmrcode." + obj.tname + "\t" + UUIDfromCIMmRID (obj.id));
+      outID.println ("Xfmrcode." + obj.name + "\t" + UUIDfromCIMmRID (obj.id));
     }
 
     if (mapSolars.size() > 0) out.println();
@@ -2010,22 +2017,22 @@ public class CIMImporter extends Object {
     if (mapXfmrWindings.size() > 0) out.println();
     for (HashMap.Entry<String,DistPowerXfmrWinding> pair : mapXfmrWindings.entrySet()) {
       DistPowerXfmrWinding obj = pair.getValue();
-      DistPowerXfmrMesh mesh = mapXfmrMeshes.get (obj.name);
-      DistPowerXfmrCore core = mapXfmrCores.get (obj.name);
+      DistPowerXfmrMesh mesh = mapXfmrMeshes.get (obj.id);
+      DistPowerXfmrCore core = mapXfmrCores.get (obj.id);
       out.print (obj.GetDSS(mesh, core));
       outID.println ("Transformer." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapTanks.size() > 0) out.println();
     for (HashMap.Entry<String,DistXfmrTank> pair : mapTanks.entrySet()) {
       out.print (pair.getValue().GetDSS());
-      outID.println ("Transformer." + pair.getValue().tname + "\t" + UUIDfromCIMmRID (pair.getValue().id));
+      outID.println ("Transformer." + pair.getValue().name + "\t" + UUIDfromCIMmRID (pair.getValue().id));
     }
     if (mapRegulators.size() > 0) out.println();
     for (HashMap.Entry<String,DistRegulator> pair : mapRegulators.entrySet()) {
       DistRegulator obj = pair.getValue();
       out.print(obj.GetDSS());
       for (int i = 0; i < obj.size; i++) {
-        outID.println("RegControl." + obj.rname[i] + "\t" + UUIDfromCIMmRID (obj.id[i]));
+        outID.println("RegControl." + obj.name[i] + "\t" + UUIDfromCIMmRID (obj.id[i]));
       }
     }
     if (mapCapacitors.size() > 0) out.println(); // capacitors last in case the capcontrols reference a preceeding element
@@ -2160,7 +2167,7 @@ public class CIMImporter extends Object {
     out.println(DistLinesSpacingZ.szCSVHeader);
     for (HashMap.Entry<String,DistLinesSpacingZ> pair : mapLinesSpacingZ.entrySet()) {
       DistLinesSpacingZ obj = pair.getValue();
-      DistLineSpacing spc = mapSpacings.get (obj.spacing);
+      DistLineSpacing spc = mapSpacings.get (obj.spcid);
       if (spc != null) {
         spc.MarkPermutationsUsed(obj.phases);
       }
@@ -2201,8 +2208,8 @@ public class CIMImporter extends Object {
     out.println(DistXfmrCodeRating.szCSVHeader);
     for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
       DistXfmrCodeRating obj = pair.getValue();
-      DistXfmrCodeSCTest sct = mapCodeSCTests.get (obj.tname);
-      DistXfmrCodeNLTest oct = mapCodeNLTests.get (obj.tname);
+      DistXfmrCodeSCTest sct = mapCodeSCTests.get (obj.id);
+      DistXfmrCodeNLTest oct = mapCodeNLTests.get (obj.id);
       out.print (obj.GetCSV(sct, oct));
     }
     out.close();
@@ -2222,8 +2229,8 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String,DistPowerXfmrWinding> pair : mapXfmrWindings.entrySet()) {
       DistPowerXfmrWinding obj = pair.getValue();
       if (obj.glmUsed) {
-        DistPowerXfmrMesh mesh = mapXfmrMeshes.get(obj.name);
-        DistPowerXfmrCore core = mapXfmrCores.get (obj.name);
+        DistPowerXfmrMesh mesh = mapXfmrMeshes.get(obj.id);
+        DistPowerXfmrCore core = mapXfmrCores.get (obj.id);
         out.print (obj.GetCSV(mesh, core));
       }
     }
@@ -2424,7 +2431,7 @@ public class CIMImporter extends Object {
       CheckMaps();
       UpdateModelState(ms);
       ApplyCurrentLimits();
-      PrintAllMaps();
+      // PrintAllMaps();
       // PrintOneMap (mapCoordinates, "** XY COORDINATES");
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.dss";

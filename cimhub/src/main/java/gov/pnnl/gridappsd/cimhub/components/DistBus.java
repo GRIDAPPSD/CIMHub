@@ -8,16 +8,16 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistBus extends DistComponent {
-  public String busName;
-  public String safeName;
-  public String busID;
+  public String name;
+  public String exportName;
+  public String id;
 
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"mRID\":\"" + busID +"\"");
-    buf.append (",\"name\":\"" + busName +"\"");
-    buf.append (",\"safeName\":\"" + safeName + "\"");
+    buf.append ("{\"mRID\":\"" + id +"\"");
+    buf.append (",\"name\":\"" + name +"\"");
+    buf.append (",\"exportName\":\"" + exportName + "\"");
     buf.append("}");
     return buf.toString();
   }
@@ -25,20 +25,20 @@ public class DistBus extends DistComponent {
   public DistBus (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      busID = soln.get("?id").toString();
-      busName = soln.get("?name").toString();
-      safeName = SafeName(busName);
+      id = soln.get("?id").toString();
+      name = soln.get("?name").toString();
+      exportName = MakeExportName(name, id);
     }   
   }
 
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (busID + ":" + busName + ":" + safeName);
+    buf.append (id + ":" + name + ":" + exportName);
     return buf.toString();
   }
 
   public String GetKey() {
-    return busID;
+    return id;
   }
 }
 

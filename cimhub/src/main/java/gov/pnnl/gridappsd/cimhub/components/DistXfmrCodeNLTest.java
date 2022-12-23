@@ -7,6 +7,8 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistXfmrCodeNLTest extends DistComponent {
+  public static final String szCIMClass = "NoLoadTest";
+
   public String id;
   public double nll;
   public double iexc;
@@ -15,7 +17,7 @@ public class DistXfmrCodeNLTest extends DistComponent {
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"name\":\"" + id +"\"");
+    buf.append ("{\"id\":\"" + id +"\"");
     buf.append ("}");
     return buf.toString();
   }

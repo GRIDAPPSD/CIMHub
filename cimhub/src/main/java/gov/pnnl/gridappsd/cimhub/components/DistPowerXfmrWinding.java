@@ -8,10 +8,11 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistPowerXfmrWinding extends DistComponent {
+  public static final String szCIMClass = "PowerTransformerEnds";
+
   public String name;
   public String id;
   public String vgrp;
-  public String[] ename;
   public String[] eid;
   public String[] bus;
   public String[] t1id;
@@ -46,7 +47,6 @@ public class DistPowerXfmrWinding extends DistComponent {
     bus = new String[size];
     t1id = new String[size];
     conn = new String[size];
-    ename = new String[size];
     eid = new String[size];
     basev = new double[size];
     ratedU = new double[size];
@@ -62,13 +62,14 @@ public class DistPowerXfmrWinding extends DistComponent {
   public DistPowerXfmrWinding (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      id = soln.get("?pid").toString();
+      id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       vgrp = soln.get("?vgrp").toString();
       SetSize (map.get(id));
       glmUsed = true;
       for (int i = 0; i < size; i++) {
         eid[i] = soln.get("?eid").toString();
-        bus[i] = soln.get("?bus").toString();
+        bus[i] = GetBusExportName (soln.get("?bus").toString());
         t1id[i] = soln.get("?t1id").toString();
         basev[i] = Double.parseDouble (soln.get("?basev").toString());
         conn[i] = soln.get("?conn").toString();
@@ -99,8 +100,8 @@ public class DistPowerXfmrWinding extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt1 = map.get("PowerTransformer:" + name + ":1");
-    DistCoordinates pt2 = map.get("PowerTransformer:" + name + ":2");
+    DistCoordinates pt1 = map.get("PowerTransformer:" + id + ":1");
+    DistCoordinates pt2 = map.get("PowerTransformer:" + id + ":2");
     String bus1 = bus[0];
     String bus2 = bus[1];
 

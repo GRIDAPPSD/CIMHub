@@ -42,7 +42,7 @@ public class CIMPatching extends Object {
     for (HashMap.Entry<String,DistXfmrCodeSCTest> pair : mapCodeSCTests.entrySet()) {
       DistXfmrCodeSCTest obj = pair.getValue();
       if (obj.z[0] <= 0.0) {
-        DistXfmrCodeRating rat = mapCodeRatings.get (obj.tid);
+        DistXfmrCodeRating rat = mapCodeRatings.get (obj.id);
         for (int i = 0; i < obj.size; i++) {
           fwdg = obj.fwdg[i];
           twdg = obj.twdg[i];
@@ -71,7 +71,7 @@ public class CIMPatching extends Object {
               obj.ll[i] = 0.01 * 2.0 * sbase;
             }
           } else {
-            System.out.println ("*** Trying to patch the short-circuit tests on a transformer with more than 3 windings:" + obj.tid);
+            System.out.println ("*** Trying to patch the short-circuit tests on a transformer with more than 3 windings:" + obj.id);
           }
         }
       }
@@ -81,7 +81,7 @@ public class CIMPatching extends Object {
   public void FixTransformerKVA (HashMap<String,DistXfmrCodeRating> mapCodeRatings) {
     for (HashMap.Entry<String,DistXfmrCodeRating> pair : mapCodeRatings.entrySet()) {
       DistXfmrCodeRating obj = pair.getValue();
-      if (obj.tname.contains("kVA") && obj.ratedS[0] < 1501.0) { // TODO, tname used to be pname
+      if (obj.name.contains("kVA") && obj.ratedS[0] < 1501.0) { // TODO, tname used to be pname
         for (int i = 0; i < obj.size; i++) {
           obj.ratedS[i] *= 1000.0;
         }

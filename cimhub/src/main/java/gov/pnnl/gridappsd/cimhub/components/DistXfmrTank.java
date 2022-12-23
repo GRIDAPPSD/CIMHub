@@ -8,12 +8,14 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistXfmrTank extends DistComponent {
+  public static final String szCIMClass = "TransformerTanks";
+
   public String id;
+  public String name;
   public String pid;
   public String vgrp;
-  public String tname;
-  public String pname; // TODO
-  public String tankinfo; // TODO
+  public String pname;
+  public String tankinfo;
   public String infoid;
   public String[] bus;
   public String[] t1id;
@@ -57,16 +59,16 @@ public class DistXfmrTank extends DistComponent {
   public DistXfmrTank (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      pid = soln.get("?pid").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      pid = soln.get("?pid").toString();
       infoid = soln.get("?infoid").toString();
       vgrp = soln.get("?vgrp").toString();
-      tname = soln.get("?tname").toString();
       SetSize (map.get(id));
       glmUsed = true;
       for (int i = 0; i < size; i++) {
         eid[i] = soln.get("?eid").toString();
-        bus[i] = soln.get("?bus").toString();
+        bus[i] = GetBusExportName (soln.get("?bus").toString());
         t1id[i] = soln.get("?t1id").toString();
         basev[i] = Double.parseDouble (soln.get("?basev").toString());
         orderedPhases[i] = soln.get("?orderedPhases").toString();
@@ -81,9 +83,14 @@ public class DistXfmrTank extends DistComponent {
     }   
   }
 
+  public void PrepForExport() {
+    pname = GetEquipmentExportName (pid);
+    tankinfo = GetEquipmentExportName (infoid);
+  }
+
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append ("pname=" + pname + " vgrp=" + vgrp + " tname=" + tname + " tankinfo=" + tankinfo);
+    buf.append ("pname=" + pname + " vgrp=" + vgrp + " name=" + name + " tankinfo=" + tankinfo);
     for (int i = 0; i < size; i++) {
       buf.append ("\n  " + Integer.toString(wdg[i]) + " bus=" + bus[i] + " basev=" + df4.format(basev[i]) + " phs=" + orderedPhases[i]);
       buf.append (" grounded=" + Boolean.toString(grounded[i]) + " rg=" + df4.format(rg[i]) + " xg=" + df4.format(xg[i]));
@@ -146,7 +153,7 @@ public class DistXfmrTank extends DistComponent {
   }
 
   public String GetDSS() {
-    StringBuilder buf = new StringBuilder ("new Transformer." + tname + " bank=" + pname + " xfmrcode=" + tankinfo + "\n");
+    StringBuilder buf = new StringBuilder ("new Transformer." + name + " bank=" + pname + " xfmrcode=" + tankinfo + "\n");
 
     // winding ratings
     AppendDSSRatings (buf, normalCurrentLimit, emergencyCurrentLimit);
@@ -159,7 +166,7 @@ public class DistXfmrTank extends DistComponent {
   public static String szCSVHeader = "Name,Wdg1Bus,Phase,Wdg2Bus,Phase,Wdg3Bus,Phase,XfmrCode";
 
   public String GetCSV () {
-    StringBuilder buf = new StringBuilder (tname);
+    StringBuilder buf = new StringBuilder (name);
     for (int i = 0; i < size; i++) {
       buf.append ("," + bus[i] + "," + CSVPhaseString(orderedPhases[i]));
     }

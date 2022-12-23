@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistIEEE1547Used extends DistComponent {
+  public static final String szCIMClass = "DERIEEEType1";
+
   public String id;
   public String name;
   public boolean enabled;
@@ -92,8 +94,8 @@ public class DistIEEE1547Used extends DistComponent {
   public DistIEEE1547Used (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       pecid = soln.get("?pecid").toString();
       enabled = Boolean.parseBoolean (soln.get("?enabled").toString());
       cat = soln.get("?cat").toString();

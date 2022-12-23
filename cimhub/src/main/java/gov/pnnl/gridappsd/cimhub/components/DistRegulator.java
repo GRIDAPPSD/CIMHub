@@ -11,11 +11,17 @@ import gov.pnnl.gridappsd.cimhub.queryhandler.QueryHandler;
 import java.util.HashMap;
 
 public class DistRegulator extends DistComponent {
+  public static final String szCIMClass = "RatioTapChangers";
+
+  public String pid;
   public String pname;
   public String bankphases; // set of phases present for GridLAB-D
 
   public boolean hasTanks;
 
+  // key is the first RTC id; make export names for each id/name pair
+  public String[] name;
+  public String[] id;
   // GridLAB-D only supports different bank parameters for tap (step), R and X
   public int[] step;
   public double[] fwdR;
@@ -23,9 +29,8 @@ public class DistRegulator extends DistComponent {
   // GridLAB-D codes phs variations into certain attribute labels
   public String[] orderedPhases;
   // TODO: if any of these vary within the bank, should write separate single-phase instances for GridLAB-D
+  public String[] tid;
   public String[] tname;
-  public String[] rname;
-  public String[] id;
   public String[] monphs;
   public String[] ctlmode;
   public int[] wnum;
@@ -56,10 +61,6 @@ public class DistRegulator extends DistComponent {
 
   public double normalCurrentLimit = 0.0;
   public double emergencyCurrentLimit = 0.0;
-
-  public String pxfid;
-
-  private String key;
 
   private void AddJSONDoubleArray (StringBuilder buf, String tag, double[] vals) {
     buf.append (",\"" + tag + "\":[");
@@ -123,38 +124,38 @@ public class DistRegulator extends DistComponent {
     buf.append ("{\"bankName\":\"" + pname +"\"");
     buf.append (",\"size\":\"" + Integer.toString (size) +"\"");
     buf.append (",\"bankPhases\":\"" + bankphases +"\"");
-    AddJSONStringArray (buf, "tankName", tname);
-    AddJSONIntegerArray (buf, "endNumber", wnum);
-    AddJSONStringArray (buf, "endPhase", orderedPhases);
-    AddJSONStringArray (buf, "rtcName", rname);
-    AddJSONStringArray (buf, "mRID", id);
-    AddJSONStringArray (buf, "monitoredPhase", monphs);
-    AddJSONIntegerArray (buf, "highStep", highStep);
-    AddJSONIntegerArray (buf, "lowStep", lowStep);
-    AddJSONIntegerArray (buf, "neutralStep", neutralStep);
-    AddJSONIntegerArray (buf, "normalStep", normalStep);
-    AddJSONBooleanArray (buf, "TapChanger.controlEnabled", enabled);
-    AddJSONBooleanArray (buf, "lineDropCompensation", ldc);
-    AddJSONBooleanArray (buf, "ltcFlag", ltc);
-    AddJSONBooleanArray (buf, "RegulatingControl.enabled", ctl_enabled);
-    AddJSONBooleanArray (buf, "RegulatingControl.discrete", discrete); 
-    AddJSONStringArray (buf, "RegulatingControl.mode", ctlmode);
-    AddJSONIntegerArray (buf, "step", step);
-    AddJSONDoubleArray (buf, "targetValue", vset);
-    AddJSONDoubleArray (buf, "targetDeadband", vbw);
-    AddJSONDoubleArray (buf, "maxLmitVoltage", vlim);
-    AddJSONDoubleArray (buf, "minLimitVoltage", vmin);
-    AddJSONDoubleArray (buf, "stepVoltageIncrement", incr);
-    AddJSONDoubleArray (buf, "neutralU", neutralU);
-    AddJSONDoubleArray (buf, "initialDelay", initDelay); 
-    AddJSONDoubleArray (buf, "subsequentDelay", subDelay);
-    AddJSONDoubleArray (buf, "lineDropR", fwdR);
-    AddJSONDoubleArray (buf, "lineDropX", fwdX);
-    AddJSONDoubleArray (buf, "reverseLineDropR", revR);
-    AddJSONDoubleArray (buf, "reverseLineDropX", revX);
-    AddJSONDoubleArray (buf, "ctRating", ctRating);
-    AddJSONDoubleArray (buf, "ctRatio", ctRatio);
-    AddJSONDoubleArray (buf, "ptRatio", ptRatio);
+    AddJSONStringArray (buf, "tankNames", tname);
+    AddJSONIntegerArray (buf, "endNumbers", wnum);
+    AddJSONStringArray (buf, "endPhases", orderedPhases);
+    AddJSONStringArray (buf, "rtcNames", name);
+    AddJSONStringArray (buf, "mRIDs", id);
+    AddJSONStringArray (buf, "monitoredPhases", monphs);
+    AddJSONIntegerArray (buf, "highSteps", highStep);
+    AddJSONIntegerArray (buf, "lowSteps", lowStep);
+    AddJSONIntegerArray (buf, "neutralSteps", neutralStep);
+    AddJSONIntegerArray (buf, "normalSteps", normalStep);
+    AddJSONBooleanArray (buf, "TapChanger.controlEnableds", enabled);
+    AddJSONBooleanArray (buf, "lineDropCompensations", ldc);
+    AddJSONBooleanArray (buf, "ltcFlags", ltc);
+    AddJSONBooleanArray (buf, "RegulatingControl.enableds", ctl_enabled);
+    AddJSONBooleanArray (buf, "RegulatingControl.discretes", discrete); 
+    AddJSONStringArray (buf, "RegulatingControl.modes", ctlmode);
+    AddJSONIntegerArray (buf, "steps", step);
+    AddJSONDoubleArray (buf, "targetValues", vset);
+    AddJSONDoubleArray (buf, "targetDeadbands", vbw);
+    AddJSONDoubleArray (buf, "maxLimitVoltages", vlim);
+    AddJSONDoubleArray (buf, "minLimitVoltages", vmin);
+    AddJSONDoubleArray (buf, "stepVoltageIncrements", incr);
+    AddJSONDoubleArray (buf, "neutralUs", neutralU);
+    AddJSONDoubleArray (buf, "initialDelays", initDelay); 
+    AddJSONDoubleArray (buf, "subsequentDelays", subDelay);
+    AddJSONDoubleArray (buf, "lineDropRs", fwdR);
+    AddJSONDoubleArray (buf, "lineDropXs", fwdX);
+    AddJSONDoubleArray (buf, "reverseLineDropRs", revR);
+    AddJSONDoubleArray (buf, "reverseLineDropXs", revX);
+    AddJSONDoubleArray (buf, "ctRatings", ctRating);
+    AddJSONDoubleArray (buf, "ctRatios", ctRatio);
+    AddJSONDoubleArray (buf, "ptRatios", ptRatio);
     buf.append ("}");
     return buf.toString();
   }
@@ -164,7 +165,7 @@ public class DistRegulator extends DistComponent {
     hasTanks = false;
     String szCount = "SELECT (count (?tank) as ?count) WHERE {"+
       " ?tank c:TransformerTank.PowerTransformer ?pxf."+
-      " ?pxf c:IdentifiedObject.mRID \"" + pxfid + "\"."+
+      " ?pxf c:IdentifiedObject.mRID \"" + pid + "\"."+
       "}";
     ResultSet results = queryHandler.query (szCount, "XF count for regulator sizing");
     if (results.hasNext()) {
@@ -175,10 +176,11 @@ public class DistRegulator extends DistComponent {
         size = nTanks;
       }
     }
-    orderedPhases = new String[size];
-    rname = new String[size];
-    tname = new String[size];
     id = new String[size];
+    name = new String[size];
+    tid = new String[size];
+    tname = new String[size];
+    orderedPhases = new String[size];
     monphs = new String[size];
     ctlmode = new String[size];
     wnum = new int[size];
@@ -212,60 +214,68 @@ public class DistRegulator extends DistComponent {
   public DistRegulator (ResultSet results, QueryHandler queryHandler) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      pname = soln.get("?pname").toString();
-      pxfid = soln.get("?pxfid").toString();
+      pid = soln.get("?pid").toString();
       SetSize (queryHandler);
       for (int i = 0; i < size; i++) {
-      id[i] = soln.get("?id").toString();
-      rname[i] = soln.get("?rname").toString();
-      if (hasTanks) {
-        tname[i] = soln.get("?tname").toString();
-        orderedPhases[i] = soln.get("?orderedPhases").toString();
-      } else {
-        tname[i] = "";
-        orderedPhases[i] = "ABC";
-      }
-      wnum[i] = Integer.parseInt (soln.get("?wnum").toString());
-      highStep[i] = Integer.parseInt (soln.get("?highStep").toString());
-      lowStep[i] = Integer.parseInt (soln.get("?lowStep").toString());
-      neutralStep[i] = Integer.parseInt (soln.get("?neutralStep").toString());
-      normalStep[i] = Integer.parseInt (soln.get("?normalStep").toString());
-      enabled[i] = Boolean.parseBoolean (soln.get("?enabled").toString());
-      ltc[i] = Boolean.parseBoolean (soln.get("?ltc").toString());
-      incr[i] = Double.parseDouble (soln.get("?incr").toString());
-      neutralU[i] = Double.parseDouble (soln.get("?neutralU").toString());
-      step[i] = Integer.parseInt (soln.get("?step").toString());
+        id[i] = soln.get("?id").toString();
+        name[i] = PushExportName (soln.get("?name").toString(), id[i], szCIMClass);
+        if (hasTanks) {
+          tid[i] = soln.get("?tid").toString();
+          orderedPhases[i] = soln.get("?orderedPhases").toString();
+        } else {
+          tid[i] = "";
+          tname[i] = "";
+          orderedPhases[i] = "ABC";
+        }
+        wnum[i] = Integer.parseInt (soln.get("?wnum").toString());
+        highStep[i] = Integer.parseInt (soln.get("?highStep").toString());
+        lowStep[i] = Integer.parseInt (soln.get("?lowStep").toString());
+        neutralStep[i] = Integer.parseInt (soln.get("?neutralStep").toString());
+        normalStep[i] = Integer.parseInt (soln.get("?normalStep").toString());
+        enabled[i] = Boolean.parseBoolean (soln.get("?enabled").toString());
+        ltc[i] = Boolean.parseBoolean (soln.get("?ltc").toString());
+        incr[i] = Double.parseDouble (soln.get("?incr").toString());
+        neutralU[i] = Double.parseDouble (soln.get("?neutralU").toString());
+        step[i] = Integer.parseInt (soln.get("?step").toString());
 
-      ctl_enabled[i] = OptionalBoolean (soln, "?ctl_enabled", false);
-      discrete[i] = OptionalBoolean (soln, "?discrete", false);
-      ldc[i] = OptionalBoolean (soln, "?ldc", false);
-      monphs[i] = OptionalString (soln, "?monphs", "");
-      ctlmode[i] = OptionalString (soln, "?ctlmode", "");
-      initDelay[i] = OptionalDouble (soln, "?initDelay", 0.0);
-      subDelay[i] = OptionalDouble (soln, "?subDelay", 0.0);
-      vlim[i] = OptionalDouble (soln, "?vlim", 0.0);
-      vmin[i] = OptionalDouble (soln, "?vmin", 0.0);
-      vset[i] = OptionalDouble (soln, "?vset", 0.0);
-      vbw[i] = OptionalDouble (soln, "?vbw", 0.0);
-      fwdR[i] = OptionalDouble (soln, "?fwdR", 0.0);
-      fwdX[i] = OptionalDouble (soln, "?fwdX", 0.0);
-      revR[i] = OptionalDouble (soln, "?revR", 0.0);
-      revX[i] = OptionalDouble (soln, "?revX", 0.0);
-      ctRating[i] = OptionalDouble (soln, "?ctRating", 0.0);
-      ctRatio[i] = OptionalDouble (soln, "?ctRatio", 0.0);
-      ptRatio[i] = OptionalDouble (soln, "?ptRatio", 1.0); // if left at 0, GridLAB-D will use that value, and OpenDSS defaults to 60
-      if ((i + 1) < size) {
-        soln = results.next();
-      }
+        ctl_enabled[i] = OptionalBoolean (soln, "?ctl_enabled", false);
+        discrete[i] = OptionalBoolean (soln, "?discrete", false);
+        ldc[i] = OptionalBoolean (soln, "?ldc", false);
+        monphs[i] = OptionalString (soln, "?monphs", "");
+        ctlmode[i] = OptionalString (soln, "?ctlmode", "");
+        initDelay[i] = OptionalDouble (soln, "?initDelay", 0.0);
+        subDelay[i] = OptionalDouble (soln, "?subDelay", 0.0);
+        vlim[i] = OptionalDouble (soln, "?vlim", 0.0);
+        vmin[i] = OptionalDouble (soln, "?vmin", 0.0);
+        vset[i] = OptionalDouble (soln, "?vset", 0.0);
+        vbw[i] = OptionalDouble (soln, "?vbw", 0.0);
+        fwdR[i] = OptionalDouble (soln, "?fwdR", 0.0);
+        fwdX[i] = OptionalDouble (soln, "?fwdX", 0.0);
+        revR[i] = OptionalDouble (soln, "?revR", 0.0);
+        revX[i] = OptionalDouble (soln, "?revX", 0.0);
+        ctRating[i] = OptionalDouble (soln, "?ctRating", 0.0);
+        ctRatio[i] = OptionalDouble (soln, "?ctRatio", 0.0);
+        ptRatio[i] = OptionalDouble (soln, "?ptRatio", 1.0); // if left at 0, GridLAB-D will use that value, and OpenDSS defaults to 60
+        if ((i + 1) < size) {
+          soln = results.next();
+        }
       }
       StringBuilder buf = new StringBuilder ();
       for (int i = 0; i < size; i++) {
-      buf.append (orderedPhases[i].replace("N","").replace("s", "").replace("1","").replace("2",""));
+        buf.append (orderedPhases[i].replace("N","").replace("s", "").replace("1","").replace("2",""));
       }
       bankphases = buf.toString();
-      key = pname + ":" + Integer.toString(wnum[0]);
     }
 //    System.out.println (DisplayString());
+  }
+
+  public void PrepForExport() {
+    pname = GetEquipmentExportName (pid);
+    if (hasTanks) {
+      for (int i = 0; i < size; i++) {
+        tname[i] = GetEquipmentExportName (tid[i]);
+      }
+    }
   }
 
   public String DisplayString() {
@@ -273,7 +283,7 @@ public class DistRegulator extends DistComponent {
     buf.append (pname + " bankphases=" + bankphases);
     for (int i = 0; i < size; i++) {
       buf.append ("\n  " + Integer.toString(i));
-      buf.append (" " + Integer.toString(wnum[i]) + ":" +rname[i] + ":" + orderedPhases[i]);
+      buf.append (" " + Integer.toString(wnum[i]) + ":" +name[i] + ":" + orderedPhases[i]);
       buf.append (" tank=" + tname[i]);
       buf.append (" ctlmode=" + ctlmode[i]);
       buf.append (" monphs=" + monphs[i]);
@@ -309,8 +319,8 @@ public class DistRegulator extends DistComponent {
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map, 
                  HashMap<String,DistXfmrTank> mapTank,
                  HashMap<String,DistPowerXfmrWinding> mapXfmr) {
-    DistCoordinates pt1 = map.get("PowerTransformer:" + pname + ":1");
-    DistCoordinates pt2 = map.get("PowerTransformer:" + pname + ":2");
+    DistCoordinates pt1 = map.get("PowerTransformer:" + pid + ":1");
+    DistCoordinates pt2 = map.get("PowerTransformer:" + pid + ":2");
     if (pt2 == null) {
       pt2 = pt1;
     } else if (pt1 == null) {
@@ -318,11 +328,11 @@ public class DistRegulator extends DistComponent {
     }
     String bus1, bus2;
     if (hasTanks) {
-      DistXfmrTank tank = mapTank.get(tname[0]);
+      DistXfmrTank tank = mapTank.get(tid[0]);
       bus1 = tank.bus[0];
       bus2 = tank.bus[1];
     } else {
-      DistPowerXfmrWinding xfmr = mapXfmr.get(pname);
+      DistPowerXfmrWinding xfmr = mapXfmr.get(pid);
       bus1 = xfmr.bus[0];
       bus2 = xfmr.bus[1];
     }
@@ -442,7 +452,7 @@ public class DistRegulator extends DistComponent {
       } else {
         xfName = pname;
       }
-      buf.append("new RegControl." + rname[i] + " transformer=" + xfName + " winding=" + Integer.toString(wnum[i]) +
+      buf.append("new RegControl." + name[i] + " transformer=" + xfName + " winding=" + Integer.toString(wnum[i]) +
            " TapNum=" + Integer.toString(step[i]));
       if (ltc[i]) {
         if (vset[i] > 0.0) buf.append(" vreg=" + df2.format(vset[i]));
@@ -472,7 +482,7 @@ public class DistRegulator extends DistComponent {
   public String GetCSV (String bus1, String phs1, String bus2, String phs2) {
     StringBuilder buf = new StringBuilder ("");
     for (int i = 0; i < size; i++) {
-      buf.append(rname[i] + "," + bus1 + "," + phs1 + "," + bus2 + "," + phs2 + ",");
+      buf.append(name[i] + "," + bus1 + "," + phs1 + "," + bus2 + "," + phs2 + ",");
       buf.append(df2.format(vset[i]) + "," + df2.format(ptRatio[i]) + "," + df2.format(ctRating[i]) + "," + df2.format(ctRatio[i]) + ",");
       buf.append(df2.format(vbw[i]) + "," + df2.format(fwdR[i])  + "," + df2.format(fwdX[i]) + ",");
       buf.append(df2.format(revR[i]) + "," + df2.format(revX[i]) + "," + Integer.toString(step[i]) + ",");
@@ -487,7 +497,7 @@ public class DistRegulator extends DistComponent {
   }
 
   public String GetKey() {
-    return key;
+    return id[0];
   }
 }
 

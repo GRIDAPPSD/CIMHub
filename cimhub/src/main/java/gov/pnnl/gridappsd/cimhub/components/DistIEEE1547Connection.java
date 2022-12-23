@@ -13,6 +13,8 @@ import gov.pnnl.gridappsd.cimhub.components.DistSolar;
 import gov.pnnl.gridappsd.cimhub.components.DistStorage;
 
 public class DistIEEE1547Connection extends DistComponent {
+  public static final String szCIMClass = "DERIEEEType1";
+
   public String id;
   public String name;
   public String pids;
@@ -28,8 +30,8 @@ public class DistIEEE1547Connection extends DistComponent {
   public DistIEEE1547Connection (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       pids = soln.get("?pids").toString();
       pids = pids.replace ('\n', ':');
     }   

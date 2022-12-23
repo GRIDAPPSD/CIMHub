@@ -7,6 +7,8 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistLoad extends DistComponent {
+  public static final String szCIMClass = "EnergyConsumer";
+
   public String id;
   public String name;
   public String bus;
@@ -42,9 +44,9 @@ public class DistLoad extends DistComponent {
   public DistLoad (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus = soln.get("?bus").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      bus = GetBusExportName (soln.get("?bus").toString());
       t1id = soln.get("?t1id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       phases = OptionalString (soln, "?phases", "ABC");

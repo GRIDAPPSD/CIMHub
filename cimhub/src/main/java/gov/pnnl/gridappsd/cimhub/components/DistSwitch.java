@@ -51,13 +51,13 @@ public class DistSwitch extends DistComponent {
   public DistSwitch (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, CIMClass());
+      bus1 = GetBusExportName (soln.get("?bus1").toString());
+      bus2 = GetBusExportName (soln.get("?bus2").toString());
       basev = Double.parseDouble (soln.get("?basev").toString());
       rated = OptionalDouble (soln, "?rated", 0.0);
       breaking = OptionalDouble (soln, "?breaking", 0.0);
-      bus1 = soln.get("?bus1").toString(); 
-      bus2 = soln.get("?bus2").toString(); 
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
       phases = OptionalString (soln, "?phases", "ABC");
@@ -111,8 +111,8 @@ public class DistSwitch extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt1 = map.get(CIMClass() + ":" + name + ":1");
-    DistCoordinates pt2 = map.get(CIMClass() + ":" + name + ":2");
+    DistCoordinates pt1 = map.get(CIMClass() + ":" + id + ":1");
+    DistCoordinates pt2 = map.get(CIMClass() + ":" + id + ":2");
     if (pt2 == null) {
       pt2 = pt1;
     } else if (pt1 == null) {

@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistSubstation extends DistComponent {
+  public static final String szCIMClass = "EnergySource";
+
   public String id;
   public String name;
   public String fdrname;
@@ -34,10 +36,10 @@ public class DistSubstation extends DistComponent {
   public DistSubstation (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
-      fdrname = soln.get("?fdrname").toString();
       id = soln.get("?id").toString();
-      bus = soln.get("?bus").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      bus = GetBusExportName (soln.get("?bus").toString());
+      fdrname = soln.get("?fdrname").toString();
       t1id = soln.get("?t1id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       nomv = Double.parseDouble (soln.get("?nomv").toString());
@@ -63,7 +65,7 @@ public class DistSubstation extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt = map.get("EnergySource:" + name + ":1");
+    DistCoordinates pt = map.get("EnergySource:" + id + ":1");
 
     StringBuilder buf = new StringBuilder ();
 

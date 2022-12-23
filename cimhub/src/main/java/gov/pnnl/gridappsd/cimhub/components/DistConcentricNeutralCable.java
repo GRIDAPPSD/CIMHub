@@ -7,6 +7,8 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistConcentricNeutralCable extends DistCable {
+  public static final String szCIMClass = "ConcentricNeutralCableInfo";
+
   public double dneut;
   public int strand_cnt; 
   public double strand_gmr;
@@ -25,8 +27,8 @@ public class DistConcentricNeutralCable extends DistCable {
   public DistConcentricNeutralCable (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       rad = Double.parseDouble (soln.get("?rad").toString());
       gmr = Double.parseDouble (soln.get("?gmr").toString());
       rdc = OptionalDouble (soln, "?rdc", 0.0);

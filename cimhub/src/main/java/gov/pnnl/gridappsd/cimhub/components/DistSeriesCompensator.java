@@ -9,6 +9,8 @@ import org.apache.commons.math3.complex.Complex;
 import java.util.HashMap;
 
 public class DistSeriesCompensator extends DistComponent {
+  public static final String szCIMClass = "SeriesCompensator";
+
   public String id;
   public String name;
   public String bus1;
@@ -37,12 +39,12 @@ public class DistSeriesCompensator extends DistComponent {
   public DistSeriesCompensator (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      bus1 = GetBusExportName (soln.get("?bus1").toString());
+      bus2 = GetBusExportName (soln.get("?bus2").toString());
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
-      bus1 = soln.get("?bus1").toString(); 
-      bus2 = soln.get("?bus2").toString(); 
       phases = "ABC";
       basev = Double.parseDouble (soln.get("?basev").toString());
       r1 = Double.parseDouble (soln.get("?r").toString());
@@ -90,8 +92,8 @@ public class DistSeriesCompensator extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt1 = map.get("SeriesCompensator:" + name + ":1");
-    DistCoordinates pt2 = map.get("SeriesCompensator:" + name + ":2");
+    DistCoordinates pt1 = map.get("SeriesCompensator:" + id + ":1");
+    DistCoordinates pt2 = map.get("SeriesCompensator:" + id + ":2");
 
     StringBuilder buf = new StringBuilder ();
 

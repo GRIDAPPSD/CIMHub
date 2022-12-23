@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistMeasurement extends DistComponent {
+  public static final String szCIMClass = "Measurement";
+
   public String id;
   public String eqid;
   public String trmid;
@@ -24,19 +26,22 @@ public class DistMeasurement extends DistComponent {
   public DistMeasurement (ResultSet results, boolean useHouses) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
-      eqname = soln.get("?eqname").toString();
+      id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       eqtype = soln.get("?eqtype").toString();
       measType = soln.get("?type").toString();
       measClass = soln.get("?class").toString();
-      id = soln.get("?id").toString();
       eqid = soln.get("?eqid").toString();
       trmid = soln.get("?trmid").toString();
-      bus = soln.get("?bus").toString();
+      bus = GetBusExportName (soln.get("?bus").toString());
       phases = OptionalString (soln, "?phases", "ABC");
     }
     this.useHouses = useHouses;
   //  System.out.println (DisplayString());
+  }
+
+  public void PrepForExport() {
+    eqname = GetEquipmentExportName (eqid);
   }
 
   public String GetGldLoadName () {

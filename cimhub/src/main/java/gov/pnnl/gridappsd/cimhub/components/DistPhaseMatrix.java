@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import org.apache.commons.math3.complex.Complex;
 
 public class DistPhaseMatrix extends DistComponent {
+  public static final String szCIMClass = "PerLengthPhaseImpedance";
+
   public String id;
   public String name;
   public int cnt; 
@@ -96,8 +98,8 @@ public class DistPhaseMatrix extends DistComponent {
       int row = Integer.parseInt (soln.get("?row").toString());
       int col = Integer.parseInt (soln.get("?col").toString());
       if (size == 0) {
-        name = soln.get("?name").toString();
         id = soln.get("?id").toString();
+        name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
         cnt = Integer.parseInt (soln.get("?cnt").toString());
         SetMatSize();
         r = new double[size];
@@ -128,7 +130,7 @@ public class DistPhaseMatrix extends DistComponent {
         int seq = GetMatSeq (i, j);
         buf.append ("\n  " + Integer.toString(seq) + 
                   " [" + Integer.toString(i) + "," + Integer.toString(j) +"]" +
-                  " r=" + df4.format(r[seq]) + " x=" + df4.format(x[seq]) + " b=" + df4.format(b[seq]));
+                  " r=" + df6.format(r[seq]) + " x=" + df6.format(x[seq]) + " b=" + df9.format(b[seq]));
       }
     }
     return buf.toString();

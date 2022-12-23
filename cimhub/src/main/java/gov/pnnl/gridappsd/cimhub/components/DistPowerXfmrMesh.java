@@ -8,7 +8,9 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistPowerXfmrMesh extends DistComponent {
-  public String name;
+  public static final String szCIMClass = "TransformerMeshImpedances";
+
+  public String pid;
   public int[] fwdg;
   public int[] twdg;
   public double[] r;
@@ -26,7 +28,7 @@ public class DistPowerXfmrMesh extends DistComponent {
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"name\":\"" + name +"\"");
+    buf.append ("{\"pid\":\"" + pid +"\"");
     buf.append ("}");
     return buf.toString();
   }
@@ -34,8 +36,7 @@ public class DistPowerXfmrMesh extends DistComponent {
   public DistPowerXfmrMesh (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      String pid = soln.get("?pid").toString();
-      name = SafeName (pid);
+      pid = soln.get("?pid").toString();
       SetSize (map.get(pid));
       for (int i = 0; i < size; i++) {
         fwdg[i] = Integer.parseInt (soln.get("?fnum").toString());
@@ -51,7 +52,7 @@ public class DistPowerXfmrMesh extends DistComponent {
 
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (name + " " + Integer.toString(size));
+    buf.append (pid + " " + Integer.toString(size));
     for (int i = 0; i < size; i++) {
       buf.append ("\n  fwdg=" + Integer.toString(fwdg[i]) + " twdg=" + Integer.toString(twdg[i]) +
                   " r=" + df6.format(r[i]) + " x=" + df6.format(x[i]));
@@ -60,7 +61,7 @@ public class DistPowerXfmrMesh extends DistComponent {
   }
 
   public String GetKey() {
-    return name; // id;
+    return pid;
   }
 }
 

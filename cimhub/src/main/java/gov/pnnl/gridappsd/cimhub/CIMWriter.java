@@ -522,7 +522,7 @@ public class CIMWriter extends Object {
         objID = ShortenUUID (obj.id);
         StartInstance ("TransformerBank", objID, out);
         StringNode ("IdentifiedObject.mRID", objID, out);
-        StringNode ("IdentifiedObject.name", obj.pname, out);
+        StringNode ("IdentifiedObject.name", obj.name, out);
         RefNode ("Equipment.EquipmentContainer", fdrID, out);
         RefNode ("PowerSystemResource.GeoLocation", mapLocations.get (objID), out);
         StringNode ("TransformerBank.vectorGroup", obj.vgrp, out);
@@ -532,7 +532,7 @@ public class CIMWriter extends Object {
           RefNode("PowerSystemResource.PSRType", miscXfid, out);
         }
         EndInstance ("TransformerBank", out);
-        mapBanks.put (obj.pname, objID);
+        mapBanks.put (obj.name, objID);
       }
       for (HashMap.Entry<String,DistXfmrTank> pair : mdl.mapTanks.entrySet()) {
         DistXfmrTank obj = pair.getValue();
@@ -540,7 +540,7 @@ public class CIMWriter extends Object {
         infID = ShortenUUID (obj.infoid);
         StartInstance ("DistributionTransformer", objID, out);
         StringNode ("IdentifiedObject.mRID", objID, out);
-        StringNode ("IdentifiedObject.name", obj.tname, out);
+        StringNode ("IdentifiedObject.name", obj.name, out);
         RefNode ("Equipment.EquipmentContainer", fdrID, out);
         RefNode ("PowerSystemResource.GeoLocation", mapLocations.get (objID), out);
         RefNode ("DistributionTransformer.TransformerBank", mapBanks.get (obj.pname), out);

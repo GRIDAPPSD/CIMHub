@@ -8,40 +8,37 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistEquipment extends DistComponent {
-  public String eqName;
-  public String safeName;
-  public String eqID;
+  public String name;
+  public String id;
+  public String exportName;
   public String eqClass;
 
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"mRID\":\"" + eqID +"\"");
+    buf.append ("{\"mRID\":\"" + id +"\"");
     buf.append (",\"class\":\"" + eqClass +"\"");
-    buf.append (",\"name\":\"" + eqName +"\"");
-    buf.append (",\"safeName\":\"" + safeName + "\"");
+    buf.append (",\"name\":\"" + name +"\"");
+    buf.append (",\"exportName\":\"" + exportName + "\"");
     buf.append("}");
     return buf.toString();
   }
 
-  public DistEquipment (ResultSet results) {
-    if (results.hasNext()) {
-      QuerySolution soln = results.next();
-      eqID = soln.get("?id").toString();
-      eqName = soln.get("?name").toString();
-      eqClass = soln.get("?cimclass").toString();
-      safeName = SafeName(eqName);
-    }   
+  public DistEquipment (String name, String id, String exportName, String eqClass) {
+    this.name = name;
+    this.id = id;
+    this.eqClass = eqClass;
+    this.exportName = exportName;
   }
 
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (eqID + ":" + eqClass + ":" + eqName + ":" + safeName);
+    buf.append (id + ":" + eqClass + ":" + name + ":" + exportName);
     return buf.toString();
   }
 
   public String GetKey() {
-    return eqID;
+    return id;
   }
 }
 

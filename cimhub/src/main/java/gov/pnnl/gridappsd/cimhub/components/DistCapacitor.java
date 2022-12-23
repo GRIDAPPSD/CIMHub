@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistCapacitor extends DistComponent {
+  public static final String szCIMClass = "LinearShuntCompensator";
+
   public String id;
   public String name;
   public String bus;
@@ -125,9 +127,9 @@ public class DistCapacitor extends DistComponent {
   public DistCapacitor (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus = soln.get("?bus").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      bus = GetBusExportName (soln.get("?bus").toString());
       t1id = soln.get("?t1id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       phs = OptionalString (soln, "?phases", "ABC");
@@ -139,16 +141,22 @@ public class DistCapacitor extends DistComponent {
       kvar = nomu * nomu * bsection / 1000.0;
       sections_on = Double.parseDouble (soln.get("?sections").toString());
       if (ctrl.equals ("true")) {
-      mode = soln.get("?mode").toString();
-      setpoint = Double.parseDouble (soln.get("?setpoint").toString());
-      deadband = Double.parseDouble (soln.get("?deadband").toString());
-      delay = Double.parseDouble (soln.get("?delay").toString());
-      moneq = soln.get("?moneq").toString();
-      monclass = soln.get("?monclass").toString();
-      monbus = soln.get("?monbus").toString();
-      monphs = soln.get("?monphs").toString();
+        mode = soln.get("?mode").toString();
+        setpoint = Double.parseDouble (soln.get("?setpoint").toString());
+        deadband = Double.parseDouble (soln.get("?deadband").toString());
+        delay = Double.parseDouble (soln.get("?delay").toString());
+        moneq = soln.get("?moneq").toString();
+        monclass = soln.get("?monclass").toString();
+        monbus = GetBusExportName (soln.get("?monbus").toString());
+        monphs = soln.get("?monphs").toString();
       }
       SetDerivedParameters();
+    }
+  }
+
+  public void PrepForExport() {
+    if (ctrl.equals("true")) {
+      moneq = GetEquipmentExportName (moneq);
     }
   }
 
@@ -164,7 +172,7 @@ public class DistCapacitor extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt = map.get("LinearShuntCompensator:" + name + ":1");
+    DistCoordinates pt = map.get("LinearShuntCompensator:" + id + ":1");
 
     StringBuilder buf = new StringBuilder ();
 

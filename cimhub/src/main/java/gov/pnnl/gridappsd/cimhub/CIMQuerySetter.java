@@ -46,16 +46,6 @@ public class CIMQuerySetter extends Object {
       " ?bus c:IdentifiedObject.mRID ?id."+
       "} ORDER by ?name");
 
-    mapQueries.put ("DistEquipment",
-      "SELECT DISTINCT ?id ?cimclass ?name WHERE {"+
-      " ?fdr c:IdentifiedObject.mRID ?fdrid."+
-      " ?eq c:Equipment.EquipmentContainer ?fdr."+
-      " ?eq a ?classraw."+
-      "   bind(strafter(str(?classraw),\"CIM100#\") as ?cimclass)"+
-      " ?eq c:IdentifiedObject.name ?name."+
-      " ?eq c:IdentifiedObject.mRID ?id."+
-      "} ORDER by ?cimclass ?name");
-
     mapQueries.put ("DistBaseVoltage",
       "SELECT DISTINCT ?vnom WHERE {"+      
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
@@ -152,17 +142,15 @@ public class CIMQuerySetter extends Object {
       "} ORDER BY ?name");
 
     mapQueries.put ("DistCoordinates",
-      "SELECT ?class ?name ?seq ?x ?y ?id WHERE {"+
+      "SELECT ?class ?id ?seq ?x ?y WHERE {"+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?eq c:PowerSystemResource.Location ?loc."+
-      " { ?eq c:IdentifiedObject.name ?name."+
-      "   ?eq c:IdentifiedObject.mRID ?id."+
+      " { ?eq c:IdentifiedObject.mRID ?id."+
       "   ?eq a ?classraw."+
       "   bind(strafter(str(?classraw),\"CIM100#\") as ?class)}"+
       "  UNION"+
       " { ?eq c:PowerElectronicsConnection.PowerElectronicsUnit ?unit."+
-      "   ?unit c:IdentifiedObject.name ?name."+
       "   ?unit c:IdentifiedObject.mRID ?id."+
       "   ?unit a ?classraw."+
       "   bind(strafter(str(?classraw),\"CIM100#\") as ?class)}"+
@@ -175,7 +163,7 @@ public class CIMQuerySetter extends Object {
       " FILTER (!regex(?class, \"Tank\"))."+
       " FILTER (!regex(?class, \"RegulatingControl\"))."+
       "}"+
-      " ORDER BY ?class ?name ?seq ?x ?y");
+      " ORDER BY ?class ?id ?seq ?x ?y");
 
     mapQueries.put ("DistFeeder",
        "SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {"+
@@ -515,12 +503,13 @@ public class CIMQuerySetter extends Object {
       "} ORDER BY ?pid ?fnum ?tnum");
 
     mapQueries.put ("DistPowerXfmrWinding",
-      "SELECT ?pid ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id ?eid WHERE {"+
+      "SELECT ?name ?id ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id ?eid WHERE {"+
       " ?p r:type c:PowerTransformer."+
       " ?p c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?p c:PowerTransformer.vectorGroup ?vgrp."+
-      " ?p c:IdentifiedObject.mRID ?pid."+
+      " ?p c:IdentifiedObject.mRID ?id."+
+      " ?p c:IdentifiedObject.mRID ?name."+
       " ?end c:PowerTransformerEnd.PowerTransformer ?p."+
       " ?end c:TransformerEnd.endNumber ?enum."+
       " ?end c:PowerTransformerEnd.ratedS ?ratedS."+
@@ -540,18 +529,18 @@ public class CIMQuerySetter extends Object {
       " ?end c:TransformerEnd.BaseVoltage ?bv."+
       " ?bv c:BaseVoltage.nominalVoltage ?basev"+
       "}"+
-      " ORDER BY ?pid ?enum");
+      " ORDER BY ?name ?id ?enum");
 
     mapQueries.put ("DistRegulatorPrefix",
-      "SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep"+
+      "SELECT ?name ?id ?pid ?tid ?wnum ?orderedPhases ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep"+
       " ?normalStep ?neutralU ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin"+
       " ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode"+
-      " ?monphs ?ctRating ?ctRatio ?ptRatio ?id ?fdrid ?pxfid ?tankid"+
+      " ?monphs ?ctRating ?ctRatio ?ptRatio ?fdrid"+
       " WHERE {"+
       " ?pxf c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?rtc r:type c:RatioTapChanger."+
-      " ?rtc c:IdentifiedObject.name ?rname."+
+      " ?rtc c:IdentifiedObject.name ?name."+
       " ?rtc c:RatioTapChanger.TransformerEnd ?end."+
       " ?end c:TransformerEnd.endNumber ?wnum.");
 
@@ -560,15 +549,13 @@ public class CIMQuerySetter extends Object {
 
     mapQueries.put ("DistRegulatorTanked",
       " ?end c:TransformerTankEnd.TransformerTank ?tank."+
-      " ?tank c:IdentifiedObject.name ?tname."+
-      " ?tank c:IdentifiedObject.mRID ?tankid."+
+      " ?tank c:IdentifiedObject.mRID ?tid."+
       "  OPTIONAL {?end c:TransformerTankEnd.orderedPhases ?phsraw."+
       "  bind(strafter(str(?phsraw),\"OrderedPhaseCodeKind.\") as ?orderedPhases)}"+
       " ?tank c:TransformerTank.PowerTransformer ?pxf.");
 
     mapQueries.put ("DistRegulatorSuffix",
-      " ?pxf c:IdentifiedObject.name ?pname."+
-      " ?pxf c:IdentifiedObject.mRID ?pxfid."+
+      " ?pxf c:IdentifiedObject.mRID ?pid."+
       " ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr."+
       " ?rtc c:TapChanger.controlEnabled ?enabled."+
       " ?rtc c:TapChanger.highStep ?highStep."+
@@ -601,7 +588,7 @@ public class CIMQuerySetter extends Object {
       " ?ctl c:RegulatingControl.targetValue ?vset.}"+
       " ?rtc c:IdentifiedObject.mRID ?id."+
       "}"+
-      " ORDER BY ?pname ?rname ?tname ?wnum");
+      " ORDER BY ?pid ?id ?tid ?wnum");
 
     mapQueries.put ("DistSequenceMatrix",
       "SELECT DISTINCT ?name ?r1 ?x1 ?b1 ?r0 ?x0 ?b0 ?id WHERE {"+
@@ -942,16 +929,16 @@ public class CIMQuerySetter extends Object {
       "ORDER BY ?name");
 
     mapQueries.put ("DistXfmrBank",
-      "SELECT ?pname ?id ?vgrp ?tid ?fdrid WHERE {"+
+      "SELECT ?name ?id ?vgrp ?tid ?fdrid WHERE {"+
       " ?p r:type c:PowerTransformer."+
       " ?p c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
-      " ?p c:IdentifiedObject.name ?pname."+
+      " ?p c:IdentifiedObject.name ?name."+
       " ?p c:IdentifiedObject.mRID ?id."+
       " ?p c:PowerTransformer.vectorGroup ?vgrp."+
       " ?t c:TransformerTank.PowerTransformer ?p."+
       " ?t c:IdentifiedObject.mRID ?tid"+
-      "} ORDER BY ?pname");
+      "} ORDER BY ?name");
 
     mapQueries.put ("DistXfmrCodeNLTest",
       "SELECT DISTINCT ?tid ?nll ?iexc ?base WHERE {"+
@@ -968,14 +955,15 @@ public class CIMQuerySetter extends Object {
       "} ORDER BY ?tid");
 
     mapQueries.put ("DistXfmrCodeRating",
-      "SELECT DISTINCT ?tid ?enum ?ratedS ?ratedU ?conn ?ang ?res ?eid WHERE {"+
+      "SELECT DISTINCT ?id ?name ?enum ?ratedS ?ratedU ?conn ?ang ?res ?eid WHERE {"+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?xft c:TransformerTank.PowerTransformer ?eq."+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
       " ?xft c:TransformerTank.TransformerTankInfo ?t."+
       " ?e c:TransformerEndInfo.TransformerTankInfo ?t."+
       " ?e c:IdentifiedObject.mRID ?eid."+
-      " ?t c:IdentifiedObject.mRID ?tid."+
+      " ?t c:IdentifiedObject.mRID ?id."+
+      " ?t c:IdentifiedObject.name ?name."+
       " ?e c:TransformerEndInfo.endNumber ?enum."+
       " ?e c:TransformerEndInfo.ratedS ?ratedS."+
       " ?e c:TransformerEndInfo.ratedU ?ratedU."+
@@ -983,7 +971,7 @@ public class CIMQuerySetter extends Object {
       " ?e c:TransformerEndInfo.phaseAngleClock ?ang."+
       " ?e c:TransformerEndInfo.connectionKind ?connraw."+
       "         bind(strafter(str(?connraw),\"WindingConnection.\") as ?conn)"+
-      "} ORDER BY ?tid ?enum");
+      "} ORDER BY ?id ?enum");
 
     mapQueries.put ("DistXfmrCodeSCTest",
       "SELECT DISTINCT ?tid ?enum ?gnum ?z ?ll ?base WHERE {"+
@@ -1003,14 +991,14 @@ public class CIMQuerySetter extends Object {
       "} ORDER BY ?tid ?enum ?gnum");
 
     mapQueries.put ("DistXfmrTank",
-      "SELECT ?pid ?tname ?vgrp ?enum ?bus ?basev ?orderedPhases ?reversed ?grounded ?rground ?xground ?id ?infoid ?fdrid ?eid ?t1id WHERE {"+
+      "SELECT ?pid ?name ?vgrp ?enum ?bus ?basev ?orderedPhases ?reversed ?grounded ?rground ?xground ?id ?infoid ?fdrid ?eid ?t1id WHERE {"+
       " ?p r:type c:PowerTransformer."+
       " ?p c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?p c:IdentifiedObject.mRID ?pid."+
       " ?p c:PowerTransformer.vectorGroup ?vgrp."+
       " ?t c:TransformerTank.PowerTransformer ?p."+
-      " ?t c:IdentifiedObject.name ?tname."+
+      " ?t c:IdentifiedObject.name ?name."+
       " ?t c:TransformerTank.TransformerTankInfo ?inf."+
       " ?inf c:IdentifiedObject.mRID ?infoid."+
       " ?end c:TransformerTankEnd.TransformerTank ?t."+
@@ -1029,7 +1017,7 @@ public class CIMQuerySetter extends Object {
       " ?end c:TransformerEnd.BaseVoltage ?bv."+
       " ?bv c:BaseVoltage.nominalVoltage ?basev"+
       "}"+
-      " ORDER BY ?pid ?tname ?enum");
+      " ORDER BY ?pid ?id ?enum");
 
     mapQueries.put ("CountLinePhases",
       "SELECT ?key (count(?phs) as ?count) WHERE {"+

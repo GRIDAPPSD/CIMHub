@@ -8,8 +8,10 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistXfmrBank extends DistComponent {
+  public static final String szCIMClass = "PowerTransformer";
+
   public String id;
-  public String pname;
+  public String name;
   public String vgrp;
   public String[] tid;
 
@@ -18,7 +20,7 @@ public class DistXfmrBank extends DistComponent {
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"name\":\"" + pname +"\"");
+    buf.append ("{\"name\":\"" + name +"\"");
     buf.append ("}");
     return buf.toString();
   }
@@ -31,8 +33,8 @@ public class DistXfmrBank extends DistComponent {
   public DistXfmrBank (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      pname = soln.get("?pname").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       vgrp = soln.get("?vgrp").toString();
       SetSize (map.get(id));
       for (int i = 0; i < size; i++) {
@@ -46,7 +48,7 @@ public class DistXfmrBank extends DistComponent {
 
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (pname + " vgrp=" + vgrp);
+    buf.append (name + " vgrp=" + vgrp);
     for (int i = 0; i < size; i++) {
       buf.append ("\n  tid=" + tid[i]);
     }

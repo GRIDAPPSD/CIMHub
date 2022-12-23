@@ -9,7 +9,9 @@ import java.util.HashMap;
 import org.apache.commons.math3.complex.Complex;
 
 public class DistXfmrCodeRating extends DistComponent {
-  public String tname;
+  public static final String szCIMClass = "TransformerEndInfos";
+
+  public String name;
   public String id;
   public String[] eid;
   public int[] wdg;
@@ -28,7 +30,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"name\":\"" + tname +"\"");
+    buf.append ("{\"name\":\"" + name +"\"");
     buf.append (",\"mRID\":\"" + id +"\"");
     buf.append ("}");
     return buf.toString();
@@ -48,7 +50,8 @@ public class DistXfmrCodeRating extends DistComponent {
   public DistXfmrCodeRating (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      id = soln.get("?tid").toString();
+      id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       SetSize (map.get(id));
       for (int i = 0; i < size; i++) {
         eid[i] = soln.get("?eid").toString();
@@ -203,11 +206,11 @@ public class DistXfmrCodeRating extends DistComponent {
     String sConnect = GetGldTransformerConnection (conn, size);
     String sKVA = df3.format (ratedS[0] * 0.001);
     if (sConnect.equals("SINGLE_PHASE_CENTER_TAPPED") || sConnect.equals("SINGLE_PHASE")) {
-      if (glmAUsed) AppendOneTank (buf, tname + "A", sKVA, true, false, false, parms);
-      if (glmBUsed) AppendOneTank (buf, tname + "B", sKVA, false, true, false, parms);
-      if (glmCUsed) AppendOneTank (buf, tname + "C", sKVA, false, false, true, parms);
+      if (glmAUsed) AppendOneTank (buf, name + "A", sKVA, true, false, false, parms);
+      if (glmBUsed) AppendOneTank (buf, name + "B", sKVA, false, true, false, parms);
+      if (glmCUsed) AppendOneTank (buf, name + "C", sKVA, false, false, true, parms);
     } else {
-      AppendOneTank (buf, tname, sKVA, false, false, false, parms);
+      AppendOneTank (buf, name, sKVA, false, false, false, parms);
     }
     return buf.toString();
   }
@@ -252,7 +255,7 @@ public class DistXfmrCodeRating extends DistComponent {
         phases = 1;
       }
     }
-    StringBuilder buf = new StringBuilder("new Xfmrcode." + tname + " windings=" + Integer.toString(size) +
+    StringBuilder buf = new StringBuilder("new Xfmrcode." + name + " windings=" + Integer.toString(size) +
                         " phases=" + Integer.toString(phases));
 
     // short circuit tests - valid only up to 3 windings; put on the Winding 1 base
@@ -314,7 +317,7 @@ public class DistXfmrCodeRating extends DistComponent {
         phases = 1;
       }
     }
-    StringBuilder buf = new StringBuilder(tname + "," + Integer.toString(size) + "," + Integer.toString(phases));
+    StringBuilder buf = new StringBuilder(name + "," + Integer.toString(size) + "," + Integer.toString(phases));
 
     // winding ratings: kV, kVA, Conn, R
     SetWindingResistances (sct);

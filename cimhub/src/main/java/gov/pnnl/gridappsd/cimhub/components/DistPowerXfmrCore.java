@@ -7,7 +7,9 @@ package gov.pnnl.gridappsd.cimhub.components;
 import org.apache.jena.query.*;
 
 public class DistPowerXfmrCore extends DistComponent {
-  public String name;
+  public static final String szCIMClass = "TransformerCoreAdmittance";
+
+  public String pid;
   public int wdg;
   public double b;
   public double g;
@@ -15,7 +17,7 @@ public class DistPowerXfmrCore extends DistComponent {
   public String GetJSONEntry () {
     StringBuilder buf = new StringBuilder ();
 
-    buf.append ("{\"name\":\"" + name +"\"");
+    buf.append ("{\"pid\":\"" + pid +"\"");
     buf.append ("}");
     return buf.toString();
   }
@@ -23,7 +25,7 @@ public class DistPowerXfmrCore extends DistComponent {
   public DistPowerXfmrCore (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?pid").toString();
+      pid = soln.get("?pid").toString();
       wdg = Integer.parseInt (soln.get("?enum").toString());
       b = Math.abs(Double.parseDouble (soln.get("?b").toString()));
       g = Double.parseDouble (soln.get("?g").toString());
@@ -32,12 +34,12 @@ public class DistPowerXfmrCore extends DistComponent {
 
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
-    buf.append (name + " wdg=" + Integer.toString(wdg) + " g=" + df4.format(g) + " b=" + df4.format(b));
+    buf.append (pid + " wdg=" + Integer.toString(wdg) + " g=" + df4.format(g) + " b=" + df4.format(b));
     return buf.toString();
   }
 
   public String GetKey() {
-    return name; // id;
+    return pid;
   }
 }
 

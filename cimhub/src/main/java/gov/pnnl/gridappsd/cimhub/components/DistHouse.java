@@ -11,6 +11,8 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 public class DistHouse extends DistComponent {
+  public static final String szCIMClass = "House";
+
   public static enum HouseCooling{none,electric,heatPump};
   public static enum HouseHeating{none,gas,heatPump,resistance};
   public static enum HouseThermalIntegrity{unknown,veryLittle,normal,aboveNormal,belowNormal,good,veryGood,little};
@@ -51,8 +53,8 @@ public class DistHouse extends DistComponent {
   public DistHouse (ResultSet result) {
     if(result.hasNext()) {
       QuerySolution soln = result.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       parent = soln.get("?parent").toString();
       coolingSetpoint = Double.parseDouble(OptionalString(soln, "?coolingSetpoint", "200.0"));
       coolingSystem = HouseCooling.valueOf(soln.get("?coolingSystem").toString());
@@ -67,6 +69,10 @@ public class DistHouse extends DistComponent {
       }
       thermalIntegrity = HouseThermalIntegrity.valueOf(soln.get("?thermalIntegrity").toString());
     }
+  }
+
+  public void PrepForExport() {
+    parent = GetEquipmentExportName (parent);
   }
 
   @Override

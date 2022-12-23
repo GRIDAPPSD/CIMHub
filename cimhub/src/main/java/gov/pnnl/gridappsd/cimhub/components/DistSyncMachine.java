@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistSyncMachine extends DistComponent {
+  public static final String szCIMClass = "SynchronousMachine";
+
   public String id;
   public String name;
   public String bus;
@@ -36,9 +38,9 @@ public class DistSyncMachine extends DistComponent {
   public DistSyncMachine (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus = soln.get("?bus").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      bus = GetBusExportName (soln.get("?bus").toString());
       t1id = soln.get("?t1id").toString();
       phases = OptionalString (soln, "?phases", "ABC");
       phases = phases.replace ('\n', ':');
@@ -63,7 +65,7 @@ public class DistSyncMachine extends DistComponent {
   }
 
   public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-    DistCoordinates pt = map.get("SynchronousMachine:" + name + ":1");
+    DistCoordinates pt = map.get("SynchronousMachine:" + id + ":1");
 
     StringBuilder buf = new StringBuilder ();
 

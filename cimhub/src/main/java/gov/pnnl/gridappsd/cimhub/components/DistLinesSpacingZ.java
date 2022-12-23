@@ -31,10 +31,10 @@ public class DistLinesSpacingZ extends DistLineSegment {
   public DistLinesSpacingZ (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      bus1 = soln.get("?bus1").toString(); 
-      bus2 = soln.get("?bus2").toString(); 
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      bus1 = GetBusExportName (soln.get("?bus1").toString());
+      bus2 = GetBusExportName (soln.get("?bus2").toString());
       len = Double.parseDouble (soln.get("?len").toString());
       t1id = soln.get("?t1id").toString();
       t2id = soln.get("?t2id").toString();
@@ -60,6 +60,13 @@ public class DistLinesSpacingZ extends DistLineSegment {
       }
       phases = buf.toString();
     }   
+  }
+
+  public void PrepForExport() {
+    spacing = GetEquipmentExportName (spcid);
+    for (int i = 0; i < nwires; i++) {
+      wire_names[i] = GetEquipmentExportName (wire_names[i]);
+    }
   }
 
   public String DisplayString() {

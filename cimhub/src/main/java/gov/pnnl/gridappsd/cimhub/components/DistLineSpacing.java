@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class DistLineSpacing extends DistComponent {
+  public static final String szCIMClass = "WireSpacingInfo";
+
   public String name;
   public String id;
   public double[] xarray;
@@ -72,8 +74,8 @@ public class DistLineSpacing extends DistComponent {
   public DistLineSpacing (ResultSet results, HashMap<String,Integer> map) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       cable = OptionalBoolean (soln, "?cable", false);
       usage = OptionalString (soln, "?usage", "distribution");
       b_sep = OptionalDouble (soln, "?bundle_sep", 0.0);

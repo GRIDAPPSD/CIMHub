@@ -14,6 +14,8 @@ import gov.pnnl.gridappsd.cimhub.components.DistHouse.HouseThermalIntegrity;
 import org.apache.jena.query.*;
 
 public class DistThermostat extends DistComponent{
+  public static final String szCIMClass = "Thermostat";
+
   public static enum ThermostatControlMode{COOLING,HEATING};
   public static ThermostatControlMode[] thermostatControlModeList = ThermostatControlMode.values();
 
@@ -34,8 +36,8 @@ public class DistThermostat extends DistComponent{
   public DistThermostat (ResultSet result) {
     if(result.hasNext()) {
       QuerySolution soln = result.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       aggregatorName = soln.get("?aggregatorName").toString();
       baseSetpoint = Double.parseDouble(soln.get("?baseSetpoint").toString());
       controlMode = thermostatControlModeList[Integer.parseInt(soln.get("?controlMode").toString())];

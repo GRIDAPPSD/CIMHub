@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistEnergyConnectionProfile extends DistComponent {
+  public static final String szCIMClass = "EnergyConnectionProfile";
+
   public String id;
   public String name;
   public String load_id;
@@ -27,9 +29,8 @@ public class DistEnergyConnectionProfile extends DistComponent {
   public DistEnergyConnectionProfile (ResultSet results) {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
-      name = soln.get("?name").toString();
       id = soln.get("?id").toString();
-      load_name = soln.get("?ldname").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       load_id = soln.get("?ldid").toString();
       dssDaily = OptionalString (soln, "?dssDaily", "");
       dssDuty = OptionalString (soln, "?dssDuty", "");
@@ -45,6 +46,10 @@ public class DistEnergyConnectionProfile extends DistComponent {
     }
   }
 
+  public void PrepForExport() {
+    load_name = GetEquipmentExportName (load_id);
+  }
+
   public String DisplayString() {
     StringBuilder buf = new StringBuilder ("");
     buf.append (name + ":" + id + ":" + dssDaily + ":" + dssDuty + ":" + dssLoadCvrCurve + ":" + dssLoadGrowth
@@ -54,7 +59,7 @@ public class DistEnergyConnectionProfile extends DistComponent {
   }
 
   public String GetKey() {
-    return load_id;
+    return load_id;  // TODO?
   }
 
   public boolean ForGLM() {
