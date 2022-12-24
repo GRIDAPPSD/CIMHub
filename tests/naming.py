@@ -35,7 +35,6 @@ if __name__ == '__main__':
   fp.close()
   for row in cases:
     row['export_options'] = row['export_options'] + ' -d=2'
-    row['outpath_dss'] = ''
 
   cimhub.make_upload_script (cases, scriptname=shfile_upload, bClearDB=True)
   p1 = subprocess.call (shfile_upload, shell=True)

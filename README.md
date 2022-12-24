@@ -117,7 +117,8 @@ Usage and options for ```java gov.pnnl.gridappsd.cimhub.CIMImporter [options] ou
 * ```-u={http://localhost:8889/bigdata/namespace/kb/sparql} // blazegraph uri (if connecting over HTTP); defaults to http://localhost:8889/bigdata/namespace/kb/sparql```
 * ```-a={0, 1}          // ask for shape, schedule, and player references to be exported for time-series power flow```
 * ```-m={0, 1}          // insert a reference to an include file of manual edits to exported models```
-* ```-d={0, 1}          // ask for exporting mRIDs in place of names on components```
+* ```-d={0, 1, 2}       // use of safe name, name, or mRID to identify simulator objects; defaults to safe name```
+* ```                   // safe name replaces characters from the set " .=+^$*|[]{}\" with_```
 
 The output format options are:
 
