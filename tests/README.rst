@@ -41,6 +41,8 @@ Results
 .. literalinclude:: onestep.inc
    :language: none
 
+GitHub README will not support include files, so check here: `Results <onestep.inc>`_.
+
 Limitations on Validation
 -------------------------
 
