@@ -9,3 +9,4 @@ distrib
 _*.dss
 _*.sh
 _*.bat
+*.log

@@ -38,10 +38,12 @@ In an ungrounded system, MAEv can be large. Use the line-to-line voltage compari
 Results
 -------
 
-.. literalinclude:: onestep.inc
-   :language: none
+For datasheet and ZIP coefficient variations on the IEEE 13-bus circuit: `Results <onestep.inc>`_.
 
-GitHub README will not support include files, so check here: `Results <onestep.inc>`_.
+..
+    literalinclude:: onestep.inc
+   :language: none
+   However, GitHub README will not support include files
 
 Limitations on Validation
 -------------------------
