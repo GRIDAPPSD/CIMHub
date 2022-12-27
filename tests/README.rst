@@ -15,12 +15,13 @@ Each array element is a dictionary with the following keys:
 
 - **dssname** is the root file name of the original OpenDSS base case
 - **root** is used to generate file names for converted files
-- **mRID** is a UUID4 to make the test case feeder unique. For a new test case, generate a random new mRID with this Python script: ``import uuid;idNew=uuid.uuid4();print(str(idNew).upper())``'
+- **mRID** is a UUID4 to make the test case feeder unique. For a new test case, generate a random new mRID with this Python script: ``import uuid;idNew=uuid.uuid4();print(str(idNew).upper())``
 - **glmvsrc** is the substation source line-to-neutral voltage for GridLAB-D
 - **bases** is an array of voltage bases to use for interpretation of the voltage outputs. Specify line-to-line voltages, in ascending order, leaving out 208 and 480.
 - **export_options** is a string of command-line options to the CIMImporter Java program. ``-e=carson`` keeps the OpenDSS line constants model compatible with GridLAB-D's
 - **skip_gld** specify as ``True`` when you know that GridLAB-D won't support this test case
-- **check_branches** an array of branches in the model to compare power flows and line-to-line voltages. Each element contains:
+- **check_branches** is an array of branches in the model to compare power flows and line-to-line voltages. Each element contains:
+
     - **dss_link** is the name of an OpenDSS branch for power and current flow; power delivery or power conversion components may be used
     - **dss_bus** is the name of an OpenDSS bus attached to **dss_link**. Line-to-line voltages are calculated here, and this bus establishes flow polarity into the branch at this bus.
     - **gld_link** is the name of a GridLAB-D branch for power and current flow; only links, e.g., line or transformer, may be used. Do not use this when **skip_gld** is ``True``
@@ -38,6 +39,7 @@ Results
 -------
 
 .. literalinclude:: onestep.inc
+   :language: none
 
 Limitations on Validation
 -------------------------
@@ -50,7 +52,7 @@ the comparison of solutions between them:
 3. GridLAB-D transformers only have two windings.
 4. The regulator impedance is modeled differently.
 5. Capacitor banks are always on in the converted GridLAB-D model; control parameters are translated but not activated.
-6. In a constant-current load model, the angle rotations are not exactly correct, especially for unbalanced loads or loads connected in Delta. See [GridLAB-D Issue 1312](https://github.com/gridlab-d/gridlab-d/issues/1312). This has been corrected in GridLAB-D version 5.
+6. In a constant-current load model, the angle rotations are not exactly correct, especially for unbalanced loads or loads connected in Delta. See `GridLAB-D Issue 1312 <https://github.com/gridlab-d/gridlab-d/issues/1312>`_. This has been corrected in GridLAB-D version 5.
 7. GridLAB-D calculates line parameters with Carson's equations, as simplified in Kersting's book. OpenDSS defaults to Deri's method, but it offers Full Carson and Carson options. Specify ``Carson`` for compatibility. (Deri is the OpenDSS default because it's easy to calculate, and it closely matches Full Carson.)
 8. In GridLAB-D, wye/delta transformers have to be converted to delta/wye, swapping primary and secondary windings. With **check_branches**, choose an adjacent branch for proper comparisons.
 9. In GridLAB-D, the IEEE13 results are affected by a bug in default solar insolation.  See `GridLAB-D Issue 1333 <https://github.com/gridlab-d/gridlab-d/issues/1333>`_
