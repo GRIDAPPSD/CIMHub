@@ -7,7 +7,7 @@ Process
 -------
 
 The test cases are executed with *python3 onestep.py*. They cover the IEEE 13-bus system
-with photovoltaic, storage, and single-phase centertap secondary transformer added. The option
+with photovoltaic, storage, and single-phase centertap secondary transformer added. The options
 for assets-based line and transformer modeling are also covered.
 
 The test cases are configured by entries in the *cases.json* file.
@@ -39,6 +39,8 @@ Results
 -------
 
 For datasheet and ZIP coefficient variations on the IEEE 13-bus circuit: `Results <onestep.inc>`_.
+
+For use of mRID naming option on the IEEE 13-bus circuit: `Results <naming.inc>`_.
 
 ..
     literalinclude:: onestep.inc

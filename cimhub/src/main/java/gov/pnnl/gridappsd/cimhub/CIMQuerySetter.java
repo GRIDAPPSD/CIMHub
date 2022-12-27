@@ -509,7 +509,7 @@ public class CIMQuerySetter extends Object {
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?p c:PowerTransformer.vectorGroup ?vgrp."+
       " ?p c:IdentifiedObject.mRID ?id."+
-      " ?p c:IdentifiedObject.mRID ?name."+
+      " ?p c:IdentifiedObject.name ?name."+
       " ?end c:PowerTransformerEnd.PowerTransformer ?p."+
       " ?end c:TransformerEnd.endNumber ?enum."+
       " ?end c:PowerTransformerEnd.ratedS ?ratedS."+
@@ -1056,7 +1056,6 @@ public class CIMQuerySetter extends Object {
       " ?p c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?p r:type c:PowerTransformer."+
-//      " ?p c:IdentifiedObject.name ?pname."+
       " ?t c:TransformerTank.PowerTransformer ?p."+
       " ?t c:IdentifiedObject.mRID ?key."+
       " ?end c:TransformerTankEnd.TransformerTank ?t"+

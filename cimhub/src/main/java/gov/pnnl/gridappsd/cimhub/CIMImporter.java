@@ -2195,7 +2195,7 @@ public class CIMImporter extends Object {
     for (HashMap.Entry<String,DistRegulator> pair : mapRegulators.entrySet()) {
       DistRegulator reg = pair.getValue();
       if (reg.hasTanks) {
-        DistXfmrTank tank = mapTanks.get(reg.tname[0]); // TODO: revisit if GridLAB-D can model un-banked regulator tanks
+        DistXfmrTank tank = mapTanks.get(reg.tid[0]); // TODO: revisit if GridLAB-D can model un-banked regulator tanks
         out.print (pair.getValue().GetCSV(tank.bus[0], tank.orderedPhases[0], tank.bus[1], tank.orderedPhases[1]));
         tank.glmUsed = false;  // don't write these as separate transformers to CSV
       } else {

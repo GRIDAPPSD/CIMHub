@@ -30,6 +30,8 @@ if __name__ == '__main__':
 
   # Clear DB and load each case one-at-a-time, because some feeder mRIDs are duplicates
   #  in this directory, which violate assumption that mRIDs are unique between circuits.
+  rstMode = 'w'
   for row in cases:
-    cimhub.convert_and_check_models ([row], bClearDB=True, bClearOutput=False, rstFile='onestep.inc')
+    cimhub.convert_and_check_models ([row], bClearDB=True, bClearOutput=False, rstFile='onestep.inc', rstMode=rstMode)
+    rstMode = 'a'
 

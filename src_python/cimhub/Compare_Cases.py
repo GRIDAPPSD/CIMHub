@@ -589,12 +589,12 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
       rootname, len(v1), len(v2), len(gldv), len(i1), len(i2), len(gldi), err_v_dss, err_v_glm, err_i_dss, err_i_glm),
       file=fp)
 
-def compare_cases (cases, rstFile=None):
+def compare_cases (cases, rstFile=None, rstMode='w'):
   global dir1, dir2, dir3
   fps = []
   fps.append (sys.stdout)
   if rstFile is not None:
-    fp = open (rstFile, 'w')
+    fp = open (rstFile, rstMode)
     fps.append (fp)
   for row in cases:
     root = row['root']

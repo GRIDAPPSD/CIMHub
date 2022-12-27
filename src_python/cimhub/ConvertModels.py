@@ -16,7 +16,8 @@ def add_actual_directory (row, key, aSet):
       if len(val) > 0:
         aSet.add (os.path.abspath(val))
 
-def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None, bDssControls=False, dssTol=1e-8, rstFile=None):
+def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None, bDssControls=False, dssTol=1e-8, 
+                              rstFile=None, rstMode='w'):
   cwd = os.getcwd()
   if sys.platform == 'win32':
     shfile_upload = '_upload.bat'
@@ -80,5 +81,5 @@ def convert_and_check_models (cases, bClearDB, bClearOutput, glmScheduleDir=None
   cimhub.make_glmrun_script (cases, scriptname=shfile_glm, bProfiles=bProfiles, bHouses=bHouses)
   p1 = subprocess.call (shfile_glm)
 
-  cimhub.compare_cases (cases, rstFile)
+  cimhub.compare_cases (cases, rstFile, rstMode)
 
