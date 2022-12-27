@@ -185,7 +185,7 @@ def load_voltages(fname):
   fd.close()
   return vpu, vmag, vrad
 
-def print_dss_flow (vtag, itag, volts, vang, amps, iang, label=None):
+def print_dss_flow (vtag, itag, volts, vang, amps, iang, label=None, fps=[sys.stdout]):
 #  print (vtag, (vtag+'_A') in volts)
 #  print (itag, (itag+'.1') in amps)
   if vtag is None or itag is None:
@@ -198,11 +198,12 @@ def print_dss_flow (vtag, itag, volts, vang, amps, iang, label=None):
   vln_ang = {}
   pkw = {}
   qkvar = {}
-  if label is None:
-    print ('  OpenDSS branch flow in {:s} from {:s}'.format (itag, vtag))
-  else:
-    print ('  OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (itag, vtag, label))
-  print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad')
+  for fp in fps:
+    if label is None:
+      print ('  OpenDSS branch flow in {:s} from {:s}'.format (itag, vtag), file=fp)
+    else:
+      print ('  OpenDSS branch flow in {:s} from {:s}, {:s} case'.format (itag, vtag, label), file=fp)
+    print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad', file=fp)
   for num, phs in zip(['1', '2', '3'], ['A', 'B', 'C']):
     vtarget = vtag + '_' + phs
     itarget = itag + '.' + num
@@ -225,12 +226,14 @@ def print_dss_flow (vtag, itag, volts, vang, amps, iang, label=None):
       vll_mag = math.sqrt (realpart*realpart + imagpart*imagpart)
       vll_ang = math.atan2 (imagpart, realpart)
     if phs in vln_mag:
-      print ('    {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}     {:s}{:s}   {:9.2f} {:7.4f}'.format (phs, vln_mag[phs], 
-        vln_ang[phs], iline_mag[phs], iline_ang[phs], pkw[phs], qkvar[phs], phs, llp, vll_mag, vll_ang))
-  print ('    Total S = {:9.3f} + j {:9.3f}'.format (ptot, qtot))
+      for fp in fps:
+        print ('    {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}     {:s}{:s}   {:9.2f} {:7.4f}'.format (phs, vln_mag[phs], 
+          vln_ang[phs], iline_mag[phs], iline_ang[phs], pkw[phs], qkvar[phs], phs, llp, vll_mag, vll_ang), file=fp)
+  for fp in fps:
+    print ('    Total S = {:9.3f} + j {:9.3f}'.format (ptot, qtot), file=fp)
   return ptot, qtot
 
-def print_glm_flow (vtag, itag, volts, vang, amps, iang):
+def print_glm_flow (vtag, itag, volts, vang, amps, iang, fps=[sys.stdout]):
   if vtag is None or itag is None:
     return
   ptot = 0.0
@@ -241,8 +244,9 @@ def print_glm_flow (vtag, itag, volts, vang, amps, iang):
   vln_ang = {}
   pkw = {}
   qkvar = {}
-  print ('  GridLAB-D branch flow in {:s} from {:s}'.format (itag, vtag))
-  print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad')
+  for fp in fps:
+    print ('  GridLAB-D branch flow in {:s} from {:s}'.format (itag, vtag), file=fp)
+    print ('  Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad', file=fp)
   for phs in ['A', 'B', 'C']:
     vtarget = vtag + '_' + phs
     itarget = itag + '_' + phs
@@ -264,9 +268,11 @@ def print_glm_flow (vtag, itag, volts, vang, amps, iang):
       imagpart = vln_mag[phs] * math.sin(vln_ang[phs]) - vln_mag[llp] * math.sin(vln_ang[llp])
       vll_mag = math.sqrt (realpart*realpart + imagpart*imagpart)
       vll_ang = math.atan2 (imagpart, realpart)
-    print ('    {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}     {:s}{:s}   {:9.2f} {:7.4f}'.format (phs, vln_mag[phs], 
-      vln_ang[phs], iline_mag[phs], iline_ang[phs], pkw[phs], qkvar[phs], phs, llp, vll_mag, vll_ang))
-  print ('    Total S = {:9.3f} + j {:9.3f}'.format (ptot, qtot))
+    for fp in fps:
+      print ('    {:s} {:9.2f} {:7.4f} {:9.2f} {:7.4f}  {:9.3f} + j {:9.3f}     {:s}{:s}   {:9.2f} {:7.4f}'.format (phs, vln_mag[phs], 
+        vln_ang[phs], iline_mag[phs], iline_ang[phs], pkw[phs], qkvar[phs], phs, llp, vll_mag, vll_ang), file=fp)
+  for fp in fps:
+    print ('    Total S = {:9.3f} + j {:9.3f}'.format (ptot, qtot), file=fp)
 
 def load_taps(fname):
   vtap = {}
@@ -345,14 +351,14 @@ def error_norm_tuple (diffs):
     sum += v
   return sum/cnt
 
-def write_glm_flows(glmpath, rootname, voltagebases, check_branches):
+def write_glm_flows(glmpath, rootname, voltagebases, check_branches, fps=[sys.stdout]):
   gldbus, gldv, gldmagv, gldangv = load_glm_voltages (glmpath + rootname + '_volt.csv', voltagebases)
   gldlink, gldi, gldangi = load_glm_currents (glmpath + rootname + '_curr.csv')
   for row in check_branches:
     if (('gld_link' in row) and ('gld_bus' in row)):
-      print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi)
+      print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi, fps)
 
-def write_dss_flows(dsspath, rootname, check_branches):
+def write_dss_flows(dsspath, rootname, check_branches, fps=[sys.stdout]):
   dssroot = rootname.lower()
   v1, magv1, angv1 = load_voltages (dsspath + dssroot + '_v.csv')
   t1 = load_taps (dsspath + dssroot + '_t.csv')
@@ -388,14 +394,14 @@ def write_dss_flows(dsspath, rootname, check_branches):
   branch_q = 0.0
   for row in check_branches:
     if (('dss_link' in row) and ('dss_bus' in row)):
-      p, q = print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, label=None)
+      p, q = print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, label=None, fps=fps)
       if 'bLoad' in row:
         if row['bLoad']:
           branch_p += p
           branch_q += q
   print ('Accumulated Load P={:.2f} kW   Q={:.2f} kVAR'.format(branch_p, branch_q))
 
-def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_branches=[], do_gld=True):
+def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_branches=[], do_gld=True, fps=[sys.stdout]):
   dssroot = rootname.lower()
   v1, magv1, angv1 = load_voltages (os.path.join (basepath, dssroot + '_v.csv'))
   t1 = load_taps (os.path.join (basepath, dssroot + '_t.csv'))
@@ -426,11 +432,11 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
 
   for row in check_branches:
     if (('dss_link' in row) and ('dss_bus' in row)):
-      print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, 'Base')
+      print_dss_flow (row['dss_bus'], row['dss_link'], magv1, angv1, i1, angi1, 'Base', fps)
       if dsspath:
-        print_dss_flow (row['dss_bus'], row['dss_link'], magv2, angv2, i2, angi2, 'Converted')
+        print_dss_flow (row['dss_bus'], row['dss_link'], magv2, angv2, i2, angi2, 'Converted', fps)
     if (do_gld and ('gld_link' in row) and ('gld_bus' in row)):
-      print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi)
+      print_glm_flow (row['gld_bus'], row['gld_link'], gldmagv, gldangv, gldi, gldangi, fps)
 
 #  print (basepath+dssroot+'_s.csv', s1)
 #  print (dsspath+dssroot+'_s.csv', s2)
@@ -578,11 +584,18 @@ def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_
   print (len(i1), 'Case 1 links,', nmissing_2, 'not in Case 2', file=ftxt)
   print (len(i2), 'Case 2 links,', nmissing_1, 'not in Case 1', file=ftxt)
   ftxt.close()
-  print ('{:16s} Nbus=[{:6d},{:6d},{:6d}] Nlink=[{:6d},{:6d},{:6d}] MAEv=[{:7.4f},{:7.4f}] MAEi=[{:9.4f},{:9.4f}]'.format (
-    rootname, len(v1), len(v2), len(gldv), len(i1), len(i2), len(gldi), err_v_dss, err_v_glm, err_i_dss, err_i_glm))
+  for fp in fps:
+    print ('{:16s} Nbus=[{:6d},{:6d},{:6d}] Nlink=[{:6d},{:6d},{:6d}] MAEv=[{:7.4f},{:7.4f}] MAEi=[{:9.4f},{:9.4f}]'.format (
+      rootname, len(v1), len(v2), len(gldv), len(i1), len(i2), len(gldi), err_v_dss, err_v_glm, err_i_dss, err_i_glm),
+      file=fp)
 
-def compare_cases (cases):
+def compare_cases (cases, rstFile=None):
   global dir1, dir2, dir3
+  fps = []
+  fps.append (sys.stdout)
+  if rstFile is not None:
+    fp = open (rstFile, 'w')
+    fps.append (fp)
   for row in cases:
     root = row['root']
     bases = row['bases']
@@ -597,7 +610,9 @@ def compare_cases (cases):
       check_branches = row['check_branches']
     for i in range(len(bases)):
       bases[i] /= math.sqrt(3.0)
-    write_comparisons (dir1, dir2, dir3, root, bases, check_branches, do_gld)
+    write_comparisons (dir1, dir2, dir3, root, bases, check_branches, do_gld, fps)
+  if rstFile is not None:
+    fp.close()
 
 # run this from the command line for GridAPPS-D platform scripts
 if __name__ == "__main__":
@@ -606,5 +621,5 @@ if __name__ == "__main__":
     bases = row['bases']
     for i in range(len(bases)):
       bases[i] /= math.sqrt(3.0)
-    write_comparisons (dir1, dir2, dir3, root, bases, check_branches=row['check_branches'], do_gld=row['do_gld'])
+    write_comparisons (dir1, dir2, dir3, root, bases, check_branches=row['check_branches'], do_gld=row['do_gld'], rstFile=None)
 
