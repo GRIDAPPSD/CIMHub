@@ -9395,6 +9395,12 @@
   <cim:PositionPoint.xPosition>1586793</cim:PositionPoint.xPosition>
   <cim:PositionPoint.yPosition>14283459</cim:PositionPoint.yPosition>
 </cim:PositionPoint>
+<cim:EnergyConnectionProfile rdf:about="urn:uuid:EFBCA19E-EE2D-4062-9B1E-94263AB41509">
+  <cim:IdentifiedObject.mRID>EFBCA19E-EE2D-4062-9B1E-94263AB41509</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>Load::::AggLoadProfile::defaultload</cim:IdentifiedObject.name>
+  <cim:EnergyConnectionProfile.dssYearly>AggLoadProfile</cim:EnergyConnectionProfile.dssYearly>
+  <cim:EnergyConnectionProfile.EnergyConnections rdf:resource="urn:uuid:9BE46A5D-BFC7-4A92-A80A-E3B7465DBA5B"/>
+</cim:EnergyConnectionProfile>
 <cim:OperationalLimitSet rdf:about="urn:uuid:33D82B95-A496-4FB7-B567-136582226866">
   <cim:IdentifiedObject.mRID>33D82B95-A496-4FB7-B567-136582226866</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>OpLimI_56.3_75.0</cim:IdentifiedObject.name>

@@ -653,7 +653,7 @@
 <cim:BatteryUnit rdf:about="urn:uuid:1BDCFE45-19E8-4671-9810-8382CC6E0E87">
   <cim:IdentifiedObject.mRID>1BDCFE45-19E8-4671-9810-8382CC6E0E87</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>school</cim:IdentifiedObject.name>
-  <cim:PowerElectronicsUnit.maxP>80000</cim:PowerElectronicsUnit.maxP>
+  <cim:PowerElectronicsUnit.maxP>100000</cim:PowerElectronicsUnit.maxP>
   <cim:PowerElectronicsUnit.minP>-100000</cim:PowerElectronicsUnit.minP>
   <cim:BatteryUnit.ratedE>200000</cim:BatteryUnit.ratedE>
   <cim:BatteryUnit.storedE>100000</cim:BatteryUnit.storedE>
@@ -740,7 +740,7 @@
   <cim:IdentifiedObject.mRID>46D1D949-EE11-4D2F-BCC9-92EB9A8CE8EB</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>house</cim:IdentifiedObject.name>
   <cim:PowerElectronicsUnit.maxP>5000</cim:PowerElectronicsUnit.maxP>
-  <cim:PowerElectronicsUnit.minP>-4500</cim:PowerElectronicsUnit.minP>
+  <cim:PowerElectronicsUnit.minP>-5000</cim:PowerElectronicsUnit.minP>
   <cim:BatteryUnit.ratedE>13500</cim:BatteryUnit.ratedE>
   <cim:BatteryUnit.storedE>5000</cim:BatteryUnit.storedE>
   <cim:BatteryUnit.batteryState rdf:resource="http://iec.ch/TC57/CIM100#BatteryStateKind.charging"/>

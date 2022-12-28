@@ -3,29 +3,50 @@
 
 import sys
 import os
+import shutil
 import subprocess
 
 cwd = os.getcwd()
 
 if sys.platform == 'win32':
-  python_template = 'python {:s}.py > {:s}.log 2>&1'
+  python_template = 'python {:s}.py {:s} > {:s}.log 2>&1'
   shell_template = '{:s}.bat {:s} > {:s}.log 2>&1'
+  clean_cmd = 'clean.bat'
 else:
-  python_template = 'python3 {:s}.py > {:s}.log'
+  python_template = 'python3 {:s}.py {:s} > {:s}.log'
   shell_template = './{:s}.sh {:s} > {:s}.log'
+  clean_cmd = './clean.sh'
 
 # do not use path separators in 'dir'
 shell_tests = [
-  {'dir':'example', 'test':'example', 'args':'arg'},
-  {'dir':'tests', 'test':'test_combiner'},  # needs the example outputs
+  {'dir':'example', 'test':'example', 'clean':True, 'args':'arg'},
+  {'dir':'tests', 'test':'test_combiner', 'clean':True},  # needs the example outputs
   ]
 python_tests = [
-  {'dir':'tests', 'test':'test_cimhub'},
-  {'dir':'tests', 'test':'test_comparisons'},
-  {'dir':'tests', 'test':'test_drop'},
-  {'dir':'tests', 'test':'test_der'},
-  {'dir':'tests', 'test':'onestep'},
-  {'dir':'tests', 'test':'naming'},
+  {'dir':'tests',      'test':'test_cimhub'},
+  {'dir':'tests',      'test':'test_comparisons'},
+  {'dir':'tests',      'test':'test_drop'},
+  {'dir':'tests',      'test':'test_der'},
+  {'dir':'tests',      'test':'onestep'},
+  {'dir':'tests',      'test':'naming'},
+  {'dir':'ieee4',      'test':'onestep', 'clean':True},
+  {'dir':'CPYDAR',     'test':'onestep', 'clean':True},
+  {'dir':'der',        'test':'onestep', 'clean':True},
+  {'dir':'OEDI',       'test':'onestep', 'clean':True},
+  {'dir':'ieee9500',   'test':'onestep', 'clean':True},
+  {'dir':'lv_network', 'test':'onestep', 'clean':True},
+  {'dir':'ecp',        'test':'onestep', 'clean':True},
+  {'dir':'ecp',        'test':'onestepa'},
+  {'dir':'ecp',        'test':'ecp_daily',       'args':'noplot'},
+  {'dir':'ecp',        'test':'ecp_duty',        'args':'noplot'},
+  {'dir':'ecp',        'test':'ecp_growthcvr',   'args':'noplot'},
+  {'dir':'ecp',        'test':'ecp_harmonic',    'args':'noplot'},
+  {'dir':'ecp',        'test':'ecp_temperature', 'args':'noplot'},
+  {'dir':'ecp',        'test':'ecp_yearly',      'args':'noplot'},
+  {'dir':'ecp',        'test':'testgld'},
+  {'dir':'ecp',        'test':'gld_daily',       'args':'noplot'},
+  {'dir':'tutorial',   'test':'onestep',    'clean':True},
+  {'dir':'gmdm',       'test':'adapt_gmdm', 'clean':True},
   ]
 
 # do these first to create some working files
@@ -33,6 +54,9 @@ for test in shell_tests:
   testdir = os.path.join(cwd, test['dir'])
   root = test['test']
   os.chdir (testdir)
+  if 'clean' in test:
+    if test['clean']:
+      p1 = subprocess.call (clean_cmd, shell=True)
   args = ''
   if 'args' in test:
     if test['args'] is not None:
@@ -45,10 +69,20 @@ for test in python_tests:
   testdir = os.path.join(cwd, test['dir'])
   root = test['test']
   os.chdir (testdir)
-  cmd = python_template.format (root, root)
+  if 'clean' in test:
+    if test['clean']:
+      p1 = subprocess.call (clean_cmd, shell=True)
+  args = ''
+  if 'args' in test:
+    if test['args'] is not None:
+      args = test['args']
+  cmd = python_template.format (root, args, root)
   print ('** Testing "{:s}" in {:s}'.format (cmd, testdir))
   p1 = subprocess.Popen (cmd, shell=True)
   p1.wait()
+  if len(args) > 0:
+    if args == 'noplot':
+      shutil.copyfile('{:s}.log'.format(root), '{:s}.inc'.format(root))
 
 os.chdir (cwd)
 
