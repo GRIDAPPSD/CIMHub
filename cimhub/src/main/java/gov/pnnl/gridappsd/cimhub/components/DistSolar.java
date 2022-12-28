@@ -50,9 +50,11 @@ public class DistSolar extends DistComponent {
     if (results.hasNext()) {
       QuerySolution soln = results.next();
       id = soln.get("?id").toString();
-      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
-      bus = GetBusExportName (soln.get("?bus").toString());
       pecid = soln.get("?pecid").toString();
+      String qname = soln.get("?name").toString();
+      name = PushExportName (qname, id, szCIMClass);
+      PushExportName (qname, pecid, "PowerElectronicsConnection");
+      bus = GetBusExportName (soln.get("?bus").toString());
       t1id = soln.get("?t1id").toString();
       phases = OptionalString (soln, "?phases", "ABC");
       phases = phases.replace ('\n', ':');
