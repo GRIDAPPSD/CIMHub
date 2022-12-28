@@ -11,18 +11,16 @@ cwd = os.getcwd()
 if sys.platform == 'win32':
   python_template = 'python {:s}.py {:s} > {:s}.log 2>&1'
   shell_template = '{:s}.bat {:s} > {:s}.log 2>&1'
-  clean_cmd = 'clean.bat'
+  clean_cmd = 'clean.bat > nul 2>&1'
 else:
   python_template = 'python3 {:s}.py {:s} > {:s}.log'
   shell_template = './{:s}.sh {:s} > {:s}.log'
-  clean_cmd = './clean.sh'
+  clean_cmd = './clean.sh > /dev/null 2>&1'
 
 # do not use path separators in 'dir'
-shell_tests = [
-  {'dir':'example', 'test':'example', 'clean':True, 'args':'arg'},
-  {'dir':'tests', 'test':'test_combiner', 'clean':True},  # needs the example outputs
-  ]
-python_tests = [
+all_tests = [
+  {'shell': True, 'dir':'example', 'test':'example',       'clean':True, 'args':'arg'}, # do this first
+  {'shell': True, 'dir':'tests',   'test':'test_combiner', 'clean':True},
   {'dir':'tests',      'test':'test_cimhub'},
   {'dir':'tests',      'test':'test_comparisons'},
   {'dir':'tests',      'test':'test_drop'},
@@ -49,37 +47,35 @@ python_tests = [
   {'dir':'gmdm',       'test':'adapt_gmdm', 'clean':True},
   ]
 
-# do these first to create some working files
-for test in shell_tests:
+for test in all_tests:
   testdir = os.path.join(cwd, test['dir'])
   root = test['test']
   os.chdir (testdir)
-  if 'clean' in test:
-    if test['clean']:
-      p1 = subprocess.call (clean_cmd, shell=True)
-  args = ''
-  if 'args' in test:
-    if test['args'] is not None:
-      args = test['args']
-  cmd = shell_template.format (root, args, root)
-  print ('** Testing "{:s}" in {:s}'.format (cmd, testdir))
-  p1 = subprocess.call (cmd, shell=True)
 
-for test in python_tests:
-  testdir = os.path.join(cwd, test['dir'])
-  root = test['test']
-  os.chdir (testdir)
   if 'clean' in test:
     if test['clean']:
       p1 = subprocess.call (clean_cmd, shell=True)
+
   args = ''
   if 'args' in test:
     if test['args'] is not None:
       args = test['args']
-  cmd = python_template.format (root, args, root)
-  print ('** Testing "{:s}" in {:s}'.format (cmd, testdir))
-  p1 = subprocess.Popen (cmd, shell=True)
-  p1.wait()
+
+  bRunShell = False
+  if 'shell' in test:
+    if test['shell']:
+      bRunShell = True
+
+  if bRunShell:
+    cmd = shell_template.format (root, args, root)
+    print ('** Testing "{:s}" in {:s}'.format (cmd, testdir))
+    p1 = subprocess.call (cmd, shell=True)
+  else:
+    cmd = python_template.format (root, args, root)
+    print ('** Testing "{:s}" in {:s}'.format (cmd, testdir))
+    p1 = subprocess.Popen (cmd, shell=True)
+    p1.wait()
+
   if len(args) > 0:
     if args == 'noplot':
       shutil.copyfile('{:s}.log'.format(root), '{:s}.inc'.format(root))

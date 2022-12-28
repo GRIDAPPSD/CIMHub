@@ -9,3 +9,5 @@ bentley/
 adapted.xml
 planning.xml
 export.bat
+check.dss
+check_glm.bat

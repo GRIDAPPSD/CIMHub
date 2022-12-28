@@ -1,49 +1,49 @@
   OpenDSS branch flow in TRANSFORMER.REG4A from 160, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2365.95 -0.0506    239.99 -0.0995    567.119 + j    27.737     AB        0.00  0.0000
-    Total S =   567.119 + j    27.737
+    A   2354.00 -0.0611    241.33 -0.1110    567.390 + j    28.346     AB        0.00  0.0000
+    Total S =   567.390 + j    28.346
   OpenDSS branch flow in TRANSFORMER.REG4A from 160, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2353.18 -0.0611    241.37 -0.1166    567.105 + j    31.508     AB        0.00  0.0000
-    Total S =   567.105 + j    31.508
+    A   2354.02 -0.0611    241.33 -0.1108    567.391 + j    28.246     AB        0.00  0.0000
+    Total S =   567.391 + j    28.246
   OpenDSS branch flow in TRANSFORMER.REG4B from 160, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    B   2448.93 -2.1223    173.87 -2.0853    425.509 + j   -15.751     BC        0.00  0.0000
-    Total S =   425.509 + j   -15.751
+    B   2450.11 -2.1293    173.74 -2.0923    425.398 + j   -15.747     BC        0.00  0.0000
+    Total S =   425.398 + j   -15.747
   OpenDSS branch flow in TRANSFORMER.REG4B from 160, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    B   2450.10 -2.1293    173.84 -2.0926    425.637 + j   -15.607     BC        0.00  0.0000
-    Total S =   425.637 + j   -15.607
+    B   2450.13 -2.1293    173.74 -2.0921    425.401 + j   -15.822     BC        0.00  0.0000
+    Total S =   425.401 + j   -15.822
   OpenDSS branch flow in TRANSFORMER.REG4C from 160, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    C   2403.89  2.0630    190.60  2.1017    457.845 + j   -17.749     CA        0.00  0.0000
-    Total S =   457.845 + j   -17.749
+    C   2397.33  2.0560    191.04  2.0907    457.710 + j   -15.904     CA        0.00  0.0000
+    Total S =   457.710 + j   -15.904
   OpenDSS branch flow in TRANSFORMER.REG4C from 160, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    C   2397.65  2.0560    191.07  2.0909    457.845 + j   -15.988     CA        0.00  0.0000
-    Total S =   457.845 + j   -15.988
+    C   2397.35  2.0560    191.04  2.0909    457.713 + j   -15.984     CA        0.00  0.0000
+    Total S =   457.713 + j   -15.984
   GridLAB-D branch flow in REG_REG4 from 160
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2357.38 -0.0615    240.91 -0.1118    567.194 + j    28.524     AB     4134.59  0.4873
-    B   2453.71  4.1538    173.54  4.1935    425.491 + j   -16.899     BC     4208.34 -1.6135
-    C   2401.35  2.0564    190.78  2.0945    457.795 + j   -17.444     CA     4148.89  2.5630
-    Total S =  1450.480 + j    -5.818
+    A   2358.33 -0.0617    240.87 -0.1053    567.517 + j    24.758     AB     4134.96  0.4871
+    B   2453.74  4.1540    173.44  4.1941    425.226 + j   -17.081     BC     4208.39 -1.6135
+    C   2401.01  2.0563    190.74  2.0944    457.645 + j   -17.462     CA     4149.56  2.5631
+    Total S =  1450.388 + j    -9.785
   OpenDSS branch flow in LINE.L115 from 149, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2491.81  0.0000    637.58 -0.3808   1474.913 + j   590.520     AB     4315.95  0.5236
-    B   2491.82 -2.0944    408.40 -2.4332    959.832 + j   338.199     BC     4315.96 -1.5708
-    C   2491.82  2.0944    504.75  1.7691   1191.760 + j   401.998     CA     4315.95  2.6180
-    Total S =  3626.504 + j  1330.717
+    A   2491.81  0.0000    640.86 -0.3901   1476.928 + j   607.238     AB     4315.95  0.5236
+    B   2491.82 -2.0944    408.44 -2.4393    957.823 + j   344.082     BC     4315.96 -1.5708
+    C   2491.82  2.0944    506.43  1.7617   1192.740 + j   412.091     CA     4315.95  2.6180
+    Total S =  3627.491 + j  1363.412
   OpenDSS branch flow in LINE.L115 from 149, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2491.81  0.0000    641.33 -0.3920   1476.846 + j   610.522     AB     4315.95  0.5236
-    B   2491.82 -2.0944    408.55 -2.4394    958.019 + j   344.341     BC     4315.96 -1.5708
-    C   2491.82  2.0944    506.43  1.7617   1192.754 + j   412.096     CA     4315.95  2.6180
-    Total S =  3627.619 + j  1366.959
+    A   2491.81  0.0000    640.84 -0.3901   1476.896 + j   607.225     AB     4315.95  0.5236
+    B   2491.82 -2.0944    408.42 -2.4393    957.793 + j   344.071     BC     4315.96 -1.5708
+    C   2491.82  2.0944    506.41  1.7617   1192.710 + j   412.080     CA     4315.95  2.6180
+    Total S =  3627.398 + j  1363.377
   GridLAB-D branch flow in LINE_L115 from 149
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2495.26  0.0000    639.90 -0.3903   1476.633 + j   607.505     AB     4321.97  0.5236
-    B   2495.29  4.1888    407.73  3.8450    957.868 + j   342.956     BC     4321.95 -1.5708
-    C   2495.28  2.0944    505.44  1.7631   1192.605 + j   410.278     CA     4321.92  2.6180
-    Total S =  3627.106 + j  1360.739
-ieee123          Nbus=[   442,   442,   627] Nlink=[   550,   550,   639] MAEv=[ 0.0029, 0.0017] MAEi=[   0.3147,   0.1556]
+    A   2495.26  0.0000    639.35 -0.3880   1476.759 + j   603.592     AB     4321.97  0.5236
+    B   2495.29  4.1888    407.60  3.8452    957.621 + j   342.631     BC     4321.95 -1.5708
+    C   2495.28  2.0944    505.42  1.7630   1192.533 + j   410.328     CA     4321.92  2.6180
+    Total S =  3626.913 + j  1356.550
+ieee123          Nbus=[   442,   442,   627] Nlink=[   550,   550,   639] MAEv=[ 0.0000, 0.0028] MAEi=[   0.0018,   0.1598]
