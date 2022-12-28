@@ -92,7 +92,7 @@ public class DistSwitch extends DistComponent {
   public String GetGLM () {
     StringBuilder buf = new StringBuilder ("object switch { // CIM " + CIMClass() + "\n");
 
-    buf.append ("  name \"swt_" + name + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("swt_") + name + "\";\n");
     buf.append ("  from \"" + bus1 + "\";\n");
     buf.append ("  to \"" + bus2 + "\";\n");
     buf.append ("  phases " + glm_phases + ";\n");

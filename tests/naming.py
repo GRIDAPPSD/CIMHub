@@ -49,3 +49,5 @@ if __name__ == '__main__':
   cimhub.make_glmrun_script (cases, scriptname=shfile_glm)
   p1 = subprocess.call (shfile_glm, shell=True)
 
+  cimhub.compare_cases (cases, 'naming.inc')
+

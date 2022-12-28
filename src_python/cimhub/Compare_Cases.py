@@ -3,6 +3,7 @@ import operator
 import math
 import sys
 import os
+import json
 
 DEG_TO_RAD = math.pi / 180.0
 
@@ -47,7 +48,7 @@ def glmVpu(v, bases):
       return vpu
   return 0.0 # indicates a problem
 
-def load_glm_voltages(fname, voltagebases):
+def load_glm_voltages(fname, voltagebases, dictNames=None):
   vpu = {}
   vmag = {}
   vrad = {}
@@ -60,6 +61,9 @@ def load_glm_voltages(fname, voltagebases):
   next (rd)
   for row in rd:
     bus = row[0].upper()
+    if dictNames is not None:
+      if bus in dictNames:
+        bus = dictNames[bus].upper()
     buses.append (bus)
     maga = float(row[1])
     if maga > 0.0:
@@ -79,7 +83,7 @@ def load_glm_voltages(fname, voltagebases):
   fd.close()
   return buses, vpu, vmag, vrad
     
-def load_glm_currents(fname):
+def load_glm_currents(fname, dictNames=None, dictClasses=None):
   iglm = {}
   irad = {}
   links = []
@@ -88,10 +92,15 @@ def load_glm_currents(fname):
   fd = open (fname, 'r')
   rd = csv.reader (fd, delimiter=',')
   next (rd)
+  next (rd)
   itol = 0.0 # 0.001
   #link_name,currA_mag,currA_angle,currB_mag,currB_angle,currC_mag,currC_angle
   for row in rd:
     link = row[0].upper()
+    if (dictNames is not None) and (dictClasses is not None):
+      mRID = link
+      if (mRID in dictNames) and (mRID in dictClasses):
+        link = '{:s}_{:s}'.format (dictClasses[mRID].upper(), dictNames[mRID].upper())
     if link.startswith ('LINE_') or link.startswith ('REG_') or link.startswith ('SWT_') or link.startswith ('XF_') or link.startswith ('REAC_'):
       links.append(link)
       maga = float(row[1])
@@ -109,7 +118,7 @@ def load_glm_currents(fname):
   fd.close()
   return links, iglm, irad
 
-def load_currents(fname, ordname):
+def load_currents(fname, ordname, dictNames=None):
   idss = {}
   irad = {}
   if not os.path.isfile (fname):
@@ -124,6 +133,10 @@ def load_currents(fname, ordname):
   #Element, Nterminals, Nconductors, N1, N2, N3, ...
   for row in rd:
     link = row[0].strip('\"').upper()
+    if dictNames is not None:
+      toks = link.split('.')
+      if toks[1] in dictNames:
+        link = '{:s}.{:s}'.format (toks[0], dictNames[toks[1]].upper())
     nt = int(row[1])
     nc = int(row[2])
     phases[link] = []
@@ -139,6 +152,10 @@ def load_currents(fname, ordname):
   #Element, I1_1, Ang1_1, I1_2, Ang1_2, I1_3, Ang1_3, I1_4, Ang1_4, Iresid1, AngResid1, I2_1, Ang2_1, I2_2, Ang2_2, I2_3, Ang2_3, I2_4, Ang2_4, Iresid2, AngResid2
   for row in rd:
     link = row[0].strip('\"').upper()
+    if dictNames is not None:
+      toks = link.split('.')
+      if toks[1] in dictNames:
+        link = '{:s}.{:s}'.format (toks[0], dictNames[toks[1]].upper())
     phs = phases[link]
     for i in range(len(phs)):
       idx = phs[i]
@@ -150,7 +167,7 @@ def load_currents(fname, ordname):
   fd.close()
   return idss, irad
 
-def load_voltages(fname):
+def load_voltages(fname, dictNames=None):
 #  print ('load_voltages from:', fname)
   vpu = {}
   vmag = {}
@@ -162,7 +179,10 @@ def load_voltages(fname):
   next (rd)
   #Bus, BasekV, Node1, Magnitude1, Angle1, pu1, Node2, Magnitude2, Angle2, pu2, Node3, Magnitude3, Angle3, pu3
   for row in rd:
-    bus = row[0].strip('\"').upper()
+    if dictNames is not None:
+      bus = dictNames[row[0].strip('\"').upper()].upper()
+    else:
+      bus = row[0].strip('\"').upper()
     if len(bus) > 0:
       vpu1 = float(row[5])
       vpu2 = float(row[9])
@@ -274,7 +294,7 @@ def print_glm_flow (vtag, itag, volts, vang, amps, iang, fps=[sys.stdout]):
   for fp in fps:
     print ('    Total S = {:9.3f} + j {:9.3f}'.format (ptot, qtot), file=fp)
 
-def load_taps(fname):
+def load_taps(fname, dictNames=None):
   vtap = {}
   if not os.path.isfile (fname):
     return vtap
@@ -284,6 +304,9 @@ def load_taps(fname):
   # Name, Tap, Min, Max, Step, Position
   for row in rd:
     bus = row[0].strip('\"').upper()
+    if dictNames is not None:
+      if bus in dictNames:
+        bus = dictNames[bus].upper()
     if len(bus) > 0:
       vtap[bus] = int (row[6])
   fd.close()
@@ -401,23 +424,58 @@ def write_dss_flows(dsspath, rootname, check_branches, fps=[sys.stdout]):
           branch_q += q
   print ('Accumulated Load P={:.2f} kW   Q={:.2f} kVAR'.format(branch_p, branch_q))
 
+def get_glm_class (cimClass):
+  if cimClass == 'ACLineSegment':
+    return 'LINE'
+  if cimClass in ['PowerTransformer', 'PowerTransformerEnds']:
+    return 'XF'
+  if cimClass == 'SeriesCompensator':
+    return 'REAC'
+  if cimClass == 'RatioTapChangers':
+    return 'REG'
+  if cimClass in ['Breaker', 'Fuse', 'LoadBreakSwitch', 'Recloser', 'Sectionaliser']:
+    return 'SWT'
+  return ''
+
+def read_mrid_dictionary (dictpath, rootname):
+  dictNames = None
+  dictClasses = None
+  dictFile = os.path.join (dictpath, rootname + '_dict.json')
+  if os.path.exists(dictFile):
+    dict = json.load (open(dictFile))
+    if 'exportNameMode' in dict:
+      if dict['exportNameMode'] == 'MRID':
+        dictNames = {}
+        dictClasses = {}
+        for fdr in dict['feeders']:
+          for bus in fdr['busnames']:
+            dictNames[bus['mRID']] = bus['name']
+          for eq in fdr['equipmentnames']:
+            dictNames[eq['mRID']] = eq['name']
+            dictClasses[eq['mRID']] = get_glm_class (eq['class'])
+  return dictNames, dictClasses
+
 def write_comparisons(basepath, dsspath, glmpath, rootname, voltagebases, check_branches=[], do_gld=True, fps=[sys.stdout]):
   dssroot = rootname.lower()
+
   v1, magv1, angv1 = load_voltages (os.path.join (basepath, dssroot + '_v.csv'))
   t1 = load_taps (os.path.join (basepath, dssroot + '_t.csv'))
   i1, angi1 = load_currents (os.path.join (basepath, dssroot + '_i.csv'),
                              os.path.join (basepath, dssroot + '_n.csv'))
   s1 = load_summary (os.path.join (basepath, dssroot + '_s.csv'))
+
   if dsspath:
-    v2, magv2, angv2 = load_voltages (os.path.join (dsspath, dssroot + '_v.csv'))
-    t2 = load_taps (os.path.join (dsspath, dssroot + '_t.csv'))
+    dictNames, dictClasses = read_mrid_dictionary (dsspath, dssroot)
+    v2, magv2, angv2 = load_voltages (os.path.join (dsspath, dssroot + '_v.csv'), dictNames)
+    t2 = load_taps (os.path.join (dsspath, dssroot + '_t.csv'), dictNames)
     i2, angi2 = load_currents (os.path.join (dsspath, dssroot + '_i.csv'), 
-                               os.path.join (dsspath, dssroot + '_n.csv'))
+                               os.path.join (dsspath, dssroot + '_n.csv'), dictNames)
     s2 = load_summary (os.path.join (dsspath, dssroot + '_s.csv'))
 
   if do_gld:
-    gldbus, gldv, gldmagv, gldangv = load_glm_voltages (os.path.join (glmpath, rootname + '_volt.csv'), voltagebases)
-    gldlink, gldi, gldangi = load_glm_currents (os.path.join (glmpath, rootname + '_curr.csv'))
+    dictNames, dictClasses = read_mrid_dictionary (glmpath, rootname)
+    gldbus, gldv, gldmagv, gldangv = load_glm_voltages (os.path.join (glmpath, rootname + '_volt.csv'), voltagebases, dictNames)
+    gldlink, gldi, gldangi = load_glm_currents (os.path.join (glmpath, rootname + '_curr.csv'), dictNames, dictClasses)
   else:
     gldv = []
     gldi = []

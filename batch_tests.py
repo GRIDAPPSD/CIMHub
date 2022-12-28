@@ -16,15 +16,15 @@ else:
 
 # do not use path separators in 'dir'
 shell_tests = [
-#  {'dir':'example', 'test':'example', 'args':'arg'},
-#  {'dir':'tests', 'test':'test_combiner'},  # needs the example outputs
+  {'dir':'example', 'test':'example', 'args':'arg'},
+  {'dir':'tests', 'test':'test_combiner'},  # needs the example outputs
   ]
 python_tests = [
-#  {'dir':'tests', 'test':'test_cimhub'},
-#  {'dir':'tests', 'test':'test_comparisons'},
-#  {'dir':'tests', 'test':'test_drop'},
-#  {'dir':'tests', 'test':'test_der'},
-#  {'dir':'tests', 'test':'onestep'},
+  {'dir':'tests', 'test':'test_cimhub'},
+  {'dir':'tests', 'test':'test_comparisons'},
+  {'dir':'tests', 'test':'test_drop'},
+  {'dir':'tests', 'test':'test_der'},
+  {'dir':'tests', 'test':'onestep'},
   {'dir':'tests', 'test':'naming'},
   ]
 
