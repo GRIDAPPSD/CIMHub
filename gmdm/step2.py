@@ -449,6 +449,28 @@ for key, row in pecmodes.items():
   inspec = ins_pec_template.format(res=key, mode=row['mode'], ns=CIMHubConfig.cim_ns)
   qinserts.append(inspec)
 
+# use fdr_id as the ConnectivityNodeContainer for all buses, so DistBus query will succeeed
+q12 = CIMHubConfig.prefix + """# shows ConnectivityNode that have no ConnectivityNodeContainer
+SELECT DISTINCT ?name ?id ?container 
+WHERE {
+ ?cn r:type c:ConnectivityNode.
+ ?cn c:IdentifiedObject.mRID ?id.
+ ?cn c:IdentifiedObject.name ?name.
+ OPTIONAL {?cn c:ConnectivityNode.ConnectivityNodeContainer ?ct1.
+          ?ct1 c:IdentifiedObject.mRID ?container.}
+}
+ORDER BY ?name
+"""
+ins_cn_template = """
+ <urn:uuid:{res}> c:ConnectivityNode.ConnectivityNodeContainer <urn:uuid:{resFdr}>."""
+sparql.setQuery(q12)
+ret = sparql.query()
+print ('Adding Connectivity Node Containers:')
+for b in ret.bindings:
+  if 'container' not in b:
+    print ('  set ConnectivityNode.ConnectivityNodeContainer to', fdr_id, 'on', b['name'].value, b['id'].value)
+    ins = ins_cn_template.format(res=b['id'].value, resFdr=fdr_id, ns=CIMHubConfig.cim_ns)
+    qinserts.append(ins)
 PostDeletes (sparql, qdeletes)
 PostInserts (sparql, qinserts)
 

@@ -12,6 +12,7 @@ public class DistSubstation extends DistComponent {
 
   public String id;
   public String name;
+  public String fdrid;
   public String fdrname;
   public String bus;
   public String t1id;
@@ -39,7 +40,8 @@ public class DistSubstation extends DistComponent {
       id = soln.get("?id").toString();
       name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
       bus = GetBusExportName (soln.get("?bus").toString());
-      fdrname = soln.get("?fdrname").toString();
+      fdrid = soln.get("?fdrid").toString();
+      fdrname = PushExportName (soln.get("?fdrname").toString(), fdrid, "Feeder");
       t1id = soln.get("?t1id").toString();
       basev = Double.parseDouble (soln.get("?basev").toString());
       nomv = Double.parseDouble (soln.get("?nomv").toString());

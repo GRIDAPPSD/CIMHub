@@ -91,7 +91,10 @@ os.system ('export.bat')
 cimhub.make_dssrun_script (cases=cases, scriptname='check.dss', bControls=False)
 p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
 p1.wait()
-cimhub.write_dss_flows (dsspath=dsspath, rootname=cases[0]['root'], check_branches=cases[0]['check_branches'])
+fp = open('adapt_gmdm.inc', 'w')
+cimhub.write_dss_flows (dsspath=dsspath, rootname=cases[0]['root'], check_branches=cases[0]['check_branches'],
+                        fps=[sys.stdout, fp])
+fp.close()
 
 # gridlab-d won't solve this circuit due to the regulator connections, and secondary switch
 cimhub.make_glmrun_script (cases=cases, scriptname='check_glm.bat')

@@ -695,7 +695,7 @@ public class CIMImporter extends Object {
   public void LoadAllMaps(boolean useHouses) {
     LoadCountMaps();
     LoadBusNames();
-//    LoadEquipmentNames();
+    // PrintOneMap (DistComponent.mapBusNames, "** Bus (ConnectivityNode) names");
 
     LoadBaseVoltages();
     LoadBreakers();
