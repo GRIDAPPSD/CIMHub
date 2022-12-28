@@ -1,5 +1,6 @@
 #  Copyright (c) 2022, Battelle Memorial Institute
 import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import trapz
@@ -36,6 +37,11 @@ def add_case (ax, dsspath):
     ax.plot(t, p, label='{:s} {:s}'.format(key.upper(), dsspath))
 
 if __name__ == '__main__':
+  bShowPlot = True
+  if len(sys.argv):
+    if sys.argv[1] == 'noplot':
+      bShowPlot = False
+
   fig, ax = plt.subplots(1, 1, figsize=(8,6))
   plt.suptitle ('Case ecp_growthcvr')
 
@@ -47,4 +53,5 @@ if __name__ == '__main__':
   ax.legend()
   ax.grid()
 
-  plt.show()
+  if bShowPlot:
+    plt.show()

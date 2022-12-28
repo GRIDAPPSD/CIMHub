@@ -28,5 +28,5 @@ if __name__ == '__main__':
   cases = json.load(fp)
   fp.close()
 
-  cimhub.convert_and_check_models (cases, bClearDB=True, bClearOutput=True, glmScheduleDir='../support/')
+  cimhub.convert_and_check_models (cases, bClearDB=True, bClearOutput=True, glmScheduleDir='../support/', rstFile='onestep.inc')
 

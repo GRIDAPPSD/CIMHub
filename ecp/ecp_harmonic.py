@@ -1,5 +1,6 @@
 #  Copyright (c) 2022, Battelle Memorial Institute
 import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -25,6 +26,11 @@ def add_case (ax, dsspath, offset):
       ax[row,col].legend()
 
 if __name__ == '__main__':
+  bShowPlot = True
+  if len(sys.argv):
+    if sys.argv[1] == 'noplot':
+      bShowPlot = False
+
   fig, ax = plt.subplots(2, 4, figsize=(12,8))
   plt.suptitle ('Harmonic Current Distortion')
   offset = -0.25
@@ -32,4 +38,6 @@ if __name__ == '__main__':
     add_case (ax, dsspath, offset)
     offset += 0.5
 
-  plt.show()
+  if bShowPlot:
+    plt.show()
+

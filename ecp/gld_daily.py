@@ -1,9 +1,14 @@
 #  Copyright (c) 2022, Battelle Memorial Institute
 import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import trapz
 import pandas as pd
+
+if not sys.warnoptions:
+    import warnings
+    warnings.simplefilter("ignore") # for the UnknownTimezoneWarning, to be fixed in GridLAB-D
 
 plt.rcParams['savefig.directory'] = os.path.abspath ('../docs/media') # os.getcwd()
 
@@ -20,7 +25,7 @@ def read_csv_df(fname, complex_column_names=None):
   if complex_column_names is not None:
     for col in complex_column_names:
       df[col] = df[col].astype(complex)
-  print ('\n\n=== Read and converted', fname)
+#  print ('\n\n=== Read and converted', fname)
   return df
 
 def read_multicsv_df(fname, complex_property_name=None):
@@ -29,7 +34,7 @@ def read_multicsv_df(fname, complex_property_name=None):
     for col in df.columns.values.tolist():
       if col.endswith(complex_property_name):
         df[col] = df[col].astype(complex)
-  print ('\n\n=== Read and converted', fname)
+#  print ('\n\n=== Read and converted', fname)
   return df
 
 def collect_columns (d, cols, base=None):
@@ -174,7 +179,10 @@ def plot_overlay(df, tstep, npts):
 
 
 if __name__ == '__main__':
-
+  bShowPlot = True
+  if len(sys.argv):
+    if sys.argv[1] == 'noplot':
+      bShowPlot = False
 #  plot_dss_case()
 #  quit()
 
@@ -184,18 +192,20 @@ if __name__ == '__main__':
   for key in df.columns:
     column_map[key] = key[:-ilen]
   df.rename(columns=column_map, inplace=True)
-  df.info()
+#  df.info()
   npts = len(df.index)
   dt = df.index[-1] - df.index[0]
   trange = 86400.0 * dt.days + dt.seconds
   tstep = trange / npts
-  print ('Record starts at {:s}, {:d} points at dt={:.2f}s'.format(str(df.index[0]), npts, tstep))
+#  print ('Record starts at {:s}, {:d} points at dt={:.2f}s'.format(str(df.index[0]), npts, tstep))
 
   #ax = df.plot(grid=True, title='ECP Daily in GridLAB-D', xlabel='Date/Time', ylabel='Real Power')
 
   for key, data in df.iteritems():
     energy = np.trapz(data.apply(lambda r: r.real), dx=tstep/tbase) * 0.001
     print ('{:12s} {:10.3f} kwh'.format (key, energy))
-  #plt.show()
-#  plot_gld_case (df, tstep, npts)
-  plot_overlay (df, tstep, npts)
+
+  if bShowPlot:
+    #plt.show()
+    #  plot_gld_case (df, tstep, npts)
+    plot_overlay (df, tstep, npts)

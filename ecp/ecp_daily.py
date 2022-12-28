@@ -1,5 +1,6 @@
 #  Copyright (c) 2022, Battelle Memorial Institute
 import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import trapz
@@ -58,6 +59,11 @@ def add_case (ax, dsspath):
 
 if __name__ == '__main__':
 
+  bShowPlot = True
+  if len(sys.argv):
+    if sys.argv[1] == 'noplot':
+      bShowPlot = False
+
   fig, ax = plt.subplots(1, 3, figsize=(10,6))
   plt.suptitle ('Case ecp_daily')
 
@@ -73,4 +79,5 @@ if __name__ == '__main__':
     ax[i].legend()
     ax[i].grid()
 
-  plt.show()
+  if bShowPlot:
+    plt.show()

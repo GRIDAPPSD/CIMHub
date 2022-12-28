@@ -15,7 +15,6 @@ import cimhub.CIMHubConfig as CIMHubConfig
 import json
 import sys
 import os
-import shutil
 import subprocess
 
 template_files = {}
