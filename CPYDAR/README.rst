@@ -16,6 +16,11 @@ The model files are versioned in subdirectories *ieee13x*, *ieee123x*, and *j1re
 Loading and Testing CIM Models
 ------------------------------
 
+The test cases in *cases.json* are configured as decribed in 
+`Test Case Configuration <../README.rst#Test-Case-Configuration>`_. The
+`Command-Line Reference <../README.rst#Command-Line-Reference>`_ describes available
+**export\_options** for each case.
+
 The test case conversion to CIM XML is executed with ``python3 test_CPYDAR.py``. The steps cover:
 
 1. Solve the original cases in OpenDSS, then create CIM XML
@@ -46,6 +51,8 @@ or with positive power for storage that is charging.
 
 Load Flow Comparisons
 ---------------------
+
+See `Round-trip Validation <../README.rst#Round-trip-Validation>`_ for notes on interpreting the results.
 
 `Results <onestep.inc>`_.
 

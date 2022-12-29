@@ -8,7 +8,7 @@ Process
 
 The test cases in *cases.json* and *name\_cases.json* are configured as decribed in 
 `Test Case Configuration <../README.rst#Test-Case-Configuration>`_. The
-`Command-Line Reference <../README.rst#Test-Case-Configuration>`_ describes available
+`Command-Line Reference <../README.rst#Command-Line-Reference>`_ describes available
 **export\_options** for each case.
 
 The first set of test cases is executed with *python3 
