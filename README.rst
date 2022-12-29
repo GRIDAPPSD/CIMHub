@@ -140,9 +140,9 @@ Command-line Reference
 Usage and options for ``java gov.pnnl.gridappsd.cimhub.CIMImporter [options] output_root``, in 
 the format like ``-h=1`` to use houses in GridLAB-D exports.
 
-====== ============              ======================================
+====== ========================= =========================================================================================================================================================
 Option Values                    Description
-====== ============              ======================================
+====== ========================= =========================================================================================================================================================
 -q     filename                  Optional file with CIM namespace and component queries (defaults to built-in CIM100 with GMDM and PNNL extensions)
 -s     mRID                      Select one feeder by CIM mRID; selects all feeders if not specified
 -o     glm,dss,both,idx,cim,csv  Output format; defaults to glm; currently cim supports only CIM14
@@ -160,19 +160,26 @@ Option Values                    Description
 -u     uri                       Blazegraph uri (if connecting over HTTP); defaults to http:localhost:8889/bigdata/namespace/kb/sparql
 -a     0, 1                      Ask for shape, schedule, and player references to be exported for time-series power flow
 -m     0, 1                      Insert a reference to an include file of manual edits to exported models
--d     0, 1, 2                   Use of safe name, name, or mRID to identify simulator objects; defaults to safe name. Safe name replaces characters from the set " .=+^$*|[]{}\" with_
+-d     0, 1, 2                   Use of safe name, name, or mRID to identify simulator objects; defaults to safe name. Safe name replaces characters from the set " .=+^$*|[]{}\\" with \_
+====== ========================= =========================================================================================================================================================
 
-The output format options are:
+The output format options for ``-o=`` are:
 
-  - ``-o=cim``  creates a CIM14 model from CIM100
-  - ``-o=csv``  creates a set of comma-delimited text files from CIM100
-  - ``-o=dss``  creates an OpenDSS model from CIM100
-  - ``-o=glm``  creates a GridLAB-D model from CIM 100
-  - ``-o=both`` creates both OpenDSS and GridLAB-D models from CIM100 
-  - ``-o=idx``  creates a JSON index of all Feeders in the triple-store. Use this to obtain valid mRID values for the -s option
+===== ===============================================================================================================
+Value Description
+===== ===============================================================================================================
+cim   creates a CIM14 model from CIM100
+csv   creates a set of comma-delimited text files from CIM100
+dss   creates an OpenDSS model from CIM100
+glm   creates a GridLAB-D model from CIM 100
+both  creates both OpenDSS and GridLAB-D models from CIM100 
+idx   creates a JSON index of all Feeders in the triple-store. Use this to obtain valid mRID values for the -s option
+===== ===============================================================================================================
 
-If you will need both OpenDSS and GridLAB-D files, the ``-o=both`` option is much more efficient than generating them individually, 
-because over 90% of the execution time is taken up with SPARQL queries that are common to both.
+If you will need both OpenDSS and GridLAB-D files, the ``-o=both`` option 
+is much more efficient than generating them individually, because over 90% 
+of the execution time is taken up with SPARQL queries that are common to 
+both.  
 
 Test Case Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^
