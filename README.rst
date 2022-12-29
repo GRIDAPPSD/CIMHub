@@ -3,37 +3,40 @@ CIMHub
 
 Copyright (c) 2017-2022, Battelle Memorial Institute
 
-This is a tool set for translating electric power distribution system models between
-various formats, using the IEC Standard 61970/61968 Common Information Model (CIM) as the "Hub".
+This is a tool set for translating electric power distribution system 
+models between various formats, using the IEC Standard 61970/61968 Common 
+Information Model (CIM) as the "Hub".  
 
 `Requirements <requirements.md>`_
 
 `License <license.md>`_
 
-The CIM data is stored in an open-source triple-store called Blazegraph.
-Python 3 scripts depend on SPARQLWrapper.  The Java code uses 
-OpenJDK 11 and builds with Apache Maven.
+The CIM data is stored in an open-source triple-store called Blazegraph.  
+Python 3 scripts depend on SPARQLWrapper.  The Java code uses OpenJDK 11 
+and builds with Apache Maven.  
 
-Please make sure that GIT LFS is installed before checking out or cloning this repository.
+Please make sure that GIT LFS is installed before checking out or cloning 
+this repository.  
 
-Documentation
--------------
+Schema
+------
 
 For an introduction to the CIM, see `EPRI's CIM Primer <https://www.epri.com/research/products/000000003002006001>`_, 
 which is currently free to the public. 
 Then see 
 `Profile Unified Modeling Language (UML) <https://cimhub.readthedocs.io/en/latest/CDPSM.html>`_ for documentation of the schema used in CIMHub.
 
-End User Instructions
----------------------
+Installation
+------------
 
 CIMHub requires either Java 11 or Docker for the database engine, and 
-Python version 3.8 or later.  It runs on Linux, Windows or Mac OS 
-X.  Some of the `converters to OpenDSS <converters>`_ may only work on 
-Windows, in cases where the input file comes from a Windows-only database.  
+Python version 3.8 or later.  It runs on Linux, Windows or Mac OS X.  Some 
+of the **optional** `converters to OpenDSS <converters>`_ may only work on 
+Windows, especially in cases where the input file comes from a 
+Windows-only database.  
 
-Option 1: Java and Blazegraph Setup
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Option 1: Java and Python
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Unless you already have Docker installed, this option is probably more convenient.
 However, there may be technical or licensing concerns with installation of Java. If so,
@@ -45,36 +48,42 @@ please consider the Docker option below.
 4. Install the CIMHub exporter by downloading a JAR file from `releases <https://github.com/GRIDAPPSD/CIMHub/tree/feature/SETO/releases>`_
 5. Install `opendsscmd <https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/>`_
 
-Option 2: Docker and Blazegraph Setup
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Option 2: Docker and Python
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 With this option, you don't have to install Java directly. The Docker container
-encapsulates Java 8 with a compatible (and sufficient) version of Blazegraph. 
+encapsulates Java 11 with a compatible version of Blazegraph and the CIMHub exporter. 
 
 1. Install the Python package with ``pip install cimhub --upgrade``
 2. Install the `Docker Engine <https://docs.docker.com/install/>`_
 3. Install the Blazegraph engine with *docker pull lyrasis/blazegraph:2.1.5*
-4. Install the CIMHub exporter with *docker pull gridappsd/cimhub:1.0.4*
+4. Install the CIMHub exporter with *docker pull gridappsd/cimhub:1.1.0*
 5. Install `opendsscmd <https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/>`_
 
-Option 1: Getting Started Example with Java and Windows
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+End User Instructions
+---------------------
 
-This example converts two versions of the IEEE 13-Bus case from OpenDSS to CIM and GridLAB-D,
-without writing code. One version uses phase impedance matrices for line segments. The other version,
-labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
-for the transformers.
+Getting Started Example with Java on Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. From a command prompt in the Blazegraph installation directory, start the Blazegraph engine with ``java -server -Xmx4g -jar blazegraph.jar``
+This example converts two versions of the IEEE 13-Bus case from OpenDSS to 
+CIM and GridLAB-D, without writing code.  One version uses phase impedance 
+matrices for line segments.  The other version, labeled "Assets", uses 
+wire and spacing data for the line segments, and transformer code data for 
+the transformers.  
+
+1. From a command prompt in the Blazegraph installation directory, start the Blazegraph 
+   engine with ``java -server -Xmx4g -jar blazegraph.jar``
 2. From another command prompt in the examples directory *TBD*
 
-Option 2: Getting Started Example with Docker and Linux
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Getting Started Example with Docker on Linux
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This example converts two versions of the IEEE 13-Bus case from OpenDSS to CIM and GridLAB-D,
-without writing code. One version uses phase impedance matrices for line segments. The other version,
-labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
-for the transformers.
+This example converts two versions of the IEEE 13-Bus case from OpenDSS to 
+CIM and GridLAB-D, without writing code.  One version uses phase impedance 
+matrices for line segments.  The other version, labeled "Assets", uses 
+wire and spacing data for the line segments, and transformer code data for 
+the transformers.  
 
 1. From a Terminal, start the converter and Blazegraph with *./start.sh*
 2. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
@@ -102,38 +111,56 @@ Converting Other Circuits
 To convert your own circuits from OpenDSS to CIM and GridLAB-D, follow the IEEE 13-Bus
 example described above, with some changes:
 
-1. First read the `OpenDSS note on Common Information Model <doc/Common_Information_Model.pdf>`_ for background on how the univeral unique identifiers (UUID) are managed for CIM.
-2. The first time you run the conversion process on a new circuit, OpenDSS must create random UUID values. To account for this:
-   - In the example `cim_test.dss <example/cim_test.dss>`_ file, comment out (with //) any lines invoking the *uuids* command
-   - In the `example.sh <example/example.sh>`_ file, you have to replace the *-s* parameter with a correct one for your new circuit. For example, *_DFBF372D-4291-49EF-ACCA-53DAFDE0338F should be changed to a new value. The correct value will be found on line 1 of the generated **UUIDS.dat* file for your new circuit. You can generate this file by executing line 13 of *example.sh* by itself, i.e., run *opendsscmd cim_test.dss_. Then, copy the new mRID from line 1 of the output **UUIDS.dat* file into line 24 and/or line 29 of the *example.sh* file. Optionally, comment out line 13 because you don't need to run that step again, although it does no harm to do so.
-   - To re-run the conversion process on the same circuit, you should first uncomment the *uuids* command that you commented out in the first bullet. This way, OpenDSS will reuse the UUID values, including the first one for the circuit.
+1. First read the `OpenDSS note on Common Information Model <doc/Common_Information_Model.pdf>`_ 
+   for background on how the univeral unique identifiers (UUID) are managed for CIM.
+2. The first time you run the conversion process on a new circuit, OpenDSS must create 
+   random UUID values. To account for this:
+
+   - In the example `cim_test.dss <example/cim_test.dss>`_ file, comment out (with //) 
+     any lines invoking the *uuids* command
+   - In the `example.sh <example/example.sh>`_ file, you have to replace the *-s* 
+     parameter with a correct one for your new circuit. For example, 
+     *DFBF372D-4291-49EF-ACCA-53DAFDE0338F* should be changed to a new value. 
+     The correct value will be found on line 1 of the generated *\*UUIDS.dat* 
+     file for your new circuit. You can generate this file by executing line 13 
+     of *example.sh* by itself, i.e., run *opendsscmd cim_test.dss*. Then, 
+     copy the new mRID from line 1 of the output *\*UUIDS.dat* file into 
+     line 24 and/or line 29 of the *example.sh* file. Optionally, comment out 
+     line 13 because you don't need to run that step again, although it does 
+     no harm to do so.
+   - To re-run the conversion process on the same circuit, you should first 
+     uncomment the *uuids* command that you commented out in the first bullet. 
+     This way, OpenDSS will reuse the UUID values, including the first one for the circuit.
 
 If you don't have an OpenDSS model, see the `converters <./converters>`_ provided in this repository.
 
 Command-line Reference
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Usage and options for ``java gov.pnnl.gridappsd.cimhub.CIMImporter [options] output_root``
+Usage and options for ``java gov.pnnl.gridappsd.cimhub.CIMImporter [options] output_root``, in 
+the format like ``-h=1`` to use houses in GridLAB-D exports.
 
-- ``-q={queries file}  // optional file with CIM namespace and component queries (defaults to CIM100)``
-- ``-s={mRID}          // select one feeder by CIM mRID; selects all feeders if not specified``
-- ``-o={glm|dss|both|idx|cim|csv}   // output format; defaults to glm; currently cim supports only CIM14``
-- ``-l={0..1}          // load scaling factor; defaults to 1``
-- ``-f={50|60}         // system frequency; defaults to 60``
-- ``-e={Deri|Carson|FullCarson} // earth model for OpenDSS, defaults to Deri but GridLAB-D supports only Carson``
-- ``-n={schedule_name} // root filename for scheduled ZIP loads (defaults to none), valid only for -o=glm``
-- ``-z={0..1}          // constant Z portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)``
-- ``-i={0..1}          // constant I portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)``
-- ``-p={0..1}          // constant P portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)``
-- ``-r={0..1}          // determine ZIP load fraction based on given xml file or randomized fractions``
-- ``-h={0..1}          // ask for house load objects exported to supplement EnergyConsumers``
-- ``-x={0, 1}          // indicate whether for glm, the model will be called with a fault_check already created``
-- ``-t={0, 1}          // request timing of top-level methods and SPARQL queries, requires -o=both for methods``
-- ``-u={http://localhost:8889/bigdata/namespace/kb/sparql} // blazegraph uri (if connecting over HTTP); defaults to http://localhost:8889/bigdata/namespace/kb/sparql``
-- ``-a={0, 1}          // ask for shape, schedule, and player references to be exported for time-series power flow``
-- ``-m={0, 1}          // insert a reference to an include file of manual edits to exported models``
-- ``-d={0, 1, 2}       // use of safe name, name, or mRID to identify simulator objects; defaults to safe name``
-- ``                   // safe name replaces characters from the set " .=+^$*|[]{}\" with_``
+====== ============              ======================================
+Option Values                    Description
+====== ============              ======================================
+-q     filename                  Optional file with CIM namespace and component queries (defaults to built-in CIM100 with GMDM and PNNL extensions)
+-s     mRID                      Select one feeder by CIM mRID; selects all feeders if not specified
+-o     glm,dss,both,idx,cim,csv  Output format; defaults to glm; currently cim supports only CIM14
+-l     [0.0 - 1.0]               Load scaling factor; defaults to 1
+-f     50, 60                    System frequency; defaults to 60
+-e     Deri,Carson,FullCarson    Earth model for OpenDSS, defaults to Deri but GridLAB-D supports only Carson
+-n     schedule name             Root filename for scheduled ZIP loads (defaults to none), valid only for -o=glm
+-z     [0.0 - 1.0]               Constant Z portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)
+-i     [0.0 - 1.0]               Constant I portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)
+-p     [0.0 - 1.0]               Constant P portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)
+-r     0, 1                      Determine ZIP load fraction based on given xml file or randomized fractions
+-h     0, 1                      Ask for house load objects exported to supplement EnergyConsumers
+-x     0, 1                      Indicate whether for glm, the model will be called with a fault_check already created
+-t     0, 1                      Request timing of top-level methods and SPARQL queries, requires -o=both for methods
+-u     uri                       Blazegraph uri (if connecting over HTTP); defaults to http:localhost:8889/bigdata/namespace/kb/sparql
+-a     0, 1                      Ask for shape, schedule, and player references to be exported for time-series power flow
+-m     0, 1                      Insert a reference to an include file of manual edits to exported models
+-d     0, 1, 2                   Use of safe name, name, or mRID to identify simulator objects; defaults to safe name. Safe name replaces characters from the set " .=+^$*|[]{}\" with_
 
 The output format options are:
 
@@ -254,7 +281,7 @@ It could be more convenient to run only Blazegraph in a Docker container, writin
 	 - consult the Docker documentation for more details on how to stop and otherwise manage containers
    - subsequently, use *docker restart blazegraph* to restart the container
 
-2. Point a web browser to *http://localhost:8889/bigdata_. On-line help on Blazegraph is available from the browser
+2. Point a web browser to *http://localhost:8889/bigdata*. On-line help on Blazegraph is available from the browser
 3. Load some data from a CIM XML file into the browser
 4. Run a query in the browser
 
@@ -343,5 +370,5 @@ To run the Python code, you may need to adjust the Blazegraph URL and CIM Namesp
 Set ``use_proxy: true`` in this file if your computer is running a proxy server, e.g., if you are connected 
 to the PNNL VPN.
 
-Unused code or data from the Powergrid-Models repository is now in ``archive``
+Unused code or data from the Powergrid-Models repository is now in *archive*
 
