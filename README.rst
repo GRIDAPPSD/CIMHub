@@ -150,22 +150,64 @@ because over 90% of the execution time is taken up with SPARQL queries that are 
 Test Case Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The test cases are configured by entries in the *cases.json* file.
-Each array element is a dictionary with the following keys:
+In each directory, the main suite of test cases is configured by entries in the *cases.json* file,
+where each case has the following attributes:
 
-- **dssname** is the root file name of the original OpenDSS base case
-- **root** is used to generate file names for converted files
-- **mRID** is a UUID4 to make the test case feeder unique. For a new test case, generate a random new mRID with this Python script: ``import uuid;idNew=uuid.uuid4();print(str(idNew).upper())``
-- **glmvsrc** is the substation source line-to-neutral voltage for GridLAB-D
-- **bases** is an array of voltage bases to use for interpretation of the voltage outputs. Specify line-to-line voltages, in ascending order, leaving out 208 and 480.
-- **export_options** is a string of command-line options to the CIMImporter Java program. ``-e=carson`` keeps the OpenDSS line constants model compatible with GridLAB-D's
-- **skip_gld** specify as ``True`` when you know that GridLAB-D won't support this test case
-- **check_branches** is an array of branches in the model to compare power flows and line-to-line voltages. Each element contains:
+The `cases.json` file contains an array of case definitions, where each case has the following attributes:
 
-    - **dss_link** is the name of an OpenDSS branch for power and current flow; power delivery or power conversion components may be used
-    - **dss_bus** is the name of an OpenDSS bus attached to **dss_link**. Line-to-line voltages are calculated here, and this bus establishes flow polarity into the branch at this bus.
-    - **gld_link** is the name of a GridLAB-D branch for power and current flow; only links, e.g., line or transformer, may be used. Do not use this when **skip_gld** is ``True``
-    - **gld_bus** is the name of a GridLAB-D bus attached to **gld_link**. Do not use this when **skip_gld** is ``True``
+- **mRID** master resource identifier (mRID) of the Feeder to select from Blazegraph for this case. 
+  Most CIM objects have a mRID, which is a universally unique identifier (UUID) following the Web standard RFC 4122.
+- **root** common part of case file names, usually matches the incoming OpenDSS circuit name
+- **inpath\_dss** relative path to incoming OpenDSS models, including shapes. Will store base 
+  *time-series* power flow results in this example. Must be specified. In this example, it's `./base/`
+- **dssname** file name of the incoming "master" OpenDSS file, often *root.dss*
+- **path\_xml** relative path to output CIM XML files, including archived UUID files to persist 
+  the mRIDs. Stores the base **snapshot** power flow results. In this example, it's *./xml/*
+- **outpath\_dss** relative path to output OpenDSS files, *./dss/* in this example. 
+  WARNING: contents may be deleted and rewritten on subsequent exports. To forego OpenDSS export, 
+  omit this attribute, or specify as None or an empty string.
+- **outpath\_glm** relative path to output GridLAB-D files, *./glm/* in this example. 
+  WARNING: contents may be deleted and rewritten on subsequent exports. To forego GridLAB-D export, 
+  omit this attribute, or specify as None or an empty string.
+- **outpath\_csv** relative path to output comma-separated value (CSV) files, *./csv/* 
+  in this example. WARNING: contents may be deleted and rewritten on subsequent exports. 
+  To forego CSV export, omit this attribute, or specify as None or an empty string.
+- **glmvsrc** RMS line-to-neutral voltage for the GridLAB-D *substation* source. Use nominal 
+  line-to-line voltage, divided by square root of three, then multiplied by per-unit voltage 
+  from the OpenDSS circuit definition.
+- **bases** array of nominal line-to-line voltage bases for power flow comparisons of per-unit 
+  voltages. Specify in ascending order, not including 208.0, which is always considered.
+- **substation** optional name of the CIM Substation. This may be used to help organize multiple feeders.
+- **region** optional name of the CIM GeographicalRegion. This may be used to help organize multiple feeders.
+- **subregion** optional name of the CIM SubGeographicalRegion. This may be used to help organize multiple feeders.
+- **substationID** optional mRID of the CIM Substation. This may be used to help organize multiple feeders.
+- **regionID** optional mRID of the CIM GeographicalRegion. This may be used to help organize multiple feeders.
+- **subregionID** optional mRID of the CIM SubGeographicalRegion. This may be used to help organize multiple feeders.
+- **export\_options** command-line options passed to the Java model exporter.  
+  See `Command-line Reference`_ for more details.
+- **check\_branches** optional array of individual branches to compare pre-conversion and post-conversion 
+  snapshot power flow solutions. Either the *dss* or *gld* pairs may be omitted.
+
+    - **dss\_link** name of an OpenDSS branch to compare the current and power flow.
+    - **dss\_bus** name of an OpenDSS bus at one end of the **dss\_link** for comparing voltages, 
+      and calculating power from the current flow.
+    - **gld\_link** name of a GridLAB-D branch to compare the current and power flow.
+    - **gld\_bus** name of a GridLAB-D bus at one end of the **gld\_link** for comparing voltages, 
+      and calculating power from the current flow.
+
+The *onestep.py* file reads *cases.json* into a Python dictionary, then processes it. Alternatively, you may create
+this dictionary programmatically in the Python script.
+
+- The last line of the script, calling *convert\_and\_check\_models*, performs all steps in sequence.
+- The first argument is the *case* dictionary, in which attribute values control how the conversions 
+  and comparisons are done.
+- The second argument *bClearDB*, will empty the Blazegraph database right away. 
+  This is most convenenient for testing, but use caution if the database may contain other circuits.
+- The third argument, *bClearOutput*, will remove any *outpath\_dss*, *outpath\_glm*, *outpath\_csv* 
+  specified in *cases*. USE CAUTION if these directories may contain other files, or manual edits. 
+  The output directories are created or re-created as necessary.
+- The fourth argument, *glmScheduleDir*, specifies where to find GridLAB-D's appliance and 
+  commercial schedules, which may be needed for the *-h* and *-a* export options.
 
 Round-trip Validation
 ^^^^^^^^^^^^^^^^^^^^^
@@ -175,7 +217,7 @@ The script outputs include the comparisons requested from **check_branches**, an
 - **Nbus** is the number of buses found in [Base OpenDSS, Converted OpenDSS, Converted GridLAB-D]
 - **Nlink** is the number of links found in [Base OpenDSS, Converted OpenDSS, Converted GridLAB-D]
 - **MAEv** is the mean absolute voltage error between Base OpenDSS and [Converted OpenDSS, Converted GridLAB-D], in per-unit. This is based on line-to-neutral voltages.
-In an ungrounded system, MAEv can be large. Use the line-to-line voltage comparisons from **check_branches** for ungrounded systems.
+  In an ungrounded system, MAEv can be large. Use the line-to-line voltage comparisons from **check_branches** for ungrounded systems.
 - **MAEi** is the mean absolute link current error between Base OpenDSS and [Converted OpenDSS, Converted GridLAB-D], in Amperes
 
 GridLAB-D has assumptions and component models that differ from those in OpenDSS, which may affect

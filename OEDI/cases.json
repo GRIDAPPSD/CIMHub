@@ -75,6 +75,14 @@
   "region": "IEEE",
   "subregion": "Medium",
   "dssname": "IEEE13_PV.dss",
+  "check_branches": [
+   {
+    "dss_link": "LINE.650632",
+    "dss_bus": "RG60",
+    "gld_link": "LINE_650632",
+    "gld_bus": "RG60"
+   }
+  ],
   "path_xml": "./xml/",
   "outpath_dss": "./dss/",
   "outpath_glm": "./glm/",
@@ -94,6 +102,20 @@
   "region": "IEEE",
   "subregion": "Medium",
   "dssname": "IEEE390_PV.dss",
+  "check_branches": [
+   {
+    "dss_link": "LINE.2_SW",
+    "dss_bus": "P5",
+    "gld_link": "SWT_2_SW",
+    "gld_bus": "P5"
+   },
+   {
+    "dss_link": "LINE.4_SW",
+    "dss_bus": "P9",
+    "gld_link": "SWT_4_SW",
+    "gld_bus": "P9"
+   }
+  ],
   "path_xml": "./xml/",
   "outpath_dss": "./dss/",
   "outpath_glm": "./glm/",
