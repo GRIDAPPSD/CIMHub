@@ -52,9 +52,8 @@ or with positive power for storage that is charging.
 Load Flow Comparisons
 ---------------------
 
-See `Round-trip Validation <../README.rst#Round-trip-Validation>`_ for notes on interpreting the results.
-
-`Results <onestep.inc>`_.
+See `Round-trip Validation <../README.rst#Round-trip-Validation>`_ for notes on 
+interpreting the `Results <onestep.inc>`_.
 
 ..
     literalinclude:: onestep.inc
