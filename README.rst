@@ -147,8 +147,8 @@ The output format options are:
 If you will need both OpenDSS and GridLAB-D files, the ``-o=both`` option is much more efficient than generating them individually, 
 because over 90% of the execution time is taken up with SPARQL queries that are common to both.
 
-TestCaseConfiguration
-^^^^^^^^^^^^^^^^^^^^^
+Test Case Configuration
+^^^^^^^^^^^^^^^^^^^^^^^
 
 The test cases are configured by entries in the *cases.json* file.
 Each array element is a dictionary with the following keys:
