@@ -16,7 +16,7 @@ The model files are versioned in subdirectories *ieee13x*, *ieee123x*, and *j1re
 Loading and Testing CIM Models
 ------------------------------
 
-The test case conversion to CIM XML is executed with ``python3 test\_CPYDAR.py``. The steps cover:
+The test case conversion to CIM XML is executed with ``python3 test_CPYDAR.py``. The steps cover:
 
 1. Solve the original cases in OpenDSS, then create CIM XML
 2. Upload the CIM XML to Blazegraph
