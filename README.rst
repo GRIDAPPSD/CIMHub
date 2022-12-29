@@ -76,13 +76,16 @@ without writing code. One version uses phase impedance matrices for line segment
 labeled "Assets", uses wire and spacing data for the line segments, and transformer code data
 for the transformers.
 
-1. From a Terminal, start the converter and Blazegraph with *./start.sh_
+1. From a Terminal, start the converter and Blazegraph with *./start.sh*
 2. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
+
    - *cd example*
    - *./example.sh*
    - *tail sum\*.csv* to verify that the converted OpenDSS files ran correctly
    - see the comments embedded in *example.sh* for more information
+
 3. To shut down the converter:
+
    - *exit* from inside the Docker Terminal
    - *./stop.sh* from the host Terminal
 
@@ -144,8 +147,8 @@ The output format options are:
 If you will need both OpenDSS and GridLAB-D files, the ``-o=both`` option is much more efficient than generating them individually, 
 because over 90% of the execution time is taken up with SPARQL queries that are common to both.
 
-Test Case Configuration
-^^^^^^^^^^^^^^^^^^^^^^^
+Configuration
+-------------
 
 The test cases are configured by entries in the *cases.json* file.
 Each array element is a dictionary with the following keys:
@@ -203,13 +206,16 @@ Developer Notes
 It could be more convenient to run only Blazegraph in a Docker container, writing code and queries on the host.
 
 1. Start the containerized Blazegraph engine:
+
 	 - *docker run --name blazegraph -d -p 8889:8080 lyrasis/blazegraph:2.1.5* to create and start the container for Blazegraph
 	 - Only if something goes wrong: *docker logs -f blazegraph* to log the database and Java messages to the console
 	 - consult the Docker documentation for more details on how to stop and otherwise manage containers
    - subsequently, use *docker restart blazegraph* to restart the container
+
 2. Point a web browser to *http://localhost:8889/bigdata_. On-line help on Blazegraph is available from the browser
 3. Load some data from a CIM XML file into the browser
 4. Run a query in the browser
+
 	 - the file *queries.txt* contains sample SPARQL that can be pasted into the Blazegraph browser window
 
 You can also run the IEEE 13-bus example conversions from the host Terminal.
