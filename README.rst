@@ -148,7 +148,7 @@ If you will need both OpenDSS and GridLAB-D files, the ``-o=both`` option is muc
 because over 90% of the execution time is taken up with SPARQL queries that are common to both.
 
 Configuration
--------------
+^^^^^^^^^^^^^
 
 The test cases are configured by entries in the *cases.json* file.
 Each array element is a dictionary with the following keys:
