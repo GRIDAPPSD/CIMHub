@@ -143,21 +143,21 @@ the format like ``-h=1`` to use houses in GridLAB-D exports.
 ====== ========================= =========================================================================================================================================================
 Option Values                    Description
 ====== ========================= =========================================================================================================================================================
--q     filename                  Optional file with CIM namespace and component queries (defaults to built-in CIM100 with GMDM and PNNL extensions)
+-q     XML filename              Optional file with CIM namespace and component queries (defaults to built-in CIM100 with GMDM and PNNL extensions)
 -s     mRID                      Select one feeder by CIM mRID; selects all feeders if not specified
 -o     glm,dss,both,idx,cim,csv  Output format; defaults to glm; currently cim supports only CIM14
 -l     [0.0 - 1.0]               Load scaling factor; defaults to 1
 -f     50, 60                    System frequency; defaults to 60
 -e     Deri,Carson,FullCarson    Earth model for OpenDSS, defaults to Deri but GridLAB-D supports only Carson
 -n     schedule name             Root filename for scheduled ZIP loads (defaults to none), valid only for -o=glm
--z     [0.0 - 1.0]               Constant Z portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)
--i     [0.0 - 1.0]               Constant I portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)
--p     [0.0 - 1.0]               Constant P portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)
+-z     [0.0 - 1.0]               Constant Z portion of load (defaults to 0 for CIM-defined LoadResponseCharacteristic)
+-i     [0.0 - 1.0]               Constant I portion of load (defaults to 0 for CIM-defined LoadResponseCharacteristic)
+-p     [0.0 - 1.0]               Constant P portion of load (defaults to 0 for CIM-defined LoadResponseCharacteristic)
 -r     0, 1                      Determine ZIP load fraction based on given xml file or randomized fractions
 -h     0, 1                      Ask for house load objects exported to supplement EnergyConsumers
 -x     0, 1                      Indicate whether for glm, the model will be called with a fault_check already created
 -t     0, 1                      Request timing of top-level methods and SPARQL queries, requires -o=both for methods
--u     uri                       Blazegraph uri (if connecting over HTTP); defaults to http:localhost:8889/bigdata/namespace/kb/sparql
+-u     URI                       Blazegraph uniform resource identifier (if connecting over HTTP); defaults to http:localhost:8889/bigdata/namespace/kb/sparql
 -a     0, 1                      Ask for shape, schedule, and player references to be exported for time-series power flow
 -m     0, 1                      Insert a reference to an include file of manual edits to exported models
 -d     0, 1, 2                   Use of safe name, name, or mRID to identify simulator objects; defaults to safe name. Safe name replaces characters from the set " .=+^$*|[]{}\\" with \_
@@ -187,24 +187,25 @@ Test Case Configuration
 In each directory, the main suite of test cases is configured by entries in the *cases.json* file,
 where each case has the following attributes:
 
-The `cases.json` file contains an array of case definitions, where each case has the following attributes:
+The *cases.json* file contains an array of case definitions, where each 
+case has the following attributes: 
 
 - **mRID** master resource identifier (mRID) of the Feeder to select from Blazegraph for this case. 
   Most CIM objects have a mRID, which is a universally unique identifier (UUID) following the Web standard RFC 4122.
 - **root** common part of case file names, usually matches the incoming OpenDSS circuit name
 - **inpath\_dss** relative path to incoming OpenDSS models, including shapes. Will store base 
-  *time-series* power flow results in this example. Must be specified. In this example, it's `./base/`
+  *snapshot* and/or *time-series* power flow results. Must be specified. For example, *./base/*
 - **dssname** file name of the incoming "master" OpenDSS file, often *root.dss*
 - **path\_xml** relative path to output CIM XML files, including archived UUID files to persist 
-  the mRIDs. Stores the base **snapshot** power flow results. In this example, it's *./xml/*
-- **outpath\_dss** relative path to output OpenDSS files, *./dss/* in this example. 
+  the mRIDs. Stores the base **snapshot** power flow results. Typically *./xml/*
+- **outpath\_dss** relative path to output OpenDSS files, typically *./dss/*. 
   WARNING: contents may be deleted and rewritten on subsequent exports. To forego OpenDSS export, 
   omit this attribute, or specify as None or an empty string.
-- **outpath\_glm** relative path to output GridLAB-D files, *./glm/* in this example. 
+- **outpath\_glm** relative path to output GridLAB-D files, typically *./glm/*. 
   WARNING: contents may be deleted and rewritten on subsequent exports. To forego GridLAB-D export, 
   omit this attribute, or specify as None or an empty string.
-- **outpath\_csv** relative path to output comma-separated value (CSV) files, *./csv/* 
-  in this example. WARNING: contents may be deleted and rewritten on subsequent exports. 
+- **outpath\_csv** relative path to output comma-separated value (CSV) files, typically *./csv/*. 
+  WARNING: contents may be deleted and rewritten on subsequent exports. 
   To forego CSV export, omit this attribute, or specify as None or an empty string.
 - **glmvsrc** RMS line-to-neutral voltage for the GridLAB-D *substation* source. Use nominal 
   line-to-line voltage, divided by square root of three, then multiplied by per-unit voltage 
@@ -279,40 +280,33 @@ Some other limitations on the validation process include:
 Developer Notes
 ---------------
 
-It could be more convenient to run only Blazegraph in a Docker container, writing code and queries on the host.
-
-1. Start the containerized Blazegraph engine:
-
-	 - *docker run --name blazegraph -d -p 8889:8080 lyrasis/blazegraph:2.1.5* to create and start the container for Blazegraph
-	 - Only if something goes wrong: *docker logs -f blazegraph* to log the database and Java messages to the console
-	 - consult the Docker documentation for more details on how to stop and otherwise manage containers
-   - subsequently, use *docker restart blazegraph* to restart the container
-
-2. Point a web browser to *http://localhost:8889/bigdata*. On-line help on Blazegraph is available from the browser
-3. Load some data from a CIM XML file into the browser
-4. Run a query in the browser
-
-	 - the file *queries.txt* contains sample SPARQL that can be pasted into the Blazegraph browser window
-
-You can also run the IEEE 13-bus example conversions from the host Terminal.
-
-1. *cd example*
-2. *./example.sh arg*
-
-Step 2 provides a dummy argument so that the example script will select a different URL for Blazegraph. When
-querying from the host, the URL contains *localhost:8889* but when querying from a Docker terminal, the URL
-contains *blazegraph:8080*, which is valid only on the internal network that Docker creates. Also, with a
-dummy argument, the example will try to run GridLAB-D on the converted example models. This will fail unless
-you have GridLAB-D installed on the host. If you do have GridLAB-D, *tail test\*.csv* to check the results.
-
 In order to develop Python code for the CIM, it should suffice to *pip3 install sparqlwrapper* and then
-use existing Python code under *./utils* for guidance.
+use existing Python code under *./src\_python* for guidance.
 
 In order to modify the CIMHub Java code, you will need to install `Apache Maven <https://maven.apache.org>`_ and then use *mvn clean install*.
 
 In order to build the cimhub docker container, use the *./build.sh* script. However, that script assumes
 that opendsscmd and liblinenoise have been built in sibling directories to this one. When finished, an
-authorized developer can push the new image to DockerHub, e.g., *docker push gridappsd/cimhub:0.0.3*
+authorized developer can push the new image to DockerHub, e.g., *docker push gridappsd/cimhub:1.1.0*
+
+Automated Test Suite
+^^^^^^^^^^^^^^^^^^^^
+
+From this directory, ``python3 batch_tests.py`` will recursively execute the test suites
+in several sub-directories.
+
+- The Blazegraph engine must have been started first.  Existing contents will be deleted.
+- Previous test suite outputs will be erased.
+- The test suites will take several minutes to finish.
+- Upon completion:
+
+  - Use *git status* to identify any summary outputs that have changed
+    in files named *\*.inc*.  Then use *git diff* on those *\*.inc* files to
+    determine the significance of any changed outputs that occurred.
+  - Check *\*.log* files in the sub-directories for detailed warnings and errors.
+
+- This automated test suite should be run before making any pull requests.
+- New CIMHub features and examples should be added to *batch\_tests.py* as they are developed.
 
 cimhub Python Package Testing and Deployment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -344,6 +338,35 @@ If working on the platform:
 - ``mvn clean install`` from this repository to ensure you have the latest, branch-compatible CIMHub
 - Make sure you have the latest, branch-compatible opendsscmd from `GOSS-GridAPPS-D <https://github.com/GRIDAPPSD/GOSS-GridAPPS-D/tree/opendss/v1.2.16/opendss>`_
 - Perform the GridAPPS-D tests from the latest, branch-compatible `Powergrid-Models/platform` <https://github.com/GRIDAPPSD/Powergrid-Models/tree/issue/1175/platform>`_.
+
+Working with Docker
+^^^^^^^^^^^^^^^^^^^
+
+It could be more convenient to run only Blazegraph in a Docker container, writing code and queries on the host.
+
+1. Start the containerized Blazegraph engine:
+
+	 - *docker run --name blazegraph -d -p 8889:8080 lyrasis/blazegraph:2.1.5* to create and start the container for Blazegraph
+	 - Only if something goes wrong: *docker logs -f blazegraph* to log the database and Java messages to the console
+	 - consult the Docker documentation for more details on how to stop and otherwise manage containers
+   - subsequently, use *docker restart blazegraph* to restart the container
+
+2. Point a web browser to *http://localhost:8889/bigdata*. On-line help on Blazegraph is available from the browser
+3. Load some data from a CIM XML file into the browser
+4. Run a query in the browser
+
+	 - the file *queries.txt* contains sample SPARQL that can be pasted into the Blazegraph browser window
+
+You can also run the IEEE 13-bus example conversions from the host Terminal.
+
+1. *cd example*
+2. *./example.sh arg*
+
+Step 2 provides a dummy argument so that the example script will select a different URL for Blazegraph. When
+querying from the host, the URL contains *localhost:8889* but when querying from a Docker terminal, the URL
+contains *blazegraph:8080*, which is valid only on the internal network that Docker creates. Also, with a
+dummy argument, the example will try to run GridLAB-D on the converted example models. This will fail unless
+you have GridLAB-D installed on the host. If you do have GridLAB-D, *tail test\*.csv* to check the results.
 
 Directories
 -----------
