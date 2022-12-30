@@ -1275,7 +1275,6 @@ public class CIMImporter extends Object {
     // PrintGldNodeMap (mapNodes, "*** GldNode Map Before Accumulation");
     for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {
       DistSubstation obj = pair.getValue();
-      System.out.print (obj.DisplayString());
       GldNode nd = mapNodes.get (obj.bus);
       nd.bSwing = true;
       nd.nomvln = obj.basev / Math.sqrt(3.0);

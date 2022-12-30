@@ -80,16 +80,13 @@ public class DistSyncMachine extends DistComponent {
   }
 
   public String GetGLM(DistEnergyConnectionProfile prf) {
-//    if (!phases.contains("ABC")) {
-//      return "";
-//    }
+//  diesel_dg only ever supported ABC phasing, and in GLD v5 the phases property was removed
     StringBuilder buf = new StringBuilder ("object diesel_dg {\n");
 
     buf.append ("  name \"dg_" + name + "\";\n");
     buf.append ("  parent \"" + bus + "_dgmtr\";\n");
     String Sphase;
     if (phases.contains ("S")) {
-      buf.append("  phases " + phases.replace (":", "") + ";\n");
       if (q < 0.0) {
         Sphase = df2.format(p) + "-" + df2.format(-q) + "j";
       } else {
@@ -103,7 +100,6 @@ public class DistSyncMachine extends DistComponent {
         buf.append ("  power_out_C " + Sphase + ";\n");
       }
     } else {
-      buf.append("  phases " + phases.replace (":", "") + "N;\n");
       String Pphase = df2.format(p/3.0);
       String Qphase = df2.format(q/3.0);
       if (prf != null) {

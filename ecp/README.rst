@@ -190,4 +190,6 @@ gld_daily
 
 .. image:: ../docs/media/gld_daily_gld.png
 
+.. image:: ../docs/media/gld_daily_overlay.png
+
 

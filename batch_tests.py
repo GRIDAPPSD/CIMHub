@@ -13,8 +13,8 @@ if sys.platform == 'win32':
   shell_template = '{:s}.bat {:s} > {:s}.log 2>&1'
   clean_cmd = 'clean.bat > nul 2>&1'
 else:
-  python_template = 'python3 {:s}.py {:s} > {:s}.log'
-  shell_template = './{:s}.sh {:s} > {:s}.log'
+  python_template = 'python3 {:s}.py {:s} > {:s}.log 2>&1'
+  shell_template = './{:s}.sh {:s} > {:s}.log 2>&1'
   clean_cmd = './clean.sh > /dev/null 2>&1'
 
 # do not use path separators in 'dir'
@@ -46,6 +46,18 @@ all_tests = [
   {'dir':'tutorial',   'test':'onestep',    'clean':True},
   {'dir':'gmdm',       'test':'adapt_gmdm', 'clean':True},
   ]
+
+if len(sys.argv) > 1:
+  if sys.argv[1] == 'clean':
+    for test in all_tests:
+      if 'clean' in test:
+        if test['clean']:
+          testdir = os.path.join(cwd, test['dir'])
+          os.chdir (testdir)
+          print ('** cleaning', testdir)
+          p1 = subprocess.call (clean_cmd, shell=True)
+    os.chdir(cwd)
+    quit()
 
 for test in all_tests:
   testdir = os.path.join(cwd, test['dir'])

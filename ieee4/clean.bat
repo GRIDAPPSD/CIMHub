@@ -1,7 +1,8 @@
 del *.csv
 del *.xml
-rm go.sh
-rm cim_test.dss
+del *.log
+del _*.bat
+del _*.dss
 rd /s /q dss
 rd /s /q glm
 

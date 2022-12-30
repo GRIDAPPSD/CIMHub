@@ -6,5 +6,6 @@ del feeder_head.csv
 del summer.csv
 del xml\*.csv
 del _*.*
+del *.log
 rd /s /q glm
 rd /s /q dss

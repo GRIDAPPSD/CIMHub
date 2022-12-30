@@ -27,7 +27,7 @@ def add_case (ax, dsspath, offset):
 
 if __name__ == '__main__':
   bShowPlot = True
-  if len(sys.argv):
+  if len(sys.argv) > 1:
     if sys.argv[1] == 'noplot':
       bShowPlot = False
 

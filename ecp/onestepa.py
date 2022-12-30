@@ -19,8 +19,8 @@ import subprocess
 
 template_files = {}
 
-template_files['ecp_daily_edits.dss'] = """New Loadshape.Cloud npts=86401 sinterval=1 csvfile=..\\base\\pcloud.dat action=normalize
-New Loadshape.Clear npts=86401 sinterval=1 csvfile=..\\base\\pclear.dat action=normalize"""
+template_files['ecp_daily_edits.dss'] = """New Loadshape.Cloud npts=86401 sinterval=1 csvfile=../base/pcloud.dat action=normalize
+New Loadshape.Clear npts=86401 sinterval=1 csvfile=../base/pclear.dat action=normalize"""
 
 template_files['ecp_daily_run.dss'] = """redirect ecp_daily_base.dss
 new monitor.pv1 pvsystem.pv1 1 mode=1 ppolar=no
@@ -39,7 +39,7 @@ export monitors load1
 export monitors load2"""
 
 template_files['ecp_duty_edits.dss'] = """// for duty cycle, runs for 2900 seconds or 0.81 hours
-new loadshape.PVduty npts=2900 interval=(1.0 3600 /) mult=(File=..\\base\\PVLoadshape-1sec-2900pts.dat) Action=Normalize
+new loadshape.PVduty npts=2900 interval=(1.0 3600 /) mult=(File=../base/pvloadshape-1sec-2900pts.dat) Action=Normalize
 New Loadshape.cycle npts=10 interval=0 hour=[0.00,0.09,0.10,0.29,0.30,0.49, 0.50, 0.69,0.70,0.82] 
 ~                                      mult=[0.00,0.00,1.00,1.00,0.00,0.00,-1.00,-1.00,0.00,0.00]
 ~ action=normalize"""
@@ -56,7 +56,7 @@ export monitors pv2
 export monitors bess1
 export monitors bess2"""
 
-template_files['ecp_yearly_edits.dss'] = """new loadshape.YearlyPQ npts=8760 interval=1.0 mult=(File=..\\base\\loadshape5_p.dat)  Qmult=(File=..\\base\\loadshape5_q.dat) Action=Normalize"""
+template_files['ecp_yearly_edits.dss'] = """new loadshape.YearlyPQ npts=8760 interval=1.0 mult=(File=../base/loadshape5_p.dat)  Qmult=(File=../base/loadshape5_q.dat) Action=Normalize"""
 
 template_files['ecp_yearly_run.dss'] = """redirect ecp_yearly_base.dss
 new monitor.pq1 load.load1 1 mode=1 ppolar=no
@@ -89,8 +89,8 @@ export monitors load3
 export monitors load4
 export monitors load5"""
 
-template_files['ecp_temperature_edits.dss'] = """New Loadshape.MyIrrad npts=781 minterval=1 csvfile=..\\base\\irrad.dat
-New Tshape.MyTemp npts=781 minterval=1 csvfile=..\\base\\temp.dat
+template_files['ecp_temperature_edits.dss'] = """New Loadshape.MyIrrad npts=781 minterval=1 csvfile=../base/irrad.dat
+New Tshape.MyTemp npts=781 minterval=1 csvfile=../base/temp.dat
 New XYCurve.MyPvsT npts=4  xarray=[0  25  75  100]  yarray=[1.2 1.0 0.8  0.6] 
 New XYCurve.MyEff npts=4  xarray=[.1  .2  .4  1.0]  yarray=[.94  .96  .96  .96]"""
 
@@ -130,8 +130,8 @@ export monitors load2
 export monitors gen1
 export monitors gen2"""
 
-template_files['gld_daily_edits.dss'] = """New Loadshape.Cloud npts=86401 sinterval=1 csvfile=..\\base\\pcloud.dat action=normalize
-New Loadshape.Clear npts=86401 sinterval=1 csvfile=..\\base\\pclear.dat action=normalize
+template_files['gld_daily_edits.dss'] = """New Loadshape.Cloud npts=86401 sinterval=1 csvfile=../base/pcloud.dat action=normalize
+New Loadshape.Clear npts=86401 sinterval=1 csvfile=../base/pclear.dat action=normalize
 New Loadshape.cycle npts=10 interval=0 hour=[0.0,4.0,4.1,8.0,8.1,16.0,16.1,20.0,20.1,24.0] 
 ~                                      mult=[0.0,0.0,1.0,1.0,0.0, 0.0,-1.0,-1.0, 0.0, 0.0]
 New Loadshape.bump npts=6 interval=0 hour=[0.0,6.0,7.0,19.0,20.0,24.0] 

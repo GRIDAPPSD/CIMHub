@@ -10,7 +10,7 @@ new line.seg3 bus1=pv      bus2=load linecode=trunk len=1.0
 new line.seg4 bus1=load    bus2=gen  linecode=trunk len=0.5
 
 // for duty cycle, runs for 2900 seconds or 0.81 hours
-new loadshape.PVduty npts=2900 interval=(1.0 3600 /) mult=(File=PVLoadshape-1sec-2900pts.dat) Action=Normalize
+new loadshape.PVduty npts=2900 interval=(1.0 3600 /) mult=(File=pvloadshape-1sec-2900pts.dat) Action=Normalize
 //plot loadshape object=PVduty
 
 New Loadshape.cycle npts=10 interval=0 hour=[0.00,0.09,0.10,0.29,0.30,0.49, 0.50, 0.69,0.70,0.82] 

@@ -1,4 +1,7 @@
 #!/bin/bash
+rm _*.sh
+rm _*.dss
+rm *.log
 rm *.txt
 rm *.Txt
 rm *uuids.*
@@ -11,6 +14,4 @@ rm *.csv
 rm -rf dss
 rm -rf glm
 rm -rf xml
-rm convert_xml.sh
-rm go.sh
 rm test*.json

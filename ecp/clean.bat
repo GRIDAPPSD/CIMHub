@@ -17,4 +17,5 @@ del base\*.dbl
 del base\*.txt
 del _*.bat
 del _*.dss
+del *.log
 

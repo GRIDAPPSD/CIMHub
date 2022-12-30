@@ -1,4 +1,7 @@
 #!/bin/bash
+rm _*.sh
+rm _*.dss
+rm *.log
 rm *.XML
 rm *.xml
 rm *.json

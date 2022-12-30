@@ -6,16 +6,13 @@
     Total S =   409.148 + j   306.019
   OpenDSS branch flow in TRANSFORMER.XFM1 from 633, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2434.45 -0.0471     81.65 -0.6658    161.921 + j   115.284     AB     4233.03  0.4928
-    B   2483.35 -2.1206     63.29 -2.7780    124.401 + j    96.044     BC     4292.45 -1.6086
-    C   2450.89  2.0525     63.28  1.3957    122.821 + j    94.687     CA     4237.22  2.5716
-    Total S =   409.142 + j   306.015
+    Total S =     0.000 + j     0.000
   GridLAB-D branch flow in XF_XFM1 from 633
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2397.92 -0.5576     80.84 -1.1718    158.417 + j   111.725     AB     4172.60 -0.0233
-    B   2436.75  3.6431     62.45  2.9912    120.981 + j    92.322     BC     4196.18 -2.1264
-    C   2394.79  1.5388     62.45  0.8868    118.885 + j    90.750     CA     4152.96  2.0618
-    Total S =   398.283 + j   294.797
+    A   2445.54 -0.5702     80.84 -1.1842    161.590 + j   113.906     AB     4248.87 -0.0309
+    B   2490.43  3.6393     62.45  2.9877    123.663 + j    94.333     BC     4309.15 -2.1307
+    C   2464.21  1.5301     62.45  0.8783    122.353 + j    93.351     CA     4259.22  2.0485
+    Total S =   407.605 + j   301.590
   OpenDSS branch flow in LINE.670671 from 670, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2415.78 -0.0628    466.90 -0.4740   1033.904 + j   450.842     AB     4206.13  0.4874
@@ -24,17 +21,14 @@
     Total S =  2478.869 + j   808.929
   OpenDSS branch flow in LINE.670671 from 670, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2415.75 -0.0628    466.89 -0.4740   1033.878 + j   450.831     AB     4206.07  0.4874
-    B   2490.98 -2.1223    190.54 -2.3077    466.514 + j    87.474     BC     4287.40 -1.6184
-    C   2425.23  2.0420    418.58  1.7724    978.473 + j   270.435     CA     4205.03  2.5593
-    Total S =  2478.864 + j   808.740
+    Total S =     0.000 + j     0.000
   GridLAB-D branch flow in LINE_670671 from 670
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2362.62 -0.5694    567.85 -1.3773    927.104 + j   969.756     AB     4123.44 -0.0257
-    B   2431.13  3.6427    289.90  2.7621    448.751 + j   543.465     BC     4163.55 -2.1365
-    C   2349.22  1.5285    545.39  0.8260    977.883 + j   827.849     CA     4084.73  2.0520
-    Total S =  2353.738 + j  2341.069
-IEEE13_Assets    Nbus=[    41,    41,    54] Nlink=[    64,    64,    45] MAEv=[ 0.0000, 0.0247] MAEi=[   0.0008,  38.0132]
+    A   2426.79 -0.5859    466.79 -0.9966   1038.629 + j   452.212     AB     4222.08 -0.0364
+    B   2497.98  3.6373    190.46  3.4538    467.767 + j    86.851     BC     4304.99 -2.1412
+    C   2438.54  1.5186    418.49  1.2508    984.143 + j   269.998     CA     4225.75  2.0358
+    Total S =  2490.539 + j   809.060
+IEEE13_Assets    Nbus=[    41,    41,    54] Nlink=[    64,    64,    45] MAEv=[ 0.0000, 0.0038] MAEi=[   0.0002,   0.2533]
   OpenDSS branch flow in TRANSFORMER.XFM1 from 633, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2461.76 -0.0436     50.54 -1.1603     54.576 + j   111.799     AB     4233.90  0.4922
@@ -43,16 +37,13 @@ IEEE13_Assets    Nbus=[    41,    41,    54] Nlink=[    64,    64,    45] MAEv=[
     Total S =    83.096 + j   293.714
   OpenDSS branch flow in TRANSFORMER.XFM1 from 633, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2461.76 -0.0436     50.54 -1.1603     54.576 + j   111.799     AB     4233.90  0.4922
-    B   2462.22 -2.1136     37.39  2.7543     14.260 + j    90.959     BC     4283.70 -1.5967
-    C   2464.43  2.0612     37.36  0.6459     14.260 + j    90.957     CA     4279.04  2.5793
-    Total S =    83.096 + j   293.714
+    Total S =     0.000 + j     0.000
   GridLAB-D branch flow in XF_XFM1 from 633
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2424.26 -0.5593     52.02  4.6471     59.794 + j   111.020     AB     4158.24 -0.0242
-    B   2413.39  3.6551     38.32  2.2989     19.694 + j    90.364     BC     4198.22 -2.1119
-    C   2413.71  1.5458     38.32  0.1897     19.710 + j    90.376     CA     4202.70  2.0653
-    Total S =    99.198 + j   291.760
+    A   2472.39 -0.5675     52.41  4.6526     62.995 + j   113.238     AB     4246.50 -0.0318
+    B   2467.48  3.6466     38.53  2.3135     22.385 + j    92.389     BC     4299.39 -2.1190
+    C   2476.92  1.5380     38.56  0.2089     22.855 + j    92.742     CA     4299.91  2.0556
+    Total S =   108.235 + j   298.369
   OpenDSS branch flow in LINE.670671 from 670, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2444.56 -0.0611    469.18 -0.4665   1053.955 + j   452.379     AB     4196.83  0.4844
@@ -61,14 +52,11 @@ IEEE13_Assets    Nbus=[    41,    41,    54] Nlink=[    64,    64,    45] MAEv=[
     Total S =  2490.457 + j   808.611
   OpenDSS branch flow in LINE.670671 from 670, Converted case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2444.56 -0.0611    469.18 -0.4665   1053.955 + j   452.379     AB     4196.83  0.4844
-    B   2459.33 -2.1153    187.59 -2.3120    452.452 + j    90.163     BC     4268.31 -1.6056
-    C   2437.52  2.0508    418.20  1.7867    984.047 + j   266.069     CA     4249.15  2.5664
-    Total S =  2490.454 + j   808.611
+    Total S =     0.000 + j     0.000
   GridLAB-D branch flow in LINE_670671 from 670
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   2390.97 -0.5730    568.59 -1.3780    942.283 + j   979.956     AB     4097.56 -0.0286
-    B   2396.88  3.6559    288.33  2.7672    435.717 + j   536.444     BC     4158.47 -2.1204
-    C   2368.62  1.5348    546.69  0.8362    991.560 + j   832.811     CA     4137.83  2.0543
-    Total S =  2369.560 + j  2349.211
-IEEE13_CDPSM     Nbus=[    53,    53,    76] Nlink=[    90,    90,    60] MAEv=[ 0.0000, 0.0220] MAEi=[   0.0002,  47.4741]
+    A   2455.50 -0.5838    467.34 -0.9908   1053.783 + j   454.322     AB     4212.10 -0.0395
+    B   2464.70  3.6441    189.54  3.4523    458.594 + j    89.055     BC     4285.13 -2.1289
+    C   2450.18  1.5261    418.79  1.2630    990.797 + j   266.920     CA     4267.31  2.0426
+    Total S =  2503.174 + j   810.297
+IEEE13_CDPSM     Nbus=[    53,    53,    76] Nlink=[    90,    90,    60] MAEv=[ 0.0000, 0.0039] MAEi=[   0.0000,   1.3340]

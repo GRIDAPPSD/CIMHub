@@ -4,7 +4,8 @@ del *.txt
 del ieee13*.csv
 del ieee123*.csv
 del ieee390*.csv
-rm _*.*
+del _*.*
+del *.log
 rm xml\*.csv
 rem rm xml\*.xml
 rd /s /q dss
