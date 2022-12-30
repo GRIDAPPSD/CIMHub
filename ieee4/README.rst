@@ -31,6 +31,11 @@ Load Flow Comparisons
 See `Round-trip Validation <../README.rst#Round-trip-Validation>`_ for notes on 
 interpreting the `Results <onestep.inc>`_. 
 
+The OYOD and IMYD test cases do not establish a solid ground reference on the
+load side of the transformer. The branch flow and line-to-line voltage
+comparisons match well in OpenDSS, but the line-to-ground voltages do not, and
+this is reflected in their *MAEv* values.
+
 There are 4 test cases with YD connections that solve in GridLAB-D, but 
 the primary and secondary windings must be swapped, i.e., GridLAB-D solves 
 these as DY transformers.  The branch comparisons match well, because they 
