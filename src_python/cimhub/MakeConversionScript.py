@@ -83,7 +83,7 @@ def make_dss2xml_script (cases, outfile, bControls=False, tol=1e-8):
       print('set controlmode=off', file=fp)
     print('solve mode=snap', file=fp)
     print('cd', outpath, file=fp)
-    print('uuids file={:s}_uuids.dat'.format (root), file=fp)
+    print('uuids file={:s}_uuids.dat'.format (root.lower()), file=fp)
     print('export summary  ', root + '_s.csv', file=fp)
     print('export voltages ', root + '_v.csv', file=fp)
     print('export currents ', root + '_i.csv', file=fp)
@@ -104,7 +104,7 @@ def make_dss2xml_script (cases, outfile, bControls=False, tol=1e-8):
       suffix += ' sgrid={:s}'.format(row['subregionID'])
     print('export cim100 fid={:s}'.format (row['mRID']), 'file=' + root + '.xml', suffix, file=fp)
     print('// export cim100fragments fid={:s}'.format (row['mRID']), 'file=' + root, suffix, file=fp)
-    print('export uuids {:s}_uuids.dat'.format (root), file=fp)
+    print('export uuids {:s}_uuids.dat'.format (root.lower()), file=fp)
   fp.close()
 
 if __name__ == '__main__':

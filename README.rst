@@ -255,18 +255,30 @@ The script outputs include the comparisons requested from **check_branches**, an
   In an ungrounded system, MAEv can be large. Use the line-to-line voltage comparisons from **check_branches** for ungrounded systems.
 - **MAEi** is the mean absolute link current error between Base OpenDSS and [Converted OpenDSS, Converted GridLAB-D], in Amperes
 
-GridLAB-D has assumptions and component models that differ from those in OpenDSS, which may affect
-the comparison of solutions between them:
+**GridLAB-D results were obtained with v5 on Ubuntu.** This version has 
+important fixes that are not yet released on Windows.  Furthermore, 
+GridLAB-D has assumptions and component models that differ from those in 
+OpenDSS, which may affect the comparison of solutions between them: 
 
 1. There is no neutral impedance for transformer connections in GridLAB-D.
 2. The ``shunt_impedance`` is only implemented for WYE-WYE or SINGLE_PHASE transfromers in GridLAB-D.
 3. GridLAB-D transformers only have two windings.
 4. The regulator impedance is modeled differently.
 5. Capacitor banks are always on in the converted GridLAB-D model; control parameters are translated but not activated.
-6. In a constant-current load model, the angle rotations are not exactly correct, especially for unbalanced loads or loads connected in Delta. See `GridLAB-D Issue 1312 <https://github.com/gridlab-d/gridlab-d/issues/1312>`_. This has been corrected in GridLAB-D version 5.
-7. GridLAB-D calculates line parameters with Carson's equations, as simplified in Kersting's book. OpenDSS defaults to Deri's method, but it offers Full Carson and Carson options. Specify ``Carson`` for compatibility. (Deri is the OpenDSS default because it's easy to calculate, and it closely matches Full Carson.)
-8. In GridLAB-D, wye/delta transformers have to be converted to delta/wye, swapping primary and secondary windings. With **check_branches**, choose an adjacent branch for proper comparisons.
-9. In GridLAB-D, the IEEE13 results are affected by a bug in default solar insolation.  See `GridLAB-D Issue 1333 <https://github.com/gridlab-d/gridlab-d/issues/1333>`_
+6. GridLAB-D calculates line parameters with Carson's equations, as simplified in Kersting's book. 
+   OpenDSS defaults to Deri's method, but it offers Full Carson and Carson options. Specify ``Carson`` 
+   for compatibility. (Deri is the OpenDSS default because it's easy to calculate, and it closely 
+   matches Full Carson.)
+7. In GridLAB-D, wye/delta transformers have to be converted to delta/wye, swapping primary and 
+   secondary windings. With **check_branches**, choose an adjacent branch for proper comparisons.
+8. Single-phase generators (*diesel\_dg*) are not allowed in GridLAB-D, and in version 5,
+   the *phases* attribute has been removed from *diesel\_dg*.
+9. In a constant-current load model, the angle rotations are not exactly correct, especially for unbalanced loads or 
+   loads connected in Delta. See `GridLAB-D Issue 1312 <https://github.com/gridlab-d/gridlab-d/issues/1312>`_. 
+   This has been corrected in GridLAB-D version 5.
+10. In GridLAB-D, the IEEE13 results are affected by a bug in default solar insolation.  
+    See `GridLAB-D Issue 1333 <https://github.com/gridlab-d/gridlab-d/issues/1333>`_. 
+    This has been corrected in GridLAB-D version 5.
 
 If these effects cannot be mitigated, one could either remove the unsupported feature from the test case, or
 use **skip_gld** for the test case.
