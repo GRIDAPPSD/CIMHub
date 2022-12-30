@@ -57,7 +57,7 @@
    12470.0
   ],
   "export_options": " -l=1.0 -z=1.0 -e=carson",
-  "skip_gld": true,
+  "skip_gld": false,
   "check_branches": [
    {
     "dss_link": "LINE.LINE2",
@@ -82,7 +82,7 @@
    12470.0
   ],
   "export_options": " -l=1.0 -z=1.0 -e=carson",
-  "skip_gld": true,
+  "skip_gld": false,
   "check_branches": [
    {
     "dss_link": "LINE.LINE2",
@@ -107,7 +107,7 @@
    12470.0
   ],
   "export_options": " -l=1.0 -z=1.0 -e=carson",
-  "skip_gld": true,
+  "skip_gld": false,
   "check_branches": [
    {
     "dss_link": "LINE.LINE2",
@@ -132,7 +132,7 @@
    12470.0
   ],
   "export_options": " -l=1.0 -z=1.0 -e=carson",
-  "skip_gld": true,
+  "skip_gld": false,
   "check_branches": [
    {
     "dss_link": "LINE.LINE2",
@@ -157,7 +157,7 @@
    12470.0
   ],
   "export_options": " -l=1.0 -z=1.0 -e=carson",
-  "skip_gld": true,
+  "skip_gld": false,
   "check_branches": [
    {
     "dss_link": "TRANSFORMER.T1",
@@ -182,7 +182,7 @@
    12470.0
   ],
   "export_options": " -l=1.0 -z=1.0 -e=carson",
-  "skip_gld": true,
+  "skip_gld": false,
   "check_branches": [
    {
     "dss_link": "TRANSFORMER.T1",

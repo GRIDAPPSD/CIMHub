@@ -29,7 +29,14 @@ Load Flow Comparisons
 ---------------------
 
 See `Round-trip Validation <../README.rst#Round-trip-Validation>`_ for notes on 
-interpreting the `Results <onestep.inc>`_.
+interpreting the `Results <onestep.inc>`_. 
+
+There are 4 test cases with YD connections that solve in GridLAB-D, but 
+the primary and secondary windings must be swapped, i.e., GridLAB-D solves 
+these as DY transformers.  The branch comparisons match well, because they 
+are performed on a line adjacent to the tranformer under test.  However, 
+the *MAEi* values are high artificially due to the swapped winding 
+references.  
 
 ..
     literalinclude:: onestep.inc

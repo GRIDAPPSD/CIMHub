@@ -204,6 +204,9 @@ case has the following attributes:
 - **outpath\_glm** relative path to output GridLAB-D files, typically *./glm/*. 
   WARNING: contents may be deleted and rewritten on subsequent exports. To forego GridLAB-D export, 
   omit this attribute, or specify as None or an empty string.
+- **skip\_gld** will forego GridLAB-D export and validation if *true*, regardless of whether
+  *outpath\_glm* has been set. This can be more convenient than removing *outpath\_glm*, which is now the
+  preferred method, if you are temporarily using an older version of GridLAB-D.
 - **outpath\_csv** relative path to output comma-separated value (CSV) files, typically *./csv/*. 
   WARNING: contents may be deleted and rewritten on subsequent exports. 
   To forego CSV export, omit this attribute, or specify as None or an empty string.
