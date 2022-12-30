@@ -6,10 +6,7 @@ import cimhub.CIMHubConfig as CIMHubConfig
 import os
 import sys
 
-if sys.platform == 'win32':
-  cfg_json = '../queries/cimhubjar.json'
-else:
-  cfg_json = '../queries/cimhubdocker.json'
+cfg_json = '../queries/cimhubconfig.json'
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 
 test_mRID = 'F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29'  # 13-bus

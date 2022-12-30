@@ -16,10 +16,7 @@ import cimhub.CIMHubConfig as CIMHubConfig
 import json
 import sys
 
-if sys.platform == 'win32':
-  cfg_json = '../queries/cimhubconfig.json'
-else:
-  cfg_json = '../queries/cimhubdocker.json'
+cfg_json = '../queries/cimhubconfig.json'
 
 if __name__ == '__main__':
   CIMHubConfig.ConfigFromJsonFile (cfg_json)
@@ -27,6 +24,12 @@ if __name__ == '__main__':
   fp = open('cases.json')
   cases = json.load(fp)
   fp.close()
+
+  # if running inside a container without GridLAB-D, provide an option to skip GridLAB-D
+  if len(sys.argv) > 1:
+    if sys.argv[1] == 'nogld':
+      for row in cases:
+        row['outpath_glm'] = ''
 
   # Clear DB and load each case one-at-a-time, because some feeder mRIDs are duplicates
   #  in this directory, which violate assumption that mRIDs are unique between circuits.

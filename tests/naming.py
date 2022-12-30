@@ -12,15 +12,14 @@ import json
 import sys
 import subprocess
 
+cfg_json = '../queries/cimhubconfig.json'
 if sys.platform == 'win32':
-  cfg_json = '../queries/cimhubconfig.json'
   shfile_upload = '_upload.bat'
   shfile_export = '_export.bat'
   shfile_glm = '_checkglm.bat'
   dssfile_cim = '_conv_cim.dss'
   dssfile_run = '_check.dss'
 else:
-  cfg_json = '../queries/cimhubdocker.json'
   shfile_upload = './_upload.sh'
   shfile_export = './_export.sh'
   shfile_glm = './_checkglm.sh'
@@ -30,11 +29,19 @@ else:
 if __name__ == '__main__':
   CIMHubConfig.ConfigFromJsonFile (cfg_json)
 
+  # if running inside a container without GridLAB-D, provide an option to skip GridLAB-D
+  skip_gld = False
+  if len(sys.argv) > 1:
+    if sys.argv[1] == 'nogld':
+      skip_gld = True
+
   fp = open('name_cases.json')
   cases = json.load(fp)
   fp.close()
   for row in cases:
     row['export_options'] = row['export_options'] + ' -d=2'
+    if skip_gld:
+      row['outpath_glm'] = ''
 
   cimhub.make_upload_script (cases, scriptname=shfile_upload, bClearDB=True)
   p1 = subprocess.call (shfile_upload, shell=True)

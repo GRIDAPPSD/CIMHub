@@ -6,16 +6,15 @@ import cimhub.CIMHubConfig as CIMHubConfig
 import sys
 import subprocess
 
+cfg_json = '../queries/cimhubconfig.json'
 if sys.platform == 'win32':
   shfile_upload = '_upload_xml.bat'
   shfile_export = '_convert_xml.bat'
   shfile_glm = '_checkglm.bat'
-  cfg_json = '../queries/cimhubconfig.json'
 else:
   shfile_upload = './_upload_xml.sh'
   shfile_export = './_convert_xml.sh'
   shfile_glm = './_checkglm.sh'
-  cfg_json = '../queries/cimhubdocker.json'
 
 CIMHubConfig.ConfigFromJsonFile (cfg_json)
 

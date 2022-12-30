@@ -14,4 +14,6 @@ rm *.csv
 rm -rf dss
 rm -rf glm
 rm -rf xml
+rm -rf dssn
+rm -rf glmn
 rm test*.json

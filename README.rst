@@ -29,11 +29,10 @@ Then see
 Installation
 ------------
 
-CIMHub requires either Java 11 or Docker for the database engine, and 
-Python version 3.8 or later.  It runs on Linux, Windows or Mac OS X.  Some 
-of the **optional** `converters to OpenDSS <converters>`_ may only work on 
-Windows, especially in cases where the input file comes from a 
-Windows-only database.  
+CIMHub requires either Java 11 and Python 3.8+, or Docker.  It runs on 
+Linux, Windows or Mac OS X.  Some of the **optional** `converters to 
+OpenDSS <converters>`_ may only work on Windows, especially in cases where 
+the input file comes from a Windows-only database.  
 
 Option 1: Java and Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -48,17 +47,15 @@ please consider the Docker option below.
 4. Install the CIMHub exporter by downloading a JAR file from `releases <https://github.com/GRIDAPPSD/CIMHub/tree/feature/SETO/releases>`_
 5. Install `opendsscmd <https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/>`_
 
-Option 2: Docker and Python
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Option 2: Docker
+^^^^^^^^^^^^^^^^
 
 With this option, you don't have to install Java directly. The Docker container
 encapsulates Java 11 with a compatible version of Blazegraph and the CIMHub exporter. 
 
-1. Install the Python package with ``pip install cimhub --upgrade``
-2. Install the `Docker Engine <https://docs.docker.com/install/>`_
-3. Install the Blazegraph engine with *docker pull lyrasis/blazegraph:2.1.5*
-4. Install the CIMHub exporter with *docker pull gridappsd/cimhub:1.1.0*
-5. Install `opendsscmd <https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/>`_
+1. Install the `Docker Engine <https://docs.docker.com/install/>`_
+2. Install the CIMHub exporter with *docker pull gridappsd/cimhub:1.1.0*. This
+   includes Blazegraph, Python support, and some test files.
 
 End User Instructions
 ---------------------
@@ -88,12 +85,27 @@ the transformers.
 1. From a Terminal, start the converter and Blazegraph with *./start.sh*
 2. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
 
-   - *cd example*
+
+   - *cd blazegraph*
+   - *./go.sh &*
+   - *cd ../example*
    - *./example.sh*
    - *tail sum\*.csv* to verify that the converted OpenDSS files ran correctly
    - see the comments embedded in *example.sh* for more information
 
-3. To shut down the converter:
+3. Still inside the Docker Terminal, run a Python-based test suite:
+
+   - *cd ../tests*
+   - *./test\_combiner.sh* will combine 6 CDPSM profiles into a single CIM XML file.
+   - *python3 test_cimhub.py* checks the basic functionality of circuit conversion, measurements, houses and DER. 
+     Six tuples are left in the database; these are CIM version strings.
+   - *python3 test_comparisons.py* compares OpenDSS and GridLAB-D solutions, to the pre-conversion OpenDSS model
+   - *python3 test_drop.py* checks the drop_circuit function
+   - *python3 test_der.py* checks the insert_der and drop_der functions
+   - *python3 onestep.py nogld* checks power flow solutions on 5 variants of the IEEE 13-bus system
+   - *python3 naming.py nogld* checks power flow solutions with mRID naming
+
+4. To shut down the converter:
 
    - *exit* from inside the Docker Terminal
    - *./stop.sh* from the host Terminal
@@ -335,6 +347,7 @@ The Python source code is now in ``src_python/cimhub``. To test it:
 5. ``python3 test_drop.py`` checks the drop_circuit function
 6. ``python3 test_der.py`` checks the insert_der and drop_der functions
 7. ``python3 onestep.py`` checks power flow solutions on 5 variants of the IEEE 13-bus system
+8. ``python3 naming.py`` checks power flow solutions with mRID naming
 
 The steps for deployment to PyPi are:
 

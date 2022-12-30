@@ -1,11 +1,11 @@
 #!/bin/bash
-# Find the correct Blazegraph URL; defaults to running inside composed containers
+# Find the correct Blazegraph URL; defaults to running inside unified container
 if (($# > 0)) 
 then
   declare -r DB_URL="http://localhost:8889/bigdata/namespace/kb/sparql"
   declare -r CIMHUB_PATH="../releases/cimhub-1.1.0.jar"
 else
-  declare -r DB_URL="http://blazegraph:8080/bigdata/namespace/kb/sparql"
+  declare -r DB_URL="http://localhost:9999/blazegraph/namespace/kb/sparql"
   declare -r CIMHUB_PATH="../releases/cimhub-1.1.0.jar"
 fi
 declare -r CIMHUB_PROG="gov.pnnl.gridappsd.cimhub.CIMImporter"
