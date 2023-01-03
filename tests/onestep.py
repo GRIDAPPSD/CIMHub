@@ -30,6 +30,7 @@ if __name__ == '__main__':
     if sys.argv[1] == 'nogld':
       for row in cases:
         row['outpath_glm'] = ''
+        row['skip_gld'] = True
 
   # Clear DB and load each case one-at-a-time, because some feeder mRIDs are duplicates
   #  in this directory, which violate assumption that mRIDs are unique between circuits.

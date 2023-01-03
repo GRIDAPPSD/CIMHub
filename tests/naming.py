@@ -42,6 +42,7 @@ if __name__ == '__main__':
     row['export_options'] = row['export_options'] + ' -d=2'
     if skip_gld:
       row['outpath_glm'] = ''
+      row['skip_gld'] = True
 
   cimhub.make_upload_script (cases, scriptname=shfile_upload, bClearDB=True)
   p1 = subprocess.call (shfile_upload, shell=True)
