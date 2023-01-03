@@ -10,6 +10,8 @@
 #cp ../linenoise-ng/build/liblinenoise.so distrib
 #cp ../KLUSolve/Lib/libklusolve.so distrib
 
+python3 batch_tests.py clean
+
 ./stop.sh
 docker rmi gridappsd/cimhub:1.1.0
 docker build -t="gridappsd/cimhub:1.1.0" .
