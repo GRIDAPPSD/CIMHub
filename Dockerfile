@@ -22,6 +22,7 @@ COPY blazegraph blazegraph
 COPY example example
 COPY releases releases
 COPY tests tests
+COPY model_output_tests model_output_tests
 COPY queries/cimhubconfig.json queries/
 COPY queries/q100.xml queries/
 
