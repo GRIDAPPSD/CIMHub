@@ -294,7 +294,7 @@ def insertHouse (ecName, ecID, houseNum, houseData, uuids):
   
   # Loop over attributes 
   atts = ''
-  for name, value in houseData.iteritems():
+  for name, value in houseData.items():
     # If the value is nan, skip it. e.g. if we don't have a cooling system
     # the cooling setpoint will be nan.
     if pd.isnull(value):

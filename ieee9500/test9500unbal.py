@@ -10,7 +10,7 @@ import os
 
 cwd = os.getcwd()
 
-cfg_json = 'cimhubconfig.json'
+cfg_json = '../queries/cimhubconfig.json'
 cases = [
   {
     'dssname':'ieee9500unbal', 'root':'ieee9500unbal', 'mRID':'EE71F6C9-56F0-4167-A14E-7F4C71F10EAA',

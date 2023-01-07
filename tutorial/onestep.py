@@ -16,10 +16,7 @@ import cimhub.CIMHubConfig as CIMHubConfig
 import json
 import sys
 
-if sys.platform == 'win32':
-  cfg_json = 'cimhubjar.json'
-else:
-  cfg_json = 'cimhubdocker.json'
+cfg_json = '../queries/cimhubconfig.json'
 
 if __name__ == '__main__':
   CIMHubConfig.ConfigFromJsonFile (cfg_json)

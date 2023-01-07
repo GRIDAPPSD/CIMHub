@@ -81,15 +81,22 @@ print ('=== the database now contains ===')
 cimhub.summarize_db ()
 
 # patch up the model with applied logic:
-os.system ('python step2.py')
+if sys.platform == 'win32':
+  os.system ('python step2.py')
+else:
+  os.system ('python3 step2.py')
 
 # export OpenDSS and GridLAB-D models, do not select on the feeder mRID
-cimhub.make_export_script (cases, scriptname='export.bat', bClearOutput=True)
-os.system ('export.bat')
+if sys.platform == 'win32':
+  cimhub.make_export_script (cases, scriptname='_export.bat', bClearOutput=True)
+  os.system ('_export.bat')
+else:
+  cimhub.make_export_script (cases, scriptname='_export.sh', bClearOutput=True)
+  os.system ('./_export.sh')
 
 # run and summarize power flows
-cimhub.make_dssrun_script (cases=cases, scriptname='check.dss', bControls=False)
-p1 = subprocess.Popen ('opendsscmd check.dss', shell=True)
+cimhub.make_dssrun_script (cases=cases, scriptname='_check.dss', bControls=False)
+p1 = subprocess.Popen ('opendsscmd _check.dss', shell=True)
 p1.wait()
 fp = open('adapt_gmdm.inc', 'w')
 cimhub.write_dss_flows (dsspath=dsspath, rootname=cases[0]['root'], check_branches=cases[0]['check_branches'],
@@ -97,7 +104,7 @@ cimhub.write_dss_flows (dsspath=dsspath, rootname=cases[0]['root'], check_branch
 fp.close()
 
 # gridlab-d won't solve this circuit due to the regulator connections, and secondary switch
-cimhub.make_glmrun_script (cases=cases, scriptname='check_glm.bat')
+cimhub.make_glmrun_script (cases=cases, scriptname='_check_glm.bat')
 #p1 = subprocess.call ('check_glm.bat')
 
 #cimhub.write_glm_flows (glmpath=glmpath, rootname=cases[0]['root'], 

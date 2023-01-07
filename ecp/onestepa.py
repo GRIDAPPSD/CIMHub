@@ -160,13 +160,13 @@ export monitors load2
 export monitors bess1
 export monitors bess2"""
 
+cfg_json = '../queries/cimhubconfig.json'
+
 if sys.platform == 'win32':
-  cfg_json = '../queries/cimhubconfig.json'
   shfile_upload = '_upload.bat'
   shfile_export = '_export.bat'
   dssfile_run = '_check.dss'
 else:
-  cfg_json = '../queries/cimhubdocker.json'
   shfile_upload = './_upload.sh'
   shfile_export = './_export.sh'
   dssfile_run = '_check.dss'

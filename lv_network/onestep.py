@@ -17,12 +17,7 @@ import json
 import sys
 import os
 
-if sys.platform == 'win32':
-  cfg_json = '../queries/cimhubconfig.json'
-  dssroot = os.path.abspath ('../../OpenDSS/Version8/Distrib/IEEETestCases/')
-else:
-  cfg_json = '../queries/cimhubdocker.json'
-  dssroot = os.path.abspath ('../../OpenDSS/Distrib/IEEETestCases/')
+cfg_json = '../queries/cimhubconfig.json'
 
 if __name__ == '__main__':
   CIMHubConfig.ConfigFromJsonFile (cfg_json)
@@ -30,9 +25,6 @@ if __name__ == '__main__':
   fp = open('cases.json')
   cases = json.load(fp)
   fp.close()
-
-  for row in cases:
-    row['inpath_dss'] = os.path.join (dssroot, row['inpath_dss'])
 
   cimhub.convert_and_check_models (cases, bClearDB=True, bClearOutput=True, rstFile='onestep.inc')
 

@@ -17,12 +17,12 @@ cases = [
    'check_branches':[{'dss_link': 'LINE.L115', 'dss_bus': '149', 'gld_link': 'LINE_L115', 'gld_bus': '149'}]},
 ]
 
+cfg_json = '../queries/cimhubconfig.json'
+
 if sys.platform == 'win32':
-  cfg_json = 'cimhubjar.json'
   shfile_export = '_export.bat'
   shfile_glm = '_checkglm.bat'
 else:
-  cfg_json = 'cimhubdocker.json'
   shfile_export = '_export.sh'
   shfile_glm = '_checkglm.sh'
 

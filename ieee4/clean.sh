@@ -6,4 +6,7 @@ rm *.csv
 rm *.xml
 rm -rf dss
 rm -rf glm
+rm xml/*.csv
+rm xml/*.xml
+
 

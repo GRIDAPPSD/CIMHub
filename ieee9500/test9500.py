@@ -9,16 +9,16 @@ import shutil
 import os
 import sys
 
+cfg_json = '../queries/cimhubconfig.json'
+
 if sys.platform == 'win32':
   sh_clean = 'clean.bat'
   sh_export = 'go.bat'
   sh_run = 'checkglm.bat'
-  cfg_json = '../queries/cimhubconfig.json'
 else:
   sh_clean = './clean.sh'
   sh_export = './go.sh'
   sh_run = './checkglm.sh'
-  cfg_json = '../queries/cimhubdocker.json'
 
 cwd = os.getcwd()
 

@@ -10,3 +10,5 @@ rm -rf dss
 rm -rf glm
 rm base/*.Txt
 rm base/*.txt
+rm xml/*.csv
+rm xml/*.xml

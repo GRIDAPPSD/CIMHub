@@ -4,8 +4,8 @@
 enroute.zip
 .metadata
 __pycache__
-dist
 distrib
+gridlabd
 _*.dss
 _*.sh
 _*.bat

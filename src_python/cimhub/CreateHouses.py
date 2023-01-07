@@ -307,7 +307,7 @@ class CreateHouses():
         
         # Loop and select thermalIntegrity based on the combination of year,
         # insul, and draft.
-        for index, y in year.iteritems():
+        for index, y in year.items():
             # Grab other information.
             i = insul.iloc[index]
             d = draft.iloc[index]
@@ -459,7 +459,7 @@ class CreateHouses():
         # Map combination of hasHeat and heatType into 'none,' 'gas,'
         # 'heatPump,' or 'resistance'
         heatingSystem = pd.Series(dtype='float64', index=heatType.index)
-        for index, hH in hasHeat.iteritems():
+        for index, hH in hasHeat.items():
             # Grab type
             hT = heatType.iloc[index]
             
@@ -550,7 +550,7 @@ class CreateHouses():
         # NOTE: attempt to use Series.combine didn't work because mapping ints
         # to strings failed.
         coolingSystem = pd.Series(dtype='float64', index=hasAC.index)
-        for index, hS in hasAC.iteritems():
+        for index, hS in hasAC.items():
             # Grab pointers to heatpump value
             HP = isHP.iloc[index]
             

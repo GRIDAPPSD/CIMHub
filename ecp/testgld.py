@@ -184,14 +184,14 @@ object multi_recorder {
   property bess1_stmtr:measured_power,bess2_stmtr:measured_power,gen1_dgmtr:measured_power,gen2_dgmtr:measured_power,pv1_pvmtr:measured_power,pv2_pvmtr:measured_power,ld_load1:measured_power,ld_load2:measured_power;
 }"""
 
+cfg_json = '../queries/cimhubconfig.json'
+
 if sys.platform == 'win32':
-  cfg_json = '../queries/cimhubconfig.json'
   shfile_upload = '_upload.bat'
   shfile_export = '_export.bat'
   shfile_glm = '_checkglm.bat'
   dssfile_run = '_check.dss'
 else:
-  cfg_json = '../queries/cimhubdocker.json'
   shfile_upload = './_upload.sh'
   shfile_export = './_export.sh'
   shfile_glm = './_checkglm.sh'
