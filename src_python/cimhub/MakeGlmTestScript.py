@@ -53,9 +53,14 @@ def make_glmrun_script (cases, scriptname, bHouses=False, bProfiles=False):
 #  if movefiles:
 #    print('cd', inpath, file=bp)
   for row in cases:
+    # require outpath_glm not empty, and skip_gld not True
     if 'skip_gld' in row:
       if row['skip_gld']:
         continue
+    if 'outpath_glm' not in row:
+      continue
+    if len(row['outpath_glm']) < 1:
+      continue
     root = row['root']
     outpath_glm = os.path.abspath(row['outpath_glm'])
     print('cd', outpath_glm, file=bp)
