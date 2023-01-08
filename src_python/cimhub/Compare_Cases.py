@@ -661,7 +661,9 @@ def compare_cases (cases, rstFile=None, rstMode='w'):
     dir2 = row['outpath_dss']
     dir3 = row['outpath_glm']
     check_branches = []
-    do_gld = True
+    do_gld = False  # unless outpath_glm specified and skip_gld is not True
+    if len(dir3) > 0:
+      do_gld = True
     if 'skip_gld' in row:
       do_gld = not row['skip_gld']      
     if 'check_branches' in row:

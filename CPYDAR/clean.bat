@@ -6,3 +6,4 @@ del _*.dss
 del /q dss\*
 del /q csv\*
 del /q glm\*
+del xml\*.csv
