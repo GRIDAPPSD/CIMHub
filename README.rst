@@ -55,7 +55,7 @@ encapsulates Java 11 with a compatible version of Blazegraph and the CIMHub expo
 
 1. Install the `Docker Engine <https://docs.docker.com/install/>`_
 2. Install the CIMHub exporter with *docker pull gridappsd/cimhub:1.1.0*. This
-   includes Blazegraph, Python support, and some test files.
+   includes Blazegraph, Python support, OpenDSSCmd, GridLAB-D, and example files.
 
 End User Instructions
 ---------------------
@@ -102,10 +102,17 @@ the transformers.
    - *python3 test_comparisons.py* compares OpenDSS and GridLAB-D solutions, to the pre-conversion OpenDSS model
    - *python3 test_drop.py* checks the drop_circuit function
    - *python3 test_der.py* checks the insert_der and drop_der functions
-   - *python3 onestep.py nogld* checks power flow solutions on 5 variants of the IEEE 13-bus system
-   - *python3 naming.py nogld* checks power flow solutions with mRID naming
+   - *python3 onestep.py* checks power flow solutions on 5 variants of the IEEE 13-bus system
+   - *python3 naming.py* checks power flow solutions with mRID naming
 
-4. To shut down the converter:
+4. Still inside the Docker Terminal, run the set of examples:
+
+   - *cd ..*
+   - *python3 batch\_tests.py* will run a set of examples that may take several minutes to complete.
+   - Check *\*.inc* files in the example sub-directories for output results.
+   - Check *\*.log* files in the example sub-directories for detailed warnings and errors.
+
+5. To shut down the converter:
 
    - *exit* from inside the Docker Terminal
    - *./stop.sh* from the host Terminal
