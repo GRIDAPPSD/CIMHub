@@ -2,15 +2,19 @@
 import os
 import sys
 import numpy as np
-import matplotlib.pyplot as plt
 from numpy import trapz
 import pandas as pd
 
 if not sys.warnoptions:
-    import warnings
-    warnings.simplefilter("ignore") # for the UnknownTimezoneWarning, to be fixed in GridLAB-D
+  import warnings
+  warnings.simplefilter("ignore") # for the UnknownTimezoneWarning, to be fixed in GridLAB-D
 
-plt.rcParams['savefig.directory'] = os.path.abspath ('../docs/media') # os.getcwd()
+try:
+  import matplotlib.pyplot as plt
+  plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+  bShowPlot = True
+except:
+  bShowPlot = False
 
 tstep_dss = 1.0
 tbase = 3600.0
@@ -83,14 +87,15 @@ def add_case (ax, dsspath):
   e2 = np.trapz (bess2, dx=tstep_dss/tbase)
   print ('Total Energy BESS1={:.2f} BESS2={:.2f} kwh'.format (e1, e2))
 
-  ax[0,0].plot(t, pv1, label='PV 1 {:s}'.format(dsspath))
-  ax[0,0].plot(t, pv2, label='PV 2 {:s}'.format(dsspath))
-  ax[0,1].plot(t, gen1, label='Gen 1 {:s}'.format(dsspath))
-  ax[0,1].plot(t, gen2, label='Gen 2 {:s}'.format(dsspath))
-  ax[1,0].plot(t, load1, label='Load 1 {:s}'.format(dsspath))
-  ax[1,0].plot(t, load2, label='Load 2 {:s}'.format(dsspath))
-  ax[1,1].plot(t, bess1, label='BESS 1 {:s}'.format(dsspath))
-  ax[1,1].plot(t, bess2, label='BESS 2 {:s}'.format(dsspath))
+  if ax is not None:
+    ax[0,0].plot(t, pv1, label='PV 1 {:s}'.format(dsspath))
+    ax[0,0].plot(t, pv2, label='PV 2 {:s}'.format(dsspath))
+    ax[0,1].plot(t, gen1, label='Gen 1 {:s}'.format(dsspath))
+    ax[0,1].plot(t, gen2, label='Gen 2 {:s}'.format(dsspath))
+    ax[1,0].plot(t, load1, label='Load 1 {:s}'.format(dsspath))
+    ax[1,0].plot(t, load2, label='Load 2 {:s}'.format(dsspath))
+    ax[1,1].plot(t, bess1, label='BESS 1 {:s}'.format(dsspath))
+    ax[1,1].plot(t, bess2, label='BESS 2 {:s}'.format(dsspath))
 
 def plot_dss_case():
 
@@ -99,6 +104,9 @@ def plot_dss_case():
 
   for dsspath in ['base', 'dssa']:
     add_case (ax, dsspath)
+
+  if ax is None:
+    return
 
   ax[0,0].set_ylabel('Solar Power [kW]')
   ax[0,1].set_ylabel('Generator Power [kW]')
@@ -144,13 +152,19 @@ def plot_gld_case(df, tstep, npts):
       ax[i,j].set_xticks(tticks)
   plt.show()
 
-def plot_overlay(df, tstep, npts):
+def plot_overlay(df, tstep, npts, bPlot=True):
 
-  fig, ax = plt.subplots(2, 2, figsize=(10,6))
-  plt.suptitle ('Case gld_daily: Overlaid Results')
+  if bPlot:
+    fig, ax = plt.subplots(2, 2, figsize=(10,6))
+    plt.suptitle ('Case gld_daily: Overlaid Results')
+  else:
+    ax = None
 
   for dsspath in ['base', 'dssa']:
     add_case (ax, dsspath)
+
+  if ax is None:
+    return
 
   t = np.linspace (0.0, tstep * float(npts - 1) / tbase, npts)
 
@@ -179,12 +193,9 @@ def plot_overlay(df, tstep, npts):
 
 
 if __name__ == '__main__':
-  bShowPlot = True
   if len(sys.argv) > 1:
     if sys.argv[1] == 'noplot':
       bShowPlot = False
-#  plot_dss_case()
-#  quit()
 
   df = read_multicsv_df ('glma/meters.csv', 'measured_power')
   column_map = {}
@@ -192,20 +203,13 @@ if __name__ == '__main__':
   for key in df.columns:
     column_map[key] = key[:-ilen]
   df.rename(columns=column_map, inplace=True)
-#  df.info()
   npts = len(df.index)
   dt = df.index[-1] - df.index[0]
   trange = 86400.0 * dt.days + dt.seconds
   tstep = trange / npts
-#  print ('Record starts at {:s}, {:d} points at dt={:.2f}s'.format(str(df.index[0]), npts, tstep))
-
-  #ax = df.plot(grid=True, title='ECP Daily in GridLAB-D', xlabel='Date/Time', ylabel='Real Power')
 
   for key, data in df.iteritems():
     energy = np.trapz(data.apply(lambda r: r.real), dx=tstep/tbase) * 0.001
     print ('{:12s} {:10.3f} kwh'.format (key, energy))
 
-  if bShowPlot:
-    #plt.show()
-    #  plot_gld_case (df, tstep, npts)
-    plot_overlay (df, tstep, npts)
+  plot_overlay (df, tstep, npts, bShowPlot)

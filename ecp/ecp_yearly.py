@@ -2,10 +2,14 @@
 import os
 import sys
 import numpy as np
-import matplotlib.pyplot as plt
 from numpy import trapz
 
-plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+try:
+  import matplotlib.pyplot as plt
+  plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+  bShowPlot = True
+except:
+  bShowPlot = False
 
 vbase = 7621.0
 tstep = 3600.0
@@ -37,32 +41,33 @@ def add_case (ax, dsspath):
   e2 = 0.001 * np.trapz (p2, dx=tstep/tbase)
   print ('Total Energy Load1={:.2f} Load2={:.2f} MWh'.format (e1, e2))
 
-  ax[0].plot(t, p1, label='Load 1 {:s}'.format(dsspath))
-  ax[0].plot(t, p2, label='Load 2 {:s}'.format(dsspath))
-  ax[1].plot(t, q1, label='Load 1 {:s}'.format(dsspath))
-  ax[1].plot(t, q2, label='Load 2 {:s}'.format(dsspath))
+  if ax is not None:
+    ax[0].plot(t, p1, label='Load 1 {:s}'.format(dsspath))
+    ax[0].plot(t, p2, label='Load 2 {:s}'.format(dsspath))
+    ax[1].plot(t, q1, label='Load 1 {:s}'.format(dsspath))
+    ax[1].plot(t, q2, label='Load 2 {:s}'.format(dsspath))
 
 if __name__ == '__main__':
-
-  bShowPlot = True
   if len(sys.argv) > 1:
     if sys.argv[1] == 'noplot':
       bShowPlot = False
 
-  fig, ax = plt.subplots(1, 2, figsize=(10,6))
-  plt.suptitle ('Case ecp_yearly')
+  if bShowPlot:
+    fig, ax = plt.subplots(1, 2, figsize=(10,6))
+    plt.suptitle ('Case ecp_yearly')
+  else:
+    ax = None
+
   for dsspath in ['base', 'dssa']:
     add_case (ax, dsspath)
 
-  ax[0].set_ylabel('Power [kW]')
-  ax[0].set_xlabel('Time [hr]')
-  ax[0].legend()
-  ax[0].grid()
-
-  ax[1].set_ylabel('Reactive Power [kvarh]')
-  ax[1].set_xlabel('Time [hr]')
-  ax[1].legend()
-  ax[1].grid()
-
   if bShowPlot:
+    ax[0].set_ylabel('Power [kW]')
+    ax[0].set_xlabel('Time [hr]')
+    ax[0].legend()
+    ax[0].grid()
+    ax[1].set_ylabel('Reactive Power [kvarh]')
+    ax[1].set_xlabel('Time [hr]')
+    ax[1].legend()
+    ax[1].grid()
     plt.show()

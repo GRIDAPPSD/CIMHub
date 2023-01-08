@@ -2,10 +2,14 @@
 import os
 import sys
 import numpy as np
-import matplotlib.pyplot as plt
 from numpy import trapz
 
-plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+try:
+  import matplotlib.pyplot as plt
+  plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+  bShowPlot = True
+except:
+  bShowPlot = False
 
 vbase = 7621.0
 tstep = 3600.0
@@ -34,24 +38,26 @@ def add_case (ax, dsspath):
     p = collect_columns (d, cols=[2,4,6])
     e = np.trapz (p, dx=tstep/tbase)
     print ('Total Energy {:s} = {:.2f} kwh'.format (key.upper(), e))
-    ax.plot(t, p, label='{:s} {:s}'.format(key.upper(), dsspath))
+    if ax is not None:
+      ax.plot(t, p, label='{:s} {:s}'.format(key.upper(), dsspath))
 
 if __name__ == '__main__':
-  bShowPlot = True
   if len(sys.argv) > 1:
     if sys.argv[1] == 'noplot':
       bShowPlot = False
 
-  fig, ax = plt.subplots(1, 1, figsize=(8,6))
-  plt.suptitle ('Case ecp_growthcvr')
+  if bShowPlot:
+    fig, ax = plt.subplots(1, 1, figsize=(8,6))
+    plt.suptitle ('Case ecp_growthcvr')
+  else:
+    ax = None
 
   for dsspath in ['base', 'dssa']:
     add_case (ax, dsspath)
 
-  ax.set_ylabel('Load Power [kW]')
-  ax.set_xlabel('Time [hr]')
-  ax.legend()
-  ax.grid()
-
   if bShowPlot:
+    ax.set_ylabel('Load Power [kW]')
+    ax.set_xlabel('Time [hr]')
+    ax.legend()
+    ax.grid()
     plt.show()

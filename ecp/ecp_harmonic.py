@@ -2,9 +2,13 @@
 import os
 import sys
 import numpy as np
-import matplotlib.pyplot as plt
 
-plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+try:
+  import matplotlib.pyplot as plt
+  plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+  bShowPlot = True
+except:
+  bShowPlot = False
 
 classes = ['pv', 'load', 'gen', 'bess']
 
@@ -20,19 +24,23 @@ def add_case (ax, dsspath, offset):
       i = d[:,3] / d[0,3]
       thdi = (np.sum(i**2) - 1.0) * 100.0
       print ('THDi {:6s} = {:6.2f} %'.format (key.upper(), thdi))
-      ax[row,col].bar(h + offset, i, width=0.45, label='{:s} {:s}'.format (key.upper(), dsspath))
-      ax[row,col].set_ylabel('Magnitude [pu]')
-      ax[row,col].set_xlabel('Harmonic')
-      ax[row,col].legend()
+      if ax is not None:
+        ax[row,col].bar(h + offset, i, width=0.45, label='{:s} {:s}'.format (key.upper(), dsspath))
+        ax[row,col].set_ylabel('Magnitude [pu]')
+        ax[row,col].set_xlabel('Harmonic')
+        ax[row,col].legend()
 
 if __name__ == '__main__':
-  bShowPlot = True
   if len(sys.argv) > 1:
     if sys.argv[1] == 'noplot':
       bShowPlot = False
 
-  fig, ax = plt.subplots(2, 4, figsize=(12,8))
-  plt.suptitle ('Harmonic Current Distortion')
+  if bShowPlot:
+    fig, ax = plt.subplots(2, 4, figsize=(12,8))
+    plt.suptitle ('Harmonic Current Distortion')
+  else:
+    ax = None
+
   offset = -0.25
   for dsspath in ['base', 'dssa']:
     add_case (ax, dsspath, offset)

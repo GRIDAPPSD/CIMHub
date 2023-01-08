@@ -2,10 +2,14 @@
 import os
 import sys
 import numpy as np
-import matplotlib.pyplot as plt
 from numpy import trapz
 
-plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+try:
+  import matplotlib.pyplot as plt
+  plt.rcParams['savefig.directory'] = os.path.abspath ('..\docs\media') # os.getcwd()
+  bShowPlot = True
+except:
+  bShowPlot = False
 
 vbase = 7621.0
 tstep = 1.0
@@ -50,34 +54,35 @@ def add_case (ax, dsspath):
   e2 = np.trapz (load2, dx=tstep/tbase)
   print ('Total Energy Load1={:.2f} Load2={:.2f} kwh'.format (e1, e2))
 
-  ax[0].plot(t, pv1, label='PV 1 {:s}'.format(dsspath))
-  ax[0].plot(t, pv2, label='PV 2 {:s}'.format(dsspath))
-  ax[1].plot(t, gen1, label='Gen 1 {:s}'.format(dsspath))
-  ax[1].plot(t, gen2, label='Gen 2 {:s}'.format(dsspath))
-  ax[2].plot(t, load1, label='Load 1 {:s}'.format(dsspath))
-  ax[2].plot(t, load2, label='Load 2 {:s}'.format(dsspath))
+  if ax is not None:
+    ax[0].plot(t, pv1, label='PV 1 {:s}'.format(dsspath))
+    ax[0].plot(t, pv2, label='PV 2 {:s}'.format(dsspath))
+    ax[1].plot(t, gen1, label='Gen 1 {:s}'.format(dsspath))
+    ax[1].plot(t, gen2, label='Gen 2 {:s}'.format(dsspath))
+    ax[2].plot(t, load1, label='Load 1 {:s}'.format(dsspath))
+    ax[2].plot(t, load2, label='Load 2 {:s}'.format(dsspath))
 
 if __name__ == '__main__':
 
-  bShowPlot = True
   if len(sys.argv) > 1:
     if sys.argv[1] == 'noplot':
       bShowPlot = False
 
-  fig, ax = plt.subplots(1, 3, figsize=(10,6))
-  plt.suptitle ('Case ecp_daily')
+  if bShowPlot:
+    fig, ax = plt.subplots(1, 3, figsize=(10,6))
+    plt.suptitle ('Case ecp_daily')
+  else:
+    ax = None
 
   for dsspath in ['base', 'dssa']:
     add_case (ax, dsspath)
 
-  ax[0].set_ylabel('Solar Power [kW]')
-  ax[1].set_ylabel('Generator Power [kW]')
-  ax[2].set_ylabel('Load Power [kW]')
-
-  for i in range(3):
-    ax[i].set_xlabel('Time [hr]')
-    ax[i].legend()
-    ax[i].grid()
-
   if bShowPlot:
+    ax[0].set_ylabel('Solar Power [kW]')
+    ax[1].set_ylabel('Generator Power [kW]')
+    ax[2].set_ylabel('Load Power [kW]')
+    for i in range(3):
+      ax[i].set_xlabel('Time [hr]')
+      ax[i].legend()
+      ax[i].grid()
     plt.show()
