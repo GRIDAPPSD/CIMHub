@@ -45,7 +45,7 @@ RUN ldconfig
 
 # Java application, DB engine, base examples and queries
 WORKDIR /app
-COPY blazegraph blazegraph
+COPY blazegraph /data
 COPY example example
 COPY releases releases
 COPY tests tests
