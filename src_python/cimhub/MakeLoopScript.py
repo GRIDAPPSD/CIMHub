@@ -124,9 +124,17 @@ def make_export_script (cases, scriptname, bClearOutput=True):
   st = os.stat (scriptname)
   os.chmod (scriptname, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
-def make_dssrun_script (cases, scriptname, bControls=False, tol=1e-8):
+def make_dssrun_script (cases, scriptname, bControls=False):
   fp = open (scriptname, 'w')
   for row in cases:
+    bControls = False
+    if 'dss_controls' in row:
+      if row['dss_controls'] == True:
+        bControls = True
+    if 'dss_tolerance' in row:
+      tol = float(row['dss_tolerance'])
+    else:
+      tol = 1e-8
     c = row['root']
     dsspath = os.path.abspath(row['outpath_dss'])
     print('//', file=fp)

@@ -239,6 +239,10 @@ case has the following attributes:
 - **outpath\_glm** relative path to output GridLAB-D files, typically *./glm/*. 
   WARNING: contents may be deleted and rewritten on subsequent exports. To forego GridLAB-D export, 
   omit this attribute, or specify as None or an empty string.
+- **dss\_controls** if specified and *true*, will run the incoming and converted OpenDSS files 
+  in static control mode. The default is to run with controls off.
+- **dss\_tolerance** if specified, will run the incoming and converted OpenDSS files with this 
+  solution tolerance. The default is 1e-8.
 - **skip\_gld** will forego GridLAB-D export and validation if *true*, regardless of whether
   *outpath\_glm* has been set. This can be more convenient than removing *outpath\_glm*, which is now the
   preferred method, if you are temporarily using an older version of GridLAB-D.

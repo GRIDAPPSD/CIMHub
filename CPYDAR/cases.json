@@ -2,6 +2,7 @@
  {
   "dssname": "Master.dss",
   "root": "ieee13x",
+  "dss_controls": true,
   "mRID": "4BE6DD69-8FE9-4C9F-AD44-B327D5623974",
   "glmvsrc": 66395.28,
   "substation":"sub1",
@@ -29,6 +30,7 @@
  {
   "dssname": "Master.dss",
   "root": "ieee123x",
+  "dss_controls": true,
   "mRID": "4C4E3E2C-6332-4DCB-8425-26B628178374",
   "glmvsrc": 2401.78,
   "substation":"sub1",

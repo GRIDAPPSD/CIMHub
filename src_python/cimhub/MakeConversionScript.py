@@ -63,9 +63,17 @@ def append_cases(casefiles, dsspath, outpath, region, subregion, fp):
 #             ['./new_R5_35_00_1/Master', 'R5_35_00_1']]
 # input_name, output_name, fid, sid, sgrid, rgnid
 
-def make_dss2xml_script (cases, outfile, bControls=False, tol=1e-8):
+def make_dss2xml_script (cases, outfile):
   fp = open (outfile, 'w')
   for row in cases:
+    bControls = False
+    if 'dss_controls' in row:
+      if row['dss_controls'] == True:
+        bControls = True
+    if 'dss_tolerance' in row:
+      tol = float(row['dss_tolerance'])
+    else:
+      tol = 1e-8
     root = row['root']
     inpath = os.path.abspath(row['inpath_dss'])
     outpath = os.path.abspath(row['path_xml'])

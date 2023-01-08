@@ -2198,7 +2198,7 @@ public class CIMImporter extends Object {
         out.print (pair.getValue().GetCSV(tank.bus[0], tank.orderedPhases[0], tank.bus[1], tank.orderedPhases[1]));
         tank.glmUsed = false;  // don't write these as separate transformers to CSV
       } else {
-        DistPowerXfmrWinding xfmr = mapXfmrWindings.get(reg.pname);
+        DistPowerXfmrWinding xfmr = mapXfmrWindings.get(reg.pid);
         out.print (pair.getValue().GetCSV(xfmr.bus[0], "ABC", xfmr.bus[1], "ABC"));
         xfmr.glmUsed = false;  // don't write these as separate transformers to CSV
       }

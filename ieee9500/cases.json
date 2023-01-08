@@ -2,6 +2,8 @@
  {
   "dssname": "ieee9500bal.dss",
   "root": "ieee9500bal",
+  "dss_controls": false,
+  "dss_tolerance": 1e-8,
   "mRID": "EE71F6C9-56F0-4167-A14E-7F4C71F10EAA",
   "substation": "sub1",
   "region": "geo1",
@@ -62,6 +64,8 @@
  {
   "dssname": "ieee9500unbal.dss",
   "root": "ieee9500unbal",
+  "dss_controls": false,
+  "dss_tolerance": 1e-8,
   "mRID": "EE71F6C9-56F0-4167-A14E-7F4C71F10EAA",
   "substation": "sub1",
   "region": "geo1",
