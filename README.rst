@@ -60,8 +60,8 @@ encapsulates Java 11 with a compatible version of Blazegraph and the CIMHub expo
 End User Instructions
 ---------------------
 
-Getting Started Example with Java on Windows
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Getting Started Example with Java/Python Option
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This example converts two versions of the IEEE 13-Bus case from OpenDSS to 
 CIM and GridLAB-D, without writing code.  One version uses phase impedance 
@@ -71,12 +71,28 @@ the transformers.
 
 1. From a command prompt in the Blazegraph installation directory, start the Blazegraph 
    engine with ``java -server -Xmx4g -jar blazegraph.jar``
-2. From another command prompt in the examples directory *TBD*
+2. From another command prompt in the examples directory **TBD**
 
-Getting Started Example with Docker on Linux
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Getting Started Example with Docker Option
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This example converts two versions of the IEEE 13-Bus case from OpenDSS to 
+The Docker image for CIMHub is based on Linux (Debian 11, aka "Bullseye"),
+so even when Docker is hosted on Windows, the CIMHub commands use Linux syntax.
+There are three directories within the Docker image for CIMHub:
+
+1. **/app** contains the CIMHub code and examples. Changes to this directory
+   do not persist between sessions, but you may copy the contents as needed.
+2. **/data** is a persistent volume of data for your own use. The Blazegraph
+   database engine keeps data here, and you may copy or create new files here.
+3. **/platform** is a volume bound to a directory on your host computer, i.e.,
+   you may exchange data between the Docker image and the host file system
+   through this volume. As shipped, **/platform** points to a directory of
+   GridAPPS-D feeder models cloned from GitHub, which you may not have on
+   your host file system. However, you can change or add bound volumes
+   to match your own use case. See the last line of `docker-compose.yml <docker-compose.yml>`_
+   for an example.
+
+The first example converts two versions of the IEEE 13-Bus case from OpenDSS to 
 CIM and GridLAB-D, without writing code.  One version uses phase impedance 
 matrices for line segments.  The other version, labeled "Assets", uses 
 wire and spacing data for the line segments, and transformer code data for 
@@ -86,9 +102,9 @@ the transformers.
 2. From inside the Docker Terminal, run two example conversions of the IEEE 13-Bus example:
 
 
-   - *cd blazegraph*
+   - *cd /data*
    - *./go.sh &*
-   - *cd ../example*
+   - *cd /app/example*
    - *./example.sh*
    - *tail sum\*.csv* to verify that the converted OpenDSS files ran correctly
    - see the comments embedded in *example.sh* for more information
@@ -105,17 +121,17 @@ the transformers.
    - *python3 onestep.py* checks power flow solutions on 5 variants of the IEEE 13-bus system
    - *python3 naming.py* checks power flow solutions with mRID naming
 
-4. Still inside the Docker Terminal, run the set of examples:
+4. Still inside the Docker Terminal, run the full set of examples:
 
    - *cd ..*
    - *python3 batch\_tests.py* will run a set of examples that may take several minutes to complete.
    - Check *\*.inc* files in the example sub-directories for output results.
    - Check *\*.log* files in the example sub-directories for detailed warnings and errors.
 
-5. To shut down the converter:
+5. To shut down the container:
 
    - *exit* from inside the Docker Terminal
-   - *./stop.sh* from the host Terminal
+   - *./stop.sh* from the host Terminal (**TODO**: this currently empties the /data volume)
 
 The example script may produce error messages upon first invocation, 
 because the Blazegraph engine doesn't start immediately.  However, the 
@@ -374,8 +390,8 @@ If working on the platform:
 - Make sure you have the latest, branch-compatible opendsscmd from `GOSS-GridAPPS-D <https://github.com/GRIDAPPSD/GOSS-GridAPPS-D/tree/opendss/v1.2.16/opendss>`_
 - Perform the GridAPPS-D tests from the latest, branch-compatible `Powergrid-Models/platform` <https://github.com/GRIDAPPSD/Powergrid-Models/tree/issue/1175/platform>`_.
 
-Working with Docker
-^^^^^^^^^^^^^^^^^^^
+Working with Blazegraph in Docker
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It could be more convenient to run only Blazegraph in a Docker container, writing code and queries on the host.
 

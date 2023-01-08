@@ -5,7 +5,8 @@ RUN apt-get update;apt-get dist-upgrade -y
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN mkdir -p /usr/share/man/man1/
-RUN apt-get install -y --no-install-recommends apt-utils
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends apt
 RUN apt-get install -y openjdk-11-jre-headless python3-pip curl nano
 RUN apt-get clean
 RUN python3 -m pip install --upgrade pip
