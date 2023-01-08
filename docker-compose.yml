@@ -2,18 +2,9 @@ version: '3'
 
 services:
 
-#  blazegraph:
-#    image: lyrasis/blazegraph:2.1.5
-#    logging:
-#      driver: none
-#    ports:
-#      - 8889:8080
-
   hub:
     image: gridappsd/cimhub:1.1.0
     stdin_open: true
     tty: true
-#    depends_on:
-#      - blazegraph
     volumes:
       - ../Powergrid-Models/platform:/platform
