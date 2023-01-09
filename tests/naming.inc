@@ -28,7 +28,7 @@
     B   2497.98  3.6373    190.46  3.4538    467.767 + j    86.851     BC     4304.99 -2.1412
     C   2438.54  1.5186    418.49  1.2508    984.143 + j   269.998     CA     4225.75  2.0358
     Total S =  2490.539 + j   809.060
-IEEE13_Assets    Nbus=[    41,    41,    54] Nlink=[    64,    64,    45] MAEv=[ 0.0000, 0.0038] MAEi=[   0.0002,   0.2533]
+IEEE13_Assets    Nbus=[    41,    41,    54] Nlink=[    64,    64,    45] MAEv=[ 0.0000, 0.0038] MAEi=[   0.0001,   0.2533]
   OpenDSS branch flow in TRANSFORMER.XFM1 from 633, Base case
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
     A   2461.76 -0.0436     50.54 -1.1603     54.576 + j   111.799     AB     4233.90  0.4922
