@@ -557,7 +557,7 @@ SELECT ?name ?bus (group_concat(distinct ?phs;separator="\n") as ?phases) ?rated
  ?s c:RotatingMachine.ratedU ?ratedU.
  ?s c:RotatingMachine.p ?p.
  ?s c:RotatingMachine.q ?q. 
- bind(strafter(str(?s),"#_") as ?id).
+ ?s c:IdentifiedObject.mRID ?id.
  OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s.
  ?smp c:SynchronousMachinePhase.phase ?phsraw.
    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }

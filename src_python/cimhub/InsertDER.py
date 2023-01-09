@@ -106,10 +106,10 @@ ins_syn_template = """
  <urn:uuid:{res}> c:IdentifiedObject.name \"{nm}\".
  <urn:uuid:{res}> c:Equipment.EquipmentContainer  <urn:uuid:{resFdr}>.
  <urn:uuid:{res}> c:PowerSystemResource.Location <urn:uuid:{resLoc}>.
- <urn:uuid:{res}> c:SynchronousMachine.p \"{p}\".
- <urn:uuid:{res}> c:SynchronousMachine.q \"{q}\".
- <urn:uuid:{res}> c:SynchronousMachine.ratedS \"{ratedS}\".
- <urn:uuid:{res}> c:SynchronousMachine.ratedU \"{ratedU}\".
+ <urn:uuid:{res}> c:RotatingMachine.p \"{p}\".
+ <urn:uuid:{res}> c:RotatingMachine.q \"{q}\".
+ <urn:uuid:{res}> c:RotatingMachine.ratedS \"{ratedS}\".
+ <urn:uuid:{res}> c:RotatingMachine.ratedU \"{ratedU}\".
 """
 
 ins_pep_template = """
