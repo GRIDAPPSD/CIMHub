@@ -51,8 +51,14 @@ public class DistRegulator extends DistComponent {
   public double[] vmin;
   public double[] vset;
   public double[] vbw;
+  public boolean[] reversible;
+  public boolean[] revNeutral;
   public double[] revR;
   public double[] revX;
+  public double[] revDelay;
+  public double[] revThreshold;
+  public double[] revSet;
+  public double[] revBand;
   public double[] ctRating;
   public double[] ctRatio;
   public double[] ptRatio;
@@ -151,8 +157,14 @@ public class DistRegulator extends DistComponent {
     AddJSONDoubleArray (buf, "subsequentDelays", subDelay);
     AddJSONDoubleArray (buf, "lineDropRs", fwdR);
     AddJSONDoubleArray (buf, "lineDropXs", fwdX);
+    AddJSONBooleanArray (buf, "reversibles", reversible); 
+    AddJSONBooleanArray (buf, "reverseToNeutals", revNeutral); 
     AddJSONDoubleArray (buf, "reverseLineDropRs", revR);
     AddJSONDoubleArray (buf, "reverseLineDropXs", revX);
+    AddJSONDoubleArray (buf, "reversingDelays", revDelay);
+    AddJSONDoubleArray (buf, "reversingThresholds", revThreshold);
+    AddJSONDoubleArray (buf, "reverseTargetValues", revSet);
+    AddJSONDoubleArray (buf, "reverseTargetDeadbands", revBand);
     AddJSONDoubleArray (buf, "ctRatings", ctRating);
     AddJSONDoubleArray (buf, "ctRatios", ctRatio);
     AddJSONDoubleArray (buf, "ptRatios", ptRatio);
@@ -204,8 +216,14 @@ public class DistRegulator extends DistComponent {
     step = new int[size];
     fwdR = new double[size];
     fwdX = new double[size];
+    reversible = new boolean[size]; 
+    revNeutral = new boolean[size]; 
+    revDelay = new double[size];
+    revThreshold = new double[size];
     revR = new double[size];
     revX = new double[size];
+    revSet = new double[size];
+    revBand = new double[size];
     ctRating = new double[size];
     ctRatio = new double[size];
     ptRatio = new double[size];
@@ -251,8 +269,16 @@ public class DistRegulator extends DistComponent {
         vbw[i] = OptionalDouble (soln, "?vbw", 0.0);
         fwdR[i] = OptionalDouble (soln, "?fwdR", 0.0);
         fwdX[i] = OptionalDouble (soln, "?fwdX", 0.0);
+
+        reversible[i] = OptionalBoolean (soln, "?revEnabled", false);
+        revNeutral[i] = OptionalBoolean (soln, "?revNeutral", false);
+        revDelay[i] = OptionalDouble (soln, "?revDelay", 0.0);
+        revThreshold[i] = OptionalDouble (soln, "?revThreshold", 0.0);
         revR[i] = OptionalDouble (soln, "?revR", 0.0);
         revX[i] = OptionalDouble (soln, "?revX", 0.0);
+        revSet[i] = OptionalDouble (soln, "?revSet", 0.0);
+        revBand[i] = OptionalDouble (soln, "?revBand", 0.0);
+
         ctRating[i] = OptionalDouble (soln, "?ctRating", 0.0);
         ctRatio[i] = OptionalDouble (soln, "?ctRatio", 0.0);
         ptRatio[i] = OptionalDouble (soln, "?ptRatio", 1.0); // if left at 0, GridLAB-D will use that value, and OpenDSS defaults to 60
@@ -307,8 +333,14 @@ public class DistRegulator extends DistComponent {
       buf.append (" vbw=" + df4.format(vbw[i]));
       buf.append (" fwdR=" + df4.format(fwdR[i]));
       buf.append (" fwdX=" + df4.format(fwdX[i]));
+      buf.append (" reversible=" + Boolean.toString(reversible[i]));
+      buf.append (" revDelay=" + df4.format(revDelay[i]));
+      buf.append (" revThreshold=" + df4.format(revThreshold[i]));
+      buf.append (" revSet=" + df4.format(revSet[i]));
+      buf.append (" revBand=" + df4.format(revBand[i]));
       buf.append (" revR=" + df4.format(revR[i]));
       buf.append (" revX=" + df4.format(revX[i]));
+      buf.append (" revNeutral=" + Boolean.toString(revNeutral[i]));
       buf.append (" ctRating=" + df4.format(ctRating[i]));
       buf.append (" ctRatio=" + df4.format(ctRatio[i]));
       buf.append (" ptRatio=" + df4.format(ptRatio[i]));
@@ -461,8 +493,16 @@ public class DistRegulator extends DistComponent {
         if (ctRating[i] > 0.0) buf.append(" ctprim=" + df2.format(ctRating[i]));
         if (fwdR[i] != 0.0) buf.append(" r=" + df2.format(fwdR[i]));
         if (fwdX[i] != 0.0) buf.append(" x=" + df2.format(fwdX[i]));
-        if (revR[i] != 0.0) buf.append(" revr=" + df2.format(revR[i]));
-        if (revX[i] != 0.0) buf.append(" revx=" + df2.format(revX[i]));
+        if (reversible[i]) {
+          buf.append (" reversible=yes");
+          if (revDelay[i] > 0.0) buf.append(" revdelay=" + df2.format(revDelay[i]));
+          if (revR[i] != 0.0) buf.append(" revr=" + df2.format(revR[i]));
+          if (revX[i] != 0.0) buf.append(" revx=" + df2.format(revX[i]));
+          if (revThreshold[i] > 0.0) buf.append(" revthreshold=" + df2.format(0.001*revThreshold[i]));
+          if (revSet[i] > 0.0) buf.append(" revvreg=" + df2.format(revSet[i]));
+          if (revBand[i] > 0.0) buf.append(" revband=" + df2.format(revBand[i]));
+          if (revNeutral[i]) buf.append (" revneutral=yes");
+        }
         if (initDelay[i] > 0.0) buf.append(" delay=" + df2.format(initDelay[i]));
         if (subDelay[i] > 0.0) buf.append(" tapdelay=" + df2.format(subDelay[i]));
         if (vlim[i] > 0.0) buf.append(" vlimit=" + df2.format(vlim[i]));

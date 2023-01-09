@@ -1849,7 +1849,9 @@ PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
  ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin
-	?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode ?monphs ?ctRating ?ctRatio ?ptRatio ?fdrid ?pxfid
+ ?vset ?vbw ?ldc ?fwdR ?fwdX 
+ ?revR ?revX ?revEnabled ?revDelay ?revSet ?revBand ?revNeutral ?revThreshold
+ ?discrete ?ctl_enabled ?ctlmode ?monphs ?ctRating ?ctRatio ?ptRatio ?fdrid ?pxfid
 WHERE {
 #VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
 #VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
@@ -1890,6 +1892,12 @@ WHERE {
  	OPTIONAL{?ctl c:TapChangerControl.lineDropX ?fwdX.}
  	OPTIONAL{?ctl c:TapChangerControl.reverseLineDropR ?revR.}
  	OPTIONAL{?ctl c:TapChangerControl.reverseLineDropX ?revX.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reversible ?revEnabled.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reversingDelay ?revDelay.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reverseToNeutral ?revNeutral.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reversingPowerThreshold ?revThreshold.}
+ 	OPTIONAL{?ctl c:RegulatingControl.reverseTargetDeadband ?revBand.}
+ 	OPTIONAL{?ctl c:RegulatingControl.reverseTargetValue ?revSet.}
  	?ctl c:RegulatingControl.discrete ?discrete.
  	?ctl c:RegulatingControl.enabled ?ctl_enabled.
  	?ctl c:RegulatingControl.mode ?ctlmoderaw.

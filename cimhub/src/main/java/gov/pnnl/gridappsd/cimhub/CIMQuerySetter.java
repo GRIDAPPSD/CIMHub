@@ -534,7 +534,8 @@ public class CIMQuerySetter extends Object {
     mapQueries.put ("DistRegulatorPrefix",
       "SELECT ?name ?id ?pid ?tid ?wnum ?orderedPhases ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep"+
       " ?normalStep ?neutralU ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin"+
-      " ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode"+
+      " ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?revEnabled ?revDelay ?revNeutral ?revThreshold ?revSet ?revBand"+
+      " ?discrete ?ctl_enabled ?ctlmode"+
       " ?monphs ?ctRating ?ctRatio ?ptRatio ?fdrid"+
       " WHERE {"+
       " ?pxf c:Equipment.EquipmentContainer ?fdr."+
@@ -578,6 +579,12 @@ public class CIMQuerySetter extends Object {
       " OPTIONAL {?ctl c:TapChangerControl.lineDropX ?fwdX.}"+
       " OPTIONAL {?ctl c:TapChangerControl.reverseLineDropR ?revR.}"+
       " OPTIONAL {?ctl c:TapChangerControl.reverseLineDropX ?revX.}"+
+      " OPTIONAL {?ctl c:TapChangerControl.reversible ?revEnabled.}"+
+      " OPTIONAL {?ctl c:TapChangerControl.reversingDelay ?revDelay.}"+
+      " OPTIONAL{?ctl c:TapChangerControl.reverseToNeutral ?revNeutral.}"+
+      " OPTIONAL{?ctl c:TapChangerControl.reversingPowerThreshold ?revThreshold.}"+
+      " OPTIONAL{?ctl c:RegulatingControl.reverseTargetDeadband ?revBand.}"+
+      " OPTIONAL{?ctl c:RegulatingControl.reverseTargetValue ?revSet.}"+
       " ?ctl c:RegulatingControl.discrete ?discrete."+
       " ?ctl c:RegulatingControl.enabled ?ctl_enabled."+
       " ?ctl c:RegulatingControl.mode ?ctlmoderaw."+

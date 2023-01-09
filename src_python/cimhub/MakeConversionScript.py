@@ -86,7 +86,7 @@ def make_dss2xml_script (cases, outfile):
     print('set tolerance={:g}'.format(tol), file=fp)
     if bControls:
       print('set controlmode=static', file=fp)
-      print('set maxcontroliter=100', file=fp)
+      print('set maxcontroliter=200', file=fp)
     else:
       print('set controlmode=off', file=fp)
     print('solve mode=snap', file=fp)

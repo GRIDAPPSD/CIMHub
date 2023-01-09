@@ -2,7 +2,7 @@
  {
   "dssname": "ieee9500bal.dss",
   "root": "ieee9500bal",
-  "dss_controls": false,
+  "dss_controls": true,
   "dss_tolerance": 1e-8,
   "mRID": "EE71F6C9-56F0-4167-A14E-7F4C71F10EAA",
   "substation": "sub1",
@@ -16,7 +16,7 @@
    69000.0,
    115000.0
   ],
-  "export_options": " -p=1.0 -l=1.0 -e=carson -t=1",
+  "export_options": " -p=1.0 -l=1.0 -e=carson -t=1 -m=2",
   "check_branches": [
    {
     "dss_link": "LINE.LN5815900-1",
@@ -64,7 +64,7 @@
  {
   "dssname": "ieee9500unbal.dss",
   "root": "ieee9500unbal",
-  "dss_controls": false,
+  "dss_controls": true,
   "dss_tolerance": 1e-8,
   "mRID": "EE71F6C9-56F0-4167-A14E-7F4C71F10EAA",
   "substation": "sub1",
@@ -78,7 +78,7 @@
    69000.0,
    115000.0
   ],
-  "export_options": " -p=1.0 -l=1.0 -e=carson -t=1",
+  "export_options": " -p=1.0 -l=1.0 -e=carson -t=1 -m=2",
   "check_branches": [
    {
     "dss_link": "LINE.LN5815900-1",

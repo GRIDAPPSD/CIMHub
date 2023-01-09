@@ -15,6 +15,7 @@ import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import json
 import sys
+import os
 
 cfg_json = '../queries/cimhubconfig.json'
 
@@ -27,6 +28,16 @@ if __name__ == '__main__':
 
   # Clear DB and load each case one-at-a-time, because some feeder mRIDs are duplicates
   #  in this directory, which violate assumption that mRIDs are unique between circuits.
+
+  # It's also necessary to copy edit files to the dss and glm directories, to improve the
+  #   validation results and satisfy the -m=2 export option.
+  if not os.path.exists('dss'):
+    os.mkdir('dss')
+  if not os.path.exists('glm'):
+    os.mkdir('glm')
+  os.system ('cp *edits*.dss dss')
+  os.system ('cp *edits*.glm glm')
+
   for row in cases:
     if 'unbal' in row['root']:
       rstFile = 'onestep_unbal.inc'

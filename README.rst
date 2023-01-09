@@ -194,7 +194,7 @@ Option Values                    Description
 -t     0, 1                      Request timing of top-level methods and SPARQL queries, requires -o=both for methods
 -u     URI                       Blazegraph uniform resource identifier (if connecting over HTTP); defaults to http:localhost:8889/bigdata/namespace/kb/sparql
 -a     0, 1                      Ask for shape, schedule, and player references to be exported for time-series power flow
--m     0, 1                      Insert a reference to an include file of manual edits to exported models
+-m     0, 1, 2, 3                Insert a reference to an include file of manual edits to exported models; 0=none, 1=before network, 2=after network, 3=both locations
 -d     0, 1, 2                   Use of safe name, name, or mRID to identify simulator objects; defaults to safe name. Safe name replaces characters from the set " .=+^$*|[]{}\\" with \_
 ====== ========================= =========================================================================================================================================================
 

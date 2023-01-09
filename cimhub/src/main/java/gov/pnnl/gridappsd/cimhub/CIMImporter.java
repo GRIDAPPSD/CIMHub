@@ -1238,17 +1238,17 @@ public class CIMImporter extends Object {
 
   protected void WriteGLMFile (PrintWriter out, double load_scale, boolean bWantSched, String fSched,
       boolean bWantZIP, boolean randomZIP, boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, 
-      boolean bHaveEventGen, boolean bUseProfiles, String fInclude) {
+      boolean bHaveEventGen, boolean bUseProfiles, String fInclude1, String fInclude2) {
 
     DistEnergyConnectionProfile prf = null;
     HashMap<String,String> mapUsedProfiles = new HashMap<>(); // name, and one of the keys that uses it
-    boolean bIncludeFileReferenced = false;
+    boolean bIncludeFile1Referenced = false;
 
-    // reference the include file by a local name
-    if ((fInclude != null) && !fInclude.isEmpty()) {
-      File fIncludeFile = new File(fInclude);
-      out.println ("#include \"" + fIncludeFile.getName() + "\"");
-      bIncludeFileReferenced = true;
+    // reference the prefix include file by a local name
+    if ((fInclude1 != null) && !fInclude1.isEmpty()) {
+      File fIncludeFile1 = new File(fInclude1);
+      out.println ("#include \"" + fIncludeFile1.getName() + "\"");
+      bIncludeFile1Referenced = true;
     }
     // preparatory steps to build the list of nodes
     ResultSet results = queryHandler.query (
@@ -1655,6 +1655,12 @@ public class CIMImporter extends Object {
       }
     }
 
+    // reference the suffix include file by a local name
+    if ((fInclude2 != null) && !fInclude2.isEmpty()) {
+      File fIncludeFile2 = new File(fInclude2);
+      out.println ("#include \"" + fIncludeFile2.getName() + "\"");
+    }
+
     // try to link all CIM measurements to the GridLAB-D objects
     // PrintGldNodeMap (mapNodes, "*** GldNode Map for Measurements");
     HashMap<String,GldNode> mapLoadNodes = new HashMap<>();
@@ -1692,8 +1698,8 @@ public class CIMImporter extends Object {
 
     if (mapUsedProfiles.size() > 0) {
       out.print ("// referenced EnergyConnectionProfiles that must be defined\n");
-      if (!bIncludeFileReferenced) {
-        out.print ("// (consider re-exporting with -m option to reference an include file)\n");
+      if (!bIncludeFile1Referenced) {
+        out.print ("// (consider re-exporting with -m=1 (or 3) option to reference an include file)\n");
       }
       for (HashMap.Entry<String,String> pair : mapUsedProfiles.entrySet()) {
         out.print (mapGlmProfiles.get(pair.getValue()).GetGLM());
@@ -1846,12 +1852,12 @@ public class CIMImporter extends Object {
 
   protected void WriteDSSFile (PrintWriter out, PrintWriter outID, String fXY, String fID, double load_scale,
       boolean bWantSched, String fSched, boolean bWantZIP, double Zcoeff, double Icoeff, double Pcoeff, String fEarth,
-      boolean bUseProfiles, String fInclude)  {
+      boolean bUseProfiles, String fInclude1, String fInclude2)  {
 
 
     DistEnergyConnectionProfile prf = null;
     HashMap<String,String> mapUsedProfiles = new HashMap<>(); // name, and one of the keys that uses it
-    boolean bIncludeFileReferenced = false;
+    boolean bIncludeFile1Referenced = false;
 
     out.println ("clear");
     out.println ("set defaultbasefrequency=" + String.valueOf (DistComponent.GetSystemFrequency()));
@@ -1862,11 +1868,11 @@ public class CIMImporter extends Object {
     }
     out.println ("set earthmodel=" + fEarth);
 
-    // reference the include file by a local name
-    if ((fInclude != null) && !fInclude.isEmpty()) {
-      File fIncludeFile = new File(fInclude);
-      out.println ("redirect " + fIncludeFile.getName());
-      bIncludeFileReferenced = true;
+    // reference the prefix include file by a local name
+    if ((fInclude1 != null) && !fInclude1.isEmpty()) {
+      File fIncludeFile1 = new File(fInclude1);
+      out.println ("redirect " + fIncludeFile1.getName());
+      bIncludeFile1Referenced = true;
     }
 
     if (mapWires.size() > 0) out.println();
@@ -2088,10 +2094,16 @@ public class CIMImporter extends Object {
     out.println ("buscoords " + fXYFile.getName());
     out.println ("uuids " + fIDFile.getName());
 
+    // reference the suffix include file by a local name
+    if ((fInclude2 != null) && !fInclude2.isEmpty()) {
+      File fIncludeFile2 = new File(fInclude2);
+      out.println ("redirect " + fIncludeFile2.getName());
+    }
+
     if (mapUsedProfiles.size() > 0) {
       out.print ("// referenced EnergyConnectionProfiles that must be defined\n");
-      if (!bIncludeFileReferenced) {
-        out.print ("// (consider re-exporting with -m option to reference an include file)\n");
+      if (!bIncludeFile1Referenced) {
+        out.print ("// (consider re-exporting with -m=1 (or 3) option to reference an include file)\n");
       }
       for (HashMap.Entry<String,String> pair : mapUsedProfiles.entrySet()) {
         out.print (mapDssProfiles.get(pair.getValue()).GetDSS());
@@ -2357,9 +2369,9 @@ public class CIMImporter extends Object {
   public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, 
       String fSched, double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP, 
       boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, boolean bHaveEventGen, ModelState ms, 
-      boolean bTiming, String fEarth, boolean bManualFile,boolean bUseProfiles) throws FileNotFoundException{
+      boolean bTiming, String fEarth, int iManualFile, boolean bUseProfiles) throws FileNotFoundException{
     start(queryHandler, querySetter, fTarget, fRoot, fSched, load_scale, bWantSched, bWantZIP, randomZIP, useHouses,
-        Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming, fEarth, bManualFile, bUseProfiles);
+        Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming, fEarth, iManualFile, bUseProfiles);
   }
 
 
@@ -2387,8 +2399,9 @@ public class CIMImporter extends Object {
    * @param ms used only for testing switch operations
    * @param bTiming true for logging SPARQL query times
    * @param fEarth Deri, Carson, FullCarson for OpenDSS
-   * @param bManualFile true for including reference to manual 
-   *                    edits in exported OpenDSS / GridLAB-D
+   * @param iManualFile 1 to reference manual pre-edits, 2 for 
+   *                    post-edits, 3 for both edits in exported
+   *                    OpenDSS / GridLAB-D
    * @param bUseProfiles true to use players, schedules and shapes 
    * @throws FileNotFoundException may occur if a file cannot be 
    *                 opened in the specified
@@ -2397,12 +2410,13 @@ public class CIMImporter extends Object {
   public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, String fSched,
       double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP,
       boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, int maxMeasurements, boolean bHaveEventGen, 
-      ModelState ms, boolean bTiming, String fEarth, boolean bManualFile, boolean bUseProfiles) throws FileNotFoundException{
+      ModelState ms, boolean bTiming, String fEarth, int iManualFile, boolean bUseProfiles) throws FileNotFoundException{
 
     this.queryHandler = queryHandler;
     this.querySetter = querySetter;
-    String fOut, fXY, fID, fDict, fInclude;
-    fInclude = "";
+    String fOut, fXY, fID, fDict, fInclude1, fInclude2;
+    fInclude1 = "";
+    fInclude2 = "";
 
     if (fTarget.equals("glm")) {
       LoadAllMaps(useHouses);
@@ -2414,12 +2428,15 @@ public class CIMImporter extends Object {
       fDict = fRoot + "_dict.json";
       fOut = fRoot + "_base.glm";
       fXY = fRoot + "_symbols.json";
-      if (bManualFile) {
-        fInclude = fRoot + "_edits.glm";
+      if ((iManualFile & 1) > 0) {
+        fInclude1 = fRoot + "_edits.glm";
+      }
+      if ((iManualFile & 2) > 0) {
+        fInclude2 = fRoot + "_edits2.glm";
       }
       PrintWriter pOut = new PrintWriter(fOut);
       WriteGLMFile(pOut, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, 
-                   bHaveEventGen, bUseProfiles, fInclude);
+                   bHaveEventGen, bUseProfiles, fInclude1, fInclude2);
       PrintWriter pXY = new PrintWriter(fXY);
       WriteJSONSymbolFile (pXY);
       PrintWriter pDict = new PrintWriter(fDict);
@@ -2438,13 +2455,16 @@ public class CIMImporter extends Object {
       fOut = fRoot + "_base.dss";
       fXY = fRoot + "_busxy.dss";
       fID = fRoot + "_uuid.dss";
-      if (bManualFile) {
-        fInclude = fRoot + "_edits.dss";
+      if ((iManualFile & 1) > 0) {
+        fInclude1 = fRoot + "_edits.dss";
+      }
+      if ((iManualFile & 2) > 0) {
+        fInclude2 = fRoot + "_edits2.dss";
       }
       PrintWriter pOut = new PrintWriter(fOut);
       PrintWriter pID = new PrintWriter(fID);
       WriteDSSFile (pOut, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, 
-                    Icoeff, Pcoeff, fEarth, bUseProfiles, fInclude);
+                    Icoeff, Pcoeff, fEarth, bUseProfiles, fInclude1, fInclude2);
       PrintWriter pXY = new PrintWriter(fXY);
       WriteDSSCoordinates (pXY);
       PrintWriter pSym = new PrintWriter (fRoot + "_symbols.json");
@@ -2468,24 +2488,30 @@ public class CIMImporter extends Object {
       // write OpenDSS first, before GridLAB-D can modify the phases
       fXY = fRoot + "_busxy.dss";
       fID = fRoot + "_uuid.dss";
-      if (bManualFile) {
-        fInclude = fRoot + "_edits.dss";
+      if ((iManualFile & 1) > 0) {
+        fInclude1 = fRoot + "_edits.dss";
+      }
+      if ((iManualFile & 2) > 0) {
+        fInclude2 = fRoot + "_edits2.dss";
       }
       PrintWriter pDss = new PrintWriter(fRoot + "_base.dss");
       PrintWriter pID = new PrintWriter(fID);
       WriteDSSFile (pDss, pID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, 
-                    fEarth, bUseProfiles, fInclude);
+                    fEarth, bUseProfiles, fInclude1, fInclude2);
       long t7 = System.nanoTime();
       PrintWriter pXY = new PrintWriter(fXY);
       WriteDSSCoordinates (pXY);
       long t8 = System.nanoTime();
       // write GridLAB-D and the dictionaries to match GridLAB-D
       PrintWriter pGld = new PrintWriter(fRoot + "_base.glm");
-      if (bManualFile) {
-        fInclude = fRoot + "_edits.glm";
+      if ((iManualFile & 1) > 0) {
+        fInclude1 = fRoot + "_edits.glm";
+      }
+      if ((iManualFile & 2) > 0) {
+        fInclude2 = fRoot + "_edits2.glm";
       }
       WriteGLMFile(pGld, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, 
-                   Icoeff, Pcoeff, bHaveEventGen, bUseProfiles, fInclude);
+                   Icoeff, Pcoeff, bHaveEventGen, bUseProfiles, fInclude1, fInclude2);
       long t9 = System.nanoTime();
       PrintWriter pSym = new PrintWriter(fRoot + "_symbols.json");
       WriteJSONSymbolFile (pSym);
@@ -2635,8 +2661,9 @@ public class CIMImporter extends Object {
    * @param bHaveEventGen true if the GridLAB-D export won't need
    *            it's own fault_check and eventgen
    *            objects for electrical islands
-   * @param bManualFile true to include reference to a file of
-   *                    manual edits in OpenDSS/GridLAB-D
+   * @param iManualFile 1 to include reference to an include file
+   *                    of manual pre-edits in OpenDSS/GridLAB-D,
+   *                    2 for post-edits and 3 for both edits
    * @param bUseProfiles true to use players, schedules and shapes 
    */
   public void generateGLMFile(QueryHandler queryHandler, CIMQuerySetter querySetter, 
@@ -2655,9 +2682,10 @@ public class CIMImporter extends Object {
     }
     CheckMaps();
     ApplyCurrentLimits();
-    String fInclude = "";
+    String fInclude1 = "";
+    String fInclude2 = "";
     WriteGLMFile (out, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, 
-                  Zcoeff, Icoeff, Pcoeff, bHaveEventGen, bUseProfiles, fInclude);
+                  Zcoeff, Icoeff, Pcoeff, bHaveEventGen, bUseProfiles, fInclude1, fInclude2);
   }
 
   /**
@@ -2741,9 +2769,10 @@ public class CIMImporter extends Object {
     }
     CheckMaps();
     ApplyCurrentLimits();
-    String fInclude = "";
+    String fInclude1 = "";
+    String fInclude2 = "";
     WriteDSSFile(out, outID, fXY, fID, load_scale, bWantSched, fSched, bWantZIP, Zcoeff, Icoeff, Pcoeff, 
-                 fEarth, bUseProfiles, fInclude);
+                 fEarth, bUseProfiles, fInclude1, fInclude2);
   }
 
   /**
@@ -2787,7 +2816,7 @@ public class CIMImporter extends Object {
     boolean bHaveEventGen = false;
     boolean bTiming = false;
     boolean bReadSPARQL = false;
-    boolean bManualFile = false;
+    int iManualFile = 0;
     boolean bUseProfiles = false;
     String fSched = "";
     String fTarget = "dss";
@@ -2805,7 +2834,7 @@ public class CIMImporter extends Object {
       System.out.println ("       -f={50|60}         // system frequency; defaults to 60");
       System.out.println ("       -e={Deri|Carson|FullCarson} // earth model for OpenDSS, defaults to Deri but GridLAB-D supports only Carson");
       System.out.println ("       -n={schedule_name} // root filename for scheduled ZIP loads (defaults to none)");
-      System.out.println ("       -m={0..1}          // include a reference to manual edits in OpenDSS or GridLAB-D exports (defaults to 0)");
+      System.out.println ("       -m={0, 1, 2, 3}    // include references to manual edits (none, prefix, suffix, both) in OpenDSS or GridLAB-D exports (defaults to 0)");
       System.out.println ("       -z={0..1}          // constant Z portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)");
       System.out.println ("       -i={0..1}          // constant I portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)");
       System.out.println ("       -p={0..1}          // constant P portion (defaults to 0 for CIM-defined LoadResponseCharacteristic)");
@@ -2867,8 +2896,8 @@ public class CIMImporter extends Object {
           randomZIP = true;
         } else if (opt == 'h' && Integer.parseInt(optVal) == 1) {
           useHouses = true;
-        } else if (opt == 'm' && Integer.parseInt(optVal) == 1) {
-          bManualFile = true;
+        } else if (opt == 'm') {
+          iManualFile = Integer.parseInt(optVal);
         } else if (opt == 'x' && Integer.parseInt(optVal) == 1) {
           bHaveEventGen = true;
         } else if (opt == 't' && Integer.parseInt(optVal) == 1) {
@@ -2934,7 +2963,7 @@ public class CIMImporter extends Object {
 
       new CIMImporter().start(qh, qs, fTarget, fRoot, fSched, load_scale,
             bWantSched, bWantZIP, randomZIP, useHouses,
-            Zcoeff, Icoeff, Pcoeff, bHaveEventGen, ms, bTiming, fEarth, bManualFile,
+            Zcoeff, Icoeff, Pcoeff, bHaveEventGen, ms, bTiming, fEarth, iManualFile,
             bUseProfiles);
     } catch (RuntimeException e) {
       System.out.println ("Can not produce a model: " + e.getMessage());

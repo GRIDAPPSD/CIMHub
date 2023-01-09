@@ -1,3 +1,4 @@
 del *.dsv
 del *.dbl
-del DSSViewIntercom.Txt
+del *.Txt
+del *.csv
