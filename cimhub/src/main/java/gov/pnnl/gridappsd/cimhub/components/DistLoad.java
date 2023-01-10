@@ -167,7 +167,7 @@ public class DistLoad extends DistComponent {
     return id;
   }
 
-  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,Model,Connection,kW,pf";
+  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,Model,Connection,kW,pf,pz,pi,pp,qz,qi,qp,pe,qe";
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name + ",");
@@ -187,7 +187,8 @@ public class DistLoad extends DistComponent {
     }
     buf.append (Integer.toString(nphases) + "," + bus + "," + CSVPhaseString (phases) + "," + df3.format(kv) + "," + 
           Integer.toString (dss_load_model) + "," + DSSConn(bDelta) + "," + df3.format(p) + "," + 
-          df4.format(pf) + "\n");
+          df4.format(pf) + "," + df3.format(pz) + "," + df3.format(pi) + "," + df3.format(pp) + "," + 
+          df3.format(qz) + "," + df3.format(qi) + "," + df3.format(qp) + "," + df3.format(pe) + "," + df3.format(qe) + "\n");
     return buf.toString();
   }
 }

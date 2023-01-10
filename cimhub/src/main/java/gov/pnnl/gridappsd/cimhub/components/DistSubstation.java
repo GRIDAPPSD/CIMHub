@@ -95,11 +95,12 @@ public class DistSubstation extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,FdrName,Bus,kV,pu,X";
+  public static String szCSVHeader = "Name,FdrName,Bus,kV,pu,ang,R1,X1,R0,X0";
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name + "," + fdrname + "," + bus + "," + df3.format(0.001 * nomv) + "," +
-                         df5.format(vmag/nomv) + "," + df5.format(x1) + "\n");
+                         df5.format(vmag/nomv) + "," + df5.format(vang) + "," + df5.format(r1) + "," + df5.format(x1) + "," + 
+                         df5.format(r0) + "," + df5.format(x0) + "\n");
     return buf.toString();
   }
 

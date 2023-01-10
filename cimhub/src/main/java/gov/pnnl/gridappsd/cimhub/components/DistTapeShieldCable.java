@@ -44,6 +44,7 @@ public class DistTapeShieldCable extends DistCable {
       sheathNeutral = OptionalBoolean (soln, "?sheathneutral", false);
       tlap = OptionalDouble (soln, "?tapelap", 0.0);
       tthick = OptionalDouble (soln, "?tapethickness", 0.0);
+      dEpsR = OptionalDouble (soln, "?epsr", 2.3);
     }   
   }
 

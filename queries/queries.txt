@@ -1289,7 +1289,7 @@ ORDER by ?name ?fdrname
 # capacitors (does not account for 2+ unequal phases on same LinearShuntCompensator) - DistCapacitor
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id
+SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?montrm ?monphs ?id ?fdrid ?t1id
 (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
  ?s r:type c:LinearShuntCompensator.
 # feeder selection options - if all commented out, query matches all feeders
@@ -1325,6 +1325,7 @@ SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?dis
            bind(strafter(str(?classraw),"CIM100#") as ?monclass)
           ?eq c:IdentifiedObject.name ?moneq.
           ?trm c:Terminal.ConnectivityNode ?moncn.
+          ?trm c:ACDCTerminal.sequenceNumber ?montrm.
           ?moncn c:IdentifiedObject.name ?monbus.
           }
  ?s c:IdentifiedObject.mRID ?id. 
@@ -1333,7 +1334,7 @@ SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?dis
  ?t c:IdentifiedObject.mRID ?t1id.
  ?cn c:IdentifiedObject.name ?bus
 }
-GROUP BY ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id
+GROUP BY ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?montrm ?monphs ?id ?fdrid ?t1id
 ORDER by ?name
 
 # loads (need to account for 2+ unequal EnergyConsumerPhases per EnergyConsumer) - DistLoad
@@ -2004,7 +2005,7 @@ ORDER BY ?name
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?diacore ?diains 
-       ?diascreen ?diajacket ?sheathneutral ?tapelap ?tapethickness
+       ?diascreen ?diajacket ?sheathneutral ?tapelap ?tapethickness ?epsr
 WHERE {
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # 13 bus
@@ -2033,6 +2034,7 @@ VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # 13 bus assets
  OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}
  OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}
  OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}
+ OPTIONAL {?w c:CableInfo.relativePermittivity ?epsr.}
  OPTIONAL {?w c:TapeShieldCableInfo.tapeLap ?tapelap.}
  OPTIONAL {?w c:TapeShieldCableInfo.tapeThickness ?tapethickness.}
 }
@@ -2042,7 +2044,7 @@ ORDER BY ?name
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?diacore ?diains ?diascreen ?diajacket ?dianeut ?sheathneutral 
-       ?strand_cnt ?strand_rad ?strand_gmr ?strand_rdc
+       ?strand_cnt ?strand_rad ?strand_gmr ?strand_rdc ?epsr
 WHERE {
 # feeder selection options - if all commented out, query matches all feeders
 #VALUES ?fdrid {"E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # 13 bus
@@ -2071,6 +2073,7 @@ VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # 13 bus assets
  OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}
  OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}
  OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}
+ OPTIONAL {?w c:CableInfo.relativePermittivity ?epsr.}
  OPTIONAL {?w c:ConcentricNeutralCableInfo.diameterOverNeutral ?dianeut.}
  OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandCount ?strand_cnt.}
  OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandGmr ?strand_gmr.}

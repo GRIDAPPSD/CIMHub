@@ -273,7 +273,7 @@ public class DistPowerXfmrWinding extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,NumPhases,NumWindings,Bus1,kV1,Conn1,kVA1,Bus2,kV2,Conn2,kVA2,Bus3,kV3,Conn3,kVA3,%x12,%x13,%x23,%loadloss,%imag,%noloadloss";
+  public static String szCSVHeader = "Name,NumPhases,NumWindings,Bus1,kV1,Conn1,kVA1,R1,Grnd1,Rg1,Xg1,ClockAng1,Bus2,kV2,Conn2,kVA2,R2,Grnd2,Rg2,Xg2,ClockAng2,Bus3,kV3,Conn3,kVA3,R3,Grnd3,Rg3,Xg3,ClockAng3,%x12,%x13,%x23,%loadloss,%imag,%noloadloss";
 
   public String GetCSV (DistPowerXfmrMesh mesh, DistPowerXfmrCore core) {
     boolean bDelta;
@@ -308,6 +308,8 @@ public class DistPowerXfmrWinding extends DistComponent {
       zbase = ratedU[i] * ratedU[i] / ratedS[i];
       loadloss += 100.0 * r[i] / zbase;
       buf.append("," + bus[i] + "," + df3.format(0.001 * ratedU[i]) + "," + DSSConn(bDelta)  + "," + df1.format(0.001 * ratedS[i]));
+      buf.append("," + df6.format(r[i]) + "," + Boolean.toString(grounded[i]) + "," + df3.format(rg[i]) + "," + df3.format(xg[i]));
+      buf.append("," + Integer.toString(ang[i]));
     }
     if (i < 3) buf.append (",,,,");
     buf.append ("," + df4.format (x12) +"," + df4.format (x13) +"," + df4.format (x23));

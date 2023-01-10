@@ -133,25 +133,29 @@ public class DistLinesSpacingZ extends DistLineSegment {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,Spacing,WireType,WireNames,Length,Units";
+  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,Spacing,WireTypes,WireNames,Length,Units";
+
+  private String WireClassToken (int i) {
+    if (wire_classes[i].equals("TapeShieldCableInfo")) {
+      return "TS";
+    } else if (wire_classes[i].equals("ConcentricNeutralCableInfo")) {
+      return "CN";
+    }
+    return "OHD";
+  }
 
   public String GetCSV () {
-    String WireType;
-    if (wire_classes[0].equals("TapeShieldCableInfo")) {
-      WireType = "TS";
-    } else if (wire_classes[0].equals("ConcentricNeutralCableInfo")) {
-      WireType = "CN";
-    } else {
-      WireType = "OHD";
-    }
     StringBuilder WireNames = new StringBuilder ("\"" + wire_names[0]);
+    StringBuilder WireTypes = new StringBuilder ("\"" + WireClassToken(0));
     for (int i = 1; i < nwires; i++) {
       WireNames.append ("," + wire_names[i]);
+      WireTypes.append ("," + WireClassToken (i));
     }
     WireNames.append ("\"");
+    WireTypes.append ("\"");
     StringBuilder buf = new StringBuilder (name + "," + bus1 + "," + CSVPhaseString(phases) + "," +
                          bus2 + "," + CSVPhaseString(phases) + "," + spacing + "," +
-                         WireType + "," + WireNames.toString() + "," +
+                         WireTypes.toString() + "," + WireNames.toString() + "," +
                          df3.format(len * gFTperM) + ",ft\n");
     return buf.toString();
   }

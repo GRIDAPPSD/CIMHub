@@ -58,8 +58,8 @@ public class DistLinesInstanceZ extends DistLineSegment {
     StringBuilder buf = new StringBuilder ();
     AppendSharedGLMAttributes (buf, name, false, false);  // writes length in ft
 
-  // should be per mile
-  double k = gMperMILE;
+    // should be per mile
+    double k = gMperMILE;
     String seqZs = CFormat (new Complex (k * (r0 + 2.0 * r1) / 3.0, k * (x0 + 2.0 * x1) / 3.0));
     String seqZm = CFormat (new Complex (k * (r0 - r1) / 3.0, k * (x0 - x1) / 3.0));
     String seqCs = df4.format(k * 1.0e9 * (b0 + 2.0 * b1) / 3.0 / gOMEGA);
@@ -103,7 +103,7 @@ public class DistLinesInstanceZ extends DistLineSegment {
 
     return buf.toString();
   }
-  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,R1,X1,C1[nF],R0,X0,C0[nF],Length,Units";
+  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,R1,X1,C1[nF],R0,X0,C0[nF]";
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name + "," + bus1 + "," + CSVPhaseString(phases) + "," +
@@ -113,8 +113,7 @@ public class DistLinesInstanceZ extends DistLineSegment {
                        df6.format(1.0e9 * b1 / gOMEGA) + "," +
                        df6.format(r0) + "," +
                        df6.format(x0) + "," +
-                       df6.format(1.0e9 * b0 / gOMEGA) + "," +
-                       df3.format(len * gFTperM) + ",ft\n");
+                       df6.format(1.0e9 * b0 / gOMEGA) + "\n");
     return buf.toString();
   }
 }

@@ -517,20 +517,24 @@ public class DistRegulator extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,Bus1,Phase,Bus2,Phase,Vreg,PTRatio,CTRating,CTRatio,Band,R,X,revR,revX,Step,lowStep,highStep,neutralStep,normalStep,initDelay,subDelay,vLimit,vMin,Increment,neutralU,Wdg,CtlMode,MonPhs,Enabled,LDC,LTC,Discrete,CtlEnabled";
+  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,Vreg,PTRatio,CTRating,CTRatio,Band,R,X,Step,lowStep,highStep,neutralStep,normalStep,initDelay,subDelay,vLimit,vMin,Increment,neutralU,Wdg,CtlMode,MonPhs,Enabled,LDC,LTC,reversible,reverseToNeutral,revSet,revBand,revR,revX,revDelay,revKWThreshold,Discrete,CtlEnabled";
 
   public String GetCSV (String bus1, String phs1, String bus2, String phs2) {
     StringBuilder buf = new StringBuilder ("");
     for (int i = 0; i < size; i++) {
       buf.append(name[i] + "," + bus1 + "," + phs1 + "," + bus2 + "," + phs2 + ",");
       buf.append(df2.format(vset[i]) + "," + df2.format(ptRatio[i]) + "," + df2.format(ctRating[i]) + "," + df2.format(ctRatio[i]) + ",");
-      buf.append(df2.format(vbw[i]) + "," + df2.format(fwdR[i])  + "," + df2.format(fwdX[i]) + ",");
-      buf.append(df2.format(revR[i]) + "," + df2.format(revX[i]) + "," + Integer.toString(step[i]) + ",");
+      buf.append(df2.format(vbw[i]) + "," + df2.format(fwdR[i])  + "," + df2.format(fwdX[i]) + "," + Integer.toString(step[i]) + ",");
       buf.append(Integer.toString(lowStep[i]) + "," + Integer.toString(highStep[i]) + "," + Integer.toString(neutralStep[i]) + ",");
       buf.append(Integer.toString(normalStep[i]) + "," + df2.format(initDelay[i]) + "," + df2.format(subDelay[i]) + ",");
       buf.append(df2.format(vlim[i]) + "," + df2.format(vmin[i]) + "," + df4.format(incr[i]) + ",");
       buf.append(df2.format(neutralU[i]) + "," + Integer.toString(wnum[i]) + "," + ctlmode[i] + "," + monphs[i] + ",");
       buf.append(Boolean.toString(enabled[i]) + "," + Boolean.toString(ldc[i]) + "," + Boolean.toString(ltc[i]) + ",");
+
+      buf.append(Boolean.toString(reversible[i]) + "," + Boolean.toString(revNeutral[i]) + "," + df2.format(revSet[i]) + "," + df2.format(revBand[i]) + ",");
+      buf.append(df2.format(revR[i]) + "," + df2.format(revX[i]) + ",");
+      buf.append(df2.format(revDelay[i]) + "," + df2.format(0.001 * revThreshold[i]) + ",");
+
       buf.append(Boolean.toString(discrete[i]) + "," + Boolean.toString(ctl_enabled[i]) + "\n");
     }
     return buf.toString();

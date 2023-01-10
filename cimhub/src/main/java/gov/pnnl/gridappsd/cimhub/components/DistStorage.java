@@ -282,7 +282,7 @@ public class DistStorage extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,kVA,Capacity,Connection,kW,kVAR,pf,ctrlMode,kWh,State";
+  public static String szCSVHeader = "Name,NumPhases,Bus,Phases,kV,kVArated,kWrated,kWhCapacity,Connection,kW,kVAR,pf,ctrlMode,kWhStored,State,kWmax,kWmin,kVARmax,kVARmin,IfaultPU";
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name + ",");
@@ -303,8 +303,10 @@ public class DistStorage extends DistComponent {
     }
 
     buf.append (Integer.toString(nphases) + "," + bus + "," + CSVPhaseString (phases) + "," + df3.format(kv) + "," + 
-          df3.format(kva) + "," + df3.format(0.001 * ratedE) + "," + DSSConn(bDelta) + "," + df3.format(0.001 + p) + "," + 
-          df3.format(0.001 + q) + "," + df4.format(pf) + "," + mode.toString() + "," + df3.format(0.001 * storedE) + "," + DSSBatteryState(state) + "\n");
+          df3.format(kva) + "," + df3.format(0.001 * ratedP) + "," + df3.format(0.001 * ratedE) + "," + DSSConn(bDelta) + "," + df3.format(0.001 + p) + "," + 
+          df3.format(0.001 + q) + "," + df4.format(pf) + "," + mode.toString() + "," + df3.format(0.001 * storedE) + "," + DSSBatteryState(state) + "," +
+          df3.format(0.001 * maxP) + "," + df3.format(0.001 * minP) + "," +
+          df3.format(0.001 * maxQ) + "," + df3.format(0.001 * minQ) + "," + df3.format(maxIFault) + "\n");
 
     return buf.toString();
   }

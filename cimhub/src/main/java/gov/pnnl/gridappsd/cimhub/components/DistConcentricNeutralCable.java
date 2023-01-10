@@ -50,6 +50,7 @@ public class DistConcentricNeutralCable extends DistCable {
       strand_gmr = OptionalDouble (soln, "?strand_gmr", 0.0);
       strand_rad = OptionalDouble (soln, "?strand_rad", 0.0);
       strand_rdc = OptionalDouble (soln, "?strand_rdc", 0.0);
+      dEpsR = OptionalDouble (soln, "?epsr", 2.3);
     }
   }
 

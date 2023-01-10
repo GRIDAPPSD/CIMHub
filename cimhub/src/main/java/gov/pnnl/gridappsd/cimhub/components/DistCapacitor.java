@@ -29,6 +29,7 @@ public class DistCapacitor extends DistComponent {
   public String moneq;
   public String monclass;
   public String monbus;
+  public int montrm;
   public String monphs;
 
   private double kvar_A;
@@ -64,6 +65,7 @@ public class DistCapacitor extends DistComponent {
       buf.append(",\"monitoredName\":null");
     } else {
       buf.append(",\"monitoredName\":\"" + moneq + "\"");
+      buf.append(",\"monitoredTerminal\":\"" + Integer.toString(montrm) + "\"");
     }
     if (monclass == null) {
       buf.append(",\"monitoredClass\":null");
@@ -80,7 +82,7 @@ public class DistCapacitor extends DistComponent {
     } else {
       buf.append(",\"monitoredPhase\":\"" + monphs + "\"");
     }
-    buf.append ("}");
+    buf.append("}");
     return buf.toString();
   }
 
@@ -148,6 +150,7 @@ public class DistCapacitor extends DistComponent {
         moneq = soln.get("?moneq").toString();
         monclass = soln.get("?monclass").toString();
         monbus = GetBusExportName (soln.get("?monbus").toString());
+        montrm = Integer.parseInt (soln.get("?montrm").toString());
         monphs = soln.get("?monphs").toString();
       }
       SetDerivedParameters();
@@ -166,7 +169,7 @@ public class DistCapacitor extends DistComponent {
     buf.append (" " + df4.format(nomu/1000.0) + " [kV] " + df4.format(kvar) + " [kvar] " + "conn=" + conn + " grnd=" + grnd);
     if (ctrl.equals ("true")) {
       buf.append("\n  control mode=" + mode + " set=" + df4.format(setpoint) + " bandwidth=" + df4.format(deadband) + " delay=" + df4.format(delay));
-      buf.append(" monitoring: " + moneq + ":" + monclass + ":" + monbus + ":" + monphs);
+      buf.append(" monitoring: " + moneq + ":" + Integer.toString(montrm) + ":" + monclass + ":" + monbus + ":" + monphs);
     }
     return buf.toString();
   }
@@ -303,25 +306,24 @@ public class DistCapacitor extends DistComponent {
       dOn /= 1000.0;
       dOff /= 1000.0;
       }
-      int nterm = 1;  // TODO: need to search for this
       buf.append ("new CapControl." + name + " capacitor=" + name + " type=" + DSSCapMode(mode) + 
             " on=" + df2.format(dOn) + " off=" + df2.format(dOff) + " delay=" + df2.format(delay) + 
             " delayoff=" + df2.format(delay) + " element=" + dssClass + "." + moneq +
-            " terminal=" + Integer.toString(nterm) + " ptratio=1 ptphase=" + FirstDSSPhase(monphs));
+            " terminal=" + Integer.toString(montrm) + " ptratio=1 ptphase=" + FirstDSSPhase(monphs));
       buf.append("\n");
     }
     return buf.toString();
   }
 
-  public static String szCSVCapHeader = "Name,Bus,Phases,kV,kVAR,NumPhases,Connection";
+  public static String szCSVCapHeader = "Name,Bus,Phases,kV,kVAR,NumPhases,Connection,kVARon";
 
-  public static String szCSVCapControlHeader = "Name,Capacitor,MonitoredElement,ElementTerminal,Type,PTRatio,CTRatio,ONSetting,OFFSetting,Delay";
+  public static String szCSVCapControlHeader = "Name,Capacitor,MonitoredElement,ElementTerminal,MonitoredBus,Type,PTRatio,CTRatio,ONSetting,OFFSetting,Delay";
 
   public String GetCapCSV () {
     int nphases = DSSPhaseCount(phs, bDelta);
     StringBuilder buf = new StringBuilder (name + "," + bus + "," + CSVPhaseString (phs) + ",");
     buf.append (df2.format(0.001 * nomu) + "," + df2.format(kvar) + "," + Integer.toString (nphases) + "," + 
-          DSSConn(bDelta) + "\n");
+          DSSConn(bDelta) + "," + df2.format(kvar * sections_on) + "\n");
     return buf.toString();
   }
 
@@ -335,10 +337,9 @@ public class DistCapacitor extends DistComponent {
       dOn /= 1000.0;
       dOff /= 1000.0;
     }
-    int nterm = 1;  // TODO: need to search for this
 
     StringBuilder buf = new StringBuilder (name + "," + name + "," + dssClass + "." + moneq + ",");
-    buf.append (Integer.toString(nterm) + "," + DSSCapMode(mode) + ",1,1," + df2.format(dOn) + "," + 
+    buf.append (Integer.toString(montrm) + "," + monbus + "," + DSSCapMode(mode) + ",1,1," + df2.format(dOn) + "," + 
           df2.format(dOff) + "," + df2.format(delay) + "\n");
 
     return buf.toString();

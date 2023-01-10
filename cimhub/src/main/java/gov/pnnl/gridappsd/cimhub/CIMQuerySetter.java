@@ -60,7 +60,7 @@ public class CIMQuerySetter extends Object {
 
     mapQueries.put ("DistCapacitor",
        "SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd"+
-       " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id "+
+       " ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?montrm ?monphs ?id ?fdrid ?t1id "+
      "(group_concat(distinct ?phs;separator=\"\") as ?phases) "+
      "WHERE {"+
        " ?s c:Equipment.EquipmentContainer ?fdr."+
@@ -95,6 +95,7 @@ public class CIMQuerySetter extends Object {
        "  ?eq c:IdentifiedObject.mRID ?moneq."+
        "  ?trm c:Terminal.ConnectivityNode ?moncn."+
        "  ?moncn c:IdentifiedObject.mRID ?monbus."+
+       "  ?trm c:ACDCTerminal.sequenceNumber ?montrm."+
        "  }" +
        " ?s c:IdentifiedObject.mRID ?id."+
        " ?t c:Terminal.ConductingEquipment ?s."+
@@ -102,12 +103,12 @@ public class CIMQuerySetter extends Object {
        " ?t c:IdentifiedObject.mRID ?t1id."+
        " ?cn c:IdentifiedObject.mRID ?bus" + 
        "}"+
-     "GROUP BY ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id "+
+     "GROUP BY ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?montrm ?monphs ?id ?fdrid ?t1id "+
      "ORDER BY ?name");
 
     mapQueries.put ("DistConcentricNeutralCable",
       "SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?id"+
-      " ?insthick ?diacore ?diains ?diascreen ?diajacket ?sheathneutral"+
+      " ?insthick ?diacore ?diains ?diascreen ?diajacket ?sheathneutral ?epsr"+
       " ?strand_cnt ?strand_rad ?strand_gmr ?strand_rdc WHERE {"+
       " ?eq r:type c:ACLineSegment."+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
@@ -134,6 +135,7 @@ public class CIMQuerySetter extends Object {
       " OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}"+
       " OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}"+
       " OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}"+
+      " OPTIONAL {?w c:CableInfo.relativePermittivity ?epsr.}"+
       " OPTIONAL {?w c:ConcentricNeutralCableInfo.diameterOverNeutral ?dianeut.}"+
       " OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandCount ?strand_cnt.}"+
       " OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandGmr ?strand_gmr.}"+
@@ -877,7 +879,7 @@ public class CIMQuerySetter extends Object {
 
     mapQueries.put ("DistTapeShieldCable",
       "SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat"+
-      " ?insthick ?diacore ?diains ?diascreen ?diajacket ?sheathneutral"+
+      " ?insthick ?diacore ?diains ?diascreen ?diajacket ?sheathneutral ?epsr"+
       " ?tapelap ?tapethickness ?id WHERE {"+
       " ?eq r:type c:ACLineSegment."+
       " ?eq c:Equipment.EquipmentContainer ?fdr."+
@@ -904,6 +906,7 @@ public class CIMQuerySetter extends Object {
       " OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}"+
       " OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}"+
       " OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}"+
+      " OPTIONAL {?w c:CableInfo.relativePermittivity ?epsr.}"+
       " OPTIONAL {?w c:TapeShieldCableInfo.tapeLap ?tapelap.}"+
       " OPTIONAL {?w c:TapeShieldCableInfo.tapeThickness ?tapethickness.}"+
       "} ORDER BY ?name");

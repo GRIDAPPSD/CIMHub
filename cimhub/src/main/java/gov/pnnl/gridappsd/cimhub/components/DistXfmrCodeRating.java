@@ -304,7 +304,7 @@ public class DistXfmrCodeRating extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,NumWindings,NumPhases,Wdg1kV,Wdg1kVA,Wdg1Conn,Wdg1R,Wdg2kV,Wdg2kVA,Wdg2Conn,Wdg2R,Wdg3kV,Wdg3kVA,Wdg3Conn,Wdg3R,%x12,%x13,%x23,%imag,%NoLoadLoss";
+  public static String szCSVHeader = "Name,NumWindings,NumPhases,Wdg1kV,Wdg1kVA,Wdg1Conn,Wdg1R,Wdg1ClockAng,Wdg2kV,Wdg2kVA,Wdg2Conn,Wdg2R,Wdg2ClockAng,Wdg3kV,Wdg3kVA,Wdg3Conn,Wdg3R,Wdg3ClockAng,%x12,%x13,%x23,%imag,%NoLoadLoss";
 
   public String GetCSV (DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     boolean bDelta;
@@ -329,7 +329,7 @@ public class DistXfmrCodeRating extends DistComponent {
       }
       zbase = ratedU[i] * ratedU[i] / ratedS[i];
       buf.append ("," + df3.format(0.001 * ratedU[i]) + "," + df1.format(0.001 * ratedS[i]) + "," + DSSConn(bDelta) +
-           "," + df6.format(100.0 * r[i] / zbase));
+           "," + df6.format(100.0 * r[i] / zbase) + "," + Integer.toString(ang[i]));
     }
     if (size < 3) buf.append (",,,");
 

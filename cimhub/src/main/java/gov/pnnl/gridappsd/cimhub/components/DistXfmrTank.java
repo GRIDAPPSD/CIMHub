@@ -163,15 +163,15 @@ public class DistXfmrTank extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,Wdg1Bus,Phase,Wdg2Bus,Phase,Wdg3Bus,Phase,XfmrCode";
+  public static String szCSVHeader = "Name,Wdg1Bus,Phases,Grnd,Rg,Xg,Wdg2Bus,Phases,Grnd,Rg,Xg,Wdg3Bus,Phases,Grnd,Rg,Xg,XfmrCode,VectorGroup,BankName";
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name);
     for (int i = 0; i < size; i++) {
-      buf.append ("," + bus[i] + "," + CSVPhaseString(orderedPhases[i]));
+      buf.append ("," + bus[i] + "," + orderedPhases[i] + "," + Boolean.toString(grounded[i]) + "," + df3.format(rg[i]) + "," + df3.format(xg[i]));
     }
-    if (size < 3) buf.append (",,");
-    buf.append ("," + tankinfo + "\n");
+    if (size < 3) buf.append (",,,,,");
+    buf.append ("," + tankinfo + "," + vgrp + "," + pname + "\n");
     return buf.toString();
   }
 

@@ -150,7 +150,7 @@ public class DistSwitch extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,Type,Status";
+  public static String szCSVHeader = "Name,Bus1,Phases,Bus2,Phases,Type,RatedAmps,BreakingAmps,Status";
 
   public String GetOpenClosedStatus() {
     if (open) return "Open";
@@ -159,7 +159,8 @@ public class DistSwitch extends DistComponent {
 
   public String GetCSV () {
     StringBuilder buf = new StringBuilder (name + "," + bus1 + "," + CSVPhaseString(phases) + "," + bus2 + "," +
-                         CSVPhaseString(phases) + "," + CIMClass() + "," + GetOpenClosedStatus() + "\n");
+                         CSVPhaseString(phases) + "," + CIMClass() + "," + 
+                         df2.format(rated) + "," + df2.format(breaking) + "," + GetOpenClosedStatus() + "\n");
     return buf.toString();
   }
 }

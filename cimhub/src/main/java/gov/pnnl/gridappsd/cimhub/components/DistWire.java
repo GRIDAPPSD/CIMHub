@@ -39,16 +39,18 @@ public abstract class DistWire extends DistComponent {
     }
   }
 
-  public static String szCSVHeader = "Name,GMR,Radius,Rac,Rdc,NormAmps,Units";
+  public static String szCSVHeader = "Name,GMR,Radius,Rac25,Rac50,Rac75,Rdc,NormAmps,Units";
 
   protected void AppendCSVWireAttributes (StringBuilder buf) {
-  if (gmr < 1.0e-6 || rad < 1.0e-6 || r25 < 1.0e-6 || rdc < 1.0e-6) {
-    buf.append (name + "," + df12.format(gmr) + "," + df12.format(rad) + "," + df12.format(r25));
-    buf.append ("," + df12.format(rdc) + "," + df1.format(amps) + ",m");
-  } else {
-    buf.append (name + "," + df6.format(gmr) + "," + df6.format(rad) + "," + df6.format(r25));
-    buf.append ("," + df6.format(rdc) + "," + df1.format(amps) + ",m");
-  }
+    if (gmr < 1.0e-6 || rad < 1.0e-6 || r25 < 1.0e-6 || r50 < 1.0e-6 || r75 < 1.0e-6 || rdc < 1.0e-6) {
+      buf.append (name + "," + df12.format(gmr) + "," + df12.format(rad) + "," + df12.format(r25));
+      buf.append ("," + df12.format(r50) + "," + df12.format(r75));
+      buf.append ("," + df12.format(rdc) + "," + df1.format(amps) + ",m");
+    } else {
+      buf.append (name + "," + df6.format(gmr) + "," + df6.format(rad) + "," + df6.format(r25));
+      buf.append ("," + df6.format(r50) + "," + df6.format(r75));
+      buf.append ("," + df6.format(rdc) + "," + df1.format(amps) + ",m");
+    }
   }
 
   protected void AppendGLMWireAttributes (StringBuilder buf) {
