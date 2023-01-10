@@ -96,10 +96,10 @@ drop_syn_template = """DELETE {{
  ?m c:IdentifiedObject.name ?name.
  ?m c:Equipment.EquipmentContainer ?fdr.
  ?m c:PowerSystemResource.Location ?loc.
- ?m c:SynchronousMachine.p ?p.
- ?m c:SynchronousMachine.q ?q.
- ?m c:SynchronousMachine.ratedS ?S.
- ?m c:SynchronousMachine.ratedU ?U.
+ ?m c:RotatingMachine.p ?p.
+ ?m c:RotatingMachine.q ?q.
+ ?m c:RotatingMachine.ratedS ?S.
+ ?m c:RotatingMachine.ratedU ?U.
 }} WHERE {{
  VALUES ?uuid {{\"{res}\"}}
  VALUES ?class {{c:SynchronousMachine}}
@@ -108,10 +108,10 @@ drop_syn_template = """DELETE {{
  ?m c:IdentifiedObject.name ?name.
  ?m c:Equipment.EquipmentContainer ?fdr.
  ?m c:PowerSystemResource.Location ?loc.
- ?m c:SynchronousMachine.p ?p.
- ?m c:SynchronousMachine.q ?q.
- ?m c:SynchronousMachine.ratedS ?S.
- ?m c:SynchronousMachine.ratedU ?U.
+ ?m c:RotatingMachine.p ?p.
+ ?m c:RotatingMachine.q ?q.
+ ?m c:RotatingMachine.ratedS ?S.
+ ?m c:RotatingMachine.ratedU ?U.
 }}
 """
 

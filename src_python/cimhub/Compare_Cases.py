@@ -681,5 +681,5 @@ if __name__ == "__main__":
     bases = row['bases']
     for i in range(len(bases)):
       bases[i] /= math.sqrt(3.0)
-    write_comparisons (dir1, dir2, dir3, root, bases, check_branches=row['check_branches'], do_gld=row['do_gld'], rstFile=None)
+    write_comparisons (dir1, dir2, dir3, root, bases, check_branches=row['check_branches'], do_gld=row['do_gld'])
 
