@@ -42,7 +42,7 @@ The test cases in *cases.json* are configured as decribed in
 
 1. Invoke *python3 onestep.py*. Check the new results against those below.  
    Also use *git diff* to identify any changes to the XML or UUID files.
-2. These cases use the *-m-2* export option to include files *\*edits2.dss*
+2. These cases use the *-m=2* export option to include files *\*edits2.dss*
    after the network model. An editing command in these include files sets
    the OpenDSS *vminpu* parameter to 0.88, which matches the source files.
    The default value of *vminpu* is 0.95, and non-default values are not part

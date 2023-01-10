@@ -1094,7 +1094,7 @@ Possible CIM enhancements:
 .. |imgcim25| image:: media/cim_LineAssetInfo.png
 .. |imgcim26| image:: media/cim_LineCatalog.png
 .. |imgcim27| image:: media/cim_Loads.png
-.. |imgcim28| image:: media/cim_TapChanger.png
+.. |imgcim28| image:: media/cim_TapChangerInstance.png
 .. |imgcim29| image:: media/cim_VoltageValues.png
 .. |imgcim30| image:: media/cim_TapValues.png
 .. |imgcim31| image:: media/cim_CapacitorValues.png
