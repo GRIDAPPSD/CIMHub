@@ -2361,6 +2361,16 @@ public class CIMImporter extends Object {
     }
     out.close();
 
+    out =  new PrintWriter(fRoot + "_Profile.csv");
+    out.println(DistEnergyConnectionProfile.szCSVHeader);
+    for (HashMap.Entry<String,DistEnergyConnectionProfile> pair : mapDssProfiles.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    for (HashMap.Entry<String,DistEnergyConnectionProfile> pair : mapGlmProfiles.entrySet()) {
+      out.print (pair.getValue().GetCSV());
+    }
+    out.close();
+
     out =  new PrintWriter(fRoot + "_Source.csv");
     out.println(DistSubstation.szCSVHeader);
     for (HashMap.Entry<String,DistSubstation> pair : mapSubstations.entrySet()) {

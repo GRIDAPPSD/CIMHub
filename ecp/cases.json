@@ -127,6 +127,7 @@
     "path_xml":"./xml/",
     "outpath_dss":"./dss/",
     "outpath_glm":"./glm/",
+    "outpath_csv":"./csv/",
     "glmvsrc": 7621.02,
     "bases":[13200.0],
     "substation":"subECP",

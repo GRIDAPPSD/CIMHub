@@ -115,6 +115,17 @@ public class DistEnergyConnectionProfile extends DistComponent {
     return buf.toString();
   }
 
+  public static String szCSVHeader = "Profile,Class,Name,DssDaily,DssDuty,DssYearly,DssLoadCvr,DssLoadGrowth,DssPVTDaily,DssPVTDuty,DssPVTYearly,DssSpectrum,GldPlayer,GldSchedule";
+
+  public String GetCSV () {
+    DistEquipment eq = mapEquipmentNames.get(load_id);
+    StringBuilder buf = new StringBuilder (name + "," + eq.eqClass + "," + eq.exportName + ",");
+    buf.append (dssDaily + "," + dssDuty + "," + dssYearly + "," + dssLoadCvrCurve + "," + 
+                dssLoadGrowth + "," + dssPVTDaily + "," + dssPVTDuty + "," + dssPVTYearly + "," + 
+                dssSpectrum + "," + gldPlayer + "," + gldSchedule + "\n");
+    return buf.toString();
+  }
+
   @Override
   public String GetJSONEntry() {
     StringBuilder buf = new StringBuilder ();
