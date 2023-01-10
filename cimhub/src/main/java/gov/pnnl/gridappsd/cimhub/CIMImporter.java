@@ -2346,8 +2346,11 @@ public class CIMImporter extends Object {
 
     out =  new PrintWriter(fRoot + "_I1547Sig.csv");
     out.println(DistIEEE1547Signal.szCSVHeader);
+    if (mapIEEE1547Connections.size() > 0) {
+      MakeTerminalMap();
+    }
     for (HashMap.Entry<String,DistIEEE1547Signal> pair : mapIEEE1547Signals.entrySet()) {
-      out.print (pair.getValue().GetCSV());
+      out.print (pair.getValue().GetCSV(mapTerminals));
     }
     out.close();
 

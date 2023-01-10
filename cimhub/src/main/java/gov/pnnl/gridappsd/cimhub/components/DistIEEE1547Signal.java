@@ -6,6 +6,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 
 import org.apache.jena.query.*;
 import java.util.HashMap;
+import gov.pnnl.gridappsd.cimhub.CIMTerminal;
 
 public class DistIEEE1547Signal extends DistComponent {
   public static final String szCIMClass = "RemoteInputSignal";
@@ -57,10 +58,12 @@ public class DistIEEE1547Signal extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,Kind,TID";
+  public static String szCSVHeader = "Name,Kind,Bus,Phases,Voltage";
 
-  public String GetCSV () {
-    StringBuilder buf = new StringBuilder (name + "," + kind + "," + tid + "\n");
+  public String GetCSV (HashMap<String,CIMTerminal> mapTerminals) {
+    CIMTerminal trm = mapTerminals.get(tid);
+    StringBuilder buf = new StringBuilder (name + "," + kind + "," + trm.bus + "," + trm.phases + "," + 
+                                           df2.format(trm.voltage) + "\n");
     return buf.toString();
   }
 }

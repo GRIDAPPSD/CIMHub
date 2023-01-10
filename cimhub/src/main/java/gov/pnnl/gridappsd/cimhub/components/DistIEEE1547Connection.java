@@ -6,6 +6,7 @@ package gov.pnnl.gridappsd.cimhub.components;
 
 import org.apache.jena.query.*;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 import gov.pnnl.gridappsd.cimhub.CIMTerminal;
 import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Signal;
 import gov.pnnl.gridappsd.cimhub.components.DistIEEE1547Used;
@@ -148,10 +149,15 @@ public class DistIEEE1547Connection extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,PECs";
+  public static String szCSVHeader = "Name,Inverters";
 
   public String GetCSV () {
-    StringBuilder buf = new StringBuilder (name + "," + pids + "\n");
+    StringBuilder buf = new StringBuilder (name);
+    StringTokenizer st = new StringTokenizer (pids, ":");  
+    while (st.hasMoreTokens()) {
+      buf.append ("," + GetEquipmentExportName(st.nextToken()));
+    }
+    buf.append ("\n");
     return buf.toString();
   }
 }

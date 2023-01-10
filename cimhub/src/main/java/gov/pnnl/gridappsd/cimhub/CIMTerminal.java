@@ -22,7 +22,7 @@ public class CIMTerminal {
     this.id = id;
     this.bus = bus;
     this.phases = phases;
-  this.eq = eq;
+    this.eq = eq;
     this.voltage = voltage;
   }
 

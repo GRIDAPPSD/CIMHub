@@ -284,7 +284,7 @@ public class DistIEEE1547Used extends DistComponent {
     return buf.toString();
   }
 
-  public static String szCSVHeader = "Name,Enabled,Cat,acVnom,acVmin,acVmax,sMaxpMaxOverPF,overPF,pMaxUnderPF,underPF,qMaxInj,"+
+  public static String szCSVHeader = "Name,Enabled,Cat,acVnom,acVmin,acVmax,sMax,pMax,pMaxOverPF,overPF,pMaxUnderPF,underPF,qMaxInj,"+
    "qMaxAbs,pMaxCharge,apparentPowerChargeMax,usePG,usePN,usePP,hasConstPF,hasConstQ,hasPV,hasPF,hasQV,hasQP,"+
    "vvEnabled,vvV1,vvV2,vvV3,vvV4,vvQ1,vvQ2,vvQ3,vvQ4,vvRef,vvRefAuto,vvRefOlrt,vvOlrt,"+
    "wvEnabled,wvP1gen,wvP2gen,wvP3gen,wvQ1gen,wvQ2gen,wvQ3gen,wvP1load,wvP2load,wvP3load,wvQ1load,wvQ2load,wvQ3load,"+
@@ -298,10 +298,10 @@ public class DistIEEE1547Used extends DistComponent {
     buf.append ("," + df2.format (acVmax));
     buf.append ("," + df2.format (sMax));
     buf.append ("," + df2.format (pMax));
-    buf.append ("," + df2.format (pMaxUnderPF));
     buf.append ("," + df2.format (pMaxOverPF));
-    buf.append ("," + df4.format (underPF));
     buf.append ("," + df4.format (overPF));
+    buf.append ("," + df2.format (pMaxUnderPF));
+    buf.append ("," + df4.format (underPF));
     buf.append ("," + df2.format (qMaxInj));
     buf.append ("," + df2.format (qMaxAbs));
     buf.append ("," + df2.format (pMaxCharge));
@@ -354,8 +354,8 @@ public class DistIEEE1547Used extends DistComponent {
 
     buf.append ("," + Boolean.toString (vwEnabled));
     buf.append ("," + df3.format (vwV1));
-    buf.append ("," + df3.format (vwV2));
     buf.append ("," + df3.format (vwP1));
+    buf.append ("," + df3.format (vwV2));
     buf.append ("," + df3.format (vwP2gen));
     buf.append ("," + df3.format (vwP2load));
     buf.append ("," + df4.format (vwOlrt));
