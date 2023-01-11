@@ -309,7 +309,7 @@ public class DistXfmrCodeRating extends DistComponent {
   public String GetCSV (DistXfmrCodeSCTest sct, DistXfmrCodeNLTest oct) {
     boolean bDelta;
     int phases = 3;
-    double zbase, xpct, zpct, rpct, pctloss, pctimag;
+    double zbase, xpct, zpct, rpct, pctloss, pctimag, pctiexc, rescale;
     int fwdg, twdg, i;
 
     for (i = 0; i < size; i++) {
@@ -333,15 +333,19 @@ public class DistXfmrCodeRating extends DistComponent {
     }
     if (size < 3) buf.append (",,,");
 
-    // short circuit tests - valid only up to 3 windings
+    // short circuit tests - valid only up to 3 windings; put on winding 1 base
     double x12 = 0.0, x13 = 0.0, x23 = 0.0;
     for (i = 0; i < sct.size; i++) {
       fwdg = sct.fwdg[i];
       twdg = sct.twdg[i];
-      zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / ratedS[fwdg-1];
+      zbase = ratedU[fwdg-1] * ratedU[fwdg-1] / sct.sbase[i];
       zpct = 100.0 * sct.z[i] / zbase;
-      rpct = 100.0 * 1000.0 * sct.ll[i] / ratedS[fwdg-1];
+      rpct = 100.0 * 1000.0 * sct.ll[i] / sct.sbase[i];
       xpct = Math.sqrt(zpct*zpct - rpct*rpct);
+      // convert rpct, xpct from the test base power to winding 1 base power
+      rescale = ratedS[0] / sct.sbase[i];
+      rpct *= rescale;
+      xpct *= rescale;
       if ((fwdg == 1 && twdg == 2) || (fwdg == 2 && twdg == 1)) {
         x12 = xpct;
       } else if ((fwdg == 1 && twdg == 3) || (fwdg == 3 && twdg == 1)) {
@@ -352,12 +356,13 @@ public class DistXfmrCodeRating extends DistComponent {
     }
     buf.append ("," + df6.format(x12) + "," + df6.format(x13) + "," + df6.format(x23));
 
-    // open circuit test
+    // open circuit test; put on winding 1 base
     pctloss = 100.0 * 1000.0 * oct.nll / ratedS[0];
-    if ((pctloss > 0.0) && (pctloss <= oct.iexc)) {
-      pctimag = Math.sqrt(oct.iexc * oct.iexc - pctloss * pctloss);
+    pctiexc = oct.iexc * oct.sbase / ratedS[0];
+    if ((pctloss > 0.0) && (pctloss <= pctiexc)) {
+      pctimag = Math.sqrt(pctiexc * pctiexc - pctloss * pctloss);
     } else {
-      pctimag = oct.iexc;
+      pctimag = pctiexc;
     }
     buf.append ("," + df3.format(pctimag) + "," + df3.format(pctloss) + "\n");
     return buf.toString();
