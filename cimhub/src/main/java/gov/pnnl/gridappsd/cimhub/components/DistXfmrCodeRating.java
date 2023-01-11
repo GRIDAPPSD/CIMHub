@@ -91,8 +91,8 @@ public class DistXfmrCodeRating extends DistComponent {
     double zpu = 0.0;
     double zbase1 = ratedU[0] * ratedU[0] / ratedS[0];
     double zbase2 = ratedU[1] * ratedU[1] / ratedS[1];
-    if ((sct.ll[0] > 0.0) && (size < 3)) {
-      rpu = 1000.0 * sct.ll[0] / ratedS[0];
+    if ((sct.ll[0] > 0.0) && (size < 3)) { // sct.ll was on sct.sbase, but want rpu on ratedS
+      rpu = 1000.0 * sct.ll[0] * ratedS[0] / sct.sbase[0] / sct.sbase[0];
     } else {
       // hard-wired for SINGLE_PHASE_CENTER_TAPPED,
       // which is the only three-winding case that GridLAB-D supports
@@ -133,9 +133,9 @@ public class DistXfmrCodeRating extends DistComponent {
       double x3 = x2;
       if (size == 3) { // use the OpenDSS approach, should match Z23, should also work for non-interlaced
         double Sbase = ratedS[0];
-        double r12 = 1000.0 * sct.ll[0] / Sbase;
-        double r13 = 1000.0 * sct.ll[1] / Sbase;
-        double r23 = 1000.0 * sct.ll[2] / Sbase;
+        double r12 = 1000.0 * sct.ll[0] * Sbase / sct.sbase[0] / sct.sbase[0];  // convert from test base to winding 1 base
+        double r13 = 1000.0 * sct.ll[1] * Sbase / sct.sbase[1] / sct.sbase[1];
+        double r23 = 1000.0 * sct.ll[2] * Sbase / sct.sbase[2] / sct.sbase[2];
         zpu = sct.z[0] * Sbase / ratedU[0] / ratedU[0];
         double x12 = Math.sqrt(zpu*zpu - r12*r12);
         zpu = sct.z[1] * Sbase / ratedU[0] / ratedU[0];
@@ -162,7 +162,7 @@ public class DistXfmrCodeRating extends DistComponent {
     // as of v4.3, GridLAB-D implementing shunt_impedance for only two connection types
     if (sConnect.equals ("SINGLE_PHASE_CENTER_TAPPED") || sConnect.equals ("WYE_WYE")) {
       double puloss = 1000.0 * oct.nll / ratedS[0];
-      double puimag = 0.01 * oct.iexc;
+      double puimag = 0.01 * oct.iexc * oct.sbase / ratedS[0];
       if ((puloss > 0.0) && (puloss <= puimag)) {
         puimag = Math.sqrt(puimag * puimag - puloss * puloss);
       }
