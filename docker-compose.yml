@@ -7,5 +7,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ../Powergrid-Models/platform:/platform
-      - ../atptools/OEDI:/atp
+#      - ../Powergrid-Models/platform:/platform
+#      - ../atptools/OEDI:/atp
+      - /media/sf_src/atptools:/atp
+
