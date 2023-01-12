@@ -8,3 +8,4 @@ services:
     tty: true
     volumes:
       - ../Powergrid-Models/platform:/platform
+      - ../atptools/OEDI:/atp
