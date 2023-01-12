@@ -46,7 +46,10 @@ For those unfamiliar with UML class diagrams:
    diagram. For example, in Figure 1, PowerSystemResource inherits from
    IdentifiedObject.
 
-Please see *GridAPPSD\_RC4.eap*\  [3]_ in the repository [4]_ on GitHub
+5. In CIMHub, **extension** attributes are prefixed by a *#* symbol. Standard 
+   public attributes are prefixed by a *+* symbol.
+
+Please see *CIMHub\_Profile.eap*  [3]_ in the repository [4]_ on GitHub
 for the latest updates. The EnterpriseArchitect file includes a
 description of each class, attribute and association. It can also
 generate HTML documentation of the CIM, with more detail than provided
@@ -1053,10 +1056,10 @@ Possible CIM enhancements:
    http://wiki.cimtool.org/index.h tml, but support is being phased out.
 
 .. [3]
-   https://github.com/GRIDAPPSD/Powergrid-Models/CIM
+   https://github.com/GRIDAPPSD/CIMHub
 
 .. [4]
-   https://github.com/GRIDAPPSD/Powergrid-Models/CIM
+   https://github.com/GRIDAPPSD/CIMHub
 
 .. [5]
    Wang, Bhattarai, Lian, Hammerstrom, and Ma, *A Unified Virtual Battery Model for Responsive Assets*, https://doi.org/10.1109/PESGM40551.2019.8974107

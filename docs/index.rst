@@ -8,6 +8,8 @@ Common Information Model Conversion (CIMHub)
    Overview
    Installation
    Tutorial
+   Examples
+   User_Reference
    CDPSM
    Python_Reference
    Java_Reference

@@ -1,6 +1,3 @@
-CIMHub
-======
-
 Copyright (c) 2017-2022, Battelle Memorial Institute
 
 This is a tool set for translating electric power distribution system 
@@ -43,8 +40,8 @@ please consider the Docker option below.
 
 1. Install the Python package with ``pip install cimhub --upgrade``
 2. Install Java Development Kit (JDK) 11 or later `as instructed <https://docs.oracle.com/en/java/javase/11/install/index.html>`_
-3. Install Blazegraph 2.1.6 from `releases <https://github.com/blazegraph/database/releases>`_
-4. Install the CIMHub exporter by downloading a JAR file from `releases <https://github.com/GRIDAPPSD/CIMHub/tree/feature/SETO/releases>`_
+3. Install Blazegraph 2.1.6 from `Blazegraph Releases <https://github.com/blazegraph/database/releases>`_
+4. Install the CIMHub exporter by downloading a JAR file from `CIMHub Releases <https://github.com/GRIDAPPSD/CIMHub/tree/feature/SETO/releases>`_
 5. Install `opendsscmd <https://sourceforge.net/projects/electricdss/files/OpenDSSCmd/>`_
 
 Option 2: Docker
@@ -265,12 +262,12 @@ case has the following attributes:
 - **check\_branches** optional array of individual branches to compare pre-conversion and post-conversion 
   snapshot power flow solutions. Either the *dss* or *gld* pairs may be omitted.
 
-    - **dss\_link** name of an OpenDSS branch to compare the current and power flow.
-    - **dss\_bus** name of an OpenDSS bus at one end of the **dss\_link** for comparing voltages, 
-      and calculating power from the current flow.
-    - **gld\_link** name of a GridLAB-D branch to compare the current and power flow.
-    - **gld\_bus** name of a GridLAB-D bus at one end of the **gld\_link** for comparing voltages, 
-      and calculating power from the current flow.
+  - **dss\_link** name of an OpenDSS branch to compare the current and power flow.
+  - **dss\_bus** name of an OpenDSS bus at one end of the **dss\_link** for comparing voltages, 
+    and calculating power from the current flow.
+  - **gld\_link** name of a GridLAB-D branch to compare the current and power flow.
+  - **gld\_bus** name of a GridLAB-D bus at one end of the **gld\_link** for comparing voltages, 
+    and calculating power from the current flow.
 
 The *onestep.py* file reads *cases.json* into a Python dictionary, then processes it. Alternatively, you may create
 this dictionary programmatically in the Python script.
@@ -401,16 +398,16 @@ It could be more convenient to run only Blazegraph in a Docker container, writin
 
 1. Start the containerized Blazegraph engine:
 
-	 - *docker run --name blazegraph -d -p 8889:8080 lyrasis/blazegraph:2.1.5* to create and start the container for Blazegraph
-	 - Only if something goes wrong: *docker logs -f blazegraph* to log the database and Java messages to the console
-	 - consult the Docker documentation for more details on how to stop and otherwise manage containers
+   - *docker run --name blazegraph -d -p 8889:8080 lyrasis/blazegraph:2.1.5* to create and start the container for Blazegraph
+   - Only if something goes wrong: *docker logs -f blazegraph* to log the database and Java messages to the console
+   - consult the Docker documentation for more details on how to stop and otherwise manage containers
    - subsequently, use *docker restart blazegraph* to restart the container
 
 2. Point a web browser to *http://localhost:8889/bigdata*. On-line help on Blazegraph is available from the browser
 3. Load some data from a CIM XML file into the browser
 4. Run a query in the browser
 
-	 - the file *queries.txt* contains sample SPARQL that can be pasted into the Blazegraph browser window
+   - the file *queries.txt* contains sample SPARQL that can be pasted into the Blazegraph browser window
 
 You can also run the IEEE 13-bus example conversions from the host Terminal.
 
