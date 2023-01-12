@@ -1,5 +1,5 @@
-CIMHub Test Cases for IEEE 1547-2018 Inverter Models
-====================================================
+IEEE 1547-2018 Inverter Models
+------------------------------
 
 Copyright (c) 2021-2022, Battelle Memorial Institute
 
@@ -17,7 +17,7 @@ energy resources.  Ultimately, these CIMHub test cases will encompass all
 functionality specified in IEEE 1547-2018, but some necessary features are 
 currently missing in OpenDSS and/or CIM.  
 
-.. image:: der_ckt.png
+.. image:: ../shared_images/der_ckt.png
 
 The category B reactive power capability requirement is 44% of nameplate 
 apparent power, absorbing or injecting.  For category A, the requirement 
@@ -40,7 +40,7 @@ minimum power factor is 6000/6228 = 0.9634.  Therefore, the optimal power
 factor is not 0.92 for category A; it must be limited to 0.9634.  
 
 Process
--------
+^^^^^^^
 
 The test cases in *cases.json* are configured as decribed in 
 `Test Case Configuration <../README.rst#Test-Case-Configuration>`_. The
@@ -60,7 +60,7 @@ The test cases are executed with *python3 onestep.py*. They cover:
 6. Coordinated Volt-var and Volt-watt control for Categories A and B.
 
 Results
--------
+^^^^^^^
 
 CIM currently supports only the first 4 cases, which involve fixed power 
 factor or fixed reactive power.  The other 6 cases involve smart inverter 
@@ -85,13 +85,11 @@ DER interconnection transformer.
 See `Round-trip Validation <../README.rst#Round-trip-Validation>`_ for notes on 
 interpreting the `Results <onestep.inc>`_.
 
-..
-    literalinclude:: onestep.inc
+.. literalinclude:: ../der/onestep.inc
    :language: none
-   However, GitHub README will not support include files
 
 Notes on OpenDSS Conversion
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The results for autonomously adjusting reference voltage (AVR) cannot be compared closely, 
 because of variations used in the test cases:
@@ -105,7 +103,7 @@ because of variations used in the test cases:
 In the last case, ``default_avr_b``, the base attribute values were set to facilitate a match.
 
 Notes on GridLAB-D Conversion
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Unsupported features were removed from the model, to improve GridLAB-D comparisons:
 
