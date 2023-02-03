@@ -425,6 +425,7 @@ Directories
 
 The actively maintained directories are:
 
+- ``BES`` XML files for a 118-bus IEEE test system and 240-bus WECC test system, enhanced with inverter-based resources (IBR)
 - ``CPYDAR`` Python scripts to create spreadsheet input files for the ePHASORSIM module of Opal-RT
 - ``OEDI`` creates a version of the IEEE 123-Bus test circuit with DER, for the OEDI project
 - ``cimhub/src`` Java source for CIMHub
