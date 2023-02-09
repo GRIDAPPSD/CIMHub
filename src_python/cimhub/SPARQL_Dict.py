@@ -73,6 +73,9 @@ def summarize_feeder_dict (dict):
     q = dict[key]
     print ('{:30s} {:21s} {:6d} {:s}'.format(key, str(q['keyfld']), len(q['vals']), str(q['columns'])))
 
+def summarize_bes_dict(dict):
+  summarize_feeder_dict(dict)
+
 def list_feeders (dict):
   print ('Feeder Name          FID')
   SPARQL.setQuery (PREFIX + dict['DistFeeder']['sparql'])
@@ -106,6 +109,19 @@ def load_feeder (dict, fid, bTime=True):
   for key in delete: 
     del dict['DistFeeder']['vals'][key]
 
+def load_bes (dict, sysid, bTime=True):
+  for key in ['BESContainer', 'BESBus', 'BESBaseVoltage', 'BESCompSeries', 'BESCompShunt', 'BESLoad', 'BESLine',
+              'BESMachine', 'BESPowerXfmrWinding', 'BESPowerXfmrCore', 'BESPowerXfmrMesh']: # 'BESCountPowerXfmrWindings'
+    start_time = time.time()
+    query_for_values (dict[key], sysid)
+    if bTime:
+      print ('Running {:30s} took {:6.3f} s'.format (key, time.time() - start_time))
+  # remove all but fid from the list of feeders
+#  match_fid = sysid
+#  delete = [key for key in dict['DistFeeder']['vals'] if dict['DistFeeder']['vals'][key]['fid'] != match_fid]
+#  for key in delete: 
+#    del dict['DistFeeder']['vals'][key]
+
 def load_feeder_dict (xml_file, fid, bTime=True, keyDelimiter=':', cfg_file=None):
   global PREFIX
   global DELIM
@@ -127,5 +143,28 @@ def load_feeder_dict (xml_file, fid, bTime=True, keyDelimiter=':', cfg_file=None
     dict[qid]['vals'] = {}
 
   load_feeder (dict, fid, bTime=False)
+  return dict
+
+def load_bes_dict (xml_file, sysid, bTime=True, keyDelimiter=':', cfg_file=None):
+  global PREFIX
+  global DELIM
+  DELIM = keyDelimiter
+  initialize_SPARQL (cfg_file)
+  # read the queries into dict
+  tree = ET.parse(xml_file)
+  root = tree.getroot()
+  nsCIM = root.find('nsCIM').text.strip()
+  nsRDF = root.find('nsRDF').text.strip()
+  PREFIX = """PREFIX r: <{:s}>\nPREFIX c: <{:s}>""".format (nsRDF, nsCIM)
+  dict = {}
+  for query in root.findall('query'):
+    qid = query.find('id').text.strip()
+    dict[qid] = {}
+    dict[qid]['keyfld'] = query.find('keyfld').text
+    dict[qid]['sparql'] = query.find('value').text.strip()
+    dict[qid]['columns'] = []
+    dict[qid]['vals'] = {}
+
+  load_bes (dict, sysid, bTime=False)
   return dict
 

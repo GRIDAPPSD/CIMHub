@@ -23,8 +23,9 @@ if __name__ == '__main__':
   sys_id = CASES[case_id]['id']
   sys_name = CASES[case_id]['name']
 
-  dict = cimhub.load_feeder_dict ('qbes.xml', sys_id, bTime=False)
-  cimhub.summarize_feeder_dict (dict)
-#  cimhub.list_dict_table (dict, 'DistSequenceMatrix')
+  dict = cimhub.load_bes_dict ('qbes.xml', sys_id, bTime=False)
+  cimhub.summarize_bes_dict (dict)
+  cimhub.list_dict_table (dict, 'BESContainer')
+  cimhub.list_dict_table (dict, 'BESBaseVoltage')
 
 

@@ -254,7 +254,7 @@ SELECT ?name ?type ?bus ?ratedS ?ratedU ?p ?q ?maxP ?minP ?maxQ ?minQ
 }
 ORDER by ?name
 
-# BESShunt may be capacitor or reactor
+# BESCompShunt may be capacitor or reactor
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT ?name ?basev ?nomu ?gsection ?bsection ?sections ?maxsections ?bus ?id ?sysid ?t1id WHERE {
@@ -279,7 +279,7 @@ SELECT ?name ?basev ?nomu ?gsection ?bsection ?sections ?maxsections ?bus ?id ?s
 }
 ORDER by ?name
 
-# BESCapSeries
+# BESCompSeries may be capacitor or reactor
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT ?name ?bus1 ?bus2 ?basev ?r ?r0 ?x ?x0 ?id ?sysid ?t1id ?t2id WHERE {

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<queries>
+<nsCIM>
+<![CDATA[
+http://iec.ch/TC57/CIM100#
+]]>
+</nsCIM>
+<nsRDF>
+<![CDATA[
+http://www.w3.org/1999/02/22-rdf-syntax-ns#
+]]>
+</nsRDF>
+<query>
+<id>BESBus</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?nomv ?id WHERE {
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer ?sys.
+ ?s r:type c:ConnectivityNode.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?trm c:Terminal.ConnectivityNode ?bus.
+ { 
+   ?trm c:Terminal.ConductingEquipment ?ce.
+   ?ce  c:ConductingEquipment.BaseVoltage ?bv.
+ } UNION { 
+   ?end c:TransformerEnd.Terminal ?trm.
+   ?end c:TransformerEnd.BaseVoltage ?bv.
+ }
+ ?bv c:BaseVoltage.nominalVoltage ?nomv.
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>BESMachine</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?type ?bus ?ratedS ?ratedU ?p ?q ?maxP ?minP ?maxQ ?minQ
+       ?Xd ?Xdp ?Xdpp ?Xq ?Xqp ?Xqpp ?Ra ?Xl ?X0
+       ?Tdop ?Tdopp ?Tqop ?Tqopp ?id ?t1id WHERE {
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?s r:type c:SynchronousMachine.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:RotatingMachine.ratedS ?ratedS.
+ ?s c:RotatingMachine.ratedU ?ratedU.
+ ?s c:RotatingMachine.p ?p.
+ ?s c:RotatingMachine.q ?q.
+ ?s c:RotatingMachine.GeneratingUnit ?unit.
+ ?unit c:GeneratingUnit.maxOperatingP ?maxP. 
+ ?unit c:GeneratingUnit.minOperatingP ?minP.
+ {?unit a ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?postfix)
+  bind(strbefore(str(?postfix),"GeneratingUnit") as ?type)}
+ ?s c:SynchronousMachine.maxQ ?maxQ.
+ ?s c:SynchronousMachine.minQ ?minQ.
+ ?s c:SynchronousMachine.satDirectSyncX ?Xd.
+ ?s c:SynchronousMachine.satDirectTransX ?Xdp.
+ ?s c:SynchronousMachine.satDirectSubtransX ?Xdpp.
+ ?s c:SynchronousMachine.Ra ?Ra.
+ ?s c:SynchronousMachine.X0 ?X0.
+ ?s c:SynchronousMachine.X1 ?Xl.
+ ?s c:SynchronousMachine.Xq ?Xq.
+ ?s c:SynchronousMachine.Xqp ?Xqp.
+ ?s c:SynchronousMachine.Xqpp ?Xqpp.
+ ?s c:SynchronousMachine.Tdop ?Tdop.
+ ?s c:SynchronousMachine.Tdopp ?Tdopp.
+ ?s c:SynchronousMachine.Tqop ?Tqop.
+ ?s c:SynchronousMachine.Tqopp ?Tqopp.
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>BESLine</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?t1id ?t2id WHERE {
+ ?s r:type c:ACLineSegment.
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.r ?r.
+ ?s c:ACLineSegment.x ?x.
+ ?s c:ACLineSegment.bch ?b.
+ ?s c:ACLineSegment.r0 ?r0.
+ ?s c:ACLineSegment.x0 ?x0.
+ ?s c:ACLineSegment.bch0 ?b0.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2
+}
+ORDER BY ?name
+]]>
+</value>
+</query>
+s<query>
+<id>BESCompSeries</id>
+<keyfld>name</keyfld>
+<description>series capacitor or reactor</description>
+<value>
+<![CDATA[
+SELECT ?name ?bus1 ?bus2 ?basev ?r ?r0 ?x ?x0 ?id ?t1id ?t2id WHERE {
+ ?s r:type c:SeriesCompensator.
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id. 
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:SeriesCompensator.r ?r. 
+ ?s c:SeriesCompensator.r0 ?r0. 
+ ?s c:SeriesCompensator.x ?x. 
+ ?s c:SeriesCompensator.x0 ?x0. 
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>BESPowerXfmrWinding</id>
+<keyfld>pname:enum</keyfld>
+<description>Power transformers on their own, without catalog reference.</description>
+<value>
+<![CDATA[
+SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id WHERE {
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?p c:Equipment.EquipmentContainer ?sys.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?end c:PowerTransformerEnd.ratedS ?ratedS.
+ ?end c:PowerTransformerEnd.ratedU ?ratedU.
+ ?end c:PowerTransformerEnd.r ?r.
+ ?end c:PowerTransformerEnd.phaseAngleClock ?ang.
+ ?end c:PowerTransformerEnd.connectionKind ?connraw.  
+  bind(strafter(str(?connraw),"WindingConnection.") as ?conn)
+ ?end c:TransformerEnd.grounded ?grounded.
+ OPTIONAL {?end c:TransformerEnd.rground ?rground.}
+ OPTIONAL {?end c:TransformerEnd.xground ?xground.}
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?trm c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus.
+ ?end c:TransformerEnd.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev
+}
+ORDER BY ?pname ?enum
+]]>
+</value>
+</query>
+<query>
+<id>BESPowerXfmrCore</id>
+<keyfld>pname</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?pname ?enum ?b ?g WHERE {
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?p c:Equipment.EquipmentContainer ?sys.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?adm c:TransformerCoreAdmittance.TransformerEnd ?end.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?adm c:TransformerCoreAdmittance.b ?b.
+ ?adm c:TransformerCoreAdmittance.g ?g.
+}
+ORDER BY ?pname
+]]>
+</value>
+</query>
+<query>
+<id>BESPowerXfmrMesh</id>
+<keyfld>pname:fnum:tnum</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?pname ?fnum ?tnum ?r ?x WHERE {
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?p c:Equipment.EquipmentContainer ?sys.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?from c:PowerTransformerEnd.PowerTransformer ?p.
+ ?imp c:TransformerMeshImpedance.FromTransformerEnd ?from.
+ ?imp c:TransformerMeshImpedance.ToTransformerEnd ?to.
+ ?imp c:TransformerMeshImpedance.r ?r.
+ ?imp c:TransformerMeshImpedance.x ?x.
+ ?from c:TransformerEnd.endNumber ?fnum.
+ ?to c:TransformerEnd.endNumber ?tnum.
+}
+ORDER BY ?pname ?fnum ?tnum
+]]>
+</value>
+</query>
+<query>
+<id>BESContainer</id>
+<keyfld>name</keyfld>
+<description>list all the bulk electric systems</description>
+<value>
+<![CDATA[
+SELECT ?name ?id WHERE {
+ ?s r:type c:ConnectivityNodeContainer.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>BESSolar</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+]]>
+</value>
+</query>
+<query>
+<id>BESWind</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+]]>
+</value>
+</query>
+<query>
+<id>BESBaseVoltage</id>
+<keyfld>vnom</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?vnom ?id WHERE {
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer|c:Equipment.EquipmentContainer ?sys.
+ ?s c:ConductingEquipment.BaseVoltage ?lev.
+ ?lev c:BaseVoltage.nominalVoltage ?vnom.
+ ?lev c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?vnom
+]]>
+</value>
+</query>
+<query>
+<id>BESCompShunt</id>
+<keyfld>name</keyfld>
+<description>Shunt reactor or capacitor</description>
+<value>
+<![CDATA[
+SELECT ?name ?basev ?nomu ?gsection ?bsection ?sections ?maxsections ?bus ?id ?t1id WHERE {
+ ?s r:type c:LinearShuntCompensator.
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:ShuntCompensator.nomU ?nomu. 
+ ?s c:LinearShuntCompensator.gPerSection ?gsection. 
+ ?s c:LinearShuntCompensator.bPerSection ?bsection. 
+ ?s c:ShuntCompensator.sections ?sections. 
+ ?s c:ShuntCompensator.maximumSections ?maxsections. 
+ ?s c:IdentifiedObject.mRID ?id. 
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>BESLoad</id>
+<keyfld>name</keyfld>
+<description>Balanced on three phases</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus ?basev ?p ?q ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?t1id WHERE {
+ ?s r:type c:EnergyConsumer.
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:EnergyConsumer.p ?p.
+ ?s c:EnergyConsumer.q ?q.
+ ?s c:EnergyConsumer.LoadResponse ?lr.
+ ?lr c:LoadResponseCharacteristic.pConstantImpedance ?pz.
+ ?lr c:LoadResponseCharacteristic.qConstantImpedance ?qz.
+ ?lr c:LoadResponseCharacteristic.pConstantCurrent ?pi.
+ ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi.
+ ?lr c:LoadResponseCharacteristic.pConstantPower ?pp.
+ ?lr c:LoadResponseCharacteristic.qConstantPower ?qp.
+ OPTIONAL {?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.}
+ OPTIONAL {?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.}
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>CountBESPowerXfmrWindings</id>
+<keyfld>key</keyfld>
+<description>for BESPowerXfmrWinding</description>
+<value>
+<![CDATA[
+SELECT ?key (count(?p) as ?count) WHERE {
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?p c:Equipment.EquipmentContainer ?sys.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?key.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+}
+GROUP BY ?key
+ORDER BY ?key
+]]>
+</value>
+</query>
+</queries>

@@ -52,6 +52,8 @@ from .ConvertModels import convert_and_check_models
 from .SPARQL_Dict import load_feeder_dict
 from .SPARQL_Dict import summarize_feeder_dict
 from .SPARQL_Dict import list_dict_table
+from .SPARQL_Dict import load_bes_dict
+from .SPARQL_Dict import summarize_bes_dict
 
 from .LineConstants import convert_spdata_to_si
 from .LineConstants import convert_wdata_to_si
