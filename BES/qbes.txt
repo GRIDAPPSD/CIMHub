@@ -1,0 +1,390 @@
+# deletes everything
+DROP ALL
+
+# enumerates all classes found; see appendix of Learning SPARQL for more useful cookbook recipes
+SELECT ?class (COUNT(?class) as ?cnt)
+WHERE {
+  ?s a ?class .
+} group by ?class order by ?class
+
+# discover the attributes of each class
+SELECT DISTINCT ?class ?attr 
+WHERE {
+  ?s a ?class .
+  ?s ?attr ?val
+} ORDER BY ?class ?attr
+
+# lists all triples; should be only 3 for CIM version after clearing all circuits
+SELECT ?s ?attr ?val where {
+  ?s ?attr ?val.
+} order by ?s ?attr
+
+##################################################
+
+# BESBaseVoltage
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?vnom ?id WHERE {
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer|c:Equipment.EquipmentContainer ?sys.
+ ?s c:ConductingEquipment.BaseVoltage ?lev.
+ ?lev c:BaseVoltage.nominalVoltage ?vnom.
+ ?lev c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?vnom
+
+# BESContainer
+# IEEE118	1783D2A8-1204-4781-A0B4-7A73A2FA6038
+# WECC240	2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id WHERE {
+ ?s r:type c:ConnectivityNodeContainer.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?name
+
+# BESBus
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id WHERE {
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer ?sys.
+ ?s r:type c:ConnectivityNode.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?name
+
+# BESLine
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?sysid ?t1id ?t2id WHERE {
+ ?s r:type c:ACLineSegment.
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.r ?r.
+ ?s c:ACLineSegment.x ?x.
+ ?s c:ACLineSegment.bch ?b.
+ ?s c:ACLineSegment.r0 ?r0.
+ ?s c:ACLineSegment.x0 ?x0.
+ ?s c:ACLineSegment.bch0 ?b0.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2
+}
+ORDER BY ?name
+
+# BESLoad
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?bus ?basev ?p ?q ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?sysid ?t1id WHERE {
+ ?s r:type c:EnergyConsumer.
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:EnergyConsumer.p ?p.
+ ?s c:EnergyConsumer.q ?q.
+ ?s c:EnergyConsumer.LoadResponse ?lr.
+ ?lr c:LoadResponseCharacteristic.pConstantImpedance ?pz.
+ ?lr c:LoadResponseCharacteristic.qConstantImpedance ?qz.
+ ?lr c:LoadResponseCharacteristic.pConstantCurrent ?pi.
+ ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi.
+ ?lr c:LoadResponseCharacteristic.pConstantPower ?pp.
+ ?lr c:LoadResponseCharacteristic.qConstantPower ?qp.
+ OPTIONAL {?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.}
+ OPTIONAL {?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.}
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+
+# BESCountPowerXfmrWinding
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count(?p) as ?count) WHERE {
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?p c:Equipment.EquipmentContainer ?sys.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?key.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+}
+GROUP BY ?key
+ORDER BY ?key
+
+# BESPowerXfmrWinding
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id WHERE {
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?p c:Equipment.EquipmentContainer ?sys.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?end c:PowerTransformerEnd.ratedS ?ratedS.
+ ?end c:PowerTransformerEnd.ratedU ?ratedU.
+ ?end c:PowerTransformerEnd.r ?r.
+ ?end c:PowerTransformerEnd.phaseAngleClock ?ang.
+ ?end c:PowerTransformerEnd.connectionKind ?connraw.  
+  bind(strafter(str(?connraw),"WindingConnection.") as ?conn)
+ ?end c:TransformerEnd.grounded ?grounded.
+ OPTIONAL {?end c:TransformerEnd.rground ?rground.}
+ OPTIONAL {?end c:TransformerEnd.xground ?xground.}
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?trm c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus.
+ ?end c:TransformerEnd.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev
+}
+ORDER BY ?pname ?enum
+
+# BESPowerXfmrCore
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?enum ?b ?g WHERE {
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?p c:Equipment.EquipmentContainer ?sys.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?adm c:TransformerCoreAdmittance.TransformerEnd ?end.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?adm c:TransformerCoreAdmittance.b ?b.
+ ?adm c:TransformerCoreAdmittance.g ?g.
+}
+ORDER BY ?pname
+
+# BESPowerXfmrMesh
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?fnum ?tnum ?r ?x WHERE {
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?p c:Equipment.EquipmentContainer ?sys.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?from c:PowerTransformerEnd.PowerTransformer ?p.
+ ?imp c:TransformerMeshImpedance.FromTransformerEnd ?from.
+ ?imp c:TransformerMeshImpedance.ToTransformerEnd ?to.
+ ?imp c:TransformerMeshImpedance.r ?r.
+ ?imp c:TransformerMeshImpedance.x ?x.
+ ?from c:TransformerEnd.endNumber ?fnum.
+ ?to c:TransformerEnd.endNumber ?tnum.
+}
+ORDER BY ?pname ?fnum ?tnum
+
+# BESSyncMachine
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?type ?bus ?ratedS ?ratedU ?p ?q ?maxP ?minP ?maxQ ?minQ
+       ?Xd ?Xdp ?Xdpp ?Xq ?Xqp ?Xqpp ?Ra ?Xl ?X0
+       ?Tdop ?Tdopp ?Tqop ?Tqopp ?id ?sysid ?t1id WHERE {
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?s r:type c:SynchronousMachine.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:RotatingMachine.ratedS ?ratedS.
+ ?s c:RotatingMachine.ratedU ?ratedU.
+ ?s c:RotatingMachine.p ?p.
+ ?s c:RotatingMachine.q ?q.
+ ?s c:RotatingMachine.GeneratingUnit ?unit.
+ ?unit c:GeneratingUnit.maxOperatingP ?maxP. 
+ ?unit c:GeneratingUnit.minOperatingP ?minP.
+ {?unit a ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?postfix)
+  bind(strbefore(str(?postfix),"GeneratingUnit") as ?type)}
+ ?s c:SynchronousMachine.maxQ ?maxQ.
+ ?s c:SynchronousMachine.minQ ?minQ.
+ ?s c:SynchronousMachine.satDirectSyncX ?Xd.
+ ?s c:SynchronousMachine.satDirectTransX ?Xdp.
+ ?s c:SynchronousMachine.satDirectSubtransX ?Xdpp.
+ ?s c:SynchronousMachine.Ra ?Ra.
+ ?s c:SynchronousMachine.X0 ?X0.
+ ?s c:SynchronousMachine.X1 ?Xl.
+ ?s c:SynchronousMachine.Xq ?Xq.
+ ?s c:SynchronousMachine.Xqp ?Xqp.
+ ?s c:SynchronousMachine.Xqpp ?Xqpp.
+ ?s c:SynchronousMachine.Tdop ?Tdop.
+ ?s c:SynchronousMachine.Tdopp ?Tdopp.
+ ?s c:SynchronousMachine.Tqop ?Tqop.
+ ?s c:SynchronousMachine.Tqopp ?Tqopp.
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+
+# BESShunt may be capacitor or reactor
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?nomu ?gsection ?bsection ?sections ?maxsections ?bus ?id ?sysid ?t1id WHERE {
+ ?s r:type c:LinearShuntCompensator.
+ VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+# VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:ShuntCompensator.nomU ?nomu. 
+ ?s c:LinearShuntCompensator.gPerSection ?gsection. 
+ ?s c:LinearShuntCompensator.bPerSection ?bsection. 
+ ?s c:ShuntCompensator.sections ?sections. 
+ ?s c:ShuntCompensator.maximumSections ?maxsections. 
+ ?s c:IdentifiedObject.mRID ?id. 
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+
+# BESCapSeries
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus1 ?bus2 ?basev ?r ?r0 ?x ?x0 ?id ?sysid ?t1id ?t2id WHERE {
+ ?s r:type c:SeriesCompensator.
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id. 
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:SeriesCompensator.r ?r. 
+ ?s c:SeriesCompensator.r0 ?r0. 
+ ?s c:SeriesCompensator.x ?x. 
+ ?s c:SeriesCompensator.x0 ?x0. 
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2
+}
+ORDER by ?name
+
+
+# Solar - DistSolar
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:PhotovoltaicUnit.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PowerElectronicsUnit.maxP ?maxP.
+ ?s c:PowerElectronicsUnit.minP ?minP.
+ ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+ ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+ ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+ ?pec c:PowerElectronicsConnection.p ?p.
+ ?pec c:PowerElectronicsConnection.q ?q.
+ ?pec c:PowerElectronicsConnection.minQ ?minQ.
+ ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
+ {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
+ ?pec c:IdentifiedObject.mRID ?pecid.
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id
+ORDER by ?name
+
+# Get all inverters (PowerElectronicsConnection)
+# NOTE: For whatever reason, "inverterMode," "maxQ," and "minQ" are
+# not included for the 9500 node model, and have thus been moved
+# into an OPTIONAL block.
+#
+# NOTE: Naming conventions: "inverter_" is associated with the
+# "Wires::PowerElectronicsConnection" object, and "phase_" is
+# associated with the "Wires::PowerElectronicsConnectionPhase"
+# object. Documentation:
+# https://gridappsd.readthedocs.io/en/latest/developer_resources/index.html#cim-documentation
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?inverter_mrid ?inverter_name ?inverter_mode ?inverter_max_q ?inverter_min_q ?inverter_p ?inverter_q ?inverter_rated_s ?inverter_rated_u ?phase_mrid ?phase_name ?phase_p ?phase_q (group_concat(distinct ?phs;separator="\n") as ?phases) 
+WHERE {
+# Update for your feeder, or remove for all feeders.
+VALUES ?feeder_mrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+?s r:type c:PowerElectronicsConnection.
+?s c:Equipment.EquipmentContainer ?fdr.
+?fdr c:IdentifiedObject.mRID ?feeder_mrid.
+?s c:IdentifiedObject.mRID ?inverter_mrid.
+?s c:IdentifiedObject.name ?inverter_name.
+?s c:PowerElectronicsConnection.p ?inverter_p.
+?s c:PowerElectronicsConnection.q ?inverter_q.
+?s c:PowerElectronicsConnection.ratedS ?inverter_rated_s.
+?s c:PowerElectronicsConnection.ratedU ?inverter_rated_u.
+OPTIONAL {
+?s c:PowerElectronicsConnection.inverterMode ?inverter_mode.
+?s c:PowerElectronicsConnection.maxQ ?inverter_max_q.
+?s c:PowerElectronicsConnection.minQ ?inverter_min_q.
+}
+OPTIONAL {
+?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?s.
+?pecp c:IdentifiedObject.mRID ?phase_mrid.
+?pecp c:IdentifiedObject.name ?phase_name.
+?pecp c:PowerElectronicsConnectionPhase.p ?phase_p.
+?pecp c:PowerElectronicsConnectionPhase.q ?phase_q.
+?pecp c:PowerElectronicsConnectionPhase.phase
+?phsraw bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+}
+}
+GROUP BY ?inverter_mrid ?inverter_name ?inverter_rated_s ?inverter_rated_u ?inverter_p ?inverter_q ?phase_mrid ?phase_name ?phase_p ?phase_q ?inverter_mode ?inverter_max_q ?inverter_min_q
+ORDER BY ?inverter_mrid
+
