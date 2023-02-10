@@ -5,9 +5,12 @@ import sys
 import math
 import networkx as nx
 import json
+import os
 import matplotlib.pyplot as plt 
 import matplotlib.lines as lines
 import matplotlib.patches as patches
+
+plt.rcParams['savefig.directory'] = os.getcwd()
 
 CASES = [
   {'id': '1783D2A8-1204-4781-A0B4-7A73A2FA6038', 'name': 'IEEE118'},
@@ -15,17 +18,58 @@ CASES = [
 ]
 
 nodeTypes = {
-  'load':  {'color':'green', 'size':15},
-  'gen':   {'color':'red',   'size':20},
-  'solar': {'color':'gold',  'size':20},
-  'wind':  {'color':'blue',  'size':20},
-  'bus':   {'color':'black', 'size':10}
+  'load':  {'color':'green', 'tag':'Load',  'size':15},
+  'gen':   {'color':'red',   'tag':'Gen',   'size':20},
+  'solar': {'color':'gold',  'tag':'Solar', 'size':20},
+  'wind':  {'color':'blue',  'tag':'Wind',  'size':20},
+  'bus':   {'color':'black', 'tag':'Bus',   'size':10}
+  }
+
+edgeTypes = {
+  'transformer': {'color':'gray',    'tag':'Xfmr'},
+  'series':      {'color':'magenta', 'tag':'Cap'},
+  'lineEHV':     {'color':'red',     'tag':'EHV'},
+  'lineHV':      {'color':'orange',  'tag':'HV'},
+  'lineMV':      {'color':'blue',    'tag':'MV'}
   }
 
 # global constants
 SQRT3 = math.sqrt(3.0)
 RAD_TO_DEG = 180.0 / math.pi
 MVA_BASE = 100.0
+
+def get_edge_highlights(data):
+  weight = 1.0
+  color = edgeTypes['lineMV']['color']
+  if data['eclass'] == 'transformer':
+    weight = 3.0
+    color = edgeTypes['transformer']['color']
+  elif data['eclass'] == 'series':
+    weight = 3.0
+    color = edgeTypes['series']['color']
+  else: # 'line'
+    kv = data['edata']['kv']
+    weight = 1.5
+    if kv > 344.0:
+      color = edgeTypes['lineEHV']['color']
+      if kv > 499.0:
+        weight = 2.0
+    elif kv >= 100.0:
+      color = edgeTypes['lineHV']['color']
+      if kv > 229.0:
+        weight = 2.0
+  return weight, color
+
+def get_edge_color(eclass):
+  if eclass in edgeTypes:
+    return edgeTypes[eclass]['color']
+  print ('unknown edge class', eclass)
+  return 'black'
+
+def get_edge_mnemonic(eclass):
+  if eclass in edgeTypes:
+    return edgeTypes[eclass]['tag']
+  return 'Unknown'
 
 def get_node_size(nclass):
   if nclass in nodeTypes:
@@ -36,6 +80,11 @@ def get_node_color(nclass):
   if nclass in nodeTypes:
     return nodeTypes[nclass]['color']
   return 'black'
+
+def get_node_mnemonic(nclass):
+  if nclass in nodeTypes:
+    return nodeTypes[nclass]['tag']
+  return 'Unknown'
 
 def plot_system_graph (G, sys_name):
   # assign node colors
@@ -52,19 +101,35 @@ def plot_system_graph (G, sys_name):
     nodeSizes.append (get_node_size (nclass))
 
   # assign edge colors
+  plotEdges = []
+  edgeWidths = []
+  edgeColors = []
+  for n1, n2, data in G.edges(data=True):
+    plotEdges.append ((n1, n2))
+    width, color = get_edge_highlights (data)
+    edgeWidths.append (width)
+    edgeColors.append (color)
 
   # create the plot with autolayout
   fig, ax = plt.subplots()
 
-  nx.draw(G)
+  #nx.draw(G)
 
-  #nx.draw_networkx_nodes (G, xy, nodelist=plotNodes, node_color=nodeColors, node_size=nodeSizes, ax=ax)
-  #nx.draw_networkx_edges (G, xy, edgelist=plotEdges, edge_color=edgeColors, width=edgeWidths, alpha=0.8, ax=ax)
+  xy = nx.kamada_kawai_layout (G, weight='km')
+  nx.draw_networkx_nodes (G, xy, nodelist=plotNodes, node_color=nodeColors, node_size=nodeSizes, ax=ax)
+  nx.draw_networkx_edges (G, xy, edgelist=plotEdges, edge_color=edgeColors, width=edgeWidths, alpha=0.8, ax=ax)
 
   plt.title ('{:s} Network'.format(sys_name))
   plt.xlabel ('X coordinate')
   plt.ylabel ('Y coordinate')
   ax.grid(linestyle='dotted')
+  xdata = [0, 1]
+  ydata = [1, 0]
+  lns = [lines.Line2D(xdata, ydata, color=get_edge_color(e)) for e in edgeTypes] + \
+    [lines.Line2D(xdata, ydata, color=get_node_color(n), marker='o') for n in nodeTypes]
+  labs = [get_edge_mnemonic (e) for e in edgeTypes] + [get_node_mnemonic (n) for n in nodeTypes]
+  ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
+  ax.legend(lns, labs, loc='lower left')
   plt.show()
 
 def build_system_graph (dict):

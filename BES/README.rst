@@ -8,8 +8,12 @@ Contents
 
 This directory contains two medium-scale BES test systems:
 
-- `WECC 240-bus System with IBR <https://www.nrel.gov/docs/fy22osti/82287.pdf>`_
 - `IEEE 118-bus System with IBR <https://doi.org/10.1109/TEMC.2019.2920271>`_
+- `WECC 240-bus System with IBR <https://www.nrel.gov/docs/fy22osti/82287.pdf>`_
+
+.. image:: IEEE118.png
+
+.. image:: WECC240.png
 
 The models will be available in the following formats:
  
