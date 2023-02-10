@@ -1,0 +1,3816 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "1"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "10"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "100"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "101"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "102"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "103"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "104"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "105"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "106"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "107"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "108"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "109"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "11"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "110"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "111"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "112"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "113"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "114"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "115"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "116"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "117"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "118"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "119"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "12"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "120"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "121"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "122"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "123"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "124"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "125"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "126"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "127"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "128"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "129"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "13"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "130"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "131"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "132"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "133"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "134"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "135"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "136"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "137"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "138"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "139"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "14"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "140"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "141"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "142"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "143"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "144"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "145"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "146"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "147"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "148"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "149"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "15"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "150"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "151"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "152"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "153"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "154"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "155"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "156"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "157"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "158"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "159"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "16"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "160"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "161"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "162"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "163"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "164"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "165"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "166"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "167"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "168"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "169"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "17"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "170"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "171"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "172"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "173"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "174"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "175"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "176"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "177"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "178"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "179"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "18"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "180"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "181"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "182"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "183"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "184"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "185"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "186"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "187"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "188"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "189"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "19"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "190"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "191"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "192"
+    },
+    {
+      "nclass": "gen",
+      "ndata": {
+        "kv": 13.8
+      },
+      "id": "193"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "2"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "20"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "21"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "22"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "23"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "24"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "25"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "26"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "27"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "28"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "29"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "3"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "30"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "31"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "32"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "33"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "34"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "35"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "36"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "37"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "38"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "39"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "4"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "40"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "41"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "42"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "43"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "44"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "45"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "46"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "47"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "48"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "49"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "5"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "50"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "51"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "52"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "53"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "54"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "55"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "56"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "57"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "58"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "59"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "6"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "60"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "61"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "62"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "63"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "64"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "65"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "66"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "67"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "68"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "69"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "7"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "70"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "71"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "72"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "73"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "74"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "75"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "76"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "77"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "78"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "79"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "8"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "80"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "81"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "82"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "83"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "84"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "85"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "86"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "87"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "88"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "89"
+    },
+    {
+      "nclass": "bus",
+      "ndata": {
+        "kv": 345.0
+      },
+      "id": "9"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "90"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "91"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "92"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "93"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "94"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "95"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "96"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "97"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "98"
+    },
+    {
+      "nclass": "load",
+      "ndata": {
+        "kv": 138.0
+      },
+      "id": "99"
+    }
+  ],
+  "links": [
+    {
+      "eclass": "line",
+      "ename": "1_2_1",
+      "edata": {
+        "km": 38.272,
+        "kv": 138.0
+      },
+      "source": "1",
+      "target": "2"
+    },
+    {
+      "eclass": "line",
+      "ename": "1_3_1",
+      "edata": {
+        "km": 16.244,
+        "kv": 138.0
+      },
+      "source": "1",
+      "target": "3"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "1_119_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "1",
+      "target": "119"
+    },
+    {
+      "eclass": "line",
+      "ename": "9_10_1",
+      "edata": {
+        "km": 102.8,
+        "kv": 345.0
+      },
+      "source": "10",
+      "target": "9"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "10_123_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "10",
+      "target": "123"
+    },
+    {
+      "eclass": "line",
+      "ename": "100_101_1",
+      "edata": {
+        "km": 48.348,
+        "kv": 138.0
+      },
+      "source": "100",
+      "target": "101"
+    },
+    {
+      "eclass": "line",
+      "ename": "100_103_1",
+      "edata": {
+        "km": 20.113,
+        "kv": 138.0
+      },
+      "source": "100",
+      "target": "103"
+    },
+    {
+      "eclass": "line",
+      "ename": "100_104_1",
+      "edata": {
+        "km": 78.153,
+        "kv": 138.0
+      },
+      "source": "100",
+      "target": "104"
+    },
+    {
+      "eclass": "line",
+      "ename": "100_106_1",
+      "edata": {
+        "km": 87.731,
+        "kv": 138.0
+      },
+      "source": "100",
+      "target": "106"
+    },
+    {
+      "eclass": "line",
+      "ename": "92_100_1",
+      "edata": {
+        "km": 113.016,
+        "kv": 138.0
+      },
+      "source": "100",
+      "target": "92"
+    },
+    {
+      "eclass": "line",
+      "ename": "94_100_1",
+      "edata": {
+        "km": 22.22,
+        "kv": 138.0
+      },
+      "source": "100",
+      "target": "94"
+    },
+    {
+      "eclass": "line",
+      "ename": "98_100_1",
+      "edata": {
+        "km": 68.576,
+        "kv": 138.0
+      },
+      "source": "100",
+      "target": "98"
+    },
+    {
+      "eclass": "line",
+      "ename": "99_100_1",
+      "edata": {
+        "km": 31.146,
+        "kv": 138.0
+      },
+      "source": "100",
+      "target": "99"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "100_177_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "100",
+      "target": "177"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "100_178_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "100",
+      "target": "178"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "100_179_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "100",
+      "target": "179"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "100_180_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "100",
+      "target": "180"
+    },
+    {
+      "eclass": "line",
+      "ename": "101_102_1",
+      "edata": {
+        "km": 42.908,
+        "kv": 138.0
+      },
+      "source": "101",
+      "target": "102"
+    },
+    {
+      "eclass": "line",
+      "ename": "92_102_1",
+      "edata": {
+        "km": 21.416,
+        "kv": 138.0
+      },
+      "source": "102",
+      "target": "92"
+    },
+    {
+      "eclass": "line",
+      "ename": "103_104_1",
+      "edata": {
+        "km": 60.684,
+        "kv": 138.0
+      },
+      "source": "103",
+      "target": "104"
+    },
+    {
+      "eclass": "line",
+      "ename": "103_105_1",
+      "edata": {
+        "km": 62.254,
+        "kv": 138.0
+      },
+      "source": "103",
+      "target": "105"
+    },
+    {
+      "eclass": "line",
+      "ename": "103_110_1",
+      "edata": {
+        "km": 69.457,
+        "kv": 138.0
+      },
+      "source": "103",
+      "target": "110"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "103_181_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "103",
+      "target": "181"
+    },
+    {
+      "eclass": "line",
+      "ename": "104_105_1",
+      "edata": {
+        "km": 14.481,
+        "kv": 138.0
+      },
+      "source": "104",
+      "target": "105"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "104_182_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "104",
+      "target": "182"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "104_183_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "104",
+      "target": "183"
+    },
+    {
+      "eclass": "line",
+      "ename": "105_106_1",
+      "edata": {
+        "km": 20.956,
+        "kv": 138.0
+      },
+      "source": "105",
+      "target": "106"
+    },
+    {
+      "eclass": "line",
+      "ename": "105_107_1",
+      "edata": {
+        "km": 70.108,
+        "kv": 138.0
+      },
+      "source": "105",
+      "target": "107"
+    },
+    {
+      "eclass": "line",
+      "ename": "105_108_1",
+      "edata": {
+        "km": 26.932,
+        "kv": 138.0
+      },
+      "source": "105",
+      "target": "108"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "105_184_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "105",
+      "target": "184"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "105_185_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "105",
+      "target": "185"
+    },
+    {
+      "eclass": "line",
+      "ename": "106_107_1",
+      "edata": {
+        "km": 70.108,
+        "kv": 138.0
+      },
+      "source": "106",
+      "target": "107"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "107_186_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "107",
+      "target": "186"
+    },
+    {
+      "eclass": "line",
+      "ename": "108_109_1",
+      "edata": {
+        "km": 11.033,
+        "kv": 138.0
+      },
+      "source": "108",
+      "target": "109"
+    },
+    {
+      "eclass": "line",
+      "ename": "109_110_1",
+      "edata": {
+        "km": 29.193,
+        "kv": 138.0
+      },
+      "source": "109",
+      "target": "110"
+    },
+    {
+      "eclass": "line",
+      "ename": "11_12_1",
+      "edata": {
+        "km": 7.509,
+        "kv": 138.0
+      },
+      "source": "11",
+      "target": "12"
+    },
+    {
+      "eclass": "line",
+      "ename": "11_13_1",
+      "edata": {
+        "km": 28.005,
+        "kv": 138.0
+      },
+      "source": "11",
+      "target": "13"
+    },
+    {
+      "eclass": "line",
+      "ename": "4_11_1",
+      "edata": {
+        "km": 26.358,
+        "kv": 138.0
+      },
+      "source": "11",
+      "target": "4"
+    },
+    {
+      "eclass": "line",
+      "ename": "5_11_1",
+      "edata": {
+        "km": 26.128,
+        "kv": 138.0
+      },
+      "source": "11",
+      "target": "5"
+    },
+    {
+      "eclass": "line",
+      "ename": "110_111_1",
+      "edata": {
+        "km": 28.924,
+        "kv": 138.0
+      },
+      "source": "110",
+      "target": "111"
+    },
+    {
+      "eclass": "line",
+      "ename": "110_112_1",
+      "edata": {
+        "km": 24.519,
+        "kv": 138.0
+      },
+      "source": "110",
+      "target": "112"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "110_187_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "110",
+      "target": "187"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "110_188_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "110",
+      "target": "188"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "111_189_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "111",
+      "target": "189"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "112_190_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "112",
+      "target": "190"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "112_191_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "112",
+      "target": "191"
+    },
+    {
+      "eclass": "line",
+      "ename": "17_113_1",
+      "edata": {
+        "km": 11.531,
+        "kv": 138.0
+      },
+      "source": "113",
+      "target": "17"
+    },
+    {
+      "eclass": "line",
+      "ename": "32_113_1",
+      "edata": {
+        "km": 77.77,
+        "kv": 138.0
+      },
+      "source": "113",
+      "target": "32"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "113_192_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "113",
+      "target": "192"
+    },
+    {
+      "eclass": "line",
+      "ename": "114_115_1",
+      "edata": {
+        "km": 3.984,
+        "kv": 138.0
+      },
+      "source": "114",
+      "target": "115"
+    },
+    {
+      "eclass": "line",
+      "ename": "32_114_1",
+      "edata": {
+        "km": 23.446,
+        "kv": 138.0
+      },
+      "source": "114",
+      "target": "32"
+    },
+    {
+      "eclass": "line",
+      "ename": "27_115_1",
+      "edata": {
+        "km": 28.388,
+        "kv": 138.0
+      },
+      "source": "115",
+      "target": "27"
+    },
+    {
+      "eclass": "line",
+      "ename": "68_116_1",
+      "edata": {
+        "km": 12.93,
+        "kv": 345.0
+      },
+      "source": "116",
+      "target": "68"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "116_193_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "116",
+      "target": "193"
+    },
+    {
+      "eclass": "line",
+      "ename": "12_117_1",
+      "edata": {
+        "km": 53.635,
+        "kv": 138.0
+      },
+      "source": "117",
+      "target": "12"
+    },
+    {
+      "eclass": "line",
+      "ename": "75_118_1",
+      "edata": {
+        "km": 18.427,
+        "kv": 138.0
+      },
+      "source": "118",
+      "target": "75"
+    },
+    {
+      "eclass": "line",
+      "ename": "76_118_1",
+      "edata": {
+        "km": 20.841,
+        "kv": 138.0
+      },
+      "source": "118",
+      "target": "76"
+    },
+    {
+      "eclass": "line",
+      "ename": "12_14_1",
+      "edata": {
+        "km": 27.085,
+        "kv": 138.0
+      },
+      "source": "12",
+      "target": "14"
+    },
+    {
+      "eclass": "line",
+      "ename": "12_16_1",
+      "edata": {
+        "km": 31.951,
+        "kv": 138.0
+      },
+      "source": "12",
+      "target": "16"
+    },
+    {
+      "eclass": "line",
+      "ename": "2_12_1",
+      "edata": {
+        "km": 23.599,
+        "kv": 138.0
+      },
+      "source": "12",
+      "target": "2"
+    },
+    {
+      "eclass": "line",
+      "ename": "3_12_1",
+      "edata": {
+        "km": 61.297,
+        "kv": 138.0
+      },
+      "source": "12",
+      "target": "3"
+    },
+    {
+      "eclass": "line",
+      "ename": "7_12_1",
+      "edata": {
+        "km": 13.026,
+        "kv": 138.0
+      },
+      "source": "12",
+      "target": "7"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "12_124_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "12",
+      "target": "124"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "4_120_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "120",
+      "target": "4"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "6_121_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "121",
+      "target": "6"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "8_122_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "122",
+      "target": "8"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "15_125_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "125",
+      "target": "15"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "15_126_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "126",
+      "target": "15"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "18_127_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "127",
+      "target": "18"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "18_128_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "128",
+      "target": "18"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "19_129_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "129",
+      "target": "19"
+    },
+    {
+      "eclass": "line",
+      "ename": "13_15_1",
+      "edata": {
+        "km": 93.631,
+        "kv": 138.0
+      },
+      "source": "13",
+      "target": "15"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "19_130_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "130",
+      "target": "19"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "24_131_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "131",
+      "target": "24"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "24_132_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "132",
+      "target": "24"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "25_133_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "133",
+      "target": "25"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "26_134_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "134",
+      "target": "26"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "27_135_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "135",
+      "target": "27"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "27_136_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "136",
+      "target": "27"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "31_137_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "137",
+      "target": "31"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "31_138_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "138",
+      "target": "31"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "32_139_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "139",
+      "target": "32"
+    },
+    {
+      "eclass": "line",
+      "ename": "14_15_1",
+      "edata": {
+        "km": 74.705,
+        "kv": 138.0
+      },
+      "source": "14",
+      "target": "15"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "32_140_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "140",
+      "target": "32"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "34_141_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "141",
+      "target": "34"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "36_142_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "142",
+      "target": "36"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "40_143_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "143",
+      "target": "40"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "42_144_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "144",
+      "target": "42"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "46_145_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "145",
+      "target": "46"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "49_146_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "146",
+      "target": "49"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "54_147_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "147",
+      "target": "54"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "54_148_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "148",
+      "target": "54"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "54_149_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "149",
+      "target": "54"
+    },
+    {
+      "eclass": "line",
+      "ename": "15_17_1",
+      "edata": {
+        "km": 16.742,
+        "kv": 138.0
+      },
+      "source": "15",
+      "target": "17"
+    },
+    {
+      "eclass": "line",
+      "ename": "15_19_1",
+      "edata": {
+        "km": 15.094,
+        "kv": 138.0
+      },
+      "source": "15",
+      "target": "19"
+    },
+    {
+      "eclass": "line",
+      "ename": "15_33_1",
+      "edata": {
+        "km": 47.658,
+        "kv": 138.0
+      },
+      "source": "15",
+      "target": "33"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "55_150_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "150",
+      "target": "55"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "55_151_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "151",
+      "target": "55"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "56_152_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "152",
+      "target": "56"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "59_153_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "153",
+      "target": "59"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "61_154_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "154",
+      "target": "61"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "62_155_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "155",
+      "target": "62"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "65_156_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "156",
+      "target": "65"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "66_157_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "157",
+      "target": "66"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "69_158_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "158",
+      "target": "69"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "69_159_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "159",
+      "target": "69"
+    },
+    {
+      "eclass": "line",
+      "ename": "16_17_1",
+      "edata": {
+        "km": 68.997,
+        "kv": 138.0
+      },
+      "source": "16",
+      "target": "17"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "70_160_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "160",
+      "target": "70"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "72_161_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "161",
+      "target": "72"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "73_162_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "162",
+      "target": "73"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "74_163_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "163",
+      "target": "74"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "76_164_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "164",
+      "target": "76"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "76_165_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "165",
+      "target": "76"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "77_166_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "166",
+      "target": "77"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "80_167_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "167",
+      "target": "80"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "82_168_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "168",
+      "target": "82"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "85_169_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "169",
+      "target": "85"
+    },
+    {
+      "eclass": "line",
+      "ename": "17_18_1",
+      "edata": {
+        "km": 19.347,
+        "kv": 138.0
+      },
+      "source": "17",
+      "target": "18"
+    },
+    {
+      "eclass": "line",
+      "ename": "17_31_1",
+      "edata": {
+        "km": 59.879,
+        "kv": 138.0
+      },
+      "source": "17",
+      "target": "31"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "30_17_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "17",
+      "target": "30"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "87_170_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "170",
+      "target": "87"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "89_171_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "171",
+      "target": "89"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "90_172_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "172",
+      "target": "90"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "91_173_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "173",
+      "target": "91"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "92_174_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "174",
+      "target": "92"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "92_175_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "175",
+      "target": "92"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "99_176_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "176",
+      "target": "99"
+    },
+    {
+      "eclass": "line",
+      "ename": "18_19_1",
+      "edata": {
+        "km": 18.887,
+        "kv": 138.0
+      },
+      "source": "18",
+      "target": "19"
+    },
+    {
+      "eclass": "line",
+      "ename": "19_20_1",
+      "edata": {
+        "km": 44.823,
+        "kv": 138.0
+      },
+      "source": "19",
+      "target": "20"
+    },
+    {
+      "eclass": "line",
+      "ename": "19_34_1",
+      "edata": {
+        "km": 94.627,
+        "kv": 138.0
+      },
+      "source": "19",
+      "target": "34"
+    },
+    {
+      "eclass": "line",
+      "ename": "20_21_1",
+      "edata": {
+        "km": 32.526,
+        "kv": 138.0
+      },
+      "source": "20",
+      "target": "21"
+    },
+    {
+      "eclass": "line",
+      "ename": "21_22_1",
+      "edata": {
+        "km": 37.161,
+        "kv": 138.0
+      },
+      "source": "21",
+      "target": "22"
+    },
+    {
+      "eclass": "line",
+      "ename": "22_23_1",
+      "edata": {
+        "km": 60.914,
+        "kv": 138.0
+      },
+      "source": "22",
+      "target": "23"
+    },
+    {
+      "eclass": "line",
+      "ename": "23_24_1",
+      "edata": {
+        "km": 18.849,
+        "kv": 138.0
+      },
+      "source": "23",
+      "target": "24"
+    },
+    {
+      "eclass": "line",
+      "ename": "23_25_1",
+      "edata": {
+        "km": 30.648,
+        "kv": 138.0
+      },
+      "source": "23",
+      "target": "25"
+    },
+    {
+      "eclass": "line",
+      "ename": "23_32_1",
+      "edata": {
+        "km": 44.172,
+        "kv": 138.0
+      },
+      "source": "23",
+      "target": "32"
+    },
+    {
+      "eclass": "line",
+      "ename": "24_70_1",
+      "edata": {
+        "km": 157.647,
+        "kv": 138.0
+      },
+      "source": "24",
+      "target": "70"
+    },
+    {
+      "eclass": "line",
+      "ename": "24_72_1",
+      "edata": {
+        "km": 75.088,
+        "kv": 138.0
+      },
+      "source": "24",
+      "target": "72"
+    },
+    {
+      "eclass": "line",
+      "ename": "25_27_1",
+      "edata": {
+        "km": 62.446,
+        "kv": 138.0
+      },
+      "source": "25",
+      "target": "27"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "26_25_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "25",
+      "target": "26"
+    },
+    {
+      "eclass": "line",
+      "ename": "26_30_1",
+      "edata": {
+        "km": 274.558,
+        "kv": 345.0
+      },
+      "source": "26",
+      "target": "30"
+    },
+    {
+      "eclass": "line",
+      "ename": "27_28_1",
+      "edata": {
+        "km": 32.755,
+        "kv": 138.0
+      },
+      "source": "27",
+      "target": "28"
+    },
+    {
+      "eclass": "line",
+      "ename": "27_32_1",
+      "edata": {
+        "km": 28.924,
+        "kv": 138.0
+      },
+      "source": "27",
+      "target": "32"
+    },
+    {
+      "eclass": "line",
+      "ename": "28_29_1",
+      "edata": {
+        "km": 36.127,
+        "kv": 138.0
+      },
+      "source": "28",
+      "target": "29"
+    },
+    {
+      "eclass": "line",
+      "ename": "29_31_1",
+      "edata": {
+        "km": 12.681,
+        "kv": 138.0
+      },
+      "source": "29",
+      "target": "31"
+    },
+    {
+      "eclass": "line",
+      "ename": "3_5_1",
+      "edata": {
+        "km": 41.375,
+        "kv": 138.0
+      },
+      "source": "3",
+      "target": "5"
+    },
+    {
+      "eclass": "line",
+      "ename": "30_38_1",
+      "edata": {
+        "km": 172.397,
+        "kv": 345.0
+      },
+      "source": "30",
+      "target": "38"
+    },
+    {
+      "eclass": "line",
+      "ename": "8_30_1",
+      "edata": {
+        "km": 160.904,
+        "kv": 345.0
+      },
+      "source": "30",
+      "target": "8"
+    },
+    {
+      "eclass": "line",
+      "ename": "31_32_1",
+      "edata": {
+        "km": 37.736,
+        "kv": 138.0
+      },
+      "source": "31",
+      "target": "32"
+    },
+    {
+      "eclass": "line",
+      "ename": "33_37_1",
+      "edata": {
+        "km": 54.401,
+        "kv": 138.0
+      },
+      "source": "33",
+      "target": "37"
+    },
+    {
+      "eclass": "line",
+      "ename": "34_36_1",
+      "edata": {
+        "km": 10.267,
+        "kv": 138.0
+      },
+      "source": "34",
+      "target": "36"
+    },
+    {
+      "eclass": "line",
+      "ename": "34_37_1",
+      "edata": {
+        "km": 3.601,
+        "kv": 138.0
+      },
+      "source": "34",
+      "target": "37"
+    },
+    {
+      "eclass": "line",
+      "ename": "34_43_1",
+      "edata": {
+        "km": 64.4,
+        "kv": 138.0
+      },
+      "source": "34",
+      "target": "43"
+    },
+    {
+      "eclass": "line",
+      "ename": "35_36_1",
+      "edata": {
+        "km": 3.908,
+        "kv": 138.0
+      },
+      "source": "35",
+      "target": "36"
+    },
+    {
+      "eclass": "line",
+      "ename": "35_37_1",
+      "edata": {
+        "km": 19.04,
+        "kv": 138.0
+      },
+      "source": "35",
+      "target": "37"
+    },
+    {
+      "eclass": "line",
+      "ename": "37_39_1",
+      "edata": {
+        "km": 40.609,
+        "kv": 138.0
+      },
+      "source": "37",
+      "target": "39"
+    },
+    {
+      "eclass": "line",
+      "ename": "37_40_1",
+      "edata": {
+        "km": 64.362,
+        "kv": 138.0
+      },
+      "source": "37",
+      "target": "40"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "38_37_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "37",
+      "target": "38"
+    },
+    {
+      "eclass": "line",
+      "ename": "38_65_1",
+      "edata": {
+        "km": 314.784,
+        "kv": 345.0
+      },
+      "source": "38",
+      "target": "65"
+    },
+    {
+      "eclass": "line",
+      "ename": "39_40_1",
+      "edata": {
+        "km": 23.178,
+        "kv": 138.0
+      },
+      "source": "39",
+      "target": "40"
+    },
+    {
+      "eclass": "line",
+      "ename": "4_5_1",
+      "edata": {
+        "km": 3.057,
+        "kv": 138.0
+      },
+      "source": "4",
+      "target": "5"
+    },
+    {
+      "eclass": "line",
+      "ename": "40_41_1",
+      "edata": {
+        "km": 18.657,
+        "kv": 138.0
+      },
+      "source": "40",
+      "target": "41"
+    },
+    {
+      "eclass": "line",
+      "ename": "40_42_1",
+      "edata": {
+        "km": 70.108,
+        "kv": 138.0
+      },
+      "source": "40",
+      "target": "42"
+    },
+    {
+      "eclass": "line",
+      "ename": "41_42_1",
+      "edata": {
+        "km": 51.719,
+        "kv": 138.0
+      },
+      "source": "41",
+      "target": "42"
+    },
+    {
+      "eclass": "line",
+      "ename": "42_49_1",
+      "edata": {
+        "km": 123.743,
+        "kv": 138.0
+      },
+      "source": "42",
+      "target": "49"
+    },
+    {
+      "eclass": "line",
+      "ename": "43_44_1",
+      "edata": {
+        "km": 94.014,
+        "kv": 138.0
+      },
+      "source": "43",
+      "target": "44"
+    },
+    {
+      "eclass": "line",
+      "ename": "44_45_1",
+      "edata": {
+        "km": 34.518,
+        "kv": 138.0
+      },
+      "source": "44",
+      "target": "45"
+    },
+    {
+      "eclass": "line",
+      "ename": "45_46_1",
+      "edata": {
+        "km": 51.949,
+        "kv": 138.0
+      },
+      "source": "45",
+      "target": "46"
+    },
+    {
+      "eclass": "line",
+      "ename": "45_49_1",
+      "edata": {
+        "km": 71.257,
+        "kv": 138.0
+      },
+      "source": "45",
+      "target": "49"
+    },
+    {
+      "eclass": "line",
+      "ename": "46_47_1",
+      "edata": {
+        "km": 48.654,
+        "kv": 138.0
+      },
+      "source": "46",
+      "target": "47"
+    },
+    {
+      "eclass": "line",
+      "ename": "46_48_1",
+      "edata": {
+        "km": 72.407,
+        "kv": 138.0
+      },
+      "source": "46",
+      "target": "48"
+    },
+    {
+      "eclass": "line",
+      "ename": "47_49_1",
+      "edata": {
+        "km": 23.944,
+        "kv": 138.0
+      },
+      "source": "47",
+      "target": "49"
+    },
+    {
+      "eclass": "line",
+      "ename": "47_69_1",
+      "edata": {
+        "km": 106.426,
+        "kv": 138.0
+      },
+      "source": "47",
+      "target": "69"
+    },
+    {
+      "eclass": "line",
+      "ename": "48_49_1",
+      "edata": {
+        "km": 19.347,
+        "kv": 138.0
+      },
+      "source": "48",
+      "target": "49"
+    },
+    {
+      "eclass": "line",
+      "ename": "49_50_1",
+      "edata": {
+        "km": 28.809,
+        "kv": 138.0
+      },
+      "source": "49",
+      "target": "50"
+    },
+    {
+      "eclass": "line",
+      "ename": "49_51_1",
+      "edata": {
+        "km": 52.485,
+        "kv": 138.0
+      },
+      "source": "49",
+      "target": "51"
+    },
+    {
+      "eclass": "line",
+      "ename": "49_54_1",
+      "edata": {
+        "km": 111.483,
+        "kv": 138.0
+      },
+      "source": "49",
+      "target": "54"
+    },
+    {
+      "eclass": "line",
+      "ename": "49_66_1",
+      "edata": {
+        "km": 35.207,
+        "kv": 138.0
+      },
+      "source": "49",
+      "target": "66"
+    },
+    {
+      "eclass": "line",
+      "ename": "49_69_1",
+      "edata": {
+        "km": 124.126,
+        "kv": 138.0
+      },
+      "source": "49",
+      "target": "69"
+    },
+    {
+      "eclass": "line",
+      "ename": "5_6_1",
+      "edata": {
+        "km": 20.688,
+        "kv": 138.0
+      },
+      "source": "5",
+      "target": "6"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "8_5_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "5",
+      "target": "8"
+    },
+    {
+      "eclass": "line",
+      "ename": "50_57_1",
+      "edata": {
+        "km": 51.336,
+        "kv": 138.0
+      },
+      "source": "50",
+      "target": "57"
+    },
+    {
+      "eclass": "line",
+      "ename": "51_52_1",
+      "edata": {
+        "km": 22.527,
+        "kv": 138.0
+      },
+      "source": "51",
+      "target": "52"
+    },
+    {
+      "eclass": "line",
+      "ename": "51_58_1",
+      "edata": {
+        "km": 27.545,
+        "kv": 138.0
+      },
+      "source": "51",
+      "target": "58"
+    },
+    {
+      "eclass": "line",
+      "ename": "52_53_1",
+      "edata": {
+        "km": 62.638,
+        "kv": 138.0
+      },
+      "source": "52",
+      "target": "53"
+    },
+    {
+      "eclass": "line",
+      "ename": "53_54_1",
+      "edata": {
+        "km": 46.739,
+        "kv": 138.0
+      },
+      "source": "53",
+      "target": "54"
+    },
+    {
+      "eclass": "line",
+      "ename": "54_55_1",
+      "edata": {
+        "km": 27.085,
+        "kv": 138.0
+      },
+      "source": "54",
+      "target": "55"
+    },
+    {
+      "eclass": "line",
+      "ename": "54_56_1",
+      "edata": {
+        "km": 3.659,
+        "kv": 138.0
+      },
+      "source": "54",
+      "target": "56"
+    },
+    {
+      "eclass": "line",
+      "ename": "54_59_1",
+      "edata": {
+        "km": 87.846,
+        "kv": 138.0
+      },
+      "source": "54",
+      "target": "59"
+    },
+    {
+      "eclass": "line",
+      "ename": "55_56_1",
+      "edata": {
+        "km": 5.785,
+        "kv": 138.0
+      },
+      "source": "55",
+      "target": "56"
+    },
+    {
+      "eclass": "line",
+      "ename": "55_59_1",
+      "edata": {
+        "km": 82.674,
+        "kv": 138.0
+      },
+      "source": "55",
+      "target": "59"
+    },
+    {
+      "eclass": "line",
+      "ename": "56_57_1",
+      "edata": {
+        "km": 37.008,
+        "kv": 138.0
+      },
+      "source": "56",
+      "target": "57"
+    },
+    {
+      "eclass": "line",
+      "ename": "56_58_1",
+      "edata": {
+        "km": 37.008,
+        "kv": 138.0
+      },
+      "source": "56",
+      "target": "58"
+    },
+    {
+      "eclass": "line",
+      "ename": "56_59_1",
+      "edata": {
+        "km": 91.562,
+        "kv": 138.0
+      },
+      "source": "56",
+      "target": "59"
+    },
+    {
+      "eclass": "line",
+      "ename": "59_60_1",
+      "edata": {
+        "km": 55.55,
+        "kv": 138.0
+      },
+      "source": "59",
+      "target": "60"
+    },
+    {
+      "eclass": "line",
+      "ename": "59_61_1",
+      "edata": {
+        "km": 57.466,
+        "kv": 138.0
+      },
+      "source": "59",
+      "target": "61"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "63_59_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "59",
+      "target": "63"
+    },
+    {
+      "eclass": "line",
+      "ename": "6_7_1",
+      "edata": {
+        "km": 7.969,
+        "kv": 138.0
+      },
+      "source": "6",
+      "target": "7"
+    },
+    {
+      "eclass": "line",
+      "ename": "60_61_1",
+      "edata": {
+        "km": 5.172,
+        "kv": 138.0
+      },
+      "source": "60",
+      "target": "61"
+    },
+    {
+      "eclass": "line",
+      "ename": "60_62_1",
+      "edata": {
+        "km": 21.492,
+        "kv": 138.0
+      },
+      "source": "60",
+      "target": "62"
+    },
+    {
+      "eclass": "line",
+      "ename": "61_62_1",
+      "edata": {
+        "km": 14.405,
+        "kv": 138.0
+      },
+      "source": "61",
+      "target": "62"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "64_61_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "61",
+      "target": "64"
+    },
+    {
+      "eclass": "line",
+      "ename": "62_66_1",
+      "edata": {
+        "km": 83.517,
+        "kv": 138.0
+      },
+      "source": "62",
+      "target": "66"
+    },
+    {
+      "eclass": "line",
+      "ename": "62_67_1",
+      "edata": {
+        "km": 44.823,
+        "kv": 138.0
+      },
+      "source": "62",
+      "target": "67"
+    },
+    {
+      "eclass": "line",
+      "ename": "63_64_1",
+      "edata": {
+        "km": 63.851,
+        "kv": 345.0
+      },
+      "source": "63",
+      "target": "64"
+    },
+    {
+      "eclass": "line",
+      "ename": "64_65_1",
+      "edata": {
+        "km": 96.415,
+        "kv": 345.0
+      },
+      "source": "64",
+      "target": "65"
+    },
+    {
+      "eclass": "line",
+      "ename": "65_68_1",
+      "edata": {
+        "km": 51.081,
+        "kv": 345.0
+      },
+      "source": "65",
+      "target": "68"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "65_66_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "65",
+      "target": "66"
+    },
+    {
+      "eclass": "line",
+      "ename": "66_67_1",
+      "edata": {
+        "km": 38.885,
+        "kv": 138.0
+      },
+      "source": "66",
+      "target": "67"
+    },
+    {
+      "eclass": "line",
+      "ename": "68_81_1",
+      "edata": {
+        "km": 64.489,
+        "kv": 345.0
+      },
+      "source": "68",
+      "target": "81"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "68_69_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "68",
+      "target": "69"
+    },
+    {
+      "eclass": "line",
+      "ename": "69_70_1",
+      "edata": {
+        "km": 48.654,
+        "kv": 138.0
+      },
+      "source": "69",
+      "target": "70"
+    },
+    {
+      "eclass": "line",
+      "ename": "69_75_1",
+      "edata": {
+        "km": 46.739,
+        "kv": 138.0
+      },
+      "source": "69",
+      "target": "75"
+    },
+    {
+      "eclass": "line",
+      "ename": "69_77_1",
+      "edata": {
+        "km": 38.694,
+        "kv": 138.0
+      },
+      "source": "69",
+      "target": "77"
+    },
+    {
+      "eclass": "line",
+      "ename": "70_71_1",
+      "edata": {
+        "km": 13.6,
+        "kv": 138.0
+      },
+      "source": "70",
+      "target": "71"
+    },
+    {
+      "eclass": "line",
+      "ename": "70_74_1",
+      "edata": {
+        "km": 50.685,
+        "kv": 138.0
+      },
+      "source": "70",
+      "target": "74"
+    },
+    {
+      "eclass": "line",
+      "ename": "70_75_1",
+      "edata": {
+        "km": 54.018,
+        "kv": 138.0
+      },
+      "source": "70",
+      "target": "75"
+    },
+    {
+      "eclass": "line",
+      "ename": "71_72_1",
+      "edata": {
+        "km": 68.959,
+        "kv": 138.0
+      },
+      "source": "71",
+      "target": "72"
+    },
+    {
+      "eclass": "line",
+      "ename": "71_73_1",
+      "edata": {
+        "km": 17.393,
+        "kv": 138.0
+      },
+      "source": "71",
+      "target": "73"
+    },
+    {
+      "eclass": "line",
+      "ename": "74_75_1",
+      "edata": {
+        "km": 15.554,
+        "kv": 138.0
+      },
+      "source": "74",
+      "target": "75"
+    },
+    {
+      "eclass": "line",
+      "ename": "75_77_1",
+      "edata": {
+        "km": 76.583,
+        "kv": 138.0
+      },
+      "source": "75",
+      "target": "77"
+    },
+    {
+      "eclass": "line",
+      "ename": "76_77_1",
+      "edata": {
+        "km": 56.699,
+        "kv": 138.0
+      },
+      "source": "76",
+      "target": "77"
+    },
+    {
+      "eclass": "line",
+      "ename": "77_78_1",
+      "edata": {
+        "km": 4.75,
+        "kv": 138.0
+      },
+      "source": "77",
+      "target": "78"
+    },
+    {
+      "eclass": "line",
+      "ename": "77_80_1",
+      "edata": {
+        "km": 40.226,
+        "kv": 138.0
+      },
+      "source": "77",
+      "target": "80"
+    },
+    {
+      "eclass": "line",
+      "ename": "77_82_1",
+      "edata": {
+        "km": 32.679,
+        "kv": 138.0
+      },
+      "source": "77",
+      "target": "82"
+    },
+    {
+      "eclass": "line",
+      "ename": "78_79_1",
+      "edata": {
+        "km": 9.348,
+        "kv": 138.0
+      },
+      "source": "78",
+      "target": "79"
+    },
+    {
+      "eclass": "line",
+      "ename": "79_80_1",
+      "edata": {
+        "km": 26.971,
+        "kv": 138.0
+      },
+      "source": "79",
+      "target": "80"
+    },
+    {
+      "eclass": "line",
+      "ename": "8_9_1",
+      "edata": {
+        "km": 97.372,
+        "kv": 345.0
+      },
+      "source": "8",
+      "target": "9"
+    },
+    {
+      "eclass": "line",
+      "ename": "80_96_1",
+      "edata": {
+        "km": 69.725,
+        "kv": 138.0
+      },
+      "source": "80",
+      "target": "96"
+    },
+    {
+      "eclass": "line",
+      "ename": "80_97_1",
+      "edata": {
+        "km": 35.782,
+        "kv": 138.0
+      },
+      "source": "80",
+      "target": "97"
+    },
+    {
+      "eclass": "line",
+      "ename": "80_98_1",
+      "edata": {
+        "km": 41.375,
+        "kv": 138.0
+      },
+      "source": "80",
+      "target": "98"
+    },
+    {
+      "eclass": "line",
+      "ename": "80_99_1",
+      "edata": {
+        "km": 78.919,
+        "kv": 138.0
+      },
+      "source": "80",
+      "target": "99"
+    },
+    {
+      "eclass": "transformer",
+      "ename": "81_80_0_1",
+      "edata": {
+        "km": 1.0
+      },
+      "source": "80",
+      "target": "81"
+    },
+    {
+      "eclass": "line",
+      "ename": "82_83_1",
+      "edata": {
+        "km": 14.041,
+        "kv": 138.0
+      },
+      "source": "82",
+      "target": "83"
+    },
+    {
+      "eclass": "line",
+      "ename": "82_96_1",
+      "edata": {
+        "km": 20.305,
+        "kv": 138.0
+      },
+      "source": "82",
+      "target": "96"
+    },
+    {
+      "eclass": "line",
+      "ename": "83_84_1",
+      "edata": {
+        "km": 50.57,
+        "kv": 138.0
+      },
+      "source": "83",
+      "target": "84"
+    },
+    {
+      "eclass": "line",
+      "ename": "83_85_1",
+      "edata": {
+        "km": 56.699,
+        "kv": 138.0
+      },
+      "source": "83",
+      "target": "85"
+    },
+    {
+      "eclass": "line",
+      "ename": "84_85_1",
+      "edata": {
+        "km": 24.557,
+        "kv": 138.0
+      },
+      "source": "84",
+      "target": "85"
+    },
+    {
+      "eclass": "line",
+      "ename": "85_86_1",
+      "edata": {
+        "km": 47.122,
+        "kv": 138.0
+      },
+      "source": "85",
+      "target": "86"
+    },
+    {
+      "eclass": "line",
+      "ename": "85_88_1",
+      "edata": {
+        "km": 39.077,
+        "kv": 138.0
+      },
+      "source": "85",
+      "target": "88"
+    },
+    {
+      "eclass": "line",
+      "ename": "85_89_1",
+      "edata": {
+        "km": 66.277,
+        "kv": 138.0
+      },
+      "source": "85",
+      "target": "89"
+    },
+    {
+      "eclass": "line",
+      "ename": "86_87_1",
+      "edata": {
+        "km": 79.456,
+        "kv": 138.0
+      },
+      "source": "86",
+      "target": "87"
+    },
+    {
+      "eclass": "line",
+      "ename": "88_89_1",
+      "edata": {
+        "km": 27.277,
+        "kv": 138.0
+      },
+      "source": "88",
+      "target": "89"
+    },
+    {
+      "eclass": "line",
+      "ename": "89_90_1",
+      "edata": {
+        "km": 38.196,
+        "kv": 138.0
+      },
+      "source": "89",
+      "target": "90"
+    },
+    {
+      "eclass": "line",
+      "ename": "89_92_1",
+      "edata": {
+        "km": 60.569,
+        "kv": 138.0
+      },
+      "source": "89",
+      "target": "92"
+    },
+    {
+      "eclass": "line",
+      "ename": "90_91_1",
+      "edata": {
+        "km": 32.028,
+        "kv": 138.0
+      },
+      "source": "90",
+      "target": "91"
+    },
+    {
+      "eclass": "line",
+      "ename": "91_92_1",
+      "edata": {
+        "km": 48.731,
+        "kv": 138.0
+      },
+      "source": "91",
+      "target": "92"
+    },
+    {
+      "eclass": "line",
+      "ename": "92_93_1",
+      "edata": {
+        "km": 32.487,
+        "kv": 138.0
+      },
+      "source": "92",
+      "target": "93"
+    },
+    {
+      "eclass": "line",
+      "ename": "92_94_1",
+      "edata": {
+        "km": 60.53,
+        "kv": 138.0
+      },
+      "source": "92",
+      "target": "94"
+    },
+    {
+      "eclass": "line",
+      "ename": "93_94_1",
+      "edata": {
+        "km": 28.043,
+        "kv": 138.0
+      },
+      "source": "93",
+      "target": "94"
+    },
+    {
+      "eclass": "line",
+      "ename": "94_95_1",
+      "edata": {
+        "km": 16.627,
+        "kv": 138.0
+      },
+      "source": "94",
+      "target": "95"
+    },
+    {
+      "eclass": "line",
+      "ename": "94_96_1",
+      "edata": {
+        "km": 33.292,
+        "kv": 138.0
+      },
+      "source": "94",
+      "target": "96"
+    },
+    {
+      "eclass": "line",
+      "ename": "95_96_1",
+      "edata": {
+        "km": 20.956,
+        "kv": 138.0
+      },
+      "source": "95",
+      "target": "96"
+    },
+    {
+      "eclass": "line",
+      "ename": "96_97_1",
+      "edata": {
+        "km": 33.905,
+        "kv": 138.0
+      },
+      "source": "96",
+      "target": "97"
+    }
+  ]
+}

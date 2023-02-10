@@ -24,16 +24,20 @@ SELECT ?s ?attr ?val where {
 # BESBaseVoltage
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT DISTINCT ?vnom ?id WHERE {
+SELECT DISTINCT ?vnom WHERE {
 # VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
- VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+# VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
  ?sys c:IdentifiedObject.mRID ?sysid.
- ?s c:ConnectivityNode.ConnectivityNodeContainer|c:Equipment.EquipmentContainer ?sys.
- ?s c:ConductingEquipment.BaseVoltage ?lev.
- ?lev c:BaseVoltage.nominalVoltage ?vnom.
- ?lev c:IdentifiedObject.mRID ?id.
+ ?s c:Equipment.EquipmentContainer ?sys.
+ {?s c:ConductingEquipment.BaseVoltage ?lev.}
+  UNION
+ { ?end c:PowerTransformerEnd.PowerTransformer ?s.
+   ?end c:TransformerEnd.BaseVoltage ?lev.}
+ ?lev r:type c:BaseVoltage.
+ ?lev c:BaseVoltage.nominalVoltage ?vstr.
+  bind(xsd:float(?vstr) as ?vnom)
 }
-ORDER by ?vnom
+ORDER BY ?vnom
 
 # BESContainer
 # IEEE118	1783D2A8-1204-4781-A0B4-7A73A2FA6038
@@ -50,14 +54,26 @@ ORDER by ?name
 # BESBus
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?id WHERE {
-# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
- VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+SELECT DISTINCT ?name ?nomv ?id WHERE {
+ VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+# VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
  ?sys c:IdentifiedObject.mRID ?sysid.
  ?s c:ConnectivityNode.ConnectivityNodeContainer ?sys.
  ?s r:type c:ConnectivityNode.
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?id.
+ ?trm c:Terminal.ConnectivityNode ?s.
+ { 
+   ?ce c:Equipment.EquipmentContainer ?sys.
+   ?trm c:Terminal.ConductingEquipment ?ce.
+   ?ce  c:ConductingEquipment.BaseVoltage ?bv.
+ } UNION { 
+   ?pxf c:Equipment.EquipmentContainer ?sys.
+   ?end c:PowerTransformerEnd.PowerTransformer ?pxf.
+   ?end c:TransformerEnd.Terminal ?trm.
+   ?end c:TransformerEnd.BaseVoltage ?bv.
+ }
+ ?bv c:BaseVoltage.nominalVoltage ?nomv.
 }
 ORDER by ?name
 
