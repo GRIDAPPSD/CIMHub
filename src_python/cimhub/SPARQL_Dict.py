@@ -111,7 +111,9 @@ def load_feeder (dict, fid, bTime=True):
 
 def load_bes (dict, sysid, bTime=True):
   for key in ['BESContainer', 'BESBus', 'BESBaseVoltage', 'BESCompSeries', 'BESCompShunt', 'BESLoad', 'BESLine',
-              'BESMachine', 'BESPowerXfmrWinding', 'BESPowerXfmrCore', 'BESPowerXfmrMesh']: # 'BESCountPowerXfmrWindings'
+              'BESMachine', 'BESPowerXfmrWinding', 'BESPowerXfmrCore', 'BESPowerXfmrMesh',
+              'BESExciter', 'BESGovernor', 'BESStabilizer', 'BESWind', 'BESSolar',
+              'BESWeccREGCA', 'BESWeccREECA', 'BESWeccREPCA', 'BESWeccWTGTA', 'BESWeccWTGAA']: # 'BESCountPowerXfmrWindings'
     start_time = time.time()
     query_for_values (dict[key], sysid)
     if bTime:
