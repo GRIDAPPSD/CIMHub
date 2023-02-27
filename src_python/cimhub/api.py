@@ -15,6 +15,7 @@ Public Functions:
 from __future__ import absolute_import
 
 from .ListFeeders import list_feeders
+from .ListBES import list_bes
 from .SummarizeDB import summarize_db
 from .DropCircuit import drop_circuit
 from .ClearDB import clear_db
