@@ -12781,10 +12781,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:9B655BE8-F157-4049-8071-314B2B04EC32">
     <cim:IdentifiedObject.mRID>9B655BE8-F157-4049-8071-314B2B04EC32</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1001_1002_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.399999999999999e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.399999999999999e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>27.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>27.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:C772D5DF-27FD-4BA9-B0AF-70B12559120E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:369BCC1D-C646-4810-9F90-E44A2BB1A6F2"/>
 </cim:TransformerMeshImpedance>
@@ -12846,10 +12846,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:3BCCF1D5-A3CF-4792-A112-8E9F7C44BD46">
     <cim:IdentifiedObject.mRID>3BCCF1D5-A3CF-4792-A112-8E9F7C44BD46</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1001_1002_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.399999999999999e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.399999999999999e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>27.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>27.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:C70CF05C-6682-4821-9B61-F0C096E0CF72"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:1B1675A5-DA43-4186-8A98-92582137BD9B"/>
 </cim:TransformerMeshImpedance>
@@ -12911,10 +12911,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:EDC0FF3B-7F49-4E43-97F3-27CEE44A8836">
     <cim:IdentifiedObject.mRID>EDC0FF3B-7F49-4E43-97F3-27CEE44A8836</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1002_1003_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>2.3524469649233353e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>2.3524469649233353e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.1594202898550725e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.1594202898550725e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.33326999999999996</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.33326999999999996</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>16.42545</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>16.42545</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:B464A6EC-63F0-4677-A002-86CA86E0E857"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:26684E8B-BCA4-4BC1-B16E-0512DF80A2D6"/>
 </cim:TransformerMeshImpedance>
@@ -12976,10 +12976,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:2CBD99FB-E881-4936-8B8A-5701140C9B73">
     <cim:IdentifiedObject.mRID>2CBD99FB-E881-4936-8B8A-5701140C9B73</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1002_1003_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>2.4364629279563116e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>2.4364629279563116e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.16782188615837e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.16782188615837e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.3451725</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.3451725</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>16.544475</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>16.544475</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:DDB8C087-B1D0-4B28-86D8-17659F862C5D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:C859A6F0-58F7-46DD-AB78-87C82B7AB0ED"/>
 </cim:TransformerMeshImpedance>
@@ -13041,10 +13041,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:253921FB-F193-494E-8B6B-403224EE12DB">
     <cim:IdentifiedObject.mRID>253921FB-F193-494E-8B6B-403224EE12DB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1002_1032_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:D82C6090-EACE-43AE-A899-409BC789FEFD"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:63233635-7320-43C0-8C66-DE521ED954A5"/>
 </cim:TransformerMeshImpedance>
@@ -13106,10 +13106,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:B0408F79-49CD-4EF0-9271-FD0CEA62D464">
     <cim:IdentifiedObject.mRID>B0408F79-49CD-4EF0-9271-FD0CEA62D464</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1004_1034_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:5B4E1CBB-83C7-4E57-B8A3-7973CF120FA5"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:E8C2B9E5-35F1-477F-AF8A-90CBE9524141"/>
 </cim:TransformerMeshImpedance>
@@ -13171,10 +13171,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:ADCBB848-5D50-4F25-ACE0-DA74C317097C">
     <cim:IdentifiedObject.mRID>ADCBB848-5D50-4F25-ACE0-DA74C317097C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1101_1102_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.84e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.84e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>36.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>36.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:038255D0-FEE9-4899-BB3D-D3E7A4232A31"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:2D0C7CCF-DA9E-4428-8C69-B168D10358D0"/>
 </cim:TransformerMeshImpedance>
@@ -13236,10 +13236,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:309F7C17-1A9F-4075-A3ED-B589A97A7FFC">
     <cim:IdentifiedObject.mRID>309F7C17-1A9F-4075-A3ED-B589A97A7FFC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1101_1102_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.84e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.84e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>36.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>36.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:E3A4EA4E-082C-46FA-B3A2-AB6038454469"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:B409E3C9-2AF4-4787-A9D1-24815DD4C538"/>
 </cim:TransformerMeshImpedance>
@@ -13301,10 +13301,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:22ADAA38-92A3-4B84-A2E3-952571D2DD6F">
     <cim:IdentifiedObject.mRID>22ADAA38-92A3-4B84-A2E3-952571D2DD6F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1101_1131_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:DC165080-4C22-47DE-B183-7DB13BE0DADB"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:376002F6-B2A8-4079-8A11-31791B1EDD8B"/>
 </cim:TransformerMeshImpedance>
@@ -13366,10 +13366,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:3DE07174-25AF-4D4D-8E83-856079CEBC4F">
     <cim:IdentifiedObject.mRID>3DE07174-25AF-4D4D-8E83-856079CEBC4F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1202_1232_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:4FB2EDAA-E7E5-4B2A-93B6-A52EA19B5592"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:1C7170B3-4880-46DB-BD1F-177EF9E4DAF9"/>
 </cim:TransformerMeshImpedance>
@@ -13431,10 +13431,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:94B14C8E-F5BD-4F04-800F-052AEE31B51C">
     <cim:IdentifiedObject.mRID>94B14C8E-F5BD-4F04-800F-052AEE31B51C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1301_1331_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:E90EEA17-5E2B-4A79-A2D0-A682942BE775"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:71DE9A5F-CDB3-4778-9402-2A42427910E7"/>
 </cim:TransformerMeshImpedance>
@@ -13496,10 +13496,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:70E5305A-A0AB-4AA8-A453-0DA03489A6C0">
     <cim:IdentifiedObject.mRID>70E5305A-A0AB-4AA8-A453-0DA03489A6C0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1302_1303_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.88e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.88e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>18.0</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>18.0</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:6903DE71-7B87-4F7B-8782-55BD2A95ADA9"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:7A5BA0A6-C2A4-4A35-B581-94802765BEAE"/>
 </cim:TransformerMeshImpedance>
@@ -13561,10 +13561,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:DFC3707A-CD04-48F7-A031-31213ABBD109">
     <cim:IdentifiedObject.mRID>DFC3707A-CD04-48F7-A031-31213ABBD109</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1303_1333_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:84F8671B-6DF5-4F0A-BE37-96DFB94790F0"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:9AF3091C-C0B0-4990-8343-210E9BA12CBE"/>
 </cim:TransformerMeshImpedance>
@@ -13626,10 +13626,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:19CAEA22-D1AC-4BCE-8D70-2F848D6E76E1">
     <cim:IdentifiedObject.mRID>19CAEA22-D1AC-4BCE-8D70-2F848D6E76E1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1401_1403_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.1199999999999998e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.1199999999999998e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.52e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.52e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>34.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>34.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:DF0298DA-B908-441F-A598-1CF1FF1D1568"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:EFBA92CF-F2EE-48BA-9E3B-1650C94972C4"/>
 </cim:TransformerMeshImpedance>
@@ -13691,10 +13691,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:0F78543E-4CCB-4826-A6B7-2A8DE87D2BAE">
     <cim:IdentifiedObject.mRID>0F78543E-4CCB-4826-A6B7-2A8DE87D2BAE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1401_1431_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:0595FB51-2C13-4D3F-A6E7-CFE686F0328E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:793C2A95-7C5D-4E83-95F8-9F8AFB9D44CA"/>
 </cim:TransformerMeshImpedance>
@@ -13756,10 +13756,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:FBBFAD74-8795-4CCA-9DFC-7F403E6BB770">
     <cim:IdentifiedObject.mRID>FBBFAD74-8795-4CCA-9DFC-7F403E6BB770</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2000_2030_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:15BF57B8-1ACA-4E75-8268-A37CC821B051"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:7C77FEB8-62E9-4A69-ACAE-ED17C15F3D25"/>
 </cim:TransformerMeshImpedance>
@@ -13821,10 +13821,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:7F61E149-CAEE-4470-8040-EAB0D28EB9C1">
     <cim:IdentifiedObject.mRID>7F61E149-CAEE-4470-8040-EAB0D28EB9C1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2100_2130_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:8A21977E-75B2-40BA-8ECF-D23F2CCDFB32"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:669F9875-9183-499B-81F3-F5D976023B31"/>
 </cim:TransformerMeshImpedance>
@@ -13886,10 +13886,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:D6CDF69F-A8C2-4B06-AF8C-63EB0836B4E9">
     <cim:IdentifiedObject.mRID>D6CDF69F-A8C2-4B06-AF8C-63EB0836B4E9</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2100_2400_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.1199999999999998e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.1199999999999998e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.52e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.52e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>34.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>34.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:7050F175-8088-44CD-926E-9EC7CE5A31EA"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:0BE67F77-11DD-4C1F-8C9A-EDF5E971C26E"/>
 </cim:TransformerMeshImpedance>
@@ -13951,10 +13951,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:3B177D5D-1FC3-4AA0-9A20-74BC1CDF74DB">
     <cim:IdentifiedObject.mRID>3B177D5D-1FC3-4AA0-9A20-74BC1CDF74DB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2201_2202_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:27C448B7-6283-41A4-A19E-A1CAA1E7B7E8"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:A2AD3560-7947-4EF6-8024-CAFCAF102C31"/>
 </cim:TransformerMeshImpedance>
@@ -14016,10 +14016,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:0A3A8584-E614-4C35-898A-76303D9888F2">
     <cim:IdentifiedObject.mRID>0A3A8584-E614-4C35-898A-76303D9888F2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2201_2202_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:7546EBB6-B9B3-430F-B011-8B45227E69C4"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:71CA648F-A3A6-48C8-A7C7-40F5490FED98"/>
 </cim:TransformerMeshImpedance>
@@ -14081,10 +14081,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:9CFB11BA-A2E8-4C14-B866-892995F83055">
     <cim:IdentifiedObject.mRID>9CFB11BA-A2E8-4C14-B866-892995F83055</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2203_2233_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:2209B221-10F3-41DF-B553-5D9C706BF2A7"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:92FC0228-C955-46CF-A665-B6CB5CA49DDC"/>
 </cim:TransformerMeshImpedance>
@@ -14146,10 +14146,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:6189E3BE-4B2D-44E3-B050-F53E48F9973A">
     <cim:IdentifiedObject.mRID>6189E3BE-4B2D-44E3-B050-F53E48F9973A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2301_2302_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:8D6EFD7D-B26D-4C83-AE8A-E909808AC4B7"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:2884CE7E-812C-4B5C-B89E-F96E547B424D"/>
 </cim:TransformerMeshImpedance>
@@ -14211,10 +14211,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:09E98EDB-E1BB-4652-8C10-B46A7EF9526E">
     <cim:IdentifiedObject.mRID>09E98EDB-E1BB-4652-8C10-B46A7EF9526E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2301_2302_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:3C44C663-ECDC-4823-92C6-171BF51159EE"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:87C6F653-4057-4E2D-9D1D-4E228C0C8F5A"/>
 </cim:TransformerMeshImpedance>
@@ -14276,10 +14276,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:80EE367D-05C1-4F39-90EA-34A46E2524A1">
     <cim:IdentifiedObject.mRID>80EE367D-05C1-4F39-90EA-34A46E2524A1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2302_2332_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:051BDD50-F64D-4C97-ACD8-64811F6AB72D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:DACF5958-A1BE-43E0-A92D-AA32837987F4"/>
 </cim:TransformerMeshImpedance>
@@ -14341,10 +14341,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:C24F2CF4-7268-4EE6-BED9-EC5F43448F4E">
     <cim:IdentifiedObject.mRID>C24F2CF4-7268-4EE6-BED9-EC5F43448F4E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2401_2431_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4e-08</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4e-08</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:9100B5B9-4648-44C0-B095-6ED50B0F0801"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:924B31E7-1814-40D4-999C-D31B720B4613"/>
 </cim:TransformerMeshImpedance>
@@ -14406,10 +14406,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:AB508A7A-2404-49A1-BD83-C5B625E30572">
     <cim:IdentifiedObject.mRID>AB508A7A-2404-49A1-BD83-C5B625E30572</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2402_2409_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:CC6E54C3-AD02-49FB-A9A9-0EFB678968FF"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:474A6A75-8A88-46FE-8C63-E91275F0FE78"/>
 </cim:TransformerMeshImpedance>
@@ -14471,10 +14471,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:14AB0355-50A8-4D11-A407-F989D2178CC1">
     <cim:IdentifiedObject.mRID>14AB0355-50A8-4D11-A407-F989D2178CC1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2404_2411_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.596e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.596e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>28.725</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>28.725</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:A1D88A6B-E0FA-4E54-9BCB-6BD52EAB3D15"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:98CB7DB9-9503-4320-95D2-A926D7DB2A6A"/>
 </cim:TransformerMeshImpedance>
@@ -14536,10 +14536,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:185084F0-20AE-4766-9EE1-C6FB8575D310">
     <cim:IdentifiedObject.mRID>185084F0-20AE-4766-9EE1-C6FB8575D310</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2404_2411_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.596e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.596e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>28.725</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>28.725</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:8FA0728C-2735-4778-AC39-2BF5777D641F"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:97377DAF-FD75-4AB6-9FA7-595FA5E84192"/>
 </cim:TransformerMeshImpedance>
@@ -14601,10 +14601,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:9C9BB716-C63F-42B0-9088-1D39BC95C696">
     <cim:IdentifiedObject.mRID>9C9BB716-C63F-42B0-9088-1D39BC95C696</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2404_2411_0_3_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.596e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.596e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>28.725</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>28.725</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:0B8D6E7F-33F5-455B-8D0A-4DD1197EE705"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:D6818904-EE02-4386-BB22-EDF8974DFA9E"/>
 </cim:TransformerMeshImpedance>
@@ -14666,10 +14666,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:A89544E9-0557-400B-B643-3CEED8975402">
     <cim:IdentifiedObject.mRID>A89544E9-0557-400B-B643-3CEED8975402</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2405_2619_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.1739130434782607e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.1739130434782607e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.60835</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.60835</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:1E448448-D563-46E1-B781-4C213651EB74"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:3D4C2972-A8E3-457E-A3EE-87E4902EE0F3"/>
 </cim:TransformerMeshImpedance>
@@ -14731,10 +14731,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:96F78B64-F65A-4111-B0ED-A4D5EDFDF9FD">
     <cim:IdentifiedObject.mRID>96F78B64-F65A-4111-B0ED-A4D5EDFDF9FD</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2408_2438_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:3012C285-F5FE-413F-AEBD-D68AB742025F"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:479C850A-7E04-4AC6-9FE8-D5CE2DF7B450"/>
 </cim:TransformerMeshImpedance>
@@ -14796,10 +14796,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:4FBA89D2-E009-4CDD-9ACF-8C27CD10AC62">
     <cim:IdentifiedObject.mRID>4FBA89D2-E009-4CDD-9ACF-8C27CD10AC62</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2409_2439_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.890359168241966e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.890359168241966e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.0529</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.0529</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:F897449C-9B2C-4A80-90A7-F09C30DA76E3"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:83EF012B-BBED-4D26-9534-C1930F333071"/>
 </cim:TransformerMeshImpedance>
@@ -14861,10 +14861,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:7B14EC15-6364-47B0-AB6C-0BD81C22AA15">
     <cim:IdentifiedObject.mRID>7B14EC15-6364-47B0-AB6C-0BD81C22AA15</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2411_2434_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.890359168241966e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.890359168241966e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.0529</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.0529</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:92F6B185-98D4-4484-B2A4-9CE314DCFC93"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:EE1DDDF9-230A-4837-8B62-60BC175E10CD"/>
 </cim:TransformerMeshImpedance>
@@ -14926,10 +14926,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:1A99172B-707D-450D-A363-DFAFF65BA621">
     <cim:IdentifiedObject.mRID>1A99172B-707D-450D-A363-DFAFF65BA621</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2501_2502_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:5121AE16-8B8D-4F47-968B-0C896B504D18"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:145174C9-16C9-4044-81B5-B6008A05F4F8"/>
 </cim:TransformerMeshImpedance>
@@ -14991,10 +14991,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:BCFABD99-620E-4174-A675-DF65184E1767">
     <cim:IdentifiedObject.mRID>BCFABD99-620E-4174-A675-DF65184E1767</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2501_2502_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:FDC4186C-019D-4ACC-BA76-B80B1DDB6A99"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:97CC80E4-5ED8-4419-9D91-A9748E68E0D5"/>
 </cim:TransformerMeshImpedance>
@@ -15056,10 +15056,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:2E143205-229F-46EB-8DC4-E04BCF47294B">
     <cim:IdentifiedObject.mRID>2E143205-229F-46EB-8DC4-E04BCF47294B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2501_2502_0_3_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:AA50A541-9F00-4142-AA26-CA99F0F078E3"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:2989A4AF-8EDB-4803-94B7-92C4EDE93B72"/>
 </cim:TransformerMeshImpedance>
@@ -15121,10 +15121,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:01AD1308-F24E-498A-B8BF-733BB63BB078">
     <cim:IdentifiedObject.mRID>01AD1308-F24E-498A-B8BF-733BB63BB078</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2503_2533_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:B4B5F42F-13F8-49C3-A066-60A648207E0E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:F9FA20CE-341A-48A1-8864-4B1526F99989"/>
 </cim:TransformerMeshImpedance>
@@ -15186,10 +15186,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:3DD268F7-2103-496A-8D48-1B4F0EE713B2">
     <cim:IdentifiedObject.mRID>3DD268F7-2103-496A-8D48-1B4F0EE713B2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2601_2612_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.0399999999999999e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.0399999999999999e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.544000000000001e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.544000000000001e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.6499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.6499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>34.65</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>34.65</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:71646468-C6D1-46E1-A66A-CBD960069DBE"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:1E04D17C-EC84-4C51-8737-4402AA8E4DD5"/>
 </cim:TransformerMeshImpedance>
@@ -15251,10 +15251,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:13628311-F16D-4ACB-B829-DE08CF700C7A">
     <cim:IdentifiedObject.mRID>13628311-F16D-4ACB-B829-DE08CF700C7A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2602_2615_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>5.1999999999999996e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>5.1999999999999996e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.544000000000001e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.544000000000001e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.32499999999999996</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.32499999999999996</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>34.65</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>34.65</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:E72B9D99-EFFA-431E-A492-40C12032AC3C"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:4B62DA67-7C99-4A14-9CD8-F27FFB8FC3FE"/>
 </cim:TransformerMeshImpedance>
@@ -15316,10 +15316,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:F8886E3D-F1C9-4732-9A6D-C8F3131E7428">
     <cim:IdentifiedObject.mRID>F8886E3D-F1C9-4732-9A6D-C8F3131E7428</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2602_2615_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>5.1999999999999996e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>5.1999999999999996e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.544000000000001e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.544000000000001e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.32499999999999996</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.32499999999999996</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>34.65</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>34.65</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:F769DE84-D9BF-42D4-839D-6841ED202824"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:0FDC78E7-EF6F-4A7D-A115-083C6AAEAC93"/>
 </cim:TransformerMeshImpedance>
@@ -15381,10 +15381,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:C7723D3E-0A9B-4F1F-AE49-06DB59A2104C">
     <cim:IdentifiedObject.mRID>C7723D3E-0A9B-4F1F-AE49-06DB59A2104C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2603_2607_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.352000000000001e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.352000000000001e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.5</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.5</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>58.45</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>58.45</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:D1EC514A-B425-4A73-A3D6-8D7D69F8058E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:1779354D-9196-4EAB-A4C3-78C299206972"/>
 </cim:TransformerMeshImpedance>
@@ -15446,10 +15446,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:9581FD3E-05D7-4C3F-8F81-133C815998E0">
     <cim:IdentifiedObject.mRID>9581FD3E-05D7-4C3F-8F81-133C815998E0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2604_2634_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:1751453B-3300-45B0-A918-2FA18E8C093D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:91A63204-CFC3-4398-8087-05CC7DCBF51C"/>
 </cim:TransformerMeshImpedance>
@@ -15511,10 +15511,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:C32EB04D-1F54-4A07-A595-93DF7F1657D2">
     <cim:IdentifiedObject.mRID>C32EB04D-1F54-4A07-A595-93DF7F1657D2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2605_2621_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>7.16288895094028e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>7.16288895094028e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.8101470213308403e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.8101470213308403e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.48597710000000005</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.48597710000000005</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.2812179</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.2812179</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:FCD3C7A1-874C-4801-8BF7-C391342D9B16"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:73308093-2839-4DE3-AFEB-9CF2EEE5C175"/>
 </cim:TransformerMeshImpedance>
@@ -15576,10 +15576,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:7372AC0D-80C1-4552-88AD-032D27DF2D12">
     <cim:IdentifiedObject.mRID>7372AC0D-80C1-4552-88AD-032D27DF2D12</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2606_2621_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>7.16288895094028e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>7.16288895094028e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.8101470213308403e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.8101470213308403e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.48597710000000005</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.48597710000000005</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>12.2812179</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>12.2812179</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:4CBA186E-0352-4B9F-983B-50AE19D53147"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:C11C4645-3891-4376-9C55-E5F5CA8C3F70"/>
 </cim:TransformerMeshImpedance>
@@ -15641,10 +15641,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:D9A38FFC-A752-4BD2-8135-421A1AE631F6">
     <cim:IdentifiedObject.mRID>D9A38FFC-A752-4BD2-8135-421A1AE631F6</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2608_2638_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:C7C3F0E1-9FD9-4B25-B419-8D426A8750DD"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:8321796A-32BE-475A-BFAA-24B4368E9786"/>
 </cim:TransformerMeshImpedance>
@@ -15706,10 +15706,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:557E4EDD-106A-406B-85D2-5455F5DEBE61">
     <cim:IdentifiedObject.mRID>557E4EDD-106A-406B-85D2-5455F5DEBE61</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2610_2630_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:53F53483-674F-4FB1-9AD0-AF6C69AD86E1"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:DDF8473E-2062-4E03-8025-AB55972A383E"/>
 </cim:TransformerMeshImpedance>
@@ -15771,10 +15771,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:17A8FDF1-CE48-4465-8A9D-ED0758061A04">
     <cim:IdentifiedObject.mRID>17A8FDF1-CE48-4465-8A9D-ED0758061A04</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2611_2631_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:949094B4-81F7-4D06-822C-287AA6A485F2"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:60295ECB-5724-4871-A532-313AFBA1EAE8"/>
 </cim:TransformerMeshImpedance>
@@ -15836,10 +15836,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:4AD955FF-2CF4-4A7C-ACD8-4CF3E90708D8">
     <cim:IdentifiedObject.mRID>4AD955FF-2CF4-4A7C-ACD8-4CF3E90708D8</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2612_2637_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:DCFE547B-2288-45EA-8EBF-61DAF584A25E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:0C4055C8-322F-4F01-84AB-43533DF13A15"/>
 </cim:TransformerMeshImpedance>
@@ -15901,10 +15901,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:CB716F43-A766-4ECC-8F6E-08706DFEDB4A">
     <cim:IdentifiedObject.mRID>CB716F43-A766-4ECC-8F6E-08706DFEDB4A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2614_2621_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>5.671077504725897e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>5.671077504725897e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.5141776937618145e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.5141776937618145e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.15869999999999998</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.15869999999999998</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>7.035699999999999</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>7.035699999999999</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:B5598F76-A231-426D-9770-165DBA1A74D1"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:58702FCF-CD29-434E-A659-1DDA868EBE31"/>
 </cim:TransformerMeshImpedance>
@@ -15966,10 +15966,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:07BB6E5D-6BF7-4B35-991B-ABCF1EF0069E">
     <cim:IdentifiedObject.mRID>07BB6E5D-6BF7-4B35-991B-ABCF1EF0069E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2614_2621_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>5.671077504725897e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>5.671077504725897e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.5330812854442345e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.5330812854442345e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.15869999999999998</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.15869999999999998</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>7.0886000000000005</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>7.0886000000000005</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:9CB17B02-2B5E-47E8-A63C-6AFB633EFD13"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:7D69C30C-F787-47D0-9757-4A9419CCC5EF"/>
 </cim:TransformerMeshImpedance>
@@ -16031,10 +16031,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:3D117B2A-9B6C-4388-9E1F-9658E869B714">
     <cim:IdentifiedObject.mRID>3D117B2A-9B6C-4388-9E1F-9658E869B714</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3102_3104_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.6824196597353496e-06</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.6824196597353496e-06</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.6521739130434784e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.6521739130434784e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.47080999999999995</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.47080999999999995</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>15.8171</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>15.8171</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:83D0CF63-B290-4BE1-868E-49CCCE3CA434"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:7A309DFD-6818-487F-9FDA-9D6256F4AFF0"/>
 </cim:TransformerMeshImpedance>
@@ -16096,10 +16096,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:342FF0F5-168A-48B4-BE25-D55C68945787">
     <cim:IdentifiedObject.mRID>342FF0F5-168A-48B4-BE25-D55C68945787</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3103_3133_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:74E29032-4617-4D48-AF40-EAC49E0B4EAD"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:ABE5C163-BEA5-4288-8CDC-933C406C358D"/>
 </cim:TransformerMeshImpedance>
@@ -16161,10 +16161,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:7D749E68-74BC-4A62-B8EF-AE2E102CCE65">
     <cim:IdentifiedObject.mRID>7D749E68-74BC-4A62-B8EF-AE2E102CCE65</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3105_3135_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>7.561436672967863e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>7.561436672967863e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>3.780718336483932e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>3.780718336483932e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>1.3225e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>1.3225e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.066125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.066125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:668AB0AD-CA16-4209-AB11-453202AF472A"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:9898D3AF-2D00-48B1-824B-ECEE31623EB1"/>
 </cim:TransformerMeshImpedance>
@@ -16226,10 +16226,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:F3F67A66-6EEA-4144-9416-3904798C533A">
     <cim:IdentifiedObject.mRID>F3F67A66-6EEA-4144-9416-3904798C533A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3204_3234_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:FAA5BA16-D912-48F0-861D-8B3E9B3375B8"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:C8A4F011-D9EC-4CE2-9BE0-C21FC68C7DAD"/>
 </cim:TransformerMeshImpedance>
@@ -16291,10 +16291,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:877B6586-C4AA-4E91-A425-E2D107642137">
     <cim:IdentifiedObject.mRID>877B6586-C4AA-4E91-A425-E2D107642137</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3301_3303_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:22F6C11D-AB34-4228-868E-43CB30CF2FC8"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:49F85020-710B-43B5-A216-D7C448EC6E26"/>
 </cim:TransformerMeshImpedance>
@@ -16356,10 +16356,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:06A0C321-E3F6-4E88-BA7E-F247D2AA7A8D">
     <cim:IdentifiedObject.mRID>06A0C321-E3F6-4E88-BA7E-F247D2AA7A8D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3301_3303_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:50110572-F605-41E5-8CF5-5DECB350B03D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:DDEA761E-0C04-44BE-9B4F-704881EFD154"/>
 </cim:TransformerMeshImpedance>
@@ -16421,10 +16421,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:9E078F1A-BB60-486E-9FA7-C095A527AF0D">
     <cim:IdentifiedObject.mRID>9E078F1A-BB60-486E-9FA7-C095A527AF0D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3301_3303_0_3_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:951DAE14-E5B7-4A82-AA12-5BC38A905421"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:68C405C0-561D-46B4-B4E1-DDCEEED874FD"/>
 </cim:TransformerMeshImpedance>
@@ -16486,10 +16486,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:CADA1108-3E90-41CC-BCAE-F23D83D313F7">
     <cim:IdentifiedObject.mRID>CADA1108-3E90-41CC-BCAE-F23D83D313F7</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3303_3333_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:E9F2EB0B-6D31-4196-8B01-1F9603404E73"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:7AD98B93-18C6-4DDF-A042-B47E293C97FB"/>
 </cim:TransformerMeshImpedance>
@@ -16551,10 +16551,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:D9F29362-FAC7-4555-BAFA-01E74DDAF32E">
     <cim:IdentifiedObject.mRID>D9F29362-FAC7-4555-BAFA-01E74DDAF32E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3402_3432_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:98174D63-4ABE-4E05-BD73-002E91E3FC29"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:FF5B872D-4D08-4040-AFC4-C0855E7B29DE"/>
 </cim:TransformerMeshImpedance>
@@ -16616,10 +16616,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:3AB77493-EC00-43DA-91D5-2E74550C33D1">
     <cim:IdentifiedObject.mRID>3AB77493-EC00-43DA-91D5-2E74550C33D1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3403_3433_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:ADF3C24E-A16F-483F-B780-FEC5C5E41713"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:2F1537D9-AC04-4A43-B7CF-568BF1E7F126"/>
 </cim:TransformerMeshImpedance>
@@ -16681,10 +16681,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:1F6A1FDF-1385-4D66-81CB-AC1AE93DCE48">
     <cim:IdentifiedObject.mRID>1F6A1FDF-1385-4D66-81CB-AC1AE93DCE48</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3501_3531_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:A2CDC207-A5A8-4504-8D49-E03411A8D13C"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:250A8826-F25F-4D88-A18E-5E0023344A63"/>
 </cim:TransformerMeshImpedance>
@@ -16746,10 +16746,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:E29C98AC-21E1-4F2C-B465-B2C4481A4DFD">
     <cim:IdentifiedObject.mRID>E29C98AC-21E1-4F2C-B465-B2C4481A4DFD</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3601_3631_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>7.561436672967863e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>7.561436672967863e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>3.780718336483932e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>3.780718336483932e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>1.3225e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>1.3225e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.066125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.066125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:89404F25-A470-4A22-8147-1E4FC2BB245F"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:48A74D8F-3D17-479D-9725-838D0661F108"/>
 </cim:TransformerMeshImpedance>
@@ -16811,10 +16811,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:BB124002-C1A8-4666-B09E-C32D02AA6463">
     <cim:IdentifiedObject.mRID>BB124002-C1A8-4666-B09E-C32D02AA6463</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3701_3731_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>7.561436672967863e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>7.561436672967863e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>3.780718336483932e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>3.780718336483932e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>1.3225e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>1.3225e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.066125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.066125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:AC9473A9-FFC2-4DF4-B3F2-90B5778C94DF"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:8F3B02DB-C8BC-4CCD-A5DD-1FDE854940B3"/>
 </cim:TransformerMeshImpedance>
@@ -16876,10 +16876,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:C71816A3-C1B9-420A-97B0-40740562CA91">
     <cim:IdentifiedObject.mRID>C71816A3-C1B9-420A-97B0-40740562CA91</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3701_6402_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>6.729678638941398e-06</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>6.729678638941398e-06</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>0.00022608695652173914</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>0.00022608695652173914</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.11770249999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.11770249999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>3.954275</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>3.954275</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:F41D2122-E7AB-455B-B06E-5E2D14AFFE76"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:05867E02-5411-4799-94D4-7CF77187123A"/>
 </cim:TransformerMeshImpedance>
@@ -16941,10 +16941,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:D725ED94-F004-477C-BC7B-1B617B353E50">
     <cim:IdentifiedObject.mRID>D725ED94-F004-477C-BC7B-1B617B353E50</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3701_6402_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>6.729678638941398e-06</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>6.729678638941398e-06</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>0.00022608695652173914</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>0.00022608695652173914</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.11770249999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.11770249999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>3.954275</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>3.954275</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:B993DE8C-03E3-4C9F-896C-6DBE1E603457"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:F333675C-3620-438A-9A7B-037E6169445C"/>
 </cim:TransformerMeshImpedance>
@@ -17006,10 +17006,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:C092A674-A0D1-4D6A-AC1D-F481FC855654">
     <cim:IdentifiedObject.mRID>C092A674-A0D1-4D6A-AC1D-F481FC855654</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3801_3831_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:8D28BDE7-9088-4443-94A9-FA3DF2689FE2"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:9666E594-8DD5-40AC-986F-E5BCF1ED84F1"/>
 </cim:TransformerMeshImpedance>
@@ -17071,10 +17071,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:501ED06B-C995-4D86-9E41-E60F62B09C62">
     <cim:IdentifiedObject.mRID>501ED06B-C995-4D86-9E41-E60F62B09C62</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3802_3804_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:2E6D12C1-9D15-42E2-8256-C207B651EAD0"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:278C1206-441C-44F1-8A37-F4FB433DDB9F"/>
 </cim:TransformerMeshImpedance>
@@ -17136,10 +17136,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:EFD7EAE7-2AF2-470B-B777-75804FB90FE9">
     <cim:IdentifiedObject.mRID>EFD7EAE7-2AF2-470B-B777-75804FB90FE9</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3803_3805_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:75D5E21E-BBE8-4826-AA14-B67DC801AE20"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:A1034DC2-644A-428D-AA9C-0013656668C2"/>
 </cim:TransformerMeshImpedance>
@@ -17201,10 +17201,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:BCFEE2AE-6439-47C6-9B51-A3A460A23FB6">
     <cim:IdentifiedObject.mRID>BCFEE2AE-6439-47C6-9B51-A3A460A23FB6</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3803_3805_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.76e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.76e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.5</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.5</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>29.750000000000004</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>29.750000000000004</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:6A2810BC-C8D5-4E85-931A-C81C0D823027"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:A613C175-7166-43D0-9D9B-E18EECA2A38D"/>
 </cim:TransformerMeshImpedance>
@@ -17266,10 +17266,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:C4006F58-43B0-425D-91FD-259353C543EA">
     <cim:IdentifiedObject.mRID>C4006F58-43B0-425D-91FD-259353C543EA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3805_3835_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:356443E0-3663-44D3-8712-B7FA6E93C2FF"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:ED9F8146-6735-4704-8B05-8B9D69D2D7FF"/>
 </cim:TransformerMeshImpedance>
@@ -17331,10 +17331,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:6B64133A-CE65-4811-BCF5-DD6BF82B667C">
     <cim:IdentifiedObject.mRID>6B64133A-CE65-4811-BCF5-DD6BF82B667C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3806_3836_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:8C8E9412-C7C5-42FF-BF64-6E903758F591"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:6E6C3996-E4FD-4A68-A41D-48ADD7F615D2"/>
 </cim:TransformerMeshImpedance>
@@ -17396,10 +17396,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:2D1947F0-D278-439F-B633-37F4D72BD8D6">
     <cim:IdentifiedObject.mRID>2D1947F0-D278-439F-B633-37F4D72BD8D6</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3901_3917_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:BA5AEBAB-CEDB-4F64-85D4-4EAE9DD6F73E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:8C0984C2-A10E-4860-B2A0-73E1CED2A89F"/>
 </cim:TransformerMeshImpedance>
@@ -17461,10 +17461,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:B94443DF-5A7C-4444-A689-8499B63F8632">
     <cim:IdentifiedObject.mRID>B94443DF-5A7C-4444-A689-8499B63F8632</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3902_3918_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:A4D4E963-B619-4509-9C6C-B28E160ACF22"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:48105467-F442-4262-84CE-A7DC9B5F11D6"/>
 </cim:TransformerMeshImpedance>
@@ -17526,10 +17526,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:11E95125-C6EB-4A79-92EE-A976E58AF7DE">
     <cim:IdentifiedObject.mRID>11E95125-C6EB-4A79-92EE-A976E58AF7DE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3902_3932_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:5EE67D52-056F-41A0-B7F9-612D4E2F7EDF"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:B34A715D-102D-4656-B3B5-241A5273C1BD"/>
 </cim:TransformerMeshImpedance>
@@ -17591,10 +17591,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:13EC121F-6ACA-4557-A3EB-50C30B8FA988">
     <cim:IdentifiedObject.mRID>13EC121F-6ACA-4557-A3EB-50C30B8FA988</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3903_3923_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:A6D7C7F1-30A9-4212-997D-743C90D0E11B"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:8F2EF187-9577-487C-A96B-C446E06D8B0E"/>
 </cim:TransformerMeshImpedance>
@@ -17656,10 +17656,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:2A89A5CF-A37C-4CA3-9ADD-ED4E38614CBB">
     <cim:IdentifiedObject.mRID>2A89A5CF-A37C-4CA3-9ADD-ED4E38614CBB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3904_3924_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.5</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.5</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>31.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>31.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:1F1E8183-CAFC-492A-B9F4-7D4D3DACFB89"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:451CE9F3-F1B0-4C1A-ABD3-63338A539813"/>
 </cim:TransformerMeshImpedance>
@@ -17721,10 +17721,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:7126BA43-FADE-4F96-9C1D-EE57C8CE1F01">
     <cim:IdentifiedObject.mRID>7126BA43-FADE-4F96-9C1D-EE57C8CE1F01</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3905_3922_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:4EE44034-3D6D-4326-B939-B1DA7567E90E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:8E4BF5D8-4E39-4073-8A5A-D3A5FF4AF4ED"/>
 </cim:TransformerMeshImpedance>
@@ -17786,10 +17786,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:8FF18845-84E7-474A-A130-D545A20C671B">
     <cim:IdentifiedObject.mRID>8FF18845-84E7-474A-A130-D545A20C671B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3906_3921_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.25</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.25</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:4DAEAA44-FB57-4235-A011-BC4FB76C1B8D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:7472E44E-3A03-4168-A54C-4F890E107C7C"/>
 </cim:TransformerMeshImpedance>
@@ -17851,10 +17851,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:099DC48D-695C-43F8-A34A-601C12B0109A">
     <cim:IdentifiedObject.mRID>099DC48D-695C-43F8-A34A-601C12B0109A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3911_3925_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.6824196597353496e-06</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.6824196597353496e-06</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.6521739130434784e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.6521739130434784e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.47080999999999995</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.47080999999999995</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>15.8171</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>15.8171</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:04591818-A593-48FD-BA1A-8AE354AFF2E5"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:8730C377-36C0-4C7D-B235-F6B214B2275A"/>
 </cim:TransformerMeshImpedance>
@@ -17916,10 +17916,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:83A9ED63-6D84-4578-90E4-F83EB2C1456B">
     <cim:IdentifiedObject.mRID>83A9ED63-6D84-4578-90E4-F83EB2C1456B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3920_3926_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.6824196597353496e-06</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.6824196597353496e-06</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.6521739130434784e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.6521739130434784e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.47080999999999995</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.47080999999999995</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>15.8171</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>15.8171</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:4A99F693-B40D-4937-9152-CA7436D0F526"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:4A84AC5C-986C-40B3-9EFD-2A6AF593E3B6"/>
 </cim:TransformerMeshImpedance>
@@ -17981,10 +17981,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:BFAB0BE8-6B06-4740-A297-A4A663147737">
     <cim:IdentifiedObject.mRID>BFAB0BE8-6B06-4740-A297-A4A663147737</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3920_3926_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.6824196597353496e-06</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.6824196597353496e-06</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>5.6521739130434784e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>5.6521739130434784e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.47080999999999995</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.47080999999999995</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>15.8171</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>15.8171</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:8A5ED417-D329-47FA-890D-54C87D8ACE1A"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:CEE9A996-8394-402B-9A0A-F7658A392F96"/>
 </cim:TransformerMeshImpedance>
@@ -18046,10 +18046,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:A34AE6EC-117A-44E9-9F62-751F2D20E860">
     <cim:IdentifiedObject.mRID>A34AE6EC-117A-44E9-9F62-751F2D20E860</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3921_3931_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:832B705C-1044-48ED-9810-7C3B2230A750"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:1505CEFE-AD04-4996-93FF-F9080EE8A08C"/>
 </cim:TransformerMeshImpedance>
@@ -18111,10 +18111,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:3962E0F7-78C9-4952-AF38-B0E59C70256D">
     <cim:IdentifiedObject.mRID>3962E0F7-78C9-4952-AF38-B0E59C70256D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3923_3933_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:2E81E669-E8A7-4EDC-8B74-A75411981BE0"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:72DF3B5A-1AFE-436F-BDFD-4F81FE2E4570"/>
 </cim:TransformerMeshImpedance>
@@ -18176,10 +18176,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:EE8BF0F1-205B-40BC-A15E-93D158BBBBAC">
     <cim:IdentifiedObject.mRID>EE8BF0F1-205B-40BC-A15E-93D158BBBBAC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4001_4008_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.88e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.88e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>18.0</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>18.0</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:600F5D6E-AE6F-401E-AAC7-733415C66BA4"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:BC67249B-715F-4F9C-A4B9-03AC2038F759"/>
 </cim:TransformerMeshImpedance>
@@ -18241,10 +18241,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:5817D916-B44A-436E-9B02-6C0AD4CC3A45">
     <cim:IdentifiedObject.mRID>5817D916-B44A-436E-9B02-6C0AD4CC3A45</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4001_4031_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:999CDADB-06C3-4671-8A3B-F5D9DDE5A9F7"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:77A8BF16-9E39-4C52-AA7D-6165BB9F99FF"/>
 </cim:TransformerMeshImpedance>
@@ -18306,10 +18306,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:161ED7DF-D2D1-410A-B22D-213E2E3BF4DA">
     <cim:IdentifiedObject.mRID>161ED7DF-D2D1-410A-B22D-213E2E3BF4DA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4005_4035_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:FEC9BA5D-AF3A-49A0-9395-DA7538611738"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:ADBF581E-9758-408B-A9BF-45D5ABE2013C"/>
 </cim:TransformerMeshImpedance>
@@ -18371,10 +18371,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:E86E2FD3-E8FA-48AC-9571-D3A90E00C0C8">
     <cim:IdentifiedObject.mRID>E86E2FD3-E8FA-48AC-9571-D3A90E00C0C8</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4006_4009_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.724e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.724e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.5</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.5</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>29.525</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>29.525</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:84737A24-982B-4301-A00B-B68E834FB5DC"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:5E74EA04-74BD-43A5-A1D6-1C0E898F9FBB"/>
 </cim:TransformerMeshImpedance>
@@ -18436,10 +18436,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:62AA7199-C360-4AD2-9269-850BEF9E6289">
     <cim:IdentifiedObject.mRID>62AA7199-C360-4AD2-9269-850BEF9E6289</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4006_4009_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>3.6000000000000005e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>3.6000000000000005e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.94e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.94e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.225</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.225</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>18.375</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>18.375</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:2A57509A-B266-4619-8730-6CFE0809C664"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:622D61EC-346A-4611-8CB4-7CC34119F721"/>
 </cim:TransformerMeshImpedance>
@@ -18501,10 +18501,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:5E7E2239-BD7E-4A15-9BBB-EC62F77CD1A0">
     <cim:IdentifiedObject.mRID>5E7E2239-BD7E-4A15-9BBB-EC62F77CD1A0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4007_4010_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>8.84e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>8.84e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>5.525</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>5.525</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:2571AF8E-5BA6-4F43-8F95-FA33C68D5683"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:451629A2-3F0F-4164-A24E-0DEC633DA85A"/>
 </cim:TransformerMeshImpedance>
@@ -18566,10 +18566,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:54ACDA98-81E9-4FAA-BDC2-97FC489E163A">
     <cim:IdentifiedObject.mRID>54ACDA98-81E9-4FAA-BDC2-97FC489E163A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4009_4039_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:B6A2C388-765D-43A3-891A-0D6F28D92AB9"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:18A3111F-4E91-4975-92BC-02C848FEA32B"/>
 </cim:TransformerMeshImpedance>
@@ -18631,10 +18631,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:72D2E7AC-8523-484F-8543-7CDD176DC4AF">
     <cim:IdentifiedObject.mRID>72D2E7AC-8523-484F-8543-7CDD176DC4AF</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4101_4131_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:459781D2-5F57-4CCB-8B40-8F8C94D8EFD9"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:F0DEDADB-E8AA-4C73-A094-7FC1E0FC29DD"/>
 </cim:TransformerMeshImpedance>
@@ -18696,10 +18696,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:612FF65B-0CC8-4653-A1F7-7808EA8D77EC">
     <cim:IdentifiedObject.mRID>612FF65B-0CC8-4653-A1F7-7808EA8D77EC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4102_4132_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:8B118EBF-0BB3-4CBC-9F2F-F33B04618EC2"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:B3CB83C0-7DD2-4EA9-9DDB-57085558025B"/>
 </cim:TransformerMeshImpedance>
@@ -18761,10 +18761,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:706A4D05-AF53-4972-BA8D-5B937B9B10F7">
     <cim:IdentifiedObject.mRID>706A4D05-AF53-4972-BA8D-5B937B9B10F7</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4103_4104_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>25.0</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>25.0</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:A8F21060-A02C-4989-9052-0DB7BE95AF1C"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:112449F6-506A-4854-A91C-6893B61D90FF"/>
 </cim:TransformerMeshImpedance>
@@ -18826,10 +18826,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:93B6B762-A0CF-4074-8FBE-0111F221CE12">
     <cim:IdentifiedObject.mRID>93B6B762-A0CF-4074-8FBE-0111F221CE12</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4201_4231_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:FA265637-168C-463D-9A9A-6612F58F4713"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:077BB7A3-0027-48CA-8365-03265BDDCCCA"/>
 </cim:TransformerMeshImpedance>
@@ -18891,10 +18891,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:9CC2BAB6-AAC3-4A33-AD6B-D2531BCDB3E1">
     <cim:IdentifiedObject.mRID>9CC2BAB6-AAC3-4A33-AD6B-D2531BCDB3E1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4202_4232_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:F88B7286-48B9-43D4-AC2B-7FB9B1D26C77"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:213299FB-B8D2-4420-8DE7-5A33EFB83842"/>
 </cim:TransformerMeshImpedance>
@@ -18956,10 +18956,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:CAC03DB7-A5CD-4051-9534-4E4E946D6586">
     <cim:IdentifiedObject.mRID>CAC03DB7-A5CD-4051-9534-4E4E946D6586</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5001_5031_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:4E354BC1-AAD4-4AFB-82CF-3541777BAEF5"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:D0B3D5E1-FD77-4AA2-B309-95D5C906CF34"/>
 </cim:TransformerMeshImpedance>
@@ -19021,10 +19021,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:57D145B4-7EEC-4D3A-A6A3-0ECEA028517A">
     <cim:IdentifiedObject.mRID>57D145B4-7EEC-4D3A-A6A3-0ECEA028517A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5002_5003_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>25.0</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>25.0</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:EFDA10D3-C6E7-443B-8B9A-BFBAE15E2B3C"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:40067252-1377-49F6-94D4-42E5E25081BE"/>
 </cim:TransformerMeshImpedance>
@@ -19086,10 +19086,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:95A20A64-4312-49AD-BC58-54339C72AF52">
     <cim:IdentifiedObject.mRID>95A20A64-4312-49AD-BC58-54339C72AF52</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5002_5032_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:8178DDA0-248B-4FF6-8B8C-0B53F4EEF897"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:9775BB52-0E41-44BC-AFF7-C9EEDC106DBD"/>
 </cim:TransformerMeshImpedance>
@@ -19151,10 +19151,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:4553113D-696B-4995-BC06-9EB37CD56A3B">
     <cim:IdentifiedObject.mRID>4553113D-696B-4995-BC06-9EB37CD56A3B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6101_6102_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.88e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.88e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>18.0</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>18.0</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:60F3255A-63CD-4B23-90C8-D042A61B5509"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:2E7A1F45-CE64-40A5-8A1B-58B1B6B97701"/>
 </cim:TransformerMeshImpedance>
@@ -19216,10 +19216,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:D6D87400-5A69-4D26-93E2-71D13921E90F">
     <cim:IdentifiedObject.mRID>D6D87400-5A69-4D26-93E2-71D13921E90F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6102_6132_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:886F5A30-B555-49AC-A551-2C0C8B091D9E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:1629CBB9-8B51-44E9-BFB1-6FDF46B51EBA"/>
 </cim:TransformerMeshImpedance>
@@ -19281,10 +19281,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:FFD8C032-8C04-44D4-A630-E7676B99B209">
     <cim:IdentifiedObject.mRID>FFD8C032-8C04-44D4-A630-E7676B99B209</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6103_6104_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>2.520478890989288e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>2.520478890989288e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.5206889308968705e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.5206889308968705e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.357075</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.357075</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>21.543525000000002</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>21.543525000000002</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:A9493C5E-62D1-4278-81FE-462834810706"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:F27523D8-F434-4456-8513-012C65B52A84"/>
 </cim:TransformerMeshImpedance>
@@ -19346,10 +19346,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:C6E97135-B40F-4207-86A3-61B23F8539C1">
     <cim:IdentifiedObject.mRID>C6E97135-B40F-4207-86A3-61B23F8539C1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6201_6203_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>7.240000000000001e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>7.240000000000001e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>45.25000000000001</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>45.25000000000001</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:9F34A902-FA2B-4985-9847-5AA3368E9398"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:D1B87064-BEE3-4F12-80F1-AE403AA781B2"/>
 </cim:TransformerMeshImpedance>
@@ -19411,10 +19411,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:3D9D7B61-B208-47B9-B0C1-177D0377C831">
     <cim:IdentifiedObject.mRID>3D9D7B61-B208-47B9-B0C1-177D0377C831</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6201_6231_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00025</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00025</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>1.25</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>1.25</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:56C4F057-3BE1-42C8-9949-C9D3E0A8B9D2"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:6DB6761E-5D74-412F-B328-87BA5BBA5AAE"/>
 </cim:TransformerMeshImpedance>
@@ -19476,10 +19476,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:77BE8640-1B8F-4757-90D2-FA5236A946D1">
     <cim:IdentifiedObject.mRID>77BE8640-1B8F-4757-90D2-FA5236A946D1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6202_6204_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>7.240000000000001e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>7.240000000000001e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>45.25000000000001</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>45.25000000000001</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:AE91ED31-E7FD-4DC7-976F-8C29CD84923D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:3816B490-7842-45D4-B5FD-75B8095CB2DA"/>
 </cim:TransformerMeshImpedance>
@@ -19541,10 +19541,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:2F2F8D73-CF15-4845-A198-5D3319B5DE2B">
     <cim:IdentifiedObject.mRID>2F2F8D73-CF15-4845-A198-5D3319B5DE2B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6205_6235_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:BDF30E0D-9E91-4921-8BE6-5B21212F676D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:0F460409-5EE0-4176-B43B-E8650D8FA1D7"/>
 </cim:TransformerMeshImpedance>
@@ -19606,10 +19606,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:56FF4496-6F08-4FBD-8B8C-08AF2D6E4A13">
     <cim:IdentifiedObject.mRID>56FF4496-6F08-4FBD-8B8C-08AF2D6E4A13</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6301_6303_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>2.520478890989288e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>2.520478890989288e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.5206889308968705e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.5206889308968705e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.357075</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.357075</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>21.543525000000002</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>21.543525000000002</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:3846073B-C03D-4ADD-B3B7-616C6DD36A8E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:4AD899BC-8E49-45CA-8996-DBA2B5B74044"/>
 </cim:TransformerMeshImpedance>
@@ -19671,10 +19671,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:61EAAFE3-43E0-4935-9449-98D6A82FC2A2">
     <cim:IdentifiedObject.mRID>61EAAFE3-43E0-4935-9449-98D6A82FC2A2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6302_6304_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>2.520478890989288e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>2.520478890989288e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.5206889308968705e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.5206889308968705e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.357075</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.357075</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>21.543525000000002</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>21.543525000000002</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:53791C13-EDEE-4634-8A46-7F8B145787AC"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:FBB7E6B3-1BA5-4299-8983-E499CE1F0884"/>
 </cim:TransformerMeshImpedance>
@@ -19736,10 +19736,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:993B5A5B-84F6-4D08-8220-C2600A10CE41">
     <cim:IdentifiedObject.mRID>993B5A5B-84F6-4D08-8220-C2600A10CE41</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6303_6333_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:3EE2C168-9FF2-4B35-A68A-FA6600E9D35E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:2CFA91E8-1F32-45C5-8637-0C3E6D9DF6DE"/>
 </cim:TransformerMeshImpedance>
@@ -19801,10 +19801,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:E5AADBDD-B707-4EE8-A8B0-019C2A211103">
     <cim:IdentifiedObject.mRID>E5AADBDD-B707-4EE8-A8B0-019C2A211103</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6305_6335_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:D9E711D2-AC3C-45D7-AB6E-70E9BB56D2AE"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:9358EEAF-E724-471B-8065-FEDC750260BA"/>
 </cim:TransformerMeshImpedance>
@@ -19866,10 +19866,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:07171332-82A3-48DE-AC61-532F2A626E70">
     <cim:IdentifiedObject.mRID>07171332-82A3-48DE-AC61-532F2A626E70</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6401_6402_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>7.477420709934887e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>7.477420709934887e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.5120772946859902e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.5120772946859902e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>1.0593225</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>1.0593225</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>35.588475</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>35.588475</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:400ECB4C-7837-459E-8E40-84E57C40345D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:9E1EAFA8-DC3D-46E5-8507-648BA6B90234"/>
 </cim:TransformerMeshImpedance>
@@ -19931,10 +19931,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:40377B74-279F-4A5C-8CB6-15D65B9E7D88">
     <cim:IdentifiedObject.mRID>40377B74-279F-4A5C-8CB6-15D65B9E7D88</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6401_6402_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>7.477420709934887e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>7.477420709934887e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>2.5120772946859902e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>2.5120772946859902e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>1.0593225</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>1.0593225</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>35.588475</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>35.588475</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:AE5583DD-4231-48AF-ACCB-9A6DB4ACA97C"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:E2C983CC-9DD3-495A-91CF-638AE21311BE"/>
 </cim:TransformerMeshImpedance>
@@ -19996,10 +19996,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:58040956-572D-4B3B-8018-404B7777B7A6">
     <cim:IdentifiedObject.mRID>58040956-572D-4B3B-8018-404B7777B7A6</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6403_6433_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:9D71C8EA-8E23-48D9-9A92-D1007F1D6A8B"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:5EA4577B-23A6-46A1-83D8-97541F29CD6E"/>
 </cim:TransformerMeshImpedance>
@@ -20061,10 +20061,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:E440DF74-C626-42DD-9072-7AA2D7D687D0">
     <cim:IdentifiedObject.mRID>E440DF74-C626-42DD-9072-7AA2D7D687D0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6501_6510_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>2.520478890989288e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>2.520478890989288e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.5206889308968705e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.5206889308968705e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.357075</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.357075</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>21.543525000000002</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>21.543525000000002</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:CE2A9618-1B30-4BC0-9D38-2FE712E6A906"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:4CC9563E-DF7D-474C-B7BC-9267CA464A9E"/>
 </cim:TransformerMeshImpedance>
@@ -20126,10 +20126,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:483AF381-785E-43BA-89D8-D6FFB0E4BF54">
     <cim:IdentifiedObject.mRID>483AF381-785E-43BA-89D8-D6FFB0E4BF54</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6501_6510_0_2_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>2.520478890989288e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>2.520478890989288e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.5206889308968705e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.5206889308968705e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.357075</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.357075</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>21.543525000000002</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>21.543525000000002</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:1D834DCB-E211-4F69-837E-0555C808528E"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:620B347F-334A-44AD-9042-6DBCDD7B8C49"/>
 </cim:TransformerMeshImpedance>
@@ -20191,10 +20191,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:87C80DC7-F2AB-4580-B74C-6A19D836E4AF">
     <cim:IdentifiedObject.mRID>87C80DC7-F2AB-4580-B74C-6A19D836E4AF</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6503_6533_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:59BCDBE2-E4BC-4C4A-9FEA-D26B278D60C9"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:6B1F8591-6B49-4678-BC8A-55A96A08AB87"/>
 </cim:TransformerMeshImpedance>
@@ -20256,10 +20256,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:5AF381B2-B212-40F5-9819-12E987725FB2">
     <cim:IdentifiedObject.mRID>5AF381B2-B212-40F5-9819-12E987725FB2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6505_6506_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>1.6383112791430373e-05</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>1.6383112791430373e-05</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>23.209875</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>23.209875</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:F1283B2A-A24A-41E7-AFF8-04FE1529AB10"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:7260D9CF-BD5A-4738-B67A-5D12B93A73F5"/>
 </cim:TransformerMeshImpedance>
@@ -20321,10 +20321,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:799815DB-E3F9-4AB8-888E-D0B7D2AA5108">
     <cim:IdentifiedObject.mRID>799815DB-E3F9-4AB8-888E-D0B7D2AA5108</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7001_7031_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:3914B750-4F05-40BB-8BC1-BB8A1E58948C"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:680BD05C-DFFB-45DA-88A2-DAD76A05C055"/>
 </cim:TransformerMeshImpedance>
@@ -20386,10 +20386,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:A96949E6-ECA9-465E-961C-351E17402464">
     <cim:IdentifiedObject.mRID>A96949E6-ECA9-465E-961C-351E17402464</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7002_7032_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>8.401596303297627e-11</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>8.401596303297627e-11</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>4.200798151648813e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>4.200798151648813e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.00011902499999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.00011902499999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.595125</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.595125</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:EBDA512C-6BA1-4FBF-98F9-9F91BFA41F4D"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:046C4CB7-27B2-4860-99A7-35A85FEFCF86"/>
 </cim:TransformerMeshImpedance>
@@ -20451,10 +20451,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:87D01663-A1C3-463D-8A12-6F8628539BAC">
     <cim:IdentifiedObject.mRID>87D01663-A1C3-463D-8A12-6F8628539BAC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>8001_8003_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>4e-08</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>4e-08</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.25</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.25</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:1827D81E-BFF1-4A83-B4ED-F2BEF0517FB6"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:8660A8B2-8CE3-43E5-9728-D75C120E7FD7"/>
 </cim:TransformerMeshImpedance>
@@ -20516,10 +20516,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:45DC7840-57A5-489E-A082-1D9BFFE79B03">
     <cim:IdentifiedObject.mRID>45DC7840-57A5-489E-A082-1D9BFFE79B03</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>8002_8005_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.2e-07</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.2e-07</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>6.9599999999999994e-06</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>6.9599999999999994e-06</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>0.7499999999999999</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>0.7499999999999999</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>43.5</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>43.5</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:C2782CA5-EEF0-4045-A6F2-7E6030E3602C"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:4424F1D1-350A-4C16-BFF0-270732A3EC62"/>
 </cim:TransformerMeshImpedance>
@@ -20581,10 +20581,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:E6A7B992-0364-4F76-A542-1A8CD6090E94">
     <cim:IdentifiedObject.mRID>E6A7B992-0364-4F76-A542-1A8CD6090E94</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>8003_8033_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:A98665F7-B310-4977-9D6C-76D6FEEEB46F"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:BD688BA4-B103-42F5-AE98-853F4815CB5C"/>
 </cim:TransformerMeshImpedance>
@@ -20646,10 +20646,10 @@
 <cim:TransformerMeshImpedance rdf:about="urn:uuid:CA856FFC-7AA0-4734-A57F-8D534044E2EB">
     <cim:IdentifiedObject.mRID>CA856FFC-7AA0-4734-A57F-8D534044E2EB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>8004_8034_0_1_Mesh</cim:IdentifiedObject.name>
-    <cim:TransformerMeshImpedance.r>1.8903591682419658e-10</cim:TransformerMeshImpedance.r>
-    <cim:TransformerMeshImpedance.r0>1.8903591682419658e-10</cim:TransformerMeshImpedance.r0>
-    <cim:TransformerMeshImpedance.x>9.45179584120983e-07</cim:TransformerMeshImpedance.x>
-    <cim:TransformerMeshImpedance.x0>9.45179584120983e-07</cim:TransformerMeshImpedance.x0>
+    <cim:TransformerMeshImpedance.r>5.29e-05</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.r0>5.29e-05</cim:TransformerMeshImpedance.r0>
+    <cim:TransformerMeshImpedance.x>0.2645</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.x0>0.2645</cim:TransformerMeshImpedance.x0>
     <cim:TransformerMeshImpedance.FromTransformerEnd rdf:resource="urn:uuid:C36C6EBB-1D3D-4BA1-8B3C-E34A0C2FDBF4"/>
     <cim:TransformerMeshImpedance.ToTransformerEnd rdf:resource="urn:uuid:31B89776-866F-4244-90A9-A81B9E69B903"/>
 </cim:TransformerMeshImpedance>
