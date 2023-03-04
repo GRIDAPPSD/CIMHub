@@ -2,13 +2,25 @@
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import sys
-#import math
-#import json
 import os
 
+
+# example in Octave:
+
+# cd c:\src\cimhub\bes
+# mpc = loadcase(WECC240);
+# case_info(mpc)
+# mpc = scale_load(1.0425,mpc);
+# results=runpf(mpc);
+# define_constants
+# mg=[results.gen(:,PG),results.gen(:,QG)]
+# mb=[results.bus(:,VM),results.bus(:,VA)]
+# csvwrite('wecc240mg.txt',mg)
+# csvwrite('wecc240mb.txt',mb)
+
 CASES = [
-  {'id': '1783D2A8-1204-4781-A0B4-7A73A2FA6038', 'name': 'IEEE118', 'swingbus':131},
-  {'id': '2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3', 'name': 'WECC240', 'swingbus':131},
+  {'id': '1783D2A8-1204-4781-A0B4-7A73A2FA6038', 'name': 'IEEE118', 'swingbus':'131'},
+  {'id': '2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3', 'name': 'WECC240', 'swingbus':'2438'},
 ]
 
 FUELS = {
@@ -35,7 +47,7 @@ def get_gencosts(fuel):
     c0 = FUELS[fuel]['c0']
   return c2, c1, c0
 
-def add_mpc_generator (gens, data, bus_generation, bus_headroom):
+def add_mpc_generator (gens, data, bus_numbers, bus_generation, bus_headroom):
   busnum = int(data['bus'])
   Pg = data['p']/1.0e6
   Pmax = data['maxP']/1.0e6
@@ -51,7 +63,7 @@ def add_mpc_generator (gens, data, bus_generation, bus_headroom):
   status = 1
   if Pg <= 0.0:
     status = 1
-  gens.append ({'bus':int(data['bus']),
+  gens.append ({'bus':bus_numbers[data['bus']],
                 'Pg':Pg,
                 'Qg':data['q']/1.0e6,
                 'Qmax':data['maxQ']/1.0e6,
@@ -64,6 +76,21 @@ def add_mpc_generator (gens, data, bus_generation, bus_headroom):
                 'Pc1':0.0, 'Pc2':0.0, 'Qc1min':0.0, 'Qc1max':0.0, 'Qc2min':0.0, 'Qc2max':0.0,
                 'ramp_agc':0.0, 'ramp_10':0.0, 'ramp_30':0.0, 'ramp_q':0.0, 'apf':0.0})
 
+def build_bus_lists (d):
+  bNumeric = True
+  for key in d['BESBus']['vals']:
+    if not key.isdigit():
+      bNumeric = False
+      break
+  if bNumeric:
+    ordered_buses = dict(sorted(d['BESBus']['vals'].items(), key=lambda x:int(x[0])))
+  bus_numbers = {}
+  busnum = 1
+  for key, data in ordered_buses.items():
+    bus_numbers[key] = busnum
+    busnum += 1
+  return ordered_buses, bus_numbers
+
 def build_matpower (d, sys_name, fp, swingbus):
   print ('function mpc = {:s}'.format(sys_name), file=fp)
   print ('mpc.version = "2";', file=fp)
@@ -75,9 +102,9 @@ def build_matpower (d, sys_name, fp, swingbus):
 mpc.bus = [""", file=fp)
   mpc_buses = []
   mpc_bus_names = []
-  # rely on the fact that bus names are actually consecutive integers
-  # if not, we would need to map the bus names to consecutive bus numbers
-  ordered_buses = dict(sorted(d['BESBus']['vals'].items(), key=lambda x:int(x[0])))
+  # MATPOWER needs to number the buses as consecutive integers, and
+  # we need to map the bus names (not necessarily integer) to MATPOWER bus numbers
+  ordered_buses, bus_numbers = build_bus_lists(d)
   for key, data in ordered_buses.items():
     mpc_buses.append ({'bus_i':len(mpc_buses)+1,
                        'type':1,
@@ -96,13 +123,13 @@ mpc.bus = [""", file=fp)
   # add loads and shunts to buses
   total_load = 0.0
   for key, data in d['BESLoad']['vals'].items():
-    idx = int(data['bus'])-1
+    idx = bus_numbers[data['bus']]-1
     Pd = data['p'] / 1.0e6
     total_load += Pd
     mpc_buses[idx]['Pd'] += Pd
     mpc_buses[idx]['Qd'] += data['q'] / 1.0e6
   for key, data in d['BESCompShunt']['vals'].items():
-    idx = int(data['bus'])-1
+    idx = bus_numbers[data['bus']]-1
     scale = data['sections']*data['nomu']*data['nomu']/1.0e6
     mpc_buses[idx]['Gs'] += data['gsection']*scale
     mpc_buses[idx]['Bs'] += data['bsection']*scale
@@ -113,21 +140,21 @@ mpc.bus = [""", file=fp)
   bus_generation = {}
   bus_headroom = {}
   for key, data in d['BESMachine']['vals'].items():
-    idx = int(data['bus'])-1
+    idx = bus_numbers[data['bus']]-1
     mpc_buses[idx]['type'] = 2
-    add_mpc_generator (mpc_generators, data, bus_generation, bus_headroom)
+    add_mpc_generator (mpc_generators, data, bus_numbers, bus_generation, bus_headroom)
     mpc_genfuels.append('hydro')
     mpc_gentypes.append('HY')
   for key, data in d['BESSolar']['vals'].items():
-    idx = int(data['bus'])-1
+    idx = bus_numbers[data['bus']]-1
     mpc_buses[idx]['type'] = 2
-    add_mpc_generator (mpc_generators, data, bus_generation, bus_headroom)
+    add_mpc_generator (mpc_generators, data, bus_numbers, bus_generation, bus_headroom)
     mpc_genfuels.append('solar')
     mpc_gentypes.append('PV')
   for key, data in d['BESWind']['vals'].items():
-    idx = int(data['bus'])-1
+    idx = bus_numbers[data['bus']]-1
     mpc_buses[idx]['type'] = 2
-    add_mpc_generator (mpc_generators, data, bus_generation, bus_headroom)
+    add_mpc_generator (mpc_generators, data, bus_numbers, bus_generation, bus_headroom)
     mpc_genfuels.append('wind')
     mpc_gentypes.append('WT')
   max_bus = max(bus_generation, key=bus_generation.get)
@@ -138,7 +165,8 @@ mpc.bus = [""", file=fp)
   print ('bus {:d} has maximum headroom of {:.2f} MW and generation of {:.2f} MW'.format (head_bus, 
                                                                                           bus_headroom[head_bus], 
                                                                                           bus_generation[head_bus]))
-  mpc_buses[swingbus-1]['type'] = 3
+  swingbus_num = bus_numbers[swingbus]
+  mpc_buses[swingbus_num-1]['type'] = 3
   for data in mpc_buses:
     print (' {:5d} {:2d} {:9.3f} {:9.3f} {:9.3f} {:9.3f} {:3d} {:7.4f} {:7.4f} {:7.3f} {:3d} {:6.3f} {:6.3f};'.format(
       data['bus_i'], data['type'], data['Pd'], data['Qd'], data['Gs'], data['Bs'], data['area'], data['Vm'], data['Va'], 
@@ -163,7 +191,7 @@ mpc.gen = [""", file=fp)
   for key, data in d['BESPowerXfmrWinding']['vals'].items():
     toks = key.split(':')
     pname = toks[0]
-    bus = int(data['bus'])
+    bus = bus_numbers[data['bus']]
     if pname not in xfmrs:
       mva = data['ratedS'] / 1.0e6
       kv = data['ratedU'] / 1.0e3
@@ -180,8 +208,8 @@ mpc.gen = [""", file=fp)
 %	fbus tbus r x b rateA rateB rateC ratio angle status angmin angmax
 mpc.branch = [""", file=fp)
   for key, data in d['BESLine']['vals'].items():
-    bus1 = int(data['bus1'])
-    bus2 = int(data['bus2'])
+    bus1 = bus_numbers[data['bus1']]
+    bus2 = bus_numbers[data['bus2']]
     kvbase = data['basev']/1000.0
     zbase = kvbase*kvbase/MVA_BASE
     q = data['b']*kvbase*kvbase
@@ -190,8 +218,8 @@ mpc.branch = [""", file=fp)
     b = q/MVA_BASE
     print (' {:5d} {:5d} {:9.6f} {:9.6f} {:9.6f} 0.0 0.0 0.0 0.0 0.0 1 0.0 0.0;'.format (bus1, bus2, r, x, b), file=fp)
   for key, data in d['BESCompSeries']['vals'].items():
-    bus1 = int(data['bus1'])
-    bus2 = int(data['bus2'])
+    bus1 = bus_numbers[data['bus1']]
+    bus2 = bus_numbers[data['bus2']]
     kvbase = data['basev']/1000.0
     zbase = kvbase*kvbase/MVA_BASE
     r = data['r']/zbase
@@ -246,6 +274,7 @@ mpc.bus_name = {""", file=fp)
 #  print ('];', file=fp)
 
   print ('wrote {:d} generators totaling {:.2f} MW for loads totaling {:.2f} MW'.format(len(mpc_generators), total_gen, total_load))
+  print ('suggest mpc = scale_load ({:.4f}, mpc)'.format(total_gen/total_load))
 
 if __name__ == '__main__':
   CIMHubConfig.ConfigFromJsonFile ('cimhubconfig.json')
@@ -265,6 +294,7 @@ if __name__ == '__main__':
 #  cimhub.list_dict_table (d, 'BESMachine')
 #  cimhub.list_dict_table (d, 'BESPowerXfmrMesh')
 #  cimhub.list_dict_table (d, 'BESBus')
+#  cimhub.list_dict_table (d, 'BESCompShunt')
 
   build_matpower (d, sys_name, fp, CASES[case_id]['swingbus'])
   fp.close()
