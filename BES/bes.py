@@ -20,8 +20,8 @@ CASES = [
 nodeTypes = {
   'load':  {'color':'green', 'tag':'Load',  'size':15},
   'gen':   {'color':'red',   'tag':'Gen',   'size':20},
-  'solar': {'color':'gold',  'tag':'Solar', 'size':20},
-  'wind':  {'color':'blue',  'tag':'Wind',  'size':20},
+  'solar': {'color':'orange','tag':'Solar', 'size':30},
+  'wind':  {'color':'blue',  'tag':'Wind',  'size':30},
   'bus':   {'color':'black', 'tag':'Bus',   'size':10}
   }
 
@@ -45,7 +45,7 @@ def get_edge_highlights(data):
     weight = 3.0
     color = edgeTypes['transformer']['color']
   elif data['eclass'] == 'series':
-    weight = 3.0
+    weight = 10.0
     color = edgeTypes['series']['color']
   else: # 'line'
     kv = data['edata']['kv']
@@ -110,12 +110,23 @@ def plot_system_graph (G, sys_name):
     edgeWidths.append (width)
     edgeColors.append (color)
 
-  # create the plot with autolayout
-  fig, ax = plt.subplots()
+  # construct XY coordinates for plotting the network
+  xy = {}
+  bMissing = False
+  for n, data in G.nodes(data=True):
+    ndata = data['ndata']
+    if ('x' in ndata) and ('y' in ndata):
+      xy[n] = [float(ndata['x']), float(ndata['y'])]
+    else:
+      bMissing = True
+      break
+  if bMissing:
+    print ('Missing some node XY data, generating default coordinates')
+    xy = nx.kamada_kawai_layout (G, weight='km')
 
-  #nx.draw(G)
+  # create the plot
+  fig, ax = plt.subplots(figsize=(10,8))
 
-  xy = nx.kamada_kawai_layout (G, weight='km')
   nx.draw_networkx_nodes (G, xy, nodelist=plotNodes, node_color=nodeColors, node_size=nodeSizes, ax=ax)
   nx.draw_networkx_edges (G, xy, edgelist=plotEdges, edge_color=edgeColors, width=edgeWidths, alpha=0.8, ax=ax)
 
@@ -132,16 +143,35 @@ def plot_system_graph (G, sys_name):
   ax.legend(lns, labs, loc='lower left')
   plt.show()
 
-def build_system_graph (dict):
+def km_distance (G, n1, n2):
+#  seq = nx.dijkstra_path(G, n1, n2)
+  seq = nx.shortest_path(G, n1, n2)
+#  print (seq)
+  edges = zip(seq[0:], seq[1:])
+  km = 0.0
+  for u, v in edges:
+#    print(G[u][v])
+    km += G[u][v]['edata']['km']
+  return km
+
+def build_system_graph (d):
   # accumulate loads and generation onto the buses
-  buses = dict['BESBus']['vals']
-  for key, data in dict['BESLoad']['vals'].items():
+  buses = d['BESBus']['vals']
+  for key, data in d['BESLoad']['vals'].items():
     buses[data['bus']]['has_load'] = True
-  for key, data in dict['BESMachine']['vals'].items():
+  for key, data in d['BESMachine']['vals'].items():
     buses[data['bus']]['has_gen'] = True
+  for key, data in d['BESSolar']['vals'].items():
+    buses[data['bus']]['has_solar'] = True
+  for key, data in d['BESWind']['vals'].items():
+    buses[data['bus']]['has_wind'] = True
   G = nx.Graph()
   for key, data in buses.items():
-    if 'has_gen' in data:
+    if 'has_solar' in data:
+      nclass='solar'
+    elif 'has_wind' in data:
+      nclass='wind'
+    elif 'has_gen' in data:
       nclass='gen'
     elif 'has_load' in data:
       nclass='load'
@@ -150,7 +180,7 @@ def build_system_graph (dict):
     G.add_node (key, nclass=nclass, ndata={'kv':0.001*data['nomv']})
   # accumulate the transformer windings into transformers
   xfmrs = {}
-  for key, data in dict['BESPowerXfmrWinding']['vals'].items():
+  for key, data in d['BESPowerXfmrWinding']['vals'].items():
     toks = key.split(':')
     pname = toks[0]
     busnum = 'bus{:s}'.format(toks[1])
@@ -160,15 +190,32 @@ def build_system_graph (dict):
       xfmrs[pname][busnum] = data['bus']
 
   # add line, transformer, series compensator branches
-  for key, data in dict['BESLine']['vals'].items():
+  for key, data in d['BESLine']['vals'].items():
+    km = round(0.001*data['len'],3)
     G.add_edge(data['bus1'],data['bus2'],eclass='line',ename=key,
-               edata={'km':round(0.001*data['len'],3), 'kv':0.001*data['basev']})
+               edata={'km':km, 'kv':0.001*data['basev']}, weight=km)
   for key, data in xfmrs.items():
     G.add_edge(data['bus1'],data['bus2'],eclass='transformer',ename=key,
-               edata={'km':1.0})
-  for key, data in dict['BESCompSeries']['vals'].items():
+               edata={'km':1.0}, weight=1.0)
+  for key, data in d['BESCompSeries']['vals'].items():
     G.add_edge(data['bus1'],data['bus2'],eclass='series',ename=key,
-               edata={'km':1.0, 'kv':0.001*data['basev']})
+               edata={'km':1.0, 'kv':0.001*data['basev']}, weight=1.0)
+
+  # create XY coordinates for the buses
+  dist = {}
+  for n1 in G.nodes():
+    if n1 not in dist:
+      dist[n1] = {}
+    for n2 in G.nodes():
+      dist[n1][n2] = km_distance(G, n1, n2)
+#  dist = dict(nx.shortest_path_length(G))
+#  print (dist['99']['119'], dist['99']['99'], km_distance (G, '99', '119'))
+
+  xy = nx.kamada_kawai_layout (G, dist=dist)
+  for bus, row in xy.items():
+    G.nodes()[bus]['ndata']['x'] = row[0]
+    G.nodes()[bus]['ndata']['y'] = row[1]
+
   return G
 
 def save_system_graph (G, fname):
@@ -185,12 +232,12 @@ if __name__ == '__main__':
   sys_id = CASES[case_id]['id']
   sys_name = CASES[case_id]['name']
 
-  dict = cimhub.load_bes_dict ('qbes.xml', sys_id, bTime=False)
-  cimhub.summarize_bes_dict (dict)
-  cimhub.list_dict_table (dict, 'BESContainer')
-  cimhub.list_dict_table (dict, 'BESBaseVoltage')
+  d = cimhub.load_bes_dict ('qbes.xml', sys_id, bTime=False)
+#  cimhub.summarize_bes_dict (d)
+#  cimhub.list_dict_table (d, 'BESContainer')
+#  cimhub.list_dict_table (d, 'BESBaseVoltage')
 
-  G = build_system_graph (dict)
+  G = build_system_graph (d)
   save_system_graph (G, '{:s}_Network.json'.format(sys_name))
   plot_system_graph (G, sys_name)
 
