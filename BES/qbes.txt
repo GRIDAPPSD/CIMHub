@@ -159,13 +159,14 @@ ORDER BY ?key
 # BESPowerXfmrWinding
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id WHERE {
+SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id ?pid WHERE {
 # VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
  VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
  ?sys c:IdentifiedObject.mRID ?sysid.
  ?p c:Equipment.EquipmentContainer ?sys.
  ?p r:type c:PowerTransformer.
  ?p c:IdentifiedObject.name ?pname.
+ ?p c:IdentifiedObject.mRID ?pid.
  ?p c:PowerTransformer.vectorGroup ?vgrp.
  ?end c:PowerTransformerEnd.PowerTransformer ?p.
  ?end c:TransformerEnd.endNumber ?enum.
@@ -230,7 +231,7 @@ PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
 SELECT ?name ?type ?bus ?ratedS ?ratedU ?p ?q ?maxP ?minP ?maxQ ?minQ
        ?Xd ?Xdp ?Xdpp ?Xq ?Xqp ?Xqpp ?Ra ?Xl ?X0
-       ?Tdop ?Tdopp ?Tqop ?Tqopp ?id ?sysid ?t1id WHERE {
+       ?Tdop ?Tdopp ?Tqop ?Tqopp ?id ?uid ?sysid ?t1id WHERE {
 # VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
  VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
  ?sys c:IdentifiedObject.mRID ?sysid.
@@ -245,6 +246,7 @@ SELECT ?name ?type ?bus ?ratedS ?ratedU ?p ?q ?maxP ?minP ?maxQ ?minQ
  ?s c:RotatingMachine.GeneratingUnit ?unit.
  ?unit c:GeneratingUnit.maxOperatingP ?maxP. 
  ?unit c:GeneratingUnit.minOperatingP ?minP.
+ ?unit c:IdentifiedObject.mRID ?uid.
  {?unit a ?rawtype.
   bind(strafter(str(?rawtype),"#") as ?postfix)
   bind(strbefore(str(?postfix),"GeneratingUnit") as ?type)}
@@ -327,12 +329,13 @@ ORDER by ?name
 # BESSolar
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?sysid ?pecid ?t1id WHERE {
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?sysid ?pecid ?id ?t1id WHERE {
 # VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
  VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
  ?sys c:IdentifiedObject.mRID ?sysid.
  ?s r:type c:PhotovoltaicUnit.
  ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
  ?s c:PowerElectronicsUnit.maxP ?maxP.
  ?s c:PowerElectronicsUnit.minP ?minP.
  ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
@@ -355,12 +358,13 @@ ORDER by ?name
 # BESWind
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
-SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?sysid ?pecid ?t1id WHERE {
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?sysid ?pecid ?id ?t1id WHERE {
 # VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
  VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
  ?sys c:IdentifiedObject.mRID ?sysid.
  ?s r:type c:WindGeneratingUnit.
  ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
  ?s c:PowerElectronicsUnit.maxP ?maxP.
  ?s c:PowerElectronicsUnit.minP ?minP.
  ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.

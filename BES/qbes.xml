@@ -47,7 +47,7 @@ ORDER by ?name
 <![CDATA[
 SELECT ?name ?type ?bus ?ratedS ?ratedU ?p ?q ?maxP ?minP ?maxQ ?minQ
        ?Xd ?Xdp ?Xdpp ?Xq ?Xqp ?Xqpp ?Ra ?Xl ?X0
-       ?Tdop ?Tdopp ?Tqop ?Tqopp ?id ?t1id WHERE {
+       ?Tdop ?Tdopp ?Tqop ?Tqopp ?id ?uid ?t1id WHERE {
  ?sys c:IdentifiedObject.mRID ?fdrid.
  ?s r:type c:SynchronousMachine.
  ?s c:Equipment.EquipmentContainer ?sys.
@@ -60,6 +60,7 @@ SELECT ?name ?type ?bus ?ratedS ?ratedU ?p ?q ?maxP ?minP ?maxQ ?minQ
  ?s c:RotatingMachine.GeneratingUnit ?unit.
  ?unit c:GeneratingUnit.maxOperatingP ?maxP. 
  ?unit c:GeneratingUnit.minOperatingP ?minP.
+ ?unit c:IdentifiedObject.mRID ?uid.
  {?unit a ?rawtype.
   bind(strafter(str(?rawtype),"#") as ?postfix)
   bind(strbefore(str(?postfix),"GeneratingUnit") as ?type)}
@@ -162,11 +163,12 @@ ORDER by ?name
 <description>Power transformers on their own, without catalog reference.</description>
 <value>
 <![CDATA[
-SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id WHERE {
+SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id ?pid WHERE {
  ?sys c:IdentifiedObject.mRID ?fdrid.
  ?p c:Equipment.EquipmentContainer ?sys.
  ?p r:type c:PowerTransformer.
  ?p c:IdentifiedObject.name ?pname.
+ ?p c:IdentifiedObject.mRID ?pid.
  ?p c:PowerTransformer.vectorGroup ?vgrp.
  ?end c:PowerTransformerEnd.PowerTransformer ?p.
  ?end c:TransformerEnd.endNumber ?enum.
@@ -255,10 +257,11 @@ ORDER by ?name
 <description></description>
 <value>
 <![CDATA[
-SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?pecid ?t1id WHERE {
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?pecid ?id ?t1id WHERE {
  ?sys c:IdentifiedObject.mRID ?fdrid.
  ?s r:type c:PhotovoltaicUnit.
  ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
  ?s c:PowerElectronicsUnit.maxP ?maxP.
  ?s c:PowerElectronicsUnit.minP ?minP.
  ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
@@ -286,10 +289,11 @@ ORDER by ?name
 <description></description>
 <value>
 <![CDATA[
-SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?pecid ?t1id WHERE {
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?pecid ?id ?t1id WHERE {
  ?sys c:IdentifiedObject.mRID ?fdrid.
  ?s r:type c:WindGeneratingUnit.
  ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
  ?s c:PowerElectronicsUnit.maxP ?maxP.
  ?s c:PowerElectronicsUnit.minP ?minP.
  ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
