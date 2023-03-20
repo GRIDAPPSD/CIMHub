@@ -110,7 +110,7 @@ def load_feeder (dict, fid, bTime=True):
     del dict['DistFeeder']['vals'][key]
 
 def load_bes (dict, sysid, bTime=True):
-  for key in ['BESContainer', 'BESBus', 'BESBaseVoltage', 'BESCompSeries', 'BESCompShunt', 'BESLoad', 'BESLine',
+  for key in ['BESContainer', 'BESBus', 'BESBusXY', 'BESBaseVoltage', 'BESCompSeries', 'BESCompShunt', 'BESLoad', 'BESLine',
               'BESMachine', 'BESPowerXfmrWinding', 'BESPowerXfmrCore', 'BESPowerXfmrMesh',
               'BESExciter', 'BESGovernor', 'BESStabilizer', 'BESWind', 'BESSolar',
               'BESWeccREGCA', 'BESWeccREECA', 'BESWeccREPCA', 'BESWeccWTGTA', 'BESWeccWTGAA']: # 'BESCountPowerXfmrWindings'

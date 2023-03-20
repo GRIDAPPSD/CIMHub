@@ -1,4 +1,3 @@
-#from SPARQLWrapper import SPARQLWrapper2, JSON
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import sys
