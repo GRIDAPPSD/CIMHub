@@ -40,6 +40,31 @@ ORDER by ?name
 </value>
 </query>
 <query>
+<id>BESBusXY</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?name ?x ?y ?id WHERE {
+ ?sys c:IdentifiedObject.mRID ?fdrid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer ?sys.
+ ?s r:type c:ConnectivityNode.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?trm c:Terminal.ConnectivityNode ?s.
+ ?trm c:ACDCTerminal.sequenceNumber ?seq.
+ ?trm c:Terminal.ConductingEquipment ?ce.
+ ?ce c:PowerSystemResource.Location ?loc.
+ ?pt c:PositionPoint.Location ?loc.
+ ?pt c:PositionPoint.sequenceNumber ?seq.
+ ?pt c:PositionPoint.xPosition ?x.
+ ?pt c:PositionPoint.yPosition ?y.
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
 <id>BESMachine</id>
 <keyfld>name</keyfld>
 <description></description>

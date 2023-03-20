@@ -13839,14 +13839,14 @@
     <cim:IdentifiedObject.name>CC6C18D6-0190-4E60-AFF2-2210B5F0FC1B_T1</cim:IdentifiedObject.name>
     <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:CC6C18D6-0190-4E60-AFF2-2210B5F0FC1B"/>
     <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:7D378944-27FB-42B6-A611-F79C0DE904AB"/>
+    <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:B59A8EF3-0E3C-4BA3-9BC4-833AB9959750"/>
 </cim:Terminal>
 <cim:Terminal rdf:about="urn:uuid:76B228FF-F016-4298-B2BD-313D9646AD33">
     <cim:IdentifiedObject.mRID>76B228FF-F016-4298-B2BD-313D9646AD33</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>CC6C18D6-0190-4E60-AFF2-2210B5F0FC1B_T2</cim:IdentifiedObject.name>
     <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:CC6C18D6-0190-4E60-AFF2-2210B5F0FC1B"/>
     <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
-    <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:B59A8EF3-0E3C-4BA3-9BC4-833AB9959750"/>
+    <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:7D378944-27FB-42B6-A611-F79C0DE904AB"/>
 </cim:Terminal>
 <cim:PowerTransformerEnd rdf:about="urn:uuid:7050F175-8088-44CD-926E-9EC7CE5A31EA">
     <cim:IdentifiedObject.mRID>7050F175-8088-44CD-926E-9EC7CE5A31EA</cim:IdentifiedObject.mRID>
@@ -13859,7 +13859,7 @@
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
-    <cim:TransformerEnd.Terminal rdf:resource="urn:uuid:76B228FF-F016-4298-B2BD-313D9646AD33"/>
+    <cim:TransformerEnd.Terminal rdf:resource="urn:uuid:6F15C4DB-6C71-4B88-855B-290CCBB7DBB7"/>
     <cim:TransformerEnd.BaseVoltage rdf:resource="urn:uuid:FB79F7ED-7D3F-4DDB-9391-6356811110BC"/>
 </cim:PowerTransformerEnd>
 <cim:PowerTransformerEnd rdf:about="urn:uuid:0BE67F77-11DD-4C1F-8C9A-EDF5E971C26E">
@@ -13873,7 +13873,7 @@
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
-    <cim:TransformerEnd.Terminal rdf:resource="urn:uuid:6F15C4DB-6C71-4B88-855B-290CCBB7DBB7"/>
+    <cim:TransformerEnd.Terminal rdf:resource="urn:uuid:76B228FF-F016-4298-B2BD-313D9646AD33"/>
     <cim:TransformerEnd.BaseVoltage rdf:resource="urn:uuid:CCBE7426-69D5-4651-A703-4EF6F296CC23"/>
 </cim:PowerTransformerEnd>
 <cim:TransformerCoreAdmittance rdf:about="urn:uuid:72E7D1B3-83DF-4D7A-A0F0-19D7837A04A9">

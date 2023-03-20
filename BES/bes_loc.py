@@ -116,22 +116,23 @@ if __name__ == '__main__':
   crsId = get_cim_id('CoordinateSystem', sys_name + '_CrsUrn', uuids)
   print (crs_template.format(nm=sys_name, res=crsId), file=fp)
 
-  # accumulate the transformer windings into transformers, take first winding location
+  # accumulate the transformer windings into transformers
   xfmrs = {}
   for key, data in d['BESPowerXfmrWinding']['vals'].items():
     toks = key.split(':')
     pname = toks[0]
     enum = toks[1]
     if pname not in xfmrs:
-      xfmrs[pname] = {'nseq': 1, 'xy': busxy[data['bus']], 'pid': data['pid']}
+      xfmrs[pname] = {'nseq': 1, 'xys': [busxy[data['bus']]], 'pid': data['pid']}
     else:
+      xfmrs[pname]['xys'].append (busxy[data['bus']])
       xfmrs[pname]['nseq'] += 1
   for key, data in xfmrs.items():
     locId = get_loc_id('Xfmr', key, uuids)
     print (psr_template.format(cls='PowerTransformer', res=data['pid'], locId=locId), file=fp)
     print (loc_template.format(typ='Xfmr', res=locId, crs=crsId, nm=key), file=fp)
-    xy = data['xy']
     for seq in range(1, data['nseq']+1):
+      xy = data['xys'][seq-1]
       print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=seq, x=xy[0], y=xy[1]), file=fp)
     
   # generating sources with an EnergyConnection and GeneratingUnit

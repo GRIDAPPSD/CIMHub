@@ -21,6 +21,29 @@ SELECT ?s ?attr ?val where {
 
 ##################################################
 
+# BESBusXY
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?x ?y ?id WHERE {
+# VALUES ?sysid {"1783D2A8-1204-4781-A0B4-7A73A2FA6038"}
+ VALUES ?sysid {"2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"}
+# VALUES ?name {"2400"}
+ ?sys c:IdentifiedObject.mRID ?sysid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer ?sys.
+ ?s r:type c:ConnectivityNode.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?trm c:Terminal.ConnectivityNode ?s.
+ ?trm c:ACDCTerminal.sequenceNumber ?seq.
+ ?trm c:Terminal.ConductingEquipment ?ce.
+ ?ce c:PowerSystemResource.Location ?loc.
+ ?pt c:PositionPoint.Location ?loc.
+ ?pt c:PositionPoint.sequenceNumber ?seq.
+ ?pt c:PositionPoint.xPosition ?x.
+ ?pt c:PositionPoint.yPosition ?y.
+}
+ORDER by ?name
+
 # BESBaseVoltage
 PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX c:  <http://iec.ch/TC57/CIM100#>
