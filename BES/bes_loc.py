@@ -1,4 +1,4 @@
-#from SPARQLWrapper import SPARQLWrapper2, JSON
+import re
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import sys
@@ -70,8 +70,17 @@ def load_bus_coordinates (fname):
       xy[n] = [float(ndata['x']), float(ndata['y'])]
   return xy
 
-def get_cim_id():
-  return str(uuid.uuid4()).upper()
+def get_cim_id (cls, nm, uuids):
+  if nm is not None:
+    key = cls + ':' + nm
+    if key not in uuids:
+      uuids[key] = str(uuid.uuid4()).upper()
+    return uuids[key]
+  return str(uuid.uuid4()).upper() # for unidentified CIM instances
+
+def get_loc_id (cls, base, uuids):
+  nm = '{:s}_{:s}_Loc'.format (cls, base)
+  return get_cim_id ('Location', nm, uuids)
 
 if __name__ == '__main__':
   CIMHubConfig.ConfigFromJsonFile ('cimhubconfig.json')
@@ -81,6 +90,21 @@ if __name__ == '__main__':
   sys_id = CASES[case_id]['id']
   sys_name = CASES[case_id]['name']
 
+  uuids = {}
+  fuidname = '{:s}_Loc_mRID.dat'.format(sys_name)
+  if os.path.exists(fuidname):
+    print ('reading identifiable instance mRIDs from', fuidname)
+    fuid = open (fuidname, 'r')
+    for uuid_ln in fuid.readlines():
+      uuid_toks = re.split('[,\s]+', uuid_ln)
+      if len(uuid_toks) > 2 and not uuid_toks[0].startswith('//'):
+        cls = uuid_toks[0]
+        nm = uuid_toks[1]
+        key = cls + ':' + nm
+        val = uuid_toks[2]
+        uuids[key] = val
+    fuid.close()
+
   d = cimhub.load_bes_dict ('qbes.xml', sys_id, bTime=False)
   cimhub.summarize_bes_dict (d)
   cimhub.list_dict_table (d, 'BESContainer')
@@ -89,7 +113,7 @@ if __name__ == '__main__':
 
   fp = open ('{:s}_CIM_Loc.xml'.format(sys_name), 'w')
   print (prefix, file=fp)
-  crsId = get_cim_id()
+  crsId = get_cim_id('CoordinateSystem', sys_name + '_CrsUrn', uuids)
   print (crs_template.format(nm=sys_name, res=crsId), file=fp)
 
   # accumulate the transformer windings into transformers, take first winding location
@@ -103,66 +127,72 @@ if __name__ == '__main__':
     else:
       xfmrs[pname]['nseq'] += 1
   for key, data in xfmrs.items():
-    locId = get_cim_id()
+    locId = get_loc_id('Xfmr', key, uuids)
     print (psr_template.format(cls='PowerTransformer', res=data['pid'], locId=locId), file=fp)
     print (loc_template.format(typ='Xfmr', res=locId, crs=crsId, nm=key), file=fp)
     xy = data['xy']
     for seq in range(1, data['nseq']+1):
-      print (xy_template.format(res=get_cim_id(), locId=locId, seq=seq, x=xy[0], y=xy[1]), file=fp)
+      print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=seq, x=xy[0], y=xy[1]), file=fp)
     
   # generating sources with an EnergyConnection and GeneratingUnit
   for key, data in d['BESMachine']['vals'].items():
-    locId = get_cim_id()
+    locId = get_loc_id(data['type'], key, uuids)
     print (psr_template.format(cls='{:s}GeneratingUnit'.format(data['type']), res=data['uid'], locId=locId), file=fp)
     print (psr_template.format(cls='SynchronousMachine', res=data['id'], locId=locId), file=fp)
     print (loc_template.format(typ=data['type'], res=locId, crs=crsId, nm=key), file=fp)
     xy = busxy[data['bus']]
-    print (xy_template.format(res=get_cim_id(), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
+    print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
   for key, data in d['BESSolar']['vals'].items():
-    locId = get_cim_id()
+    locId = get_loc_id('Solar', key, uuids)
     print (psr_template.format(cls='PhotovoltaicUnit', res=data['id'], locId=locId), file=fp)
     print (psr_template.format(cls='PowerElectronicsConnection', res=data['pecid'], locId=locId), file=fp)
     print (loc_template.format(typ='Solar', res=locId, crs=crsId, nm=key), file=fp)
     xy = busxy[data['bus']]
-    print (xy_template.format(res=get_cim_id(), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
+    print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
   for key, data in d['BESWind']['vals'].items():
-    locId = get_cim_id()
+    locId = get_loc_id('Wind', key, uuids)
     print (psr_template.format(cls='WindGeneratingUnit', res=data['id'], locId=locId), file=fp)
     print (psr_template.format(cls='PowerElectronicsConnection', res=data['pecid'], locId=locId), file=fp)
     print (loc_template.format(typ='Wind', res=locId, crs=crsId, nm=key), file=fp)
     xy = busxy[data['bus']]
-    print (xy_template.format(res=get_cim_id(), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
+    print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
 
   # single-terminal components
   for key, data in d['BESCompShunt']['vals'].items():
-    locId = get_cim_id()
+    locId = get_loc_id('Shunt', key, uuids)
     print (psr_template.format(cls='LinearShuntCompensator', res=data['id'], locId=locId), file=fp)
     print (loc_template.format(typ='Shunt', res=locId, crs=crsId, nm=key), file=fp)
     xy = busxy[data['bus']]
-    print (xy_template.format(res=get_cim_id(), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
+    print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
   for key, data in d['BESLoad']['vals'].items():
-    locId = get_cim_id()
+    locId = get_loc_id('Load', key, uuids)
     print (psr_template.format(cls='EnergyConsumer', res=data['id'], locId=locId), file=fp)
     print (loc_template.format(typ='Load', res=locId, crs=crsId, nm=key), file=fp)
     xy = busxy[data['bus']]
-    print (xy_template.format(res=get_cim_id(), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
+    print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=1, x=xy[0], y=xy[1]), file=fp)
 
   # two-terminal components
   for key, data in d['BESCompSeries']['vals'].items():
-    locId = get_cim_id()
+    locId = get_loc_id('Series', key, uuids)
     print (psr_template.format(cls='SeriesCompensator', res=data['id'], locId=locId), file=fp)
     print (loc_template.format(typ='Series', res=locId, crs=crsId, nm=key), file=fp)
     for seq in range(1, 3):
       xy = busxy[data['bus{:d}'.format(seq)]]
-      print (xy_template.format(res=get_cim_id(), locId=locId, seq=seq, x=xy[0], y=xy[1]), file=fp)
+      print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=seq, x=xy[0], y=xy[1]), file=fp)
   for key, data in d['BESLine']['vals'].items():
-    locId = get_cim_id()
+    locId = get_loc_id('Line', key, uuids)
     print (psr_template.format(cls='ACLineSegment', res=data['id'], locId=locId), file=fp)
     print (loc_template.format(typ='Line', res=locId, crs=crsId, nm=key), file=fp)
     for seq in range(1, 3):
       xy = busxy[data['bus{:d}'.format(seq)]]
-      print (xy_template.format(res=get_cim_id(), locId=locId, seq=seq, x=xy[0], y=xy[1]), file=fp)
+      print (xy_template.format(res=get_cim_id('PositionPoint', None, uuids), locId=locId, seq=seq, x=xy[0], y=xy[1]), file=fp)
 
   print (suffix, file=fp)
   fp.close()
+
+  print ('saving identifiable instance mRIDs to', fuidname)
+  fuid = open (fuidname, 'w')
+  for key, val in uuids.items():
+    print ('{:s},{:s}'.format (key.replace(':', ',', 1), val), file=fuid)
+  fuid.close()
 
