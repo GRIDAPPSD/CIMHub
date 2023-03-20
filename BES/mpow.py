@@ -18,6 +18,16 @@ import os
 # csvwrite('wecc240mg.txt',mg)
 # csvwrite('wecc240mb.txt',mb)
 
+# mpc = loadcase(IEEE118);
+# case_info(mpc)
+# mpc = scale_load (0.6748, mpc);
+# results=runpf(mpc);
+# define_constants
+# mg=[results.gen(:,PG),results.gen(:,QG)]
+# mb=[results.bus(:,VM),results.bus(:,VA)]
+# csvwrite('ieee118mg.txt',mg)
+# csvwrite('ieee118mb.txt',mb)
+
 CASES = [
   {'id': '1783D2A8-1204-4781-A0B4-7A73A2FA6038', 'name': 'IEEE118', 'swingbus':'131'},
   {'id': '2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3', 'name': 'WECC240', 'swingbus':'2438'},
@@ -143,8 +153,15 @@ mpc.bus = [""", file=fp)
     idx = bus_numbers[data['bus']]-1
     mpc_buses[idx]['type'] = 2
     add_mpc_generator (mpc_generators, data, bus_numbers, bus_generation, bus_headroom)
-    mpc_genfuels.append('hydro')
-    mpc_gentypes.append('HY')
+    if data['type'] == 'Hydro':
+      mpc_genfuels.append('hydro')
+      mpc_gentypes.append('HY')
+    elif data['type'] == 'Nuclear':
+      mpc_genfuels.append('nuclear')
+      mpc_gentypes.append('ST')
+    else:
+      mpc_genfuels.append('ng')
+      mpc_gentypes.append('ST')
   for key, data in d['BESSolar']['vals'].items():
     idx = bus_numbers[data['bus']]-1
     mpc_buses[idx]['type'] = 2

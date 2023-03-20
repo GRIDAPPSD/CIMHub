@@ -11,7 +11,7 @@ This directory contains two medium-scale BES test systems:
 - `IEEE 118-bus System with IBR <https://doi.org/10.1109/TEMC.2019.2920271>`_
 - `WECC 240-bus System with IBR <https://www.nrel.gov/docs/fy22osti/82287.pdf>`_
 
-The following layouts are not to scale.
+The following auto-layouts are approximately to scale, but not necessarily oriented to North.
 
 .. image:: IEEE118.png
 

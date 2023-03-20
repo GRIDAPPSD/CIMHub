@@ -20678,12 +20678,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:D28F423C-6D47-4D06-B325-B913EFCE3AA8">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:D28F423C-6D47-4D06-B325-B913EFCE3AA8">
     <cim:IdentifiedObject.mRID>D28F423C-6D47-4D06-B325-B913EFCE3AA8</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1032_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>873000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:D39B0A07-05FE-419A-943F-FF252B694E19">
     <cim:IdentifiedObject.mRID>D39B0A07-05FE-419A-943F-FF252B694E19</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1032_C_Exc</cim:IdentifiedObject.name>
@@ -20765,12 +20765,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:82CD9F40-2971-4B1F-874D-682D222CC340">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:82CD9F40-2971-4B1F-874D-682D222CC340">
     <cim:IdentifiedObject.mRID>82CD9F40-2971-4B1F-874D-682D222CC340</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1032_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1050000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:9FDDCE59-E1C7-428E-8DE2-CE210A5B070E">
     <cim:IdentifiedObject.mRID>9FDDCE59-E1C7-428E-8DE2-CE210A5B070E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1032_G_Exc</cim:IdentifiedObject.name>
@@ -20852,12 +20852,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:BA12C14E-D796-4395-9263-E37E2E8F20CD">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:BA12C14E-D796-4395-9263-E37E2E8F20CD">
     <cim:IdentifiedObject.mRID>BA12C14E-D796-4395-9263-E37E2E8F20CD</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1034_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2100000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:39676F51-F165-408F-A9FB-6183769963C9">
     <cim:IdentifiedObject.mRID>39676F51-F165-408F-A9FB-6183769963C9</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1034_C_Exc</cim:IdentifiedObject.name>
@@ -20939,12 +20939,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:92D05CC5-D42E-4846-BF4C-82E429D5F666">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:92D05CC5-D42E-4846-BF4C-82E429D5F666">
     <cim:IdentifiedObject.mRID>92D05CC5-D42E-4846-BF4C-82E429D5F666</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1034_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2900000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:678374E4-953D-4436-89FB-B99C72C7AE56">
     <cim:IdentifiedObject.mRID>678374E4-953D-4436-89FB-B99C72C7AE56</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1034_G_Exc</cim:IdentifiedObject.name>
@@ -21026,12 +21026,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:F407D41A-2C62-4C50-ADEE-04967F99E189">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:F407D41A-2C62-4C50-ADEE-04967F99E189">
     <cim:IdentifiedObject.mRID>F407D41A-2C62-4C50-ADEE-04967F99E189</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1131_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1268000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:C9F3F482-0FD0-4AD7-BF39-FF066D4E703C">
     <cim:IdentifiedObject.mRID>C9F3F482-0FD0-4AD7-BF39-FF066D4E703C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1131_C_Exc</cim:IdentifiedObject.name>
@@ -21113,12 +21113,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:A7B33A04-8CA3-427D-AF85-966D58121803">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:A7B33A04-8CA3-427D-AF85-966D58121803">
     <cim:IdentifiedObject.mRID>A7B33A04-8CA3-427D-AF85-966D58121803</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1131_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>4934000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:94CD1768-ACF0-45CF-A05B-4D6E9A878835">
     <cim:IdentifiedObject.mRID>94CD1768-ACF0-45CF-A05B-4D6E9A878835</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1131_G_Exc</cim:IdentifiedObject.name>
@@ -21200,12 +21200,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:52F03659-3A4F-482E-A474-B8A1B4E08FFF">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:52F03659-3A4F-482E-A474-B8A1B4E08FFF">
     <cim:IdentifiedObject.mRID>52F03659-3A4F-482E-A474-B8A1B4E08FFF</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1232_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>4977000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:BE5AE8C4-EC34-42C9-A60F-2FC995B2CC91">
     <cim:IdentifiedObject.mRID>BE5AE8C4-EC34-42C9-A60F-2FC995B2CC91</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1232_C_Exc</cim:IdentifiedObject.name>
@@ -21374,12 +21374,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:B0FB23C6-D3A4-4BD5-9ED6-1EAB612B28C6">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:B0FB23C6-D3A4-4BD5-9ED6-1EAB612B28C6">
     <cim:IdentifiedObject.mRID>B0FB23C6-D3A4-4BD5-9ED6-1EAB612B28C6</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1331_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2167000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:040034B6-E619-4CA6-936A-0A860F6877DE">
     <cim:IdentifiedObject.mRID>040034B6-E619-4CA6-936A-0A860F6877DE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1331_G_Exc</cim:IdentifiedObject.name>
@@ -21548,12 +21548,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:F4919817-DB42-44F1-A2BF-73538CDC3679">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:F4919817-DB42-44F1-A2BF-73538CDC3679">
     <cim:IdentifiedObject.mRID>F4919817-DB42-44F1-A2BF-73538CDC3679</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1333_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>418000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:F13ED96E-9F50-4CD2-B526-CD24FB53566C">
     <cim:IdentifiedObject.mRID>F13ED96E-9F50-4CD2-B526-CD24FB53566C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1333_C_Exc</cim:IdentifiedObject.name>
@@ -21635,12 +21635,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:03BE3DBA-3F50-4DA4-BE6E-1B8825C1EE46">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:03BE3DBA-3F50-4DA4-BE6E-1B8825C1EE46">
     <cim:IdentifiedObject.mRID>03BE3DBA-3F50-4DA4-BE6E-1B8825C1EE46</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1333_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>7011000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:EBFED880-F834-4F98-93F1-639CBAAA0332">
     <cim:IdentifiedObject.mRID>EBFED880-F834-4F98-93F1-639CBAAA0332</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1333_G_Exc</cim:IdentifiedObject.name>
@@ -21722,12 +21722,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:AAA980C5-21A1-4044-BC61-EC0491392EDD">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:AAA980C5-21A1-4044-BC61-EC0491392EDD">
     <cim:IdentifiedObject.mRID>AAA980C5-21A1-4044-BC61-EC0491392EDD</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1431_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>9170000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:FFE1872B-09EB-4B97-8F57-DBB420CFC874">
     <cim:IdentifiedObject.mRID>FFE1872B-09EB-4B97-8F57-DBB420CFC874</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1431_G_Exc</cim:IdentifiedObject.name>
@@ -21784,6 +21784,93 @@
     <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
     <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:9F995B68-4F25-4645-934F-14857EEE1B71"/>
 </cim:Terminal>
+<cim:SynchronousMachine rdf:about="urn:uuid:44395D7B-ADDA-4BC8-9CBD-CD55EBECA5C0">
+    <cim:IdentifiedObject.mRID>44395D7B-ADDA-4BC8-9CBD-CD55EBECA5C0</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>1431_N</cim:IdentifiedObject.name>
+    <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"/>
+    <cim:RotatingMachine.p>2355000000.0</cim:RotatingMachine.p>
+    <cim:RotatingMachine.q>409166000.0</cim:RotatingMachine.q>
+    <cim:RotatingMachine.ratedS>4210000000.0</cim:RotatingMachine.ratedS>
+    <cim:RotatingMachine.ratedU>20000.0</cim:RotatingMachine.ratedU>
+    <cim:RotatingMachine.GeneratingUnit rdf:resource="urn:uuid:EED6972B-FC2B-401D-A87E-453214DCE48A"/>
+    <cim:SynchronousMachine.maxQ>2057000000.0</cim:SynchronousMachine.maxQ>
+    <cim:SynchronousMachine.minQ>-2057000000.0</cim:SynchronousMachine.minQ>
+    <cim:SynchronousMachine.satDirectSyncX>1.43</cim:SynchronousMachine.satDirectSyncX>
+    <cim:SynchronousMachine.satDirectTransX>0.146</cim:SynchronousMachine.satDirectTransX>
+    <cim:SynchronousMachine.satDirectSubtransX>0.114</cim:SynchronousMachine.satDirectSubtransX>
+    <cim:SynchronousMachine.Ra>0.001</cim:SynchronousMachine.Ra>
+    <cim:SynchronousMachine.X0>0.096</cim:SynchronousMachine.X0>
+    <cim:SynchronousMachine.X1>0.096</cim:SynchronousMachine.X1>
+    <cim:SynchronousMachine.Xq>1.33</cim:SynchronousMachine.Xq>
+    <cim:SynchronousMachine.Xqp>0.258</cim:SynchronousMachine.Xqp>
+    <cim:SynchronousMachine.Xqpp>0.114</cim:SynchronousMachine.Xqpp>
+    <cim:SynchronousMachine.Tdop>7.563</cim:SynchronousMachine.Tdop>
+    <cim:SynchronousMachine.Tdopp>0.017</cim:SynchronousMachine.Tdopp>
+    <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
+    <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
+</cim:SynchronousMachine>
+<cim:NuclearGeneratingUnit rdf:about="urn:uuid:EED6972B-FC2B-401D-A87E-453214DCE48A">
+    <cim:IdentifiedObject.mRID>EED6972B-FC2B-401D-A87E-453214DCE48A</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>1431_N_GenUnit</cim:IdentifiedObject.name>
+    <cim:GeneratingUnit.maxOperatingP>4210000000.0</cim:GeneratingUnit.maxOperatingP>
+    <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
+</cim:NuclearGeneratingUnit>
+<cim:ExcitationSystem rdf:about="urn:uuid:5F0E6F5E-4EC4-452C-B2B3-FBA1460297C7">
+    <cim:IdentifiedObject.mRID>5F0E6F5E-4EC4-452C-B2B3-FBA1460297C7</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>1431_N_Exc</cim:IdentifiedObject.name>
+    <cim:ExcitationSystem.SynchronousMachine rdf:resource="urn:uuid:44395D7B-ADDA-4BC8-9CBD-CD55EBECA5C0"/>
+    <cim:ExcitationSystem.ilr>4.4</cim:ExcitationSystem.ilr>
+    <cim:ExcitationSystem.ka>40</cim:ExcitationSystem.ka>
+    <cim:ExcitationSystem.kc>0.038</cim:ExcitationSystem.kc>
+    <cim:ExcitationSystem.kf>0</cim:ExcitationSystem.kf>
+    <cim:ExcitationSystem.klr>4.54</cim:ExcitationSystem.klr>
+    <cim:ExcitationSystem.ta>0</cim:ExcitationSystem.ta>
+    <cim:ExcitationSystem.tb>10</cim:ExcitationSystem.tb>
+    <cim:ExcitationSystem.tb1>0</cim:ExcitationSystem.tb1>
+    <cim:ExcitationSystem.tc>1</cim:ExcitationSystem.tc>
+    <cim:ExcitationSystem.tc1>0</cim:ExcitationSystem.tc1>
+    <cim:ExcitationSystem.tf>1</cim:ExcitationSystem.tf>
+    <cim:ExcitationSystem.vamax>999</cim:ExcitationSystem.vamax>
+    <cim:ExcitationSystem.vamin>-999</cim:ExcitationSystem.vamin>
+    <cim:ExcitationSystem.vimax>0.1</cim:ExcitationSystem.vimax>
+    <cim:ExcitationSystem.vimin>-0.1</cim:ExcitationSystem.vimin>
+    <cim:ExcitationSystem.vrmax>4.5</cim:ExcitationSystem.vrmax>
+    <cim:ExcitationSystem.vrmin>-4</cim:ExcitationSystem.vrmin>
+</cim:ExcitationSystem>
+<cim:TurbineGovernor rdf:about="urn:uuid:B80AE577-C436-4014-8803-AA6A3E31089F">
+    <cim:IdentifiedObject.mRID>B80AE577-C436-4014-8803-AA6A3E31089F</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>1431_N_Gov</cim:IdentifiedObject.name>
+    <cim:TurbineGovernor.SynchronousMachine rdf:resource="urn:uuid:44395D7B-ADDA-4BC8-9CBD-CD55EBECA5C0"/>
+    <cim:TurbineGovernor.k1>25</cim:TurbineGovernor.k1>
+    <cim:TurbineGovernor.t1>5</cim:TurbineGovernor.t1>
+    <cim:TurbineGovernor.t2>5</cim:TurbineGovernor.t2>
+    <cim:TurbineGovernor.t3>0.1</cim:TurbineGovernor.t3>
+    <cim:TurbineGovernor.pmax>0.9</cim:TurbineGovernor.pmax>
+    <cim:TurbineGovernor.pmin>0.05</cim:TurbineGovernor.pmin>
+</cim:TurbineGovernor>
+<cim:PowerSystemStabilizer rdf:about="urn:uuid:8E6BB927-A4B4-4609-9B0F-7C9D26B743C1">
+    <cim:IdentifiedObject.mRID>8E6BB927-A4B4-4609-9B0F-7C9D26B743C1</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>1431_N_PSS</cim:IdentifiedObject.name>
+    <cim:PowerSystemStabilizer.ExcitationSystem rdf:resource="urn:uuid:5F0E6F5E-4EC4-452C-B2B3-FBA1460297C7"/>
+    <cim:PowerSystemStabilizer.a1>0</cim:PowerSystemStabilizer.a1>
+    <cim:PowerSystemStabilizer.a2>0</cim:PowerSystemStabilizer.a2>
+    <cim:PowerSystemStabilizer.t1>1</cim:PowerSystemStabilizer.t1>
+    <cim:PowerSystemStabilizer.t2>0.5</cim:PowerSystemStabilizer.t2>
+    <cim:PowerSystemStabilizer.t3>2</cim:PowerSystemStabilizer.t3>
+    <cim:PowerSystemStabilizer.t4>0.1</cim:PowerSystemStabilizer.t4>
+    <cim:PowerSystemStabilizer.t5>10</cim:PowerSystemStabilizer.t5>
+    <cim:PowerSystemStabilizer.t6>0</cim:PowerSystemStabilizer.t6>
+    <cim:PowerSystemStabilizer.vstmax>0.2</cim:PowerSystemStabilizer.vstmax>
+    <cim:PowerSystemStabilizer.vstmin>-0.2</cim:PowerSystemStabilizer.vstmin>
+    <cim:PowerSystemStabilizer.ks>2</cim:PowerSystemStabilizer.ks>
+</cim:PowerSystemStabilizer>
+<cim:Terminal rdf:about="urn:uuid:E25F95DC-5E77-49E7-9F2B-1A33E97AE5C9">
+    <cim:IdentifiedObject.mRID>E25F95DC-5E77-49E7-9F2B-1A33E97AE5C9</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>44395D7B-ADDA-4BC8-9CBD-CD55EBECA5C0_T1</cim:IdentifiedObject.name>
+    <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:44395D7B-ADDA-4BC8-9CBD-CD55EBECA5C0"/>
+    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+    <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:9F995B68-4F25-4645-934F-14857EEE1B71"/>
+</cim:Terminal>
 <cim:SynchronousMachine rdf:about="urn:uuid:50A7F531-FA17-4162-AC29-D3B06ABFFA81">
     <cim:IdentifiedObject.mRID>50A7F531-FA17-4162-AC29-D3B06ABFFA81</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1431_S</cim:IdentifiedObject.name>
@@ -21809,12 +21896,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:80F06FE7-3310-44D7-A1E4-DD4AA30A7B13">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:80F06FE7-3310-44D7-A1E4-DD4AA30A7B13">
     <cim:IdentifiedObject.mRID>80F06FE7-3310-44D7-A1E4-DD4AA30A7B13</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1431_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2419000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:D4C6608C-F3F8-4A8E-AE57-2062C7B50137">
     <cim:IdentifiedObject.mRID>D4C6608C-F3F8-4A8E-AE57-2062C7B50137</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1431_S_Exc</cim:IdentifiedObject.name>
@@ -21896,12 +21983,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:F1EB420D-AE7B-47FA-A1C0-24EC25702DA1">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:F1EB420D-AE7B-47FA-A1C0-24EC25702DA1">
     <cim:IdentifiedObject.mRID>F1EB420D-AE7B-47FA-A1C0-24EC25702DA1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2030_E_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>699000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:808E28CD-6DCE-4BE2-A642-33672C969E19">
     <cim:IdentifiedObject.mRID>808E28CD-6DCE-4BE2-A642-33672C969E19</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2030_E_Exc</cim:IdentifiedObject.name>
@@ -21983,12 +22070,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:63371E7E-FEF0-4985-9767-39C157D031A5">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:63371E7E-FEF0-4985-9767-39C157D031A5">
     <cim:IdentifiedObject.mRID>63371E7E-FEF0-4985-9767-39C157D031A5</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2030_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2140000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:CA08D6A9-1BDC-473A-9D69-A7E7A91C1CAE">
     <cim:IdentifiedObject.mRID>CA08D6A9-1BDC-473A-9D69-A7E7A91C1CAE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2030_G_Exc</cim:IdentifiedObject.name>
@@ -22070,12 +22157,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:C4F169C5-899C-4432-8BC9-219E0EBD1678">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:C4F169C5-899C-4432-8BC9-219E0EBD1678">
     <cim:IdentifiedObject.mRID>C4F169C5-899C-4432-8BC9-219E0EBD1678</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2130_E_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>831000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:EFB354BF-4388-488B-9584-FC10789A0061">
     <cim:IdentifiedObject.mRID>EFB354BF-4388-488B-9584-FC10789A0061</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2130_E_Exc</cim:IdentifiedObject.name>
@@ -22244,12 +22331,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:8FA0D108-51D5-457F-9526-DEB8E31553C0">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:8FA0D108-51D5-457F-9526-DEB8E31553C0">
     <cim:IdentifiedObject.mRID>8FA0D108-51D5-457F-9526-DEB8E31553C0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2130_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>115000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:B9BF3EF2-FF4F-48F2-B0C6-D50EEBC71FBE">
     <cim:IdentifiedObject.mRID>B9BF3EF2-FF4F-48F2-B0C6-D50EEBC71FBE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2130_S_Exc</cim:IdentifiedObject.name>
@@ -22331,12 +22418,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:3887FD06-A177-4D2D-B859-586E9C76020D">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:3887FD06-A177-4D2D-B859-586E9C76020D">
     <cim:IdentifiedObject.mRID>3887FD06-A177-4D2D-B859-586E9C76020D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2233_DG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1035000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:49F66B2F-B217-4284-BAEB-3FC22D53CA9B">
     <cim:IdentifiedObject.mRID>49F66B2F-B217-4284-BAEB-3FC22D53CA9B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2233_DG_Exc</cim:IdentifiedObject.name>
@@ -22418,12 +22505,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:81EC3235-A0CB-4DED-8471-3B288083E26C">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:81EC3235-A0CB-4DED-8471-3B288083E26C">
     <cim:IdentifiedObject.mRID>81EC3235-A0CB-4DED-8471-3B288083E26C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2233_EG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1837000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:FAAC5DB9-DAA6-4C43-9D42-1ED386D9B411">
     <cim:IdentifiedObject.mRID>FAAC5DB9-DAA6-4C43-9D42-1ED386D9B411</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2233_EG_Exc</cim:IdentifiedObject.name>
@@ -22505,12 +22592,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:821C4881-E745-40F9-8095-5FE7ACE51542">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:821C4881-E745-40F9-8095-5FE7ACE51542">
     <cim:IdentifiedObject.mRID>821C4881-E745-40F9-8095-5FE7ACE51542</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2233_TG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>733000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:5E64FCF9-5185-48F6-A0D8-1FB5ACC8E1DC">
     <cim:IdentifiedObject.mRID>5E64FCF9-5185-48F6-A0D8-1FB5ACC8E1DC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2233_TG_Exc</cim:IdentifiedObject.name>
@@ -22592,12 +22679,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:1765A9B7-B7F1-44F4-93C3-7B46360A33FE">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:1765A9B7-B7F1-44F4-93C3-7B46360A33FE">
     <cim:IdentifiedObject.mRID>1765A9B7-B7F1-44F4-93C3-7B46360A33FE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_EG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2292000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:D5628046-9BEA-45CB-AECD-47BCFA2634A3">
     <cim:IdentifiedObject.mRID>D5628046-9BEA-45CB-AECD-47BCFA2634A3</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_EG_Exc</cim:IdentifiedObject.name>
@@ -22679,12 +22766,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:3340D354-4721-4081-BD92-072657AFAF3A">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:3340D354-4721-4081-BD92-072657AFAF3A">
     <cim:IdentifiedObject.mRID>3340D354-4721-4081-BD92-072657AFAF3A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_ND_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>100000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:4E38B31A-52C6-4DB1-BA43-30D0A934DD0B">
     <cim:IdentifiedObject.mRID>4E38B31A-52C6-4DB1-BA43-30D0A934DD0B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_ND_Exc</cim:IdentifiedObject.name>
@@ -22766,12 +22853,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:EB59D22C-F3B2-4011-849D-100A9F34B707">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:EB59D22C-F3B2-4011-849D-100A9F34B707">
     <cim:IdentifiedObject.mRID>EB59D22C-F3B2-4011-849D-100A9F34B707</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1146000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:8E5E6D50-4312-40DE-B21A-BF5CC42AD0EE">
     <cim:IdentifiedObject.mRID>8E5E6D50-4312-40DE-B21A-BF5CC42AD0EE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_S_Exc</cim:IdentifiedObject.name>
@@ -22853,12 +22940,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:6C2BB971-F047-4AFD-8EAD-351AA20B7723">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:6C2BB971-F047-4AFD-8EAD-351AA20B7723">
     <cim:IdentifiedObject.mRID>6C2BB971-F047-4AFD-8EAD-351AA20B7723</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_SG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>4110000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:AD9D3977-B501-484C-9188-D34A1F688DF8">
     <cim:IdentifiedObject.mRID>AD9D3977-B501-484C-9188-D34A1F688DF8</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_SG_Exc</cim:IdentifiedObject.name>
@@ -22940,12 +23027,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:BDC1EFC0-0E4F-4BAC-B6AF-62E9058D8F2E">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:BDC1EFC0-0E4F-4BAC-B6AF-62E9058D8F2E">
     <cim:IdentifiedObject.mRID>BDC1EFC0-0E4F-4BAC-B6AF-62E9058D8F2E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_SH_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1460000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:335B3428-1B17-455A-9C70-F278FA6BCFB4">
     <cim:IdentifiedObject.mRID>335B3428-1B17-455A-9C70-F278FA6BCFB4</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_SH_Exc</cim:IdentifiedObject.name>
@@ -23027,12 +23114,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:A8B1A360-7D60-4051-B729-184E425CE321">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:A8B1A360-7D60-4051-B729-184E425CE321">
     <cim:IdentifiedObject.mRID>A8B1A360-7D60-4051-B729-184E425CE321</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_WG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>5817000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:FD01A3BA-E027-42C5-9A7B-B06AAC76861D">
     <cim:IdentifiedObject.mRID>FD01A3BA-E027-42C5-9A7B-B06AAC76861D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_WG_Exc</cim:IdentifiedObject.name>
@@ -23114,12 +23201,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:73AAE1D8-E0A2-4E17-AA79-B4EFBA15B6D6">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:73AAE1D8-E0A2-4E17-AA79-B4EFBA15B6D6">
     <cim:IdentifiedObject.mRID>73AAE1D8-E0A2-4E17-AA79-B4EFBA15B6D6</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2630_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>3947000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:C15D84A4-DADE-4820-A020-8DAB2E6419B5">
     <cim:IdentifiedObject.mRID>C15D84A4-DADE-4820-A020-8DAB2E6419B5</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2630_G_Exc</cim:IdentifiedObject.name>
@@ -23201,12 +23288,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:E316ACA3-7E69-4460-B9D9-2CAE352A205E">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:E316ACA3-7E69-4460-B9D9-2CAE352A205E">
     <cim:IdentifiedObject.mRID>E316ACA3-7E69-4460-B9D9-2CAE352A205E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2634_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1900000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:C474E3E7-0FE5-4622-8EE0-B240D3F168FE">
     <cim:IdentifiedObject.mRID>C474E3E7-0FE5-4622-8EE0-B240D3F168FE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2634_C_Exc</cim:IdentifiedObject.name>
@@ -23462,12 +23549,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:CE1E0E58-E228-4B6C-9255-6A9CB48C7710">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:CE1E0E58-E228-4B6C-9255-6A9CB48C7710">
     <cim:IdentifiedObject.mRID>CE1E0E58-E228-4B6C-9255-6A9CB48C7710</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3133_NG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>80000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:872EB9FB-3640-4B2F-954A-1120E4760AFA">
     <cim:IdentifiedObject.mRID>872EB9FB-3640-4B2F-954A-1120E4760AFA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3133_NG_Exc</cim:IdentifiedObject.name>
@@ -23549,12 +23636,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:B9693437-E9A5-4D6E-B7D8-105C737FA38D">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:B9693437-E9A5-4D6E-B7D8-105C737FA38D">
     <cim:IdentifiedObject.mRID>B9693437-E9A5-4D6E-B7D8-105C737FA38D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3133_SC_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>300000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:D4EEC424-FA50-48EC-9DE8-1A10E30400AB">
     <cim:IdentifiedObject.mRID>D4EEC424-FA50-48EC-9DE8-1A10E30400AB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3133_SC_Exc</cim:IdentifiedObject.name>
@@ -23636,12 +23723,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:09BCC561-40F0-453E-8DE7-EE729DFABC55">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:09BCC561-40F0-453E-8DE7-EE729DFABC55">
     <cim:IdentifiedObject.mRID>09BCC561-40F0-453E-8DE7-EE729DFABC55</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3135_MG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>541000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:96E0B4AA-E88E-43B0-A482-6AAFD8902A42">
     <cim:IdentifiedObject.mRID>96E0B4AA-E88E-43B0-A482-6AAFD8902A42</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3135_MG_Exc</cim:IdentifiedObject.name>
@@ -23723,12 +23810,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:63A0246E-D910-42B5-9349-E0019C9ABCEE">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:63A0246E-D910-42B5-9349-E0019C9ABCEE">
     <cim:IdentifiedObject.mRID>63A0246E-D910-42B5-9349-E0019C9ABCEE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3135_NG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>38000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:2063CF9C-3029-496F-88B6-FA30B26A747A">
     <cim:IdentifiedObject.mRID>2063CF9C-3029-496F-88B6-FA30B26A747A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3135_NG_Exc</cim:IdentifiedObject.name>
@@ -23810,12 +23897,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:F28823D3-EDB8-4533-AF16-F9156145F058">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:F28823D3-EDB8-4533-AF16-F9156145F058">
     <cim:IdentifiedObject.mRID>F28823D3-EDB8-4533-AF16-F9156145F058</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3234_DG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>177000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:D12DC6B6-7F32-41B5-997C-B534AA4F8FFF">
     <cim:IdentifiedObject.mRID>D12DC6B6-7F32-41B5-997C-B534AA4F8FFF</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3234_DG_Exc</cim:IdentifiedObject.name>
@@ -23897,12 +23984,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:3F949B39-7390-432A-A383-5AB65873D885">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:3F949B39-7390-432A-A383-5AB65873D885">
     <cim:IdentifiedObject.mRID>3F949B39-7390-432A-A383-5AB65873D885</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3234_MG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>3853000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:AAD588A0-3648-404B-9E4B-B569DBB745C7">
     <cim:IdentifiedObject.mRID>AAD588A0-3648-404B-9E4B-B569DBB745C7</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3234_MG_Exc</cim:IdentifiedObject.name>
@@ -23984,12 +24071,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:2D1D4165-E785-4F0F-82AF-1BCFDE0E01E2">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:2D1D4165-E785-4F0F-82AF-1BCFDE0E01E2">
     <cim:IdentifiedObject.mRID>2D1D4165-E785-4F0F-82AF-1BCFDE0E01E2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3234_NG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1037000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:E932E73E-57C9-4C59-A203-93D7DCB0E519">
     <cim:IdentifiedObject.mRID>E932E73E-57C9-4C59-A203-93D7DCB0E519</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3234_NG_Exc</cim:IdentifiedObject.name>
@@ -24071,12 +24158,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:0BBC68BD-C9D7-4749-940B-59BF07C08BFC">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:0BBC68BD-C9D7-4749-940B-59BF07C08BFC">
     <cim:IdentifiedObject.mRID>0BBC68BD-C9D7-4749-940B-59BF07C08BFC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3333_CG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1012000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:F4E544FC-9954-4304-9873-34879565A88D">
     <cim:IdentifiedObject.mRID>F4E544FC-9954-4304-9873-34879565A88D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3333_CG_Exc</cim:IdentifiedObject.name>
@@ -24158,12 +24245,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:85877022-D11A-46DC-A9EC-5499193D18C8">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:85877022-D11A-46DC-A9EC-5499193D18C8">
     <cim:IdentifiedObject.mRID>85877022-D11A-46DC-A9EC-5499193D18C8</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3333_NG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>312000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:1E751840-F8A5-42F9-86A2-9DF05F032D46">
     <cim:IdentifiedObject.mRID>1E751840-F8A5-42F9-86A2-9DF05F032D46</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3333_NG_Exc</cim:IdentifiedObject.name>
@@ -24245,12 +24332,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:CA646D6E-E012-4707-BC27-BA880B07AAF1">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:CA646D6E-E012-4707-BC27-BA880B07AAF1">
     <cim:IdentifiedObject.mRID>CA646D6E-E012-4707-BC27-BA880B07AAF1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3432_NP_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>3746000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:07E0C5B7-5073-4F1C-94A0-B7BBDC0569E9">
     <cim:IdentifiedObject.mRID>07E0C5B7-5073-4F1C-94A0-B7BBDC0569E9</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3432_NP_Exc</cim:IdentifiedObject.name>
@@ -24332,12 +24419,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:78CD8350-180F-4ACD-A3CE-9E427498C4BF">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:78CD8350-180F-4ACD-A3CE-9E427498C4BF">
     <cim:IdentifiedObject.mRID>78CD8350-180F-4ACD-A3CE-9E427498C4BF</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3433_NG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>921000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:9A2C6806-F33C-45EE-91A9-D7889AC8FF2B">
     <cim:IdentifiedObject.mRID>9A2C6806-F33C-45EE-91A9-D7889AC8FF2B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3433_NG_Exc</cim:IdentifiedObject.name>
@@ -24419,12 +24506,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:CDAF3556-1A63-432F-9184-286A23F9F611">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:CDAF3556-1A63-432F-9184-286A23F9F611">
     <cim:IdentifiedObject.mRID>CDAF3556-1A63-432F-9184-286A23F9F611</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3531_CE_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1424000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:F0F80698-C967-4BD9-B370-FA38EACCC336">
     <cim:IdentifiedObject.mRID>F0F80698-C967-4BD9-B370-FA38EACCC336</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3531_CE_Exc</cim:IdentifiedObject.name>
@@ -24506,12 +24593,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:6A697894-6826-41EC-8DBC-300776AC0308">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:6A697894-6826-41EC-8DBC-300776AC0308">
     <cim:IdentifiedObject.mRID>6A697894-6826-41EC-8DBC-300776AC0308</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3531_NE_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>533000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:F84BB0AE-392D-4884-B0D5-61AA2E00D076">
     <cim:IdentifiedObject.mRID>F84BB0AE-392D-4884-B0D5-61AA2E00D076</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3531_NE_Exc</cim:IdentifiedObject.name>
@@ -24593,12 +24680,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:0691BEB1-EF2D-48DB-AA71-52B7F4E8B3F5">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:0691BEB1-EF2D-48DB-AA71-52B7F4E8B3F5">
     <cim:IdentifiedObject.mRID>0691BEB1-EF2D-48DB-AA71-52B7F4E8B3F5</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3531_NH_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>24000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:D101F5A3-DC35-4B7B-95F1-D01430CBCBCA">
     <cim:IdentifiedObject.mRID>D101F5A3-DC35-4B7B-95F1-D01430CBCBCA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3531_NH_Exc</cim:IdentifiedObject.name>
@@ -24680,12 +24767,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:52DACAF0-A155-43EC-9F4A-F60F2781B654">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:52DACAF0-A155-43EC-9F4A-F60F2781B654">
     <cim:IdentifiedObject.mRID>52DACAF0-A155-43EC-9F4A-F60F2781B654</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3631_NB_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>96000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:53E0D023-A209-466E-AC1D-21B69B24AA63">
     <cim:IdentifiedObject.mRID>53E0D023-A209-466E-AC1D-21B69B24AA63</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3631_NB_Exc</cim:IdentifiedObject.name>
@@ -24767,12 +24854,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:67C27E1D-D26A-45EA-A96F-3079EF8377A3">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:67C27E1D-D26A-45EA-A96F-3079EF8377A3">
     <cim:IdentifiedObject.mRID>67C27E1D-D26A-45EA-A96F-3079EF8377A3</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3631_NG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>210000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:F1DFA857-673C-473D-BF7C-7536C7DCE521">
     <cim:IdentifiedObject.mRID>F1DFA857-673C-473D-BF7C-7536C7DCE521</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3631_NG_Exc</cim:IdentifiedObject.name>
@@ -24854,12 +24941,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:D73EB717-7820-4270-9B96-C5EC3CEEE5C3">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:D73EB717-7820-4270-9B96-C5EC3CEEE5C3">
     <cim:IdentifiedObject.mRID>D73EB717-7820-4270-9B96-C5EC3CEEE5C3</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3731_NH_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>400000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:7EE72D51-E3AB-4349-A3AB-77E94B7E1B89">
     <cim:IdentifiedObject.mRID>7EE72D51-E3AB-4349-A3AB-77E94B7E1B89</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3731_NH_Exc</cim:IdentifiedObject.name>
@@ -24941,12 +25028,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:9CDB148B-0289-4738-BAE3-F7F49B36883B">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:9CDB148B-0289-4738-BAE3-F7F49B36883B">
     <cim:IdentifiedObject.mRID>9CDB148B-0289-4738-BAE3-F7F49B36883B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3831_NN_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2323000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:6FE062A7-B677-4075-A1AB-017B921E7A9B">
     <cim:IdentifiedObject.mRID>6FE062A7-B677-4075-A1AB-017B921E7A9B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3831_NN_Exc</cim:IdentifiedObject.name>
@@ -25028,12 +25115,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:80E4B2E9-8EA7-4D03-9610-E274A2FABE3F">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:80E4B2E9-8EA7-4D03-9610-E274A2FABE3F">
     <cim:IdentifiedObject.mRID>80E4B2E9-8EA7-4D03-9610-E274A2FABE3F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3835_ND_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>100000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:7677F075-994B-4C6B-B58E-B3487A4F659F">
     <cim:IdentifiedObject.mRID>7677F075-994B-4C6B-B58E-B3487A4F659F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3835_ND_Exc</cim:IdentifiedObject.name>
@@ -25115,12 +25202,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:7DBBEBE2-4FB4-477F-9909-1F93605FCE36">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:7DBBEBE2-4FB4-477F-9909-1F93605FCE36">
     <cim:IdentifiedObject.mRID>7DBBEBE2-4FB4-477F-9909-1F93605FCE36</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3835_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1333000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:3EE32E1D-5F53-4EBD-902C-97E02354AA91">
     <cim:IdentifiedObject.mRID>3EE32E1D-5F53-4EBD-902C-97E02354AA91</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3835_S_Exc</cim:IdentifiedObject.name>
@@ -25202,12 +25289,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:C8A2CD96-55F6-4C5A-A6E2-F5829F3A621F">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:C8A2CD96-55F6-4C5A-A6E2-F5829F3A621F">
     <cim:IdentifiedObject.mRID>C8A2CD96-55F6-4C5A-A6E2-F5829F3A621F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3836_DG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1497000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:DA337683-F1FE-47AC-B7DE-3509C828D928">
     <cim:IdentifiedObject.mRID>DA337683-F1FE-47AC-B7DE-3509C828D928</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3836_DG_Exc</cim:IdentifiedObject.name>
@@ -25289,12 +25376,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:17325138-881F-4739-8865-92E0D3BADD36">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:17325138-881F-4739-8865-92E0D3BADD36">
     <cim:IdentifiedObject.mRID>17325138-881F-4739-8865-92E0D3BADD36</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3931_NB_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>567000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:0F58E8AF-CA43-4349-9C9C-A8B3546EF1C3">
     <cim:IdentifiedObject.mRID>0F58E8AF-CA43-4349-9C9C-A8B3546EF1C3</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3931_NB_Exc</cim:IdentifiedObject.name>
@@ -25376,12 +25463,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:2F46C7D9-BAC6-420B-9262-09220A7265B3">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:2F46C7D9-BAC6-420B-9262-09220A7265B3">
     <cim:IdentifiedObject.mRID>2F46C7D9-BAC6-420B-9262-09220A7265B3</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3931_NH_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2875000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:9FF2A338-6C6A-4E72-8B60-D3B0331A7791">
     <cim:IdentifiedObject.mRID>9FF2A338-6C6A-4E72-8B60-D3B0331A7791</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3931_NH_Exc</cim:IdentifiedObject.name>
@@ -25463,12 +25550,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:8DB5D4EB-2C40-47C9-A23A-DE861A5F51D1">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:8DB5D4EB-2C40-47C9-A23A-DE861A5F51D1">
     <cim:IdentifiedObject.mRID>8DB5D4EB-2C40-47C9-A23A-DE861A5F51D1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_ND_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>100000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:0FEFA83C-CCB4-41FB-94FD-EDF81049A008">
     <cim:IdentifiedObject.mRID>0FEFA83C-CCB4-41FB-94FD-EDF81049A008</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_ND_Exc</cim:IdentifiedObject.name>
@@ -25550,12 +25637,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:81E0C458-5F9F-4A1F-BC22-3998F1158142">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:81E0C458-5F9F-4A1F-BC22-3998F1158142">
     <cim:IdentifiedObject.mRID>81E0C458-5F9F-4A1F-BC22-3998F1158142</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_NG_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1927000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:A907DD0D-72B1-4778-BAF2-41D08463AD41">
     <cim:IdentifiedObject.mRID>A907DD0D-72B1-4778-BAF2-41D08463AD41</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_NG_Exc</cim:IdentifiedObject.name>
@@ -25637,12 +25724,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:02DF61D4-66EC-473C-8387-85AE3762AD16">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:02DF61D4-66EC-473C-8387-85AE3762AD16">
     <cim:IdentifiedObject.mRID>02DF61D4-66EC-473C-8387-85AE3762AD16</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_NH_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2774000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:E7EB186E-C2FF-48AD-996D-26E4C7713223">
     <cim:IdentifiedObject.mRID>E7EB186E-C2FF-48AD-996D-26E4C7713223</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_NH_Exc</cim:IdentifiedObject.name>
@@ -25724,12 +25811,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:A00241EC-5D7B-4BEE-822E-EB50AC93DB86">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:A00241EC-5D7B-4BEE-822E-EB50AC93DB86">
     <cim:IdentifiedObject.mRID>A00241EC-5D7B-4BEE-822E-EB50AC93DB86</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_NW_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>740000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:AF586811-3276-4947-A8C3-FFD040EC9C69">
     <cim:IdentifiedObject.mRID>AF586811-3276-4947-A8C3-FFD040EC9C69</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_NW_Exc</cim:IdentifiedObject.name>
@@ -25811,12 +25898,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:4E80AAB9-5748-422F-A077-96F13C15EB93">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:4E80AAB9-5748-422F-A077-96F13C15EB93">
     <cim:IdentifiedObject.mRID>4E80AAB9-5748-422F-A077-96F13C15EB93</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1333000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:EE6208E8-3E77-428C-9D81-84ABDC5ECE24">
     <cim:IdentifiedObject.mRID>EE6208E8-3E77-428C-9D81-84ABDC5ECE24</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>3933_S_Exc</cim:IdentifiedObject.name>
@@ -25898,12 +25985,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:023BEC77-074D-46B4-9A1F-A2713FC1EDBB">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:023BEC77-074D-46B4-9A1F-A2713FC1EDBB">
     <cim:IdentifiedObject.mRID>023BEC77-074D-46B4-9A1F-A2713FC1EDBB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4031_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2710000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:FB650590-CF8D-4171-BDE4-FC4A3E96E1D4">
     <cim:IdentifiedObject.mRID>FB650590-CF8D-4171-BDE4-FC4A3E96E1D4</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4031_G_Exc</cim:IdentifiedObject.name>
@@ -25985,12 +26072,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:7220E20A-080A-467D-8B75-1B107EBCB819">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:7220E20A-080A-467D-8B75-1B107EBCB819">
     <cim:IdentifiedObject.mRID>7220E20A-080A-467D-8B75-1B107EBCB819</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4031_W_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>635000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:AFB7B9A2-9408-42E3-A8CD-32460197373E">
     <cim:IdentifiedObject.mRID>AFB7B9A2-9408-42E3-A8CD-32460197373E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4031_W_Exc</cim:IdentifiedObject.name>
@@ -26072,12 +26159,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:E6B7F5C9-E124-4B74-89A1-CF5303B369C0">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:E6B7F5C9-E124-4B74-89A1-CF5303B369C0">
     <cim:IdentifiedObject.mRID>E6B7F5C9-E124-4B74-89A1-CF5303B369C0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4035_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1656000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:E6630D74-5CE4-4BCB-AEF4-78C3DD0EDD89">
     <cim:IdentifiedObject.mRID>E6630D74-5CE4-4BCB-AEF4-78C3DD0EDD89</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4035_G_Exc</cim:IdentifiedObject.name>
@@ -26246,12 +26333,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:D4F909B6-1FE3-4E47-AB12-B179E797D7AA">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:D4F909B6-1FE3-4E47-AB12-B179E797D7AA">
     <cim:IdentifiedObject.mRID>D4F909B6-1FE3-4E47-AB12-B179E797D7AA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4035_W_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2578000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:A22907B9-6E1B-478F-83AC-A79E4DE3C06E">
     <cim:IdentifiedObject.mRID>A22907B9-6E1B-478F-83AC-A79E4DE3C06E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4035_W_Exc</cim:IdentifiedObject.name>
@@ -26333,12 +26420,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:A321E78F-F48D-42C3-B19E-C75F0BD4280F">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:A321E78F-F48D-42C3-B19E-C75F0BD4280F">
     <cim:IdentifiedObject.mRID>A321E78F-F48D-42C3-B19E-C75F0BD4280F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4039_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>150000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:58700475-0C44-46F1-8271-F8CD9DFB2F64">
     <cim:IdentifiedObject.mRID>58700475-0C44-46F1-8271-F8CD9DFB2F64</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4039_G_Exc</cim:IdentifiedObject.name>
@@ -26507,12 +26594,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:A949E206-EFAB-4C50-97CC-189387797E1A">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:A949E206-EFAB-4C50-97CC-189387797E1A">
     <cim:IdentifiedObject.mRID>A949E206-EFAB-4C50-97CC-189387797E1A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4131_B_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>711000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:94334A5F-DF4B-4A2A-961E-DBA0D171650B">
     <cim:IdentifiedObject.mRID>94334A5F-DF4B-4A2A-961E-DBA0D171650B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4131_B_Exc</cim:IdentifiedObject.name>
@@ -26681,12 +26768,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:162173C3-D8AE-4A2C-934C-633327CFFDCA">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:162173C3-D8AE-4A2C-934C-633327CFFDCA">
     <cim:IdentifiedObject.mRID>162173C3-D8AE-4A2C-934C-633327CFFDCA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4132_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2170000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:92026FF8-C0B1-4037-92C3-9D09D76B39F2">
     <cim:IdentifiedObject.mRID>92026FF8-C0B1-4037-92C3-9D09D76B39F2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4132_G_Exc</cim:IdentifiedObject.name>
@@ -26830,6 +26917,93 @@
     <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
     <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:2935F382-76AF-4965-ACB9-232E13D58AD5"/>
 </cim:Terminal>
+<cim:SynchronousMachine rdf:about="urn:uuid:AE61CDA1-A709-440C-9762-34BBBD6F2341">
+    <cim:IdentifiedObject.mRID>AE61CDA1-A709-440C-9762-34BBBD6F2341</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>4132_N</cim:IdentifiedObject.name>
+    <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"/>
+    <cim:RotatingMachine.p>900000000.0</cim:RotatingMachine.p>
+    <cim:RotatingMachine.q>52261000.0</cim:RotatingMachine.q>
+    <cim:RotatingMachine.ratedS>1200000000.0</cim:RotatingMachine.ratedS>
+    <cim:RotatingMachine.ratedU>20000.0</cim:RotatingMachine.ratedU>
+    <cim:RotatingMachine.GeneratingUnit rdf:resource="urn:uuid:F38B3B3A-75DD-415B-9C81-88A55C9C5457"/>
+    <cim:SynchronousMachine.maxQ>231000000.0</cim:SynchronousMachine.maxQ>
+    <cim:SynchronousMachine.minQ>-231000000.0</cim:SynchronousMachine.minQ>
+    <cim:SynchronousMachine.satDirectSyncX>1.43</cim:SynchronousMachine.satDirectSyncX>
+    <cim:SynchronousMachine.satDirectTransX>0.146</cim:SynchronousMachine.satDirectTransX>
+    <cim:SynchronousMachine.satDirectSubtransX>0.114</cim:SynchronousMachine.satDirectSubtransX>
+    <cim:SynchronousMachine.Ra>0.001</cim:SynchronousMachine.Ra>
+    <cim:SynchronousMachine.X0>0.096</cim:SynchronousMachine.X0>
+    <cim:SynchronousMachine.X1>0.096</cim:SynchronousMachine.X1>
+    <cim:SynchronousMachine.Xq>1.33</cim:SynchronousMachine.Xq>
+    <cim:SynchronousMachine.Xqp>0.258</cim:SynchronousMachine.Xqp>
+    <cim:SynchronousMachine.Xqpp>0.114</cim:SynchronousMachine.Xqpp>
+    <cim:SynchronousMachine.Tdop>7.563</cim:SynchronousMachine.Tdop>
+    <cim:SynchronousMachine.Tdopp>0.017</cim:SynchronousMachine.Tdopp>
+    <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
+    <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
+</cim:SynchronousMachine>
+<cim:NuclearGeneratingUnit rdf:about="urn:uuid:F38B3B3A-75DD-415B-9C81-88A55C9C5457">
+    <cim:IdentifiedObject.mRID>F38B3B3A-75DD-415B-9C81-88A55C9C5457</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>4132_N_GenUnit</cim:IdentifiedObject.name>
+    <cim:GeneratingUnit.maxOperatingP>1200000000.0</cim:GeneratingUnit.maxOperatingP>
+    <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
+</cim:NuclearGeneratingUnit>
+<cim:ExcitationSystem rdf:about="urn:uuid:319E0497-88BA-4FB2-81A6-40C764D81792">
+    <cim:IdentifiedObject.mRID>319E0497-88BA-4FB2-81A6-40C764D81792</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>4132_N_Exc</cim:IdentifiedObject.name>
+    <cim:ExcitationSystem.SynchronousMachine rdf:resource="urn:uuid:AE61CDA1-A709-440C-9762-34BBBD6F2341"/>
+    <cim:ExcitationSystem.ilr>4.4</cim:ExcitationSystem.ilr>
+    <cim:ExcitationSystem.ka>40</cim:ExcitationSystem.ka>
+    <cim:ExcitationSystem.kc>0.038</cim:ExcitationSystem.kc>
+    <cim:ExcitationSystem.kf>0</cim:ExcitationSystem.kf>
+    <cim:ExcitationSystem.klr>4.54</cim:ExcitationSystem.klr>
+    <cim:ExcitationSystem.ta>0</cim:ExcitationSystem.ta>
+    <cim:ExcitationSystem.tb>10</cim:ExcitationSystem.tb>
+    <cim:ExcitationSystem.tb1>0</cim:ExcitationSystem.tb1>
+    <cim:ExcitationSystem.tc>1</cim:ExcitationSystem.tc>
+    <cim:ExcitationSystem.tc1>0</cim:ExcitationSystem.tc1>
+    <cim:ExcitationSystem.tf>1</cim:ExcitationSystem.tf>
+    <cim:ExcitationSystem.vamax>999</cim:ExcitationSystem.vamax>
+    <cim:ExcitationSystem.vamin>-999</cim:ExcitationSystem.vamin>
+    <cim:ExcitationSystem.vimax>0.1</cim:ExcitationSystem.vimax>
+    <cim:ExcitationSystem.vimin>-0.1</cim:ExcitationSystem.vimin>
+    <cim:ExcitationSystem.vrmax>4.5</cim:ExcitationSystem.vrmax>
+    <cim:ExcitationSystem.vrmin>-4</cim:ExcitationSystem.vrmin>
+</cim:ExcitationSystem>
+<cim:TurbineGovernor rdf:about="urn:uuid:3903EB9D-B511-43D3-B951-81916FE5412B">
+    <cim:IdentifiedObject.mRID>3903EB9D-B511-43D3-B951-81916FE5412B</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>4132_N_Gov</cim:IdentifiedObject.name>
+    <cim:TurbineGovernor.SynchronousMachine rdf:resource="urn:uuid:AE61CDA1-A709-440C-9762-34BBBD6F2341"/>
+    <cim:TurbineGovernor.k1>25</cim:TurbineGovernor.k1>
+    <cim:TurbineGovernor.t1>5</cim:TurbineGovernor.t1>
+    <cim:TurbineGovernor.t2>5</cim:TurbineGovernor.t2>
+    <cim:TurbineGovernor.t3>0.1</cim:TurbineGovernor.t3>
+    <cim:TurbineGovernor.pmax>0.9</cim:TurbineGovernor.pmax>
+    <cim:TurbineGovernor.pmin>0.05</cim:TurbineGovernor.pmin>
+</cim:TurbineGovernor>
+<cim:PowerSystemStabilizer rdf:about="urn:uuid:92369D63-2F31-4E21-A48F-69442B8618C5">
+    <cim:IdentifiedObject.mRID>92369D63-2F31-4E21-A48F-69442B8618C5</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>4132_N_PSS</cim:IdentifiedObject.name>
+    <cim:PowerSystemStabilizer.ExcitationSystem rdf:resource="urn:uuid:319E0497-88BA-4FB2-81A6-40C764D81792"/>
+    <cim:PowerSystemStabilizer.a1>0</cim:PowerSystemStabilizer.a1>
+    <cim:PowerSystemStabilizer.a2>0</cim:PowerSystemStabilizer.a2>
+    <cim:PowerSystemStabilizer.t1>1</cim:PowerSystemStabilizer.t1>
+    <cim:PowerSystemStabilizer.t2>0.5</cim:PowerSystemStabilizer.t2>
+    <cim:PowerSystemStabilizer.t3>2</cim:PowerSystemStabilizer.t3>
+    <cim:PowerSystemStabilizer.t4>0.1</cim:PowerSystemStabilizer.t4>
+    <cim:PowerSystemStabilizer.t5>10</cim:PowerSystemStabilizer.t5>
+    <cim:PowerSystemStabilizer.t6>0</cim:PowerSystemStabilizer.t6>
+    <cim:PowerSystemStabilizer.vstmax>0.2</cim:PowerSystemStabilizer.vstmax>
+    <cim:PowerSystemStabilizer.vstmin>-0.2</cim:PowerSystemStabilizer.vstmin>
+    <cim:PowerSystemStabilizer.ks>2</cim:PowerSystemStabilizer.ks>
+</cim:PowerSystemStabilizer>
+<cim:Terminal rdf:about="urn:uuid:4C556F1A-364B-4C02-802B-F1374D7E6DC8">
+    <cim:IdentifiedObject.mRID>4C556F1A-364B-4C02-802B-F1374D7E6DC8</cim:IdentifiedObject.mRID>
+    <cim:IdentifiedObject.name>AE61CDA1-A709-440C-9762-34BBBD6F2341_T1</cim:IdentifiedObject.name>
+    <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:AE61CDA1-A709-440C-9762-34BBBD6F2341"/>
+    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+    <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:2935F382-76AF-4965-ACB9-232E13D58AD5"/>
+</cim:Terminal>
 <cim:SynchronousMachine rdf:about="urn:uuid:2ACEE02E-C710-4F39-8331-2FA8B71BB052">
     <cim:IdentifiedObject.mRID>2ACEE02E-C710-4F39-8331-2FA8B71BB052</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4132_W</cim:IdentifiedObject.name>
@@ -26855,12 +27029,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:86CDB266-D084-4EC0-A086-F525AFEE41F4">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:86CDB266-D084-4EC0-A086-F525AFEE41F4">
     <cim:IdentifiedObject.mRID>86CDB266-D084-4EC0-A086-F525AFEE41F4</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4132_W_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>400000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:7938558B-DA07-46CA-AB90-A065AAD8BF04">
     <cim:IdentifiedObject.mRID>7938558B-DA07-46CA-AB90-A065AAD8BF04</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4132_W_Exc</cim:IdentifiedObject.name>
@@ -26942,12 +27116,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:BB023C98-0940-4639-951B-802E7575D085">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:BB023C98-0940-4639-951B-802E7575D085">
     <cim:IdentifiedObject.mRID>BB023C98-0940-4639-951B-802E7575D085</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4231_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1460000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:F042710B-7B99-4548-BBE4-8C8415878325">
     <cim:IdentifiedObject.mRID>F042710B-7B99-4548-BBE4-8C8415878325</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4231_C_Exc</cim:IdentifiedObject.name>
@@ -27029,12 +27203,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:9BAF4C7B-4313-4EB0-9CA3-ADAA3F1B902C">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:9BAF4C7B-4313-4EB0-9CA3-ADAA3F1B902C">
     <cim:IdentifiedObject.mRID>9BAF4C7B-4313-4EB0-9CA3-ADAA3F1B902C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4231_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>970000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:F45FE681-860F-4720-AB7A-4ACF945CE77C">
     <cim:IdentifiedObject.mRID>F45FE681-860F-4720-AB7A-4ACF945CE77C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4231_G_Exc</cim:IdentifiedObject.name>
@@ -27203,12 +27377,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:33A2B55C-35DC-4A95-AD32-6CE7853647DB">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:33A2B55C-35DC-4A95-AD32-6CE7853647DB">
     <cim:IdentifiedObject.mRID>33A2B55C-35DC-4A95-AD32-6CE7853647DB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4232_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>872000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:0BCFFB47-FF11-4066-8E28-9D2FEA2FCB01">
     <cim:IdentifiedObject.mRID>0BCFFB47-FF11-4066-8E28-9D2FEA2FCB01</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4232_G_Exc</cim:IdentifiedObject.name>
@@ -27290,12 +27464,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:CC273223-358B-4845-AE0C-17175E231006">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:CC273223-358B-4845-AE0C-17175E231006">
     <cim:IdentifiedObject.mRID>CC273223-358B-4845-AE0C-17175E231006</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4232_W_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>695000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:DBE15207-C90C-4A47-89D4-41C17D979954">
     <cim:IdentifiedObject.mRID>DBE15207-C90C-4A47-89D4-41C17D979954</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>4232_W_Exc</cim:IdentifiedObject.name>
@@ -27377,12 +27551,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:D132E379-F940-452F-B98B-2289B4B7D523">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:D132E379-F940-452F-B98B-2289B4B7D523">
     <cim:IdentifiedObject.mRID>D132E379-F940-452F-B98B-2289B4B7D523</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5031_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2650000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:AE32333B-F8A3-4683-99B7-3F7C503B3AE5">
     <cim:IdentifiedObject.mRID>AE32333B-F8A3-4683-99B7-3F7C503B3AE5</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5031_G_Exc</cim:IdentifiedObject.name>
@@ -27551,12 +27725,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:C13B127C-DBF9-47AA-AAD3-FEB21CC176E6">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:C13B127C-DBF9-47AA-AAD3-FEB21CC176E6">
     <cim:IdentifiedObject.mRID>C13B127C-DBF9-47AA-AAD3-FEB21CC176E6</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5032_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>9636000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:B59241C7-EA52-41E3-A283-52921D67CEBD">
     <cim:IdentifiedObject.mRID>B59241C7-EA52-41E3-A283-52921D67CEBD</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5032_G_Exc</cim:IdentifiedObject.name>
@@ -27638,12 +27812,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:A08C0026-CEDA-4F33-9B2C-503D26D9A5CD">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:A08C0026-CEDA-4F33-9B2C-503D26D9A5CD">
     <cim:IdentifiedObject.mRID>A08C0026-CEDA-4F33-9B2C-503D26D9A5CD</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5032_R_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>108000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:FE2D6F32-37CD-4F62-A25B-DAE8D52DF80C">
     <cim:IdentifiedObject.mRID>FE2D6F32-37CD-4F62-A25B-DAE8D52DF80C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5032_R_Exc</cim:IdentifiedObject.name>
@@ -27725,12 +27899,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:EB08B22B-468A-4830-BA99-26A9B5EB4675">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:EB08B22B-468A-4830-BA99-26A9B5EB4675">
     <cim:IdentifiedObject.mRID>EB08B22B-468A-4830-BA99-26A9B5EB4675</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5032_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>4410200000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:863FE003-2391-4757-8A81-7C1EB3AD46F2">
     <cim:IdentifiedObject.mRID>863FE003-2391-4757-8A81-7C1EB3AD46F2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>5032_S_Exc</cim:IdentifiedObject.name>
@@ -27812,12 +27986,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:4E3B994E-B2A6-4691-BF7C-3997A9EFDA7F">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:4E3B994E-B2A6-4691-BF7C-3997A9EFDA7F">
     <cim:IdentifiedObject.mRID>4E3B994E-B2A6-4691-BF7C-3997A9EFDA7F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6132_B_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>122000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:57275EE8-D48E-4C82-8084-BCBD431145E8">
     <cim:IdentifiedObject.mRID>57275EE8-D48E-4C82-8084-BCBD431145E8</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6132_B_Exc</cim:IdentifiedObject.name>
@@ -27899,12 +28073,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:F4516D85-667D-4B07-BF9D-2B0AFB02A30A">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:F4516D85-667D-4B07-BF9D-2B0AFB02A30A">
     <cim:IdentifiedObject.mRID>F4516D85-667D-4B07-BF9D-2B0AFB02A30A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6132_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1272000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:3E32CA93-7D23-4A50-8970-6AEC0FC5EC82">
     <cim:IdentifiedObject.mRID>3E32CA93-7D23-4A50-8970-6AEC0FC5EC82</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6132_G_Exc</cim:IdentifiedObject.name>
@@ -27986,12 +28160,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:FCCFB739-980A-4601-B07C-330EFE6DA3FE">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:FCCFB739-980A-4601-B07C-330EFE6DA3FE">
     <cim:IdentifiedObject.mRID>FCCFB739-980A-4601-B07C-330EFE6DA3FE</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6132_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>395000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:D07A5ED3-C9C0-4874-8973-5E76BF45C410">
     <cim:IdentifiedObject.mRID>D07A5ED3-C9C0-4874-8973-5E76BF45C410</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6132_S_Exc</cim:IdentifiedObject.name>
@@ -28073,12 +28247,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:8144B54C-4F01-41B0-B5F8-566AE0A8ACA0">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:8144B54C-4F01-41B0-B5F8-566AE0A8ACA0">
     <cim:IdentifiedObject.mRID>8144B54C-4F01-41B0-B5F8-566AE0A8ACA0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6231_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>2488000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:3F3C98DF-8077-4C4A-B349-FAB38238688C">
     <cim:IdentifiedObject.mRID>3F3C98DF-8077-4C4A-B349-FAB38238688C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6231_C_Exc</cim:IdentifiedObject.name>
@@ -28160,12 +28334,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:90F12964-7C91-4AE7-86DA-BF6C3AE9D3AC">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:90F12964-7C91-4AE7-86DA-BF6C3AE9D3AC">
     <cim:IdentifiedObject.mRID>90F12964-7C91-4AE7-86DA-BF6C3AE9D3AC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6231_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>250000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:BF041518-CA25-461D-AA14-557214797F1B">
     <cim:IdentifiedObject.mRID>BF041518-CA25-461D-AA14-557214797F1B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6231_G_Exc</cim:IdentifiedObject.name>
@@ -28247,12 +28421,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:49CC59AE-C568-44A0-B693-D3F0C01269EC">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:49CC59AE-C568-44A0-B693-D3F0C01269EC">
     <cim:IdentifiedObject.mRID>49CC59AE-C568-44A0-B693-D3F0C01269EC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6235_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>226000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:0ACBF963-315C-455C-B73B-A4A106BFDCEC">
     <cim:IdentifiedObject.mRID>0ACBF963-315C-455C-B73B-A4A106BFDCEC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6235_G_Exc</cim:IdentifiedObject.name>
@@ -28334,12 +28508,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:F76F2B5B-E9F8-4545-9E02-60608E5C0D0A">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:F76F2B5B-E9F8-4545-9E02-60608E5C0D0A">
     <cim:IdentifiedObject.mRID>F76F2B5B-E9F8-4545-9E02-60608E5C0D0A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6235_W_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>720000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:2B89BB99-7A6F-43E2-972D-3B963D2E938E">
     <cim:IdentifiedObject.mRID>2B89BB99-7A6F-43E2-972D-3B963D2E938E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6235_W_Exc</cim:IdentifiedObject.name>
@@ -28421,12 +28595,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:BD3F1976-A8B3-4BB5-8F33-D92EF6869B9F">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:BD3F1976-A8B3-4BB5-8F33-D92EF6869B9F">
     <cim:IdentifiedObject.mRID>BD3F1976-A8B3-4BB5-8F33-D92EF6869B9F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6333_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>4594000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:8110398B-BAF7-4B4A-A71C-F7B871B7A084">
     <cim:IdentifiedObject.mRID>8110398B-BAF7-4B4A-A71C-F7B871B7A084</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6333_C_Exc</cim:IdentifiedObject.name>
@@ -28508,12 +28682,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:82CB1411-16D3-4340-B417-ED545B3A0A18">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:82CB1411-16D3-4340-B417-ED545B3A0A18">
     <cim:IdentifiedObject.mRID>82CB1411-16D3-4340-B417-ED545B3A0A18</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6335_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>3000000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:86DC2FBB-7637-436B-8521-76D8D76F34DB">
     <cim:IdentifiedObject.mRID>86DC2FBB-7637-436B-8521-76D8D76F34DB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6335_C_Exc</cim:IdentifiedObject.name>
@@ -28595,12 +28769,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:48731FB5-8CAF-44F0-A22C-FE2FF598E13F">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:48731FB5-8CAF-44F0-A22C-FE2FF598E13F">
     <cim:IdentifiedObject.mRID>48731FB5-8CAF-44F0-A22C-FE2FF598E13F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6335_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>418000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:F1AA1CFC-482E-4852-870F-68456C250D89">
     <cim:IdentifiedObject.mRID>F1AA1CFC-482E-4852-870F-68456C250D89</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6335_G_Exc</cim:IdentifiedObject.name>
@@ -28769,12 +28943,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:01443413-36ED-4358-BA8E-98E9772D72D8">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:01443413-36ED-4358-BA8E-98E9772D72D8">
     <cim:IdentifiedObject.mRID>01443413-36ED-4358-BA8E-98E9772D72D8</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6433_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>391000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:89F56BEC-B379-41E7-924A-DE914C6D819D">
     <cim:IdentifiedObject.mRID>89F56BEC-B379-41E7-924A-DE914C6D819D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6433_C_Exc</cim:IdentifiedObject.name>
@@ -28856,12 +29030,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:25FDA29C-FA28-41A6-92FA-15663339987F">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:25FDA29C-FA28-41A6-92FA-15663339987F">
     <cim:IdentifiedObject.mRID>25FDA29C-FA28-41A6-92FA-15663339987F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6433_E_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>751000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:A9CA42CB-848E-4BF7-B665-08F1495E980E">
     <cim:IdentifiedObject.mRID>A9CA42CB-848E-4BF7-B665-08F1495E980E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6433_E_Exc</cim:IdentifiedObject.name>
@@ -28943,12 +29117,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:96124682-D4B2-4414-A7BA-339FBED2A040">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:96124682-D4B2-4414-A7BA-339FBED2A040">
     <cim:IdentifiedObject.mRID>96124682-D4B2-4414-A7BA-339FBED2A040</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6433_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1369000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:46D47992-52BF-4B82-8ACA-56CA5DD45113">
     <cim:IdentifiedObject.mRID>46D47992-52BF-4B82-8ACA-56CA5DD45113</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6433_G_Exc</cim:IdentifiedObject.name>
@@ -29117,12 +29291,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:91EA4B36-65B3-47A1-92F1-FABBB9918356">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:91EA4B36-65B3-47A1-92F1-FABBB9918356">
     <cim:IdentifiedObject.mRID>91EA4B36-65B3-47A1-92F1-FABBB9918356</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6533_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1407000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:8F6251D0-CA06-41DA-80B3-30C7C8F30FAB">
     <cim:IdentifiedObject.mRID>8F6251D0-CA06-41DA-80B3-30C7C8F30FAB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6533_S_Exc</cim:IdentifiedObject.name>
@@ -29204,12 +29378,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:67814530-0832-4E17-BDBF-A2A3735A8942">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:67814530-0832-4E17-BDBF-A2A3735A8942">
     <cim:IdentifiedObject.mRID>67814530-0832-4E17-BDBF-A2A3735A8942</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6533_W_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>391000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:2214D23D-9E09-4FF4-B0C0-7F60089E521B">
     <cim:IdentifiedObject.mRID>2214D23D-9E09-4FF4-B0C0-7F60089E521B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>6533_W_Exc</cim:IdentifiedObject.name>
@@ -29291,12 +29465,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:E04D2531-5966-4187-8A1D-769F32765616">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:E04D2531-5966-4187-8A1D-769F32765616">
     <cim:IdentifiedObject.mRID>E04D2531-5966-4187-8A1D-769F32765616</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7031_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>3127000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:C9E34040-14AE-4D65-AD28-5F11652BE707">
     <cim:IdentifiedObject.mRID>C9E34040-14AE-4D65-AD28-5F11652BE707</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7031_C_Exc</cim:IdentifiedObject.name>
@@ -29378,12 +29552,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:B88B5D92-1647-47AE-8734-F0CAEF0C57B0">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:B88B5D92-1647-47AE-8734-F0CAEF0C57B0">
     <cim:IdentifiedObject.mRID>B88B5D92-1647-47AE-8734-F0CAEF0C57B0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7031_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>6346000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:3390FA79-D122-4DC3-B26A-7E95289C9B85">
     <cim:IdentifiedObject.mRID>3390FA79-D122-4DC3-B26A-7E95289C9B85</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7031_G_Exc</cim:IdentifiedObject.name>
@@ -29465,12 +29639,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:A2AED02E-4DA9-4E1A-B395-DC48342C1B25">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:A2AED02E-4DA9-4E1A-B395-DC48342C1B25">
     <cim:IdentifiedObject.mRID>A2AED02E-4DA9-4E1A-B395-DC48342C1B25</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7031_SC_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>100000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:E03DE431-D602-40B4-A038-640614864704">
     <cim:IdentifiedObject.mRID>E03DE431-D602-40B4-A038-640614864704</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7031_SC_Exc</cim:IdentifiedObject.name>
@@ -29552,12 +29726,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:2065617F-CD8D-4FB0-92C9-24C3D5E67FF6">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:2065617F-CD8D-4FB0-92C9-24C3D5E67FF6">
     <cim:IdentifiedObject.mRID>2065617F-CD8D-4FB0-92C9-24C3D5E67FF6</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7031_W_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>3106000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:82D04391-BB08-4F3D-BBB6-12318C39B266">
     <cim:IdentifiedObject.mRID>82D04391-BB08-4F3D-BBB6-12318C39B266</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7031_W_Exc</cim:IdentifiedObject.name>
@@ -29639,12 +29813,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:731645BE-FAEE-416B-AFDA-0CFD1BDC1EB4">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:731645BE-FAEE-416B-AFDA-0CFD1BDC1EB4">
     <cim:IdentifiedObject.mRID>731645BE-FAEE-416B-AFDA-0CFD1BDC1EB4</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7032_C_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>1821000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:D1E4D5F2-CC89-44E5-8FA4-6B3BC96B8C20">
     <cim:IdentifiedObject.mRID>D1E4D5F2-CC89-44E5-8FA4-6B3BC96B8C20</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7032_C_Exc</cim:IdentifiedObject.name>
@@ -29813,12 +29987,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:E39B898E-2CFF-4BC5-98C9-81EB8CA75E9B">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:E39B898E-2CFF-4BC5-98C9-81EB8CA75E9B">
     <cim:IdentifiedObject.mRID>E39B898E-2CFF-4BC5-98C9-81EB8CA75E9B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7032_S_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>738000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:660EB7E5-F56C-4BA0-97AF-9DA5FA32DC89">
     <cim:IdentifiedObject.mRID>660EB7E5-F56C-4BA0-97AF-9DA5FA32DC89</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>7032_S_Exc</cim:IdentifiedObject.name>
@@ -29987,12 +30161,12 @@
     <cim:SynchronousMachine.Tqop>1.133</cim:SynchronousMachine.Tqop>
     <cim:SynchronousMachine.Tqopp>0.05</cim:SynchronousMachine.Tqopp>
 </cim:SynchronousMachine>
-<cim:HydroGeneratingUnit rdf:about="urn:uuid:B6166E40-40FF-4A33-899B-A0B5026F5B01">
+<cim:ThermalGeneratingUnit rdf:about="urn:uuid:B6166E40-40FF-4A33-899B-A0B5026F5B01">
     <cim:IdentifiedObject.mRID>B6166E40-40FF-4A33-899B-A0B5026F5B01</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>8034_G_GenUnit</cim:IdentifiedObject.name>
     <cim:GeneratingUnit.maxOperatingP>3754000000.0</cim:GeneratingUnit.maxOperatingP>
     <cim:GeneratingUnit.minOperatingP>0</cim:GeneratingUnit.minOperatingP>
-</cim:HydroGeneratingUnit>
+</cim:ThermalGeneratingUnit>
 <cim:ExcitationSystem rdf:about="urn:uuid:11005723-2AD7-41FD-B7F7-CB826404C9F4">
     <cim:IdentifiedObject.mRID>11005723-2AD7-41FD-B7F7-CB826404C9F4</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>8034_G_Exc</cim:IdentifiedObject.name>
@@ -30603,162 +30777,6 @@
     <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:02DE793C-D13C-4BEF-9708-4CABEB22524C"/>
     <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
     <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:ACD1B89A-2059-46B1-8603-B84E58473910"/>
-</cim:Terminal>
-<cim:PowerElectronicsConnection rdf:about="urn:uuid:D8D9D646-486A-49BE-973A-E41B026252FA">
-    <cim:IdentifiedObject.mRID>D8D9D646-486A-49BE-973A-E41B026252FA</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>1431_N_Connection</cim:IdentifiedObject.name>
-    <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"/>
-    <cim:PowerElectronicsConnection.PowerElectronicsUnit rdf:resource="urn:uuid:7B4CD00E-6FBC-4043-9689-86A2756E7CA9"/>
-    <cim:PowerElectronicsConnection.maxIFault>1.0</cim:PowerElectronicsConnection.maxIFault>
-    <cim:PowerElectronicsConnection.p>2355000000.0</cim:PowerElectronicsConnection.p>
-    <cim:PowerElectronicsConnection.q>409166000.0</cim:PowerElectronicsConnection.q>
-    <cim:PowerElectronicsConnection.ratedS>4210000000.0</cim:PowerElectronicsConnection.ratedS>
-    <cim:PowerElectronicsConnection.ratedU>20000.0</cim:PowerElectronicsConnection.ratedU>
-    <cim:PowerElectronicsConnection.maxQ>2057000000.0</cim:PowerElectronicsConnection.maxQ>
-    <cim:PowerElectronicsConnection.minQ>-2057000000.0</cim:PowerElectronicsConnection.minQ>
-</cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:7B4CD00E-6FBC-4043-9689-86A2756E7CA9">
-    <cim:IdentifiedObject.mRID>7B4CD00E-6FBC-4043-9689-86A2756E7CA9</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>1431_N_Unit</cim:IdentifiedObject.name>
-    <cim:PowerElectronicsUnit.maxP>4210000000.0</cim:PowerElectronicsUnit.maxP>
-    <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
-<cim:WeccREPCA rdf:about="urn:uuid:F95A07B2-4931-4A62-9307-9C981AE793AE">
-    <cim:IdentifiedObject.mRID>F95A07B2-4931-4A62-9307-9C981AE793AE</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>1431_N_REPCA</cim:IdentifiedObject.name>
-    <cim:WeccREPCA.WeccREECA rdf:resource="urn:uuid:6FB66E7B-4B6C-4DAC-9029-1FD640A7C8AD"/>
-    <cim:WeccREPCA.mvab>4210.0</cim:WeccREPCA.mvab>
-    <cim:WeccREPCA.db>0</cim:WeccREPCA.db>
-    <cim:WeccREPCA.ddn>20</cim:WeccREPCA.ddn>
-    <cim:WeccREPCA.dup>0</cim:WeccREPCA.dup>
-    <cim:WeccREPCA.emax>999</cim:WeccREPCA.emax>
-    <cim:WeccREPCA.emin>-999</cim:WeccREPCA.emin>
-    <cim:WeccREPCA.fdbd1>-0.01</cim:WeccREPCA.fdbd1>
-    <cim:WeccREPCA.fdbd2>0.01</cim:WeccREPCA.fdbd2>
-    <cim:WeccREPCA.femax>999</cim:WeccREPCA.femax>
-    <cim:WeccREPCA.femin>-999</cim:WeccREPCA.femin>
-    <cim:WeccREPCA.frqFlag>1</cim:WeccREPCA.frqFlag>
-    <cim:WeccREPCA.refFlag>1</cim:WeccREPCA.refFlag>
-    <cim:WeccREPCA.vcmpFlag>1</cim:WeccREPCA.vcmpFlag>
-    <cim:WeccREPCA.kc>0.02</cim:WeccREPCA.kc>
-    <cim:WeccREPCA.ki>5.0</cim:WeccREPCA.ki>
-    <cim:WeccREPCA.kig>0.05</cim:WeccREPCA.kig>
-    <cim:WeccREPCA.kp>10.0</cim:WeccREPCA.kp>
-    <cim:WeccREPCA.kpg>0.1</cim:WeccREPCA.kpg>
-    <cim:WeccREPCA.pmax>1</cim:WeccREPCA.pmax>
-    <cim:WeccREPCA.pmin>0</cim:WeccREPCA.pmin>
-    <cim:WeccREPCA.qmax>0.7</cim:WeccREPCA.qmax>
-    <cim:WeccREPCA.qmin>-0.7</cim:WeccREPCA.qmin>
-    <cim:WeccREPCA.rc>0</cim:WeccREPCA.rc>
-    <cim:WeccREPCA.vfrz>0.35</cim:WeccREPCA.vfrz>
-    <cim:WeccREPCA.xc>0</cim:WeccREPCA.xc>
-    <cim:WeccREPCA.tfltr>0.02</cim:WeccREPCA.tfltr>
-    <cim:WeccREPCA.tft>0.0</cim:WeccREPCA.tft>
-    <cim:WeccREPCA.tfv>0.08</cim:WeccREPCA.tfv>
-    <cim:WeccREPCA.tlag>0.08</cim:WeccREPCA.tlag>
-    <cim:WeccREPCA.tp>0.03</cim:WeccREPCA.tp>
-</cim:WeccREPCA>
-<cim:WeccREGCA rdf:about="urn:uuid:A04E5B9E-5F06-4DD2-989D-BD15AD5DF3AB">
-    <cim:IdentifiedObject.mRID>A04E5B9E-5F06-4DD2-989D-BD15AD5DF3AB</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>1431_N_REGCA</cim:IdentifiedObject.name>
-    <cim:WeccREGCA.PowerElectronicsConnection rdf:resource="urn:uuid:D8D9D646-486A-49BE-973A-E41B026252FA"/>
-    <cim:WeccREGCA.mvab>4210.0</cim:WeccREGCA.mvab>
-    <cim:WeccREGCA.brkpt>0.9</cim:WeccREGCA.brkpt>
-    <cim:WeccREGCA.iolim>-1.2</cim:WeccREGCA.iolim>
-    <cim:WeccREGCA.iqrmax>999.9</cim:WeccREGCA.iqrmax>
-    <cim:WeccREGCA.iqrmin>-999.9</cim:WeccREGCA.iqrmin>
-    <cim:WeccREGCA.ivpl1>1.2</cim:WeccREGCA.ivpl1>
-    <cim:WeccREGCA.ivplsw>0</cim:WeccREGCA.ivplsw>
-    <cim:WeccREGCA.ivpnt0>0.4</cim:WeccREGCA.ivpnt0>
-    <cim:WeccREGCA.ivpnt1>0.8</cim:WeccREGCA.ivpnt1>
-    <cim:WeccREGCA.khv>0.7</cim:WeccREGCA.khv>
-    <cim:WeccREGCA.rrpwr>10</cim:WeccREGCA.rrpwr>
-    <cim:WeccREGCA.tfltr>0.015</cim:WeccREGCA.tfltr>
-    <cim:WeccREGCA.tg>0.02</cim:WeccREGCA.tg>
-    <cim:WeccREGCA.volim>1.2</cim:WeccREGCA.volim>
-    <cim:WeccREGCA.zerox>0.4</cim:WeccREGCA.zerox>
-</cim:WeccREGCA>
-<cim:WeccREECA rdf:about="urn:uuid:6FB66E7B-4B6C-4DAC-9029-1FD640A7C8AD">
-    <cim:IdentifiedObject.mRID>6FB66E7B-4B6C-4DAC-9029-1FD640A7C8AD</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>1431_N_REECA</cim:IdentifiedObject.name>
-    <cim:WeccREECA.WeccREGCA rdf:resource="urn:uuid:A04E5B9E-5F06-4DD2-989D-BD15AD5DF3AB"/>
-    <cim:WeccREECA.mvab>4210.0</cim:WeccREECA.mvab>
-    <cim:WeccREECA.db1>-0.05</cim:WeccREECA.db1>
-    <cim:WeccREECA.db2>0.05</cim:WeccREECA.db2>
-    <cim:WeccREECA.dPmax>999</cim:WeccREECA.dPmax>
-    <cim:WeccREECA.dPmin>-999</cim:WeccREECA.dPmin>
-    <cim:WeccREECA.imax>1.2</cim:WeccREECA.imax>
-    <cim:WeccREECA.iqfrz>0.05</cim:WeccREECA.iqfrz>
-    <cim:WeccREECA.iqh1>1.05</cim:WeccREECA.iqh1>
-    <cim:WeccREECA.iql1>-1.05</cim:WeccREECA.iql1>
-    <cim:WeccREECA.kqi>0.1</cim:WeccREECA.kqi>
-    <cim:WeccREECA.kqp>0.1</cim:WeccREECA.kqp>
-    <cim:WeccREECA.kqv>5</cim:WeccREECA.kqv>
-    <cim:WeccREECA.kvi>1.0</cim:WeccREECA.kvi>
-    <cim:WeccREECA.kvp>5.0</cim:WeccREECA.kvp>
-    <cim:WeccREECA.pfFlag>0</cim:WeccREECA.pfFlag>
-    <cim:WeccREECA.pFlag>1</cim:WeccREECA.pFlag>
-    <cim:WeccREECA.pqFlag>0</cim:WeccREECA.pqFlag>
-    <cim:WeccREECA.qFlag>1</cim:WeccREECA.qFlag>
-    <cim:WeccREECA.vFlag>1</cim:WeccREECA.vFlag>
-    <cim:WeccREECA.pmax>1</cim:WeccREECA.pmax>
-    <cim:WeccREECA.pmin>0</cim:WeccREECA.pmin>
-    <cim:WeccREECA.qmax>0.7</cim:WeccREECA.qmax>
-    <cim:WeccREECA.qmin>-0.7</cim:WeccREECA.qmin>
-    <cim:WeccREECA.thld>0</cim:WeccREECA.thld>
-    <cim:WeccREECA.thld2>0</cim:WeccREECA.thld2>
-    <cim:WeccREECA.tiq>0.015</cim:WeccREECA.tiq>
-    <cim:WeccREECA.tp>0.05</cim:WeccREECA.tp>
-    <cim:WeccREECA.tpord>0.03</cim:WeccREECA.tpord>
-    <cim:WeccREECA.trv>0.03</cim:WeccREECA.trv>
-    <cim:WeccREECA.vdi1i1>1</cim:WeccREECA.vdi1i1>
-    <cim:WeccREECA.vdi1i2>1</cim:WeccREECA.vdi1i2>
-    <cim:WeccREECA.vdi1i3>0</cim:WeccREECA.vdi1i3>
-    <cim:WeccREECA.vdi1i4>0</cim:WeccREECA.vdi1i4>
-    <cim:WeccREECA.vdi1v1>-1</cim:WeccREECA.vdi1v1>
-    <cim:WeccREECA.vdi1v2>2</cim:WeccREECA.vdi1v2>
-    <cim:WeccREECA.vdi1v3>0</cim:WeccREECA.vdi1v3>
-    <cim:WeccREECA.vdi1v4>0</cim:WeccREECA.vdi1v4>
-    <cim:WeccREECA.vdi2i1>1</cim:WeccREECA.vdi2i1>
-    <cim:WeccREECA.vdi2i2>1</cim:WeccREECA.vdi2i2>
-    <cim:WeccREECA.vdi2i3>0</cim:WeccREECA.vdi2i3>
-    <cim:WeccREECA.vdi2i4>0</cim:WeccREECA.vdi2i4>
-    <cim:WeccREECA.vdi2v1>-1</cim:WeccREECA.vdi2v1>
-    <cim:WeccREECA.vdi2v2>2</cim:WeccREECA.vdi2v2>
-    <cim:WeccREECA.vdi2v3>0</cim:WeccREECA.vdi2v3>
-    <cim:WeccREECA.vdi2v4>0</cim:WeccREECA.vdi2v4>
-    <cim:WeccREECA.vdip>0.87</cim:WeccREECA.vdip>
-    <cim:WeccREECA.vmax>1.07</cim:WeccREECA.vmax>
-    <cim:WeccREECA.vmin>0.9</cim:WeccREECA.vmin>
-    <cim:WeccREECA.vref0>1</cim:WeccREECA.vref0>
-    <cim:WeccREECA.vref1>0</cim:WeccREECA.vref1>
-    <cim:WeccREECA.vup>1.15</cim:WeccREECA.vup>
-</cim:WeccREECA>
-<cim:WeccWTGTA rdf:about="urn:uuid:4106FBF6-5FCE-4DB9-9E04-D9FEF9B88A1A">
-    <cim:IdentifiedObject.mRID>4106FBF6-5FCE-4DB9-9E04-D9FEF9B88A1A</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>1431_N_WTGTA</cim:IdentifiedObject.name>
-    <cim:WeccWTGTA.WeccREECA rdf:resource="urn:uuid:6FB66E7B-4B6C-4DAC-9029-1FD640A7C8AD"/>
-    <cim:WeccWTGTA.mvab>4210.0</cim:WeccWTGTA.mvab>
-    <cim:WeccWTGTA.dshaft>1.5</cim:WeccWTGTA.dshaft>
-    <cim:WeccWTGTA.kshaft>0</cim:WeccWTGTA.kshaft>
-    <cim:WeccWTGTA.hg>0.62</cim:WeccWTGTA.hg>
-    <cim:WeccWTGTA.ht>4.134</cim:WeccWTGTA.ht>
-    <cim:WeccWTGTA.wo>1</cim:WeccWTGTA.wo>
-</cim:WeccWTGTA>
-<cim:WeccWTGAA rdf:about="urn:uuid:787892EB-D5DE-424C-990C-C7DECBB0A7BF">
-    <cim:IdentifiedObject.mRID>787892EB-D5DE-424C-990C-C7DECBB0A7BF</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>1431_N_WTGAA</cim:IdentifiedObject.name>
-    <cim:WeccWTGAA.WeccWTGTA rdf:resource="urn:uuid:4106FBF6-5FCE-4DB9-9E04-D9FEF9B88A1A"/>
-    <cim:WeccWTGAA.mvab>4210.0</cim:WeccWTGAA.mvab>
-    <cim:WeccWTGAA.ka>0.01</cim:WeccWTGAA.ka>
-    <cim:WeccWTGAA.Theta0>0</cim:WeccWTGAA.Theta0>
-</cim:WeccWTGAA>
-<cim:Terminal rdf:about="urn:uuid:02C519AC-2E48-4C79-9CB3-EF0985E272BB">
-    <cim:IdentifiedObject.mRID>02C519AC-2E48-4C79-9CB3-EF0985E272BB</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>D8D9D646-486A-49BE-973A-E41B026252FA_T1</cim:IdentifiedObject.name>
-    <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:D8D9D646-486A-49BE-973A-E41B026252FA"/>
-    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:9F995B68-4F25-4645-934F-14857EEE1B71"/>
 </cim:Terminal>
 <cim:PowerElectronicsConnection rdf:about="urn:uuid:BED06FB4-D3BD-4503-92C0-D3006AE81AFA">
     <cim:IdentifiedObject.mRID>BED06FB4-D3BD-4503-92C0-D3006AE81AFA</cim:IdentifiedObject.mRID>
@@ -33632,143 +33650,6 @@
     <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:EAED7533-1CE9-4F90-86F1-442AF363F3F7"/>
     <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
     <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:ADFC5DCC-2E31-447E-A442-B68A9C2AD72E"/>
-</cim:Terminal>
-<cim:PowerElectronicsConnection rdf:about="urn:uuid:B27C7223-B0E7-4F59-81CD-43678096B99F">
-    <cim:IdentifiedObject.mRID>B27C7223-B0E7-4F59-81CD-43678096B99F</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>4132_N_Connection</cim:IdentifiedObject.name>
-    <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3"/>
-    <cim:PowerElectronicsConnection.PowerElectronicsUnit rdf:resource="urn:uuid:4B402030-CC5C-44DA-B56A-EF781161F82D"/>
-    <cim:PowerElectronicsConnection.maxIFault>0.0</cim:PowerElectronicsConnection.maxIFault>
-    <cim:PowerElectronicsConnection.p>900000000.0</cim:PowerElectronicsConnection.p>
-    <cim:PowerElectronicsConnection.q>52261000.0</cim:PowerElectronicsConnection.q>
-    <cim:PowerElectronicsConnection.ratedS>1200000000.0</cim:PowerElectronicsConnection.ratedS>
-    <cim:PowerElectronicsConnection.ratedU>20000.0</cim:PowerElectronicsConnection.ratedU>
-    <cim:PowerElectronicsConnection.maxQ>231000000.0</cim:PowerElectronicsConnection.maxQ>
-    <cim:PowerElectronicsConnection.minQ>-231000000.0</cim:PowerElectronicsConnection.minQ>
-</cim:PowerElectronicsConnection>
-<cim:PhotovoltaicUnit rdf:about="urn:uuid:4B402030-CC5C-44DA-B56A-EF781161F82D">
-    <cim:IdentifiedObject.mRID>4B402030-CC5C-44DA-B56A-EF781161F82D</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>4132_N_Unit</cim:IdentifiedObject.name>
-    <cim:PowerElectronicsUnit.maxP>1200000000.0</cim:PowerElectronicsUnit.maxP>
-    <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:PhotovoltaicUnit>
-<cim:WeccREPCA rdf:about="urn:uuid:BB5C8064-3BFC-45D0-9732-A849497801DD">
-    <cim:IdentifiedObject.mRID>BB5C8064-3BFC-45D0-9732-A849497801DD</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>4132_N_REPCA</cim:IdentifiedObject.name>
-    <cim:WeccREPCA.WeccREECA rdf:resource="urn:uuid:BB6405F6-1D02-4C5D-BB69-80F01D787533"/>
-    <cim:WeccREPCA.mvab>1200.0</cim:WeccREPCA.mvab>
-    <cim:WeccREPCA.db>0</cim:WeccREPCA.db>
-    <cim:WeccREPCA.ddn>20</cim:WeccREPCA.ddn>
-    <cim:WeccREPCA.dup>0</cim:WeccREPCA.dup>
-    <cim:WeccREPCA.emax>999</cim:WeccREPCA.emax>
-    <cim:WeccREPCA.emin>-999</cim:WeccREPCA.emin>
-    <cim:WeccREPCA.fdbd1>-0.01</cim:WeccREPCA.fdbd1>
-    <cim:WeccREPCA.fdbd2>0.01</cim:WeccREPCA.fdbd2>
-    <cim:WeccREPCA.femax>999</cim:WeccREPCA.femax>
-    <cim:WeccREPCA.femin>-999</cim:WeccREPCA.femin>
-    <cim:WeccREPCA.frqFlag>1</cim:WeccREPCA.frqFlag>
-    <cim:WeccREPCA.refFlag>1</cim:WeccREPCA.refFlag>
-    <cim:WeccREPCA.vcmpFlag>1</cim:WeccREPCA.vcmpFlag>
-    <cim:WeccREPCA.kc>0.02</cim:WeccREPCA.kc>
-    <cim:WeccREPCA.ki>4.3</cim:WeccREPCA.ki>
-    <cim:WeccREPCA.kig>0.05</cim:WeccREPCA.kig>
-    <cim:WeccREPCA.kp>10.9</cim:WeccREPCA.kp>
-    <cim:WeccREPCA.kpg>0.1</cim:WeccREPCA.kpg>
-    <cim:WeccREPCA.pmax>1</cim:WeccREPCA.pmax>
-    <cim:WeccREPCA.pmin>0</cim:WeccREPCA.pmin>
-    <cim:WeccREPCA.qmax>0.7</cim:WeccREPCA.qmax>
-    <cim:WeccREPCA.qmin>-0.7</cim:WeccREPCA.qmin>
-    <cim:WeccREPCA.rc>0</cim:WeccREPCA.rc>
-    <cim:WeccREPCA.vfrz>0.35</cim:WeccREPCA.vfrz>
-    <cim:WeccREPCA.xc>0</cim:WeccREPCA.xc>
-    <cim:WeccREPCA.tfltr>0.02</cim:WeccREPCA.tfltr>
-    <cim:WeccREPCA.tft>0.0</cim:WeccREPCA.tft>
-    <cim:WeccREPCA.tfv>0.08</cim:WeccREPCA.tfv>
-    <cim:WeccREPCA.tlag>0.08</cim:WeccREPCA.tlag>
-    <cim:WeccREPCA.tp>0.03</cim:WeccREPCA.tp>
-</cim:WeccREPCA>
-<cim:WeccREGCA rdf:about="urn:uuid:914A1A6A-5F18-44EB-88A1-503F7331C4A3">
-    <cim:IdentifiedObject.mRID>914A1A6A-5F18-44EB-88A1-503F7331C4A3</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>4132_N_REGCA</cim:IdentifiedObject.name>
-    <cim:WeccREGCA.PowerElectronicsConnection rdf:resource="urn:uuid:B27C7223-B0E7-4F59-81CD-43678096B99F"/>
-    <cim:WeccREGCA.mvab>1200.0</cim:WeccREGCA.mvab>
-    <cim:WeccREGCA.brkpt>0.9</cim:WeccREGCA.brkpt>
-    <cim:WeccREGCA.iolim>-1.2</cim:WeccREGCA.iolim>
-    <cim:WeccREGCA.iqrmax>999.9</cim:WeccREGCA.iqrmax>
-    <cim:WeccREGCA.iqrmin>-999.9</cim:WeccREGCA.iqrmin>
-    <cim:WeccREGCA.ivpl1>1.2</cim:WeccREGCA.ivpl1>
-    <cim:WeccREGCA.ivplsw>0</cim:WeccREGCA.ivplsw>
-    <cim:WeccREGCA.ivpnt0>0.4</cim:WeccREGCA.ivpnt0>
-    <cim:WeccREGCA.ivpnt1>0.8</cim:WeccREGCA.ivpnt1>
-    <cim:WeccREGCA.khv>0.7</cim:WeccREGCA.khv>
-    <cim:WeccREGCA.rrpwr>10</cim:WeccREGCA.rrpwr>
-    <cim:WeccREGCA.tfltr>0.015</cim:WeccREGCA.tfltr>
-    <cim:WeccREGCA.tg>0.02</cim:WeccREGCA.tg>
-    <cim:WeccREGCA.volim>1.2</cim:WeccREGCA.volim>
-    <cim:WeccREGCA.zerox>0.4</cim:WeccREGCA.zerox>
-</cim:WeccREGCA>
-<cim:WeccREECA rdf:about="urn:uuid:BB6405F6-1D02-4C5D-BB69-80F01D787533">
-    <cim:IdentifiedObject.mRID>BB6405F6-1D02-4C5D-BB69-80F01D787533</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>4132_N_REECA</cim:IdentifiedObject.name>
-    <cim:WeccREECA.WeccREGCA rdf:resource="urn:uuid:914A1A6A-5F18-44EB-88A1-503F7331C4A3"/>
-    <cim:WeccREECA.mvab>1200.0</cim:WeccREECA.mvab>
-    <cim:WeccREECA.db1>-0.05</cim:WeccREECA.db1>
-    <cim:WeccREECA.db2>0.05</cim:WeccREECA.db2>
-    <cim:WeccREECA.dPmax>999</cim:WeccREECA.dPmax>
-    <cim:WeccREECA.dPmin>-999</cim:WeccREECA.dPmin>
-    <cim:WeccREECA.imax>1.2</cim:WeccREECA.imax>
-    <cim:WeccREECA.iqfrz>0.05</cim:WeccREECA.iqfrz>
-    <cim:WeccREECA.iqh1>1.05</cim:WeccREECA.iqh1>
-    <cim:WeccREECA.iql1>-1.05</cim:WeccREECA.iql1>
-    <cim:WeccREECA.kqi>0.0</cim:WeccREECA.kqi>
-    <cim:WeccREECA.kqp>0.0</cim:WeccREECA.kqp>
-    <cim:WeccREECA.kqv>5</cim:WeccREECA.kqv>
-    <cim:WeccREECA.kvi>1.2</cim:WeccREECA.kvi>
-    <cim:WeccREECA.kvp>4.1</cim:WeccREECA.kvp>
-    <cim:WeccREECA.pfFlag>0</cim:WeccREECA.pfFlag>
-    <cim:WeccREECA.pFlag>0</cim:WeccREECA.pFlag>
-    <cim:WeccREECA.pqFlag>0</cim:WeccREECA.pqFlag>
-    <cim:WeccREECA.qFlag>1</cim:WeccREECA.qFlag>
-    <cim:WeccREECA.vFlag>1</cim:WeccREECA.vFlag>
-    <cim:WeccREECA.pmax>1</cim:WeccREECA.pmax>
-    <cim:WeccREECA.pmin>0</cim:WeccREECA.pmin>
-    <cim:WeccREECA.qmax>0.7</cim:WeccREECA.qmax>
-    <cim:WeccREECA.qmin>-0.7</cim:WeccREECA.qmin>
-    <cim:WeccREECA.thld>0</cim:WeccREECA.thld>
-    <cim:WeccREECA.thld2>0</cim:WeccREECA.thld2>
-    <cim:WeccREECA.tiq>0.015</cim:WeccREECA.tiq>
-    <cim:WeccREECA.tp>0.05</cim:WeccREECA.tp>
-    <cim:WeccREECA.tpord>0.03</cim:WeccREECA.tpord>
-    <cim:WeccREECA.trv>0.03</cim:WeccREECA.trv>
-    <cim:WeccREECA.vdi1i1>1</cim:WeccREECA.vdi1i1>
-    <cim:WeccREECA.vdi1i2>1</cim:WeccREECA.vdi1i2>
-    <cim:WeccREECA.vdi1i3>0</cim:WeccREECA.vdi1i3>
-    <cim:WeccREECA.vdi1i4>0</cim:WeccREECA.vdi1i4>
-    <cim:WeccREECA.vdi1v1>-1</cim:WeccREECA.vdi1v1>
-    <cim:WeccREECA.vdi1v2>2</cim:WeccREECA.vdi1v2>
-    <cim:WeccREECA.vdi1v3>0</cim:WeccREECA.vdi1v3>
-    <cim:WeccREECA.vdi1v4>0</cim:WeccREECA.vdi1v4>
-    <cim:WeccREECA.vdi2i1>1</cim:WeccREECA.vdi2i1>
-    <cim:WeccREECA.vdi2i2>1</cim:WeccREECA.vdi2i2>
-    <cim:WeccREECA.vdi2i3>0</cim:WeccREECA.vdi2i3>
-    <cim:WeccREECA.vdi2i4>0</cim:WeccREECA.vdi2i4>
-    <cim:WeccREECA.vdi2v1>-1</cim:WeccREECA.vdi2v1>
-    <cim:WeccREECA.vdi2v2>2</cim:WeccREECA.vdi2v2>
-    <cim:WeccREECA.vdi2v3>0</cim:WeccREECA.vdi2v3>
-    <cim:WeccREECA.vdi2v4>0</cim:WeccREECA.vdi2v4>
-    <cim:WeccREECA.vdip>0.87</cim:WeccREECA.vdip>
-    <cim:WeccREECA.vmax>1.07</cim:WeccREECA.vmax>
-    <cim:WeccREECA.vmin>0.9</cim:WeccREECA.vmin>
-    <cim:WeccREECA.vref0>1</cim:WeccREECA.vref0>
-    <cim:WeccREECA.vref1>0</cim:WeccREECA.vref1>
-    <cim:WeccREECA.vup>1.15</cim:WeccREECA.vup>
-</cim:WeccREECA>
-<cim:Terminal rdf:about="urn:uuid:4B4DC664-6FF7-4D7E-9830-842A22F4819E">
-    <cim:IdentifiedObject.mRID>4B4DC664-6FF7-4D7E-9830-842A22F4819E</cim:IdentifiedObject.mRID>
-    <cim:IdentifiedObject.name>B27C7223-B0E7-4F59-81CD-43678096B99F_T1</cim:IdentifiedObject.name>
-    <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:B27C7223-B0E7-4F59-81CD-43678096B99F"/>
-    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:2935F382-76AF-4965-ACB9-232E13D58AD5"/>
 </cim:Terminal>
 <cim:PowerElectronicsConnection rdf:about="urn:uuid:5206B657-ABC6-4A74-8CBD-C4FAFA959153">
     <cim:IdentifiedObject.mRID>5206B657-ABC6-4A74-8CBD-C4FAFA959153</cim:IdentifiedObject.mRID>
