@@ -93,6 +93,8 @@ def build_bus_lists (d):
       break
   if bNumeric:
     ordered_buses = dict(sorted(d['BESBus']['vals'].items(), key=lambda x:int(x[0])))
+  else:
+    ordered_buses = d['BESBus']['vals']
   bus_numbers = {}
   busnum = 1
   for key, data in ordered_buses.items():

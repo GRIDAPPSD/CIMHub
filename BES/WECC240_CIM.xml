@@ -12750,7 +12750,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -12764,7 +12764,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -12815,7 +12815,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -12829,7 +12829,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -12880,7 +12880,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.1762234824616676e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -12894,7 +12894,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.646502835538752e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -12945,7 +12945,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.2182314639781558e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -12959,7 +12959,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.7410207939508504e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -13010,7 +13010,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13075,7 +13075,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13140,7 +13140,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13154,7 +13154,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -13205,7 +13205,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13219,7 +13219,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -13270,7 +13270,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13335,7 +13335,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13400,7 +13400,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13465,7 +13465,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13479,7 +13479,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -13530,7 +13530,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13595,7 +13595,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>5.599999999999999e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13609,7 +13609,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.646502835538752e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -13660,7 +13660,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13725,7 +13725,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13790,7 +13790,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13855,7 +13855,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>5.599999999999999e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13869,7 +13869,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.646502835538752e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -13920,7 +13920,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13934,7 +13934,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -13985,7 +13985,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -13999,7 +13999,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14050,7 +14050,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14115,7 +14115,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14129,7 +14129,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14180,7 +14180,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14194,7 +14194,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14245,7 +14245,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14310,7 +14310,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14375,7 +14375,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14389,7 +14389,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14440,7 +14440,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14454,7 +14454,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14505,7 +14505,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14519,7 +14519,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14570,7 +14570,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14584,7 +14584,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14635,7 +14635,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14649,7 +14649,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14700,7 +14700,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14765,7 +14765,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14830,7 +14830,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14895,7 +14895,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14909,7 +14909,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -14960,7 +14960,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -14974,7 +14974,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15025,7 +15025,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15039,7 +15039,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15090,7 +15090,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15155,7 +15155,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>5.1999999999999996e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15169,7 +15169,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.4574669187145556e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15220,7 +15220,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.5999999999999998e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15234,7 +15234,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.2287334593572778e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15285,7 +15285,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.5999999999999998e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15299,7 +15299,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.2287334593572778e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15350,7 +15350,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15364,7 +15364,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>287000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.2140489747356407e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15415,7 +15415,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15480,7 +15480,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>287000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.58144447547014e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15494,7 +15494,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>138000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.5490443184205e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15545,7 +15545,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>287000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.58144447547014e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15559,7 +15559,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>138000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.5490443184205e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15610,7 +15610,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15675,7 +15675,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15740,7 +15740,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15805,7 +15805,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15870,7 +15870,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15884,7 +15884,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>138000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>7.876496534341525e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -15935,7 +15935,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -15949,7 +15949,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>138000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>7.876496534341525e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -16000,7 +16000,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>8.412098298676748e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16014,7 +16014,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -16065,7 +16065,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16130,7 +16130,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.7807183364839316e-10</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16195,7 +16195,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16260,7 +16260,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16274,7 +16274,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -16325,7 +16325,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16339,7 +16339,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -16390,7 +16390,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16404,7 +16404,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -16455,7 +16455,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16520,7 +16520,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16585,7 +16585,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16650,7 +16650,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16715,7 +16715,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.7807183364839316e-10</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16780,7 +16780,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.7807183364839316e-10</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16845,7 +16845,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16859,7 +16859,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -16910,7 +16910,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -16924,7 +16924,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -16975,7 +16975,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17040,7 +17040,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17054,7 +17054,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17105,7 +17105,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17119,7 +17119,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17170,7 +17170,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17184,7 +17184,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.890359168241966e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17235,7 +17235,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17300,7 +17300,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17365,7 +17365,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17379,7 +17379,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17430,7 +17430,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17444,7 +17444,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17495,7 +17495,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17560,7 +17560,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17574,7 +17574,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17625,7 +17625,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17639,7 +17639,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.890359168241966e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17690,7 +17690,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17704,7 +17704,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17755,7 +17755,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17769,7 +17769,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.45179584120983e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17820,7 +17820,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>8.412098298676748e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17834,7 +17834,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17885,7 +17885,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>8.412098298676748e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17899,7 +17899,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -17950,7 +17950,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>8.412098298676748e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -17964,7 +17964,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -18015,7 +18015,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18080,7 +18080,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18145,7 +18145,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18159,7 +18159,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -18210,7 +18210,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18275,7 +18275,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18340,7 +18340,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18354,7 +18354,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.890359168241966e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -18405,7 +18405,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.8000000000000002e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18419,7 +18419,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>8.506616257088847e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -18470,7 +18470,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18484,7 +18484,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -18535,7 +18535,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18600,7 +18600,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18665,7 +18665,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18730,7 +18730,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18744,7 +18744,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -18795,7 +18795,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18860,7 +18860,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18925,7 +18925,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -18990,7 +18990,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19004,7 +19004,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19055,7 +19055,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19120,7 +19120,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19134,7 +19134,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19185,7 +19185,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19250,7 +19250,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.260239445494644e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19264,7 +19264,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19315,7 +19315,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19329,7 +19329,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19380,7 +19380,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19445,7 +19445,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19459,7 +19459,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19510,7 +19510,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19575,7 +19575,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.260239445494644e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19589,7 +19589,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19640,7 +19640,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.260239445494644e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19654,7 +19654,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19705,7 +19705,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19770,7 +19770,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19835,7 +19835,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.7387103549674437e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19849,7 +19849,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19900,7 +19900,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.7387103549674437e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -19914,7 +19914,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>115000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>3.364839319470699e-06</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -19965,7 +19965,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20030,7 +20030,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.260239445494644e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20044,7 +20044,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -20095,7 +20095,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>1.260239445494644e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20109,7 +20109,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -20160,7 +20160,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20225,7 +20225,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20239,7 +20239,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -20290,7 +20290,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20355,7 +20355,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>345000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>4.200798151648813e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20420,7 +20420,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20434,7 +20434,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.45179584120983e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -20485,7 +20485,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>500000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>6e-08</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20499,7 +20499,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>2.8355387523629487e-07</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
@@ -20550,7 +20550,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
@@ -20615,7 +20615,7 @@
     <cim:PowerTransformerEnd.ratedS>100000000.0</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230000.0</cim:PowerTransformerEnd.ratedU>
     <cim:PowerTransformerEnd.r>9.451795841209829e-11</cim:PowerTransformerEnd.r>
-    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.D"/>
+    <cim:PowerTransformerEnd.connectionKind rdf:resource="http://iec.ch/TC57/CIM100#WindingConnection.Y"/>
     <cim:PowerTransformerEnd.phaseAngleClock>0</cim:PowerTransformerEnd.phaseAngleClock>
     <cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
     <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
