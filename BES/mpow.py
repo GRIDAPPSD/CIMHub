@@ -12,7 +12,8 @@ import os
 # mpc = scale_load(1.0425,mpc);
 # results=runpf(mpc);
 # define_constants
-# mg=[results.gen(:,PG),results.gen(:,QG)]
+# codes=matpower_gen_type(results.gentype);
+# mg=[results.gen(:,GEN_BUS),results.gen(:,PG),results.gen(:,QG),codes]
 # mb=[results.bus(:,VM),results.bus(:,VA)]
 # csvwrite('wecc240mg.txt',mg)
 # csvwrite('wecc240mb.txt',mb)
@@ -22,7 +23,8 @@ import os
 # mpc = scale_load (0.6748, mpc);
 # results=runpf(mpc);
 # define_constants
-# mg=[results.gen(:,PG),results.gen(:,QG)]
+# codes=matpower_gen_type(results.gentype);
+# mg=[results.gen(:,GEN_BUS),results.gen(:,PG),results.gen(:,QG),codes]
 # mb=[results.bus(:,VM),results.bus(:,VA)]
 # csvwrite('ieee118mg.txt',mg)
 # csvwrite('ieee118mb.txt',mb)
