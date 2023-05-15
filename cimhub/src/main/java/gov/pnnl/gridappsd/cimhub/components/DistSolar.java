@@ -100,8 +100,6 @@ public class DistSolar extends DistComponent {
 		buf.append ("  Q_Out " + df3.format (q) + ";\n");
 		buf.append ("  object solar {\n");
 		buf.append ("    name \"pv_" + name + "\";\n");
-		buf.append ("    generator_mode SUPPLY_DRIVEN;\n");
-		buf.append ("    generator_status ONLINE;\n");
 		buf.append ("    panel_type SINGLE_CRYSTAL_SILICON;\n");
 		buf.append ("    efficiency 0.2;\n");
 		buf.append ("    rated_power " + df3.format (ratedS) + ";\n");

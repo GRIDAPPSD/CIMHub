@@ -108,7 +108,6 @@ public class DistStorage extends DistComponent {
 			buf.append ("  phases " + phases.replace (":", "") + ";\n");
 		}
 		buf.append ("  generator_status ONLINE;\n");
-		buf.append ("  generator_mode CONSTANT_PQ;\n");
 		buf.append ("  inverter_type FOUR_QUADRANT;\n");
 		buf.append ("  four_quadrant_control_mode CONSTANT_PQ; // LOAD_FOLLOWING;\n");
 		buf.append ("  charge_lockout_time 1;\n");
@@ -132,7 +131,6 @@ public class DistStorage extends DistComponent {
 		buf.append ("    state_of_charge " + df4.format (storedE / ratedE) + ";\n");
 		buf.append ("    use_internal_battery_model true;\n");
 		buf.append ("    generator_mode CONSTANT_PQ;\n");
-		buf.append ("    generator_status ONLINE;\n");
 		buf.append ("    battery_type LI_ION;\n");
 		buf.append ("    round_trip_efficiency 0.86;\n");
 		buf.append ("    rated_power " + df3.format (ratedS) + ";\n");
