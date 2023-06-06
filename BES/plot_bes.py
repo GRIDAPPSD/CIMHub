@@ -34,6 +34,7 @@ edgeTypes = {
 SQRT3 = math.sqrt(3.0)
 RAD_TO_DEG = 180.0 / math.pi
 MVA_BASE = 100.0
+lblDeltaY = 0.0 # 0.005
 
 def get_edge_highlights(data):
   weight = 1.0
@@ -83,7 +84,7 @@ def get_node_mnemonic(nclass):
     return nodeTypes[nclass]['tag']
   return 'Unknown'
 
-def plot_system_graph (G, sys_name):
+def plot_system_graph (G, sys_name, plot_labels):
   # assign node colors
   plotNodes = []
   nodeColors = []
@@ -109,11 +110,17 @@ def plot_system_graph (G, sys_name):
 
   # construct XY coordinates for plotting the network
   xy = {}
+  xyLbl = {}
+  lblNode = {}
   bMissing = False
   for n, data in G.nodes(data=True):
     ndata = data['ndata']
     if ('x' in ndata) and ('y' in ndata):
-      xy[n] = [float(ndata['x']), float(ndata['y'])]
+      busx = float(ndata['x'])
+      busy = float(ndata['y'])
+      xy[n] = [busx, busy]
+      lblNode[n] = n.upper()
+      xyLbl[n] = [busx, busy + lblDeltaY]
     else:
       bMissing = True
       break
@@ -126,6 +133,9 @@ def plot_system_graph (G, sys_name):
 
   nx.draw_networkx_nodes (G, xy, nodelist=plotNodes, node_color=nodeColors, node_size=nodeSizes, ax=ax)
   nx.draw_networkx_edges (G, xy, edgelist=plotEdges, edge_color=edgeColors, width=edgeWidths, alpha=0.8, ax=ax)
+  if plot_labels:
+    nx.draw_networkx_labels (G, xyLbl, lblNode, font_size=8, font_color='k', horizontalalignment='left', 
+                             verticalalignment='baseline', ax=ax)
 
   plt.title ('{:s} Network'.format(sys_name))
   plt.xlabel ('X coordinate')
@@ -148,10 +158,14 @@ def load_system_graph (fname):
 
 if __name__ == '__main__':
   case_id = 0
+  plot_labels = False
   if len(sys.argv) > 1:
     case_id = int(sys.argv[1])
+    if len(sys.argv) > 2:
+      if int(sys.argv[2]) > 0:
+        plot_labels = True
   sys_name = CASES[case_id]['name']
   G = load_system_graph ('{:s}_Network.json'.format(sys_name))
-  plot_system_graph (G, sys_name)
+  plot_system_graph (G, sys_name, plot_labels)
 
 
