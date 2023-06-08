@@ -36,30 +36,50 @@ RAD_TO_DEG = 180.0 / math.pi
 MVA_BASE = 100.0
 lblDeltaY = 0.0 # 0.005
 
+def reset_type_counts():
+  for key, val in edgeTypes.items():
+    val['count'] = 0
+  for key, val in nodeTypes.items():
+    val['count'] = 0
+
+def filter_types_used(d):
+  ret = {}
+  for key, val in d.items():
+    if val['count'] > 0:
+      ret[key] = val
+  return ret
+
 def get_edge_highlights(data):
   weight = 1.0
   color = edgeTypes['lineMV']['color']
   if data['eclass'] == 'transformer':
     weight = 3.0
     color = edgeTypes['transformer']['color']
+    edgeTypes['transformer']['count'] += 1
   elif data['eclass'] == 'series':
-    weight = 10.0
+    weight = 20.0
     color = edgeTypes['series']['color']
+    edgeTypes['series']['count'] += 1
   else: # 'line'
     kv = data['edata']['kv']
     weight = 1.5
     if kv > 344.0:
       color = edgeTypes['lineEHV']['color']
+      edgeTypes['lineEHV']['count'] += 1
       if kv > 499.0:
         weight = 2.0
     elif kv >= 100.0:
       color = edgeTypes['lineHV']['color']
+      edgeTypes['lineHV']['count'] += 1
       if kv > 229.0:
         weight = 2.0
+    else:
+      edgeTypes['lineMV']['count'] += 1
   return weight, color
 
 def get_edge_color(eclass):
   if eclass in edgeTypes:
+    edgeTypes[eclass]['count'] += 1
     return edgeTypes[eclass]['color']
   print ('unknown edge class', eclass)
   return 'black'
@@ -76,6 +96,7 @@ def get_node_size(nclass):
 
 def get_node_color(nclass):
   if nclass in nodeTypes:
+    nodeTypes[nclass]['count'] += 1
     return nodeTypes[nclass]['color']
   return 'black'
 
@@ -85,6 +106,7 @@ def get_node_mnemonic(nclass):
   return 'Unknown'
 
 def plot_system_graph (G, sys_name, plot_labels):
+  reset_type_counts()
   # assign node colors
   plotNodes = []
   nodeColors = []
@@ -143,9 +165,11 @@ def plot_system_graph (G, sys_name, plot_labels):
   ax.grid(linestyle='dotted')
   xdata = [0, 1]
   ydata = [1, 0]
-  lns = [lines.Line2D(xdata, ydata, color=get_edge_color(e)) for e in edgeTypes] + \
-    [lines.Line2D(xdata, ydata, color=get_node_color(n), marker='o') for n in nodeTypes]
-  labs = [get_edge_mnemonic (e) for e in edgeTypes] + [get_node_mnemonic (n) for n in nodeTypes]
+  legendEdges = filter_types_used (edgeTypes)
+  legendNodes = filter_types_used (nodeTypes)
+  lns = [lines.Line2D(xdata, ydata, color=get_edge_color(e)) for e in legendEdges] + \
+    [lines.Line2D(xdata, ydata, color=get_node_color(n), marker='o') for n in legendNodes]
+  labs = [get_edge_mnemonic (e) for e in legendEdges] + [get_node_mnemonic (n) for n in legendNodes]
   ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
   ax.legend(lns, labs, loc='lower left')
   plt.show()
