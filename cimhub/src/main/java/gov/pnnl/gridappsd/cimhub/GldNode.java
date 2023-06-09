@@ -5,6 +5,7 @@ package gov.pnnl.gridappsd.cimhub;
 //  ----------------------------------------------------------
 
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Random;
 import org.apache.commons.math3.complex.Complex;
 
@@ -715,6 +716,10 @@ public class GldNode {
           buf.append ("}\n");
         }
       } else {
+    	Complex va = new Complex (nomvln);
+    	Complex amps;
+    	Complex vmagsq = new Complex (nomvln * nomvln);  
+    	  
         buf.append ("object load {\n");
         buf.append ("  name \"" + loadname + "\";\n");
         buf.append ("  parent \"" + name + "\";\n");
