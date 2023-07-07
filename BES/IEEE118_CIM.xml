@@ -735,43 +735,43 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:D27DA351-4C2C-4119-B81B-01BE4FF3F28A">
     <cim:IdentifiedObject.mRID>D27DA351-4C2C-4119-B81B-01BE4FF3F28A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>119</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:5075B27B-E224-4787-B62B-FAF5D9E163FA">
     <cim:IdentifiedObject.mRID>5075B27B-E224-4787-B62B-FAF5D9E163FA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>120</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:E6E2CA6F-2110-44D9-86DB-71E71F521D38">
     <cim:IdentifiedObject.mRID>E6E2CA6F-2110-44D9-86DB-71E71F521D38</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>121</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:890FE843-3DA8-4490-98F0-09EC6BE4DF2C">
     <cim:IdentifiedObject.mRID>890FE843-3DA8-4490-98F0-09EC6BE4DF2C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>122</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:E6206E61-C683-4610-B894-046B356694A7">
     <cim:IdentifiedObject.mRID>E6206E61-C683-4610-B894-046B356694A7</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>123</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:151275D7-2572-445F-9096-E253F5070511">
     <cim:IdentifiedObject.mRID>151275D7-2572-445F-9096-E253F5070511</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>124</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:F09F0476-3FE3-4C6D-A4EB-6C0B9B4151BA">
     <cim:IdentifiedObject.mRID>F09F0476-3FE3-4C6D-A4EB-6C0B9B4151BA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>125</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:A74165C9-2932-4CA9-8B68-4D75C9200429">
@@ -783,7 +783,7 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:8A484774-69C9-40FA-B4D8-C3FDC2BC038B">
     <cim:IdentifiedObject.mRID>8A484774-69C9-40FA-B4D8-C3FDC2BC038B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>127</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:362D7C55-7904-45DA-8ED5-C8DB00BD3775">
@@ -795,7 +795,7 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:A7944578-0010-40BF-BF08-ED95469CD486">
     <cim:IdentifiedObject.mRID>A7944578-0010-40BF-BF08-ED95469CD486</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>129</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:2CC3E4B9-28F9-4EB6-9674-B3304D81CD85">
@@ -807,7 +807,7 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:17E1538F-8FB9-4184-B862-E96315ABC037">
     <cim:IdentifiedObject.mRID>17E1538F-8FB9-4184-B862-E96315ABC037</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>131</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:B8B9851E-78FF-4B5D-8B70-4EC73C89E702">
@@ -819,19 +819,19 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:98A6C1C5-0C8A-45C2-BF87-39F69D3CB36E">
     <cim:IdentifiedObject.mRID>98A6C1C5-0C8A-45C2-BF87-39F69D3CB36E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>133</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:8FD78BF1-A9BD-4CF7-8A65-6CFF9B14ADF2">
     <cim:IdentifiedObject.mRID>8FD78BF1-A9BD-4CF7-8A65-6CFF9B14ADF2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>134</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:35EEB779-28ED-4D56-A932-02C9D138B751">
     <cim:IdentifiedObject.mRID>35EEB779-28ED-4D56-A932-02C9D138B751</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>135</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:57C4134F-1B22-4B7A-8509-F0F8525F6150">
@@ -843,7 +843,7 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:64FFEEC3-E1B3-48E5-9D91-505539EF5D42">
     <cim:IdentifiedObject.mRID>64FFEEC3-E1B3-48E5-9D91-505539EF5D42</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>137</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:91E42D61-5379-4EC4-A965-A9CB66B4A6BF">
@@ -855,7 +855,7 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:CD8E5274-A3CC-49E0-AF28-450167882FA2">
     <cim:IdentifiedObject.mRID>CD8E5274-A3CC-49E0-AF28-450167882FA2</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>139</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:EB182148-4322-4B48-91AE-4D921BCA0C01">
@@ -867,49 +867,49 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:044C01F8-8EBB-43F8-8C8B-D6AF65D546AC">
     <cim:IdentifiedObject.mRID>044C01F8-8EBB-43F8-8C8B-D6AF65D546AC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>141</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:76083DA1-C263-4B93-85EC-6E6092C6CA24">
     <cim:IdentifiedObject.mRID>76083DA1-C263-4B93-85EC-6E6092C6CA24</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>142</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:2DD05C15-E18F-445F-A000-6AEE6B4197EC">
     <cim:IdentifiedObject.mRID>2DD05C15-E18F-445F-A000-6AEE6B4197EC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>143</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:F9576256-252D-419A-8827-679986215B5B">
     <cim:IdentifiedObject.mRID>F9576256-252D-419A-8827-679986215B5B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>144</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:78984FAB-E87B-46C1-BD2D-AC812BB39F6F">
     <cim:IdentifiedObject.mRID>78984FAB-E87B-46C1-BD2D-AC812BB39F6F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>145</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:95513061-E3FB-4184-996A-39C3635EDC16">
     <cim:IdentifiedObject.mRID>95513061-E3FB-4184-996A-39C3635EDC16</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>146</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:7FF3F6FE-355D-4CB3-B482-EDB113652AA9">
     <cim:IdentifiedObject.mRID>7FF3F6FE-355D-4CB3-B482-EDB113652AA9</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>147</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:851775AC-04AD-4C94-94FB-F4B194C0B9AD">
     <cim:IdentifiedObject.mRID>851775AC-04AD-4C94-94FB-F4B194C0B9AD</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>148</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:134DFA45-B2C9-42DB-A3C1-DD8D78FF9E9A">
@@ -921,7 +921,7 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:7F33E6C4-F8F5-43AE-862D-C8065885A5CB">
     <cim:IdentifiedObject.mRID>7F33E6C4-F8F5-43AE-862D-C8065885A5CB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>150</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:D2486B3A-C3E7-4849-BCAC-2C0018B80EC1">
@@ -933,43 +933,43 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:9F43043B-870B-4062-8FB0-776E354619C9">
     <cim:IdentifiedObject.mRID>9F43043B-870B-4062-8FB0-776E354619C9</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>152</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:F94BCC4B-6E14-4D34-AFF6-92F07837AAA9">
     <cim:IdentifiedObject.mRID>F94BCC4B-6E14-4D34-AFF6-92F07837AAA9</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>153</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:11425630-AACA-4C1A-8679-5A75A9C0ACD4">
     <cim:IdentifiedObject.mRID>11425630-AACA-4C1A-8679-5A75A9C0ACD4</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>154</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:1E95C6F4-DF25-482E-A891-7D9C47B8B926">
     <cim:IdentifiedObject.mRID>1E95C6F4-DF25-482E-A891-7D9C47B8B926</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>155</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:627BEAA2-C8F8-4BBA-9373-F926F14CC075">
     <cim:IdentifiedObject.mRID>627BEAA2-C8F8-4BBA-9373-F926F14CC075</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>156</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:904E72F2-3269-4806-884F-DAA4AD826AE1">
     <cim:IdentifiedObject.mRID>904E72F2-3269-4806-884F-DAA4AD826AE1</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>157</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:F33E14BC-9511-449B-A02E-C7A3A498FD6A">
     <cim:IdentifiedObject.mRID>F33E14BC-9511-449B-A02E-C7A3A498FD6A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>158</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:A0DBF314-04CB-4421-B162-9003E6F7A550">
@@ -981,31 +981,31 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:BF449958-0F32-45E2-9C72-0F5A962FED7B">
     <cim:IdentifiedObject.mRID>BF449958-0F32-45E2-9C72-0F5A962FED7B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>160</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:2E17DAB6-4228-496E-8276-7C51C342819B">
     <cim:IdentifiedObject.mRID>2E17DAB6-4228-496E-8276-7C51C342819B</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>161</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:0B8EC0B1-B518-4B15-931F-C1F4FE7CC2B0">
     <cim:IdentifiedObject.mRID>0B8EC0B1-B518-4B15-931F-C1F4FE7CC2B0</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>162</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:0A07D847-81D5-4F78-890C-2D86933BDC1D">
     <cim:IdentifiedObject.mRID>0A07D847-81D5-4F78-890C-2D86933BDC1D</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>163</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:63FDBBD1-1E54-40EF-BC8B-3E332998914F">
     <cim:IdentifiedObject.mRID>63FDBBD1-1E54-40EF-BC8B-3E332998914F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>164</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:1381D1CB-C278-45C0-9E87-A6A506776EA4">
@@ -1017,13 +1017,13 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:9775D768-C2EF-43CB-A430-D7C7A0714199">
     <cim:IdentifiedObject.mRID>9775D768-C2EF-43CB-A430-D7C7A0714199</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>166</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:E1894B1C-7CA7-4FF5-8254-A1032FCCBD4A">
     <cim:IdentifiedObject.mRID>E1894B1C-7CA7-4FF5-8254-A1032FCCBD4A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>167</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:B535086E-D2E5-4D63-A337-6357018D6A51">
@@ -1035,37 +1035,37 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:6174EEB9-4427-4A80-B417-00794E164436">
     <cim:IdentifiedObject.mRID>6174EEB9-4427-4A80-B417-00794E164436</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>169</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:2A492743-0BE8-4E63-AC62-2288A589DB2E">
     <cim:IdentifiedObject.mRID>2A492743-0BE8-4E63-AC62-2288A589DB2E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>170</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:46D2A564-1A93-4E82-A846-283CE244713C">
     <cim:IdentifiedObject.mRID>46D2A564-1A93-4E82-A846-283CE244713C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>171</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:7212B233-7E8E-4528-9F9B-40762B0844E4">
     <cim:IdentifiedObject.mRID>7212B233-7E8E-4528-9F9B-40762B0844E4</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>172</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:A2D2DDF0-2193-41DF-9376-B62A39B40FB9">
     <cim:IdentifiedObject.mRID>A2D2DDF0-2193-41DF-9376-B62A39B40FB9</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>173</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:9F4B1091-1846-438B-97B6-8C47EA931496">
     <cim:IdentifiedObject.mRID>9F4B1091-1846-438B-97B6-8C47EA931496</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>174</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:D31BC3EA-BC27-4F23-A60D-D115D2554E79">
@@ -1077,19 +1077,19 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:9DD8249D-D175-4FBE-BAE8-487E98A09D26">
     <cim:IdentifiedObject.mRID>9DD8249D-D175-4FBE-BAE8-487E98A09D26</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>176</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:24555499-9E9D-4D35-99D6-1DA5BAAA2732">
     <cim:IdentifiedObject.mRID>24555499-9E9D-4D35-99D6-1DA5BAAA2732</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>177</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:E23AE871-FAA7-48B5-B24B-A4667E945855">
     <cim:IdentifiedObject.mRID>E23AE871-FAA7-48B5-B24B-A4667E945855</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>178</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:46F4707E-A6B2-4E2A-8760-28BA9E91B3CC">
@@ -1107,13 +1107,13 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:93EE5E2C-07C7-4A03-A81D-1C8344351564">
     <cim:IdentifiedObject.mRID>93EE5E2C-07C7-4A03-A81D-1C8344351564</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>181</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:DB7C3441-7570-491C-ABB5-B53D0D7704D5">
     <cim:IdentifiedObject.mRID>DB7C3441-7570-491C-ABB5-B53D0D7704D5</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>182</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:3BC5A90B-A48E-4CF0-8D91-1649CCE09E0B">
@@ -1125,7 +1125,7 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:449048E1-58ED-4DA3-9124-4B0141517D60">
     <cim:IdentifiedObject.mRID>449048E1-58ED-4DA3-9124-4B0141517D60</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>184</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:1E52EA56-B7B6-44A5-8338-EA06C0DBF977">
@@ -1137,13 +1137,13 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:6A40381B-F82D-4ED4-A2F9-DAE839B6980A">
     <cim:IdentifiedObject.mRID>6A40381B-F82D-4ED4-A2F9-DAE839B6980A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>186</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:B6909439-5592-4ECB-BC7A-A89DCEA12B33">
     <cim:IdentifiedObject.mRID>B6909439-5592-4ECB-BC7A-A89DCEA12B33</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>187</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:1DC098DC-EADF-4879-9640-E3A99AC0046A">
@@ -1155,13 +1155,13 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:BC539F81-BE8B-4C94-A62C-51C12E737665">
     <cim:IdentifiedObject.mRID>BC539F81-BE8B-4C94-A62C-51C12E737665</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>189</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:CFCA34A3-2B17-46AD-B1A9-08F56CE9C438">
     <cim:IdentifiedObject.mRID>CFCA34A3-2B17-46AD-B1A9-08F56CE9C438</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>190</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:76DF6ADA-945B-4CF8-B102-AEEDF7C07EBE">
@@ -1173,13 +1173,13 @@
 <cim:ConnectivityNode rdf:about="urn:uuid:BDAA69AD-913C-4E9E-BEF0-4DD73E0EA848">
     <cim:IdentifiedObject.mRID>BDAA69AD-913C-4E9E-BEF0-4DD73E0EA848</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>192</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ConnectivityNode rdf:about="urn:uuid:44042163-B7D6-4A4C-9BEC-A66A2315C209">
     <cim:IdentifiedObject.mRID>44042163-B7D6-4A4C-9BEC-A66A2315C209</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>193</cim:IdentifiedObject.name>
-    <cim:IdentifiedObject.description>GenHydro: 13.80 kV</cim:IdentifiedObject.description>
+    <cim:IdentifiedObject.description>GenThermal: 13.80 kV</cim:IdentifiedObject.description>
     <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038"/>
 </cim:ConnectivityNode>
 <cim:ACLineSegment rdf:about="urn:uuid:9D0B474A-F3DF-415C-9F78-5FA697F8CA62">
