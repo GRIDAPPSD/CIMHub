@@ -1586,7 +1586,7 @@ public class CIMImporter extends Object {
     String bus;
     DistCoordinates pt1, pt2;
     HashMap<String,Double[]> mapBusXY = new HashMap<String,Double[]>();
-
+System.out.println("write dss coord: mapSolars="+mapSolars);
     // loads, capacitors, transformers and energy sources have a single bus location, assumed to be correct
     for (HashMap.Entry<String,DistCoordinates> pair : mapCoordinates.entrySet()) {
       DistCoordinates obj = pair.getValue();
@@ -1604,6 +1604,8 @@ public class CIMImporter extends Object {
           bus = mapStorages.get(obj.name).bus;
           mapBusXY.put(bus, new Double[] {obj.x, obj.y});
         } else if (obj.cname.equals("PhotovoltaicUnit")) {
+          System.out.println("obj name="+obj.name);
+
           bus = mapSolars.get(obj.name).bus;
           mapBusXY.put(bus, new Double[] {obj.x, obj.y});
         } else if (obj.cname.equals("SynchronousMachine")) {
