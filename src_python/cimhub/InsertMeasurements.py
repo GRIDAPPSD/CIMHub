@@ -13,8 +13,8 @@ def getMeasurementID (key, uuidDict):
   idNew = uuid.uuid4()
   # if not measid starts with _ then prepend it, this is here for consistency. 
   # otherwise the mrids are uploaded without the initial _
-  if (not str(idNew).startswith("_")):
-    idNew = "_" + str (idNew)
+#   if (not str(idNew).startswith("_")):
+#     idNew = "_" + str (idNew)
   uuidDict[key] = idNew
   return idNew
 
@@ -26,20 +26,20 @@ qtriples = []
 def InsertMeasurement (meascls, measid, eqname, eqid, trmid, meastype, phases):
   global qtriples
   #if not measid starts with _ then prepend it, this is here for consistency. otherwise the mrids are uploaded without the initial _
-  if (not str(measid).startswith("_")):
-    measid = "_"+str(measid)
+#   if (not str(measid).startswith("_")):
+#     measid = "_"+str(measid)
 
-  resource = '<' + CIMHubConfig.blazegraph_url + '#' + str(measid) + '>'
-  equipment = '<' + CIMHubConfig.blazegraph_url + '#' + str(eqid) + '>'
-  terminal = '<' + CIMHubConfig.blazegraph_url + '#' + str(trmid) + '>'
-  ln1 = resource + ' a c:' + meascls + '. ' 
-  ln2 = resource + ' c:IdentifiedObject.mRID \"' + str(measid) + '\". '
-  ln3 = resource + ' c:IdentifiedObject.name \"' + str(eqname) + '\". '
-  ln4 = resource + ' c:Measurement.PowerSystemResource ' + equipment + '. '
-  ln5 = resource + ' c:Measurement.Terminal ' + terminal + '. '
+  resource = '<urn:uuid:'  + str(measid) + '>'
+  equipment = '<urn:uuid:'  + str(eqid) + '>'
+  terminal = '<urn:uuid:'  + str(trmid) + '>'
+  ln1 = resource + ' a c:' + meascls + '. \n' 
+  ln2 = resource + ' c:IdentifiedObject.mRID \"' + str(measid) + '\". \n'
+  ln3 = resource + ' c:IdentifiedObject.name \"' + str(eqname) + '\". \n'
+  ln4 = resource + ' c:Measurement.PowerSystemResource ' + equipment + '. \n'
+  ln5 = resource + ' c:Measurement.Terminal ' + terminal + '. \n'
   ln6 = (resource + ' c:Measurement.phases ' + CIMHubConfig.cim_ns
-    + 'PhaseCode.' + phases + '>. ')
-  ln7 = resource + ' c:Measurement.measurementType \"' + meastype + '\".'
+    + 'PhaseCode.' + phases + '>. \n')
+  ln7 = resource + ' c:Measurement.measurementType \"' + meastype + '\". \n'
 #  qstr = (CIMHubConfig.prefix + 'INSERT DATA { ' + ln1 + ln2 + ln3 + ln4 +
 #    ln5 + ln6 + ln7 + '}')
   qtriples.append (ln1 + ln2 + ln3 + ln4 + ln5 + ln6 + ln7)
