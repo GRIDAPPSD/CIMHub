@@ -666,7 +666,7 @@ public class GldNode {
   }
 
   public String GetGLM (double load_scale, boolean bWantSched, String fSched, boolean bWantZIP, boolean useHouses, 
-            double Zcoeff, double Icoeff, double Pcoeff) {
+            double Zcoeff, double Icoeff, double Pcoeff, List<String> separateLoads) {
     StringBuilder buf = new StringBuilder();
 
     if (bTertiaryWinding) { // we have to skip it
@@ -743,12 +743,23 @@ public class GldNode {
           double ps1 = ps1_z + ps1_i + ps1_p;
           double ps2 = ps2_z + ps2_i + ps2_p;
           double ps12 = ps12_z + ps12_i + ps12_p;
-          if (ps1 > 0.0 && ps2 == 0.0 && ps12 == 0.0) {
-            AppendPowerByFraction (buf, "12", ps1_z, ps1_i, ps1_p, qs1_z, qs1_i, qs1_p, bWantSched, fSched);
+           if (separateLoads.contains(loadname)) {
+            Complex base1 = new Complex (pa_z + pa_i + pa_p, qa_z + qa_i + qa_p);
+            Complex base2 = new Complex (pb_z + pb_i + pb_p, qb_z + qb_i + qb_p);
+            if (base1.abs() > 0.0 && base2.abs() == 0.0) {
+              buf.append ("  constant_power_12 0.0+0.0j;\n");
+            } else {
+              buf.append ("  constant_power_1 0.0+0.0j;\n");
+              buf.append ("  constant_power_2 0.0+0.0j;\n");
+            }
           } else {
-            AppendPowerByFraction (buf, "1", ps1_z, ps1_i, ps1_p, qs1_z, qs1_i, qs1_p, bWantSched, fSched);
-            AppendPowerByFraction (buf, "2", ps2_z, ps2_i, ps2_p, qs2_z, qs2_i, qs2_p, bWantSched, fSched);
-            AppendPowerByFraction (buf, "12", ps12_z, ps12_i, ps12_p, qs12_z, qs12_i, qs12_p, bWantSched, fSched);
+              if (ps1 > 0.0 && ps2 == 0.0 && ps12 == 0.0) {
+                AppendPowerByFraction (buf, "12", ps1_z, ps1_i, ps1_p, qs1_z, qs1_i, qs1_p, bWantSched, fSched);
+              } else {
+                AppendPowerByFraction (buf, "1", ps1_z, ps1_i, ps1_p, qs1_z, qs1_i, qs1_p, bWantSched, fSched);
+                AppendPowerByFraction (buf, "2", ps2_z, ps2_i, ps2_p, qs2_z, qs2_i, qs2_p, bWantSched, fSched);
+                AppendPowerByFraction (buf, "12", ps12_z, ps12_i, ps12_p, qs12_z, qs12_i, qs12_p, bWantSched, fSched);
+              }
           }
           buf.append ("}\n");
         }
@@ -758,9 +769,52 @@ public class GldNode {
         buf.append ("  parent \"" + name + "\";\n");
         buf.append ("  phases " + GetPhases(true) + ";\n");
         buf.append ("  nominal_voltage " + df2.format(nomvln) + ";\n");
-        AppendPowerByFraction (buf, "A", pa_z, pa_i, pa_p, qa_z, qa_i, qa_p, bWantSched, fSched);
-        AppendPowerByFraction (buf, "B", pb_z, pb_i, pb_p, qb_z, qb_i, qb_p, bWantSched, fSched);
-        AppendPowerByFraction (buf, "C", pc_z, pc_i, pc_p, qc_z, qc_i, qc_p, bWantSched, fSched);
+        if (separateLoads.contains(loadname) || !bWantSched) {
+
+          if (pa_p != 0.0 || qa_p != 0.0)  {
+            buf.append ("  constant_power_A " + CFormat(new Complex(pa_p, qa_p)) + ";\n");
+          }
+          if (pb_p != 0.0 || qb_p != 0.0)  {
+            buf.append ("  constant_power_B " + CFormat(new Complex(pb_p, qb_p)) + ";\n");
+          }
+          if (pc_p != 0.0 || qc_p != 0.0)  {
+            buf.append ("  constant_power_C " + CFormat(new Complex(pc_p, qc_p)) + ";\n");
+          }
+          if (pa_z != 0.0 || qa_z != 0.0) {
+            Complex s = new Complex(pa_z, qa_z);
+            Complex z = vmagsq.divide(s.conjugate());
+            buf.append ("  constant_impedance_A " + CFormat(z) + ";\n");
+          }
+          if (pb_z != 0.0 || qb_z != 0.0) {
+            Complex s = new Complex(pb_z, qb_z);
+            Complex z = vmagsq.divide(s.conjugate());
+            buf.append ("  constant_impedance_B " + CFormat(z) + ";\n");
+          }
+          if (pc_z != 0.0 || qc_z != 0.0) {
+            Complex s = new Complex(pc_z, qc_z);
+            Complex z = vmagsq.divide(s.conjugate());
+            buf.append ("  constant_impedance_C " + CFormat(z) + ";\n");
+          }
+          if (pa_i != 0.0 || qa_i != 0.0) {
+            Complex s = new Complex(pa_i, qa_i);
+            amps = s.divide(va).conjugate();
+            buf.append ("  constant_current_A " + CFormat(amps) + ";\n");
+          }
+          if (pb_i != 0.0 || qb_i != 0.0) {
+            Complex s = new Complex(pb_i, qb_i);
+            amps = s.divide(va.multiply(neg120)).conjugate();
+            buf.append ("  constant_current_B " + CFormat(amps) + ";\n");
+          }
+          if (pc_i != 0.0 || qc_i != 0.0) {
+            Complex s = new Complex(pc_i, qc_i);
+            amps = s.divide(va.multiply(pos120)).conjugate();
+            buf.append ("  constant_current_C " + CFormat(amps) + ";\n");
+          }
+        } else {
+            AppendPowerByFraction (buf, "A", pa_z, pa_i, pa_p, qa_z, qa_i, qa_p, bWantSched, fSched);
+            AppendPowerByFraction (buf, "B", pb_z, pb_i, pb_p, qb_z, qb_i, qb_p, bWantSched, fSched);
+            AppendPowerByFraction (buf, "C", pc_z, pc_i, pc_p, qc_z, qc_i, qc_p, bWantSched, fSched);
+        }
         buf.append ("}\n");
       }
     }

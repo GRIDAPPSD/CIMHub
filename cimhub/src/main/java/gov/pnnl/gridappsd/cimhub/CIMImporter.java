@@ -1238,7 +1238,7 @@ public class CIMImporter extends Object {
 
   protected void WriteGLMFile (PrintWriter out, double load_scale, boolean bWantSched, String fSched,
       boolean bWantZIP, boolean randomZIP, boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, 
-      boolean bHaveEventGen, boolean bUseProfiles, String fInclude1, String fInclude2) {
+      boolean bHaveEventGen, boolean bUseProfiles, String fInclude1, String fInclude2, List<String> separateLoads) {
 
     DistEnergyConnectionProfile prf = null;
     HashMap<String,String> mapUsedProfiles = new HashMap<>(); // name, and one of the keys that uses it
@@ -1626,7 +1626,7 @@ public class CIMImporter extends Object {
     boolean bWroteEventGen = bHaveEventGen;
     for (HashMap.Entry<String,GldNode> pair : mapNodes.entrySet()) {
       GldNode nd = pair.getValue();
-      out.print (pair.getValue().GetGLM (load_scale, bWantSched, fSched, bWantZIP, useHouses, Zcoeff, Icoeff, Pcoeff));
+      out.print (pair.getValue().GetGLM (load_scale, bWantSched, fSched, bWantZIP, useHouses, Zcoeff, Icoeff, Pcoeff, separateLoads));
       if (!bWroteEventGen && nd.bSwingPQ) {
         // we can't have two fault_check objects, and there may already be one for external event scripting
         bWroteEventGen = true;
@@ -2384,7 +2384,7 @@ public class CIMImporter extends Object {
       boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, boolean bHaveEventGen, ModelState ms, 
       boolean bTiming, String fEarth, int iManualFile, boolean bUseProfiles) throws FileNotFoundException{
     start(queryHandler, querySetter, fTarget, fRoot, fSched, load_scale, bWantSched, bWantZIP, randomZIP, useHouses,
-        Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming, fEarth, iManualFile, bUseProfiles);
+        Zcoeff, Icoeff, Pcoeff, -1, bHaveEventGen, ms, bTiming, fEarth, iManualFile, bUseProfiles, new ArrayList<String>());
   }
 
 
@@ -2423,7 +2423,7 @@ public class CIMImporter extends Object {
   public void start(QueryHandler queryHandler, CIMQuerySetter querySetter, String fTarget, String fRoot, String fSched,
       double load_scale, boolean bWantSched, boolean bWantZIP, boolean randomZIP,
       boolean useHouses, double Zcoeff, double Icoeff, double Pcoeff, int maxMeasurements, boolean bHaveEventGen, 
-      ModelState ms, boolean bTiming, String fEarth, int iManualFile, boolean bUseProfiles) throws FileNotFoundException{
+      ModelState ms, boolean bTiming, String fEarth, int iManualFile, boolean bUseProfiles, List<String> separateLoads) throws FileNotFoundException{
 
     this.queryHandler = queryHandler;
     this.querySetter = querySetter;
@@ -2449,7 +2449,7 @@ public class CIMImporter extends Object {
       }
       PrintWriter pOut = new PrintWriter(fOut);
       WriteGLMFile(pOut, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, Icoeff, Pcoeff, 
-                   bHaveEventGen, bUseProfiles, fInclude1, fInclude2);
+                   bHaveEventGen, bUseProfiles, fInclude1, fInclude2, separateLoads);
       PrintWriter pXY = new PrintWriter(fXY);
       WriteJSONSymbolFile (pXY);
       PrintWriter pDict = new PrintWriter(fDict);
@@ -2524,7 +2524,7 @@ public class CIMImporter extends Object {
         fInclude2 = fRoot + "_edits2.glm";
       }
       WriteGLMFile(pGld, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, Zcoeff, 
-                   Icoeff, Pcoeff, bHaveEventGen, bUseProfiles, fInclude1, fInclude2);
+                   Icoeff, Pcoeff, bHaveEventGen, bUseProfiles, fInclude1, fInclude2, separateLoads);
       long t9 = System.nanoTime();
       PrintWriter pSym = new PrintWriter(fRoot + "_symbols.json");
       WriteJSONSymbolFile (pSym);
@@ -2698,7 +2698,7 @@ public class CIMImporter extends Object {
     String fInclude1 = "";
     String fInclude2 = "";
     WriteGLMFile (out, load_scale, bWantSched, fSched, bWantZIP, randomZIP, useHouses, 
-                  Zcoeff, Icoeff, Pcoeff, bHaveEventGen, bUseProfiles, fInclude1, fInclude2);
+                  Zcoeff, Icoeff, Pcoeff, bHaveEventGen, bUseProfiles, fInclude1, fInclude2, new ArrayList<String>());
   }
 
   /**
