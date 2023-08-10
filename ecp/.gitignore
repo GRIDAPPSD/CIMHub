@@ -1,0 +1,14 @@
+glm/
+dss/
+glma/
+dssa/
+csv/
+xml/*.csv
+xml/*.xml
+*Mon*.csv
+*.dbl
+_*.bat
+_*.dss
+cim_test.dss
+export.bat
+upload.bat

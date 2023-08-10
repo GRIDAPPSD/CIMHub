@@ -1,0 +1,126 @@
+[
+ {
+  "dssname": "ieee9500bal.dss",
+  "root": "ieee9500bal",
+  "dss_controls": true,
+  "dss_tolerance": 1e-8,
+  "mRID": "EE71F6C9-56F0-4167-A14E-7F4C71F10EAA",
+  "substation": "sub1",
+  "region": "geo1",
+  "subregion": "subgeo1",
+  "glmvsrc": 69715.045,
+  "bases": [
+   208.0,
+   480.0,
+   12470.0,
+   69000.0,
+   115000.0
+  ],
+  "export_options": " -p=1.0 -l=1.0 -e=carson -t=1 -m=2",
+  "check_branches": [
+   {
+    "dss_link": "LINE.LN5815900-1",
+    "dss_bus": "E192860",
+    "gld_link": "LINE_LN5815900-1",
+    "gld_bus": "E192860"
+   },
+   {
+    "dss_link": "LINE.LN6380847-1",
+    "dss_bus": "M1047303",
+    "gld_link": "LINE_LN6380847-1",
+    "gld_bus": "M1047303"
+   },
+   {
+    "dss_link": "LINE.LN6044631-1",
+    "dss_bus": "E203026",
+    "gld_link": "LINE_LN6044631-1",
+    "gld_bus": "E203026"
+   },
+   {
+    "dss_link": "LINE.LN6381853-1",
+    "dss_bus": "L2955077",
+    "gld_link": "LINE_LN6381853-1",
+    "gld_bus": "L2955077"
+   },
+   {
+    "dss_link": "LINE.LN5486729-1",
+    "dss_bus": "M1069310",
+    "gld_link": "LINE_LN5486729-1",
+    "gld_bus": "M1069310"
+   },
+   {
+    "dss_link": "LINE.LN6350537-1",
+    "dss_bus": "M1026907",
+    "gld_link": "LINE_LN6350537-1",
+    "gld_bus": "M1026907"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": "./csv/"
+ },
+ {
+  "dssname": "ieee9500unbal.dss",
+  "root": "ieee9500unbal",
+  "dss_controls": true,
+  "dss_tolerance": 1e-8,
+  "mRID": "EE71F6C9-56F0-4167-A14E-7F4C71F10EAA",
+  "substation": "sub1",
+  "region": "geo1",
+  "subregion": "subgeo1",
+  "glmvsrc": 69715.045,
+  "bases": [
+   208.0,
+   480.0,
+   12470.0,
+   69000.0,
+   115000.0
+  ],
+  "export_options": " -p=1.0 -l=1.0 -e=carson -t=1 -m=2",
+  "check_branches": [
+   {
+    "dss_link": "LINE.LN5815900-1",
+    "dss_bus": "E192860",
+    "gld_link": "LINE_LN5815900-1",
+    "gld_bus": "E192860"
+   },
+   {
+    "dss_link": "LINE.LN6380847-1",
+    "dss_bus": "M1047303",
+    "gld_link": "LINE_LN6380847-1",
+    "gld_bus": "M1047303"
+   },
+   {
+    "dss_link": "LINE.LN6044631-1",
+    "dss_bus": "E203026",
+    "gld_link": "LINE_LN6044631-1",
+    "gld_bus": "E203026"
+   },
+   {
+    "dss_link": "LINE.LN6381853-1",
+    "dss_bus": "L2955077",
+    "gld_link": "LINE_LN6381853-1",
+    "gld_bus": "L2955077"
+   },
+   {
+    "dss_link": "LINE.LN5486729-1",
+    "dss_bus": "M1069310",
+    "gld_link": "LINE_LN5486729-1",
+    "gld_bus": "M1069310"
+   },
+   {
+    "dss_link": "LINE.LN6350537-1",
+    "dss_bus": "M1026907",
+    "gld_link": "LINE_LN6350537-1",
+    "gld_bus": "M1026907"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": "./csv/"
+ }
+]

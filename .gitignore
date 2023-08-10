@@ -3,3 +3,11 @@
 /generated/
 enroute.zip
 .metadata
+__pycache__
+distrib
+gridlabd
+_*.dss
+_*.sh
+_*.bat
+*.log
+dist/

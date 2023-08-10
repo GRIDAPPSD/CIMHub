@@ -1,0 +1,47 @@
+clear
+new circuit.ecp_harmonic basekv=13.2 pu=1.05 r1=0.001 x1=0.001 r0=0.001 x0=0.001
+new line.thev bus1=sourcebus bus2=fdrhead r1=1.210 x1=2.834 r0=3.961 x0=3.214 c1=0 c0=0
+
+// primary feeder with sequence impedances from Kersting's example 4.1
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=fdrhead bus2=bess linecode=trunk len=0.2
+new line.seg2 bus1=bess    bus2=pv   linecode=trunk len=1.0
+new line.seg3 bus1=pv      bus2=load linecode=trunk len=1.0
+new line.seg4 bus1=load    bus2=gen  linecode=trunk len=0.5
+
+new storage.bess1 bus1=bess kv=13.2 kWrated=1000 kva=1250 kWhrated=4000 kWhstored=2000 kw=500
+new storage.bess2 bus1=bess like=bess1 spectrum=pwm6
+
+New PVSystem.pv1 bus1=pv kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00
+New PVSystem.pv2 bus1=pv kV=13.2 like=pv1 spectrum=dc6
+
+new load.load1 bus1=load kv=13.2 kw=2000
+new load.load2 bus1=load like=load1 spectrum=pwm6
+
+new generator.gen1 bus1=gen kv=13.2 kw=500
+new generator.gen2 bus1=gen like=gen1 spectrum=linear
+
+new monitor.pv1 pvsystem.pv1 1 mode=96 ppolar=yes
+new monitor.pv2 pvsystem.pv2 1 mode=96 ppolar=yes
+new monitor.bess1 storage.bess1 1 mode=96 ppolar=yes
+new monitor.bess2 storage.bess2 1 mode=96 ppolar=yes
+new monitor.load1 load.load1 1 mode=96 ppolar=yes
+new monitor.load2 load.load2 1 mode=96 ppolar=yes
+new monitor.gen1 generator.gen1 1 mode=96 ppolar=yes
+new monitor.gen2 generator.gen2 1 mode=96 ppolar=yes
+
+Set Voltagebases=[13.2]
+calcv
+set maxcontroliter=100
+solve
+solve mode=harmonic
+
+export monitors pv1
+export monitors pv2
+export monitors bess1
+export monitors bess2
+export monitors load1
+export monitors load2
+export monitors gen1
+export monitors gen2
+

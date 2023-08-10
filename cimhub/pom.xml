@@ -4,9 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>gov.pnnl.gridappsd</groupId>
     <artifactId>cimhub</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.1.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<maven.compiler.target>1.8</maven.compiler.target> 
+	<maven.compiler.source>1.8</maven.compiler.source>
     </properties>
     <build>
         <plugins>
@@ -15,7 +17,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>11</release>
+<!--                    <release>11</release> -->
                     <compilerArgs>
                         <arg>-Xlint:deprecation</arg>
                     </compilerArgs>
@@ -35,7 +37,6 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- 
               <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
@@ -52,7 +53,7 @@
                   </descriptorRefs>
                 </configuration>
               </plugin>
-            -->
+              <!-- 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -71,6 +72,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
         </plugins>
     </build>
 
@@ -88,13 +90,18 @@
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-arq</artifactId>
-            <version>3.6.0</version>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.30</version>
+            <artifactId>slf4j-reload4j</artifactId>
+            <version>1.7.36</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.36</version>
         </dependency>
     </dependencies>
 

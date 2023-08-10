@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?iec61970-552 version="3.0" method=”DataSet”?>
+<rdf:RDF 
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:cim="http://ucaiug.org/61970cim18v02_61968cim14v00#"
+	xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
+	<exch:InstanceSet rdf:about="urn:uuid:3a533d96-4f63-4346-b16a-e13f958a8798">
+		<exch:InstanceSet.name>Transmission SSH Golden Model InstanceSet</exch:InstanceSet.name>
+	</exch:InstanceSet>
+	<cim:RatioTapChanger rdf:about="urn:uuid:a51496ed-fa0b-40c8-b3c1-90f1490162a9">
+		<cim:TapChanger.step>0</cim:TapChanger.step>
+		<cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+	</cim:RatioTapChanger>
+	<cim:RatioTapChanger rdf:about="urn:uuid:547f45b7-b8b2-4605-b34a-b5775d00fa64">
+		<cim:TapChanger.step>0</cim:TapChanger.step>
+		<cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+	</cim:RatioTapChanger>
+	<cim:TapChangerControl rdf:about="urn:uuid:84f2a894-2c43-45a3-bda8-10c4e3bb0a48">
+		<cim:RegulatingControl.targetDeadband>180</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>7200</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
+		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.none"/>
+	</cim:TapChangerControl>
+	<cim:TapChangerControl rdf:about="urn:uuid:3b5f125b-659a-46ff-bd8a-2ef4cb0ce4c6">
+		<cim:RegulatingControl.targetDeadband>180</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>7200</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
+		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.none"/>
+	</cim:TapChangerControl>
+	<cim:EnergySource rdf:about="urn:uuid:61b39ce1-6bbc-45c1-84cd-1293db3c6882">
+		<cim:EnergySource.voltageAngle>0</cim:EnergySource.voltageAngle>
+		<cim:EnergySource.voltageMagnitude>69</cim:EnergySource.voltageMagnitude>
+	</cim:EnergySource>
+</rdf:RDF>
