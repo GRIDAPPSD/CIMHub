@@ -72,7 +72,7 @@ public class DistSubstation extends DistComponent {
     StringBuilder buf = new StringBuilder ();
 
     buf.append ("{\"name\":\"" + name +"\"");
-    buf.append ("{\"fdrname\":\"" + fdrname +"\"");
+    buf.append (",\"fdrname\":\"" + fdrname +"\"");
     buf.append (",\"bus\":\"" + bus +"\"");
     buf.append (",\"phases\":\"ABC\"");
     buf.append (",\"nominal_voltage\":" + df1.format(nomv / Math.sqrt(3.0)));
