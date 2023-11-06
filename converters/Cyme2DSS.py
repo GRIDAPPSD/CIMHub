@@ -1061,10 +1061,22 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
                         ActualVoltage = float(EquivalentSource.find('OperatingVoltage1').text)*math.sqrt(3.0)
                         pu = round (ActualVoltage / DefaultBaseVoltage, 4)
                         ang = float(EquivalentSource.find('OperatingAngle1').text)
-                        r1 = float(EquivalentSource.find('PositiveSequenceResistance').text)
-                        x1 = float(EquivalentSource.find('PositiveSequenceReactance').text)
-                        r0 = float(EquivalentSource.find('ZeroSequenceResistance').text)
-                        x0 = float(EquivalentSource.find('ZeroSequenceReactance').text)
+                        try:
+                            r1 = float(EquivalentSource.find('PositiveSequenceResistance').text)
+                        except AttributeError:
+                            r1 = float(EquivalentSource.find('FirstLevelR1').text)
+                        try:
+                            x1 = float(EquivalentSource.find('PositiveSequenceReactance').text)
+                        except AttributeError:
+                            x1 = float(EquivalentSource.find('FirstLevelX1').text)
+                        try:
+                            r0 = float(EquivalentSource.find('ZeroSequenceResistance').text)
+                        except AttributeError:
+                            r0 = float(EquivalentSource.find('FirstLevelR0').text)
+                        try:
+                            x0 = float(EquivalentSource.find('ZeroSequenceReactance').text)
+                        except AttributeError:
+                            x0 = float(EquivalentSource.find('FirstLevelX0').text)
                         if EquivalentSource.find('ImpedanceUnit').text == 'PU': # 'Ohms':
                             r1 *= Zbase
                             x1 *= Zbase
