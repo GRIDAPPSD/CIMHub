@@ -1577,7 +1577,7 @@ def ConvertSXST(cfg):
 // This file is not over-written if you run the converter again.""", file=sp)
         if len(SourceTable) < 1:
             print ('// Placeholder source:', file=sp)
-            print ('new circuit.{:s} bus1={:s} basekv={:.3f} pu=1 ang=0 r1=0 x1=0.001 r0=0 x0=0.001'.format (RootName, '???', DefaultBaseVoltage), file=sp)
+            print ('new circuit.{:s} bus1={:s} basekv={:.3f} pu=1 ang=0 r1=0 x1=0.001 r0=0 x0=0.001'.format (RootName, 'sourcebus', DefaultBaseVoltage), file=sp)
         for key,row in SourceTable.items():
             sp.write('// Use this source impedance as the starting point for {:s}\n'.format(SubName))
             sp.write('// new circuit.' + RootName)
@@ -1602,13 +1602,13 @@ def ConvertSXST(cfg):
         fmaster.write('redirect ' + loadfilename + '\n')
         WriteFeeder (root, OwnerID, outpath + networkfilename, outpath + loadfilename)
     EditFile = RootName + '.edits'
-    if not os.path.exists(EditFile):
-        ep = open (EditFile, 'w')
-        print ("""
+    if not os.path.exists(outpath + EditFile):
+        ep = open(outpath + EditFile, 'w')
+        ep.write("""
 // This is included after the feeder backbone has been created, and before calculating voltage bases in OpenDSS. 
 // You can start with an empty file. 
 // Typical contents include control and protection settings, parameter adjustments, and creation of DER for study. 
-// This file is not over-written if you run the converter again.""", file=ep)
+// This file is not over-written if you run the converter again.""")
         ep.close()
     fmaster.write('redirect ' + EditFile + '\n')
     fmaster.write('Set VoltageBases = ' + str(BaseVoltages) + '\n')
