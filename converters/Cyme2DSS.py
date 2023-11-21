@@ -1053,6 +1053,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
         for SourceSetting in Source.findall('SourceSettings'):
             SourceID = SourceSetting.find('SourceID').text.translate(dsstab)
             SourceNodeID = Source.find('SourceNodeID').text.translate(dsstab)
+            DeviceNumber = SourceSetting.find('DeviceNumber').text.translate(dsstab)
             print ('source ' + SourceID + ' ' + SourceNodeID)
             for ESModels in Source.findall('EquivalentSourceModels'):
                 for ESModel in ESModels.findall('EquivalentSourceModel'):
@@ -1082,7 +1083,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
                             x1 *= Zbase
                             r0 *= Zbase
                             x0 *= Zbase
-                        SourceTable[SourceID] = [SourceBaseVoltage,pu,ang,r1,x1,r0,x0,SourceNodeID]
+                        SourceTable[SourceID] = [SourceBaseVoltage,pu,ang,r1,x1,r0,x0,SourceNodeID,DeviceNumber]
 
     #xstr = './Networks/Network/Sections/Section'
     #xstr = ".//*[NetworkID='" + OwnerID + "']/Sources/Source"
@@ -1568,29 +1569,6 @@ def ConvertSXST(cfg):
     fmaster=open(outpath + masterfilename,'w')
     fmaster.write('clear\n')
     SubFile = SubName + '.sub'
-    if not os.path.exists(outpath + SubFile):
-        sp = open (outpath + SubFile, 'w')
-        print ("""
-// At minimum, this file needs to create the new circuit for OpenDSS.
-// You may also add transmission lines, substation switchgear, substation regulator, 
-//  energy meter, or other components before the feeder backbone is included.
-// This file is not over-written if you run the converter again.""", file=sp)
-        if len(SourceTable) < 1:
-            print ('// Placeholder source:', file=sp)
-            print ('new circuit.{:s} bus1={:s} basekv={:.3f} pu=1 ang=0 r1=0 x1=0.001 r0=0 x0=0.001'.format (RootName, 'sourcebus', DefaultBaseVoltage), file=sp)
-        for key,row in SourceTable.items():
-            sp.write('// Use this source impedance as the starting point for {:s}\n'.format(SubName))
-            sp.write('// new circuit.' + RootName)
-            sp.write(' bus1=' + row[7])
-            sp.write(' basekv=' + str(row[0]))
-            sp.write(' pu=' + str(row[1]))
-            sp.write(' ang=' + str(row[2]))
-            sp.write(' r1=' + str(row[3]))
-            sp.write(' x1=' + str(row[4]))
-            sp.write(' r0=' + str(row[5]))
-            sp.write(' x0=' + str(row[6]))
-            sp.write(' // ' + key + '\n')
-        sp.close()
     fmaster.write('redirect ' + SubFile + '\n')
     fmaster.write('redirect ' + catalogfilename + '\n')
     BuildCatalog (root)
@@ -1602,6 +1580,7 @@ def ConvertSXST(cfg):
         fmaster.write('redirect ' + loadfilename + '\n')
         WriteFeeder (root, OwnerID, outpath + networkfilename, outpath + loadfilename)
     EditFile = RootName + '.edits'
+    # Write substation file
     if not os.path.exists(outpath + EditFile):
         ep = open(outpath + EditFile, 'w')
         ep.write("""
@@ -1615,11 +1594,35 @@ def ConvertSXST(cfg):
     fmaster.write('CalcVoltageBases\n')
     fmaster.write('SetLoadAndGenKv\n')
     fmaster.write('buscoords ' + xyfilename + '\n')
-    WriteCoordinates (outpath + xyfilename)
-    WriteCatalog (outpath + catalogfilename)
+    WriteCoordinates(outpath + xyfilename)
+    WriteCatalog(outpath + catalogfilename)
     fmaster.write('solve mode=snap\n')
     fmaster.write('batchedit energymeter..* action=take\n')
     fmaster.close()
+    # Write substation file
+    if not os.path.exists(outpath + SubFile):
+        sp = open(outpath + SubFile, 'w')
+        print("""
+    // At minimum, this file needs to create the new circuit for OpenDSS.
+    // You may also add transmission lines, substation switchgear, substation regulator, 
+    //  energy meter, or other components before the feeder backbone is included.
+    // This file is not over-written if you run the converter again.""", file=sp)
+        print('// Placeholder source:', file=sp)
+        print('new circuit.{:s} bus1={:s} basekv={:.3f} pu=1 ang=0 r1=0 x1=0.001 r0=0 x0=0.001'.format(
+            RootName, 'sourcebus', DefaultBaseVoltage), file=sp)
+        for key, row in SourceTable.items():
+            sp.write('// Use this source impedance as the starting point for {:s}\n'.format(SubName))
+            sp.write('new vsource.' + str(row[8]))
+            sp.write(' bus1=' + row[7])
+            sp.write(' basekv=' + str(row[0]))
+            sp.write(' pu=' + str(row[1]))
+            sp.write(' ang=' + str(row[2]))
+            sp.write(' r1=' + str(row[3]))
+            sp.write(' x1=' + str(row[4]))
+            sp.write(' r0=' + str(row[5]))
+            sp.write(' x0=' + str(row[6]))
+            sp.write(' // ' + key + '\n')
+        sp.close()
     #print('wrote total load = ' + "{:3}".format(TotalP) + ' + j' + "{:3}".format(TotalQ) + ' [kVA]')
 
 def usage():
