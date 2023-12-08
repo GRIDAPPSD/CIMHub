@@ -1027,7 +1027,7 @@ def WriteCoordinates(filename):
             fxy.write(key + ',' + '{:.6f}'.format(x) + ',' + '{:.6f}'.format(y) + '\n')
     fxy.close()
 
-def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
+def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
     # Extract info for sections and lines. create a dictionary
     OHLineTable = {}
     ZMLineTable = {}
@@ -1040,6 +1040,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
     TransformerPhaseTable = {}
     RegulatorTable = {}
     RecloserTable = {}
+    SectionalizerTable = {}
     FuseTable = {}
     SwtControlTable = {}
     DGTable = {}
@@ -1060,7 +1061,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
                     for EquivalentSource in ESModel.findall('EquivalentSource'):
                         SourceBaseVoltage = float(EquivalentSource.find('KVLL').text)
                         ActualVoltage = float(EquivalentSource.find('OperatingVoltage1').text)*math.sqrt(3.0)
-                        pu = round (ActualVoltage / DefaultBaseVoltage, 4)
+                        pu = round (ActualVoltage / SourceBaseVoltage, 4)
                         ang = float(EquivalentSource.find('OperatingAngle1').text)
                         try:
                             r1 = float(EquivalentSource.find('PositiveSequenceResistance').text)
@@ -1111,12 +1112,12 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
             for child in Devices:
                 DeviceType = child.tag
                 AllDeviceTypes.add (DeviceType)
-                if DeviceType in ('OverheadLine', 'OverheadByPhase', 'Underground'):
+                if DeviceType in ('OverheadLine', 'OverheadByPhase', 'Underground', 'Cable'):
                     SectionLine = 'Yes'
                     LineName = child.find('DeviceNumber').text.translate(dsstab)
                 if DeviceType in ('Transformer', 'Regulator'):
                     SectionXfmr = 'Yes'
-                if DeviceType in ('Switch', 'Fuse', 'Breaker', 'Recloser'):
+                if DeviceType in ('Switch', 'Fuse', 'Breaker', 'Recloser', 'Sectionalizer'):
                     SectionSwitch = 'Yes'
                     NormalStatus = child.find('NormalStatus').text
                     ClosedPhase = child.find('ClosedPhase').text
@@ -1150,7 +1151,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
                         XfmrFromNode = MidNodeID
                         XfmrToNode = ToNodeID
                     NodeXYTable[MidNodeID] = [str(x1),str(y1)]
-                if DeviceType in ('Switch', 'Breaker', 'Recloser') and (SectionLine == 'Yes'): # not inserting node for 'Fuse'
+                if DeviceType in ('Switch', 'Breaker', 'Recloser', 'Sectionalizer') and (SectionLine == 'Yes'): # not inserting node for 'Fuse'
                     MidNodeID = SectionID + '-swt'
 #                    print('Switch and Line on', SectionID, 'inserting', MidNodeID)
                     if MidNodeID in NodeXYTable:
@@ -1216,7 +1217,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
                     else:
                         # add a switch matching SectionStatus
                         SwitchTable[DeviceNumber] = [LineFromNode,LineToNode,Phase,SectionStatus,DeviceType]
-                elif DeviceType == 'Underground':
+                elif DeviceType in ['Underground', 'Cable']:
                     DeviceLength = float(child.find('Length').text)
                     if DeviceLength > 0.0:
                         LineConfig = "UG_" + child.find('CableID').text.translate(dsstab)
@@ -1239,18 +1240,18 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
 #                    print('WARNING: recloser in ' + SectionID + ' will be a closed switch')
 #                        SwitchTable[DeviceNumber] = [SwtFromNode,SwtToNode,Phase,"Closed",DeviceID]
                     RecloserTable[DeviceNumber] = [SwtFromNode,SwtToNode,Phase,SectionStatus,DeviceID,End,enabled]
-                elif DeviceType == 'Switch':
+                # Sectionalizers, switches and breakers are treated as switches
+                elif DeviceType in ['Sectionalizer', 'Switch', 'Breaker']:
                     if child.find('Location').text == 'To':
                         End = 2
                     else:
                         End = 1
-                    switch = SectionStatus # child.find('NormalStatus').text
+                    switch = SectionStatus  # child.find('NormalStatus').text
                     closedPhases = child.find('ClosedPhase').text
                     DeviceID = child.find('DeviceID').text.translate(dsstab)
-                    if child.find('ConnectionStatus').text == 'Connected': 
+                    if child.find('ConnectionStatus').text == 'Connected':
                         enabled = 'yes'
                         if closedPhases == 'None':
-#                                print(SwtFromNode,SwtToNode,Phase,DeviceID,closedPhases)
                             switch = 'Open'
                         else:
                             switch = 'Closed'
@@ -1258,9 +1259,14 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
                         enabled = 'no'
                         switch = 'Open'
                     if SectionID == DeviceNumber:
-                        DeviceNumber = 'Switch_' + SectionID
-                    SwitchTable[DeviceNumber] = [SwtFromNode,SwtToNode,Phase,switch,DeviceID]
-#                    SwtControlTable[DeviceNumber] = [SectionID,End,DeviceID,switch,enabled]
+                        if DeviceType == 'Sectionalizer':
+                            DeviceNumber = 'Sectionalizer_' + SectionID
+                        elif DeviceType == 'Switch':
+                            DeviceNumber = 'Switch_' + SectionID
+                        else:
+                            DeviceNumber = 'Breaker_' + SectionID
+                    SwitchTable[DeviceNumber] = [SwtFromNode, SwtToNode, Phase, switch, DeviceID]
+                    # SwtControlTable[DeviceNumber] = [SectionID,End,DeviceID,switch,enabled]
                 elif DeviceType == 'Fuse':
                     if child.find('Location').text == 'To':
                         End = 2
@@ -1278,24 +1284,6 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
                     FuseTable[DeviceNumber] = [DeviceNumber,End,DeviceID,switch,enabled,amps,curve,LineName,
                                                SwtFromNode,SwtToNode,Phase]
 #                        print ('Fuse', FuseTable[DeviceNumber])
-                elif DeviceType == 'Breaker': # in SCE circuit, the breaker is in-line with a line segment
-                    if child.find('Location').text == 'To':
-                        End = 2
-                    else:
-                        End = 1
-                    switch = SectionStatus # child.find('NormalStatus').text
-                    DeviceID = child.find('DeviceID').text.translate(dsstab)
-                    if child.find('ConnectionStatus').text == 'Connected': 
-                        enabled = 'yes'
-                        switch = 'Closed'
-                    else:
-                        enabled = 'no'
-                        switch = 'Open'
-                    #  print('WARNING: breaker in ' + SectionID + ' will be a closed switch')
-                    if SectionID == DeviceNumber:
-                        DeviceNumber = 'Breaker_' + SectionID
-                    SwitchTable[DeviceNumber] = [SwtFromNode,SwtToNode,Phase,SectionStatus,DeviceID]
-                    # SwtControlTable[DeviceNumber] = [SectionID,End,DeviceID,switch,enabled]
                 elif DeviceType == 'Transformer':
                     XfmrCode = child.find('DeviceID').text.translate(dsstab)
                     tap1 = 0.01 * float(child.find('PrimaryTapSettingPercent').text)
@@ -1449,69 +1437,154 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename):
     floads.close()
 
     #create the network of lines, transformers, regulators, capacitor banks and switches
+    # The offset value will help prevent duplicate objects
     fnetwork=open(networkfilename,"w")
     for key in OHLineTable:
         cfg = LineConfigTable[OHLineTable[key][4]]
-        CreateLine(fnetwork,key,OHLineTable[key],cfg)
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+            # Now search fuse monitored lines and replace linename to name
+            for row in FuseTable.values():
+                if key in row:
+                    index = row.index(key)
+                    row[index] = name
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateLine(fnetwork,name,OHLineTable[key],cfg)
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in ZMLineTable:
         cfg = MatrixTable[ZMLineTable[key][4]]
-        CreateMatrixLine(fnetwork,key,ZMLineTable[key],cfg)
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateMatrixLine(fnetwork,name,ZMLineTable[key],cfg)
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in OHPhaseTable:
-        CreateByPhase(fnetwork,key,OHPhaseTable[key])
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateByPhase(fnetwork,name,OHPhaseTable[key])
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in UGLineTable:
         cfg = CableConfigTable[UGLineTable[key][4]]
-        CreateLine(fnetwork,key,UGLineTable[key],cfg)
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateLine(fnetwork,name,UGLineTable[key],cfg)
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in SwitchTable:
-        CreateSwitch(fnetwork,key,SwitchTable[key])
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateSwitch(fnetwork,name,SwitchTable[key])
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in TransformerTable:
         cfg = XfmrConfigTable[TransformerTable[key][3]]
-        CreateTransformer(fnetwork,key,TransformerTable[key],cfg)
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateTransformer(fnetwork,name,TransformerTable[key],cfg)
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in TransformerPhaseTable:
-        CreateTransformerPhase(fnetwork,key,TransformerPhaseTable[key],XfmrConfigTable)
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateTransformerPhase(fnetwork,name,TransformerPhaseTable[key],XfmrConfigTable)
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in SwtControlTable:
-        CreateSwtControl(fnetwork,key,SwtControlTable[key])
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateSwtControl(fnetwork,name,SwtControlTable[key])
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in FuseTable:
-        CreateFuse(fnetwork,key,FuseTable[key])
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateFuse(fnetwork,name,FuseTable[key])
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in RecloserTable:
-        CreateRecloser(fnetwork,key,RecloserTable[key])
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateRecloser(fnetwork,name,RecloserTable[key])
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in ShuntCapTable:
-        CreateCapacitor(fnetwork,key,ShuntCapTable[key])
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateCapacitor(fnetwork,name,ShuntCapTable[key])
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in RegulatorTable:
-        CreateRegulator(fnetwork,key,RegulatorTable[key])
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateRegulator(fnetwork,name,RegulatorTable[key])
     fnetwork.write('\n')
+    offset_val += 1
 
     for key in DGTable:
-        CreateGenerator(fnetwork,key,DGTable[key])
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateGenerator(fnetwork,name,DGTable[key])
     fnetwork.write('\n')
     fnetwork.close()
+    return offset_val
 
 def ConvertSXST(cfg):
     global xmlfilename, RootName, SubName, LoadScale, LoadModel, DefaultBaseVoltage, rootdir, outpath
     global BaseVoltages, CoordXmin, CoordXmax, CoordYmin, CoordYmax
     global CYMELineCodeUnit, DSSSectionUnit, OwnerIDs, CYMEtoDSSSection
     global CYMEtoDSSLineCode, Zbase, TotalP, TotalQ, CYMESectionUnit, CYMEVersion
+    global unique_objs
 
     rootdir = cfg['DefaultDir'] + '/'
     outpath = cfg['OutDir'] + '/'
@@ -1531,6 +1604,8 @@ def ConvertSXST(cfg):
     CYMELineCodeUnit = cfg['CYMELineCodeUnit']
     DSSSectionUnit = cfg['DSSSectionUnit']
     OwnerIDs = cfg['OwnerIDs']
+
+    unique_objs = []
 
     if CYMESectionUnit != 'm' or CYMELineCodeUnit != 'km':
         print ('WARNING: CYMDIST line section lengths should be m, line code lengths should be km')
@@ -1573,12 +1648,14 @@ def ConvertSXST(cfg):
     fmaster.write('redirect ' + catalogfilename + '\n')
     BuildCatalog (root)
     BuildInitialCoordinates (root)
+    offset_val = 0
     for OwnerID in OwnerIDs:
         networkfilename = OwnerID + '_network.dss'
         loadfilename = OwnerID + '_loads.dss'
         fmaster.write('redirect ' + networkfilename + '\n')
         fmaster.write('redirect ' + loadfilename + '\n')
-        WriteFeeder (root, OwnerID, outpath + networkfilename, outpath + loadfilename)
+        offset_val = WriteFeeder (root, OwnerID, outpath + networkfilename, outpath + loadfilename, offset_val)
+        offset_val += 1
     EditFile = RootName + '.edits'
     # Write substation file
     if not os.path.exists(outpath + EditFile):
