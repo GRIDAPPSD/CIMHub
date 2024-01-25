@@ -1,0 +1,45 @@
+[
+ {
+  "dssname": "ieee123.dss",
+  "root": "ieee123",
+  "mRID": "CBE09B55-091B-4BB0-95DA-392237B12640",
+  "substation": "Fictitious",
+  "region": "Texas",
+  "subregion": "Austin",
+  "skip_gld": false,
+  "glmvsrc": 2401.78,
+  "bases": [
+   4160.0
+  ],
+  "export_options": " -l=1.0 -p=1.0 -e=carson",
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.REG4A",
+    "dss_bus": "160"
+   },
+   {
+    "dss_link": "TRANSFORMER.REG4B",
+    "dss_bus": "160"
+   },
+   {
+    "dss_link": "TRANSFORMER.REG4C",
+    "dss_bus": "160"
+   },
+   {
+    "gld_link": "REG_REG4",
+    "gld_bus": "160"
+   },
+   {
+    "dss_link": "LINE.L115",
+    "dss_bus": "149",
+    "gld_link": "LINE_L115",
+    "gld_bus": "149"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ }
+]

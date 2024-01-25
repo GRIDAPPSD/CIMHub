@@ -1,0 +1,28 @@
+// test of 330-MVA autotransformer modeled as YNad1, at a 6-node bus, 3-node bus, 3-node bus
+// see AutoTest.xlsx file in the OpenDSS repository for test data and expected results
+
+clear
+new circuit.auto  basekV=345.0 phases=3 mvasc3=2000000 2000000
+
+new line.line1 bus1=sourcebus bus2=high switch=yes r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0
+
+new xfmrcode.auto phases=1 windings=3 xhl=13.55 xht=17.50 xlt=15.17 %imag=0.062 %noloadloss=0.045
+~ wdg=1 conn=w kV=106.23 kVA=58667 %r=0.0925
+~ wdg=2 conn=w kV= 92.95 kVA=58667 %r=0.1042
+~ wdg=3 conn=d kV= 13.80 kVA=24000 %r=0.7031
+
+// the autotransformer is at three buses, with an internal jumper at common node
+new transformer.t1a xfmrcode=auto buses=[high.1.4, low.1.0, tert.1.2] bank=auto
+new transformer.t1b xfmrcode=auto buses=[high.2.5, low.2.0, tert.2.3] bank=auto
+new transformer.t1c xfmrcode=auto buses=[high.3.6, low.3.0, tert.3.1] bank=auto
+
+// jumper bottom of series winding to the common node
+new line.common bus1=high.4.5.6 bus2=low.1.2.3 switch=yes r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0
+
+new load.test phases=3 bus1=low conn=wye kv=161 kw=330000 pf=0.85
+
+set voltagebases=[345.0 161.0 13.8] 
+calcvoltagebases
+set tolerance=1e-8
+
+solve

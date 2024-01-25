@@ -1,0 +1,100 @@
+[
+ {
+  "inpath_dss": "LVTestCaseNorthAmerican",
+  "skip_gld": false,
+  "dssname": "SecPar.dss",
+  "root": "IEEE390par",
+  "mRID": "EE33AEC3-8835-45BC-85B1-0E019F5EE070",
+  "substation": "sub1",
+  "region": "NorthAmerica",
+  "subregion": "test_subregion",
+  "glmvsrc": 139430.09,
+  "bases": [
+   480.0,
+   13800.0,
+   230000.0
+  ],
+  "export_options": " -e=carson",
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.1",
+    "dss_bus": "P4",
+    "gld_link": "XF_1",
+    "gld_bus": "P4"
+   },
+   {
+    "dss_link": "TRANSFORMER.2",
+    "dss_bus": "P8",
+    "gld_link": "XF_2",
+    "gld_bus": "P8"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "inpath_dss": "LVTestCaseNorthAmerican",
+  "skip_gld": true,
+  "dssname": "Master.dss",
+  "root": "IEEE390",
+  "mRID": "F4127C61-BD06-47DF-9558-28785E0934D9",
+  "substation": "sub1",
+  "region": "NorthAmerica",
+  "subregion": "test_subregion",
+  "glmvsrc": 139430.09,
+  "bases": [
+   480.0,
+   13800.0,
+   230000.0
+  ],
+  "export_options": " -e=carson",
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.1",
+    "dss_bus": "P4",
+    "gld_link": "XF_1",
+    "gld_bus": "P4"
+   },
+   {
+    "dss_link": "TRANSFORMER.2",
+    "dss_bus": "P8",
+    "gld_link": "XF_2",
+    "gld_bus": "P8"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "inpath_dss": "LVTestCase",
+  "skip_gld": false,
+  "dssname": "Master.dss",
+  "root": "LVTest",
+  "mRID": "2DD6F13C-58B8-4D3A-8DE7-67FDA0560293",
+  "substation": "sub1",
+  "region": "Europe",
+  "subregion": "test_subregion",
+  "glmvsrc": 6668.3956,
+  "bases": [
+   416.0,
+   11000.0
+  ],
+  "export_options": " -e=carson -f=50.0",
+  "check_branches": [
+   {
+    "dss_link": "LINE.LINE1",
+    "dss_bus": "1",
+    "gld_link": "LINE_LINE1",
+    "gld_bus": "1"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ }
+]

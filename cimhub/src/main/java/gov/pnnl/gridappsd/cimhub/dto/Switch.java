@@ -1,6 +1,6 @@
 package gov.pnnl.gridappsd.cimhub.dto;
 //	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
+//	Copyright (c) 2017-2022, Battelle Memorial Institute
 //	All rights reserved.
 //	----------------------------------------------------------
 
@@ -26,7 +26,7 @@ public class Switch {
 	 * convert a CIM name to simulator name, replacing unallowed characters
 	 *
 	 * @param arg
-	 *            the root bus or component name, aka CIM name
+	 *			the root bus or component name, aka CIM name
 	 * @return the compatible name for GridLAB-D or OpenDSS
 	 */
 	public static String SafeName(String arg) { // GLD conversion

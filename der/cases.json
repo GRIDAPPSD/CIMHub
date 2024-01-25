@@ -1,0 +1,459 @@
+[
+ {
+  "dssname": "local_unity_a.dss",
+  "root": "local_unity_a",
+  "mRID": "B3600BC3-18B5-4720-9CC6-5997E35E8158",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_optpf_a.dss",
+  "root": "local_optpf_a",
+  "mRID": "3D9154FE-8514-40BA-8AE1-7DB8B134617D",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_optpf_b.dss",
+  "root": "local_optpf_b",
+  "mRID": "43728B05-D922-4477-99DA-F980D27811ED",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_fixq_a.dss",
+  "root": "local_fixq_a",
+  "mRID": "A0BABA6C-3323-412C-A87A-E8F15456031C",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_combo_a.dss",
+  "root": "local_combo_a",
+  "mRID": "1D4B98E2-62AB-411A-813E-F125F29ABD48",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_combo_b.dss",
+  "root": "local_combo_b",
+  "mRID": "7C1EEB79-9E9C-43E5-BAE9-0F0F99B41384",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_vvar_a.dss",
+  "root": "local_vvar_a",
+  "mRID": "D1D5E183-EE39-44E6-9D5C-A1519F0D8709",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_vvar_b.dss",
+  "root": "local_vvar_b",
+  "mRID": "3D840B6D-4A97-4BDA-A488-4EEF2F4F5FBD",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_avr_b.dss",
+  "root": "local_avr_b",
+  "mRID": "3CC2D836-CE11-4D4F-B93D-B2851B1E79B5",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_vwatt_b.dss",
+  "root": "local_vwatt_b",
+  "mRID": "0A81F3A8-0985-423B-A5F5-2A7A0319A9B6",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "remote_vvar_a.dss",
+  "root": "remote_vvar_a",
+  "mRID": "DA89ACD5-8AB1-46E4-959E-5BDE188DC12F",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "remote_vvar_b.dss",
+  "root": "remote_vvar_b",
+  "mRID": "5824790B-58F9-4428-BB11-6D56CE013C73",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "remote_avr_b.dss",
+  "root": "remote_avr_b",
+  "mRID": "408201DC-BBAB-4CDE-85DF-7F8D1E2CF258",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "remote_vwatt_b.dss",
+  "root": "remote_vwatt_b",
+  "mRID": "4C7345DE-E5D1-4A00-ACC4-0F85B9016F03",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "remote_combo_b.dss",
+  "root": "remote_combo_b",
+  "mRID": "58EAA940-6023-4F38-B09B-3D445BAB4429",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_chcurve_b.dss",
+  "root": "local_chcurve_b",
+  "mRID": "6A7D5722-8D9D-4C54-861D-56E1CDA52231",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "local_wvar_b.dss",
+  "root": "local_wvar_b",
+  "mRID": "746C6392-9F8B-4537-98C4-E978AB9547D4",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "remote_1phase_b.dss",
+  "root": "remote_1phase_b",
+  "mRID": "520E4BC8-D3C2-4745-B784-AE23361E94BB",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   208.0,
+   400.0,
+   13200.0
+  ],
+  "skip_gld": false,
+  "check_branches": [
+   {
+    "dss_link": "REACTOR.THEV",
+    "dss_bus": "HIGH",
+    "gld_link": "REAC_THEV",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "default_avr_b.dss",
+  "root": "default_avr_b",
+  "mRID": "57AA3D7E-E023-4C09-A9A7-81C44C2EE87E",
+  "glmvsrc": 8002.0747,
+  "bases": [
+   400.0,
+   13200.0
+  ],
+  "skip_gld": true,
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.DER",
+    "dss_bus": "HIGH",
+    "gld_link": "XF_DER",
+    "gld_bus": "HIGH"
+   }
+  ],
+  "inpath_dss": "./base",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ }
+]

@@ -60,6 +60,15 @@ The two model files you must manually create for OpenDSS are:
 - *RootName.edits*; this is included after the feeder backbone has been created, and before calculating voltage bases in OpenDSS. You can start with an empty file. Typical contents include control and protection settings, parameter adjustments, and creation of DER for study. This file is not over-written if you run the converter again.
 - *SubName.sub*; at minimum, this file needs to create the new circuit for OpenDSS. You may also add transmission lines, substation switchgear, substation regulator, energy meter, or other components before the feeder backbone is included. This file is not over-written if you run the converter again.
 
+Please review any WARNING messages produced by this converter; they may cause incorrect power flow results or failure to solve the model in OpenDSS. Manual edits may be necessary to correct them.
+
+- _phases > 2 for a line that does not match its linecode_; you should manually create a valid linecode in *RootName*_catalog.dss
+- _inserting duplicate mid-section node_; please report this as an issue.
+- _... will be a closed switch_; this just indicates where to find the recloser or breaker in the converted OpenDSS model. Further edits would be needed to represent protection settings.
+- _unhandled ReverseSensingMode_ or _SettingOption for regulator_; manually create an OpenDSS _regcontrol_ in *RootName.edits*
+- _line section lengths_, or _line code lengths_, or _DSSSection unit_ refers to choices of *CYMESectionUnit*, *CYMELineCodeUnit* or *DSSSectionUnut* that were not tested. You can choose a different *DSSSectionUnit* in the JSON configuration file. If you are able to provide the SXST for testing, it may be possible to support its length units in the converter.
+- _AverageGeometricalArrangment_ stores geometric mean distance in the SXST, but not the number of phases. The converter may guess wrong, and the result will be an error message from OpenDSS about _WireData_, because the phase counts don't match. To fix this, you should edit or create _LineSpacing_ entries in *RootName*_catalog.dss
+
 ## Synergi Electric to OpenDSS Converter
 
 This converter has been tested on feeder models from two different utilities. Inputs are the 
@@ -112,6 +121,10 @@ The three model files you must manually create for OpenDSS are:
 - *CustomEdits.dss*; this is included after the feeder backbone has been created, and before calculating voltage bases in OpenDSS. You can start with an empty file. Typical contents include control and protection settings, parameter adjustments, and creation of DER for study. This file is not over-written if you run the converter again.
 - *InitialConditions.dss*; the last file included, may have load allocation, load scaling, switching operations and a solve command.
 
-Copyright (c) 2017-2020, Battelle Memorial Institute
+Please review any WARNING messages produced by this converter; they may cause incorrect power flow results or failure to solve the model in OpenDSS. Manual edits may be necessary to correct them.
+
+- _cap control not implemented_; you should manually create one in *CustomEdits.dss*
+
+Copyright (c) 2017-2021, Battelle Memorial Institute
 
 License: https://gridappsd.readthedocs.io/en/master/license/license.html

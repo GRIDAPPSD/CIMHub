@@ -1,0 +1,8 @@
+{"limits":{
+"voltages":[
+{"id":"","Blo":1000000000.00,"Alo":0.00,"Ahi":1000000000.00,"Bhi":0.00,"ConnectivityNode":"","x":0.0000,"y":0.0000}
+],
+"currents":[
+{"id":"","Normal":1000000000.00,"Emergency":0.00}
+]
+}}

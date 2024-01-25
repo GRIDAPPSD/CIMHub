@@ -1,0 +1,819 @@
+# set xmlns:ns1="http://iec.ch/TC57/CIM100#" 
+
+SELECT ?class (COUNT(?class) as ?cnt)
+WHERE {
+  ?s a ?class .
+} group by ?class order by ?class
+
+# list the base voltage levels - DistBaseVoltage
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?vnom
+WHERE {
+# ?fdr c:IdentifiedObject.mRID ?fdrid.
+# ?s c:Equipment.EquipmentContainer ?fdr.
+ {?s c:ConductingEquipment.BaseVoltage ?lev.}
+  UNION
+ { ?end c:PowerTransformerEnd.PowerTransformer|c:TransformerTankEnd.TransformerTank ?s.
+   ?end c:TransformerEnd.BaseVoltage ?lev.}
+ ?lev r:type c:BaseVoltage.
+ ?lev c:BaseVoltage.nominalVoltage ?vstr.
+  bind(xsd:float(?vstr) as ?vnom)
+}
+ORDER BY ?vnom
+
+# list all the feeders, with substations and regions - DistFeeder
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {
+ ?s r:type c:Feeder.
+ ?s c:IdentifiedObject.name ?feeder.
+ ?s c:IdentifiedObject.mRID ?fid.
+# ?s c:Feeder.NormalEnergizingSubstation ?sub.
+# ?sub c:IdentifiedObject.name ?station.
+# ?sub c:IdentifiedObject.mRID ?sid.
+# ?sub c:Substation.Region ?sgr.
+# ?sgr c:IdentifiedObject.name ?subregion.
+# ?sgr c:IdentifiedObject.mRID ?sgrid.
+# ?sgr c:SubGeographicalRegion.Region ?rgn.
+# ?rgn c:IdentifiedObject.name ?region.
+# ?rgn c:IdentifiedObject.mRID ?rgnid.
+}
+#ORDER by ?station ?feeder
+
+# loads (need to account for 2+ unequal EnergyConsumerPhases per EnergyConsumer) - DistLoad
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?basev ?p ?q ?conn ?cnt ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?fdrid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:EnergyConsumer.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ OPTIONAL {?s c:EnergyConsumer.customerCount ?cnt.}
+ ?s c:EnergyConsumer.p ?p. # part of SSH?
+ ?s c:EnergyConsumer.q ?q. # part of SSH?
+ ?s c:EnergyConsumer.phaseConnection ?connraw.
+   bind(strafter(str(?connraw),"PhaseShuntConnectionKind.") as ?conn)
+ ?s c:EnergyConsumer.LoadResponse ?lr.
+ ?lr c:LoadResponseCharacteristic.pConstantImpedance ?pz.
+ ?lr c:LoadResponseCharacteristic.qConstantImpedance ?qz.
+ ?lr c:LoadResponseCharacteristic.pConstantCurrent ?pi.
+ ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi.
+ ?lr c:LoadResponseCharacteristic.pConstantPower ?pp.
+ ?lr c:LoadResponseCharacteristic.qConstantPower ?qp.
+ OPTIONAL {?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.}
+ OPTIONAL {?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.}
+ OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s.
+ ?ecp c:EnergyConsumerPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP BY ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?fdrid ?t1id
+ORDER by ?name
+
+# cim100 - DistBreaker, DistFuse, DistRecloser, DistLoadBreakSwitch have been tested (PREFERRED)
+# does not represent different phasing on two sides of a switch
+# only uses one group_concat so we can retrieve and match bus1-t1id, bus2-t2id
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus1 ?bus2 ?basev ?open ?continuous ?breaking ?fdrid ?t1id ?t2id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:Breaker.
+# ?s r:type c:Fuse.
+# ?s r:type c:Recloser.
+# ?s r:type c:LoadBreakSwitch.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+# ?s c:ConductingEquipment.BaseVoltage ?bv.
+# ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ ?s c:Switch.ratedCurrent ?continuous.
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?bus1 ?bus2 ?basev ?open ?continuous ?breaking ?fdrid ?t1id ?t2id
+ORDER BY ?name
+
+# wire spacings - DistLineSpacing
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y
+WHERE {
+ ?eq r:type c:ACLineSegment.
+# ?eq c:Equipment.EquipmentContainer ?fdr.
+# ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.WireSpacingInfo ?w.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:IdentifiedObject.mRID ?id.
+ ?pos c:WirePosition.WireSpacingInfo ?w.
+ ?pos c:WirePosition.xCoord ?x.
+ ?pos c:WirePosition.yCoord ?y.
+ ?pos c:WirePosition.sequenceNumber ?seq.
+ ?w c:WireSpacingInfo.isCable ?cable.
+ ?w c:WireSpacingInfo.phaseWireCount ?bundle_count.
+ ?w c:WireSpacingInfo.phaseWireSpacing ?bundle_sep.
+ ?w c:WireSpacingInfo.usage ?useraw.
+   bind(strafter(str(?useraw),"WireUsageKind.") as ?usage).
+}
+ORDER BY ?name ?id ?seq
+
+# wiredata actually used - DistOverheadWire
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick WHERE {
+ ?w r:type c:WireInfo.  # was OverheadWireInfo
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:WireInfo.radius ?rad.
+ ?w c:WireInfo.gmr ?gmr.
+ OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}
+ OPTIONAL {?w c:WireInfo.rAC25 ?r25.}
+ OPTIONAL {?w c:WireInfo.rAC50 ?r50.}
+ OPTIONAL {?w c:WireInfo.rAC75 ?r75.}
+ OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}
+ OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}
+ OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw.
+     bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
+ OPTIONAL {?w c:WireInfo.insulated ?ins.}
+ OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+}
+ORDER BY ?name
+
+# per-length phase impedance matrics actually used - DistPhaseMatrix
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?cnt ?row ?col ?r ?x ?b WHERE {
+ ?s r:type c:PerLengthPhaseImpedance.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PerLengthPhaseImpedance.conductorCount ?cnt.
+ ?elm c:PhaseImpedanceData.PhaseImpedance ?s.
+ ?elm c:PhaseImpedanceData.row ?row.
+ ?elm c:PhaseImpedanceData.column ?col.
+ ?elm c:PhaseImpedanceData.r ?r.
+ ?elm c:PhaseImpedanceData.x ?x.
+# ?elm c:PhaseImpedanceData.b ?b
+}
+ORDER BY ?name ?row ?col
+
+# lines referencing linecodes - DistLinesCodeZ
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid ?seq ?phs ?t1id ?t2id
+# here, we explicitly retain separate row for each phase, and order them by sequenceNumber
+WHERE {
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.PerLengthImpedance ?lcode.
+ ?lcode c:IdentifiedObject.name ?lname. 
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+   ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
+     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)}
+}
+ORDER BY ?name ?seq ?phs
+
+# line segments with individual phase wire assignments, ordered by phase - DistLinesSpacingZ granular format (PREFERRED)
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?phs ?phname ?phclass ?t1id ?t2id
+    WHERE {
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.WireSpacingInfo ?inf.
+ ?inf c:IdentifiedObject.name ?spacing.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+ ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+ ?acp c:ACLineSegmentPhase.WireInfo ?phinf.
+ ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
+ ?phinf c:IdentifiedObject.name ?phname.
+ ?phinf a ?phclassraw.
+   bind(strafter(str(?phclassraw),"CIM100#") as ?phclass)
+}
+ORDER BY ?name ?seq ?phs
+
+# capacitors (does not account for 2+ unequal phases on same LinearShuntCompensator) - DistCapacitor
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?phs ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid ?t1id WHERE {
+ ?s r:type c:LinearShuntCompensator.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:ShuntCompensator.nomU ?nomu. 
+ ?s c:LinearShuntCompensator.bPerSection ?bsection.
+ ?s c:ShuntCompensator.sections ?sections. # part of SSH?
+ ?s c:ShuntCompensator.phaseConnection ?connraw.
+   bind(strafter(str(?connraw),"PhaseShuntConnectionKind.") as ?conn)
+ ?s c:ShuntCompensator.grounded ?grnd.
+ OPTIONAL {?scp c:ShuntCompensatorPhase.ShuntCompensator ?s.
+ ?scp c:ShuntCompensatorPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ OPTIONAL {?ctl c:RegulatingControl.RegulatingCondEq ?s.
+# OPTIONAL {?s c:LinearShuntCompensator.RegulatingControl ?ctl.
+          ?ctl c:RegulatingControl.discrete ?discrete.
+          ?ctl c:RegulatingControl.enabled ?ctrlenabled.
+          ?ctl c:RegulatingControl.mode ?moderaw.
+           bind(strafter(str(?moderaw),"RegulatingControlModeKind.") as ?mode)
+          ?ctl c:RegulatingControl.monitoredPhase ?monraw.
+           bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+          ?ctl c:RegulatingControl.targetDeadband ?deadband.
+          ?ctl c:RegulatingControl.targetValue ?setpoint.
+          ?s c:ShuntCompensator.aVRDelay ?delay.
+          ?ctl c:RegulatingControl.Terminal ?trm.
+          ?trm c:Terminal.ConductingEquipment ?eq.
+          ?eq a ?classraw.
+           bind(strafter(str(?classraw),"CIM100#") as ?monclass)
+          ?eq c:IdentifiedObject.name ?moneq.
+          ?trm c:Terminal.ConnectivityNode ?moncn.
+          ?moncn c:IdentifiedObject.name ?monbus.
+          }
+ ?s c:IdentifiedObject.mRID ?id. 
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+
+# substation source - DistSubstation
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?t1id WHERE {
+ ?s r:type c:EnergySource.
+ ?s c:Equipment.EquipmentContainer ?lev.  # this is not the Feeder!
+ ?s c:IdentifiedObject.name ?name.
+ ?lev c:VoltageLevel.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:EnergySource.nominalVoltage ?nomv. 
+ ?s c:EnergySource.voltageMagnitude ?vmag. 
+ ?s c:EnergySource.voltageAngle ?vang. 
+ ?s c:EnergySource.r ?r1. 
+ ?s c:EnergySource.x ?x1. 
+ ?s c:EnergySource.r0 ?r0. 
+ ?s c:EnergySource.x0 ?x0. 
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+
+# Solar - DistSolar
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:PhotoVoltaicUnit. # was PhotovoltaicUnit
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PowerElectronicsUnit.maxP ?maxP.
+ ?s c:PowerElectronicsUnit.minP ?minP.
+# ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+ ?s c:PowerElectronicsUnit.PowerElectronicsConnection ?pec.
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+ ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+ ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+ ?pec c:PowerElectronicsConnection.p ?p.
+ ?pec c:PowerElectronicsConnection.q ?q.
+ ?pec c:PowerElectronicsConnection.minQ ?minQ.
+ ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
+# {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+#  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
+ ?pec c:IdentifiedObject.mRID ?pecid.
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id
+ORDER by ?name
+
+# Storage - DistStorage
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:BatteryUnit.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+# ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+ ?s c:PowerElectronicsUnit.PowerElectronicsConnection ?pec.
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+ ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+ ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+ ?pec c:IdentifiedObject.mRID ?pecid.
+ ?s c:PowerElectronicsUnit.maxP ?maxP.
+ ?s c:PowerElectronicsUnit.minP ?minP.
+ ?s c:BatteryUnit.ratedE ?ratedE.
+ ?s c:BatteryUnit.storedE ?storedE.
+ ?s c:BatteryUnit.batteryState ?stateraw.
+   bind(strafter(str(?stateraw),"BatteryStateKind.") as ?state)
+ ?pec c:PowerElectronicsConnection.p ?p.
+ ?pec c:PowerElectronicsConnection.q ?q. 
+ ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
+ ?pec c:PowerElectronicsConnection.minQ ?minQ. 
+# {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+#  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id
+ORDER by ?name
+
+# Wind - new DistWind
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:PowerElectronicsWindUnit.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PowerElectronicsUnit.maxP ?maxP.
+ ?s c:PowerElectronicsUnit.minP ?minP.
+ ?s c:PowerElectronicsUnit.PowerElectronicsConnection ?pec.
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+ ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+ ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+ ?pec c:PowerElectronicsConnection.minQ ?minQ.
+ ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
+ ?pec c:PowerElectronicsConnection.p ?p.
+ ?pec c:PowerElectronicsConnection.q ?q. 
+ ?pec c:IdentifiedObject.mRID ?pecid.
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id
+ORDER by ?name
+
+# ===========================================
+# starting to work on transformers
+# ===========================================
+
+# transformer codes; short-circuit tests - DistXfmrCodeSCTest
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?tname ?enum ?gnum ?z ?ll WHERE {
+ ?t c:IdentifiedObject.name ?tname.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?e c:TransformerEndInfo.endNumber ?enum.
+ ?sct c:ShortCircuitTest.EnergisedEnd ?e.
+ ?sct c:ShortCircuitTest.leakageImpedance ?z.
+ ?sct c:ShortCircuitTest.loss ?ll.
+ ?sct c:ShortCircuitTest.GroundedEnds ?grnd.
+ ?grnd c:TransformerEndInfo.endNumber ?gnum.
+}
+ORDER BY ?tname ?enum ?gnum
+
+# transformer codes; no-load tests - DistXfmrCodeNLTest
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?tname ?nll ?iexc WHERE {
+ ?xft c:TransformerTank.PowerTransformer ?eq.
+ ?xft c:TransformerTank.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?nlt c:NoLoadTest.EnergisedEnd ?e.
+ ?nlt c:NoLoadTest.loss ?nll.
+ ?nlt c:NoLoadTest.excitingCurrent ?iexc
+}
+ORDER BY ?tname
+
+# TransformerTankInfo mesh impedances - NOT DistPowerXfmrMesh
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?tname ?fnum ?tnum ?r ?x WHERE {
+ ?t c:IdentifiedObject.name ?tname.
+ ?from c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?imp c:TransformerMeshImpedance.FromTransformerEndInfo ?from.
+ ?imp c:TransformerMeshImpedance.ToTransformerEndInfos ?to.  # should be singular EndInfo?
+ ?imp c:TransformerMeshImpedance.r ?r.
+ ?imp c:TransformerMeshImpedance.x ?x.
+ ?from c:TransformerEndInfo.endNumber ?fnum.
+ ?to c:TransformerEndInfo.endNumber ?tnum.
+}
+ORDER BY ?tname ?fnum ?tnum
+
+# TransformerTankInfo core branches - NOT DistPowerXfmrCore
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?tname ?enum ?b ?g WHERE {
+ ?t c:IdentifiedObject.name ?tname.
+ ?end c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?adm c:TransformerCoreAdmittance.TransformerEndInfo ?end.
+ ?end c:TransformerEndInfo.endNumber ?enum.
+ ?adm c:TransformerCoreAdmittance.b ?b.
+ ?adm c:TransformerCoreAdmittance.g ?g.
+}
+ORDER BY ?tname
+
+# power transformers
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?vgrp ?fdrname ?subname ?fdrid ?subid WHERE {
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ OPTIONAL {?p c:Equipment.AdditionalEquipmentContainer ?sub.
+   ?sub c:IdentifiedObject.mRID ?subid.
+   ?sub c:IdentifiedObject.name ?subname.}
+ OPTIONAL {?p c:Equipment.EquipmentContainer ?fdr.
+   ?fdr c:IdentifiedObject.mRID ?fdrid.
+   ?fdr c:IdentifiedObject.name ?fdrname.}
+}
+ORDER BY ?pname
+
+# transformer tanks referencing the catalog - DistXfmrTank
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?orderedPhases ?grounded ?rground ?xground ?fdrid ?t1id WHERE {
+ ?p r:type c:PowerTransformer.
+ ?p c:Equipment.EquipmentContainer ?fdr.
+# ?p c:Equipment.AdditionalEquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?t c:TransformerTank.PowerTransformer ?p.
+ ?t c:IdentifiedObject.name ?tname.
+ ?t c:TransformerTank.TransformerTankInfo ?inf.
+ ?inf c:IdentifiedObject.name ?xfmrcode.
+ ?end c:TransformerTankEnd.TransformerTank ?t.
+ ?end c:TransformerTankEnd.orderedPhases ?phsraw.
+  bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?orderedPhases)
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?end c:TransformerEnd.grounded ?grounded.
+ OPTIONAL {?end c:TransformerEnd.rground ?rground.}
+ OPTIONAL {?end c:TransformerEnd.xground ?xground.}
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?trm c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus.
+ ?end c:TransformerEnd.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev
+}
+ORDER BY ?pname ?tname ?enum
+
+# transformer codes; winding ratings actually used - DistXfmrCodeRating
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?tname ?enum ?ratedS ?ratedU ?conn ?ang ?res ?id ?eid ?ename WHERE {
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+# ?eq c:Equipment.AdditionalEquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?xft c:TransformerTank.PowerTransformer ?eq.
+ ?xft c:TransformerTank.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?t c:IdentifiedObject.mRID ?id.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?e c:IdentifiedObject.mRID ?eid.
+ ?e c:IdentifiedObject.name ?ename.
+ ?e c:TransformerEndInfo.endNumber ?enum.
+ ?e c:TransformerEndInfo.ratedS ?ratedS.
+ ?e c:TransformerEndInfo.ratedU ?ratedU.
+ ?e c:TransformerEndInfo.r ?res.
+ ?e c:TransformerEndInfo.phaseAngleClock ?ang.
+ ?e c:TransformerEndInfo.connectionKind ?connraw.
+   bind(strafter(str(?connraw),"WindingConnection.") as ?conn)
+}
+ORDER BY ?tname ?enum
+
+# ===========================================
+# starting to work on regulators
+# ===========================================
+
+# voltage regulators - DistRegulator
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+ ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin
+	?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode ?monphs ?ctRating ?ctRatio ?ptRatio ?fdrid ?pxfid
+WHERE {
+ ?pxf c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?rtc r:type c:RatioTapChanger.
+ ?rtc c:IdentifiedObject.name ?rname.
+ ?rtc c:RatioTapChanger.TransformerEnd ?end.
+ ?end c:TransformerEnd.endNumber ?wnum.
+{?end c:PowerTransformerEnd.PowerTransformer ?pxf.}
+  UNION
+{?end c:TransformerTankEnd.TransformerTank ?tank.
+ ?tank c:IdentifiedObject.name ?tname.
+ OPTIONAL {?end c:TransformerTankEnd.orderedPhases ?phsraw.
+  bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?orderedPhases)}
+ ?tank c:TransformerTank.PowerTransformer ?pxf.}
+ ?pxf c:IdentifiedObject.name ?pname.
+ ?pxf c:IdentifiedObject.mRID ?pxfid.
+ ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
+ ?rtc c:TapChanger.controlEnabled ?enabled.
+ ?rtc c:TapChanger.highStep ?highStep.
+ ?rtc c:TapChanger.lowStep ?lowStep.
+ ?rtc c:TapChanger.ltcFlag ?ltc.
+ ?rtc c:TapChanger.neutralStep ?neutralStep.
+ ?rtc c:TapChanger.neutralU ?neutralU.
+ ?rtc c:TapChanger.normalStep ?normalStep. # in SSH?
+ ?rtc c:TapChanger.step ?step.
+ OPTIONAL{?rtc c:TapChanger.subsequentDelay ?subDelay.
+	?rtc c:TapChanger.initialDelay ?initDelay.
+    ?rtc c:TapChanger.ctRating ?ctRating.
+    ?rtc c:TapChanger.ctRatio ?ctRatio.
+    ?rtc c:TapChanger.ptRatio ?ptRatio.
+ }
+ OPTIONAL{?rtc c:TapChanger.TapChangerControl ?ctl.
+ ?ctl c:TapChangerControl.maxLimitVoltage ?vlim.
+ ?ctl c:TapChangerControl.minLimitVoltage ?vmin.
+ ?ctl c:TapChangerControl.lineDropCompensation ?ldc.
+ OPTIONAL{?ctl c:TapChangerControl.lineDropR ?fwdR.}
+ OPTIONAL{?ctl c:TapChangerControl.lineDropX ?fwdX.}
+ OPTIONAL{?ctl c:TapChangerControl.reverseLineDropR ?revR.}
+ OPTIONAL{?ctl c:TapChangerControl.reverseLineDropX ?revX.}
+ ?ctl c:RegulatingControl.discrete ?discrete.
+ ?ctl c:RegulatingControl.enabled ?ctl_enabled.
+ ?ctl c:RegulatingControl.mode ?ctlmoderaw.
+  bind(strafter(str(?ctlmoderaw),"RegulatingControlModeKind.") as ?ctlmode)
+ ?ctl c:RegulatingControl.monitoredPhase ?monraw.
+  bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+ ?ctl c:RegulatingControl.targetDeadband ?vbw.
+ ?ctl c:RegulatingControl.targetValue ?vset.
+  }
+}
+ORDER BY ?pname ?tname ?rname ?wnum
+
+=============================================
+Working on queries for adapt_gmdm.py
+=============================================
+
+# lists all the equipment container names, types, and ids
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?type ?id ?container
+WHERE {
+ {?eq c:Equipment.EquipmentContainer ?container.}
+  UNION
+ {?eq c:Equipment.AdditionalEquipmentContainer ?container.}
+ ?container c:IdentifiedObject.mRID ?id.
+ ?container c:IdentifiedObject.name ?name.
+ ?container r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?type)
+}
+ORDER BY ?name
+
+# shows substation equipment that has a missing feeder equipment container
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?type ?id ?container ?additional
+WHERE {
+ {?eq r:type c:Breaker.}
+  UNION
+ {?eq r:type c:PowerTransformer.}
+  UNION
+ {?eq r:type c:EnergySource.}
+ ?eq c:IdentifiedObject.mRID ?id.
+ ?eq c:IdentifiedObject.name ?name.
+ ?eq r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?type)
+ OPTIONAL {?eq c:Equipment.EquipmentContainer ?ct1.
+          ?ct1 c:IdentifiedObject.mRID ?container.}
+ OPTIONAL {?eq c:Equipment.AdditionalEquipmentContainer ?ct2.
+          ?ct2 c:IdentifiedObject.mRID ?additional.}
+}
+ORDER BY ?name
+
+# find bPerSection and sections for LinearShuntCompensator from its phases
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?phs ?n ?b WHERE {
+ ?s r:type c:LinearShuntCompensator.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?scp c:ShuntCompensatorPhase.ShuntCompensator ?s.
+ ?scp c:ShuntCompensatorPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+ ?scp c:LinearShuntCompensatorPhase.bPerSection ?b.
+ ?scp c:ShuntCompensatorPhase.sections ?n.
+}
+ORDER by ?name ?phs
+
+# find ratedCurrent and normalOpen from SwitchPhases
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?type ?name ?id ?rated ?open WHERE {
+ ?s r:type c:SwitchPhase.
+ ?s c:SwitchPhase.ratedCurrent ?rated.
+ ?s c:SwitchPhase.normalOpen ?open.
+ ?s c:SwitchPhase.Switch ?swt.
+ ?swt c:IdentifiedObject.name ?name.
+ ?swt c:IdentifiedObject.mRID ?id.
+ ?swt r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?type)
+}
+ORDER by ?type ?name
+
+# find the BaseVoltage for Breaker and EnergySource
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?type ?name ?id ?bvid ?nomu
+WHERE {
+ {?eq r:type c:Breaker.}
+  UNION
+ {?eq r:type c:EnergySource.}
+ ?eq c:IdentifiedObject.mRID ?id.
+ ?eq c:IdentifiedObject.name ?name.
+ ?eq r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?type)
+ ?eq c:Equipment.AdditionalEquipmentContainer ?ctr.
+ ?ctr c:IdentifiedObject.mRID ?addid.
+ ?ctr r:type ?rawctrtype.
+  bind(strafter(str(?rawctrtype),"#") as ?addtype)
+ ?ctr c:VoltageLevel.BaseVoltage ?bv.
+ ?bv c:IdentifiedObject.mRID ?bvid.
+ ?bv c:BaseVoltage.nominalVoltage ?nomu.
+}
+ORDER BY ?type ?name
+
+# list RegulatingControl and TapChangerControl to populate enabled
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?type ?name ?id ?enabled
+WHERE {
+ {?ctl r:type c:RegulatingControl.}
+  UNION
+ {?ctl r:type c:TapChangerControl.}
+ ?ctl c:IdentifiedObject.mRID ?id.
+ ?ctl c:IdentifiedObject.name ?name.
+ ?ctl r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?type)
+ OPTIONAL {?ctl c:RegulatingControl.enabled ?enabled.}
+}
+ORDER BY ?type ?name
+
+# list RatioTapChanger to populate normalStep
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?type ?name ?id ?normalStep
+WHERE {
+ ?ctl r:type c:RatioTapChanger.
+ ?ctl c:IdentifiedObject.mRID ?id.
+ ?ctl c:IdentifiedObject.name ?name.
+ ?ctl r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?type)
+ OPTIONAL {?ctl c:TapChanger.normalStep ?normalStep.}
+}
+ORDER BY ?type ?name
+
+# list RegulatingControl and TapChangerControl to incorporate targetValueUnitMultiplier
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?type ?name ?id ?mult ?target ?deadband
+WHERE {
+ {?ctl r:type c:RegulatingControl.}
+  UNION
+ {?ctl r:type c:TapChangerControl.}
+ ?ctl c:IdentifiedObject.mRID ?id.
+ ?ctl c:IdentifiedObject.name ?name.
+ ?ctl r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?type)
+ ?ctl c:RegulatingControl.targetValueUnitMultiplier ?rawmult.
+  bind(strafter(str(?rawmult),"#UnitMultiplier.") as ?mult)
+ ?ctl c:RegulatingControl.targetValue ?target.
+ ?ctl c:RegulatingControl.targetDeadband ?deadband.
+}
+ORDER BY ?type ?name
+
+# list TransformerEnd=>RatioTapChanger associations to reverse
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?rtcname ?rtcid ?endname ?endid
+WHERE {
+ ?end c:TransformerEnd.RatioTapChanger ?rtc.
+ ?end c:IdentifiedObject.mRID ?endid.
+ ?end c:IdentifiedObject.name ?endname.
+ ?rtc c:IdentifiedObject.mRID ?rtcid.
+ ?rtc c:IdentifiedObject.name ?rtcname.
+}
+ORDER BY ?rtcname
+
+
+========================================
+power electronics patches
+========================================
+
+
+# sum the maxP, minP, storedE, ratedE for units connected to an inverter
+# also list the battery state, but this may be modified by output of parallel DC sources
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?invname ?invid ?unitname ?unitid ?minP ?maxP ?ratedE ?storedE ?state
+WHERE {
+ ?peu c:PowerElectronicsUnit.PowerElectronicsConnection ?pec.
+ ?peu c:IdentifiedObject.mRID ?unitid.
+ ?peu c:IdentifiedObject.name ?unitname.
+ ?peu c:PowerElectronicsUnit.minP ?minP.
+ ?peu c:PowerElectronicsUnit.maxP ?maxP.
+ ?pec c:IdentifiedObject.mRID ?invid.
+ ?pec c:IdentifiedObject.name ?invname.
+ OPTIONAL {?peu c:BatteryUnit.storedE ?storedE.
+           ?peu c:BatteryUnit.ratedE ?ratedE.
+           ?peu c:BatteryUnit.batteryState ?stateraw.
+            bind(strafter(str(?stateraw),"BatteryStateKind.") as ?state)}
+}
+ORDER BY ?invname
+
+
+# list PowerElectronicsUnit=>PowerElectronicsConnection associations to reverse
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?invname ?invid ?unitname ?unitid
+WHERE {
+ ?peu c:PowerElectronicsUnit.PowerElectronicsConnection ?pec.
+ ?peu c:IdentifiedObject.mRID ?unitid.
+ ?peu c:IdentifiedObject.name ?unitname.
+ ?pec c:IdentifiedObject.mRID ?invid.
+ ?pec c:IdentifiedObject.name ?invname.
+}
+ORDER BY ?invname
+
+# list PowerElectronicsConnection to populate with controlMode 'constantPowerFactor'
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?controlMode
+WHERE {
+ ?pec r:type c:PowerElectronicsConnection.
+ ?pec c:IdentifiedObject.mRID ?id.
+ ?pec c:IdentifiedObject.name ?name.
+ OPTIONAL {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
+}
+ORDER BY ?name
+
+# connectivity node query for the GridLAB-D node map
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name WHERE {
+#  ?fdr c:IdentifiedObject.mRID ?fdrid.
+#  ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+  ?s r:type c:ConnectivityNode.
+  ?s c:IdentifiedObject.name ?name.
+} ORDER by ?name

@@ -1,0 +1,28 @@
+#set relax_naming_rules=1
+#set profiler=1
+#set minimum_timestep=60
+#set warn=0
+
+clock {
+	timezone CST+6CDT;
+	starttime '2013-06-01 00:00:00';
+	stoptime '2013-10-02 00:01:00';
+};
+
+module climate;
+module tape;
+
+object climate {
+  name localWeather;
+  tmyfile "../support/TX-Austin_Mueller_Municipal_Ap_Ut.tmy3";
+  interpolate QUADRATIC;
+};
+
+#define INTERVAL=60
+object recorder {
+	parent localWeather;
+	property temperature,humidity,solar_flux,pressure,wind_speed;
+	interval ${INTERVAL};
+	file summer.csv;
+}
+

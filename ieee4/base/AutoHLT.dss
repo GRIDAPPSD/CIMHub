@@ -1,0 +1,21 @@
+// test of 330-MVA autotransformer modeled as Yyd1, single tank
+// see AutoTest.xlsx file in the OpenDSS repository for test data and expected results
+
+clear
+new circuit.auto  basekV=345.0 phases=3 mvasc3=2000000 2000000
+
+new line.line1 bus1=sourcebus bus2=high switch=yes r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0
+
+new transformer.t1 phases=3 windings=3 xhl=7.23 xht=24.45 xlt=28.45 %imag=0.033 %noloadloss=0.024
+~ wdg=1 bus=high conn=w kV=345.0 kVA=330000 %r=0.0493
+~ wdg=2 bus=low  conn=w kV=161.0 kVA=330000 %r=0.0556
+~ wdg=3 bus=tert conn=d kV= 13.8 kVA= 72000 %r=1.4503
+
+new load.test phases=3 bus1=low conn=wye kv=161 kw=330000 pf=0.85
+
+set voltagebases=[345.0 161.0 13.8] 
+calcvoltagebases
+set tolerance=1e-8
+
+solve
+

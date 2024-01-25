@@ -1,0 +1,47 @@
+clear
+new circuit.ecp_daily basekv=13.2 pu=1.00 r1=0.001 x1=0.001 r0=0.001 x0=0.001
+new line.thev bus1=sourcebus bus2=fdrhead r1=1.210 x1=2.834 r0=3.961 x0=3.214 c1=0 c0=0
+
+// primary feeder with sequence impedances from Kersting's example 4.1
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=fdrhead bus2=bess linecode=trunk len=0.2
+new line.seg2 bus1=bess    bus2=pv   linecode=trunk len=1.0
+new line.seg3 bus1=pv      bus2=load linecode=trunk len=1.0
+new line.seg4 bus1=load    bus2=gen  linecode=trunk len=0.5
+
+// for daily PV fluctuations
+New Loadshape.Cloud npts=86401 sinterval=1 csvfile=pcloud.dat action=normalize
+//plot loadshape object=Cloud
+New Loadshape.Clear npts=86401 sinterval=1 csvfile=pclear.dat action=normalize
+//plot loadshape object=Clear
+
+New PVSystem.pv1 bus1=pv kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00 daily=clear
+New PVSystem.pv2 bus1=pv kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00 daily=cloud
+
+new load.load1 bus1=load kv=13.2 kw=2000
+new load.load2 bus1=load kv=13.2 kw=2000 daily=default
+
+new generator.gen1 bus1=gen kv=13.2 kw=500
+new generator.gen2 bus1=gen kv=13.2 kw=500 daily=default
+
+new monitor.pv1 pvsystem.pv1 1 mode=1 ppolar=no
+new monitor.pv2 pvsystem.pv2 1 mode=1 ppolar=no
+new monitor.load1 load.load1 1 mode=1 ppolar=no
+new monitor.load2 load.load2 1 mode=1 ppolar=no
+new monitor.gen1 generator.gen1 1 mode=1 ppolar=no
+new monitor.gen2 generator.gen2 1 mode=1 ppolar=no
+
+set Voltagebases=[13.2]
+calcv
+set maxcontroliter=100
+solve
+solve mode=daily stepsize=1s number=86400
+
+export monitors gen1
+export monitors gen2
+export monitors pv1
+export monitors pv2
+export monitors load1
+export monitors load2
+
+

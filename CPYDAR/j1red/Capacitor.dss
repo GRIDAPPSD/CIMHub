@@ -1,0 +1,5 @@
+New "Capacitor.b4909-1" bus1=b4909 kv=12.47 kvar=[ 900] conn=wye
+New "Capacitor.b18944" bus1=b18941 kv=12.47 kvar=[ 1200] conn=wye
+New "Capacitor.b4862-1" bus1=b4862 kv=12.47 kvar=[ 600] conn=wye
+New "Capacitor.b4829-1" bus1=b4829 kv=12.47 kvar=[ 600] conn=wye
+New "Capacitor.b4877-1" bus1=b4877 kv=12.47 kvar=[ 600] conn=wye

@@ -1,0 +1,124 @@
+[
+ {
+  "root": "IEEE123_PV",
+  "mRID": "E407CBB6-8C8D-9BC9-589C-AB83FBF0826D",
+  "glmvsrc": 2400.0,
+  "bases": [
+   4160.0
+  ],
+  "export_options": " -l=1.0 -z=1.0 -e=carson",
+  "inpath_dss": "../../Powergrid-Models/platform/dss/NREL",
+  "dssname": "IEEE123Master_fixedVR.dss",
+  "substation": "IEEE123",
+  "region": "IEEE",
+  "subregion": "Medium",
+  "subtationID": "FE44B314-385E-C2BF-3983-3A10C6060022",
+  "regionID": "73C512BD-7249-4F50-50DA-D93849B89C43",
+  "subregionID": "1CD7D2EE-3C91-3248-5662-A43EFEFAC224",
+  "check_branches": [
+   {
+    "dss_link": "LINE.L114",
+    "dss_bus": "135",
+    "gld_link": "LINE_L114",
+    "gld_bus": "135"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": "",
+  "substation": "IEEE123",
+  "region": "IEEE",
+  "subregion": "Medium"
+ },
+ {
+  "root": "SmartDS",
+  "mRID": "43790F23-2733-4F3F-9E57-09866A74F1E9",
+  "glmvsrc": 7416.0,
+  "bases": [
+   12470.0
+  ],
+  "export_options": " -l=1.0 -z=1.0 -e=carson",
+  "skip_gld": true,
+  "inpath_dss": "./SmartDS",
+  "dssname": "Master.dss",
+  "substation": "p9udt12866-p9uhs16_1247x",
+  "region": "OEDI",
+  "subregion": "SmartDS",
+  "substationID": "",
+  "regionID": "",
+  "subregionID": "",
+  "check_branches": [
+   {
+    "dss_link": "LINE.L(R:P9UDT12866-P9UHS16_1247)",
+    "dss_bus": "P9UDT12866-P9UHS16_1247X",
+    "gld_link": "LINE_l(r:p9udt12866-p9uhs16_1247)",
+    "gld_bus": "p9udt12866-p9uhs16_1247x"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "root": "IEEE13_PV",
+  "mRID": "8122F968-1805-4CDA-826D-E7006985C23B",
+  "glmvsrc": 66395.28,
+  "bases": [
+   480.0,
+   4160.0,
+   115000.0
+  ],
+  "inpath_dss": "./base/",
+  "substation": "IEEE13",
+  "region": "IEEE",
+  "subregion": "Medium",
+  "dssname": "IEEE13_PV.dss",
+  "check_branches": [
+   {
+    "dss_link": "LINE.650632",
+    "dss_bus": "RG60",
+    "gld_link": "LINE_650632",
+    "gld_bus": "RG60"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "root": "IEEE390_PV",
+  "mRID": "FF06502A-99DA-4AD9-A172-46CA60EDEF55",
+  "glmvsrc": 139430.09,
+  "bases": [
+   480.0,
+   13800.0,
+   230000.0
+  ],
+  "inpath_dss": "./base/",
+  "substation": "IEEE390",
+  "region": "IEEE",
+  "subregion": "Medium",
+  "dssname": "IEEE390_PV.dss",
+  "check_branches": [
+   {
+    "dss_link": "LINE.2_SW",
+    "dss_bus": "P5",
+    "gld_link": "SWT_2_SW",
+    "gld_bus": "P5"
+   },
+   {
+    "dss_link": "LINE.4_SW",
+    "dss_bus": "P9",
+    "gld_link": "SWT_4_SW",
+    "gld_bus": "P9"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ }
+]

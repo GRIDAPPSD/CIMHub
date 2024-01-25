@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?iec61970-552 version="3.0" method=”DataSet”?>
+<rdf:RDF 
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:cim="http://ucaiug.org/61970cim18v02_61968cim14v00#"
+	xmlns:gmdm="http://ucaiug.org/GMDM#"
+	xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
+    
+<exch:InstanceSet rdf:about="urn:uuid:25728d58-4a96-44df-98a0-ecf6f930813f">
+	<exch:InstanceSet.name>Transmission/Distribution Boundary Basic Golden Model InstanceSet</exch:InstanceSet.name>
+</exch:InstanceSet>
+	<cim:Feeder rdf:about="urn:uuid:bfaee055-4440-4173-9b95-615b6fafd523">
+		<cim:IdentifiedObject.name>Fdr 3A</cim:IdentifiedObject.name>
+		<gmdm:Feeder.TraceStart rdf:resource="urn:uuid:5d73925c-b008-472d-a75b-a64c886a8805"/>
+	</cim:Feeder>
+	<cim:ConnectivityNode rdf:about="urn:uuid:5d73925c-b008-472d-a75b-a64c886a8805">
+		<cim:IdentifiedObject.name>Feeder A CN</cim:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+</rdf:RDF>

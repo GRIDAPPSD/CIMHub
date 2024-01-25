@@ -1,0 +1,43 @@
+//   no-load source impedance at the PCC: r1=1.210 x1=2.834 r0=3.961 x0=3.214
+// full-load source impedance at the PCC: r1=1.744 x1=2.680 r0=3.706 x0=3.026
+
+// stiffen the circuit, add the positive-sequence source impedance as a separate reactor
+edit vsource.source basekv=13.2 pu=1.05 r0=0.00000 x0=0.00001 r1=0.00000 x1=0.00001
+new reactor.thev bus1=sourcebus bus2=high r=1.21 x=2.834 // no load source
+
+new transformer.der windings=2 buses=[high low] conns=[d,w] kvas=[7500,7500] kvs=[13.2,0.4] xhl=5.71 %loadloss=0.7 
+// ~ %imag=1.36 %noloadloss=0.35 // leave off the core losses and magnetizing, for better GridLAB-D comparison
+// On high side of a delta/wye interconnection transformer, the typical zig-zag grounding transformer 
+//  has been omitted. Therefore, this model is not suited to fault studies.
+
+// For Nantucket study, to implement real and reactive power control of storage:
+//   1) PVSystem in parallel with BESS1, has 0.5 kW and 3600 kVA rating to superimpose volt-var on BESS1
+//   2) BESS reprsented as follows:
+// new storage.der bus1=low phases=3 kV=0.4 kWrated=6000 kva=7000 kWhrated=48000 kWhstored=24000 
+// ~ %EffCharge=91.3455 %EffDischarge=91.3455 %reserve=0 %idlingkw=0 %r=0
+// ~ state=discharging kw=6000
+
+// examples:
+// New InvControl.der mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 eventlog=yes
+// New InvControl.der combimode=VV_VW voltage_curvex_ref=rated vvc_curve1=voltvar1547b 
+// ~ voltwatt_curve=voltwatt1547pv deltaQ_factor=0.4 deltaP_factor=0.2 VV_RefReactivePower=VARMAX_VARS eventlog=yes
+
+// 1547-2018 default volt-var settings for category A, with sentinels
+New XYcurve.voltvar1547a npts=4 Yarray=[0.25,0.25,-0.25,-0.25] Xarray=[.5,0.9,1.1,1.5]
+
+// 1547-2018 default volt-var settings for category B, with sentinels
+New XYcurve.voltvar1547b npts=6 Yarray=[0.44,0.44,0,0,-0.44,-0.44] Xarray=[.5,0.92,0.98,1.02,1.08,1.5]
+
+// 1547-2018 default watt-var settings for category B, with sentinels; can only be implemented in Version 8 of OpenDSS
+New XYcurve.wattvar1547b npts=8 Yarray=[0.44,0.44,0,0,0,0,-0.44,-0.44] Xarray=[-2.0,-1.0,-0.5,-0.2,0.2,0.5,1.0,2.0]
+// New XYcurve.wattvar1547b npts=6 Yarray=[0.44,0.44,0,0,-0.44,-0.44] Xarray=[-2.0,-1.0,-0.5,0.5,1.0,2.0]
+
+// 1547-2018 default volt-watt settings for category B, with sentinel, not for storage
+New XYcurve.voltwatt1547b npts=4 Yarray=[1.0,1.0,0.2,0.2] Xarray=[0.0,1.06,1.10,2.00]
+New XYcurve.voltwatt1547bch npts=4 Yarray=[0.0,0.0,1.0,1.0] Xarray=[0.0,1.06,1.10,2.00]
+
+// volt-watt settings to start limiting at 1.03 pu, with sentinel, can't absorb P 
+//   note that minimum V1 is 1.05 and maximum V2 is 1.10 per IEEE 1547, so V1=1.03 below is outside the standard
+//   OpenDSS will screen for V1 >= 1.00 and V2 <= 1.10
+New XYcurve.voltwatt1547pv npts=4 Yarray=[1.0,1.0,0.0,0.0] Xarray=[0.0,1.03,1.06,2.00]
+

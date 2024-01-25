@@ -1,0 +1,29 @@
+clear
+Set DefaultBaseFrequency=60
+
+new circuit.YYBal basekV=12.47 phases=3 mvasc3=200000 200000
+
+set earthmodel=carson
+
+new wiredata.conductor Runits=mi Rac=0.306 GMRunits=ft GMRac=0.0244  Radunits=in Diam=0.721 
+new wiredata.neutral   Runits=mi Rac=0.592 GMRunits=ft GMRac=0.00814 Radunits=in Diam=0.563 
+new linegeometry.4wire nconds=4 nphases=3 reduce=yes 
+~ cond=1 wire=conductor units=ft x=-4   h=28 
+~ cond=2 wire=conductor units=ft x=-1.5 h=28 
+~ cond=3 wire=conductor units=ft x=3    h=28 
+~ cond=4 wire=neutral   units=ft x=0    h=24 
+
+new line.line1 geometry=4wire length=2000 units=ft bus1=sourcebus bus2=n2
+
+! **** single-phase, center-tapped secondary transformers
+New XfmrCode.CT2000  phases=1 windings=3 kvs=[7.2 0.12 0.12] kVAs=[2000.0 2000.0 2000.0] 
+~ %imag=0.5 %Rs=[0.6 1.2 1.2] %noloadloss=0.2 Xhl=2.04 Xht=2.04 Xlt=1.36
+New Transformer.T1 XfmrCode=CT2000 buses=[n2.3 House.1.0 House.0.2]
+New Load.House1    phases=1 Bus1=House.1.0 kv=0.120 conn=wye model=2 kW=1000.0 pf=0.9 Vminpu=.75
+New Load.House2    phases=1 Bus1=House.2.0 kv=0.120 conn=wye model=2 kW= 800.0 pf=0.9 Vminpu=.75
+
+set voltagebases=[12.47, 0.208] 
+calcvoltagebases     ! **** let DSS compute voltage bases
+set tolerance=1e-8
+solve
+

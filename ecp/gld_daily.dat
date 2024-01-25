@@ -1,0 +1,25 @@
+uuid_file,gld_daily_profiles_uuid.dat
+feederID,6C3BD8BB-3BEA-4974-BBDE-903681A7ED71
+//
+// name,tokenized list of profiles,comma-separated list of loads
+//   profile tokens can be dssDaily, dssDuty, dssYearly, 
+//     dssLoadGrowth, dssLoadCvrCurve, dssSpectrum,
+//     dssPVTDaily, dssPVTDuty, dssPVTYearly, or
+//     gldSchedule, gldPlayer
+//   last token must be loads=CSV, generators=CSV, pvs=CSV, or batteries=CSV
+//     where CSV is a comma-separated
+//       list of EnergyConsumer (load) names
+//       list of SynchronousMachine (generator) names
+//       list of PhotovoltaicUnit names
+//       list of BatteryUnit names
+//
+Load1,gldPlayer=BumpPlayer,loads=load1
+Load2,gldSchedule=DssDefault,loads=load2
+Gen1,gldPlayer=Peaking,generators=gen1
+Gen2,gldSchedule=DssDefault,generators=gen2
+PV1,gldSchedule=BumpSched,pvs=pv1
+PV2,gldPlayer=CloudyPV,pvs=pv2
+BESS1,gldPlayer=ClearPV,batteries=bess1
+BESS2,gldSchedule=CycleSched,batteries=bess2
+
+

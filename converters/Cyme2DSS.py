@@ -744,6 +744,7 @@ def BuildCatalog(root):
         OHConductorTable[EquipmentID] = [SecondResistance,GMR,OutsideDiameter,NominalRating] 
 
     # Extract info for line spacing objects, create a dictionary
+    bWarnedAverageGeo = False
     for SpacingDB in root.findall('./Equipments/Equipments/EquipmentDBs/OverheadSpacingOfConductorDB'):
         EquipmentID = 'OH_'+SpacingDB.find('EquipmentID').text.translate(dsstab)
         for GeometricalArrangement in SpacingDB.findall('GeometricalArrangement'):
@@ -778,6 +779,10 @@ def BuildCatalog(root):
             gmd = float(AverageGeometricalArrangement.find('GMDPhaseToPhase').text)
             hp = AverageGeometricalArrangement.find('AveragePhaseConductorHeight').text
             hn = AverageGeometricalArrangement.find('AverageNeutralConductorHeight').text
+            if not bWarnedAverageGeo:
+                print ('WARNING: this sxst file uses AverageGeometricalArrangement')
+                print ('  Phasing is guessed from the appearance or absence of -1PH- or -2PH- in the EquipmentID')
+                bWarnedAverageGeo = True
             if EquipmentID.find('-1PH-') >= 0:
                 nphases = 1
                 xstr = '[0'

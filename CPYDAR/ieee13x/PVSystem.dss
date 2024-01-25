@@ -1,0 +1,2 @@
+New "PVSystem.school" phases=3 bus1=634 kv=0.48 kVA=300 irradiance=0.8 Pmpp=300 pf=1
+New "PVSystem.house" phases=2 bus1=House.1.2 kv=0.208 conn=wye kVA=5 irradiance=0.8 Pmpp=5 pf=1

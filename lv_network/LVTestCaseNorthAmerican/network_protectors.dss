@@ -1,0 +1,74 @@
+! Network protector relays 
+/* Based on IEEE Std C57.12.44-2005, this setting should be between 50% and 200% of the CT primary rating */
+var @nwp_iset_ct_pu = 0.5 ! Network protector setting (50%) w.r.t. CT primary rating
+var @nwp_inst_ct_pu = 0.0015 ! Network protector instantaneous setting (0.15%) w.r.t. CT primary rating
+var @nwp_time_delay = 150 ! Network protector time delay setting set to 2.5 minutes
+
+new relay.13_sw monitoredobj=line.13_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.14_sw monitoredobj=line.14_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.15_sw monitoredobj=line.15_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.16_sw monitoredobj=line.16_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.17_sw monitoredobj=line.17_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.18_sw monitoredobj=line.18_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.19_sw monitoredobj=line.19_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.20_sw monitoredobj=line.20_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.21_sw monitoredobj=line.21_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.22_sw monitoredobj=line.22_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.23_sw monitoredobj=line.23_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.24_sw monitoredobj=line.24_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.25_sw monitoredobj=line.25_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.26_sw monitoredobj=line.26_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.27_sw monitoredobj=line.27_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.28_sw monitoredobj=line.28_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.29_sw monitoredobj=line.29_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.30_sw monitoredobj=line.30_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.31_sw monitoredobj=line.31_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.32_sw monitoredobj=line.32_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.33_sw monitoredobj=line.33_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.34_sw monitoredobj=line.34_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.35_sw monitoredobj=line.35_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.36_sw monitoredobj=line.36_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.37_sw monitoredobj=line.37_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.38_sw monitoredobj=line.38_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.39_sw monitoredobj=line.39_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.40_sw monitoredobj=line.40_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.41_sw monitoredobj=line.41_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.42_sw monitoredobj=line.42_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.43_sw monitoredobj=line.43_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.44_sw monitoredobj=line.44_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.45_sw monitoredobj=line.45_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.46_sw monitoredobj=line.46_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.47_sw monitoredobj=line.47_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.48_sw monitoredobj=line.48_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.49_sw monitoredobj=line.49_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.50_sw monitoredobj=line.50_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.51_sw monitoredobj=line.51_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.52_sw monitoredobj=line.52_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.53_sw monitoredobj=line.53_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.54_sw monitoredobj=line.54_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.55_sw monitoredobj=line.55_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.56_sw monitoredobj=line.56_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.57_sw monitoredobj=line.57_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.58_sw monitoredobj=line.58_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.59_sw monitoredobj=line.59_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.60_sw monitoredobj=line.60_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.61_sw monitoredobj=line.61_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.62_sw monitoredobj=line.62_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.63_sw monitoredobj=line.63_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(1600 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.64_sw monitoredobj=line.64_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(1600 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.65_sw monitoredobj=line.65_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.66_sw monitoredobj=line.66_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.67_sw monitoredobj=line.67_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.68_sw monitoredobj=line.68_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.69_sw monitoredobj=line.69_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.70_sw monitoredobj=line.70_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.71_sw monitoredobj=line.71_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.72_sw monitoredobj=line.72_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.73_sw monitoredobj=line.73_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.74_sw monitoredobj=line.74_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.75_sw monitoredobj=line.75_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.76_sw monitoredobj=line.76_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.77_sw monitoredobj=line.77_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.78_sw monitoredobj=line.78_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.79_sw monitoredobj=line.79_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 
+new relay.80_sw monitoredobj=line.80_sw monitoredterm=1 type=doc doc_tiltanglelow=95 doc_tripsettinglow=(3500 @nwp_inst_ct_pu *) delay=0 shots=1 normal=close ! Sensitive Trip 

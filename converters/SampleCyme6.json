@@ -1,5 +1,5 @@
 {
-  "DefaultDir": ".",
+  "DefaultDir": "./test",
   "OutDir": "./v8",
   "xmlfilename": "IEEE_123_node_test_feeder_V8",
   "RootName": "Cyme123v8",

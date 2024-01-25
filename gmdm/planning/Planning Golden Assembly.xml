@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?iec61970-552 version="3.0" method=”DataSet”?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:meta="http://ucaiug.org/GMDM/Meta#"
+		 xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
+		 
+	<exch:InstanceSet rdf:about="urn:uuid:a84ffc15-6994-4758-9f36-7430d6b0421e">
+		<exch:InstanceSet.name>Planning Golden Assembly</exch:InstanceSet.name>
+	</exch:InstanceSet>
+	<meta:Frame rdf:about="urn:uuid:9e734578-d840-4a7e-9f94-78ecd1787bd6">
+		<meta:IdentifiedMetaObject.name>T</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Transmission Frame</meta:IdentifiedMetaObject.description>
+	</meta:Frame>
+	<meta:Frame rdf:about="urn:uuid:160b38bc-a280-4844-94f3-165b19760c44">
+		<meta:IdentifiedMetaObject.name>D</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Distribution Frame</meta:IdentifiedMetaObject.description>
+	</meta:Frame>
+…	<meta:Boundary rdf:about="urn:uuid:f79692f9-40ca-4ab4-80b7-89a18b276294">
+		<meta:IdentifiedMetaObject.name>TD</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Transmission/Distribution Boundary</meta:IdentifiedMetaObject.description>
+		<meta:Boundary.Frame rdf:resource="urn:uuid:9e734578-d840-4a7e-9f94-78ecd1787bd6"/>
+		<meta:Boundary.Frame rdf:resource="urn:uuid:160b38bc-a280-4844-94f3-165b19760c44"/>
+	</meta:Boundary>
+	<meta:ModelSpec rdf:about="urn:uuid:60888fcd-0622-45c6-9b8a-9c2708d14fa2">
+		<meta:IdentifiedMetaObject.name>T Plan Basic Golden Model Spec</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Transmission Planning Basic Golden Model Specification</meta:IdentifiedMetaObject.description>
+		<meta:ModelSpec.profile>http://ucaiug.org/GMDMGrid_Basic_Profile</meta:ModelSpec.profile>
+		<meta:ModelSpec.FrameworkPart rdf:resource="urn:uuid:9e734578-d840-4a7e-9f94-78ecd1787bd6"/>
+	</meta:ModelSpec>
+	<meta:ModelSpec rdf:about="urn:uuid:ba043523-dbd6-4f69-bf4a-906d67739973">
+		<meta:IdentifiedMetaObject.name>D Plan Basic Golden Model Spec</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Distribution Planning Basic Golden Model Specification</meta:IdentifiedMetaObject.description>
+		<meta:ModelSpec.profile>http://ucaiug.org/GMDMGrid_Basic_Profile</meta:ModelSpec.profile>
+		<meta:ModelSpec.FrameworkPart rdf:resource="urn:uuid:160b38bc-a280-4844-94f3-165b19760c44"/>
+	</meta:ModelSpec>
+	<meta:ModelSpec rdf:about="urn:uuid:c0cb3f8a-94a1-4940-a4b9-aed3ad62a2a8">
+		<meta:IdentifiedMetaObject.name>TD Basic Golden Model Spec</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Transmission/Distribution Boundary Basic Golden Model Specification</meta:IdentifiedMetaObject.description>
+		<meta:ModelSpec.profile>http://ucaiug.org/GMDMGrid_Basic_Profile</meta:ModelSpec.profile>
+		<meta:ModelSpec.FrameworkPart rdf:resource="urn:uuid:f79692f9-40ca-4ab4-80b7-89a18b276294"/>
+	</meta:ModelSpec>
+	<meta:ModelSpec rdf:about="urn:uuid:bfecf366-6715-42f1-96dc-792ea4abca50">
+		<meta:IdentifiedMetaObject.name>T Plan SSH Golden Model Spec</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Transmission Planning SSH Golden Model Specification</meta:IdentifiedMetaObject.description>
+		<meta:ModelSpec.profile>http://ucaiug.org/GMDMGrid_SSH_Profile</meta:ModelSpec.profile>
+		<meta:ModelSpec.FrameworkPart rdf:resource="urn:uuid:9e734578-d840-4a7e-9f94-78ecd1787bd6"/>
+	</meta:ModelSpec>
+	<meta:ModelSpec rdf:about="urn:uuid:75114181-9807-4f05-8bff-cedebfaafb90">
+		<meta:IdentifiedMetaObject.name>D Plan SSH Golden Model Spec</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Distribution Planning SSH Golden Model Specification</meta:IdentifiedMetaObject.description>
+		<meta:ModelSpec.profile>http://ucaiug.org/GMDMGrid_SSH_Profile</meta:ModelSpec.profile>
+		<meta:ModelSpec.FrameworkPart rdf:resource="urn:uuid:160b38bc-a280-4844-94f3-165b19760c44"/>
+	</meta:ModelSpec>
+	<meta:AssemblySpec rdf:about="urn:uuid:3333abab-9807-4f05-8b88-cedebf444444">
+		<meta:IdentifiedMetaObject.name>Planning Golden Assembly Spec</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Specification for Planning Golden Assembly with Basic and SSH Models</meta:IdentifiedMetaObject.description>
+	</meta:AssemblySpec>
+	<meta:Model rdf:about="urn:uuid:c20add7e-01c1-4918-991e-ad90f46d825c">
+		<meta:IdentifiedMetaObject.name>T Plan Basic Golden Model</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Transmission Planning Basic Golden Model</meta:IdentifiedMetaObject.description>
+		<meta:Model.dateTimeCreated>2022-06-13T09:32:12-04:00</meta:Model.dateTimeCreated>
+		<meta:Model.dateTimeRepresented>2022-06-15T02:00:00-04:00</meta:Model.dateTimeRepresented>
+		<meta:Model.producingAuthority>EPRI</meta:Model.producingAuthority>
+		<meta:Model.ModelSpec rdf:resource="urn:uuid:60888fcd-0622-45c6-9b8a-9c2708d14fa2"/>
+		<meta:Model.InstanceSet rdf:resource="urn:uuid:cb0d06b4-aa4a-4745-a85c-e035ca928139"/>
+	</meta:Model>
+	<meta:Model rdf:about="urn:uuid:a3b89ffc-bf5c-4139-8ff8-753f09ac71ce">
+		<meta:IdentifiedMetaObject.name>TD Basic Golden Model</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Transmission/Distribution Boundary Basic Golden Model</meta:IdentifiedMetaObject.description>
+		<meta:Model.dateTimeCreated>2022-06-13T09:32:12-04:00</meta:Model.dateTimeCreated>
+		<meta:Model.dateTimeRepresented>2022-06-15T02:00:00-04:00</meta:Model.dateTimeRepresented>
+		<meta:Model.producingAuthority>EPRI</meta:Model.producingAuthority>
+		<meta:Model.ModelSpec rdf:resource="urn:uuid:c0cb3f8a-94a1-4940-a4b9-aed3ad62a2a8"/>
+		<meta:Model.InstanceSet rdf:resource="urn:uuid:25728d58-4a96-44df-98a0-ecf6f930813f"/>
+	</meta:Model>
+	<meta:Model rdf:about="urn:uuid:d4d2701f-110f-418b-9452-eed59383ecac">
+		<meta:IdentifiedMetaObject.name>D Plan Basic Golden Model</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Distribution Planning Basic Golden Model</meta:IdentifiedMetaObject.description>
+		<meta:Model.dateTimeCreated>2022-06-13T09:32:12-04:00</meta:Model.dateTimeCreated>
+		<meta:Model.dateTimeRepresented>2022-06-15T02:00:00-04:00</meta:Model.dateTimeRepresented>
+		<meta:Model.producingAuthority>EPRI</meta:Model.producingAuthority>
+		<meta:Model.ModelSpec rdf:resource="urn:uuid:ba043523-dbd6-4f69-bf4a-906d67739973"/>
+		<meta:Model.InstanceSet rdf:resource="urn:uuid:e5ffc257-98f6-4a8a-ba22-d7091ed016fc"/>
+	</meta:Model>
+	<meta:Model rdf:about="urn:uuid:62070765-fcc3-432c-ab4e-0c9c380f7399">
+		<meta:IdentifiedMetaObject.name>T Plan SSH Golden Model</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Transmission Planning SSH Golden Model</meta:IdentifiedMetaObject.description>
+		<meta:Model.dateTimeCreated>2022-06-13T09:32:12-04:00</meta:Model.dateTimeCreated>
+		<meta:Model.dateTimeRepresented>2022-06-15T02:00:00-04:00</meta:Model.dateTimeRepresented>
+		<meta:Model.producingAuthority>EPRI</meta:Model.producingAuthority>
+		<meta:Model.ModelSpec rdf:resource="urn:uuid:bfecf366-6715-42f1-96dc-792ea4abca50"/>
+		<meta:Model.InstanceSet rdf:resource="urn:uuid:3a533d96-4f63-4346-b16a-e13f958a8798"/>
+	</meta:Model>
+	<meta:Model rdf:about="urn:uuid:9bd3a4df-ce5d-4b43-9e9e-94f88f63e0d8">
+		<meta:IdentifiedMetaObject.name>D Plan SSH Golden Model</meta:IdentifiedMetaObject.name>
+		<meta:IdentifiedMetaObject.description>Distribution Planning SSH Golden Model</meta:IdentifiedMetaObject.description>
+		<meta:Model.dateTimeCreated>2022-06-13T09:32:12-04:00</meta:Model.dateTimeCreated>
+		<meta:Model.dateTimeRepresented>2022-06-15T02:00:00-04:00</meta:Model.dateTimeRepresented>
+		<meta:Model.producingAuthority>EPRI</meta:Model.producingAuthority>
+		<meta:Model.ModelSpec rdf:resource="urn:uuid:75114181-9807-4f05-8bff-cedebfaafb90"/>
+		<meta:Model.InstanceSet rdf:resource="urn:uuid:fd764318-730e-42f4-8c7e-9bc58eec8137"/>
+	</meta:Model>
+	<meta:Assembly rdf:about="urn:uuid:64e5340b-5610-4cd5-889e-c223ab436ef3">
+		<meta:IdentifiedMetaObject.name>Planning Golden Assembly</meta:IdentifiedMetaObject.name>
+		<meta:Assembly.dateTimeCreated>2022-06-13T09:32:12-04:00</meta:Assembly.dateTimeCreated>
+		<meta:Assembly.dateTimeRepresented>2022-06-15T02:00:00-04:00</meta:Assembly.dateTimeRepresented>
+		<meta:Assembly.producingAuthority>EPRI</meta:Assembly.producingAuthority>
+		<meta:Assembly.AssemblySpec rdf:resource="urn:uuid:3333abab-9807-4f05-8b88-cedebf444444"/>		
+		<meta:Assembly.Model rdf:resource="urn:uuid:c20add7e-01c1-4918-991e-ad90f46d825c"/>
+		<meta:Assembly.Model rdf:resource="urn:uuid:a3b89ffc-bf5c-4139-8ff8-753f09ac71ce"/>
+		<meta:Assembly.Model rdf:resource="urn:uuid:d4d2701f-110f-418b-9452-eed59383ecac"/>
+		<meta:Assembly.Model rdf:resource="urn:uuid:62070765-fcc3-432c-ab4e-0c9c380f7399"/>
+		<meta:Assembly.Model rdf:resource="urn:uuid:9bd3a4df-ce5d-4b43-9e9e-94f88f63e0d8"/>
+	</meta:Assembly>
+</rdf:RDF>
