@@ -1,0 +1,9 @@
+{
+    "DefaultDir": "C:/Users/bhad243/OneDrive - PNNL/Documents/CIMHub/CIMHub/converters",
+    "MDBName": "FeederModels",
+    "OutDir": "C:/Users/bhad243/OneDrive - PNNL/Documents/CIMHub/CIMHub/converters/mdb2dss_SB_results/SampleSynergy_2SB",
+    "BaseVoltages": [115.0, 12.47, 0.48, 0.208],
+    "AllocateLoads": 0,
+    "SubOrFeeder": 1,
+    "InsertSwitchgear": 1
+  }

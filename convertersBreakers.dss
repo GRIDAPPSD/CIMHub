@@ -1,0 +1,28 @@
+!Breaker Definitions:
+
+new swtcontrol.('Brkr Section_0011',) switchedobj=line.('Section_0011',) switchedterm=1 action=close
+new swtcontrol.('Brkr Section_0012',) switchedobj=line.('Section_0012',) switchedterm=1 action=close
+new swtcontrol.('Brkr Section_0025',) switchedobj=line.('Section_0025',) switchedterm=1 action=close
+new swtcontrol.('Brkr Section_0026',) switchedobj=line.('Section_0026',) switchedterm=1 action=close
+new swtcontrol.('Brkr Section_0027',) switchedobj=line.('Section_0027',) switchedterm=1 action=close
+new swtcontrol.('9991',) switchedobj=line.('Section_3645610171',) switchedterm=2 action=close
+new swtcontrol.('9115',) switchedobj=line.('51114_50954',) switchedterm=2 action=close
+new swtcontrol.('9123',) switchedobj=line.('51115_51541',) switchedterm=2 action=close
+new swtcontrol.('9124',) switchedobj=line.('51121_51542',) switchedterm=2 action=close
+new swtcontrol.('9125',) switchedobj=line.('51122_51543',) switchedterm=2 action=close
+new swtcontrol.('9122',) switchedobj=line.('51776_51540',) switchedterm=2 action=close
+new swtcontrol.('9114',) switchedobj=line.('7931_36759534349',) switchedterm=2 action=close
+new swtcontrol.('9111',) switchedobj=line.('7935_50950',) switchedterm=2 action=close
+new swtcontrol.('9121',) switchedobj=line.('7946_51539',) switchedterm=2 action=close
+new swtcontrol.('9112',) switchedobj=line.('7948_50951',) switchedterm=2 action=open
+new swtcontrol.('9113',) switchedobj=line.('7949_50952',) switchedterm=2 action=close
+new swtcontrol.('9996',) switchedobj=line.('8411_50957',) switchedterm=2 action=close
+new swtcontrol.('9992',) switchedobj=line.('8416_50961',) switchedterm=2 action=close
+new swtcontrol.('9995',) switchedobj=line.('8419_50958',) switchedterm=2 action=close
+new swtcontrol.('9994',) switchedobj=line.('8421_50959',) switchedterm=2 action=close
+new swtcontrol.('9993',) switchedobj=line.('8445_50960',) switchedterm=2 action=close
+new swtcontrol.('9997',) switchedobj=line.('8568_3646618164',) switchedterm=2 action=close
+new swtcontrol.('9998',) switchedobj=line.('8568_3646618206',) switchedterm=2 action=close
+new swtcontrol.('Brkr Section_0008',) switchedobj=line.('Section_0008',) switchedterm=1 action=close
+new swtcontrol.('Brkr Section_0009',) switchedobj=line.('Section_0009',) switchedterm=1 action=close
+new swtcontrol.('Brkr Section_0010',) switchedobj=line.('Section_0010',) switchedterm=1 action=close

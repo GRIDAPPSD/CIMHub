@@ -195,7 +195,7 @@ def ConvertMDB(cfg):
       swterm = 2
     fusef.write('new ' + name + ' ratedcurrent=' + amps + ' monitoredobj=' + secID + ' monitoredterm=' + str(swterm))
     fusef.write(' switchedobj=' + secID + ' switchedterm=' + str(swterm))
-    if row['fuseisopen'] == 'OPEN':
+    if row['fuseisopen'] == 1:
       fusef.write(' action=open')
     fusef.write('\n');
   fusef.close()

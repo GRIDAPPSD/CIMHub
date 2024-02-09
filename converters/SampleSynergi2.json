@@ -1,7 +1,7 @@
 {
-  "DefaultDir": "C:/Projects/TE/Campus",
+  "DefaultDir": "C:/Users/bhad243/OneDrive - PNNL/Documents/CIMHub/CIMHub/converters",
   "MDBName": "FeederModels",
-  "OutDir": "C:/Projects/TE/Campus/test_dss",
+  "OutDir": "C:/Users/bhad243/OneDrive - PNNL/Documents/CIMHub/CIMHub/converters",
   "BaseVoltages": [115.0, 12.47, 0.48, 0.208],
   "AllocateLoads": 0,
   "SubOrFeeder": 1,
