@@ -1,15 +1,18 @@
-# CIMHub Tutorial
+CIMHub Tutorial
+===============
 
 Copyright (c) 2017-2022, Battelle Memorial Institute
 
-## End User Instructions
+End User Instructions
+---------------------
 
-See [ReadTheDocs Tutorial](https://cimhub.readthedocs.io/en/latest/Tutorial.html) 
+See `ReadTheDocs Tutorial <https://cimhub.readthedocs.io/en/latest/Tutorial.html>`_
 for installation and tutorial steps.
 
-## CSV Column File Map
+CSV Column File Map
+-------------------
 
-The columns in _aug11slow.csv_, _aug11slow.hdf5_,  _15min/aug11avg.csv_ and _15min/aug11avg.hdf5_ are:
+The columns in *aug11slow.csv*, *aug11slow.hdf5*,  *15min/aug11avg.csv* and *15min/aug11avg.hdf5* are:
 
 - *timestamp*: local date and time
 - *distribution\_load*: substation real and reactive power in rectangular format, [VA]. Use *sub\_p* and *sub\_q* for convenience.

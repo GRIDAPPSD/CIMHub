@@ -84,7 +84,7 @@ CIM XML files, follow the instructions below:
    with *cd CIMHub/cimhub*. Build the java library with *mvn clean install*
 4. Return to the main CIMHub directory with *cd ..* and install the Blazegraph database engine:
 
-   - Install the [Docker Engine](https://docs.docker.com/install/)
+   - Install the `Docker Engine <https://docs.docker.com/install/>`_
    - Install the Blazegraph engine with *docker pull lyrasis/blazegraph:2.1.5*
    - Install the CIMHub docker package with *docker pull gridappsd/cimhub:1.0.1*
    - Start the Blazegraph engine by running *./start.sh*
