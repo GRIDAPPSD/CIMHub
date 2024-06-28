@@ -603,7 +603,7 @@ def convertRawtoCIM(workpath, xmlname, addon_fueltype, cimname, fuidname, contai
                 if fuel_gen == 'SOL (Solar)':
                     ftype = 'Photovoltaic'
                 elif fuel_gen == 'WND (Wind)':
-                    ftype = 'WindGenerating'
+                    ftype = 'PowerElectronicsWind'
                 elif fuel_gen == 'NUC (Nuclear)':
                     ftype = 'NuclearGenerating'
                 elif fuel_gen == 'HYD (Hydro)':
@@ -1100,7 +1100,7 @@ def convertRawtoCIM(workpath, xmlname, addon_fueltype, cimname, fuidname, contai
     # write wind turbine generator
     for key, row in Generators.items():
         
-        if row['ftype'] == 'WindGenerating':
+        if row['ftype'] == 'PowerElectronicsWind':
             # mRIDs
             PEname = str(key)+'_Connection'
             PEID = GetCIMID('PowerElectronicsConnection', PEname, uuids)

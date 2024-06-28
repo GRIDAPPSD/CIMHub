@@ -30323,12 +30323,12 @@
     <cim:PowerElectronicsConnection.maxQ>360000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-360000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:CD989F72-A3EB-42DD-A5D1-BB6E96D2017C">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:CD989F72-A3EB-42DD-A5D1-BB6E96D2017C">
     <cim:IdentifiedObject.mRID>CD989F72-A3EB-42DD-A5D1-BB6E96D2017C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1032_S_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>638000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:30BD4464-24AB-41C9-A179-29A99E61A350">
     <cim:IdentifiedObject.mRID>30BD4464-24AB-41C9-A179-29A99E61A350</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1032_S_REPCA</cim:IdentifiedObject.name>
@@ -30479,12 +30479,12 @@
     <cim:PowerElectronicsConnection.maxQ>800000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-800000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:EE548315-DEB9-4545-BAC2-D5868E5FB9BB">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:EE548315-DEB9-4545-BAC2-D5868E5FB9BB">
     <cim:IdentifiedObject.mRID>EE548315-DEB9-4545-BAC2-D5868E5FB9BB</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1034_W_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>1682000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:8C8415F4-1F22-4B97-8E59-EF2B92548136">
     <cim:IdentifiedObject.mRID>8C8415F4-1F22-4B97-8E59-EF2B92548136</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1034_W_REPCA</cim:IdentifiedObject.name>
@@ -30635,12 +30635,12 @@
     <cim:PowerElectronicsConnection.maxQ>1300000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-1300000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:C8B67C83-1FC5-41C7-AD99-E02BA3481C56">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:C8B67C83-1FC5-41C7-AD99-E02BA3481C56">
     <cim:IdentifiedObject.mRID>C8B67C83-1FC5-41C7-AD99-E02BA3481C56</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1333_S_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>2423000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:B35FBF4B-4BF6-4B77-AEBF-D91582EBDDC7">
     <cim:IdentifiedObject.mRID>B35FBF4B-4BF6-4B77-AEBF-D91582EBDDC7</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>1333_S_REPCA</cim:IdentifiedObject.name>
@@ -30791,12 +30791,12 @@
     <cim:PowerElectronicsConnection.maxQ>200000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-200000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:859A0B78-EDF3-4E17-B9A4-2AF1D37D009A">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:859A0B78-EDF3-4E17-B9A4-2AF1D37D009A">
     <cim:IdentifiedObject.mRID>859A0B78-EDF3-4E17-B9A4-2AF1D37D009A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2130_G_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>586000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:9B3B6FC2-2047-4AAE-8525-8F3221A9A469">
     <cim:IdentifiedObject.mRID>9B3B6FC2-2047-4AAE-8525-8F3221A9A469</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2130_G_REPCA</cim:IdentifiedObject.name>
@@ -30947,12 +30947,12 @@
     <cim:PowerElectronicsConnection.maxQ>590000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-364000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:6584B50E-C6E6-40CA-8828-C4FA803184DA">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:6584B50E-C6E6-40CA-8828-C4FA803184DA">
     <cim:IdentifiedObject.mRID>6584B50E-C6E6-40CA-8828-C4FA803184DA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2332_S_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>1333000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:8F105663-588D-4CD8-81E5-4DEF47D8DE53">
     <cim:IdentifiedObject.mRID>8F105663-588D-4CD8-81E5-4DEF47D8DE53</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2332_S_REPCA</cim:IdentifiedObject.name>
@@ -31103,12 +31103,12 @@
     <cim:PowerElectronicsConnection.maxQ>800000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-800000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:D7035F1B-0AA7-4B78-8AAA-622B96417F88">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:D7035F1B-0AA7-4B78-8AAA-622B96417F88">
     <cim:IdentifiedObject.mRID>D7035F1B-0AA7-4B78-8AAA-622B96417F88</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2431_S_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>1666000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:1ACAF046-935F-45C5-A98F-770A87D5BED8">
     <cim:IdentifiedObject.mRID>1ACAF046-935F-45C5-A98F-770A87D5BED8</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2431_S_REPCA</cim:IdentifiedObject.name>
@@ -31259,12 +31259,12 @@
     <cim:PowerElectronicsConnection.maxQ>500000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-500000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:C547B5C3-3C84-47FF-BCD8-64008BF3572F">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:C547B5C3-3C84-47FF-BCD8-64008BF3572F">
     <cim:IdentifiedObject.mRID>C547B5C3-3C84-47FF-BCD8-64008BF3572F</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2434_S_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>1489000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:214BEAF7-BCB7-4A14-8095-DA046042131A">
     <cim:IdentifiedObject.mRID>214BEAF7-BCB7-4A14-8095-DA046042131A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2434_S_REPCA</cim:IdentifiedObject.name>
@@ -31415,12 +31415,12 @@
     <cim:PowerElectronicsConnection.maxQ>1902000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-1168000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:29CC8A47-26B0-4E07-8CAE-5993716DFFBF">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:29CC8A47-26B0-4E07-8CAE-5993716DFFBF">
     <cim:IdentifiedObject.mRID>29CC8A47-26B0-4E07-8CAE-5993716DFFBF</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_RG_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>5451000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:24E72BFA-45F6-4EF9-B606-DA4E10A6A06E">
     <cim:IdentifiedObject.mRID>24E72BFA-45F6-4EF9-B606-DA4E10A6A06E</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_RG_REPCA</cim:IdentifiedObject.name>
@@ -31571,12 +31571,12 @@
     <cim:PowerElectronicsConnection.maxQ>561000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-553000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:96BF316F-3AF5-4346-BD9D-808C8ACDF35A">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:96BF316F-3AF5-4346-BD9D-808C8ACDF35A">
     <cim:IdentifiedObject.mRID>96BF316F-3AF5-4346-BD9D-808C8ACDF35A</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_SW_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>3210000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:B026DC97-E2B5-4B20-90B3-B5D741208D0C">
     <cim:IdentifiedObject.mRID>B026DC97-E2B5-4B20-90B3-B5D741208D0C</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2438_SW_REPCA</cim:IdentifiedObject.name>
@@ -31727,12 +31727,12 @@
     <cim:PowerElectronicsConnection.maxQ>800000000.0</cim:PowerElectronicsConnection.maxQ>
     <cim:PowerElectronicsConnection.minQ>-800000000.0</cim:PowerElectronicsConnection.minQ>
 </cim:PowerElectronicsConnection>
-<cim:WindGeneratingUnit rdf:about="urn:uuid:7D0F60D6-5BD8-461A-9B63-0108713733AA">
+<cim:PowerElectronicsWindUnit rdf:about="urn:uuid:7D0F60D6-5BD8-461A-9B63-0108713733AA">
     <cim:IdentifiedObject.mRID>7D0F60D6-5BD8-461A-9B63-0108713733AA</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2439_S_Unit</cim:IdentifiedObject.name>
     <cim:PowerElectronicsUnit.maxP>1666000000.0</cim:PowerElectronicsUnit.maxP>
     <cim:PowerElectronicsUnit.minP>0</cim:PowerElectronicsUnit.minP>
-</cim:WindGeneratingUnit>
+</cim:PowerElectronicsWindUnit>
 <cim:WeccREPCA rdf:about="urn:uuid:958A4AD7-EC71-44BD-9DC3-B8F9575EC701">
     <cim:IdentifiedObject.mRID>958A4AD7-EC71-44BD-9DC3-B8F9575EC701</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>2439_S_REPCA</cim:IdentifiedObject.name>
