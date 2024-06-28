@@ -4,11 +4,11 @@
 <rdf:RDF xmlns:cim="http://iec.ch/TC57/CIM100#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <!--
 -->
-<cim:ConnectivityNodeContainer rdf:about="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038">
+<cim:EquipmentContainer rdf:about="urn:uuid:1783D2A8-1204-4781-A0B4-7A73A2FA6038">
     <cim:IdentifiedObject.mRID>1783D2A8-1204-4781-A0B4-7A73A2FA6038</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>IEEE118</cim:IdentifiedObject.name>
     <cim:IdentifiedObject.description>IEEE118 System</cim:IdentifiedObject.description>
-</cim:ConnectivityNodeContainer>
+</cim:EquipmentContainer>
 <cim:BaseVoltage rdf:about="urn:uuid:E2DE96D0-BC3F-4E89-A3CA-224FE2DEB7BC">
     <cim:IdentifiedObject.mRID>E2DE96D0-BC3F-4E89-A3CA-224FE2DEB7BC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>BV_138.00</cim:IdentifiedObject.name>

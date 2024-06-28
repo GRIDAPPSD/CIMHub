@@ -4,11 +4,11 @@
 <rdf:RDF xmlns:cim="http://iec.ch/TC57/CIM100#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <!--
 -->
-<cim:ConnectivityNodeContainer rdf:about="urn:uuid:2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3">
+<cim:EquipmentContainer rdf:about="urn:uuid:2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3">
     <cim:IdentifiedObject.mRID>2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>WECC240</cim:IdentifiedObject.name>
     <cim:IdentifiedObject.description>WECC240 System</cim:IdentifiedObject.description>
-</cim:ConnectivityNodeContainer>
+</cim:EquipmentContainer>
 <cim:BaseVoltage rdf:about="urn:uuid:FB79F7ED-7D3F-4DDB-9391-6356811110BC">
     <cim:IdentifiedObject.mRID>FB79F7ED-7D3F-4DDB-9391-6356811110BC</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>BV_500.00</cim:IdentifiedObject.name>

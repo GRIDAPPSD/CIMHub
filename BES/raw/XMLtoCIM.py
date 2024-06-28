@@ -65,11 +65,11 @@ preamble_template = """<?xml version="1.0" encoding="utf-8"?>
 
 # CIM has a hierarchy of containers for Line, Plant, VoltageLevel (in a substation), etc. 
 # We may not need any of this for EMT, so for now, creating an abstract instance as placeholder
-container_template = """<cim:ConnectivityNodeContainer rdf:about="urn:uuid:{mRID}">
+container_template = """<cim:EquipmentContainer rdf:about="urn:uuid:{mRID}">
     <cim:IdentifiedObject.mRID>{mRID}</cim:IdentifiedObject.mRID>
     <cim:IdentifiedObject.name>{name}</cim:IdentifiedObject.name>
     <cim:IdentifiedObject.description>{desc}</cim:IdentifiedObject.description>
-</cim:ConnectivityNodeContainer>
+</cim:EquipmentContainer>
 """
 
 basevoltage_template = """<cim:BaseVoltage rdf:about="urn:uuid:{mRID}">
