@@ -70,18 +70,18 @@ the transformers.
    engine with ``java -server -Xmx4g -jar blazegraph.jar``
 2. From another command prompt in the **example** directory:
 
-   - Invoke `example.bat` on Windows. This is configured for Option 1, the standalone database engine.
-   - Invoke `./example.sh` on Linux or Mac OS X. This works for Option 1 or 2, either standalone or Docker engine.
+   - Invoke ``example.bat`` on Windows. This is configured for Option 1, the standalone database engine.
+   - Invoke ``./example.sh`` on Linux or Mac OS X. This works for Option 1 or 2, either standalone or Docker engine.
 
 3. Check the final OpenDSS results:
 
-   - Invoke `type sum*.csv` on Windows.
-   - Invoke `cat sum*.csv` on Linux or Mac OS X.
+   - Invoke ``type sum*.csv`` on Windows.
+   - Invoke ``cat sum*.csv`` on Linux or Mac OS X.
 
 4. If you have GridLAB-D installed, check its output results:
 
-   - Invoke `type test*volt.csv` and `type test*curr.csv` on Windows.
-   - Invoke `cat test*volt.csv` and `cat test*curr.csv` on Linux or Mac OS X.
+   - Invoke ``type test*volt.csv`` and ``type test*curr.csv`` on Windows.
+   - Invoke ``cat test*volt.csv`` and ``cat test*curr.csv`` on Linux or Mac OS X.
 
 This converts two versions of the IEEE 13-Bus case from OpenDSS to CIM and 
 then back out to GridLAB-D and OpenDSS, without writing code. One version uses phase impedance matrices 
