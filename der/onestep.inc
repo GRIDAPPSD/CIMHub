@@ -249,9 +249,9 @@ remote_combo_b   Nbus=[     9,     9,     0] Nlink=[    12,    12,     0] MAEv=[
     Total S = -4095.133 + j   112.957
   GridLAB-D branch flow in XF_DER from HIGH
   Phs     Volts     rad      Amps     rad         kW          kVAR   PhsPhs     Volts     rad
-    A   8002.07 -0.0000      0.00  4.3707     -0.000 + j     0.000     AB    13860.00  0.5236
-    B   8002.07  4.1888      0.00  1.6928     -0.000 + j     0.000     BC    13860.00 -1.5708
-    C   8002.07  2.0944      0.00  1.2069      0.000 + j     0.000     CA    13860.00  2.6180
+    A   8002.07 -0.0000      0.00  0.1220      0.000 + j    -0.000     AB    13860.00  0.5236
+    B   8002.07  4.1888      0.00 -1.4488      0.000 + j    -0.000     BC    13860.00 -1.5708
+    C   8002.07  2.0944      0.00  2.7799      0.000 + j    -0.000     CA    13860.00  2.6180
     Total S =     0.000 + j     0.000
 local_chcurve_b  Nbus=[     9,     9,    12] Nlink=[    12,    12,     6] MAEv=[ 0.0000, 0.0163] MAEi=[   0.0900, 167.0120]
   OpenDSS branch flow in TRANSFORMER.DER from HIGH, Base case
