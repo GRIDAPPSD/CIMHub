@@ -316,7 +316,7 @@ ORDER by ?name
 <![CDATA[
 SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?pecid ?id ?t1id WHERE {
  ?sys c:IdentifiedObject.mRID ?fdrid.
- ?s r:type c:WindGeneratingUnit.
+ ?s r:type c:PowerElectronicsWindUnit.
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?id.
  ?s c:PowerElectronicsUnit.maxP ?maxP.
