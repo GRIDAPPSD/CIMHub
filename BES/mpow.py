@@ -1,3 +1,4 @@
+# Copyright (C) 2023-2024 Battelle Memorial Institute
 import sys
 import os
 import math
@@ -14,7 +15,14 @@ CASES = [
    'glpk_opts': None,
    'min_kv_to_upgrade': 100.0,
    'min_contingency_mva': 400.0,
-   'mva_upgrades': None},
+   'mva_upgrades': None,
+   'gen_PG': [
+     [31, 150.0]
+     ],
+   'edits': None,
+   'edits_dont': [
+     [1, 1.0, 'CT_TGEN', 31, 'PG', 'CT_REP', 150.0]]
+  },
   {'id': '2540AF5C-4F83-4C0F-9577-DEE8CC73BBB3', 
    'name': 'WECC240', 
    'swingbus':'2438',
@@ -39,7 +47,9 @@ CASES = [
      {'branch_number':430, 'new_mva':1500.0},
      {'branch_number':442, 'new_mva':1000.0},
      {'branch_number':443, 'new_mva':1000.0},
-     {'branch_number':449, 'new_mva':1500.0}]},
+     {'branch_number':449, 'new_mva':1500.0}],
+   'gen_PG': None,
+   'edits': None},
   {'id': None,
    'name': 'IEEE39',
    'swingbus':'31',
@@ -48,7 +58,9 @@ CASES = [
    'glpk_opts': None,
    'min_kv_to_upgrade': 500.0,
    'min_contingency_mva': 1000.0,
-   'mva_upgrades': None}
+   'mva_upgrades': None,
+   'gen_PG': None,
+   'edits': None}
   ]
 
 
@@ -85,19 +97,26 @@ MVA_BASE = 100.0
 # sample code from TESP that automates Matpower in Octave
 # https://github.com/pnnl/tesp/blob/develop/examples/capabilities/ercot/case8/tso_most.py
 
-def write_solve_file (root, load_scale):
+def write_solve_file (root, load_scale=1.0, editfile=None, pg=None):
   fscript = 'solve{:s}.m'.format(root)
   fsolved = '{:s}solved.m'.format(root)
   fsummary = '{:s}summary.txt'.format(root)
-  fmb = '{:s}mb.txt'.format(root)
   fp = open (fscript, 'w')
   print ("""clear;""", file=fp)
   print ("""cd {:s}""".format (os.getcwd()), file=fp)
-  print ("""mpc = loadcase({:s});""".format (root.upper()), file=fp)
+  print ("""define_constants;""", file=fp)
+  if editfile is None:
+    print ("""mpc = loadcase({:s});""".format (root.upper()), file=fp)
+  else:
+    print("""mpcbase = loadcase({:s});""".format (root.upper()), file=fp)
+    print("""chgtab = {:s};""".format(editfile), file=fp)
+    print("""mpc = apply_changes (1, mpcbase, chgtab);""", file=fp)
+  if pg is not None:
+    for row in pg:
+      print ("""mpc.gen({:d},PG) = {:.2f};""".format (row[0], row[1]), file=fp)
   print ("""mpc = scale_load({:.5f},mpc);""".format (load_scale), file=fp)
   print ("""opt1 = mpoption('out.all', 0, 'verbose', 0);""", file=fp)
   print ("""results=runpf(mpc, opt1);""", file=fp)
-  print ("""define_constants;""", file=fp)
   print ("""opt2 = mpoption('out.sys_sum', 1, 'out.bus', 0, 'out.branch', 0);""", file=fp)
   print ("""fd = fopen('{:s}', 'w');""".format (fsummary), file=fp)
   print ("""fprintf(fd,'results.success = %d\\n', results.success);""", file=fp)
@@ -115,6 +134,19 @@ def write_solve_file (root, load_scale):
   fp.close()
   return fscript, fsolved, fsummary
 
+def write_edits(edits, root):
+  fp = open ('{:s}_edits.m'.format (root), 'w')
+  print('function chgtab = {:s}_edits'.format(root), file=fp)
+  mpow.write_most_table_indices(fp)
+  print('  % label   prob   table   row col      chgtype  newval', file=fp)
+  print('  chgtab = [', file=fp)
+  for row in edits:
+    print (' {:5d} {:9.7f} {:8s} {:4d} {:8s} {:8s} {:11.7f};'.format (row[0], row[1], row[2], row[3], row[4], row[5], row[6]), file=fp)
+  print('  ];', file=fp)
+  print('end', file=fp)
+  fp.close()
+  return '{:s}_edits'.format (root)
+
 def summarize_overloads(d):
   print ('Overloads:')
   g = d['gen']
@@ -124,14 +156,14 @@ def summarize_overloads(d):
 
   for i in range(ng):
     if g[i][mpow.PG] > g[i][mpow.PMAX]:
-      print ('  Generator at {:d} has {:.2f} MW > {:.2f} MW'.format (int(g[i][mpow.GEN_BUS]), g[i][mpow.PG], g[i][mpow.PMAX]))
+      print ('  Generator {:d} at {:d} has {:.2f} MW > {:.2f} MW'.format (i+1, int(g[i][mpow.GEN_BUS]), g[i][mpow.PG], g[i][mpow.PMAX]))
   for i in range(nb):
     if b[i][mpow.RATE_A] > 0.0:
       s1 = math.sqrt (b[i][mpow.PF]*b[i][mpow.PF] + b[i][mpow.QF]*b[i][mpow.QF])
       s2 = math.sqrt (b[i][mpow.PT]*b[i][mpow.PT] + b[i][mpow.QT]*b[i][mpow.QT])
       smax = max(s1, s2)
       if smax > b[i][mpow.RATE_A]: 
-        print ('  Branch {:d}-{:d} has {:.2f} MVA > {:.2f} MVA'.format (int(b[i][mpow.F_BUS]), int(b[i][mpow.T_BUS]), smax, b[i][mpow.RATE_A]))
+        print ('  Branch {:d} from {:d}-{:d} has {:.2f} MVA > {:.2f} MVA'.format (i+1, int(b[i][mpow.F_BUS]), int(b[i][mpow.T_BUS]), smax, b[i][mpow.RATE_A]))
 
 if __name__ == '__main__':
   case_id = 0
@@ -141,8 +173,15 @@ if __name__ == '__main__':
   load_scale = CASES[case_id]['load_scale']
   d = mpow.read_matpower_casefile ('{:s}.m'.format (sys_name))
   mpow.summarize_casefile (d, 'Input')
-  fscript, fsolved, fsummary = write_solve_file (sys_name, load_scale)
+  edits = CASES[case_id]['edits']
+  if edits is not None:
+    editfile = write_edits (edits, sys_name)
+  else:
+    editfile = None
+  fscript, fsolved, fsummary = write_solve_file (sys_name, load_scale, editfile, CASES[case_id]['gen_PG'])
+
   mpow.run_matpower_and_wait (fscript)
+
   mpow.print_solution_summary (fsummary, details=True)
   r = mpow.read_matpower_casefile (fsolved)
   mpow.summarize_casefile (r, 'Solved')

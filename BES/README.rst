@@ -53,6 +53,8 @@ Steps to Create MATPOWER
 - The network data from ``loadxml.py`` should already be in the database. If not, execute ``python loadxml.py``.  The location data is not required or used with MATPOWER export.
 - ``python bes_make_mpow.py 0`` creates a MATPOWER base case in ``IEEE118.m``
 - ``python bes_make_mpow.py 1`` creates a MATPOWER base case in ``WECC240.m``
+- ``python mpow.py 0`` solves a MATPOWER base case in ``IEEE118.m`` and writes initial conditions for ATP
+- ``python mpow.py 1`` solves a MATPOWER base case in ``WECC240.m`` and writes initial conditions for ATP
 
 Steps to Create EMTP and ATP
 ----------------------------

@@ -1,33 +1,8 @@
+# Copyright (C) 2023-2024 Battelle Memorial Institute
 import cimhub.api as cimhub
 import cimhub.CIMHubConfig as CIMHubConfig
 import sys
 import os
-
-
-# example in Octave:
-
-# cd c:\src\cimhub\bes
-# mpc = loadcase(WECC240);
-# case_info(mpc)
-# mpc = scale_load(1.0425,mpc);
-# results=runpf(mpc);
-# define_constants
-# codes=matpower_gen_type(results.gentype);
-# mg=[results.gen(:,GEN_BUS),results.gen(:,PG),results.gen(:,QG),codes]
-# mb=[results.bus(:,VM),results.bus(:,VA)]
-# csvwrite('wecc240mg.txt',mg)
-# csvwrite('wecc240mb.txt',mb)
-
-# mpc = loadcase(IEEE118);
-# case_info(mpc)
-# mpc = scale_load (0.6748, mpc);
-# results=runpf(mpc);
-# define_constants
-# codes=matpower_gen_type(results.gentype);
-# mg=[results.gen(:,GEN_BUS),results.gen(:,PG),results.gen(:,QG),codes]
-# mb=[results.bus(:,VM),results.bus(:,VA)]
-# csvwrite('ieee118mg.txt',mg)
-# csvwrite('ieee118mb.txt',mb)
 
 CASES = [
   {'id': '1783D2A8-1204-4781-A0B4-7A73A2FA6038', 'name': 'IEEE118', 'swingbus':'131'},
@@ -44,8 +19,6 @@ FUELS = {
 }
 
 # global constants
-#SQRT3 = math.sqrt(3.0)
-#RAD_TO_DEG = 180.0 / math.pi
 MVA_BASE = 100.0
 
 def get_gencosts(fuel):
