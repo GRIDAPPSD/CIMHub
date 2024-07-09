@@ -1,7 +1,7 @@
 CIMHub Test Cases for Bulk Electric Systems (BES)
 =================================================
 
-Copyright (c) 2017-2023, Battelle Memorial Institute
+Copyright (c) 2017-2024, Battelle Memorial Institute
 
 Contents
 --------
@@ -51,8 +51,8 @@ Steps to Create MATPOWER
 
 - Start the Blazegraph database engine, unless it's already running
 - The network data from ``loadxml.py`` should already be in the database. If not, execute ``python loadxml.py``.  The location data is not required or used with MATPOWER export.
-- ``python mpow.py 0`` creates a MATPOWER base case in ``IEEE118.m``
-- ``python mpow.py 1`` creates a MATPOWER base case in ``WECC240.m``
+- ``python bes_make_mpow.py 0`` creates a MATPOWER base case in ``IEEE118.m``
+- ``python bes_make_mpow.py 1`` creates a MATPOWER base case in ``WECC240.m``
 
 Steps to Create EMTP and ATP
 ----------------------------
