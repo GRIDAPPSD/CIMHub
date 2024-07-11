@@ -411,7 +411,7 @@ public class DistRegulator extends DistComponent {
 		buf.append ("}\n");
 
 		buf.append ("object regulator {\n");
-		buf.append ("  name \"reg_" + pname + "\";\n");
+		buf.append ("  name \"xf_" + pname + "\";\n");
 		buf.append ("  from \"" + bus1 + "\";\n");
 		buf.append ("  to \"" + bus2 + "\";\n");
 		buf.append ("  phases " + bankphases + ";\n");

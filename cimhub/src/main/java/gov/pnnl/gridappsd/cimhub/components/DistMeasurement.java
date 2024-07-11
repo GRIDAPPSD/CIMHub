@@ -61,11 +61,7 @@ public class DistMeasurement extends DistComponent {
 				simobj = "line_" + eqname;
 			}
 		} else if (eqtype.equals ("PowerTransformer")) { // RatioTapChanger or PowerTransformer
-			if (measClass.equals("Discrete")) {
-				simobj = "reg_" + eqname;
-			} else {
-				simobj = "xf_" + eqname;
-			}
+			simobj = "xf_" + eqname;
 		} else if (eqtype.equals("LoadBreakSwitch")) {
 			simobj = "swt_" + eqname;
 		} else if (eqtype.equals ("Recloser")) {
