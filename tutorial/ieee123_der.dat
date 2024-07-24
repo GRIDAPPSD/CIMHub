@@ -1,0 +1,23 @@
+uuid_file,ieee123_der_uuid.dat
+feederID,CBE09B55-091B-4BB0-95DA-392237B12640
+//
+//name,bus,phases(ABCs1s2),type(Battery,Photovoltaic,SynchronousMachine),kwMax,RatedkVA,RatedkV,kW,kVAR
+//  kW is taken as maximum real power
+//  for Battery,Photovoltaic: append IEEE 1547 category [catA/catB], control mode [CQ,PF,VV,VW,WVAR,AVR,VV_VW]
+//  for Battery: append RatedkWH,StoredkWH
+// name,bus,phases(ABCs1s2),type(Battery,Photovoltaic,SynchronousMachine),RatedkVA,RatedkV,kW,kVAR,RatedkWH,StoredkWH
+//
+DG_6,   7,   A, Photovoltaic, 120.0, 124.0, 2.4, 120.0, 0.0, catA, CQ
+DG_12,  17,  C, Photovoltaic, 120.0, 124.0, 2.4, 120.0, 0.0, catA, CQ
+DG_18,  29,  A, Photovoltaic, 250.0, 260.0, 2.4, 250.0, 0.0, catA, CQ
+DG_30,  43,  B, Photovoltaic, 300.0, 310.0, 2.4, 300.0, 0.0, catA, CQ
+DG_36,  49,  B, Photovoltaic, 400.0, 415.0, 2.4, 400.0, 0.0, catA, CQ
+DG_42,  55,  A, Photovoltaic, 150.0, 155.0, 2.4, 150.0, 0.0, catA, CQ
+DG_48,  63,  A, Photovoltaic, 250.0, 260.0, 2.4, 250.0, 0.0, catA, CQ
+DG_54,  68,  A, Photovoltaic, 130.0, 135.0, 2.4, 130.0, 0.0, catA, CQ
+DG_60,  75,  C, Photovoltaic, 260.0, 270.0, 2.4, 260.0, 0.0, catA, CQ
+DG_66,  80,  B, Photovoltaic, 260.0, 270.0, 2.4, 260.0, 0.0, catA, CQ
+DG_72,  87,  B, Photovoltaic, 280.0, 290.0, 2.4, 280.0, 0.0, catA, CQ
+DG_78,  96,  B, Photovoltaic, 150.0, 155.0, 2.4, 150.0, 0.0, catA, CQ
+DG_84,  104, C, Photovoltaic, 300.0, 310.0, 2.4, 300.0, 0.0, catA, CQ
+DG_90,  113, A, Photovoltaic, 350.0, 362.0, 2.4, 350.0, 0.0, catA, CQ

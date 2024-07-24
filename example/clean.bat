@@ -1,0 +1,14 @@
+del *.xml
+del *.json
+del *.CSV
+del *base.glm
+del test*volt.csv
+del test*curr.csv
+del sum*.csv
+del *_base.dss
+del *_uuid.dss
+del *_busxy.dss
+del *.log
+del *.dsv
+del *.dbl
+del DSSViewIntercom.Txt

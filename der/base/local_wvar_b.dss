@@ -1,0 +1,10 @@
+clear
+new circuit.local_wvar_b
+redirect shared.dss
+
+New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6682 kvarMax=2940 kvarMaxAbs=2940
+New InvControl.der mode=WATTVAR voltage_curvex_ref=rated wattvar_curve=wattvar1547b
+
+redirect postlude.dss
+
+

@@ -1,0 +1,2377 @@
+
+# this needs to be in the properties file for Blazegraph to work on Windows
+com.bigdata.rwstore.RWStore.readBlobsAsync=false
+
+# deletes everything
+DROP ALL
+
+# enumerates all classes found; see appendix of Learning SPARQL for more useful cookbook recipes
+SELECT ?class (COUNT(?class) as ?cnt)
+WHERE {
+  ?s a ?class .
+} group by ?class order by ?class
+
+# discover the attributes of each class
+SELECT DISTINCT ?class ?attr 
+WHERE {
+  ?s a ?class .
+  ?s ?attr ?val
+} ORDER BY ?class ?attr
+
+# lists all triples; should be only 3 for CIM version after clearing all circuits
+SELECT ?s ?attr ?val where {
+  ?s ?attr ?val.
+} order by ?s ?attr
+
+#############################################################################################
+#remove the feeder itself
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+#values ?fdrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+
+# working on selective DELETE by feeder
+
+#remove the feeder itself
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+delete {?s ?attr ?val} where {
+  values ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}
+  ?s a c:Feeder.
+  ?s c:IdentifiedObject.mRID ?fdrid.
+  ?s ?attr ?val.
+}
+
+# remove objects that reference the feeder directly ##########################################
+delete {?s ?attr ?val} where {
+  values ?fdrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+  ?fdr c:IdentifiedObject.mRID ?fdrid.
+#  ?s c:Equipment.EquipmentContainer ?fdr.
+  ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+  ?s ?attr ?val.
+}
+
+# remove objects that don't have a valid parent reference ####################################
+delete {?s ?attr ?val} where {
+  ?s c:ShuntCompensatorPhase.ShuntCompensator ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:LinearShuntCompensator}
+}
+delete {?s ?attr ?val} where {
+  ?s c:ACLineSegmentPhase.ACLineSegment ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:ACLineSegment}
+}
+delete {?s ?attr ?val} where {
+  ?s c:EnergyConsumerPhase.EnergyConsumer ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:EnergyConsumer}
+}
+delete {?s ?attr ?val} where {
+  ?s c:SwitchPhase.Switch ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:Switch}
+}
+delete {?s ?attr ?val} where {
+  ?s c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:PowerElectronicsConnection}
+}
+delete {?s ?attr ?val} where {
+  ?s c:PowerTransformerEnd.PowerTransformer ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:PowerTransformer}
+}
+delete {?s ?attr ?val} where {
+  ?s c:TransformerTankEnd.TransformerTank ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:RatioTapChanger.TransformerEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:RegulatingControl.RegulatingCondEq ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:Terminal.ConductingEquipment ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:PositionPoint.Location ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:PhaseImpedanceData.PhaseImpedance ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:TransformerMeshImpedance.FromTransformerEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:TransformerCoreAdmittance.TransformerEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:OperationalLimit.OperationalLimitSet ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:House.EnergyConsumer ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s c:Measurement.PowerSystemResource ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+
+# remove Locations and others that are not referenced by anything ###########################################
+delete {?s ?attr ?val} where {
+  ?s a c:Location.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:PowerSystemResource.Location ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:PhotovoltaicUnit.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:PowerElectronicsConnection.PowerElectronicsUnit ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:BatteryUnit.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:PowerElectronicsConnection.PowerElectronicsUnit ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:TopologicalNode.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ConnectivityNode.TopologicalNode ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:TopologicalIsland.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:TopologicalNode.TopologicalIsland ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:TapChangerControl.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:TapChanger.TapChangerControl ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:Substation.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:Feeder.NormalEnergizingSubstation ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:SubGeographicalRegion.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:Substation.Region ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:GeographicalRegion.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:SubGeographicalRegion.Region ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:LoadResponseCharacteristic.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:EnergyConsumer.LoadResponse ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:PerLengthSequenceImpedance.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegment.PerLengthImpedance ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:PerLengthPhaseImpedance.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegment.PerLengthImpedance ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:CoordinateSystem.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:Location.CoordinateSystem ?s}
+}
+
+# Step 1 AssetInfo cleanup - remove the dangling Asset associations to PSR
+delete {?s ?attr ?psr} where {
+  ?s a c:Asset.
+  ?s c:Asset.PowerSystemResources ?psr.
+  ?s ?attr ?psr.
+  FILTER NOT EXISTS {?psr c:IdentifiedObject.mRID ?id}
+}
+# Step 2 AssetInfo cleanup - remove Asset objects that don't have any PSR links
+delete {?s ?attr ?val} where {
+  ?s a c:Asset.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?s c:Asset.PowerSystemResources ?psr}
+}
+# step 3 AssetInfo descendants that are targets of Asset.AssetInfo
+delete {?s ?attr ?val} where {
+#  ?s a c:TapChangerInfo.
+  ?s a c:TransformerTankInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?asset c:Asset.AssetInfo ?s}
+}
+# steps 4 - cascading deletes from an AssetInfo leaf
+delete {?s ?attr ?val} where {
+#  ?s c:TransformerEndInfo.TransformerTankInfo ?targ.
+#  ?s c:NoLoadTest.EnergisedEnd ?targ.
+  ?s c:ShortCircuitTest.EnergisedEnd ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+delete {?s ?attr ?val} where {
+  ?s a c:PowerTransformerInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:TransformerTankInfo.PowerTransformerInfo ?s}
+}
+
+# steps 5 => WireSpacingInfo from ACLineSegment and then cascade to WirePosition.WireSpacingInfo
+delete {?s ?attr ?val} where {
+  ?s a c:WireSpacingInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegment.WireSpacingInfo ?s}
+}
+delete {?s ?attr ?val} where {
+  ?s c:WirePosition.WireSpacingInfo ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:IdentifiedObject.mRID ?id}
+}
+# steps 6 => WireInfo leaf classes from ACLineSegmentPhase
+delete {?s ?attr ?val} where {
+#  ?s a c:ConcentricNeutralCableInfo.
+#  ?s a c:TapeShieldCableInfo.
+  ?s a c:OverheadWireInfo.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?ref c:ACLineSegmentPhase.WireInfo ?s}
+}
+
+# remove BaseVoltage not used by either ConductingEquipment or TransformerEnd
+delete {?s ?attr ?val} where {
+  ?s a c:BaseVoltage.
+  ?s ?attr ?val.
+  FILTER (NOT EXISTS {?end c:TransformerEnd.BaseVoltage ?s} && NOT EXISTS {?eq c:ConductingEquipment.BaseVoltage ?s})
+}
+
+# remove OperationalLimitSet not used by either ConnectivityNode or ACDCTerminal
+delete {?s ?attr ?val} where {
+  ?s a c:OperationalLimitSet.
+  ?s ?attr ?val.
+  FILTER (NOT EXISTS {?end c:ACDCTerminal.OperationalLimitSet ?s} && NOT EXISTS {?eq c:ConnectivityNode.OperationalLimitSet ?s})
+}
+# remove OperationalLimitType not used by either CurrentLimit or VoltageLimit
+delete {?s ?attr ?val} where {
+  ?s a c:OperationalLimitType.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ c:OperationalLimit.OperationalLimitType ?s}
+}
+
+# checks for a dangling LinearShuntCompensatorPhase ####################################################
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+select ?s ?attr ?val where {
+  ?s c:ShuntCompensatorPhase.ShuntCompensator ?targ.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?targ a c:LinearShuntCompensator}
+}
+
+# checks for unreferenced Location or others
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+select ?loc ?attr ?val where {
+  ?loc a c:Location.
+  ?loc ?attr ?val.
+  FILTER NOT EXISTS {?s c:PowerSystemResource.Location ?loc}
+}
+select ?s ?attr ?val where {
+  ?s a c:PhotovoltaicUnit.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?s c:PowerElectronicsConnection.PowerElectronicsUnit ?pec}
+}
+# checks for (multiple) Asset references to absent PSR
+select ?s ?attr ?psr where {
+  ?s a c:Asset.
+  ?s c:Asset.PowerSystemResources ?psr.
+  ?s ?attr ?psr.
+  FILTER NOT EXISTS {?psr c:IdentifiedObject.mRID ?id}
+}
+# then check for Asset objects that have no PSR assocations
+select ?s ?attr ?val where {
+  ?s a c:Asset.
+  ?s ?attr ?val.
+  FILTER NOT EXISTS {?s c:Asset.PowerSystemResources ?psr}
+}
+
+# BaseVoltage has references ConductingEquipment.BaseVoltage and TransformerEnd.BaseVoltage
+#   we should select those for which neither exist; we don't require both to exist
+#   in practical cases, one with TransformerEnd.BaseVoltage should also have ConductingEquipment.BaseVoltage
+select ?s ?attr ?val where {
+  ?s a c:BaseVoltage.
+  ?s ?attr ?val.
+  FILTER (NOT EXISTS {?end c:TransformerEnd.BaseVoltage ?s} && NOT EXISTS {?eq c:ConductingEquipment.BaseVoltage ?s})
+}
+# OperationalLimitSet referenced by neither ConnectivityNode nor ACDCTerminal
+select ?s ?attr ?val where {
+  ?s a c:OperationalLimitSet.
+  ?s ?attr ?val.
+  FILTER (NOT EXISTS {?end c:ACDCTerminal.OperationalLimitSet ?s} && NOT EXISTS {?eq c:ConnectivityNode.OperationalLimitSet ?s})
+}
+
+##################################################
+
+# list all the connectivity node base voltages by feeder, for sensor service
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?feeder ?busname ?cnid ?nomv WHERE {
+# VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?bus c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?bus r:type c:ConnectivityNode.
+ ?bus c:IdentifiedObject.name ?busname.
+ ?bus c:IdentifiedObject.mRID ?cnid.
+ ?fdr c:IdentifiedObject.name ?feeder.
+ ?trm c:Terminal.ConnectivityNode ?bus.
+ ?trm c:Terminal.ConductingEquipment ?ce.
+ ?ce  c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv  c:BaseVoltage.nominalVoltage ?nomv.
+}
+ORDER by ?feeder ?busname ?nomv
+
+# list all the CurrentLimits for sensor service nominal values
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?eqtype ?eqname ?eqid ?val ?cn1id WHERE {
+ VALUES ?dur {"5E9"}
+ VALUES ?seq {"1"}
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?eq c:IdentifiedObject.name ?eqname.
+ ?eq c:IdentifiedObject.mRID ?eqid.
+ ?eq r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?eqtype)
+ ?t c:Terminal.ConductingEquipment ?eq.
+ ?t c:ACDCTerminal.OperationalLimitSet ?ols.
+ ?t c:ACDCTerminal.sequenceNumber ?seq.
+ ?t c:Terminal.ConnectivityNode ?cn1.
+ ?cn1 c:IdentifiedObject.mRID ?cn1id.
+ ?clim c:OperationalLimit.OperationalLimitSet ?ols.
+ ?clim r:type c:CurrentLimit.
+ ?clim c:OperationalLimit.OperationalLimitType ?olt.
+ ?olt c:OperationalLimitType.acceptableDuration ?dur.
+ ?clim c:CurrentLimit.value ?val.
+}
+ORDER by ?eqtype ?eqname ?eqid ?val
+
+#############################
+
+# navigate from TransformerEnd to TransformerEndInfo for CIMWriter
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?tname ?ename ?seq ?tid ?eid WHERE {
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?t c:IdentifiedObject.mRID ?tid.
+ ?e c:IdentifiedObject.name ?ename.
+ ?e c:IdentifiedObject.mRID ?eid.
+ ?e c:TransformerEndInfo.endNumber ?seq.
+}
+ORDER BY ?tname ?ename ?seq
+
+# list all the connectivity nodes by feeder for CIMWriter
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id WHERE {
+ VALUES ?fdrid {"E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}  # 123 bus with PV
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?s r:type c:ConnectivityNode.
+ ?s c:IdentifiedObject.name ?name.
+ bind(strafter(str(?s),"#") as ?id).
+}
+ORDER by ?name
+
+# list all the terminals by feeder for CIMWriter
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?eqclass ?eqname ?seq ?eqid ?tid ?cnid WHERE {
+ VALUES ?fdrid {"E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}  # 123 bus with PV
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?t c:Terminal.ConductingEquipment ?eq.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:ACDCTerminal.sequenceNumber ?seq.
+ bind(strafter(str(?eq),"#") as ?eqid).
+ bind(strafter(str(?t),"#") as ?tid).
+ bind(strafter(str(?cn),"#") as ?cnid).
+ ?eq c:IdentifiedObject.name ?eqname.
+ ?eq a ?classraw.
+ bind(strafter(str(?classraw),"CIM100#") as ?eqclass)
+}
+ORDER by ?eqclass ?eqname ?seq
+
+# list all the terminals connected to a TransformerEnd for CIMWriter
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?endclass ?endid ?tid WHERE {
+ VALUES ?fdrid {"E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}  # 123 bus with PV
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ {?pxf c:Equipment.EquipmentContainer ?fdr.
+  ?end c:PowerTransformerEnd.PowerTransformer ?pxf.}
+  UNION
+ {?tank c:Equipment.EquipmentContainer ?fdr.
+  ?end c:TransformerTankEnd.TransformerTank ?tank.}
+ ?end c:TransformerEnd.Terminal ?t.
+ ?t c:ACDCTerminal.sequenceNumber ?seq.
+ bind(strafter(str(?end),"#") as ?endid).
+ bind(strafter(str(?t),"#") as ?tid).
+ ?end a ?classraw.
+ bind(strafter(str(?classraw),"CIM100#") as ?endclass)
+}
+ORDER by ?endclass ?endid
+
+# list all the locations by feeder for CIMWriter
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?eqname ?name ?eqid ?locid WHERE {
+ VALUES ?fdrid {"E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}  # 123 bus with PV
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?eq c:PowerSystemResource.Location ?loc.
+ bind(strafter(str(?loc),"#") as ?locid).
+ bind(strafter(str(?eq),"#") as ?eqid).
+ ?eq c:IdentifiedObject.name ?eqname.
+ ?loc c:IdentifiedObject.name ?name.
+}
+ORDER by ?eqname
+
+# list all the position points by feeder for CIMWriter
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?locid ?id ?seq ?x ?y WHERE {
+ VALUES ?fdrid {"E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}  # 123 bus with PV
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?eq c:PowerSystemResource.Location ?loc.
+ ?p c:PositionPoint.Location ?loc.
+ ?p c:PositionPoint.sequenceNumber ?seq.
+ ?p c:PositionPoint.xPosition ?x.
+ ?p c:PositionPoint.yPosition ?y.
+ bind(strafter(str(?loc),"#") as ?locid).
+ bind(strafter(str(?p),"#") as ?id).
+}
+ORDER by ?locid ?seq
+
+# list all the connectivity nodes by feeder, with voltage limits
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?feeder ?bus ?cnid ?val ?dur ?dir WHERE {
+# VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?s r:type c:ConnectivityNode.
+ ?s c:IdentifiedObject.name ?bus.
+ ?s c:IdentifiedObject.mRID ?cnid.
+ ?fdr c:IdentifiedObject.name ?feeder.
+ ?s c:ConnectivityNode.OperationalLimitSet ?ols.
+ ?vlim c:OperationalLimit.OperationalLimitSet ?ols.
+ ?vlim r:type c:VoltageLimit.
+ ?vlim c:OperationalLimit.OperationalLimitType ?olt.
+ ?olt c:OperationalLimitType.acceptableDuration ?dur.
+ ?olt c:OperationalLimitType.direction ?rawdir.
+  bind(strafter(str(?rawdir),"OperationalLimitDirectionKind.") as ?dir)
+ ?vlim c:VoltageLimit.value ?val.
+}
+ORDER by ?feeder ?bus ?val
+
+# list all the CurrentLimits by feeder
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?eqtype ?eqname ?eqid ?val ?dur ?dir WHERE {
+# VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?eq c:IdentifiedObject.name ?eqname.
+ ?eq c:IdentifiedObject.mRID ?eqid.
+ ?eq r:type ?rawtype.
+  bind(strafter(str(?rawtype),"#") as ?eqtype)
+ ?t c:Terminal.ConductingEquipment ?eq.
+ ?t c:ACDCTerminal.OperationalLimitSet ?ols.
+ ?clim c:OperationalLimit.OperationalLimitSet ?ols.
+ ?clim r:type c:CurrentLimit.
+ ?clim c:OperationalLimit.OperationalLimitType ?olt.
+ ?olt c:OperationalLimitType.acceptableDuration ?dur.
+ ?olt c:OperationalLimitType.direction ?rawdir.
+  bind(strafter(str(?rawdir),"OperationalLimitDirectionKind.") as ?dir)
+ ?clim c:CurrentLimit.value ?val.
+}
+ORDER by ?eqtype ?eqname ?eqid ?val ?dur
+
+# DistBus - for map of bus names
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?id ?name WHERE {
+# VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?bus c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?bus r:type c:ConnectivityNode.
+ ?bus c:IdentifiedObject.name ?name.
+ ?bus c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?name
+
+# DistEquipment - for map of conducting equipment name and class
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?id ?cimclass ?name WHERE {
+# VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?eq a ?classraw.
+   bind(strafter(str(?classraw),"CIM100#") as ?cimclass)
+ ?eq c:IdentifiedObject.name ?name.
+ ?eq c:IdentifiedObject.mRID ?id.
+}
+ORDER by ?cimclass ?name
+
+# SynchronousMachine - DistSyncMachine
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus (group_concat(distinct ?phs;separator="\n") as ?phases) ?ratedS ?ratedU ?p ?q ?id ?fdrid ?t1id WHERE {
+ ?s r:type c:SynchronousMachine.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:RotatingMachine.ratedS ?ratedS.
+ ?s c:RotatingMachine.ratedU ?ratedU.
+ ?s c:RotatingMachine.p ?p.
+ ?s c:RotatingMachine.q ?q. 
+ ?s c:IdentifiedObject.mRID ?id.
+ OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s.
+ ?smp c:SynchronousMachinePhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?p ?q ?id ?fdrid ?t1id
+ORDER by ?name
+
+# list houses - DistHouse
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?fdrname ?name ?parent ?coolingSetpoint ?coolingSystem ?floorArea ?heatingSetpoint ?heatingSystem ?hvacPowerFactor ?numberOfStories ?thermalIntegrity ?id ?fdrid 
+WHERE { 
+#VALUES ?fdrid {"E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}  # IEEE123 PV/Triplex
+#VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500-node
+#VALUES ?fdrid {"EE71F6C9-56F0-4167-A14E-7F4C71F10EAA"}  # 9500-node
+#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}  # R2
+#VALUES ?fdrid {"503D6E20-F499-4CC7-8051-971E23D0BF79"}  # 123 Transactive
+   ?h r:type c:House.
+   ?h c:IdentifiedObject.name ?name.
+   ?h c:IdentifiedObject.mRID ?id.
+   ?h c:House.floorArea ?floorArea.
+   ?h c:House.numberOfStories ?numberOfStories.
+   OPTIONAL{?h c:House.coolingSetpoint ?coolingSetpoint.}
+   OPTIONAL{?h c:House.heatingSetpoint ?heatingSetpoint.}
+   OPTIONAL{?h c:House.hvacPowerFactor ?hvacPowerFactor.}
+   ?h c:House.coolingSystem ?coolingSystemRaw.
+   	bind(strafter(str(?coolingSystemRaw),"HouseCooling.") as ?coolingSystem) 
+   ?h c:House.heatingSystem ?heatingSystemRaw.
+   	bind(strafter(str(?heatingSystemRaw),"HouseHeating.") as ?heatingSystem)
+   ?h c:House.thermalIntegrity ?thermalIntegrityRaw.
+   	bind(strafter(str(?thermalIntegrityRaw),"HouseThermalIntegrity.") as ?thermalIntegrity)
+   ?h c:House.EnergyConsumer ?econ.
+   ?econ c:IdentifiedObject.name ?parent.
+   ?fdr c:IdentifiedObject.mRID ?fdrid.
+   ?fdr c:IdentifiedObject.name ?fdrname.
+   ?econ c:Equipment.EquipmentContainer ?fdr.
+} ORDER BY ?fdrname ?name
+
+# list measurement points for Breakers, Reclosers, LoadBreakSwitches in a selected feeder
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?cimtype ?name ?bus1 ?bus2 ?id (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+  SELECT ?cimtype ?name ?bus1 ?bus2 ?phs ?id WHERE {
+ VALUES ?fdrid {"B944C170-2027-A2B8-6BCA-2865F98C6737"}  # 13 bus
+ VALUES ?cimraw {c:LoadBreakSwitch c:Recloser c:Breaker}
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s r:type ?cimraw.
+  bind(strafter(str(?cimraw),"#") as ?cimtype)
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:Terminal.ConnectivityNode ?cn1. 
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:Terminal.ConnectivityNode ?cn2. 
+ ?cn2 c:IdentifiedObject.name ?bus2
+	OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ 	?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   	bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ } ORDER BY ?name ?phs
+}
+GROUP BY ?cimtype ?name ?bus1 ?bus2 ?id
+ORDER BY ?cimtype ?name
+
+# cim100 - DistBreaker, DistFuse, DistRecloser, DistLoadBreakSwitch have been tested (PREFERRED)
+# does not represent different phasing on two sides of a switch
+# only uses one group_concat so we can retrieve and match bus1-t1id, bus2-t2id
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus1 ?bus2 ?basev ?open ?continuous ?breaking ?fdrid ?t1id ?t2id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+# ?s r:type c:Breaker.
+# ?s r:type c:Disconnector.
+# ?s r:type c:Fuse.
+# ?s r:type c:GroundDisconnector.
+# ?s r:type c:Jumper.
+# ?s r:type c:Recloser.
+ ?s r:type c:LoadBreakSwitch.
+# ?s r:type c:Sectionaliser.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ ?s c:Switch.ratedCurrent ?continuous.
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?bus1 ?bus2 ?basev ?open ?continuous ?breaking ?fdrid ?t1id ?t2id
+ORDER BY ?name
+
+
+# cim100 - DistBreaker, DistFuse, DistRecloser, DistLoadBreakSwitch, DistSectionaliser (DEPRECATED)
+# this query has two group_concat, but in this case we don't care about the ordering of phases, so it was safe to use two group_concat calls
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?open ?continuous ?breaking ?fdrid (group_concat(distinct ?bus;separator="\n") as ?buses) (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+# ?s r:type c:Breaker.
+# ?s r:type c:Disconnector.
+# ?s r:type c:Fuse.
+# ?s r:type c:GroundDisconnector.
+# ?s r:type c:Jumper.
+# ?s r:type c:Recloser.
+ ?s r:type c:LoadBreakSwitch.
+# ?s r:type c:Sectionaliser.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ ?s c:Switch.ratedCurrent ?continuous.
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?basev ?open ?continuous ?breaking ?fdrid
+ORDER BY ?name
+
+# Avista Switches - cim16 - DistDisconector, DistFuse
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/2012/CIM-schema-cim16#>
+SELECT ?name ?basev ?open ?continuous ?fdrid (group_concat(distinct ?bus;separator="\n") as ?buses) (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+# ?s r:type c:Disconnector.
+# ?s r:type c:Fuse.
+ ?s r:type c:Breaker.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ ?s c:Switch.ratedCurrent ?continuous.
+# ?s c:ProtectedSwitch.breakingCapacity ?breaking.
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?basev ?open ?continuous ?fdrid
+ORDER BY ?name
+
+# delete all measurements for a selected circuit
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+DELETE {
+ ?m a ?class.
+ ?m c:IdentifiedObject.mRID ?uuid.
+ ?m c:IdentifiedObject.name ?name.
+ ?m c:Measurement.PowerSystemResource ?psr.
+ ?m c:Measurement.Terminal ?trm.
+ ?m c:Measurement.phases ?phases.
+ ?m c:Measurement.measurementType ?type.
+} WHERE {
+# VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"} # 123-bus
+# VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"} # 8500-node
+# VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"} # EPRI J1
+ VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"} # R2 12.47 2
+ VALUES ?class {c:Analog c:Discrete}
+ ?fdr c:IdentifiedObject.mRID ?fdrid. 
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?trm c:Terminal.ConductingEquipment ?eq.
+ ?m a ?class.
+ ?m c:IdentifiedObject.mRID ?uuid.
+ ?m c:IdentifiedObject.name ?name.
+ ?m c:Measurement.PowerSystemResource ?psr.
+ ?m c:Measurement.Terminal ?trm.
+ ?m c:Measurement.phases ?phases.
+ ?m c:Measurement.measurementType ?type.
+}
+
+# list all measurements, with buses and equipments - DistMeasurement
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+SELECT ?class ?type ?name ?bus ?phases ?eqtype ?eqname ?eqid ?trmid ?id WHERE {
+#VALUES ?fdrid {"77966920-E1EC-EE8A-23EE-4EFD23B205BD"}
+#VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}
+#VALUES ?fdrid {"49003F52-A359-C2EA-10C4-F4ED3FD368CC"}
+#VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}
+#VALUES ?fdrid {"E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}
+#VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}
+#VALUES ?fdrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}
+#VALUES ?fdrid {"503D6E20-F499-4CC7-8051-971E23D0BF79"}
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid. 
+{ ?s r:type c:Discrete. bind ("Discrete" as ?class)}
+  UNION
+{ ?s r:type c:Analog. bind ("Analog" as ?class)}
+ ?s c:IdentifiedObject.name ?name .
+ ?s c:IdentifiedObject.mRID ?id .
+ ?s c:Measurement.PowerSystemResource ?eq .
+ ?s c:Measurement.Terminal ?trm .
+ ?s c:Measurement.measurementType ?type .
+ ?trm c:IdentifiedObject.mRID ?trmid.
+ ?eq c:IdentifiedObject.mRID ?eqid.
+ ?eq c:IdentifiedObject.name ?eqname.
+ ?eq r:type ?typeraw.
+  bind(strafter(str(?typeraw),"#") as ?eqtype)
+ ?trm c:Terminal.ConnectivityNode ?cn.
+ ?cn c:IdentifiedObject.name ?bus.
+ ?s c:Measurement.phases ?phsraw .
+   {bind(strafter(str(?phsraw),"PhaseCode.") as ?phases)}
+} ORDER BY ?class ?type ?name
+
+# insert a measurement
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+INSERT DATA {
+	<http://localhost:9999/blazegraph/namespace/kb/sparql#1> a c:Analog.
+  <http://localhost:9999/blazegraph/namespace/kb/sparql#1> c:IdentifiedObject.mRID "uuid".
+  <http://localhost:9999/blazegraph/namespace/kb/sparql#1> c:IdentifiedObject.name "name".
+  <http://localhost:9999/blazegraph/namespace/kb/sparql#1> c:Measurement.PowerSystemResource  <http://localhost:9999/blazegraph/namespace/kb/sparql#2>.
+  <http://localhost:9999/blazegraph/namespace/kb/sparql#1> c:Measurement.Terminal <http://localhost:9999/blazegraph/namespace/kb/sparql#3>.
+  <http://localhost:9999/blazegraph/namespace/kb/sparql#1> c:Measurement.phases "ABC" .
+  <http://localhost:9999/blazegraph/namespace/kb/sparql#1> c:Measurement.measurementType "PNV"
+}
+
+# list all measurements - not depending on valid model
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?phases ?type ?eqid ?trmid ?id WHERE {
+{ ?s r:type c:Discrete. bind ("Discrete" as ?class)}
+  UNION
+{ ?s r:type c:Analog. bind ("Analog" as ?class)}
+	?s c:IdentifiedObject.name ?name .
+	?s c:IdentifiedObject.mRID ?id .
+	?s c:Measurement.PowerSystemResource ?eq .
+    ?eq c:IdentifiedObject.mRID ?eqid .
+	?s c:Measurement.Terminal ?trm .
+    ?trm c:IdentifiedObject.mRID ?trmid .
+	?s c:Measurement.measurementType ?type .
+  {?s c:Measurement.phases ?phsraw.
+   bind(strafter(str(?phsraw),"PhaseCode.") as ?phases)}
+} ORDER BY ?name ?type ?phases
+
+# list measurement points for PowerTransformer with tanks
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?name ?wnum ?bus ?phs ?eqid ?trmid WHERE { 
+ VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid. 
+ ?s r:type c:PowerTransformer.
+ ?end c:TransformerTankEnd.TransformerTank ?tank.
+ ?tank c:TransformerTank.PowerTransformer ?s.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?eqid.
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?end c:TransformerEnd.endNumber ?wnum.
+ ?trm c:IdentifiedObject.mRID ?trmid. 
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus.
+ OPTIONAL {?end c:TransformerTankEnd.phases ?phsraw.
+  bind(strafter(str(?phsraw),"PhaseCode.") as ?phs)}
+}
+ORDER BY ?name ?wnum ?phs
+
+# list measurement points for PowerTransformer with no tanks
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?name ?wnum ?bus ?eqid ?trmid WHERE { 
+ VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid. 
+ ?s r:type c:PowerTransformer.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?eqid.
+ ?end c:PowerTransformerEnd.PowerTransformer ?s.
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?end c:TransformerEnd.endNumber ?wnum.
+ ?trm c:IdentifiedObject.mRID ?trmid. 
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus.
+}
+ORDER BY ?name ?wnum
+
+# list measurement points for PowerElectronicsConnection with BatteryUnit in a selected feeder
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?uname ?bus ?id (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+  SELECT ?name ?uname ?bus ?phs ?id WHERE {
+ VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s r:type c:PowerElectronicsConnection.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?peu r:type c:BatteryUnit.
+ ?peu c:IdentifiedObject.name ?uname.
+ ?s c:PowerElectronicsConnection.PowerElectronicsUnit ?peu.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:Terminal.ConnectivityNode ?cn1. 
+ ?cn1 c:IdentifiedObject.name ?bus.
+	OPTIONAL {?pep c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?s.
+ 	?pep c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   	bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ } ORDER BY ?name ?phs
+}
+GROUP BY ?name ?uname ?bus ?id
+ORDER BY ?name
+
+# list measurement points for ACLineSegments in a selected feeder
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus1 ?bus2 ?id (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+  SELECT ?name ?bus1 ?bus2 ?phs ?id WHERE {
+ VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:Terminal.ConnectivityNode ?cn1. 
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:Terminal.ConnectivityNode ?cn2. 
+ ?cn2 c:IdentifiedObject.name ?bus2
+	OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+ 	?acp c:ACLineSegmentPhase.phase ?phsraw.
+   	bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ } ORDER BY ?name ?phs
+}
+GROUP BY ?name ?bus1 ?bus2 ?id
+ORDER BY ?name
+
+# list the base voltage levels - DistBaseVoltage
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?vnom
+WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ {?s c:ConductingEquipment.BaseVoltage ?lev.}
+  UNION
+ { ?end c:PowerTransformerEnd.PowerTransformer|c:TransformerTankEnd.TransformerTank ?s.
+   ?end c:TransformerEnd.BaseVoltage ?lev.}
+ ?lev r:type c:BaseVoltage.
+ ?lev c:BaseVoltage.nominalVoltage ?vstr.
+  bind(xsd:float(?vstr) as ?vnom)
+}
+ORDER BY ?vnom
+
+# nominal voltages by feeder ID
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+#CONSTRUCT {?s ?fdr ?o} WHERE {
+SELECT DISTINCT ?vnom WHERE {
+# ?fdr c:IdentifiedObject.mRID "C1C3E687-6FFD-C753-582B-632A27E28507". # 123 bus
+# ?fdr c:IdentifiedObject.mRID "49AD8E07-3BF9-A4E2-CB8F-C3722F837B62".  # 13 bus
+# ?fdr c:IdentifiedObject.mRID "5B816B93-7A5F-B64C-8460-47C17D6E4B0F".  # 13 bus assets
+# ?fdr c:IdentifiedObject.mRID "4F76A5F9-271D-9EB8-5E31-AA362D86F2C3".  # 8500 node
+ ?fdr c:IdentifiedObject.mRID "67AB291F-DCCD-31B7-B499-338206B9828F".  # J1
+# ?fdr c:IdentifiedObject.mRID "9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095".  # R2 12.47 3
+ ?s c:ConnectivityNode.ConnectivityNodeContainer|c:Equipment.EquipmentContainer ?fdr.
+ ?s c:ConductingEquipment.BaseVoltage ?lev.
+ ?lev c:BaseVoltage.nominalVoltage ?vnom.
+}
+ORDER by ?vnom
+
+# list all the feeders, with substations and regions - DistFeeder
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {
+ ?s r:type c:Feeder.
+ ?s c:IdentifiedObject.name ?feeder.
+ ?s c:IdentifiedObject.mRID ?fid.
+ ?s c:Feeder.NormalEnergizingSubstation ?sub.
+ ?sub c:IdentifiedObject.name ?station.
+ ?sub c:IdentifiedObject.mRID ?sid.
+ ?sub c:Substation.Region ?sgr.
+ ?sgr c:IdentifiedObject.name ?subregion.
+ ?sgr c:IdentifiedObject.mRID ?sgrid.
+ ?sgr c:SubGeographicalRegion.Region ?rgn.
+ ?rgn c:IdentifiedObject.name ?region.
+ ?rgn c:IdentifiedObject.mRID ?rgnid.
+}
+ORDER by ?station ?feeder
+
+# list all the connectivity nodes by feeder - CIMImporter when building GldNodes
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?feeder ?name WHERE {
+ VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?s r:type c:ConnectivityNode.
+ ?s c:IdentifiedObject.name ?name.
+ ?fdr c:IdentifiedObject.name ?feeder.
+}
+ORDER by ?feeder ?name
+
+# list all the connectivity node base voltages by feeder, for visualization
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?feeder ?busname ?nomv WHERE {
+# VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?bus c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?bus r:type c:ConnectivityNode.
+ ?bus c:IdentifiedObject.name ?busname.
+ ?fdr c:IdentifiedObject.name ?feeder.
+ ?trm c:Terminal.ConnectivityNode ?bus.
+ ?trm c:Terminal.ConductingEquipment ?ce.
+ ?ce  c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv  c:BaseVoltage.nominalVoltage ?nomv.
+}
+ORDER by ?feeder ?busname ?nomv
+
+# list all the equipment by feeder and type
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?feeder ?type ?name WHERE {
+ ?s r:type ?typeraw.
+  bind(strafter(str(?typeraw),"#") as ?type)
+ ?s c:Equipment.EquipmentContainer ?fid.
+ ?s c:IdentifiedObject.name ?name.
+ ?fid c:IdentifiedObject.name ?feeder.
+}
+ORDER by ?feeder ?type ?name
+
+# list things by type for specific feeder mRID
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?type ?name WHERE {
+ ?fdr c:IdentifiedObject.mRID "C1C3E687-6FFD-C753-582B-632A27E28507". # 123 bus
+# ?fdr c:IdentifiedObject.mRID "49AD8E07-3BF9-A4E2-CB8F-C3722F837B62".  # 13 bus
+# ?fdr c:IdentifiedObject.mRID "5B816B93-7A5F-B64C-8460-47C17D6E4B0F".  # 13 bus assets
+# ?fdr c:IdentifiedObject.mRID "4F76A5F9-271D-9EB8-5E31-AA362D86F2C3".  # 8500 node
+# ?fdr c:IdentifiedObject.mRID "67AB291F-DCCD-31B7-B499-338206B9828F".  # J1
+# ?fdr c:IdentifiedObject.mRID "9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095".  # R2 12.47 3
+ ?s c:ConnectivityNode.ConnectivityNodeContainer|c:Equipment.EquipmentContainer ?fdr.
+ ?s c:IdentifiedObject.name ?name.
+ ?s r:type ?typeraw.
+  bind(strafter(str(?typeraw),"#") as ?type)
+}
+ORDER by ?type ?name
+
+# list things by type for specific feeder Name
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?type ?name ?fid WHERE {
+ ?fid r:type c:Feeder.
+ ?fid c:IdentifiedObject.name "ieee123".
+ ?s c:ConnectivityNode.ConnectivityNodeContainer|c:Equipment.EquipmentContainer ?fid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s r:type ?typeraw.
+  bind(strafter(str(?typeraw),"#") as ?type)
+}
+ORDER by ?type ?name
+
+# list all the connectivity nodes (aka bus)
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name WHERE {
+ ?s r:type c:ConnectivityNode.
+ ?s c:IdentifiedObject.name ?name}
+ORDER by ?name
+
+# DistIEEE1547Signals
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?id ?pecid ?rid ?kind ?tid ?fdrid WHERE {
+ ?s r:type c:DERIEEEType1.
+ ?s c:DERDynamics.PowerElectronicsConnection ?pec.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"520E4BC8-D3C2-4745-B784-AE23361E94BB"}  # remote 1phase b
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?pec c:IdentifiedObject.mRID ?pecid.
+ ?s c:DERDynamics.RemoteInputSignal ?rsig.
+ ?rsig c:IdentifiedObject.mRID ?rid.
+ ?rsig c:RemoteInputSignal.Terminal ?trm.
+ ?rsig c:RemoteInputSignal.remoteSignalType ?kindraw. bind(strafter(str(?kindraw),"RemoteSignalKind.") as ?kind)
+ ?trm c:IdentifiedObject.mRID ?tid.
+}
+ORDER by ?name ?id
+
+# DistIEEE1547Connections
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?fdrid (group_concat(distinct ?pid;separator="\n") as ?pids) WHERE {
+ ?s r:type c:DERIEEEType1.
+ ?s c:DERDynamics.PowerElectronicsConnection ?pec.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"520E4BC8-D3C2-4745-B784-AE23361E94BB"}  # remote 1phase b
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:IdentifiedObject.mRID ?pid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+}
+GROUP by ?name ?id ?fdrid
+ORDER by ?name ?id
+
+# DistIEEE1547Used
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?id ?pecid ?enabled ?cat ?acVnom ?acVmin ?acVmax ?sMax ?pMax 
+  ?hasConstPF ?hasConstQ ?hasPV ?hasQV ?hasQP ?hasPF ?usePG ?usePN ?usePP
+  ?pMaxOverPF ?overPF ?pMaxUnderPF ?underPF ?qMaxInj ?qMaxAbs ?pMaxCharge ?apparentPowerChargeMax ?fdrid 
+  ?vvEnabled ?vvV1 ?vvV2 ?vvV3 ?vvV4 ?vvQ1 ?vvQ2 ?vvQ3 ?vvQ4 ?vvRef ?vvRefAuto ?vvRefOlrt ?vvOlrt
+  ?wvEnabled ?wvP1gen ?wvP2gen ?wvP3gen ?wvQ1gen ?wvQ2gen ?wvQ3gen ?wvP1load ?wvP2load ?wvP3load ?wvQ1load ?wvQ2load ?wvQ3load
+  ?pfEnabled ?powerFactor ?pfKind
+  ?cqEnabled ?reactivePower
+  ?vwEnabled ?vwV1 ?vwP1 ?vwV2 ?vwP2gen ?vwP2load ?vwOlrt
+WHERE {
+ ?s r:type c:DERIEEEType1.
+ ?s c:DERDynamics.PowerElectronicsConnection ?pec.
+ ?s c:DERIEEEType1.phaseToGroundApplicable ?usePG.
+ ?s c:DERIEEEType1.phaseToNeutralApplicable ?usePN.
+ ?s c:DERIEEEType1.phaseToPhaseApplicable ?usePP.
+# feeder selection options - if all commented out, query matches all feeders
+# VALUES ?fdrid {"520E4BC8-D3C2-4745-B784-AE23361E94BB"}  # remote 1phase b
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:IdentifiedObject.mRID ?pecid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:DynamicsFunctionBlock.enabled ?enabled.
+ ?nd c:DERNameplateData.DERIEEEType1 ?s.
+ ?nd c:DERNameplateData.acVmin ?acVmin.
+ ?nd c:DERNameplateData.acVmax ?acVmax.
+ ?nd c:DERNameplateData.normalOPcatKind ?catraw. bind(strafter(str(?catraw),"NormalOPcatKind.") as ?cat)
+ ?nd c:DERNameplateData.supportsConstPFmode ?hasConstPF.
+ ?nd c:DERNameplateData.supportsConstQmode ?hasConstQ.
+ ?nd c:DERNameplateData.supportsPVmode ?hasPV.
+ ?nd c:DERNameplateData.supportsQVmode ?hasQV.
+ ?nd c:DERNameplateData.supportsQPmode ?hasQP.
+ ?nd c:DERNameplateData.supportsPFmode ?hasPF.
+ ?ad c:DERNameplateDataApplied.DERNameplateData ?nd.
+ ?ad c:DERNameplateDataApplied.acVnom ?acVnom.
+ ?ad c:DERNameplateDataApplied.sMax ?sMax.
+ ?ad c:DERNameplateDataApplied.pMax ?pMax.
+ ?ad c:DERNameplateDataApplied.pMaxOverPF ?pMaxOverPF.
+ ?ad c:DERNameplateDataApplied.overPF ?overPF.
+ ?ad c:DERNameplateDataApplied.pMaxUnderPF ?pMaxUnderPF.
+ ?ad c:DERNameplateDataApplied.underPF ?underPF.
+ ?ad c:DERNameplateDataApplied.qMaxInj ?qMaxInj.
+ ?ad c:DERNameplateDataApplied.qMaxAbs ?qMaxAbs.
+ ?ad c:DERNameplateDataApplied.pMaxCharge ?pMaxCharge.
+ ?ad c:DERNameplateDataApplied.apparentPowerChargeMax ?apparentPowerChargeMax.
+ ?vv c:VoltVarSettings.DERIEEEType1 ?s.
+ ?vv c:VoltVarSettings.enabled ?vvEnabled.
+ ?vv c:VoltVarSettings.vRef ?vvRef.
+ ?vv c:VoltVarSettings.vRefAutoModeEnabled ?vvRefAuto.
+ ?vv c:VoltVarSettings.vRefOlrt ?vvRefOlrt.
+ ?vv c:VoltVarSettings.curveV1 ?vvV1.
+ ?vv c:VoltVarSettings.curveV2 ?vvV2.
+ ?vv c:VoltVarSettings.curveV3 ?vvV3.
+ ?vv c:VoltVarSettings.curveV4 ?vvV4.
+ ?vv c:VoltVarSettings.curveQ1 ?vvQ1.
+ ?vv c:VoltVarSettings.curveQ2 ?vvQ2.
+ ?vv c:VoltVarSettings.curveQ3 ?vvQ3.
+ ?vv c:VoltVarSettings.curveQ4 ?vvQ4.
+ ?vv c:VoltVarSettings.olrt ?vvOlrt.
+ ?wv c:WattVarSettings.DERIEEEType1 ?s.
+ ?wv c:WattVarSettings.enabled ?wvEnabled.
+ ?wv c:WattVarSettings.curveP1gen ?wvP1gen.
+ ?wv c:WattVarSettings.curveP1load ?wvP1load.
+ ?wv c:WattVarSettings.curveP2gen ?wvP2gen.
+ ?wv c:WattVarSettings.curveP2load ?wvP2load.
+ ?wv c:WattVarSettings.curveP3gen ?wvP3gen.
+ ?wv c:WattVarSettings.curveP3load ?wvP3load.
+ ?wv c:WattVarSettings.curveQ1gen ?wvQ1gen.
+ ?wv c:WattVarSettings.curveQ1load ?wvQ1load.
+ ?wv c:WattVarSettings.curveQ2gen ?wvQ2gen.
+ ?wv c:WattVarSettings.curveQ2load ?wvQ2load.
+ ?wv c:WattVarSettings.curveQ3gen ?wvQ3gen.
+ ?wv c:WattVarSettings.curveQ3load ?wvQ3load.
+ ?vw c:VoltWattSettings.DERIEEEType1 ?s.
+ ?vw c:VoltWattSettings.enabled ?vwEnabled.
+ ?vw c:VoltWattSettings.curveV1 ?vwV1.
+ ?vw c:VoltWattSettings.curveP1 ?vwP1.
+ ?vw c:VoltWattSettings.curveV2 ?vwV2.
+ ?vw c:VoltWattSettings.curveP2gen ?vwP2gen.
+ ?vw c:VoltWattSettings.curveP2load ?vwP2load.
+ ?vw c:VoltWattSettings.olrt ?vwOlrt.
+ ?pf c:ConstantPowerFactorSettings.DERIEEEType1 ?s.
+ ?pf c:ConstantPowerFactorSettings.enabled ?pfEnabled.
+ ?pf c:ConstantPowerFactorSettings.powerFactor ?powerFactor.
+ ?pf c:ConstantPowerFactorSettings.constantPowerFactorExcitationKind ?pfraw. bind(strafter(str(?pfraw),"ConstantPowerFactorSettingKind.") as ?pfKind)
+ ?cq c:ConstantReactivePowerSettings.DERIEEEType1 ?s.
+ ?cq c:ConstantReactivePowerSettings.enabled ?cqEnabled.
+ ?cq c:ConstantReactivePowerSettings.reactivePower ?reactivePower.
+}
+ORDER by ?name ?id
+
+# Solar - DistSolar
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:PhotovoltaicUnit.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PowerElectronicsUnit.maxP ?maxP.
+ ?s c:PowerElectronicsUnit.minP ?minP.
+ ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+ ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+ ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+ ?pec c:PowerElectronicsConnection.p ?p.
+ ?pec c:PowerElectronicsConnection.q ?q.
+ ?pec c:PowerElectronicsConnection.minQ ?minQ.
+ ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
+ {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
+ ?pec c:IdentifiedObject.mRID ?pecid.
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?fdrid ?pecid ?t1id
+ORDER by ?name
+
+# Storage - DistStorage
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:BatteryUnit.
+ ?s c:IdentifiedObject.name ?name.
+ ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+ ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+ ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+ ?pec c:IdentifiedObject.mRID ?pecid.
+ ?s c:PowerElectronicsUnit.maxP ?maxP.
+ ?s c:PowerElectronicsUnit.minP ?minP.
+ ?s c:BatteryUnit.ratedE ?ratedE.
+ ?s c:BatteryUnit.storedE ?storedE.
+ ?s c:BatteryUnit.batteryState ?stateraw.
+   bind(strafter(str(?stateraw),"BatteryStateKind.") as ?state)
+ ?pec c:PowerElectronicsConnection.p ?p.
+ ?pec c:PowerElectronicsConnection.q ?q. 
+ ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
+ ?pec c:PowerElectronicsConnection.minQ ?minQ. 
+ {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?s c:IdentifiedObject.mRID ?id.
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid ?pecid ?t1id
+ORDER by ?name
+
+# substation source - DistSubstation
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?fdrname ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 ?t1id WHERE {
+ ?s r:type c:EnergySource.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?fdr c:IdentifiedObject.name ?fdrname.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:EnergySource.nominalVoltage ?nomv. 
+ ?s c:EnergySource.voltageMagnitude ?vmag. 
+ ?s c:EnergySource.voltageAngle ?vang. 
+ ?s c:EnergySource.r ?r1. 
+ ?s c:EnergySource.x ?x1. 
+ ?s c:EnergySource.r0 ?r0. 
+ ?s c:EnergySource.x0 ?x0. 
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name ?fdrname
+
+# CAUTION: switched to phase group_concat for the GMDM interop.  Needs a regression test.
+# capacitors (does not account for 2+ unequal phases on same LinearShuntCompensator) - DistCapacitor
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?montrm ?monphs ?id ?fdrid ?t1id
+(group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:LinearShuntCompensator.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:ShuntCompensator.nomU ?nomu. 
+ ?s c:LinearShuntCompensator.bPerSection ?bsection. 
+ ?s c:ShuntCompensator.sections ?sections. 
+ ?s c:ShuntCompensator.phaseConnection ?connraw.
+   bind(strafter(str(?connraw),"PhaseShuntConnectionKind.") as ?conn)
+ ?s c:ShuntCompensator.grounded ?grnd.
+ OPTIONAL {?scp c:ShuntCompensatorPhase.ShuntCompensator ?s.
+ ?scp c:ShuntCompensatorPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ OPTIONAL {?ctl c:RegulatingControl.RegulatingCondEq ?s.
+          ?ctl c:RegulatingControl.discrete ?discrete.
+          ?ctl c:RegulatingControl.enabled ?ctrlenabled.
+          ?ctl c:RegulatingControl.mode ?moderaw.
+           bind(strafter(str(?moderaw),"RegulatingControlModeKind.") as ?mode)
+          ?ctl c:RegulatingControl.monitoredPhase ?monraw.
+           bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+          ?ctl c:RegulatingControl.targetDeadband ?deadband.
+          ?ctl c:RegulatingControl.targetValue ?setpoint.
+          ?s c:ShuntCompensator.aVRDelay ?delay.
+          ?ctl c:RegulatingControl.Terminal ?trm.
+          ?trm c:Terminal.ConductingEquipment ?eq.
+          ?eq a ?classraw.
+           bind(strafter(str(?classraw),"CIM100#") as ?monclass)
+          ?eq c:IdentifiedObject.name ?moneq.
+          ?trm c:Terminal.ConnectivityNode ?moncn.
+          ?trm c:ACDCTerminal.sequenceNumber ?montrm.
+          ?moncn c:IdentifiedObject.name ?monbus.
+          }
+ ?s c:IdentifiedObject.mRID ?id. 
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP BY ?name ?basev ?nomu ?bsection ?sections ?bus ?conn ?grnd ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?montrm ?monphs ?id ?fdrid ?t1id
+ORDER by ?name
+
+# loads (need to account for 2+ unequal EnergyConsumerPhases per EnergyConsumer) - DistLoad
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?basev ?p ?q ?conn ?cnt ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?fdrid ?t1id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:EnergyConsumer.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}  # R2 12.47 3
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ OPTIONAL {?s c:EnergyConsumer.customerCount ?cnt.}
+ ?s c:EnergyConsumer.p ?p.
+ ?s c:EnergyConsumer.q ?q.
+ ?s c:EnergyConsumer.phaseConnection ?connraw.
+   bind(strafter(str(?connraw),"PhaseShuntConnectionKind.") as ?conn)
+ ?s c:EnergyConsumer.LoadResponse ?lr.
+ ?lr c:LoadResponseCharacteristic.pConstantImpedance ?pz.
+ ?lr c:LoadResponseCharacteristic.qConstantImpedance ?qz.
+ ?lr c:LoadResponseCharacteristic.pConstantCurrent ?pi.
+ ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi.
+ ?lr c:LoadResponseCharacteristic.pConstantPower ?pp.
+ ?lr c:LoadResponseCharacteristic.qConstantPower ?qp.
+ OPTIONAL {?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.}
+ OPTIONAL {?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.}
+ OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s.
+ ?ecp c:EnergyConsumerPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?t c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP BY ?name ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?fdrid ?t1id
+ORDER by ?name
+
+# per-length phase impedance matrics actually used - DistPhaseMatrix
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?cnt ?row ?col ?r ?x ?b WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+#VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
+#VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}  # R2 12.47 3
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.PerLengthImpedance ?s.
+ ?s r:type c:PerLengthPhaseImpedance.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PerLengthPhaseImpedance.conductorCount ?cnt.
+ ?elm c:PhaseImpedanceData.PhaseImpedance ?s.
+ ?elm c:PhaseImpedanceData.row ?row.
+ ?elm c:PhaseImpedanceData.column ?col.
+ ?elm c:PhaseImpedanceData.r ?r.
+ ?elm c:PhaseImpedanceData.x ?x.
+ ?elm c:PhaseImpedanceData.b ?b
+}
+ORDER BY ?name ?row ?col
+
+# per-length sequence impedance matrices actually used - DistSequenceMatrix
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?r1 ?x1 ?b1 ?r0 ?x0 ?b0 ?fdrid WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
+#VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.PerLengthImpedance ?s.
+ ?s r:type c:PerLengthSequenceImpedance.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PerLengthSequenceImpedance.r ?r1.
+ ?s c:PerLengthSequenceImpedance.x ?x1.
+ ?s c:PerLengthSequenceImpedance.bch ?b1.
+ ?s c:PerLengthSequenceImpedance.r0 ?r0.
+ ?s c:PerLengthSequenceImpedance.x0 ?x0.
+ ?s c:PerLengthSequenceImpedance.b0ch ?b0
+}
+ORDER by ?name
+
+# count phases on lines, put in DistLinesCodeZ
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count(?phs) as ?count) WHERE {
+  SELECT DISTINCT ?key ?phs WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # CIM100 13 bus
+VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?key.
+ OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+   ?acp c:ACLineSegmentPhase.phase ?phsraw.
+     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)}
+  }
+}
+GROUP BY ?key
+ORDER BY ?key
+
+# lines referencing linecodes - DistLinesCodeZ
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid ?seq ?phs ?t1id ?t2id
+#     (group_concat(distinct ?seq;separator="\n") as ?seqs) 
+#     (group_concat(distinct ?phs;separator="\n") as ?phases) 
+# the group_concat doesn't maintain order, so we can't rely on synchronization between the phases and sequence numbers
+# here, we explicitly retain separate row for each phase, and order them by sequenceNumber
+WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.PerLengthImpedance ?lcode.
+ ?lcode c:IdentifiedObject.name ?lname. 
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+   ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
+     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)}
+}
+ORDER BY ?name ?seq ?phs
+
+# lines referencing linecodes - DistLinesCodeZ2
+# concatenates the sequence/phase fields, as in q100.xml
+# the group_concat doesn't maintain order, so we can't rely on synchronization between the phases and sequence numbers
+# here, we explicitly bind sequenceNumber and phase in seqphs
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid ?t1id ?t2id
+     (group_concat(distinct ?seqphs;separator=":") as ?seqs) 
+     (group_concat(distinct ?phs;separator="") as ?phases) 
+WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.PerLengthImpedance ?lcode.
+ ?lcode c:IdentifiedObject.name ?lname. 
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+   ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
+     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+     bind(concat(?seq, ?phs) as ?seqphs)}
+}
+GROUP BY ?name ?basev ?bus1 ?bus2 ?len ?lname ?fdrid ?t1id ?t2id
+ORDER BY ?name
+
+# load-break switches (not handling different phases on each side, or different normalOpen values per phase) - DistLoadBreakSwitch
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?open ?fdrid ?continuous ?breaking (group_concat(distinct ?bus;separator="\n") as ?buses) (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:LoadBreakSwitch.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
+#VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}  # R2 12.47 3
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ ?s c:Switch.ratedCurrent ?continuous.
+ ?s c:ProtectedSwitch.breakingCapacity ?breaking.
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?basev ?open ?fdrid ?continuous ?breaking
+ORDER BY ?name
+
+# load-break switches (not handling different phases on each side, or different normalOpen values per phase) - DistLoadBreakSwitch
+# this version relies on ACDCTerminal.sequenceNumber being 1 and 2
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?bus1 ?bus2 ?open ?fdrid ?continuous ?breaking (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:LoadBreakSwitch.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
+#VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}  # R2 12.47 3
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ ?s c:Switch.ratedCurrent ?continuous.
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?basev ?bus1 ?bus2 ?open ?fdrid ?continuous ?breaking
+ORDER BY ?name
+
+# transformer codes; winding ratings actually used - DistXfmrCodeRating
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?tname ?enum ?ratedS ?ratedU ?conn ?ang ?res ?id ?eid ?ename WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?xft c:TransformerTank.PowerTransformer ?eq.
+ ?xft c:TransformerTank.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?t c:IdentifiedObject.mRID ?id.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?e c:IdentifiedObject.mRID ?eid.
+ ?e c:IdentifiedObject.name ?ename.
+ ?e c:TransformerEndInfo.endNumber ?enum.
+ ?e c:TransformerEndInfo.ratedS ?ratedS.
+ ?e c:TransformerEndInfo.ratedU ?ratedU.
+ ?e c:TransformerEndInfo.r ?res.
+ ?e c:TransformerEndInfo.phaseAngleClock ?ang.
+ ?e c:TransformerEndInfo.connectionKind ?connraw.
+   bind(strafter(str(?connraw),"WindingConnection.") as ?conn)
+}
+ORDER BY ?tname ?enum
+
+# transformer codes; count winding ratings actually used - DistXfmrCodeRating
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count(?enum) as ?count) WHERE {
+  SELECT DISTINCT ?key ?enum WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+   ?eq c:Equipment.EquipmentContainer ?fdr.
+   ?fdr c:IdentifiedObject.mRID ?fdrid.
+   ?xft c:TransformerTank.PowerTransformer ?eq.
+   ?xft c:TransformerTank.TransformerTankInfo ?t.
+   ?t c:IdentifiedObject.name ?key.
+   ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+   ?e c:TransformerEndInfo.endNumber ?enum.
+  }
+}
+GROUP BY ?key
+ORDER BY ?key
+
+# transformer codes; no-load tests actually used - DistXfmrCodeNLTest
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?tname ?nll ?iexc ?base WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?xft c:TransformerTank.PowerTransformer ?eq.
+ ?xft c:TransformerTank.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?nlt c:NoLoadTest.EnergisedEnd ?e.
+ ?nlt c:NoLoadTest.loss ?nll.
+ ?nlt c:NoLoadTest.excitingCurrent ?iexc.
+ ?nlt c:TransformerTest.basePower ?base.
+}
+ORDER BY ?tname
+
+# transformer codes; short-circuit tests - DistXfmrCodeSCTest
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?tname ?enum ?gnum ?z ?ll ?base WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?xft c:TransformerTank.PowerTransformer ?eq. 
+ ?xft c:TransformerTank.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?e c:TransformerEndInfo.endNumber ?enum.
+ ?sct c:ShortCircuitTest.EnergisedEnd ?e.
+ ?sct c:ShortCircuitTest.leakageImpedance ?z.
+ ?sct c:ShortCircuitTest.loss ?ll.
+ ?sct c:ShortCircuitTest.GroundedEnds ?grnd.
+ ?grnd c:TransformerEndInfo.endNumber ?gnum.
+ ?sct c:TransformerTest.basePower ?base.
+}
+ORDER BY ?tname ?enum ?gnum
+
+# transformer codes; count short-circuit tests - DistXfmrCodeSCTest
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count(?sct) as ?count) WHERE {
+  SELECT DISTINCT ?key ?sct WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+   ?eq c:Equipment.EquipmentContainer ?fdr.
+   ?fdr c:IdentifiedObject.mRID ?fdrid.
+   ?xft c:TransformerTank.PowerTransformer ?eq.
+   ?xft c:TransformerTank.TransformerTankInfo ?t.
+   ?t c:IdentifiedObject.name ?key.
+   ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+   ?sct c:ShortCircuitTest.EnergisedEnd ?e.
+  }
+}
+GROUP BY ?key
+ORDER BY ?key
+
+# transformer tanks referencing the catalog - DistXfmrTank
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?orderedPhases ?grounded ?rground ?xground ?fdrid ?t1id WHERE {
+ ?p r:type c:PowerTransformer.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?t c:TransformerTank.PowerTransformer ?p.
+ ?t c:IdentifiedObject.name ?tname.
+ ?t c:TransformerTank.TransformerTankInfo ?inf.
+ ?inf c:IdentifiedObject.name ?xfmrcode.
+ ?end c:TransformerTankEnd.TransformerTank ?t.
+ ?end c:TransformerTankEnd.orderedPhases ?phsraw.
+  bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?orderedPhases)
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?end c:TransformerEnd.grounded ?grounded.
+ OPTIONAL {?end c:TransformerEnd.rground ?rground.}
+ OPTIONAL {?end c:TransformerEnd.xground ?xground.}
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?trm c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus.
+ ?end c:TransformerEnd.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev
+}
+ORDER BY ?pname ?tname ?enum
+
+# count the ends of transformer tanks referencing the catalog - DistXfmrTank
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count (?p) as ?count) WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?t c:TransformerTank.PowerTransformer ?p.
+ ?t c:IdentifiedObject.name ?key.
+ ?end c:TransformerTankEnd.TransformerTank ?t
+}
+GROUP BY ?key
+ORDER BY ?key
+
+# power transformers on their own; windings - DistPowerXfmrWinding
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid ?t1id WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+#VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
+#VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+#VALUES ?fdrid {"9CE150A8-8CC5-A0F9-B67E-BBD8C79D3095"}  # R2 12.47 3
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?end c:PowerTransformerEnd.ratedS ?ratedS.
+ ?end c:PowerTransformerEnd.ratedU ?ratedU.
+ ?end c:PowerTransformerEnd.r ?r.
+ ?end c:PowerTransformerEnd.phaseAngleClock ?ang.
+ ?end c:PowerTransformerEnd.connectionKind ?connraw.  
+  bind(strafter(str(?connraw),"WindingConnection.") as ?conn)
+ ?end c:TransformerEnd.grounded ?grounded.
+ OPTIONAL {?end c:TransformerEnd.rground ?rground.}
+ OPTIONAL {?end c:TransformerEnd.xground ?xground.}
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?trm c:IdentifiedObject.mRID ?t1id. 
+ ?cn c:IdentifiedObject.name ?bus.
+ ?end c:TransformerEnd.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev
+}
+ORDER BY ?pname ?enum
+
+# count power transformer windings - DistPowerXfmrWinding
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count(?p) as ?count) WHERE {
+VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?key.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+}
+GROUP BY ?key
+ORDER BY ?key
+
+# power transformers on their own; core branch - DistPowerXfmrCore
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?enum ?b ?g WHERE {
+VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?adm c:TransformerCoreAdmittance.TransformerEnd ?end.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?adm c:TransformerCoreAdmittance.b ?b.
+ ?adm c:TransformerCoreAdmittance.g ?g.
+}
+ORDER BY ?pname
+
+# power transformers on their own; mesh impedances - DistPowerXfmrMesh
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?pname ?fnum ?tnum ?r ?x WHERE {
+VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?from c:PowerTransformerEnd.PowerTransformer ?p.
+ ?imp c:TransformerMeshImpedance.FromTransformerEnd ?from.
+ ?imp c:TransformerMeshImpedance.ToTransformerEnd ?to.
+ ?imp c:TransformerMeshImpedance.r ?r.
+ ?imp c:TransformerMeshImpedance.x ?x.
+ ?from c:TransformerEnd.endNumber ?fnum.
+ ?to c:TransformerEnd.endNumber ?tnum.
+}
+ORDER BY ?pname ?fnum ?tnum
+
+# count the number of transformer mesh impedances - DistPowerXfmrMesh
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count (?imp) as ?count) WHERE {
+VALUES ?fdrid {"67AB291F-DCCD-31B7-B499-338206B9828F"}  # J1
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?key.
+ ?from c:PowerTransformerEnd.PowerTransformer ?p.
+ ?imp c:TransformerMeshImpedance.FromTransformerEnd ?from.
+}
+GROUP BY ?key
+ORDER BY ?key
+
+# voltage regulators - DistRegulator
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+ ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin
+ ?vset ?vbw ?ldc ?fwdR ?fwdX 
+ ?revR ?revX ?revEnabled ?revDelay ?revSet ?revBand ?revNeutral ?revThreshold
+ ?discrete ?ctl_enabled ?ctlmode ?monphs ?ctRating ?ctRatio ?ptRatio ?fdrid ?pxfid
+WHERE {
+#VALUES ?fdrid {"49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+#VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?pxf c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?rtc r:type c:RatioTapChanger.
+ ?rtc c:IdentifiedObject.name ?rname.
+ ?rtc c:RatioTapChanger.TransformerEnd ?end.
+ ?end c:TransformerEnd.endNumber ?wnum.
+{?end c:PowerTransformerEnd.PowerTransformer ?pxf.}
+  UNION
+{?end c:TransformerTankEnd.TransformerTank ?tank.
+ ?tank c:IdentifiedObject.name ?tname.
+ OPTIONAL {?end c:TransformerTankEnd.orderedPhases ?phsraw.
+  bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?orderedPhases)}
+ ?tank c:TransformerTank.PowerTransformer ?pxf.}
+ ?pxf c:IdentifiedObject.name ?pname.
+ ?pxf c:IdentifiedObject.mRID ?pxfid.
+ ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
+ ?rtc c:TapChanger.controlEnabled ?enabled.
+ ?rtc c:TapChanger.highStep ?highStep.
+ ?rtc c:TapChanger.lowStep ?lowStep.
+ ?rtc c:TapChanger.ltcFlag ?ltc.
+ ?rtc c:TapChanger.neutralStep ?neutralStep.
+ ?rtc c:TapChanger.neutralU ?neutralU.
+ ?rtc c:TapChanger.normalStep ?normalStep.
+ ?rtc c:TapChanger.step ?step.
+ OPTIONAL{?rtc c:TapChanger.initialDelay ?initDelay.
+    ?rtc c:TapChanger.subsequentDelay ?subDelay.
+ 	?rtc c:TapChanger.ctRating ?ctRating.
+ 	?rtc c:TapChanger.ctRatio ?ctRatio.
+ 	?rtc c:TapChanger.ptRatio ?ptRatio.}
+ OPTIONAL{?rtc c:TapChanger.TapChangerControl ?ctl.
+ 	?ctl c:TapChangerControl.maxLimitVoltage ?vlim.
+ 	?ctl c:TapChangerControl.minLimitVoltage ?vmin.
+ 	?ctl c:TapChangerControl.lineDropCompensation ?ldc.
+ 	OPTIONAL{?ctl c:TapChangerControl.lineDropR ?fwdR.}
+ 	OPTIONAL{?ctl c:TapChangerControl.lineDropX ?fwdX.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reverseLineDropR ?revR.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reverseLineDropX ?revX.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reversible ?revEnabled.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reversingDelay ?revDelay.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reverseToNeutral ?revNeutral.}
+ 	OPTIONAL{?ctl c:TapChangerControl.reversingPowerThreshold ?revThreshold.}
+ 	OPTIONAL{?ctl c:RegulatingControl.reverseTargetDeadband ?revBand.}
+ 	OPTIONAL{?ctl c:RegulatingControl.reverseTargetValue ?revSet.}
+ 	?ctl c:RegulatingControl.discrete ?discrete.
+ 	?ctl c:RegulatingControl.enabled ?ctl_enabled.
+ 	?ctl c:RegulatingControl.mode ?ctlmoderaw.
+  	 bind(strafter(str(?ctlmoderaw),"RegulatingControlModeKind.") as ?ctlmode)
+ 	?ctl c:RegulatingControl.monitoredPhase ?monraw.
+  	 bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+ 	?ctl c:RegulatingControl.targetDeadband ?vbw.
+ 	?ctl c:RegulatingControl.targetValue ?vset.}
+}
+ORDER BY ?pname ?tname ?rname ?wnum
+
+# list the conducting equipment XY sequences (now preferred) - DistCoordinates
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?class ?name ?seq ?x ?y WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+VALUES ?fdrid {"E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # 13 bus
+#VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # 13 bus assets
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?eq c:PowerSystemResource.Location ?loc.
+{ ?eq c:IdentifiedObject.name ?name.
+  ?eq a ?classraw.
+  bind(strafter(str(?classraw),"CIM100#") as ?class)}
+  UNION
+{ ?eq c:PowerElectronicsConnection.PowerElectronicsUnit ?unit.
+  ?unit c:IdentifiedObject.name ?name.
+  ?unit a ?classraw.
+  bind(strafter(str(?classraw),"CIM100#") as ?class)}
+ ?pt c:PositionPoint.Location ?loc.
+ ?pt c:PositionPoint.xPosition ?x.
+ ?pt c:PositionPoint.yPosition ?y.
+ ?pt c:PositionPoint.sequenceNumber ?seq.
+ FILTER (!regex(?class, "Phase")).
+ FILTER (!regex(?class, "TapChanger")).
+ FILTER (!regex(?class, "Tank")).
+ FILTER (!regex(?class, "RegulatingControl")).
+}
+ORDER BY ?class ?name ?seq ?x ?y
+
+# lines with stand-alone impedances - DistLinesInstanceZ
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid ?t1id ?t2id WHERE {
+ ?s r:type c:ACLineSegment.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.r ?r.
+ ?s c:ACLineSegment.x ?x.
+ OPTIONAL {?s c:ACLineSegment.bch ?b.}
+ OPTIONAL {?s c:ACLineSegment.r0 ?r0.}
+ OPTIONAL {?s c:ACLineSegment.x0 ?x0.}
+ OPTIONAL {?s c:ACLineSegment.b0ch ?b0.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?cn2 c:IdentifiedObject.name ?bus2
+}
+GROUP BY ?name ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid ?t1id ?t2id
+ORDER BY ?name
+
+# wiredata actually used - DistOverheadWire
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # 13 bus
+VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # 13 bus assets
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
+ ?acp c:ACLineSegmentPhase.WireInfo ?w.
+ ?w r:type c:OverheadWireInfo.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:WireInfo.radius ?rad.
+ ?w c:WireInfo.gmr ?gmr.
+ OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}
+ OPTIONAL {?w c:WireInfo.rAC25 ?r25.}
+ OPTIONAL {?w c:WireInfo.rAC50 ?r50.}
+ OPTIONAL {?w c:WireInfo.rAC75 ?r75.}
+ OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}
+ OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}
+ OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw.
+     bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
+ OPTIONAL {?w c:WireInfo.insulated ?ins.}
+ OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+}
+ORDER BY ?name
+
+# tape shield cables actually used - DistTapeShieldCable
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?diacore ?diains 
+       ?diascreen ?diajacket ?sheathneutral ?tapelap ?tapethickness ?epsr
+WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # 13 bus
+VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # 13 bus assets
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
+ ?acp c:ACLineSegmentPhase.WireInfo ?w.
+ ?w r:type c:TapeShieldCableInfo.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:WireInfo.radius ?rad.
+ ?w c:WireInfo.gmr ?gmr.
+ OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}
+ OPTIONAL {?w c:WireInfo.rAC25 ?r25.}
+ OPTIONAL {?w c:WireInfo.rAC50 ?r50.}
+ OPTIONAL {?w c:WireInfo.rAC75 ?r75.}
+ OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}
+ OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}
+ OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw.
+     bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
+ OPTIONAL {?w c:WireInfo.insulated ?ins.}
+ OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+ OPTIONAL {?w c:CableInfo.diameterOverCore ?diacore.}
+ OPTIONAL {?w c:CableInfo.diameterOverJacket ?diajacket.}
+ OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}
+ OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}
+ OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}
+ OPTIONAL {?w c:CableInfo.relativePermittivity ?epsr.}
+ OPTIONAL {?w c:TapeShieldCableInfo.tapeLap ?tapelap.}
+ OPTIONAL {?w c:TapeShieldCableInfo.tapeThickness ?tapethickness.}
+}
+ORDER BY ?name
+
+# concentric neutrals actually used - DistConcentricNeutralCable
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?diacore ?diains ?diascreen ?diajacket ?dianeut ?sheathneutral 
+       ?strand_cnt ?strand_rad ?strand_gmr ?strand_rdc ?epsr
+WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # 13 bus
+VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # 13 bus assets
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
+ ?acp c:ACLineSegmentPhase.WireInfo ?w.
+ ?w r:type c:ConcentricNeutralCableInfo.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:WireInfo.radius ?rad.
+ ?w c:WireInfo.gmr ?gmr.
+ OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}
+ OPTIONAL {?w c:WireInfo.rAC25 ?r25.}
+ OPTIONAL {?w c:WireInfo.rAC50 ?r50.}
+ OPTIONAL {?w c:WireInfo.rAC75 ?r75.}
+ OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}
+ OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}
+ OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw.
+     bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
+ OPTIONAL {?w c:WireInfo.insulated ?ins.}
+ OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+ OPTIONAL {?w c:CableInfo.diameterOverCore ?diacore.}
+ OPTIONAL {?w c:CableInfo.diameterOverJacket ?diajacket.}
+ OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}
+ OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}
+ OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}
+ OPTIONAL {?w c:CableInfo.relativePermittivity ?epsr.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.diameterOverNeutral ?dianeut.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandCount ?strand_cnt.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandGmr ?strand_gmr.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandRadius ?strand_rad.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandRDC20 ?strand_rdc.}
+}
+ORDER BY ?name
+
+# count wires on wire spacings that are used - DistLineSpacing
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count(?seq) as ?count) WHERE {
+  SELECT DISTINCT ?key ?seq WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.WireSpacingInfo ?w.
+ ?w c:IdentifiedObject.name ?key.
+ ?pos c:WirePosition.WireSpacingInfo ?w.
+ ?pos c:WirePosition.sequenceNumber ?seq.
+}}
+GROUP BY ?key
+ORDER BY ?key
+
+# wire spacings - DistLineSpacing
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y
+WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.WireSpacingInfo ?w.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:IdentifiedObject.mRID ?id.
+ ?pos c:WirePosition.WireSpacingInfo ?w.
+ ?pos c:WirePosition.xCoord ?x.
+ ?pos c:WirePosition.yCoord ?y.
+ ?pos c:WirePosition.sequenceNumber ?seq.
+ ?w c:WireSpacingInfo.isCable ?cable.
+ ?w c:WireSpacingInfo.phaseWireCount ?bundle_count.
+ ?w c:WireSpacingInfo.phaseWireSpacing ?bundle_sep.
+ ?w c:WireSpacingInfo.usage ?useraw.
+   bind(strafter(str(?useraw),"WireUsageKind.") as ?usage).
+}
+ORDER BY ?name ?seq
+
+# line segments with individual phase wire assignments, ordered by phase - DistLinesSpacingZ granular format (PREFERRED)
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?phs ?phname ?phclass ?t1id ?t2id
+    WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.WireSpacingInfo ?inf.
+ ?inf c:IdentifiedObject.name ?spacing.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+ ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+ ?acp c:ACLineSegmentPhase.WireInfo ?phinf.
+ ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
+ ?phinf c:IdentifiedObject.name ?phname.
+ ?phinf a ?phclassraw.
+   bind(strafter(str(?phclassraw),"CIM100#") as ?phclass)
+}
+ORDER BY ?name ?seq ?phs
+
+# line segments with individual phase wire assignments, ordered by phase - DistLinesSpacingZ concatenated format (DEPRECATED)
+# deprecated - this doesn't execute the same way embedded in Java
+# Actually, the order of group_concat is undefined in SPARQL, so we should be careful using more than one in a query
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?fdrid ?bus1 ?bus2 ?len ?spacing
+  (group_concat(?phs;separator="\n") as ?phases) 
+  (group_concat(?phname;separator="\n") as ?phwires) 
+  (group_concat(?phclass;separator="\n") as ?phclasses)
+WHERE {
+  SELECT ?name ?basev ?bus1 ?bus2 ?len ?spacing ?phs ?phname ?phclass ?fdrid
+    WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"E0172D35-7A23-1CE5-9883-1A65D4409E2B"}  # CIM100 13 bus
+VALUES ?fdrid {"803ED06B-9DC7-630C-E538-D6DBBFDE022D"}  # CIM100 13 bus assets
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.WireSpacingInfo ?inf.
+ ?inf c:IdentifiedObject.name ?spacing.
+ ?inf a c:WireSpacingInfo.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+ ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+ ?acp c:ACLineSegmentPhase.WireInfo ?phinf.
+ ?phinf c:IdentifiedObject.name ?phname.
+ ?phinf a ?phclassraw.
+   bind(strafter(str(?phclassraw),"CIM100#") as ?phclass)
+ } ORDER BY ?name ?phs
+}
+GROUP BY ?name ?fdrid ?basev ?bus1 ?bus2 ?len ?spacing
+ORDER BY ?name
+
+# transformer banks containing tanks - DistXfmrBank
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?pname ?vgrp ?tname ?id ?fdrid WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+# VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:IdentifiedObject.mRID ?id.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?t c:TransformerTank.PowerTransformer ?p.
+ ?t c:IdentifiedObject.name ?tname
+}
+ORDER BY ?pname ?tname
+
+# count tanks in the same bank - DistXfmrBank
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?key (count(?tank) as ?count) WHERE {
+# feeder selection options - if all commented out, query matches all feeders
+VALUES ?fdrid {"5B816B93-7A5F-B64C-8460-47C17D6E4B0F"}  # 13 bus assets
+ ?pxf c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?tank c:TransformerTank.PowerTransformer ?pxf.
+ ?pxf c:IdentifiedObject.name ?key
+}
+GROUP BY ?key
+ORDER BY ?key
+
+# Get all inverters (PowerElectronicsConnection)
+# NOTE: For whatever reason, "inverterMode," "maxQ," and "minQ" are
+# not included for the 9500 node model, and have thus been moved
+# into an OPTIONAL block.
+#
+# NOTE: Naming conventions: "inverter_" is associated with the
+# "Wires::PowerElectronicsConnection" object, and "phase_" is
+# associated with the "Wires::PowerElectronicsConnectionPhase"
+# object. Documentation:
+# https://gridappsd.readthedocs.io/en/latest/developer_resources/index.html#cim-documentation
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?inverter_mrid ?inverter_name ?inverter_mode ?inverter_max_q ?inverter_min_q ?inverter_p ?inverter_q ?inverter_rated_s ?inverter_rated_u ?phase_mrid ?phase_name ?phase_p ?phase_q (group_concat(distinct ?phs;separator="\n") as ?phases) 
+WHERE {
+# Update for your feeder, or remove for all feeders.
+VALUES ?feeder_mrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+?s r:type c:PowerElectronicsConnection.
+?s c:Equipment.EquipmentContainer ?fdr.
+?fdr c:IdentifiedObject.mRID ?feeder_mrid.
+?s c:IdentifiedObject.mRID ?inverter_mrid.
+?s c:IdentifiedObject.name ?inverter_name.
+?s c:PowerElectronicsConnection.p ?inverter_p.
+?s c:PowerElectronicsConnection.q ?inverter_q.
+?s c:PowerElectronicsConnection.ratedS ?inverter_rated_s.
+?s c:PowerElectronicsConnection.ratedU ?inverter_rated_u.
+OPTIONAL {
+?s c:PowerElectronicsConnection.inverterMode ?inverter_mode.
+?s c:PowerElectronicsConnection.maxQ ?inverter_max_q.
+?s c:PowerElectronicsConnection.minQ ?inverter_min_q.
+}
+OPTIONAL {
+?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?s.
+?pecp c:IdentifiedObject.mRID ?phase_mrid.
+?pecp c:IdentifiedObject.name ?phase_name.
+?pecp c:PowerElectronicsConnectionPhase.p ?phase_p.
+?pecp c:PowerElectronicsConnectionPhase.q ?phase_q.
+?pecp c:PowerElectronicsConnectionPhase.phase
+?phsraw bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+}
+}
+GROUP BY ?inverter_mrid ?inverter_name ?inverter_rated_s ?inverter_rated_u ?inverter_p ?inverter_q ?phase_mrid ?phase_name ?phase_p ?phase_q ?inverter_mode ?inverter_max_q ?inverter_min_q
+ORDER BY ?inverter_mrid
+
+# Get all measurements associated with inverters (PowerElectronicsConnection)
+# NOTE: It would appear that the measurements for inverters are
+# associated with PowerElectronicsConnection objects and NOT
+# PowerElectronicsConnectionPhase objects. You can prove this by
+# replacing PowerElectronicsConnection with
+# PowerElectronicsConnectionPhase below.
+PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c: <http://iec.ch/TC57/CIM100#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?inverter_mrid ?meas_mrid ?phase
+WHERE {
+  # Update for your feeder, or remove for all feeders.
+  VALUES ?feeder_mrid {"AAE94E4A-2465-6F5E-37B1-3E72183A4E44"}
+  ?s r:type ?type.
+  ?s c:IdentifiedObject.mRID ?meas_mrid.
+  ?s c:Measurement.PowerSystemResource ?eq.
+  ?s c:Measurement.Terminal ?trm.
+  ?s c:Measurement.phases ?phsraw.
+  {bind(strafter(str(?phsraw),"PhaseCode.") as ?phase)} .
+  ?eq c:IdentifiedObject.mRID ?inverter_mrid.
+  ?eq r:type c:PowerElectronicsConnection.
+  ?eq c:Equipment.EquipmentContainer ?fdr.
+  ?fdr c:IdentifiedObject.mRID ?feeder_mrid.
+}
+ORDER BY ?inverter_mrid
+
+# series reactor - DistSeriesCompensator
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid ?t1id ?t2id WHERE {
+ ?s r:type c:SeriesCompensator.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"4F76A5F9-271D-9EB8-5E31-AA362D86F2C3"}  # 8500 node
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:SeriesCompensator.r ?r.
+ ?s c:SeriesCompensator.x ?x.
+ OPTIONAL {?s c:SeriesCompensator.r0 ?r0.}
+ OPTIONAL {?s c:SeriesCompensator.x0 ?x0.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ ?t1 c:IdentifiedObject.mRID ?t1id.
+ ?t2 c:IdentifiedObject.mRID ?t2id.
+}
+GROUP BY ?name ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid ?t1id ?t2id
+ORDER BY ?name
+
+# shapes and profiles for loads and DER - DistEnergyConnectionProfile
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT DISTINCT ?name ?id ?ldid ?ldname ?dssDaily ?dssDuty ?dssLoadCvrCurve ?dssLoadGrowth
+ ?dssPVTDaily ?dssPVTDuty ?dssPVTYearly ?dssSpectrum ?dssYearly
+ ?gldPlayer ?gldSchedule WHERE {
+ ?s r:type c:EnergyConnectionProfile.
+# feeder selection options - if all commented out, query matches all feeders
+#VALUES ?fdrid {"CBE09B55-091B-4BB0-95DA-392237B12640"}  # 123 bus
+VALUES ?fdrid {"C4248C71-A0EE-4D78-AFEE-74F3359A2099"}  # ecp_daily
+ ?ld c:Equipment.EquipmentContainer ?fdr.
+ {?ld r:type c:SynchronousMachine.}
+   UNION
+ {?ld r:type c:PowerElectronicsConnection.}
+   UNION
+ {?ld r:type c:EnergyConsumer.}
+ ?ld c:IdentifiedObject.mRID ?ldid.
+ ?ld c:IdentifiedObject.name ?ldname.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?ecp c:IdentifiedObject.name ?name.
+ ?ecp c:IdentifiedObject.mRID ?id.
+ ?ecp c:EnergyConnectionProfile.EnergyConnections ?ld.
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssDaily ?dssDaily.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssDuty ?dssDuty.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadCvrCurve ?dssLoadCvrCurve.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadGrowth ?dssLoadGrowth.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTDaily ?dssPVTDaily.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTDuty ?dssPVTDuty.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTYearly ?dssPVTYearly.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssSpectrum ?dssSpectrum.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.dssYearly ?dssYearly.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.gldPlayer ?gldPlayer.}
+ OPTIONAL {?ecp c:EnergyConnectionProfile.gldSchedule ?gldSchedule.}
+}
+ORDER by ?name ?ldname
+

@@ -1,0 +1,46 @@
+Clear
+Set DefaultBaseFrequency=60
+
+// Ungrounded-Y/4-wire delta with 3-phase Induction machine
+
+New Circuit.IMOYODlead basekv=12.47 pu=1.00 MVAsc1=1e6 MVAsc3=1e6
+
+set earthmodel=carson
+
+// use Kron-reduced matrices per mile, for grounding the transformer primary
+New linecode.556MCMred nphases=3 basefreq=60 units=mi
+~ rmatrix = (0.3375 | 0.1535 0.3414  | 0.1559 0.1580 0.3465 )
+~ xmatrix = (1.0478 | 0.3849 1.0348 | 0.5017 0.4236 1.0179 )
+~ cmatrix = (2.849 | -0.922454 3.00287 | -0.353318 -0.587272 2.70828 )
+
+New linecode.4/0QUAD nphases=4 basefreq=60  units=mi ! ohms per mile
+~ rmatrix = (.579 | .095  .579  |  .095 .095 .579 | .095 .095 .095 .687 )
+~ xmatrix = (1.466 | 1.311 1.466| 1.311  1.311  1.466 | 1.251  1.251  1.251  1.546 )
+~ cmatrix = (1 | 0 1 | 0 0 1| 0 0 0 1 )   ! dummy capacitance for Quad
+
+New Line.OHLine bus1=sourcebus bus2=Primary linecode=556mcmred  length=5 units=mi
+New Line.Quad   Bus1=secondary bus2=loadbus linecode=4/0quad length=100 units=ft  
+
+!  Transformer  Bank - ungrounded wye/delta-CT, then remove CA leg and ground primary
+New Transformer.XfmrAB    Phases=1 Windings=3 Xhl=1.44 XHt = 1.44  Xlt=.96 bank=Xfmr
+~ wdg=1 bus=Primary.1.0       kv=7.2  kva=15  %r=0.65 
+~ wdg=2 bus=secondary.1.0     kv=.12  kva=15  %r=1.3 // conn=delta
+~ wdg=3 bus=secondary.0.2     kv=.12  kva=15  %r=1.3 // conn=delta
+
+New Transformer.XfmrBC    Phases=1 Windings=2 Xhl=1.6 bank=Xfmr
+~ wdg=1 bus=Primary.2.0       kv=7.2  kva=10  %r=0.7 
+~ wdg=2 bus=secondary.2.3     kv=.24  kva=10  %r=0.7  conn=delta
+
+// single-phase, constant-impedance loads
+New Load.L1  phases=1 conn=w bus1=loadbus.1.0 kv=0.12  kVA=2  pf=.9  model=2
+New Load.L2  phases=1 conn=w bus1=loadbus.2.0 kv=0.12  kVA=3  pf=.95 model=2
+New Load.L12 phases=1 conn=d bus1=loadbus.1.2 kv=0.24  kVA=10 pf=.85 model=2
+
+// 25-hp Induction Motor load
+New Load.Motor phases=3 bus1=loadbus conn=delta kv=0.24 kw=18.65 pf=0.83 model=3
+
+Set voltagebases=[12.47  0.240]
+calcvoltagebases
+set tolerance=1e-8
+Solve
+

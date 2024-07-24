@@ -1,0 +1,27 @@
+// make some random UUID values for any additional feeders,
+//  using "import uuid;idNew=uuid.uuid4();print(str(idNew).upper())"
+//
+
+// IEEE13x with separation between all inverters
+// 
+redirect IEEE13_PV.dss
+export summary   IEEE13_PV_s.csv
+export voltages  IEEE13_PV_v.csv
+export currents  IEEE13_PV_i.csv
+export taps      IEEE13_PV_t.csv
+export nodeorder IEEE13_PV_n.csv
+uuids ieee13_pv_uuids.dat
+export cim100 file=IEEE13_PV.xml sub=IEEE13 subgeo=Medium geo=IEEE fid=8122F968-1805-4CDA-826D-E7006985C23B
+export uuids ieee13_pv_uuids.dat
+
+// IEEE LVN (390 bus North American, cables in parallel) with some DER
+redirect IEEE390_PV.dss
+export summary   IEEE390_PV_s.csv
+export voltages  IEEE390_PV_v.csv
+export currents  IEEE390_PV_i.csv
+export taps      IEEE390_PV_t.csv
+export nodeorder IEEE390_PV_n.csv
+uuids ieee390_pv_uuids.dat
+export cim100 file=IEEE390_PV.xml sub=IEEE390 subgeo=Medium geo=IEEE fid=FF06502A-99DA-4AD9-A172-46CA60EDEF55
+export uuids ieee390_pv_uuids.dat
+

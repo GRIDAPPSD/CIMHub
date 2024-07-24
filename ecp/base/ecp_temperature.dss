@@ -1,0 +1,47 @@
+clear
+new circuit.ecp_temperature basekv=13.2 pu=1.00 r1=0.001 x1=0.001 r0=0.001 x0=0.001
+new line.thev bus1=sourcebus bus2=fdrhead r1=1.210 x1=2.834 r0=3.961 x0=3.214 c1=0 c0=0
+
+// primary feeder with sequence impedances from Kersting's example 4.1
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=fdrhead bus2=bess linecode=trunk len=0.2
+new line.seg2 bus1=bess    bus2=pv   linecode=trunk len=1.0
+new line.seg3 bus1=pv      bus2=load linecode=trunk len=1.0
+new line.seg4 bus1=load    bus2=gen  linecode=trunk len=0.5
+
+// Based on the EPRI OpenDSS training example for PV modeling, June 2013
+
+// P-T curve is per unit of rated Pmpp vs temperature
+// This example is for a Pmpp stated at 25 deg
+New XYCurve.MyPvsT npts=4  xarray=[0  25  75  100]  yarray=[1.2 1.0 0.8  0.6] 
+// efficiency curve is per unit eff vs per unit power
+New XYCurve.MyEff npts=4  xarray=[.1  .2  .4  1.0]  yarray=[.94  .96  .96  .96]  
+
+// normalized G and degrees Celsius for daylight hours, 1-minute steps
+New Loadshape.MyIrrad npts=781 minterval=1 csvfile=irrad.dat
+New Tshape.MyTemp npts=781 minterval=1 csvfile=temp.dat
+// plot tshape object=mytemp
+// plot loadshape object=myirrad
+
+New PVSystem.pv1 bus1=pv kV=13.2 irradiance=0.983 pmpp=187 kVA=187 pf=1.00 %cutin=.1 %cutout=.1 
+~ temperature=25 effcurve=MyEff daily=MyIrrad
+New PVSystem.pv2 bus1=pv like=pv1 P-TCurve=MyPvsT tdaily=MyTemp 
+
+new monitor.pv1_pq PVSystem.pv1  1 mode=1 ppolar=no
+new monitor.pv1_vi PVSystem.pv1  1 
+new monitor.pv2_pq PVSystem.pv2  1 mode=1 ppolar=no
+new monitor.pv2_vi PVSystem.pv2  1 
+
+set Voltagebases=[13.2]
+calcv
+set maxcontroliter=100
+solve
+solve mode=daily stepsize=1m number=781
+
+//plot monitor object=pv1_vi channels=(1 ) base=[7621]
+
+export monitors pv1_pq
+export monitors pv2_pq
+export monitors pv1_vi
+export monitors pv2_vi
+

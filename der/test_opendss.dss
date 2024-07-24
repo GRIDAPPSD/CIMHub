@@ -1,0 +1,18 @@
+compile ieee13der.dss
+set maxiterations=20
+solve
+export summary  ieee13der_s.csv
+export voltages ieee13der_v.csv
+export currents ieee13der_i.csv
+export taps     ieee13der_t.csv
+
+//cd dss
+compile dss/ieee13der_base.dss
+set maxiterations=20
+solve
+export summary  ieee13der_s.csv
+export voltages ieee13der_v.csv
+export currents ieee13der_i.csv
+export taps     ieee13der_t.csv
+
+

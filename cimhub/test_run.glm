@@ -1,0 +1,49 @@
+clock {
+  timezone EST+5EDT;
+  starttime '2000-01-01 00:00:00';
+  stoptime '2000-01-01 00:00:00';
+};
+#set relax_naming_rules=1
+#set profiler=1
+module powerflow {
+  solver_method NR;
+  line_capacitance TRUE;
+//  maximum_voltage_error 1e-6;
+//  default_maximum_voltage_error 1e-6;
+};
+module climate;
+module generators;
+module tape;
+module reliability {
+  report_event_log false;
+};
+object climate {
+  name climate;
+	latitude 45.0;
+  solar_direct 93.4458; // 92.902;
+}
+//#define VSOURCE=8002.0747
+#define VSOURCE=66395.281
+#include "test_base.glm";
+//object recorder {
+//  parent inv_pv_der;
+//  property V_In,I_In,P_In,VA_Out;
+//  interval -1;
+//  file test_inv.csv;
+//}
+//object recorder {
+//  parent pv_der;
+//  property orientation,derating,soiling,shading_factor,tilt_angle,Insolation,V_Out,I_Out,P_Out;
+//  interval -1;
+//  file test_pv.csv;
+//}
+#ifdef WANT_VI_DUMP
+object voltdump {
+  filename test_volt.csv;
+  mode POLAR;
+};
+object currdump {
+  filename test_curr.csv;
+  mode POLAR;
+};
+#endif

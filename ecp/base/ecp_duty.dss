@@ -1,0 +1,45 @@
+clear
+new circuit.ecp_duty basekv=13.2 pu=1.00 r1=0.001 x1=0.001 r0=0.001 x0=0.001
+new line.thev bus1=sourcebus bus2=fdrhead r1=1.210 x1=2.834 r0=3.961 x0=3.214 c1=0 c0=0
+
+// primary feeder with sequence impedances from Kersting's example 4.1
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=fdrhead bus2=bess linecode=trunk len=0.2
+new line.seg2 bus1=bess    bus2=pv   linecode=trunk len=1.0
+new line.seg3 bus1=pv      bus2=load linecode=trunk len=1.0
+new line.seg4 bus1=load    bus2=gen  linecode=trunk len=0.5
+
+// for duty cycle, runs for 2900 seconds or 0.81 hours
+new loadshape.PVduty npts=2900 interval=(1.0 3600 /) mult=(File=pvloadshape-1sec-2900pts.dat) Action=Normalize
+//plot loadshape object=PVduty
+
+New Loadshape.cycle npts=10 interval=0 hour=[0.00,0.09,0.10,0.29,0.30,0.49, 0.50, 0.69,0.70,0.82] 
+~                                      mult=[0.00,0.00,1.00,1.00,0.00,0.00,-1.00,-1.00,0.00,0.00]
+~ action=normalize
+//plot loadshape object=cycle
+
+new storage.bess1 bus1=bess kv=13.2 kWrated=1000 kva=1250 kWhrated=4000 kWhstored=2000 kw=500
+new storage.bess2 bus1=bess kv=13.2 like=bess1 dispmode=follow duty=cycle
+
+New PVSystem.pv1 bus1=pv kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00
+New PVSystem.pv2 bus1=pv kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00 duty=PVduty
+
+new monitor.pv1 pvsystem.pv1 1 mode=1 ppolar=no
+new monitor.pv2 pvsystem.pv2 1 mode=1 ppolar=no
+new monitor.bess1 storage.bess1 1 mode=1 ppolar=no
+new monitor.bess2 storage.bess2 1 mode=1 ppolar=no
+
+set Voltagebases=[13.2]
+calcv
+set maxcontroliter=100
+solve
+solve mode=duty stepsize=1s number=2900
+
+//plot monitor object=bess2 channels=1
+
+export monitors pv1
+export monitors pv2
+export monitors bess1
+export monitors bess2
+
+

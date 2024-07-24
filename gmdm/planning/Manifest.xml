@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?iec61970-552 version="3.0" method=”DataSet”?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
+	<exch:Manifest rdf:about="urn:uuid:0a66f3bf-883a-43bf-93cc-e798098d611f">
+		<exch:Manifest.name>Manifest for Planning Golden Assembly Exchange</exch:Manifest.name>
+		<exch:Manifest.profile>http://ucaiug.org/GMDM/Meta_Profile</exch:Manifest.profile>
+		<exch:Manifest.InstanceSet rdf:resource="urn:uuid:a84ffc15-6994-4758-9f36-7430d6b0421e"/>
+	</exch:Manifest>
+</rdf:RDF>

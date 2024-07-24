@@ -1,0 +1,2 @@
+New "Storage.school" phases=3 bus1=634 kv=0.48 kWrated=100 kWhrated=200 kWhstored=100 State=CHARGING
+New "Storage.house" phases=2 bus1=House.1.2 kv=0.208 conn=wye kWrated=5 kWhrated=13.5 kWhstored=5 State=CHARGING
