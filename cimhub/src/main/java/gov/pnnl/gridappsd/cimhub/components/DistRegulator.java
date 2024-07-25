@@ -462,7 +462,7 @@ public class DistRegulator extends DistComponent {
     buf.append ("}\n");
 
     buf.append ("object regulator {\n");
-    buf.append ("  name \"" + GLMObjectPrefix ("reg_") + pname + "\";\n");
+    buf.append ("  name \"" + GLMObjectPrefix ("xf_") + pname + "\";\n");
     buf.append ("  from \"" + bus1 + "\";\n");
     buf.append ("  to \"" + bus2 + "\";\n");
     buf.append ("  phases " + bankphases + ";\n");
