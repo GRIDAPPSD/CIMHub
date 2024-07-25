@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?iec61970-552 version="3.0" method=”DataSet”?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:cim="http://ucaiug.org/61970cim18v02_61968cim14v00#"
+         xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
+	<exch:InstanceSet rdf:about="urn:uuid:cb0d06b4-aa4a-4745-a85c-e035ca928139">
+		<exch:InstanceSet.name>Transmission Planning Basic Golden Model InstanceSet</exch:InstanceSet.name>
+	</exch:InstanceSet>
+	<cim:CoordinateSystem rdf:about="urn:uuid:927e8f1e-e2e9-4400-a246-c901004d7bf6">
+		<cim:IdentifiedObject.name>EPSG 4236  (WPS 84)</cim:IdentifiedObject.name>
+		<cim:CoordinateSystem.crsUrn>urn:ogc:def:crs:EPSG::4326</cim:CoordinateSystem.crsUrn>
+	</cim:CoordinateSystem>
+	<cim:Location rdf:about="urn:uuid:41c67bc3-4f35-4abf-adcb-d31d1dce0e87">
+		<cim:IdentifiedObject.name>Main Xf3 Energy Source_Loc</cim:IdentifiedObject.name>
+		<cim:Location.CoordinateSystem rdf:resource="urn:uuid:927e8f1e-e2e9-4400-a246-c901004d7bf6"/>
+	</cim:Location>
+	<cim:PositionPoint rdf:about="urn:uuid:8deaf8b2-c6fc-4ef8-b763-b030022cf6bd">
+		<cim:PositionPoint.sequenceNumber>1</cim:PositionPoint.sequenceNumber>
+		<cim:PositionPoint.xPosition>-6.2807230949401855</cim:PositionPoint.xPosition>
+		<cim:PositionPoint.yPosition>53.31059646606445</cim:PositionPoint.yPosition>
+		<cim:PositionPoint.Location rdf:resource="urn:uuid:41c67bc3-4f35-4abf-adcb-d31d1dce0e87"/>
+	</cim:PositionPoint>
+	<cim:Location rdf:about="urn:uuid:da304174-ee89-4167-8798-9628373dfb13">
+		<cim:IdentifiedObject.name>Bus 69 kV_Loc</cim:IdentifiedObject.name>
+		<cim:Location.CoordinateSystem rdf:resource="urn:uuid:927e8f1e-e2e9-4400-a246-c901004d7bf6"/>
+	</cim:Location>
+	<cim:PositionPoint rdf:about="urn:uuid:e322461b-5f13-4673-a0ad-1d4330cebb51">
+		<cim:PositionPoint.sequenceNumber>1</cim:PositionPoint.sequenceNumber>
+		<cim:PositionPoint.xPosition>-6.2807230949401855</cim:PositionPoint.xPosition>
+		<cim:PositionPoint.yPosition>53.31059646606445</cim:PositionPoint.yPosition>
+		<cim:PositionPoint.Location rdf:resource="urn:uuid:da304174-ee89-4167-8798-9628373dfb13"/>
+	</cim:PositionPoint>
+	<cim:VoltageLevel rdf:about="urn:uuid:27092531-8b05-4387-ac19-561fc5b1ff07">
+		<cim:IdentifiedObject.name>Main 69 kV</cim:IdentifiedObject.name>
+		<cim:VoltageLevel.BaseVoltage rdf:resource="urn:uuid:51021d3d-2b44-47f3-8e4d-d4ae2828742b"/>
+		<cim:VoltageLevel.Substation rdf:resource="urn:uuid:ae3bdd32-d766-420f-b601-9087506149cd"/>
+	</cim:VoltageLevel>
+	<cim:TransformerTankEnd rdf:about="urn:uuid:82faef03-940a-4ad8-acb8-596226815229">
+		<cim:IdentifiedObject.name>Xf3 1 2</cim:IdentifiedObject.name>
+		<cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
+		<cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
+		<cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
+		<cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
+		<cim:TransformerEnd.BaseVoltage rdf:resource="urn:uuid:67da41a4-513d-4c79-9103-8c2629139581"/>
+		<cim:TransformerEnd.Terminal rdf:resource="urn:uuid:7a721e47-a39c-4ab9-b240-154f4f63d5b2"/>
+		<cim:TransformerEnd.RatioTapChanger rdf:resource="urn:uuid:a51496ed-fa0b-40c8-b3c1-90f1490162a9"/>
+		<cim:TransformerTankEnd.orderedPhases rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#OrderedPhaseCodeKind.ABCN"/>
+		<cim:TransformerTankEnd.TransformerTank rdf:resource="urn:uuid:2856e249-a086-44b5-828f-30d7fc733942"/>
+	</cim:TransformerTankEnd>
+	<cim:BaseVoltage rdf:about="urn:uuid:51021d3d-2b44-47f3-8e4d-d4ae2828742b">
+		<cim:IdentifiedObject.name>69 kV</cim:IdentifiedObject.name>
+		<cim:BaseVoltage.nominalVoltage>69</cim:BaseVoltage.nominalVoltage>
+	</cim:BaseVoltage>
+	<cim:Substation rdf:about="urn:uuid:ae3bdd32-d766-420f-b601-9087506149cd">
+		<cim:IdentifiedObject.name>Main</cim:IdentifiedObject.name>
+		<cim:Substation.NormalEnergizedFeeder rdf:resource="urn:uuid:bfaee055-4440-4173-9b95-615b6fafd523"/>
+	</cim:Substation>
+	<cim:BaseVoltage rdf:about="urn:uuid:67da41a4-513d-4c79-9103-8c2629139581">
+		<cim:IdentifiedObject.name>12.47 kV</cim:IdentifiedObject.name>
+		<cim:BaseVoltage.nominalVoltage>12.470000267028809</cim:BaseVoltage.nominalVoltage>
+	</cim:BaseVoltage>
+	<cim:VoltageLevel rdf:about="urn:uuid:bc84a9f5-5ef0-4ec7-bdc0-9d0ec510f1cd">
+		<cim:IdentifiedObject.name>Main 12.47kV</cim:IdentifiedObject.name>
+		<cim:VoltageLevel.BaseVoltage rdf:resource="urn:uuid:67da41a4-513d-4c79-9103-8c2629139581"/>
+		<cim:VoltageLevel.Substation rdf:resource="urn:uuid:ae3bdd32-d766-420f-b601-9087506149cd"/>
+	</cim:VoltageLevel>
+	<cim:Location rdf:about="urn:uuid:0221b35b-e205-414a-9f93-77213c301ef1">
+		<cim:IdentifiedObject.name>Xf3_Loc</cim:IdentifiedObject.name>
+		<cim:Location.CoordinateSystem rdf:resource="urn:uuid:927e8f1e-e2e9-4400-a246-c901004d7bf6"/>
+	</cim:Location>
+	<cim:PositionPoint rdf:about="urn:uuid:a50154ea-0309-4fe6-b271-02711398bb8c">
+		<cim:PositionPoint.sequenceNumber>1</cim:PositionPoint.sequenceNumber>
+		<cim:PositionPoint.xPosition>-6.2807230949401855</cim:PositionPoint.xPosition>
+		<cim:PositionPoint.yPosition>53.31059646606445</cim:PositionPoint.yPosition>
+		<cim:PositionPoint.Location rdf:resource="urn:uuid:0221b35b-e205-414a-9f93-77213c301ef1"/>
+	</cim:PositionPoint>
+	<cim:Location rdf:about="urn:uuid:c645ac06-1d03-49ab-83c1-4ece373cef62">
+		<cim:IdentifiedObject.name>FBkr A_Loc</cim:IdentifiedObject.name>
+		<cim:Location.CoordinateSystem rdf:resource="urn:uuid:927e8f1e-e2e9-4400-a246-c901004d7bf6"/>
+	</cim:Location>
+	<cim:PositionPoint rdf:about="urn:uuid:a8e25019-39d1-412e-810a-889bff78b722">
+		<cim:PositionPoint.sequenceNumber>1</cim:PositionPoint.sequenceNumber>
+		<cim:PositionPoint.xPosition>-6.2807230949401855</cim:PositionPoint.xPosition>
+		<cim:PositionPoint.yPosition>53.31059646606445</cim:PositionPoint.yPosition>
+		<cim:PositionPoint.Location rdf:resource="urn:uuid:c645ac06-1d03-49ab-83c1-4ece373cef62"/>
+	</cim:PositionPoint>
+	<cim:Terminal rdf:about="urn:uuid:a7b02c1e-1330-4417-9499-53ac9c19c569">
+		<cim:IdentifiedObject.name>FBkr A_T1</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:afa569bb-151d-420a-a1e3-723cc74e2f89"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:a9d8c286-92ca-4af4-b856-db90288d120c"/>
+	</cim:Terminal>
+	<cim:ConnectivityNode rdf:about="urn:uuid:a9d8c286-92ca-4af4-b856-db90288d120c">
+		<cim:IdentifiedObject.name>j</cim:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	<cim:Terminal rdf:about="urn:uuid:54f69e09-db38-4271-9bd2-f4e45da47f5c">
+		<cim:IdentifiedObject.name>FBkr A_T2</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:afa569bb-151d-420a-a1e3-723cc74e2f89"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:5d73925c-b008-472d-a75b-a64c886a8805"/>
+	</cim:Terminal>
+	<cim:Breaker rdf:about="urn:uuid:afa569bb-151d-420a-a1e3-723cc74e2f89">
+		<cim:IdentifiedObject.description>Feeder Breaker A</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.name>FBkr A</cim:IdentifiedObject.name>
+		<cim:PowerSystemResource.Location rdf:resource="urn:uuid:c645ac06-1d03-49ab-83c1-4ece373cef62"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:bc84a9f5-5ef0-4ec7-bdc0-9d0ec510f1cd"/>
+		<cim:ProtectedSwitch.breakingCapacity>40000</cim:ProtectedSwitch.breakingCapacity>
+		<cim:Breaker.inTransitTime>3</cim:Breaker.inTransitTime>
+		<cim:Equipment.AdditionalEquipmentContainer rdf:resource="urn:uuid:bfaee055-4440-4173-9b95-615b6fafd523"/>
+	</cim:Breaker>
+	<cim:SwitchPhase rdf:about="urn:uuid:703ac8b6-8451-492f-afd3-2be9dca9045b">
+		<cim:IdentifiedObject.name>FBkr A_A</cim:IdentifiedObject.name>
+		<cim:SwitchPhase.phaseSide1 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.A"/>
+		<cim:SwitchPhase.phaseSide2 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.A"/>
+		<cim:SwitchPhase.Switch rdf:resource="urn:uuid:afa569bb-151d-420a-a1e3-723cc74e2f89"/>
+		<cim:SwitchPhase.normalOpen>false</cim:SwitchPhase.normalOpen>
+		<cim:SwitchPhase.ratedCurrent>1200</cim:SwitchPhase.ratedCurrent>
+	</cim:SwitchPhase>
+	<cim:SwitchPhase rdf:about="urn:uuid:235d0dbb-ef49-4203-b4f9-29511b08862a">
+		<cim:IdentifiedObject.name>FBkr A_B</cim:IdentifiedObject.name>
+		<cim:SwitchPhase.phaseSide1 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.B"/>
+		<cim:SwitchPhase.phaseSide2 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.B"/>
+		<cim:SwitchPhase.Switch rdf:resource="urn:uuid:afa569bb-151d-420a-a1e3-723cc74e2f89"/>
+		<cim:SwitchPhase.normalOpen>false</cim:SwitchPhase.normalOpen>
+		<cim:SwitchPhase.ratedCurrent>1200</cim:SwitchPhase.ratedCurrent>
+	</cim:SwitchPhase>
+	<cim:SwitchPhase rdf:about="urn:uuid:1253d87b-2fb7-46ee-b417-86b6d85f7195">
+		<cim:IdentifiedObject.name>FBkr A_C</cim:IdentifiedObject.name>
+		<cim:SwitchPhase.phaseSide1 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.C"/>
+		<cim:SwitchPhase.phaseSide2 rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#SinglePhaseKind.C"/>
+		<cim:SwitchPhase.Switch rdf:resource="urn:uuid:afa569bb-151d-420a-a1e3-723cc74e2f89"/>
+		<cim:SwitchPhase.normalOpen>false</cim:SwitchPhase.normalOpen>
+		<cim:SwitchPhase.ratedCurrent>1200</cim:SwitchPhase.ratedCurrent>
+	</cim:SwitchPhase>
+	<cim:TransformerTankInfo rdf:about="urn:uuid:1145f3e8-657e-40ad-a1eb-cc5e04163ffc">
+		<cim:IdentifiedObject.description>3E 69000-Yn-0/12470-Yn-0/12470-Yn-0</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.name>3E 69000/12470/12470 01</cim:IdentifiedObject.name>
+	</cim:TransformerTankInfo>
+	<cim:ShortCircuitTest rdf:about="urn:uuid:9ad4ca95-8146-4c2f-902c-7c3c3033ae2e">
+		<cim:IdentifiedObject.name>SC 3E 69000/12470/12470 01 E1:E2</cim:IdentifiedObject.name>
+		<cim:TransformerTest.basePower>15</cim:TransformerTest.basePower>
+		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
+		<cim:ShortCircuitTest.energisedEndStep>0</cim:ShortCircuitTest.energisedEndStep>
+		<cim:ShortCircuitTest.groundedEndStep>0</cim:ShortCircuitTest.groundedEndStep>
+		<cim:ShortCircuitTest.leakageImpedance>25</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>50</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
+		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:a8cc89b9-5270-40e6-b293-792cb578d6b3"/>
+	</cim:ShortCircuitTest>
+	<cim:TransformerEndInfo rdf:about="urn:uuid:a8cc89b9-5270-40e6-b293-792cb578d6b3">
+		<cim:IdentifiedObject.name>3E 69000/12470/12470 01 E2</cim:IdentifiedObject.name>
+		<cim:TransformerEndInfo.connectionKind rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#WindingConnection.Yn"/>
+		<cim:TransformerEndInfo.emergencyS>25</cim:TransformerEndInfo.emergencyS>
+		<cim:TransformerEndInfo.endNumber>2</cim:TransformerEndInfo.endNumber>
+		<cim:TransformerEndInfo.insulationU>0</cim:TransformerEndInfo.insulationU>
+		<cim:TransformerEndInfo.phaseAngleClock>0</cim:TransformerEndInfo.phaseAngleClock>
+		<cim:TransformerEndInfo.r>0.0207</cim:TransformerEndInfo.r>
+		<cim:TransformerEndInfo.ratedS>15</cim:TransformerEndInfo.ratedS>
+		<cim:TransformerEndInfo.ratedU>12.47</cim:TransformerEndInfo.ratedU>
+		<cim:TransformerEndInfo.shortTermS>20</cim:TransformerEndInfo.shortTermS>
+		<cim:TransformerEndInfo.TransformerTankInfo rdf:resource="urn:uuid:1145f3e8-657e-40ad-a1eb-cc5e04163ffc"/>
+	</cim:TransformerEndInfo>
+	<cim:TransformerEndInfo rdf:about="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120">
+		<cim:IdentifiedObject.name>3E 69000/12470/12470 01 E1</cim:IdentifiedObject.name>
+		<cim:TransformerEndInfo.connectionKind rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#WindingConnection.Yn"/>
+		<cim:TransformerEndInfo.emergencyS>50</cim:TransformerEndInfo.emergencyS>
+		<cim:TransformerEndInfo.endNumber>1</cim:TransformerEndInfo.endNumber>
+		<cim:TransformerEndInfo.insulationU>0</cim:TransformerEndInfo.insulationU>
+		<cim:TransformerEndInfo.phaseAngleClock>0</cim:TransformerEndInfo.phaseAngleClock>
+		<cim:TransformerEndInfo.r>0.195</cim:TransformerEndInfo.r>
+		<cim:TransformerEndInfo.ratedS>30</cim:TransformerEndInfo.ratedS>
+		<cim:TransformerEndInfo.ratedU>69</cim:TransformerEndInfo.ratedU>
+		<cim:TransformerEndInfo.shortTermS>40</cim:TransformerEndInfo.shortTermS>
+		<cim:TransformerEndInfo.TransformerTankInfo rdf:resource="urn:uuid:1145f3e8-657e-40ad-a1eb-cc5e04163ffc"/>
+	</cim:TransformerEndInfo>
+	<cim:TransformerEndInfo rdf:about="urn:uuid:e5dca379-a0a0-4679-8140-89b9c72fc290">
+		<cim:IdentifiedObject.name>3E 69000/12470/12470 01 E3</cim:IdentifiedObject.name>
+		<cim:TransformerEndInfo.connectionKind rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#WindingConnection.Yn"/>
+		<cim:TransformerEndInfo.emergencyS>25</cim:TransformerEndInfo.emergencyS>
+		<cim:TransformerEndInfo.endNumber>3</cim:TransformerEndInfo.endNumber>
+		<cim:TransformerEndInfo.insulationU>0</cim:TransformerEndInfo.insulationU>
+		<cim:TransformerEndInfo.phaseAngleClock>0</cim:TransformerEndInfo.phaseAngleClock>
+		<cim:TransformerEndInfo.r>0.0207</cim:TransformerEndInfo.r>
+		<cim:TransformerEndInfo.ratedS>15</cim:TransformerEndInfo.ratedS>
+		<cim:TransformerEndInfo.ratedU>12.47</cim:TransformerEndInfo.ratedU>
+		<cim:TransformerEndInfo.shortTermS>20</cim:TransformerEndInfo.shortTermS>
+		<cim:TransformerEndInfo.TransformerTankInfo rdf:resource="urn:uuid:1145f3e8-657e-40ad-a1eb-cc5e04163ffc"/>
+	</cim:TransformerEndInfo>
+	<cim:ShortCircuitTest rdf:about="urn:uuid:c1544729-0316-4647-b9ba-7292a5274790">
+		<cim:IdentifiedObject.name>SC 3E 69000/12470/12470 01 E1:E3</cim:IdentifiedObject.name>
+		<cim:TransformerTest.basePower>15</cim:TransformerTest.basePower>
+		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
+		<cim:ShortCircuitTest.energisedEndStep>16</cim:ShortCircuitTest.energisedEndStep>
+		<cim:ShortCircuitTest.groundedEndStep>16</cim:ShortCircuitTest.groundedEndStep>
+		<cim:ShortCircuitTest.leakageImpedance>25</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>50</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
+		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:e5dca379-a0a0-4679-8140-89b9c72fc290"/>
+	</cim:ShortCircuitTest>
+	<cim:ShortCircuitTest rdf:about="urn:uuid:bab02ecb-0118-4de4-b873-c9eb348a7b23">
+		<cim:IdentifiedObject.name>SC 3E 69000/12470/12470 01 E2:E3</cim:IdentifiedObject.name>
+		<cim:TransformerTest.basePower>15</cim:TransformerTest.basePower>
+		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
+		<cim:ShortCircuitTest.energisedEndStep>0</cim:ShortCircuitTest.energisedEndStep>
+		<cim:ShortCircuitTest.groundedEndStep>0</cim:ShortCircuitTest.groundedEndStep>
+		<cim:ShortCircuitTest.leakageImpedance>1.66</cim:ShortCircuitTest.leakageImpedance>
+		<cim:ShortCircuitTest.loss>90</cim:ShortCircuitTest.loss>
+		<cim:ShortCircuitTest.EnergisedEnd rdf:resource="urn:uuid:a8cc89b9-5270-40e6-b293-792cb578d6b3"/>
+		<cim:ShortCircuitTest.GroundedEnds rdf:resource="urn:uuid:e5dca379-a0a0-4679-8140-89b9c72fc290"/>
+	</cim:ShortCircuitTest>
+	<cim:NoLoadTest rdf:about="urn:uuid:8c762c50-0fc5-4a8d-9998-9f0bcdbff104">
+		<cim:IdentifiedObject.name>NL 3E 69000/12470/12470 01 E1</cim:IdentifiedObject.name>
+		<cim:TransformerTest.basePower>30</cim:TransformerTest.basePower>
+		<cim:TransformerTest.temperature>50</cim:TransformerTest.temperature>
+		<cim:NoLoadTest.energisedEndVoltage>69.0</cim:NoLoadTest.energisedEndVoltage>
+		<cim:NoLoadTest.excitingCurrent>0.7</cim:NoLoadTest.excitingCurrent>
+		<cim:NoLoadTest.loss>45</cim:NoLoadTest.loss>
+		<cim:NoLoadTest.EnergisedEnd rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
+	</cim:NoLoadTest>
+	<cim:TransformerCoreAdmittance rdf:about="urn:uuid:8e5364ba-787a-498d-896f-e1cfaa54935b">
+		<cim:TransformerCoreAdmittance.b>-4.30838E-05</cim:TransformerCoreAdmittance.b>
+		<cim:TransformerCoreAdmittance.g>9.4518e-6</cim:TransformerCoreAdmittance.g>
+		<cim:TransformerCoreAdmittance.TransformerEndInfo rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
+	</cim:TransformerCoreAdmittance>
+	<cim:TransformerMeshImpedance rdf:about="urn:uuid:268425e6-4e14-4994-98d3-6eeac06a5ecc">
+		<cim:TransformerMeshImpedance.r>1.058</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>24.9776</cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
+		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:a8cc89b9-5270-40e6-b293-792cb578d6b3"/>
+	</cim:TransformerMeshImpedance>
+	<cim:TransformerMeshImpedance rdf:about="urn:uuid:8f9c1617-9426-4db3-8752-03b8cb1c6ff0">
+		<cim:TransformerMeshImpedance.r>1.058</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>24.9776</cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:53784893-1f96-47e0-9b03-0f6863d76120"/>
+		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:e5dca379-a0a0-4679-8140-89b9c72fc290"/>
+	</cim:TransformerMeshImpedance>
+	<cim:TransformerMeshImpedance rdf:about="urn:uuid:92ceefc8-eb2f-4f47-aed2-9878e55fecef">
+		<cim:TransformerMeshImpedance.r>0.0622</cim:TransformerMeshImpedance.r>
+		<cim:TransformerMeshImpedance.x>1.658834</cim:TransformerMeshImpedance.x>
+		<cim:TransformerMeshImpedance.FromTransformerEndInfo rdf:resource="urn:uuid:a8cc89b9-5270-40e6-b293-792cb578d6b3"/>
+		<cim:TransformerMeshImpedance.ToTransformerEndInfos rdf:resource="urn:uuid:e5dca379-a0a0-4679-8140-89b9c72fc290"/>
+	</cim:TransformerMeshImpedance>
+	<cim:EnergySource rdf:about="urn:uuid:61b39ce1-6bbc-45c1-84cd-1293db3c6882">
+		<cim:IdentifiedObject.description>T equivalent energy source</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.name>Main Xf3 Energy Source</cim:IdentifiedObject.name>
+		<cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:27092531-8b05-4387-ac19-561fc5b1ff07"/>
+		<cim:EnergySource.nominalVoltage>69</cim:EnergySource.nominalVoltage>
+		<cim:EnergySource.r>0.0096619326</cim:EnergySource.r>
+		<cim:EnergySource.r0>0.0091817318</cim:EnergySource.r0>
+		<cim:EnergySource.x>0.03864773</cim:EnergySource.x>
+		<cim:EnergySource.x0>0.027545195</cim:EnergySource.x0>
+	</cim:EnergySource>
+	<cim:Terminal rdf:about="urn:uuid:951f6504-1877-4c22-ae3b-ae91c5613460">
+		<cim:IdentifiedObject.name>Source_T1</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:61b39ce1-6bbc-45c1-84cd-1293db3c6882"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:d57be9a4-e485-4e47-a493-57ac2e797224"/>
+	</cim:Terminal>
+	<cim:ConnectivityNode rdf:about="urn:uuid:d57be9a4-e485-4e47-a493-57ac2e797224">
+		<cim:IdentifiedObject.name>j1</cim:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	<cim:Terminal rdf:about="urn:uuid:5d35d16f-6252-46f3-9c78-cf9d94a2f1c4">
+		<cim:IdentifiedObject.name>Bus 69 kV_T1</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:3539cf84-3a07-4b47-b197-b0fc12e0b1fd"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:d57be9a4-e485-4e47-a493-57ac2e797224"/>
+	</cim:Terminal>
+	<cim:BusbarSection rdf:about="urn:uuid:3539cf84-3a07-4b47-b197-b0fc12e0b1fd">
+		<cim:IdentifiedObject.description>Main 69 kV Bus</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.name>Bus 69 kV</cim:IdentifiedObject.name>
+		<cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:27092531-8b05-4387-ac19-561fc5b1ff07"/>
+	</cim:BusbarSection>
+	<cim:Terminal rdf:about="urn:uuid:54d473bd-5a6d-419a-a11a-df2d3f8fc347">
+		<cim:IdentifiedObject.name>Xf3_T1</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:4c5f1f0b-9659-4b07-ad54-2530fe1cbd26"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:d57be9a4-e485-4e47-a493-57ac2e797224"/>
+	</cim:Terminal>
+	<cim:PowerTransformer rdf:about="urn:uuid:4c5f1f0b-9659-4b07-ad54-2530fe1cbd26">
+		<cim:IdentifiedObject.description>substation transformer</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.name>Xf3</cim:IdentifiedObject.name>
+		<cim:PowerSystemResource.Location rdf:resource="urn:uuid:0221b35b-e205-414a-9f93-77213c301ef1"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:ae3bdd32-d766-420f-b601-9087506149cd"/>
+		<cim:PowerTransformer.vectorGroup>YNyn0yn0</cim:PowerTransformer.vectorGroup>
+	</cim:PowerTransformer>
+	<cim:TransformerTank rdf:about="urn:uuid:2856e249-a086-44b5-828f-30d7fc733942">
+		<cim:IdentifiedObject.name>Xf3 1</cim:IdentifiedObject.name>
+		<cim:TransformerTank.TransformerTankInfo rdf:resource="urn:uuid:1145f3e8-657e-40ad-a1eb-cc5e04163ffc"/>
+		<cim:TransformerTank.PowerTransformer rdf:resource="urn:uuid:4c5f1f0b-9659-4b07-ad54-2530fe1cbd26"/>
+	</cim:TransformerTank>
+	<cim:TransformerTankEnd rdf:about="urn:uuid:8b434393-cbf0-4793-ba0d-7155331f90df">
+		<cim:IdentifiedObject.name>Xf3 1 1</cim:IdentifiedObject.name>
+		<cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
+		<cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
+		<cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
+		<cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
+		<cim:TransformerEnd.BaseVoltage rdf:resource="urn:uuid:51021d3d-2b44-47f3-8e4d-d4ae2828742b"/>
+		<cim:TransformerEnd.Terminal rdf:resource="urn:uuid:54d473bd-5a6d-419a-a11a-df2d3f8fc347"/>
+		<cim:TransformerTankEnd.orderedPhases rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#OrderedPhaseCodeKind.ABCN"/>
+		<cim:TransformerTankEnd.TransformerTank rdf:resource="urn:uuid:2856e249-a086-44b5-828f-30d7fc733942"/>
+	</cim:TransformerTankEnd>
+	<cim:BusbarSection rdf:about="urn:uuid:8bb87a0a-ec8c-4f2a-9b91-3eb948f898e7">
+		<cim:IdentifiedObject.name>Bus 3</cim:IdentifiedObject.name>
+		<cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:bc84a9f5-5ef0-4ec7-bdc0-9d0ec510f1cd"/>
+	</cim:BusbarSection>
+	<cim:Terminal rdf:about="urn:uuid:dba1835d-81aa-4f14-9453-6f653c620c8c">
+		<cim:IdentifiedObject.name>Bus 3_T1</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:8bb87a0a-ec8c-4f2a-9b91-3eb948f898e7"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:a9d8c286-92ca-4af4-b856-db90288d120c"/>
+	</cim:Terminal>
+	<cim:BusbarSection rdf:about="urn:uuid:624182eb-4f64-4da2-8f48-4cb381c9899d">
+		<cim:IdentifiedObject.name>Bus 4</cim:IdentifiedObject.name>
+		<cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:bc84a9f5-5ef0-4ec7-bdc0-9d0ec510f1cd"/>
+	</cim:BusbarSection>
+	<cim:Terminal rdf:about="urn:uuid:4426a0cb-6605-4cde-bbf1-d517093fb1e9">
+		<cim:IdentifiedObject.name>Bus4_T1</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:624182eb-4f64-4da2-8f48-4cb381c9899d"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:1413915b-3e81-4dbf-a8ac-439bf5dfe37f"/>
+	</cim:Terminal>
+	<cim:ConnectivityNode rdf:about="urn:uuid:1413915b-3e81-4dbf-a8ac-439bf5dfe37f">
+		<cim:IdentifiedObject.name>j2</cim:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	<cim:RatioTapChanger rdf:about="urn:uuid:a51496ed-fa0b-40c8-b3c1-90f1490162a9">
+		<cim:IdentifiedObject.name>rtc_Xf3 1 2</cim:IdentifiedObject.name>
+		<cim:TapChanger.highStep>16</cim:TapChanger.highStep>
+		<cim:TapChanger.initialDelay>15</cim:TapChanger.initialDelay>
+		<cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
+		<cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
+		<cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
+		<cim:TapChanger.neutralU>7.2</cim:TapChanger.neutralU>
+		<cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
+		<cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
+        <cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:3b5f125b-659a-46ff-bd8a-2ef4cb0ce4c6"/>
+    </cim:RatioTapChanger>
+	<cim:TransformerTankEnd rdf:about="urn:uuid:960357ba-cb1d-4e3e-bbb1-639cb931bec9">
+		<cim:IdentifiedObject.name>Xf3 1 3</cim:IdentifiedObject.name>
+		<cim:TransformerEnd.endNumber>3</cim:TransformerEnd.endNumber>
+		<cim:TransformerEnd.grounded>true</cim:TransformerEnd.grounded>
+		<cim:TransformerEnd.rground>0</cim:TransformerEnd.rground>
+		<cim:TransformerEnd.xground>0</cim:TransformerEnd.xground>
+		<cim:TransformerEnd.BaseVoltage rdf:resource="urn:uuid:67da41a4-513d-4c79-9103-8c2629139581"/>
+		<cim:TransformerEnd.RatioTapChanger rdf:resource="urn:uuid:547f45b7-b8b2-4605-b34a-b5775d00fa64"/>
+		<cim:TransformerEnd.Terminal rdf:resource="urn:uuid:11770367-5728-4976-b351-9cf3c5fa46e5"/>
+		<cim:TransformerTankEnd.orderedPhases rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#OrderedPhaseCodeKind.ABCN"/>
+		<cim:TransformerTankEnd.TransformerTank rdf:resource="urn:uuid:2856e249-a086-44b5-828f-30d7fc733942"/>
+	</cim:TransformerTankEnd>
+	<cim:Terminal rdf:about="urn:uuid:7a721e47-a39c-4ab9-b240-154f4f63d5b2">
+		<cim:IdentifiedObject.name>Xf3_T3</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>3</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:4c5f1f0b-9659-4b07-ad54-2530fe1cbd26"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:a9d8c286-92ca-4af4-b856-db90288d120c"/>
+	</cim:Terminal>
+	<cim:Terminal rdf:about="urn:uuid:11770367-5728-4976-b351-9cf3c5fa46e5">
+		<cim:IdentifiedObject.name>Xf3_T2</cim:IdentifiedObject.name>
+		<cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
+		<cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:4c5f1f0b-9659-4b07-ad54-2530fe1cbd26"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:1413915b-3e81-4dbf-a8ac-439bf5dfe37f"/>
+	</cim:Terminal>
+	<cim:RatioTapChanger rdf:about="urn:uuid:547f45b7-b8b2-4605-b34a-b5775d00fa64">
+		<cim:IdentifiedObject.name>rtc_Xf3 1 3</cim:IdentifiedObject.name>
+		<cim:TapChanger.highStep>16</cim:TapChanger.highStep>
+		<cim:TapChanger.initialDelay>15</cim:TapChanger.initialDelay>
+		<cim:TapChanger.lowStep>-16</cim:TapChanger.lowStep>
+		<cim:TapChanger.ltcFlag>true</cim:TapChanger.ltcFlag>
+		<cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
+		<cim:TapChanger.neutralU>7.2</cim:TapChanger.neutralU>
+		<cim:TapChanger.subsequentDelay>2</cim:TapChanger.subsequentDelay>
+		<cim:RatioTapChanger.stepVoltageIncrement>0.625</cim:RatioTapChanger.stepVoltageIncrement>
+		<cim:TapChanger.TapChangerControl rdf:resource="urn:uuid:84f2a894-2c43-45a3-bda8-10c4e3bb0a48"/>
+	</cim:RatioTapChanger>
+	<cim:TapChangerControl rdf:about="urn:uuid:84f2a894-2c43-45a3-bda8-10c4e3bb0a48">
+		<cim:IdentifiedObject.name>Xf3 1 3_Ctrl</cim:IdentifiedObject.name>
+		<cim:RegulatingControl.Terminal rdf:resource="urn:uuid:11770367-5728-4976-b351-9cf3c5fa46e5"/>
+		<cim:RegulatingControl.mode rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#RegulatingControlModeKind.voltage"/>
+		<cim:RegulatingControl.monitoredPhase rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#PhaseCode.B"/>
+		<cim:TapChangerControl.lineDropCompensation>false</cim:TapChangerControl.lineDropCompensation>
+		<cim:TapChangerControl.maxLimitVoltage>7.632</cim:TapChangerControl.maxLimitVoltage>
+		<cim:TapChangerControl.minLimitVoltage>6.768</cim:TapChangerControl.minLimitVoltage>
+	</cim:TapChangerControl>
+	<cim:TapChangerControl rdf:about="urn:uuid:3b5f125b-659a-46ff-bd8a-2ef4cb0ce4c6">
+		<cim:IdentifiedObject.name>Xf3 1 2_Ctrl</cim:IdentifiedObject.name>
+		<cim:RegulatingControl.Terminal rdf:resource="urn:uuid:7a721e47-a39c-4ab9-b240-154f4f63d5b2"/>
+		<cim:RegulatingControl.mode rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#RegulatingControlModeKind.voltage"/>
+		<cim:RegulatingControl.monitoredPhase rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#PhaseCode.B"/>
+		<cim:TapChangerControl.lineDropCompensation>false</cim:TapChangerControl.lineDropCompensation>
+		<cim:TapChangerControl.maxLimitVoltage>7.632</cim:TapChangerControl.maxLimitVoltage>
+		<cim:TapChangerControl.minLimitVoltage>6.768</cim:TapChangerControl.minLimitVoltage>
+	</cim:TapChangerControl>
+</rdf:RDF>

@@ -1,0 +1,25 @@
+Clear
+New Circuit.ieee13pv
+
+
+Redirect Vsource.dss
+Redirect LineCode.dss
+Redirect XfmrCode.dss
+Redirect LoadShape.dss
+Redirect GrowthShape.dss
+Redirect TCC_Curve.dss
+Redirect Spectrum.dss
+Redirect Line.dss
+Redirect Load.dss
+Redirect Transformer.dss
+Redirect RegControl.dss
+Redirect Capacitor.dss
+Redirect Storage.dss
+Redirect Relay.dss
+Redirect Recloser.dss
+Redirect Fuse.dss
+Redirect PVSystem.dss
+MakeBusList
+Redirect BusVoltageBases.dss  ! set voltage bases
+Buscoords BusCoords.dss
+//GIScoords GIScoords.dss

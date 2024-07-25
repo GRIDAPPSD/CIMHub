@@ -1,0 +1,42 @@
+clear
+new circuit.ecp_growthcvr basekv=13.2 pu=1.00 r1=0.001 x1=0.001 r0=0.001 x0=0.001
+new line.thev bus1=sourcebus bus2=fdrhead r1=1.210 x1=2.834 r0=3.961 x0=3.214 c1=0 c0=0
+
+// primary feeder with sequence impedances from Kersting's example 4.1
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=fdrhead bus2=bess linecode=trunk len=0.2
+new line.seg2 bus1=bess    bus2=pv   linecode=trunk len=1.0
+new line.seg3 bus1=pv      bus2=load linecode=trunk len=1.0
+new line.seg4 bus1=load    bus2=gen  linecode=trunk len=0.5
+
+new growthshape.fast npts=2 year=[1 20] mult=[1.04 1.04]
+new loadshape.cvr npts=25 interval=1
+~ pmult=[0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4]
+~ qmult=[2.0 2.0 2.0 2.0 2.0 2.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0]
+
+new load.load1 bus1=load kv=13.2 kw=500 vminpu=0.9 daily=default model=1
+new load.load2 bus1=load like=load1 model=4
+new load.load3 bus1=load like=load1 model=4 cvrwatts=0.8 cvrvars=3.0
+new load.load4 bus1=load like=load1 model=4 cvrwatts=0.8 cvrvars=3.0 growth=fast
+new load.load5 bus1=load like=load1 model=4 cvrcurve=cvr growth=fast 
+
+new monitor.load1 load.load1 1 mode=1 ppolar=no
+new monitor.load2 load.load2 1 mode=1 ppolar=no
+new monitor.load3 load.load3 1 mode=1 ppolar=no
+new monitor.load4 load.load4 1 mode=1 ppolar=no
+new monitor.load5 load.load5 1 mode=1 ppolar=no
+
+set Voltagebases=[13.2]
+calcv
+set maxcontroliter=100
+solve
+set year=10
+solve mode=daily stepsize=1h number=24
+
+export monitors load1
+export monitors load2
+export monitors load3
+export monitors load4
+export monitors load5
+
+

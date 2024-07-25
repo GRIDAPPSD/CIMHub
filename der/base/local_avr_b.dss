@@ -1,0 +1,12 @@
+clear
+new circuit.local_avr_b
+redirect shared.dss
+
+New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6682 kvarMax=2940 kvarMaxAbs=2940
+New ExpControl.der vreg=0.0 vregmax=1.03 slope=22 vregtau=300 Tresponse=10 deltaQ_factor=0.3 // EventLog=Yes
+//~ PVSystemList=[der]
+//~ DERList=[pvsystem.der]
+
+redirect postlude.dss
+
+

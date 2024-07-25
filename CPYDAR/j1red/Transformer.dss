@@ -1,0 +1,5 @@
+New "Transformer.subxfmr" phases=3 windings=2 buses=[s, ls_bus, ] conns=[wye, wye, ] kVs=[68.8, 13.09, ] kVAs=[16000, 16000, ] NumTaps=16 XHL=11.63 buses=[s, ls_bus, ] conns=[wye, wye, ] kVs=[68.8, 13.09, ] kVAs=[16000, 16000, ] taps=[1, 1.0125, ] wdg=1 %R=0.596 RdcOhms=0.4995751 wdg=2 %R=0.596 RdcOhms=0.01808436 ppm_antifloat=5 sub=yes subname=EPRI_J1
+New "Transformer.pv1" phases=3 windings=2 buses=[b51854, pv1, ] conns=[wye, wye, ] kVs=[12.47, 0.416, ] kVAs=[300, 300, ] XHL=5.75
+New "Transformer.pv2" phases=3 windings=2 buses=[5865228330a, pv2, ] conns=[wye, wye, ] kVs=[12.47, 0.416, ] kVAs=[250, 250, ] XHL=5.75
+New "Transformer.pv3" phases=3 windings=2 buses=[5890628219, pv3, ] conns=[wye, wye, ] kVs=[12.47, 0.416, ] kVAs=[1000, 1000, ] XHL=5.75
+New "Transformer.pv4" phases=3 windings=2 buses=[b4832, pv4, ] conns=[wye, wye, ] kVs=[12.47, 0.416, ] kVAs=[500, 500, ] XHL=5.75

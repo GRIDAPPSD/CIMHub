@@ -1,279 +1,329 @@
 package gov.pnnl.gridappsd.cimhub.components;
-//	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
-//	All rights reserved.
-//	----------------------------------------------------------
+//    ----------------------------------------------------------
+//    Copyright (c) 2017-2022, Battelle Memorial Institute
+//    All rights reserved.
+//    ----------------------------------------------------------
 
 import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistCapacitor extends DistComponent {
-	public String id;
-	public String name;
-	public String bus;
-	public String phs;
-	public String conn;
-	public String grnd;
-	public String ctrl;
-	public double nomu;
-	public double basev;
-	public double kvar;
-	public String mode;
-	public double setpoint;
-	public double deadband;
-	public double delay;
-	public String moneq;
-	public String monclass;
-	public String monbus;
-	public String monphs;
+  public static final String szCIMClass = "LinearShuntCompensator";
 
-	private double kvar_A;
-	private double kvar_B;
-	private double kvar_C;
-	private boolean bDelta;
-	private int nphases;
+  public String id;
+  public String name;
+  public String bus;
+  public String t1id;
+  public String phs;
+  public String conn;
+  public String grnd;
+  public String ctrl;
+  public double nomu;
+  public double basev;
+  public double kvar;
+  public String mode;
+  public double setpoint;
+  public double deadband;
+  public double delay;
+  public double sections_on;
+  public String moneq;
+  public String monclass;
+  public String monbus;
+  public int montrm;
+  public String monphs;
 
-	public String GetJSONEntry () {
-		StringBuilder buf = new StringBuilder ();
+  private double kvar_A;
+  private double kvar_B;
+  private double kvar_C;
+  private boolean bDelta;
+  private int nphases;
 
-		buf.append ("{\"name\":\"" + name + "\"");
-		buf.append (",\"mRID\":\"" + id + "\"");
-		buf.append (",\"CN1\":\"" + bus + "\"");
-		buf.append (",\"phases\":\"" + phs + "\"");
-		buf.append (",\"kvar_A\":" + df1.format(kvar_A));
-		buf.append (",\"kvar_B\":" + df1.format(kvar_B));
-		buf.append (",\"kvar_C\":" + df1.format(kvar_C));
-		buf.append (",\"nominalVoltage\":" + df1.format(basev));
-		buf.append (",\"nomU\":" + df1.format(nomu));
-		buf.append (",\"phaseConnection\":\"" + conn + "\"");
-		buf.append (",\"grounded\":" + grnd.toLowerCase());
-		buf.append (",\"enabled\":" + ctrl.toLowerCase());
-		if (mode == null) {
-			buf.append(",\"mode\":null");
-		} else {
-			buf.append(",\"mode\":\"" + mode + "\"");
-		}
-		buf.append (",\"targetValue\":" + df1.format (setpoint));
-		buf.append (",\"targetDeadband\":" + df1.format (deadband));
-		buf.append (",\"aVRDelay\":" + df1.format (delay));
-		if (moneq == null) {
-			buf.append(",\"monitoredName\":null");
-		} else {
-			buf.append(",\"monitoredName\":\"" + moneq + "\"");
-		}
-		if (monclass == null) {
-			buf.append(",\"monitoredClass\":null");
-		} else {
-			buf.append(",\"monitoredClass\":\"" + monclass + "\"");
-		}
-		if (monbus == null) {
-			buf.append(",\"monitoredBus\":null");
-		} else {
-			buf.append(",\"monitoredBus\":\"" + monbus + "\"");
-		}
-		if (monphs == null) {
-			buf.append(",\"monitoredPhase\":null");
-		} else {
-			buf.append(",\"monitoredPhase\":\"" + monphs + "\"");
-		}
-		buf.append ("}");
-		return buf.toString();
-	}
+  public String GetJSONEntry () {
+    StringBuilder buf = new StringBuilder ();
 
-	private String DSSCapMode (String s) {
-		if (s.equals("currentFlow")) return "current";
-		if (s.equals("voltage")) return "voltage";
-		if (s.equals("reactivePower")) return "kvar";
-		if (s.equals("timeScheduled")) return "time";
-		if (s.equals("powerFactor")) return "pf";
-		if (s.equals("userDefined")) return "time"; // i.e. unsupported in CIM
-		return "time";
-	}
+    buf.append ("{\"name\":\"" + name + "\"");
+    buf.append (",\"mRID\":\"" + id + "\"");
+    buf.append (",\"CN1\":\"" + bus + "\"");
+    buf.append (",\"phases\":\"" + phs + "\"");
+    buf.append (",\"kvar_A\":" + df1.format(kvar_A));
+    buf.append (",\"kvar_B\":" + df1.format(kvar_B));
+    buf.append (",\"kvar_C\":" + df1.format(kvar_C));
+    buf.append (",\"nominalVoltage\":" + df1.format(basev));
+    buf.append (",\"nomU\":" + df1.format(nomu));
+    buf.append (",\"phaseConnection\":\"" + conn + "\"");
+    buf.append (",\"grounded\":" + grnd.toLowerCase());
+    buf.append (",\"enabled\":" + ctrl.toLowerCase());
+    if (mode == null) {
+      buf.append(",\"mode\":null");
+    } else {
+      buf.append(",\"mode\":\"" + mode + "\"");
+    }
+    buf.append (",\"targetValue\":" + df1.format (setpoint));
+    buf.append (",\"targetDeadband\":" + df1.format (deadband));
+    buf.append (",\"aVRDelay\":" + df1.format (delay));
+    if (moneq == null) {
+      buf.append(",\"monitoredName\":null");
+    } else {
+      buf.append(",\"monitoredName\":\"" + moneq + "\"");
+      buf.append(",\"monitoredTerminal\":\"" + Integer.toString(montrm) + "\"");
+    }
+    if (monclass == null) {
+      buf.append(",\"monitoredClass\":null");
+    } else {
+      buf.append(",\"monitoredClass\":\"" + monclass + "\"");
+    }
+    if (monbus == null) {
+      buf.append(",\"monitoredBus\":null");
+    } else {
+      buf.append(",\"monitoredBus\":\"" + monbus + "\"");
+    }
+    if (monphs == null) {
+      buf.append(",\"monitoredPhase\":null");
+    } else {
+      buf.append(",\"monitoredPhase\":\"" + monphs + "\"");
+    }
+    buf.append("}");
+    return buf.toString();
+  }
 
-	public void SetDerivedParameters() {
-		int bA = 0, bB = 0, bC = 0;
-		if (phs.contains ("A")) bA = 1;
-		if (phs.contains ("B")) bB = 1;
-		if (phs.contains ("C")) bC = 1;
-		double kvar_ph = kvar / (bA + bB + bC);
-		kvar_A = kvar_ph * bA;
-		kvar_B = kvar_ph * bB;
-		kvar_C = kvar_ph * bC;
-		if (conn.equals("D")) {
-			bDelta = true;
-		} else {
-			bDelta = false;
-		}
-		nphases = bA + bB + bC;
-	}
+  private String DSSCapMode (String s) {
+    if (s.equals("currentFlow")) return "current";
+    if (s.equals("voltage")) return "voltage";
+    if (s.equals("reactivePower")) return "kvar";
+    if (s.equals("timeScheduled")) return "time";
+    if (s.equals("powerFactor")) return "pf";
+    if (s.equals("userDefined")) return "time"; // i.e. unsupported in CIM
+    return "time";
+  }
 
-	/** translate the capacitor control mode from CIM to GridLAB-D
-	 *  @param s CIM regulating control mode enum
-	 *  @return MANUAL, CURRENT, VOLT, VAR */
-	private String GLMCapMode (String s) {
-		if (s.equals("currentFlow")) return "CURRENT";
-		if (s.equals("voltage")) return "VOLT";
-		if (s.equals("reactivePower")) return "VAR";
-		if (s.equals("timeScheduled")) return "MANUAL";  // TODO - support in GridLAB-D?
-		if (s.equals("powerFactor")) return "MANUAL";  // TODO - support in GridLAB-D?
-		if (s.equals("userDefined")) return "MANUAL"; 
-		return "time";
-	}
+  public void SetDerivedParameters() {
+    int bA = 0, bB = 0, bC = 0;
+    if (phs.contains ("A")) bA = 1;
+    if (phs.contains ("B")) bB = 1;
+    if (phs.contains ("C")) bC = 1;
+    double kvar_ph = kvar / (bA + bB + bC);
+    kvar_A = kvar_ph * bA;
+    kvar_B = kvar_ph * bB;
+    kvar_C = kvar_ph * bC;
+    if (conn.equals("D")) {
+      bDelta = true;
+    } else {
+      bDelta = false;
+    }
+    nphases = bA + bB + bC;
+  }
 
-	public DistCapacitor (ResultSet results) {
-		if (results.hasNext()) {
-			QuerySolution soln = results.next();
-			name = SafeName (soln.get("?name").toString());
-			id = soln.get("?id").toString();
-			bus = SafeName (soln.get("?bus").toString());
-			basev = Double.parseDouble (soln.get("?basev").toString());
-			phs = OptionalString (soln, "?phs", "ABC");
-			conn = soln.get("?conn").toString();
-			grnd = soln.get("?grnd").toString();
-			ctrl = OptionalString (soln, "?ctrlenabled", "false");
-			nomu = Double.parseDouble (soln.get("?nomu").toString());
-			double bsection = Double.parseDouble (soln.get("?bsection").toString());
-			kvar = nomu * nomu * bsection / 1000.0;
-			if (ctrl.equals ("true")) {
-				mode = soln.get("?mode").toString();
-				setpoint = Double.parseDouble (soln.get("?setpoint").toString());
-				deadband = Double.parseDouble (soln.get("?deadband").toString());
-				delay = Double.parseDouble (soln.get("?delay").toString());
-				moneq = soln.get("?moneq").toString();
-				monclass = soln.get("?monclass").toString();
-				monbus = soln.get("?monbus").toString();
-				monphs = soln.get("?monphs").toString();
-			}
-			SetDerivedParameters();
-		}
-	}
+  /** translate the capacitor control mode from CIM to GridLAB-D
+   *  @param s CIM regulating control mode enum
+   *  @return MANUAL, CURRENT, VOLT, VAR */
+  private String GLMCapMode (String s) {
+    if (s.equals("currentFlow")) return "CURRENT";
+    if (s.equals("voltage")) return "VOLT";
+    if (s.equals("reactivePower")) return "VAR";
+    if (s.equals("timeScheduled")) return "MANUAL";  // TODO - support in GridLAB-D?
+    if (s.equals("powerFactor")) return "MANUAL";  // TODO - support in GridLAB-D?
+    if (s.equals("userDefined")) return "MANUAL"; 
+    return "time";
+  }
 
-	public String DisplayString() {
-		StringBuilder buf = new StringBuilder ("");
-		buf.append (name + " @ " + bus + " on " + phs + " basev=" + df4.format(basev));
-		buf.append (" " + df4.format(nomu/1000.0) + " [kV] " + df4.format(kvar) + " [kvar] " + "conn=" + conn + " grnd=" + grnd);
-		if (ctrl.equals ("true")) {
-			buf.append("\n	control mode=" + mode + " set=" + df4.format(setpoint) + " bandwidth=" + df4.format(deadband) + " delay=" + df4.format(delay));
-			buf.append(" monitoring: " + moneq + ":" + monclass + ":" + monbus + ":" + monphs);
-		}
-		return buf.toString();
-	}
+  public DistCapacitor (ResultSet results) {
+    if (results.hasNext()) {
+      QuerySolution soln = results.next();
+      id = soln.get("?id").toString();
+      name = PushExportName (soln.get("?name").toString(), id, szCIMClass);
+      bus = GetBusExportName (soln.get("?bus").toString());
+      t1id = soln.get("?t1id").toString();
+      basev = Double.parseDouble (soln.get("?basev").toString());
+      phs = OptionalString (soln, "?phases", "ABC");
+      conn = soln.get("?conn").toString();
+      grnd = soln.get("?grnd").toString();
+      ctrl = OptionalString (soln, "?ctrlenabled", "false");
+      nomu = Double.parseDouble (soln.get("?nomu").toString());
+      double bsection = Double.parseDouble (soln.get("?bsection").toString());
+      kvar = nomu * nomu * bsection / 1000.0;
+      sections_on = Double.parseDouble (soln.get("?sections").toString());
+      if (ctrl.equals ("true")) {
+        mode = soln.get("?mode").toString();
+        setpoint = Double.parseDouble (soln.get("?setpoint").toString());
+        deadband = Double.parseDouble (soln.get("?deadband").toString());
+        delay = Double.parseDouble (soln.get("?delay").toString());
+        moneq = soln.get("?moneq").toString();
+        monclass = soln.get("?monclass").toString();
+        monbus = GetBusExportName (soln.get("?monbus").toString());
+        montrm = Integer.parseInt (soln.get("?montrm").toString());
+        monphs = soln.get("?monphs").toString();
+      }
+      SetDerivedParameters();
+    }
+  }
 
-	public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
-		DistCoordinates pt = map.get("LinearShuntCompensator:" + name + ":1");
+  public void PrepForExport() {
+    if (ctrl.equals("true")) {
+      moneq = GetEquipmentExportName (moneq);
+    }
+  }
 
-		StringBuilder buf = new StringBuilder ();
+  public String DisplayString() {
+    StringBuilder buf = new StringBuilder ("");
+    buf.append (name + " @ " + bus + " on " + phs + " basev=" + df4.format(basev));
+    buf.append (" " + df4.format(nomu/1000.0) + " [kV] " + df4.format(kvar) + " [kvar] " + "conn=" + conn + " grnd=" + grnd);
+    if (ctrl.equals ("true")) {
+      buf.append("\n  control mode=" + mode + " set=" + df4.format(setpoint) + " bandwidth=" + df4.format(deadband) + " delay=" + df4.format(delay));
+      buf.append(" monitoring: " + moneq + ":" + Integer.toString(montrm) + ":" + monclass + ":" + monbus + ":" + monphs);
+    }
+    return buf.toString();
+  }
 
-		buf.append ("{\"name\":\"" + name +"\"");
-		buf.append (",\"parent\":\"" + bus +"\"");
-		buf.append (",\"phases\":\"" + phs +"\"");
-		buf.append (",\"kvar_A\":" + df1.format(kvar_A));
-		buf.append (",\"kvar_B\":" + df1.format(kvar_B));
-		buf.append (",\"kvar_C\":" + df1.format(kvar_C));
-		buf.append (",\"x1\":" + Double.toString(pt.x));
-		buf.append (",\"y1\":" + Double.toString(pt.y));
-		buf.append ("}");
-		return buf.toString();
-	}
+  public String GetJSONSymbols(HashMap<String,DistCoordinates> map) {
+    DistCoordinates pt = map.get("LinearShuntCompensator:" + id + ":1");
 
-	public String GetGLM() {
-		StringBuilder buf = new StringBuilder ("object capacitor {\n");
+    StringBuilder buf = new StringBuilder ();
 
-		buf.append ("  name \"cap_" + name + "\";\n");
-		buf.append ("  parent \"" + bus + "\";\n");
-		if (bDelta) {
-			buf.append ("  phases " + phs + "D;\n");
-			buf.append ("  phases_connected " + phs + "D;\n");
-		} else {
-			buf.append ("  phases " + phs + "N;\n");
-			buf.append ("  phases_connected " + phs + "N;\n");
-		}
-		double gld_nomu = nomu;
-		if (nphases > 1) {
-			gld_nomu /= Math.sqrt(3.0);
-		}
-		buf.append("  cap_nominal_voltage " + df2.format(gld_nomu) + ";\n");
+    buf.append ("{\"name\":\"" + name +"\"");
+    buf.append (",\"parent\":\"" + bus +"\"");
+    buf.append (",\"phases\":\"" + phs +"\"");
+    buf.append (",\"kvar_A\":" + df1.format(kvar_A));
+    buf.append (",\"kvar_B\":" + df1.format(kvar_B));
+    buf.append (",\"kvar_C\":" + df1.format(kvar_C));
+    buf.append (",\"x1\":" + Double.toString(pt.x));
+    buf.append (",\"y1\":" + Double.toString(pt.y));
+    buf.append ("}");
+    return buf.toString();
+  }
+
+  private String GLMClassPrefix (String t) {
+    if (t.equals("LinearShuntCompensator")) return "cap_";
+    if (t.equals("ACLineSegment")) return "line_"; // assumes we prefix both overhead and underground with line_
+    if (t.equals("EnergyConsumer")) return "";  // TODO should we name load:?
+    if (t.equals("PowerTransformer")) return "xf_";
+    if (t.equals("LoadBreakSwitch")) return "swt_";
+    return "##UNKNOWN##";
+  }
+
+  private String DSSClassPrefix (String t) {
+    if (t.equals("LinearShuntCompensator")) return "capacitor";
+    if (t.equals("ACLineSegment")) return "line";
+    if (t.equals("EnergyConsumer")) return "load";
+    if (t.equals("PowerTransformer")) return "transformer";
+    if (t.equals("LoadBreakSwitch")) return "line";
+    return "##UNKNOWN##";
+  }
+
+  public String GetGLM() {
+    StringBuilder buf = new StringBuilder ("object capacitor {\n");
+
+    buf.append ("  name \"" + GLMObjectPrefix ("cap_") + name + "\";\n");
+    buf.append ("  parent \"" + bus + "\";\n");
+    if (bDelta) {
+      buf.append ("  phases " + phs + "D;\n");
+      buf.append ("  phases_connected " + phs + "D;\n");
+    } else {
+      buf.append ("  phases " + phs + "N;\n");
+      buf.append ("  phases_connected " + phs + "N;\n");
+    }
+    double gld_nomu = nomu;
+    if (nphases > 1) {
+      gld_nomu /= Math.sqrt(3.0);
+    }
+    buf.append("  cap_nominal_voltage " + df2.format(gld_nomu) + ";\n");
     buf.append("  nominal_voltage " + df2.format(gld_nomu) + ";\n");
-		if (kvar_A > 0.0) {
-			buf.append ("  capacitor_A " + df2.format(kvar_A * 1000.0) + ";\n");
-			buf.append ("  switchA CLOSED;\n");
-		}
-		if (kvar_B > 0.0) {
-			buf.append ("  capacitor_B " + df2.format(kvar_B * 1000.0) + ";\n");
-			buf.append ("  switchB CLOSED;\n");
-		}
-		if (kvar_C > 0.0) {
-			buf.append ("  capacitor_C " + df2.format(kvar_C * 1000.0) + ";\n");
-			buf.append ("  switchC CLOSED;\n");
-		}
-		if (ctrl.equals("true")) {
-			String glmMode = GLMCapMode (mode);
-			double dOn = setpoint - 0.5 * deadband;
-			double dOff = setpoint + 0.5 * deadband;
-			buf.append ("  control MANUAL; // " + glmMode + ";\n");
-			if (glmMode.equals("VOLT"))  {
-				buf.append ("  voltage_set_low " + df2.format(dOn) + ";\n");
-				buf.append ("  voltage_set_high " + df2.format(dOff) + ";\n");
-			} else if (glmMode.equals("CURRENT"))  {
-				buf.append ("  current_set_low " + df2.format(dOn) + ";\n");
-				buf.append ("  current_set_high " + df2.format(dOff) + ";\n");
-			} else if (glmMode.equals("VAR"))  {
-				// in GridLAB-D, positive VAR flow is from capacitor into the upstream remote sensing link (opposite of OpenDSS)
-				buf.append ("  VAr_set_low " + df2.format(dOff) + ";\n");
-				buf.append ("  VAr_set_high " + df2.format(dOn) + ";\n");
-			} else if (mode.equals("timeScheduled")) {
-				buf.append ("  // CIM timeScheduled on=" + df2.format(dOn) + " off=" + df2.format(dOff) + ";\n");
-			}
-			String glmClass = GLMClassPrefix(monclass);
-			if (!glmClass.equals("cap") || !moneq.equals(name)) {
-				buf.append("	remote_sense \"" + glmClass + "_" + moneq + "\";\n");
-			}
-			buf.append ("  pt_phase " + monphs + ";\n");
-			if (monphs.length() > 1) {
-				buf.append("	control_level INDIVIDUAL;\n");
-			} else {
-				buf.append("	control_level BANK;\n");
-			}
-			buf.append ("  dwell_time " + df2.format(delay) + ";\n");
-		}
-		buf.append("}\n");
+    if (kvar_A > 0.0) {
+      buf.append ("  capacitor_A " + df2.format(kvar_A * 1000.0) + ";\n");
+      if (sections_on > 0.0) {
+        buf.append ("  switchA CLOSED;\n");
+      } else {
+        buf.append ("  switchA OPEN;\n");
+      }
+    }
+    if (kvar_B > 0.0) {
+      buf.append ("  capacitor_B " + df2.format(kvar_B * 1000.0) + ";\n");
+      if (sections_on > 0.0) {
+        buf.append ("  switchB CLOSED;\n");
+      } else {
+        buf.append ("  switchB OPEN;\n");
+      }
+    }
+    if (kvar_C > 0.0) {
+      buf.append ("  capacitor_C " + df2.format(kvar_C * 1000.0) + ";\n");
+      if (sections_on > 0.0) {
+        buf.append ("  switchC CLOSED;\n");
+      } else {
+        buf.append ("  switchC OPEN;\n");
+      }
+    }
+    if (ctrl.equals("true")) {
+      String glmMode = GLMCapMode (mode);
+      double dOn = setpoint - 0.5 * deadband;
+      double dOff = setpoint + 0.5 * deadband;
+      buf.append ("  control MANUAL; // " + glmMode + ";\n");
+      if (glmMode.equals("VOLT"))  {
+        buf.append ("  voltage_set_low " + df2.format(dOn) + ";\n");
+        buf.append ("  voltage_set_high " + df2.format(dOff) + ";\n");
+      } else if (glmMode.equals("CURRENT"))  {
+        buf.append ("  current_set_low " + df2.format(dOn) + ";\n");
+        buf.append ("  current_set_high " + df2.format(dOff) + ";\n");
+      } else if (glmMode.equals("VAR"))  {
+        // in GridLAB-D, positive VAR flow is from capacitor into the upstream remote sensing link (opposite of OpenDSS)
+        buf.append ("  VAr_set_low " + df2.format(dOff) + ";\n");
+        buf.append ("  VAr_set_high " + df2.format(dOn) + ";\n");
+      } else if (mode.equals("timeScheduled")) {
+        buf.append ("  // CIM timeScheduled on=" + df2.format(dOn) + " off=" + df2.format(dOff) + ";\n");
+      }
+      String glmClass = GLMClassPrefix(monclass);
+      if (!glmClass.equals("cap_") || !moneq.equals(name)) {
+        buf.append("  remote_sense \"" + GLMObjectPrefix (glmClass) + moneq + "\";\n");
+      }
+      buf.append ("  pt_phase " + monphs + ";\n");
+      if (monphs.length() > 1) {
+        buf.append("  control_level INDIVIDUAL;\n");
+      } else {
+        buf.append("  control_level BANK;\n");
+      }
+      buf.append ("  dwell_time " + df2.format(delay) + ";\n");
+    }
+    buf.append("}\n");
 
-		return buf.toString();
-	}
+    return buf.toString();
+  }
 
-	public String GetDSS() {
-		StringBuilder buf = new StringBuilder ("new Capacitor." + name);
+  public String GetDSS() {
+    StringBuilder buf = new StringBuilder ("new Capacitor." + name);
 
-		buf.append (" phases=" + Integer.toString(DSSPhaseCount(phs, bDelta)) + " bus1=" + DSSShuntPhases (bus, phs, bDelta) + 
-								 " conn=" + DSSConn(bDelta) + " kv=" + df2.format(0.001 * nomu) + " kvar=" + df2.format(kvar));
-		buf.append("\n");
+    buf.append (" phases=" + Integer.toString(DSSPhaseCount(phs, bDelta)) + " bus1=" + DSSShuntPhases (bus, phs, bDelta) + 
+           " conn=" + DSSConn(bDelta) + " kv=" + df2.format(0.001 * nomu) + " kvar=" + df2.format(kvar));
+    if (sections_on > 0.0) {
+      buf.append (" states=[1]");
+    } else {
+      buf.append (" states=[0]");
+    }
+    buf.append("\n");
 
-		if (ctrl.equals("true")) {
-			String dssClass = DSSClassPrefix(monclass);
-			double dOn = setpoint - 0.5 * deadband;
-			double dOff = setpoint + 0.5 * deadband;
-			if (mode.equals("reactivePower")) {
-				dOn /= 1000.0;
-				dOff /= 1000.0;
-			}
-			int nterm = 1;  // TODO: need to search for this
-			buf.append ("new CapControl." + name + " capacitor=" + name + " type=" + DSSCapMode(mode) + 
-									" on=" + df2.format(dOn) + " off=" + df2.format(dOff) + " delay=" + df2.format(delay) + 
-									" delayoff=" + df2.format(delay) + " element=" + dssClass + "." + moneq +
-									" terminal=" + Integer.toString(nterm) + " ptratio=1 ptphase=" + FirstDSSPhase(monphs));
-			buf.append("\n");
-		}
-		return buf.toString();
-	}
+    if (ctrl.equals("true")) {
+      String dssClass = DSSClassPrefix(monclass);
+      double dOn = setpoint - 0.5 * deadband;
+      double dOff = setpoint + 0.5 * deadband;
+      if (mode.equals("reactivePower")) {
+      dOn /= 1000.0;
+      dOff /= 1000.0;
+      }
+      buf.append ("new CapControl." + name + " capacitor=" + name + " type=" + DSSCapMode(mode) + 
+            " on=" + df2.format(dOn) + " off=" + df2.format(dOff) + " delay=" + df2.format(delay) + 
+            " delayoff=" + df2.format(delay) + " element=" + dssClass + "." + moneq +
+            " terminal=" + Integer.toString(montrm) + " ptratio=1 ptphase=" + FirstDSSPhase(monphs));
+      buf.append("\n");
+    }
+    return buf.toString();
+  }
 
-  public static String szCSVCapHeader = "Name,Bus,Phases,kV,kVAR,NumPhases,Connection";
+  public static String szCSVCapHeader = "Name,Bus,Phases,kV,kVAR,NumPhases,Connection,kVARon";
 
-  public static String szCSVCapControlHeader = "Name,Capacitor,MonitoredElement,ElementTerminal,Type,PTRatio,CTRatio,ONSetting,OFFSetting";
+  public static String szCSVCapControlHeader = "Name,Capacitor,MonitoredElement,ElementTerminal,MonitoredBus,Type,PTRatio,CTRatio,ONSetting,OFFSetting,Delay";
 
   public String GetCapCSV () {
     int nphases = DSSPhaseCount(phs, bDelta);
     StringBuilder buf = new StringBuilder (name + "," + bus + "," + CSVPhaseString (phs) + ",");
-    buf.append (df2.format(0.001 * nomu) + "," + df2.format(kvar) + "," + Integer.toString (nphases) + "," + DSSConn(bDelta) + "\n");
+    buf.append (df2.format(0.001 * nomu) + "," + df2.format(kvar) + "," + Integer.toString (nphases) + "," + 
+          DSSConn(bDelta) + "," + df2.format(kvar * sections_on) + "\n");
     return buf.toString();
   }
 
@@ -287,16 +337,16 @@ public class DistCapacitor extends DistComponent {
       dOn /= 1000.0;
       dOff /= 1000.0;
     }
-    int nterm = 1;  // TODO: need to search for this
 
     StringBuilder buf = new StringBuilder (name + "," + name + "," + dssClass + "." + moneq + ",");
-    buf.append (Integer.toString(nterm) + "," + DSSCapMode(mode) + ",1,1," + df2.format(dOn) + "," + df2.format(dOff) + "\n");
+    buf.append (Integer.toString(montrm) + "," + monbus + "," + DSSCapMode(mode) + ",1,1," + df2.format(dOn) + "," + 
+          df2.format(dOff) + "," + df2.format(delay) + "\n");
 
     return buf.toString();
   }
 
   public String GetKey() {
-		return name;
-	}
+    return id;
+  }
 }
 

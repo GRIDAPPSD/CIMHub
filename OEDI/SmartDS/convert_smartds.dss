@@ -1,0 +1,10 @@
+// cd ./SmartDS
+redirect Master.dss
+export summary   SmartDS_s.csv
+export voltages  SmartDS_v.csv
+export currents  SmartDS_i.csv
+export taps      SmartDS_t.csv
+export nodeorder SmartDS_n.csv
+uuids SmartDS_uuids.dat
+export cim100 file=SmartDS.xml sub=p9udt12866-p9uhs16_1247x subgeo=SmartDS geo=OEDI fid=43790F23-2733-4F3F-9E57-09866A74F1E9
+export uuids SmartDS_uuids.dat

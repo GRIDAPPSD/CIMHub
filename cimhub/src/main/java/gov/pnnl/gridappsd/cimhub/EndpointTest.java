@@ -1,8 +1,8 @@
 package gov.pnnl.gridappsd.cimhub;
-//      ----------------------------------------------------------
-//      Copyright (c) 2017-2020, Battelle Memorial Institute
-//      All rights reserved.
-//      ----------------------------------------------------------
+//    ----------------------------------------------------------
+//    Copyright (c) 2017-2020, Battelle Memorial Institute
+//    All rights reserved.
+//    ----------------------------------------------------------
 
 // package gov.pnnl.gridlabd.cim ;
 
@@ -29,39 +29,39 @@ public class EndpointTest extends Object {
   static final String nsRDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
   public static void main (String args[]) throws UnsupportedEncodingException, FileNotFoundException {
-       
-    String qPrefix = "PREFIX r: <" + nsRDF + "> PREFIX c: <" + nsCIM + "> ";
-    Query query;
-    QueryExecution qexec;
-    ResultSet results;
-    QuerySolution soln;
-    DecimalFormat df = new DecimalFormat("#0.00");
+     
+  String qPrefix = "PREFIX r: <" + nsRDF + "> PREFIX c: <" + nsCIM + "> ";
+  Query query;
+  QueryExecution qexec;
+  ResultSet results;
+  QuerySolution soln;
+  DecimalFormat df = new DecimalFormat("#0.00");
 
-    query = QueryFactory.create (qPrefix + 
-              "SELECT ?s ?name ?nomu ?bsection ?bus WHERE {" + 
-              " ?s r:type c:LinearShuntCompensator." +
-              " ?s c:IdentifiedObject.name ?name." +
-              " ?s c:ShuntCompensator.nomU ?nomu." + 
-              " ?s c:LinearShuntCompensator.bPerSection ?bsection." + 
-              " ?t c:Terminal.ConductingEquipment ?s." + 
-              " ?t c:Terminal.ConnectivityNode ?cn." + 
-              " ?cn c:IdentifiedObject.name ?bus" + 
-              "}");
-    qexec = QueryExecutionFactory.sparqlService (szEND, query);
-    results=qexec.execSelect();
-    while (results.hasNext()) {
-      soln = results.next();
+  query = QueryFactory.create (qPrefix + 
+        "SELECT ?s ?name ?nomu ?bsection ?bus WHERE {" + 
+        " ?s r:type c:LinearShuntCompensator." +
+        " ?s c:IdentifiedObject.name ?name." +
+        " ?s c:ShuntCompensator.nomU ?nomu." + 
+        " ?s c:LinearShuntCompensator.bPerSection ?bsection." + 
+        " ?t c:Terminal.ConductingEquipment ?s." + 
+        " ?t c:Terminal.ConnectivityNode ?cn." + 
+        " ?cn c:IdentifiedObject.name ?bus" + 
+        "}");
+  qexec = QueryExecutionFactory.sparqlService (szEND, query);
+  results=qexec.execSelect();
+  while (results.hasNext()) {
+    soln = results.next();
 
-//      String id = soln.get("?s").toString();
-      String name = soln.get("?name").toString();
-      String bus = soln.get("?bus").toString();
-      double nomu = Double.parseDouble (soln.get("?nomu").toString());
-      double bsection = Double.parseDouble (soln.get("?bsection").toString());
-      double kvar = nomu * nomu * bsection / 1000.0;
+//    String id = soln.get("?s").toString();
+    String name = soln.get("?name").toString();
+    String bus = soln.get("?bus").toString();
+    double nomu = Double.parseDouble (soln.get("?nomu").toString());
+    double bsection = Double.parseDouble (soln.get("?bsection").toString());
+    double kvar = nomu * nomu * bsection / 1000.0;
 
-      System.out.println (name + " @ " + bus + "  " + 
-        df.format(nomu/1000.0) + " [kV] " + df.format(kvar) + " [kvar]");
-    }
+    System.out.println (name + " @ " + bus + "  " + 
+    df.format(nomu/1000.0) + " [kV] " + df.format(kvar) + " [kvar]");
+  }
   }
 }
 

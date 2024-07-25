@@ -1,0 +1,12 @@
+clear
+new circuit.remote_avr_b
+redirect shared.dss
+
+New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6682 kvarMax=2940 kvarMaxAbs=2940
+//New ExpControl.der vreg=1.0 vregmax=1.03 slope=22 vregtau=300 Tresponse=10 deltaQ_factor=0.3 // EventLog=Yes
+New InvControl.pv1 mode=DYNAMICREACCURR DbVMin=1 DbVMax=1 ArGraLowV=22 ArGraHiV=22 DynReacavgwindowlen=300s
+~ deltaQ_factor=0.2 // ~ EventLog=yes
+redirect monbus.dss
+
+redirect postlude.dss
+

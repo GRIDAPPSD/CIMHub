@@ -1,2 +1,10 @@
+*.csv
+*.CSV
 *.xml
 *.XML
+ieee*.json
+test_feeder_index.json
+ieee*.glm
+*base.dss
+*busxy.dss
+*uuid.dss

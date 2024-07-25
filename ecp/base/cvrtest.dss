@@ -1,0 +1,19 @@
+clear
+new circuit.cvr basekv=13.2 pu=1.00 r1=1.210 x1=2.834 r0=3.961 x0=3.214
+
+// primary feeder with sequence impedances from Kersting's example 4.1
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=sourcebus bus2=bess linecode=trunk len=0.2
+new line.seg2 bus1=bess      bus2=pv   linecode=trunk len=1.0
+new line.seg3 bus1=pv        bus2=load linecode=trunk len=1.0
+new line.seg4 bus1=load      bus2=gen  linecode=trunk len=0.5
+
+new load.mod1   bus1=load kv=13.2 kw=1000 vminpu=0.9 model=1
+new load.mod4   bus1=load like=mod1 model=4
+new load.cvrfac bus1=load like=mod1 model=4 cvrwatts=0.8 cvrvars=3.0
+
+set Voltagebases=[13.2]
+calcv
+solve
+
+show powers

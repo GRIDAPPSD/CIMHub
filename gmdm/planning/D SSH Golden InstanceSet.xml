@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?iec61970-552 version="3.0" method=”DataSet”?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:cim="http://ucaiug.org/61970cim18v02_61968cim14v00#"
+         xmlns:exch="http://ucaiug.org/GMDM/Exchange#">
+	<exch:InstanceSet rdf:about="urn:uuid:fd764318-730e-42f4-8c7e-9bc58eec8137">
+		<exch:InstanceSet.name>Distribution SSH Golden Model InstanceSet</exch:InstanceSet.name>
+	</exch:InstanceSet>
+	<cim:RatioTapChanger rdf:about="urn:uuid:ff9fe1e9-f25e-4582-8f6e-63924ff5ff41">
+		<cim:TapChanger.step>0</cim:TapChanger.step>
+		<cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+	</cim:RatioTapChanger>
+	<cim:RatioTapChanger rdf:about="urn:uuid:dabb4e8f-de28-421e-83a1-4441eb66a3eb">
+		<cim:TapChanger.step>0</cim:TapChanger.step>
+		<cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+	</cim:RatioTapChanger>
+	<cim:RatioTapChanger rdf:about="urn:uuid:58a2dee3-37cd-4ed9-9b66-991060a6f84f">
+		<cim:TapChanger.step>0</cim:TapChanger.step>
+		<cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+	</cim:RatioTapChanger>
+	<cim:RatioTapChanger rdf:about="urn:uuid:386360c6-9470-464a-be80-fd5802dfd306">
+		<cim:TapChanger.step>0</cim:TapChanger.step>
+		<cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+	</cim:RatioTapChanger>
+	<cim:TapChangerControl rdf:about="urn:uuid:7af473ec-992c-4253-a8c0-95010aa36d85">
+		<cim:RegulatingControl.targetDeadband>3</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>120</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.none"/>
+		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
+	</cim:TapChangerControl>
+	<cim:TapChangerControl rdf:about="urn:uuid:8834ca9a-5932-4b58-a41c-6e791b013950">
+		<cim:RegulatingControl.targetDeadband>3</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>120</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.none"/>
+		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
+	</cim:TapChangerControl>
+	<cim:TapChangerControl rdf:about="urn:uuid:b8c5e532-450e-4d35-822f-36b8b767865b">
+		<cim:RegulatingControl.targetDeadband>3</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>120</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.none"/>
+		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
+	</cim:TapChangerControl>
+	<cim:RegulatingControl rdf:about="urn:uuid:5f8d7887-8513-4c89-b855-2d7b9e95159c">
+		<cim:RegulatingControl.targetDeadband>0.3</cim:RegulatingControl.targetDeadband>
+		<cim:RegulatingControl.targetValue>7.2</cim:RegulatingControl.targetValue>
+		<cim:RegulatingControl.targetValueUnitMultiplier rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#UnitMultiplier.k"/>
+		<cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
+	</cim:RegulatingControl>
+	<cim:EnergyConsumer rdf:about="urn:uuid:fe032614-1051-472b-8247-dbf3219cb82b">
+		<cim:EnergyConsumer.p>0.058</cim:EnergyConsumer.p>
+		<cim:EnergyConsumer.q>0.024</cim:EnergyConsumer.q>
+	</cim:EnergyConsumer>
+	<cim:EnergyConsumer rdf:about="urn:uuid:c9f871fa-d200-44a2-a157-3a3197e7aefa">
+		<cim:EnergyConsumer.p>0.076</cim:EnergyConsumer.p>
+		<cim:EnergyConsumer.q>0.03</cim:EnergyConsumer.q>
+	</cim:EnergyConsumer>
+	<cim:EnergyConsumer rdf:about="urn:uuid:f0dddace-92bf-421f-a437-11a10b7daa80">
+		<cim:EnergyConsumer.p>0.116</cim:EnergyConsumer.p>
+		<cim:EnergyConsumer.q>0.046</cim:EnergyConsumer.q>
+	</cim:EnergyConsumer>
+	<cim:EnergyConsumer rdf:about="urn:uuid:b0466011-bd3e-49b5-8ef7-28933e321641">
+		<cim:EnergyConsumer.p>0.036</cim:EnergyConsumer.p>
+		<cim:EnergyConsumer.q>0.014</cim:EnergyConsumer.q>
+	</cim:EnergyConsumer>
+	<cim:EnergyConsumer rdf:about="urn:uuid:9dbed47b-d845-4c63-82bf-78658ca6edad">
+		<cim:EnergyConsumer.p>0.025</cim:EnergyConsumer.p>
+		<cim:EnergyConsumer.q>0.01</cim:EnergyConsumer.q>
+	</cim:EnergyConsumer>
+	<cim:EnergyConsumer rdf:about="urn:uuid:0c934d2d-49b2-4453-a51f-4edf78157d89">
+		<cim:EnergyConsumer.p>0.019</cim:EnergyConsumer.p>
+		<cim:EnergyConsumer.q>0.0076</cim:EnergyConsumer.q>
+	</cim:EnergyConsumer>
+	<cim:EnergyConsumer rdf:about="urn:uuid:e4018726-913b-48b3-a48c-ca6593312c21">
+		<cim:EnergyConsumer.p>0.0192</cim:EnergyConsumer.p>
+		<cim:EnergyConsumer.q>0.0076</cim:EnergyConsumer.q>
+	</cim:EnergyConsumer>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:babba800-e2cc-4851-81a1-258052eab8b2">
+		<cim:EnergyConsumerPhase.p>0.029</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.012</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:d9aa1ac2-5f0b-4925-a878-75cda3dfefff">
+		<cim:EnergyConsumerPhase.p>0.038</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.015</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:b14e4b8b-d40a-414f-9f64-8785f29157f7">
+		<cim:EnergyConsumerPhase.p>0.058</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.023</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:af9de816-6e08-45d6-b038-9fc903dafbe0">
+		<cim:EnergyConsumerPhase.p>0.0096</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.0038</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:7644fbcd-1b85-466d-825f-d52bb5323745">
+		<cim:EnergyConsumerPhase.p>0.0096</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.0038</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:PowerElectronicsConnection rdf:about="urn:uuid:83ee260c-9c77-49d4-80e5-e4df94b08730">
+		<cim:PowerElectronicsConnection.p>-0.01</cim:PowerElectronicsConnection.p>
+		<cim:PowerElectronicsConnection.q>-0.002</cim:PowerElectronicsConnection.q>
+		<cim:RegulatingCondEq.controlEnabled>true</cim:RegulatingCondEq.controlEnabled>
+	</cim:PowerElectronicsConnection>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:967c9e93-11e0-4114-8b45-77e384465f3b">
+		<cim:EnergyConsumerPhase.p>0.029</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.012</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:bc3c2000-ff4b-4584-b13a-45fda6e70e7b">
+		<cim:EnergyConsumerPhase.p>0.038</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.015</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:b6e0a849-0e34-49a1-b28d-d8fb7129c92e">
+		<cim:EnergyConsumerPhase.p>0.058</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.023</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:f60a9e96-d405-4355-99bb-5fb2978ba592">
+		<cim:EnergyConsumerPhase.p>0.0096</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.0038</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:EnergyConsumerPhase rdf:about="urn:uuid:4965ed41-98b2-4f7e-8514-f7463e98f957">
+		<cim:EnergyConsumerPhase.p>0.0096</cim:EnergyConsumerPhase.p>
+		<cim:EnergyConsumerPhase.q>0.0038</cim:EnergyConsumerPhase.q>
+	</cim:EnergyConsumerPhase>
+	<cim:PowerElectronicsConnectionPhase rdf:about="urn:uuid:827bd907-564c-4a8a-a4d3-326bd8eb1c3a">
+		<cim:PowerElectronicsConnectionPhase.p>-0.005</cim:PowerElectronicsConnectionPhase.p>
+		<cim:PowerElectronicsConnectionPhase.q>-0.001</cim:PowerElectronicsConnectionPhase.q>
+	</cim:PowerElectronicsConnectionPhase>
+	<cim:PowerElectronicsConnectionPhase rdf:about="urn:uuid:88956583-8a46-4144-aaef-c4c130a21c56">
+		<cim:PowerElectronicsConnectionPhase.p>-0.005</cim:PowerElectronicsConnectionPhase.p>
+		<cim:PowerElectronicsConnectionPhase.q>-0.001</cim:PowerElectronicsConnectionPhase.q>
+	</cim:PowerElectronicsConnectionPhase>
+	<cim:BatteryUnit rdf:about="urn:uuid:dd161716-e902-4c25-b2e6-06c13a8faefd">
+		<cim:BatteryUnit.batteryState rdf:resource="http://ucaiug.org/61970cim18v02_61968cim14v00#BatteryStateKind.discharging"/>
+		<cim:BatteryUnit.storedE>0.03</cim:BatteryUnit.storedE>
+	</cim:BatteryUnit>
+	<cim:LinearShuntCompensator rdf:about="urn:uuid:1fb03597-4505-44a3-8a91-673a08a2d935">
+		<cim:RegulatingCondEq.controlEnabled>true</cim:RegulatingCondEq.controlEnabled>
+	</cim:LinearShuntCompensator>
+	<cim:LinearShuntCompensatorPhase rdf:about="urn:uuid:95891012-3ae2-44b3-bbd6-24cbd58ccb0e">
+		<cim:ShuntCompensatorPhase.sections>1</cim:ShuntCompensatorPhase.sections>
+	</cim:LinearShuntCompensatorPhase>
+	<cim:LinearShuntCompensatorPhase rdf:about="urn:uuid:5bb4906c-ebf7-4e3b-8cd7-cbcebd4e880e">
+		<cim:ShuntCompensatorPhase.sections>1</cim:ShuntCompensatorPhase.sections>
+	</cim:LinearShuntCompensatorPhase>
+	<cim:LinearShuntCompensatorPhase rdf:about="urn:uuid:ceb6c71b-20ea-4273-817f-f8c4ba594b6c">
+		<cim:ShuntCompensatorPhase.sections>1</cim:ShuntCompensatorPhase.sections>
+	</cim:LinearShuntCompensatorPhase>
+</rdf:RDF>

@@ -1,0 +1,5 @@
+Set Voltagebases=[13.2, 0.4, 0.208]
+calcv
+set maxcontroliter=100
+Solve
+

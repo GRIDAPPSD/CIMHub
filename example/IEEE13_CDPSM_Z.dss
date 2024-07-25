@@ -1,0 +1,3 @@
+redirect IEEE13_CDPSM.dss
+batchedit load..* model=2
+solve

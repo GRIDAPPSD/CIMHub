@@ -1,0 +1,11 @@
+clear
+new circuit.remote_vvar_b
+redirect shared.dss
+
+New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6682 kvarMax=2940 kvarMaxAbs=2940
+New InvControl.der mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=voltvar1547b deltaQ_factor=0.4 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+redirect monbus.dss
+
+redirect postlude.dss
+
+

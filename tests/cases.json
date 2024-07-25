@@ -1,0 +1,175 @@
+[
+ {
+  "dssname": "IEEE13_Assets.dss",
+  "root": "IEEE13_Assets",
+  "mRID": "DFBF372D-4291-49EF-ACCA-53DAFDE0338F",
+  "substation": "sub1",
+  "region": "test_region",
+  "subregion": "test_subregion",
+  "glmvsrc": 66395.3,
+  "bases": [
+   480.0,
+   4160.0,
+   115000.0
+  ],
+  "export_options": " -l=1.0 -i=1.0 -e=carson",
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.XFM1",
+    "dss_bus": "633",
+    "gld_link": "XF_XFM1",
+    "gld_bus": "633"
+   },
+   {
+    "dss_link": "LINE.670671",
+    "dss_bus": "670",
+    "gld_link": "LINE_670671",
+    "gld_bus": "670"
+   }
+  ],
+  "inpath_dss": "../example",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "IEEE13_CDPSM.dss",
+  "root": "IEEE13_CDPSM",
+  "mRID": "F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29",
+  "substation": "sub2",
+  "region": "test_region",
+  "subregion": "test_subregion",
+  "glmvsrc": 66395.3,
+  "bases": [
+   480.0,
+   4160.0,
+   13200.0,
+   115000.0
+  ],
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.XFM1",
+    "dss_bus": "633",
+    "gld_link": "XF_XFM1",
+    "gld_bus": "633"
+   },
+   {
+    "dss_link": "LINE.670671",
+    "dss_bus": "670",
+    "gld_link": "LINE_670671",
+    "gld_bus": "670"
+   }
+  ],
+  "inpath_dss": "../example",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "IEEE13_CDPSM_Z.dss",
+  "root": "IEEE13_CDPSM_Z",
+  "mRID": "F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29",
+  "substation": "sub2",
+  "region": "test_region",
+  "subregion": "test_subregion",
+  "glmvsrc": 66395.3,
+  "bases": [
+   480.0,
+   4160.0,
+   13200.0,
+   115000.0
+  ],
+  "export_options": " -l=1.0 -z=1.0",
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.XFM1",
+    "dss_bus": "633",
+    "gld_link": "XF_XFM1",
+    "gld_bus": "633"
+   },
+   {
+    "dss_link": "LINE.670671",
+    "dss_bus": "670",
+    "gld_link": "LINE_670671",
+    "gld_bus": "670"
+   }
+  ],
+  "inpath_dss": "../example",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "IEEE13_CDPSM_I.dss",
+  "root": "IEEE13_CDPSM_I",
+  "mRID": "F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29",
+  "substation": "sub2",
+  "region": "test_region",
+  "subregion": "test_subregion",
+  "glmvsrc": 66395.3,
+  "bases": [
+   480.0,
+   4160.0,
+   13200.0,
+   115000.0
+  ],
+  "export_options": " -l=1.0 -i=1.0",
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.XFM1",
+    "dss_bus": "633",
+    "gld_link": "XF_XFM1",
+    "gld_bus": "633"
+   },
+   {
+    "dss_link": "LINE.670671",
+    "dss_bus": "670",
+    "gld_link": "LINE_670671",
+    "gld_bus": "670"
+   }
+  ],
+  "inpath_dss": "../example",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ },
+ {
+  "dssname": "IEEE13_CDPSM_P.dss",
+  "root": "IEEE13_CDPSM_P",
+  "mRID": "F9A70D1F-8F8D-49A5-8DBF-D73BF6DA7B29",
+  "substation": "sub2",
+  "region": "test_region",
+  "subregion": "test_subregion",
+  "glmvsrc": 66395.3,
+  "bases": [
+   480.0,
+   4160.0,
+   13200.0,
+   115000.0
+  ],
+  "export_options": " -l=1.0 -p=1.0",
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.XFM1",
+    "dss_bus": "633",
+    "gld_link": "XF_XFM1",
+    "gld_bus": "633"
+   },
+   {
+    "dss_link": "LINE.670671",
+    "dss_bus": "670",
+    "gld_link": "LINE_670671",
+    "gld_bus": "670"
+   }
+  ],
+  "inpath_dss": "../example",
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": ""
+ }
+]

@@ -1,0 +1,7 @@
+dss/
+glm/
+*.xml
+*.csv
+go.bat
+go.sh
+cim_test.dss
