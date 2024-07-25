@@ -54,43 +54,6 @@ public class DistMeasurement extends DistComponent {
   }
 
   public void FindSimObject (String loadname, String busphases, boolean bStorage, boolean bSolar, boolean bSyncMachines) {
-    if (eqtype.equals ("LinearShuntCompensator")) {
-      simobj = "cap_" + eqname;
-    } else if (eqtype.equals ("PowerElectronicsConnection")) {
-      if (bStorage) {
-        if (measType.equals ("SoC")) {
-          simobj = "bat_" + eqname;
-        } else {
-          simobj = bus + "_stmtr";
-        }
-      } else if (bSolar) {
-        simobj = bus + "_pvmtr";
-      } else {
-        simobj = "UKNOWN INVERTER";
-      }
-    } else if (eqtype.equals("ACLineSegment")) {
-      if (phases.contains("s")) {
-        simobj = "tpx_" + eqname;
-      } else {
-        simobj = "line_" + eqname;
-      }
-    } else if (eqtype.equals ("PowerTransformer")) { // RatioTapChanger or PowerTransformer
-      simobj = "xf_" + eqname;
-    } else if (eqtype.equals("LoadBreakSwitch")) {
-      simobj = "swt_" + eqname;
-    } else if (eqtype.equals ("Recloser")) {
-      simobj = "swt_" + eqname;
-    } else if (eqtype.equals ("Breaker")) {
-      simobj = "swt_" + eqname;
-    } else if (eqtype.equals ("SynchronousMachine")) {
-      simobj = bus + "_dgmtr";
-    } else if (eqtype.equals ("EnergyConsumer")) {
-      simobj = loadname;
-    } else {
-      simobj = "UKNOWN";
-    }
-  }
-	public void FindSimObject (String loadname, String busphases, boolean bStorage, boolean bSolar, boolean bSyncMachines) {
 		if (eqtype.equals ("LinearShuntCompensator")) {
 			simobj = "cap_" + eqname;
 		} else if (eqtype.equals ("PowerElectronicsConnection")) {
