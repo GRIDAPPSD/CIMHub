@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- un-comment this line to enable validation
+-->
+<rdf:RDF xmlns:cim="http://iec.ch/TC57/CIM100#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<!--
+-->
+<cim:IEC61970CIMVersion rdf:about="urn:uuid:609E2191-C964-4C98-9B38-41B6AF4AE473">
+  <cim:IEC61970CIMVersion.version>IEC61970CIM100</cim:IEC61970CIMVersion.version>
+  <cim:IEC61970CIMVersion.date>2019-04-01</cim:IEC61970CIMVersion.date>
+</cim:IEC61970CIMVersion>
+<cim:PowerElectronicsConnection rdf:about="urn:uuid:55B26190-D2B3-4FFE-96CD-72C4F90423B8">
+  <cim:PowerElectronicsConnection.p>240000</cim:PowerElectronicsConnection.p>
+  <cim:PowerElectronicsConnection.q>0</cim:PowerElectronicsConnection.q>
+  <cim:PowerElectronicsConnection.controlMode rdf:resource="http://iec.ch/TC57/CIM100#ConverterControlModeKind.constantPowerFactor"/>
+</cim:PowerElectronicsConnection>
+<cim:PowerElectronicsConnection rdf:about="urn:uuid:DE250CE3-04D5-4A67-88E0-9E3F54C356CD">
+  <cim:PowerElectronicsConnection.p>4000</cim:PowerElectronicsConnection.p>
+  <cim:PowerElectronicsConnection.q>0</cim:PowerElectronicsConnection.q>
+  <cim:PowerElectronicsConnection.controlMode rdf:resource="http://iec.ch/TC57/CIM100#ConverterControlModeKind.constantPowerFactor"/>
+</cim:PowerElectronicsConnection>
+<cim:PowerElectronicsConnectionPhase rdf:about="urn:uuid:8F3F9E84-74F0-413D-9DE8-53CB3487E5CC">
+  <cim:PowerElectronicsConnectionPhase.p>2000</cim:PowerElectronicsConnectionPhase.p>
+  <cim:PowerElectronicsConnectionPhase.q>0</cim:PowerElectronicsConnectionPhase.q>
+</cim:PowerElectronicsConnectionPhase>
+<cim:PowerElectronicsConnectionPhase rdf:about="urn:uuid:D8C04C80-B913-417E-9A43-426A4B2FBCAA">
+  <cim:PowerElectronicsConnectionPhase.p>2000</cim:PowerElectronicsConnectionPhase.p>
+  <cim:PowerElectronicsConnectionPhase.q>0</cim:PowerElectronicsConnectionPhase.q>
+</cim:PowerElectronicsConnectionPhase>
+<cim:BatteryUnit rdf:about="urn:uuid:7B6388E4-A926-42A6-9CB3-BE4AA8F05B93">
+  <cim:BatteryUnit.ratedE>200000</cim:BatteryUnit.ratedE>
+  <cim:BatteryUnit.storedE>100000</cim:BatteryUnit.storedE>
+  <cim:BatteryUnit.batteryState rdf:resource="http://iec.ch/TC57/CIM100#BatteryStateKind.charging"/>
+</cim:BatteryUnit>
+<cim:PowerElectronicsConnection rdf:about="urn:uuid:1506EAAC-461E-4358-9798-890ED2227BE2">
+  <cim:PowerElectronicsConnection.p>-100000</cim:PowerElectronicsConnection.p>
+  <cim:PowerElectronicsConnection.q>0</cim:PowerElectronicsConnection.q>
+  <cim:PowerElectronicsConnection.controlMode rdf:resource="http://iec.ch/TC57/CIM100#ConverterControlModeKind.constantPowerFactor"/>
+</cim:PowerElectronicsConnection>
+<cim:BatteryUnit rdf:about="urn:uuid:EC761963-AE34-4E32-95F5-87609B418FC4">
+  <cim:BatteryUnit.ratedE>13500</cim:BatteryUnit.ratedE>
+  <cim:BatteryUnit.storedE>5000</cim:BatteryUnit.storedE>
+  <cim:BatteryUnit.batteryState rdf:resource="http://iec.ch/TC57/CIM100#BatteryStateKind.charging"/>
+</cim:BatteryUnit>
+<cim:PowerElectronicsConnection rdf:about="urn:uuid:B94380E7-C9C6-4093-ABBC-6E0ADB431CD8">
+  <cim:PowerElectronicsConnection.p>-5000</cim:PowerElectronicsConnection.p>
+  <cim:PowerElectronicsConnection.q>0</cim:PowerElectronicsConnection.q>
+  <cim:PowerElectronicsConnection.controlMode rdf:resource="http://iec.ch/TC57/CIM100#ConverterControlModeKind.constantPowerFactor"/>
+</cim:PowerElectronicsConnection>
+<cim:PowerElectronicsConnectionPhase rdf:about="urn:uuid:6405A279-0D5C-40EB-9F31-FBD5EC6BC45C">
+  <cim:PowerElectronicsConnectionPhase.p>-2500</cim:PowerElectronicsConnectionPhase.p>
+  <cim:PowerElectronicsConnectionPhase.q>0</cim:PowerElectronicsConnectionPhase.q>
+</cim:PowerElectronicsConnectionPhase>
+<cim:PowerElectronicsConnectionPhase rdf:about="urn:uuid:509BB827-AC65-49E8-8793-43D682939D51">
+  <cim:PowerElectronicsConnectionPhase.p>-2500</cim:PowerElectronicsConnectionPhase.p>
+  <cim:PowerElectronicsConnectionPhase.q>0</cim:PowerElectronicsConnectionPhase.q>
+</cim:PowerElectronicsConnectionPhase>
+<cim:EnergySource rdf:about="urn:uuid:CB5649C3-0063-4356-BD5F-5FBB8ABBB91A">
+  <cim:EnergySource.voltageMagnitude>115000</cim:EnergySource.voltageMagnitude>
+  <cim:EnergySource.voltageAngle>0.52359878</cim:EnergySource.voltageAngle>
+</cim:EnergySource>
+<cim:LinearShuntCompensator rdf:about="urn:uuid:39DF39F4-88EE-45FD-97F0-C858D060B398">
+  <cim:ShuntCompensator.sections>1</cim:ShuntCompensator.sections>
+</cim:LinearShuntCompensator>
+<cim:LinearShuntCompensator rdf:about="urn:uuid:94B920A0-56A1-4A5B-871C-2CC4150C5356">
+  <cim:ShuntCompensator.sections>1</cim:ShuntCompensator.sections>
+</cim:LinearShuntCompensator>
+<cim:LinearShuntCompensatorPhase rdf:about="urn:uuid:6D448E14-F9D5-495E-9DD2-F2199621E9B5">
+  <cim:ShuntCompensatorPhase.sections>1</cim:ShuntCompensatorPhase.sections>
+</cim:LinearShuntCompensatorPhase>
+<cim:RatioTapChanger rdf:about="urn:uuid:099A63A6-9296-4E16-8DFF-94E2DD022AFC">
+  <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+  <cim:TapChanger.step>10</cim:TapChanger.step>
+</cim:RatioTapChanger>
+<cim:RatioTapChanger rdf:about="urn:uuid:9B45CEE7-03C2-42C6-B009-558DD27E60BA">
+  <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+  <cim:TapChanger.step>8</cim:TapChanger.step>
+</cim:RatioTapChanger>
+<cim:RatioTapChanger rdf:about="urn:uuid:E808F49C-3B60-4D14-A77C-CF985A1F7736">
+  <cim:TapChanger.controlEnabled>true</cim:TapChanger.controlEnabled>
+  <cim:TapChanger.step>11</cim:TapChanger.step>
+</cim:RatioTapChanger>
+<cim:LoadBreakSwitch rdf:about="urn:uuid:055D130E-A158-42BC-B92F-102B7B76C485">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:LoadBreakSwitch>
+<cim:Breaker rdf:about="urn:uuid:3255B9AB-2CE2-4C45-895F-FF6215580774">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:Breaker>
+<cim:Fuse rdf:about="urn:uuid:3666618E-0BD9-4C4E-B705-443ED5DC1E1A">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:Fuse>
+<cim:Recloser rdf:about="urn:uuid:0905E2C8-7A9A-4EE7-9291-26D0FB778314">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:Recloser>
+<cim:LoadBreakSwitch rdf:about="urn:uuid:D245A405-A38E-43CB-9BCC-A158DA6B9F35">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:LoadBreakSwitch>
+<cim:SwitchPhase rdf:about="urn:uuid:E858C5D8-2CDF-4A91-ACE9-14FE2ECA9AD3">
+  <cim:SwitchPhase.closed>true</cim:SwitchPhase.closed>
+</cim:SwitchPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:5495AC2C-55FE-412A-A9AC-BE1A07A13FD3">
+  <cim:EnergyConsumer.p>1155000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>660000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumer rdf:about="urn:uuid:5BCE6D95-2C24-4965-9BBC-99D29792F969">
+  <cim:EnergyConsumer.p>160000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>110000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:6A03EE28-9A87-44F8-8BD6-399855E81FCD">
+  <cim:EnergyConsumerPhase.p>160000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>110000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:D4988D03-7BE1-40B4-A251-627EE5BBFA63">
+  <cim:EnergyConsumer.p>120000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>90000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:0D2949E8-9F1D-43B0-89BE-3AB3831CD17D">
+  <cim:EnergyConsumerPhase.p>120000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>90000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:37A080E6-1F76-403C-845E-778017F2AB56">
+  <cim:EnergyConsumer.p>120000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>90000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:075B5A91-0A0E-4A02-8C3A-9141FB0E9CEE">
+  <cim:EnergyConsumerPhase.p>120000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>90000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:F5CD4E18-9BE5-4047-9474-171F6FA8C092">
+  <cim:EnergyConsumer.p>170000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>125000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:C7C6F7BC-8D14-4F77-B006-53D03357F4DD">
+  <cim:EnergyConsumerPhase.p>170000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>125000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:D8358FC8-B6E0-483B-A339-78A4A0046DE1">
+  <cim:EnergyConsumer.p>230000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>132000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:AF639E0F-876C-4E83-8527-3DF21E9159F9">
+  <cim:EnergyConsumerPhase.p>230000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>132000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:F7B701F7-4FF8-4038-8924-03BEDDD94715">
+  <cim:EnergyConsumer.p>170000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>151000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:C3D73818-A1A0-45A4-B1FF-AFCF63600EF2">
+  <cim:EnergyConsumerPhase.p>170000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>151000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:CBC28D67-963A-4D45-84EB-DC5DB3C0562F">
+  <cim:EnergyConsumer.p>485000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>190000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:E67811B7-106B-4EA8-BEE0-AC0902D38CD8">
+  <cim:EnergyConsumerPhase.p>485000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>190000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:3550BC41-017F-4F76-AA0F-D83C170BC675">
+  <cim:EnergyConsumer.p>68000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>60000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:0834DD6C-9346-4D77-AAA1-F10BA7E5C024">
+  <cim:EnergyConsumerPhase.p>68000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>60000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:43E317E9-2447-4371-BFF5-65A6EEEA7B0C">
+  <cim:EnergyConsumer.p>290000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>212000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:61C759D3-5EB3-4C90-A43B-2B2435A2E79A">
+  <cim:EnergyConsumerPhase.p>290000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>212000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:0113A75D-8077-4841-9870-15833733C77F">
+  <cim:EnergyConsumer.p>170000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>80000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:3A910EE6-5ED0-4679-A111-B8393632BC6E">
+  <cim:EnergyConsumerPhase.p>170000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>80000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:0EC03A1B-CF7A-4A69-829E-225243EACD98">
+  <cim:EnergyConsumer.p>128000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>86000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:413DF586-4129-4F02-82E9-1D7F97CA1A16">
+  <cim:EnergyConsumerPhase.p>128000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>86000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:D14BCAA5-FFED-43F5-95C7-D0CE49CAFCF5">
+  <cim:EnergyConsumer.p>17000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>10000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:643000F0-C6CB-42E5-8BCF-49DB082BEDFF">
+  <cim:EnergyConsumerPhase.p>17000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>10000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:020E5235-B4C9-4DCD-8261-F436A385FF91">
+  <cim:EnergyConsumer.p>66000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>38000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:E4F81979-F31A-4ECF-B6C5-8D66CC5C1155">
+  <cim:EnergyConsumerPhase.p>66000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>38000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:10E5E5B1-26CE-4283-B3B6-FE928CD1E5BA">
+  <cim:EnergyConsumer.p>117000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>68000</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:96C407EF-2308-4502-8646-80EA270E0AC8">
+  <cim:EnergyConsumerPhase.p>117000</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>68000</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumer rdf:about="urn:uuid:3E2AAE2A-C924-4E60-8E7F-7C9E47F8866D">
+  <cim:EnergyConsumer.p>5000</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>3098.7217</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:D327C88E-B461-42FD-8C51-2A35C919D141">
+  <cim:EnergyConsumerPhase.p>2500</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>1549.3608</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+<cim:EnergyConsumerPhase rdf:about="urn:uuid:BEE1A3FB-DBE1-46BB-9BFB-7E96908322B5">
+  <cim:EnergyConsumerPhase.p>2500</cim:EnergyConsumerPhase.p>
+  <cim:EnergyConsumerPhase.q>1549.3608</cim:EnergyConsumerPhase.q>
+</cim:EnergyConsumerPhase>
+</rdf:RDF>

@@ -1,0 +1,15 @@
+!cd C:\Users\mukh915\PNNL_Git_Repos\UVM_tutorial\CIMHub\example_uvm\IEEE13
+!redirect IEEE13_CDPSM.dss
+!solve
+!uuids file=IEEE13Nodeckt_Base_UUIDS.dat
+!export cim100 substation=subname geo=region subgeo=subregion file=ieee13cdpsm.xml
+!export cim100fragments substation=subname geo=region subgeo=subregion file=ieee13cdpsm
+!export uuids
+
+
+cd C:\Users\mukh915\PNNL_Git_Repos\UVM_tutorial\CIMHub\example_uvm\South_D1_Alburgh
+redirect Master_with_tpx.dss
+solve
+export cim100 file=South_D1_Alburgh.xml sub=South_D1_Alburgh subgeo=Large geo=South_D1_Alburgh 
+export cim100fragments substation=subname geo=region subgeo=subregion file=South_D1_Alburgh
+export uuids South_D1_Alburgh_uuids.dat
