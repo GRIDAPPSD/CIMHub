@@ -277,7 +277,7 @@ if __name__ == '__main__':
     ##################  TESP Compatibility  ####################
     if TESP_compatible: 
         model_tesp, clock_tesp =  modify_TESP.modify_feeder_for_TESP(model, clock, G_feeder, pos_data)
-        ofn_tesp = basedir + feeder_glm.replace('run_', '').split('.glm')[0] + '_mod_tesp.glm'
+        ofn_tesp = basedir + feeder_glm.replace('run_', '').split('.glm')[0] + '_mod_tesp_reduced.glm'
         glmanip.write(ofn_tesp,model_tesp,clock_tesp,directives,modules,classes)
       
     with open(basedir + feeder_name + '_mod_tesp_pos'+ '.json', 'w') as fp:

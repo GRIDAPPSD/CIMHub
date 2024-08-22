@@ -8,6 +8,22 @@ Created on Tue Jun 18 13:16:45 2019
 import json
 import numpy as np
 
+def gld_strict_name(val):
+    """ Sanitizes a name for GridLAB-D publication to FNCS
+    GridLAB-D name should not begin with a number, or contain '-' for FNCS
+
+    Args:
+        val (str): the input name
+
+    Returns:
+        str: val with all '-' replaced by '_', and any leading digit replaced by 'gld\_'
+    """
+    val = val.replace('"', '')
+    if val[0].isdigit():
+        val = "gld_" + val
+    return val.replace('-', '_')
+
+
 def createJson(feeder_name, model,clock,directives,modules,classes, coords_data = []): 
     
     feeder = {}
@@ -76,7 +92,8 @@ def createJson(feeder_name, model,clock,directives,modules,classes, coords_data 
                 
                     node_key =  model[node_models[it]][node]['parent']
                 if len(coords_data) >  0:
-                    pos_data_json[node.replace('-', '_')] = (coords_data.loc[node_key.replace('"', '')]['x'], coords_data.loc[node_key.replace('"', '')]['y'])
+                    node_clean = gld_strict_name(node)
+                    pos_data_json[node_clean] = (coords_data.loc[node_key.replace('"', '')]['x'], coords_data.loc[node_key.replace('"', '')]['y'])
 
     
     return feeder, pos_data_json

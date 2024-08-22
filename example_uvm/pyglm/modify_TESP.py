@@ -12,6 +12,21 @@ import math
 import glmanip
 from create_json_for_networkx import createJson
 
+def gld_strict_name(val):
+    """ Sanitizes a name for GridLAB-D publication to FNCS
+    GridLAB-D name should not begin with a number, or contain '-' for FNCS
+
+    Args:
+        val (str): the input name
+
+    Returns:
+        str: val with all '-' replaced by '_', and any leading digit replaced by 'gld\_'
+    """
+    val = val.replace('"', '')
+    if val[0].isdigit():
+        val = "gld_" + val
+    return val.replace('-', '_')
+
 def modify_feeder_for_TESP(model, clock, G_feeder, pos_data=[]): 
     
      ############### Clock Formatting for TESP compatibility ###############
@@ -70,8 +85,7 @@ def modify_feeder_for_TESP(model, clock, G_feeder, pos_data=[]):
       
     ############### Load Formatting for TESP compatibility ###############
     ###### TESP Looks at Load objects for populating loads 
-    ###### Having Banked Transformers may lead to errors 
-    ###### Aggregating Banked Transformers for TESP       
+    ###### Modifying Load objects with constant_power definitions     
      loads_mod = copy.deepcopy(model['load'])      
      for ld_id in model['load']:
         for ld_key in model['load'][ld_id]:
@@ -99,7 +113,8 @@ def modify_feeder_for_TESP(model, clock, G_feeder, pos_data=[]):
      else:
          tpx_meter_mod = {}
          
-         
+     ###### TESP Looks at Triplex Load objects for populating loads 
+     ###### Modifying Triplex objects with power_12 definitions      
      for tpx_ld_id in model['triplex_load']:
          Watt_12 = 0; VAR_12 = 0
          parent = model['triplex_load'][tpx_ld_id]['parent']
@@ -113,32 +128,31 @@ def modify_feeder_for_TESP(model, clock, G_feeder, pos_data=[]):
                   Watt_12 = Watt_12 + round(Watt_ph, 3)
                   VAR_12 = VAR_12 + round(VAR_ph, 3)
        
-         # down_tpx_nodes = sorted(nx.descendants(G_feeder, parent))
-         # for nd in down_tpx_nodes:
-         #     line_name =  '"tpx_' + nd.split('"')[1] + '"'
-         #     if line_name in tpx_lines_mod:
-         #         del tpx_lines_mod[line_name]
-         #     if nd in tpx_nodes_mod: 
-         #         del tpx_nodes_mod[nd]
-             
+
          new_tpx_line_name = new_tpx_line_name = 'span_' + tpx_ld_id.replace('"','')
          new_to_node_tpx_line = tpx_ld_id.replace('"','') + '_tn'
          tpx_lines_mod[new_tpx_line_name] = {'from': parent,
-                                              'to':   new_to_node_tpx_line,
-                                              'phases': tpx_phase,
-                                              'continuous_rating_' + tpx_phase.strip('S'): str(200), 
-                                              'emergency_rating_' + tpx_phase.strip('S'): str(250), 
-                                              'length': '30',
-                                              'configuration': '"tcon_4/0triplex_12"'}  
+                                            'to':   new_to_node_tpx_line,
+                                            'phases': tpx_phase,
+                                            'continuous_rating_' + tpx_phase.strip('S'): str(200), 
+                                            'emergency_rating_' + tpx_phase.strip('S'): str(250), 
+                                            'length': '30',
+                                            'configuration': '"tcon_4/0triplex_12"'}  
          tpx_meter_mod[new_to_node_tpx_line] = {'phases': tpx_phase,
-                                                           'nominal_voltage': '120.0'}
+                                                            'nominal_voltage': '120.0'}
 
          tpx_nodes_mod[tpx_ld_id] = {'parent': parent,
                                     'power_12': str(Watt_12) + '+' + str(VAR_12) + 'j',
                                     'phases': tpx_phase,
                                     'nominal_voltage': '120.0'}   
          del tpx_loads_mod[tpx_ld_id]
-         # pos_data[]
+         
+         ###### Adding coordinates to newly created meters for TESP Compatibility #### 
+         if len(pos_data) >  0:
+             parent_clean = gld_strict_name(parent) 
+             new_to_node_tpx_line_clean = gld_strict_name(new_to_node_tpx_line) 
+             pos_data[new_to_node_tpx_line_clean] = pos_data[parent_clean]
+
          
          
      
