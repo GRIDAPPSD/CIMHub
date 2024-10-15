@@ -148,12 +148,24 @@ public abstract class DistComponent {
     return exportName;
   }
 
-  public static String GetBusExportName (String id) {
-    return mapBusNames.get(id).exportName;
+  public static String GetBusExportName (String id) throws RuntimeException {
+    Boolean isValidId = mapBusNames.containsKey(id);
+    if (isValidId) {
+      return mapBusNames.get(id).exportName;
+    } else {
+      String errMsg = String.format("There is no bus with id of %s in the model!", id);
+      throw new RuntimeException(errMsg);
+    }
   }
 
-  public static String GetEquipmentExportName (String id) {
-    return mapEquipmentNames.get(id).exportName;
+  public static String GetEquipmentExportName (String id) throws RuntimeException{
+	Boolean isValidId = mapEquipmentNames.containsKey(id);
+	if (isValidId) {
+		return mapEquipmentNames.get(id).exportName;
+	} else {
+		String errMsg = String.format("There is no piece of equipment with id of %s in the model!", id);
+	    throw new RuntimeException(errMsg);
+	}
   }
 
   public static ConverterControlMode ParseControlMode (String arg) {

@@ -23,7 +23,7 @@ public class DistRegulator extends DistComponent {
   public String[] name;
   public String[] id;
   // GridLAB-D only supports different bank parameters for tap (step), R and X
-  public int[] step;
+  public double[] step;
   public double[] fwdR;
   public double[] fwdX;
   // GridLAB-D codes phs variations into certain attribute labels
@@ -146,7 +146,7 @@ public class DistRegulator extends DistComponent {
     AddJSONBooleanArray (buf, "RegulatingControl.enableds", ctl_enabled);
     AddJSONBooleanArray (buf, "RegulatingControl.discretes", discrete); 
     AddJSONStringArray (buf, "RegulatingControl.modes", ctlmode);
-    AddJSONIntegerArray (buf, "steps", step);
+    AddJSONDoubleArray (buf, "steps", step);
     AddJSONDoubleArray (buf, "targetValues", vset);
     AddJSONDoubleArray (buf, "targetDeadbands", vbw);
     AddJSONDoubleArray (buf, "maxLimitVoltages", vlim);
@@ -213,7 +213,7 @@ public class DistRegulator extends DistComponent {
     vmin = new double[size];
     vset = new double[size];
     vbw = new double[size];
-    step = new int[size];
+    step = new double[size];
     fwdR = new double[size];
     fwdX = new double[size];
     reversible = new boolean[size]; 
@@ -254,7 +254,7 @@ public class DistRegulator extends DistComponent {
         ltc[i] = Boolean.parseBoolean (soln.get("?ltc").toString());
         incr[i] = Double.parseDouble (soln.get("?incr").toString());
         neutralU[i] = Double.parseDouble (soln.get("?neutralU").toString());
-        step[i] = Integer.parseInt (soln.get("?step").toString());
+        step[i] = Double.parseDouble (soln.get("?step").toString());
 
         ctl_enabled[i] = OptionalBoolean (soln, "?ctl_enabled", false);
         discrete[i] = OptionalBoolean (soln, "?discrete", false);
@@ -323,7 +323,7 @@ public class DistRegulator extends DistComponent {
       buf.append (" neutralStep=" + Integer.toString(neutralStep[i]));
       buf.append (" normalStep=" + Integer.toString(normalStep[i]));
       buf.append (" neutralU=" + df4.format(neutralU[i]));
-      buf.append (" step=" + Integer.toString(step[i]));
+      buf.append (" step=" + df1.format(step[i]));
       buf.append (" incr=" + df4.format(incr[i]));
       buf.append (" initDelay=" + df4.format(initDelay[i]));
       buf.append (" subDelay=" + df4.format(subDelay[i]));
@@ -445,7 +445,7 @@ public class DistRegulator extends DistComponent {
         buf.append ("  compensator_r_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdR[i]) + ";\n"); // TODO
         buf.append ("  compensator_x_setting_" + orderedPhases[i].substring(0,1) + " " + df6.format(fwdX[i]) + ";\n");
         buf.append ("  // comment out the manual tap setting if using automatic control\n");
-        buf.append ("  tap_pos_" + orderedPhases[i].substring(0,1) + " " + Integer.toString(step[i]) + ";\n");
+        buf.append ("  tap_pos_" + orderedPhases[i].substring(0,1) + " " + String.valueOf((int)step[i]) + ";\n");
       }
     } else {
       buf.append ("  compensator_r_setting_A " + df6.format(fwdR[0]) + ";\n");
@@ -455,9 +455,9 @@ public class DistRegulator extends DistComponent {
       buf.append ("  compensator_x_setting_B " + df6.format(fwdX[0]) + ";\n");
       buf.append ("  compensator_x_setting_C " + df6.format(fwdX[0]) + ";\n");
       buf.append ("  // comment out the manual tap settings if using automatic control\n");
-      buf.append ("  tap_pos_A " + Integer.toString(step[0]) + ";\n");
-      buf.append ("  tap_pos_B " + Integer.toString(step[0]) + ";\n");
-      buf.append ("  tap_pos_C " + Integer.toString(step[0]) + ";\n");
+      buf.append ("  tap_pos_A " + String.valueOf((int)step[0]) + ";\n");
+      buf.append ("  tap_pos_B " + String.valueOf((int)step[0]) + ";\n");
+      buf.append ("  tap_pos_C " + String.valueOf((int)step[0]) + ";\n");
     }
     buf.append ("}\n");
 
@@ -485,7 +485,7 @@ public class DistRegulator extends DistComponent {
         xfName = pname;
       }
       buf.append("new RegControl." + name[i] + " transformer=" + xfName + " winding=" + Integer.toString(wnum[i]) +
-           " TapNum=" + Integer.toString(step[i]));
+           " TapNum=" + String.valueOf((int)step[i]));
       if (ltc[i]) {
         if (vset[i] > 0.0) buf.append(" vreg=" + df2.format(vset[i]));
         if (vbw[i] > 0.0) buf.append(" band=" + df2.format(vbw[i]));
@@ -524,7 +524,7 @@ public class DistRegulator extends DistComponent {
     for (int i = 0; i < size; i++) {
       buf.append(name[i] + "," + bus1 + "," + phs1 + "," + bus2 + "," + phs2 + ",");
       buf.append(df2.format(vset[i]) + "," + df2.format(ptRatio[i]) + "," + df2.format(ctRating[i]) + "," + df2.format(ctRatio[i]) + ",");
-      buf.append(df2.format(vbw[i]) + "," + df2.format(fwdR[i])  + "," + df2.format(fwdX[i]) + "," + Integer.toString(step[i]) + ",");
+      buf.append(df2.format(vbw[i]) + "," + df2.format(fwdR[i])  + "," + df2.format(fwdX[i]) + "," + String.valueOf((int)step[i]) + ",");
       buf.append(Integer.toString(lowStep[i]) + "," + Integer.toString(highStep[i]) + "," + Integer.toString(neutralStep[i]) + ",");
       buf.append(Integer.toString(normalStep[i]) + "," + df2.format(initDelay[i]) + "," + df2.format(subDelay[i]) + ",");
       buf.append(df2.format(vlim[i]) + "," + df2.format(vmin[i]) + "," + df4.format(incr[i]) + ",");
