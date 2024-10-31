@@ -176,14 +176,8 @@ if __name__ == '__main__':
     source_bus = "\"internalsouth_d1_alburgh\"";
     TESP_compatible = True
     run_glm = True
-    plot_voltage = False
-    
-    split_feeder = True
-    feeder_1_link = '"swt_28-7-1a"'
-    feeder_3_link  = '"swt_28-7-3a"'
-    feeder_4_link  = '"swt_28-7-4a"'
-    feeder_links_to_remove = [feeder_3_link, feeder_4_link] 
-        
+    plot_voltage = True
+    split_feeder = True   
         
         
     glm_lines = glmanip.read(dir_for_glm,basedir,buf=[])
@@ -191,8 +185,6 @@ if __name__ == '__main__':
 
     symbols_filename = basedir + feeder_name + '_symbols.json'
     coords_data_df = node_coordinates_from_symbols(symbols_filename)
-
-
     
     ##################### Cleaning Line Config Names ##########################
     ######### GridLAB-D has a charactere limit for names  # 
@@ -201,8 +193,7 @@ if __name__ == '__main__':
     
     model['line_configuration'] = line_config_new
     model['overhead_line'] = oh_line_model_new
-    ###########################################################################
-    
+    ###########################################################################  
     
     ################## Cleaning Transformer Impedances ########################
     ######### GridLAB-D doesn't like zero for impdenaces in transformers #
@@ -218,7 +209,6 @@ if __name__ == '__main__':
             if 475 < sec_voltage < 485:
                 model['transformer_configuration'][config]['secondary_voltage'] ='277'
     ###########################################################################
-
             
     ##################### Udpating Regulator Taps ###########################
     for reg_cnfg_id in model['regulator_configuration']:
@@ -227,7 +217,6 @@ if __name__ == '__main__':
                 model['regulator_configuration'][reg_cnfg_id][reg_cnfg_key] = str(0)
                 model['regulator_configuration'][reg_cnfg_id][reg_cnfg_key] = str(0)
     ###########################################################################             
-                    
                     
                     
     ##################### Adding Fault Check Object ###########################
@@ -241,9 +230,7 @@ if __name__ == '__main__':
     modules['powerflow']['line_limits'] = 'false'
     model['substation'][source_bus]['positive_sequence_voltage'] = model['substation'][source_bus]['nominal_voltage'] 
     ###########################################################################
-    
-    
-    
+        
     ########### Creating Network Graph from the GridLAB-D model ###############
     feeder_network, pos_data  = createJson(feeder_name, model,clock,directives,modules,classes, coords_data_df)
     G_feeder = nx.readwrite.json_graph.node_link_graph(feeder_network)
@@ -263,26 +250,20 @@ if __name__ == '__main__':
     model['triplex_node'] = model_tpx_node      
     ###########################################################################
                 
-
     
     ################## Writing Back the GridLAB-D Model ########################
-    ofn_clean = basedir + feeder_glm.replace('run_', '').split('.glm')[0] + '_clean.glm'
+    ofn_clean = basedir + feeder_glm.replace('run_', '').split('.glm')[0] + '_clean_full.glm'
     glmanip.write(ofn_clean,model,clock,directives,modules,classes)
-    
+   
      ##################  Removing Feeders ###################
     if split_feeder:
+        feeder_1_link = '"swt_28-7-1a"'
+        feeder_3_link  = '"swt_28-7-3a"'
+        feeder_4_link  = '"swt_28-7-4a"'
+        feeder_links_to_remove = [feeder_3_link, feeder_4_link] 
         model_new = remove_feeder_via_links(feeder_links_to_remove, model, G_feeder)
-        model = model_new 
-        
-    ##################  TESP Compatibility  ####################
-    if TESP_compatible: 
-        model_tesp, clock_tesp =  modify_TESP.modify_feeder_for_TESP(model, clock, G_feeder, pos_data)
-        ofn_tesp = basedir + feeder_glm.replace('run_', '').split('.glm')[0] + '_mod_tesp_reduced.glm'
-        glmanip.write(ofn_tesp,model_tesp,clock_tesp,directives,modules,classes)
-      
-    with open(basedir + feeder_name + '_mod_tesp_pos'+ '.json', 'w') as fp:
-        json.dump(pos_data, fp)
-            
+        ofn_clean = basedir + feeder_glm.replace('run_', '').split('.glm')[0] + '_clean_reduced.glm'
+        glmanip.write(ofn_clean,model_new,clock,directives,modules,classes)    
             
     if run_glm:
         print('Trying GridLAB-D Simulation')

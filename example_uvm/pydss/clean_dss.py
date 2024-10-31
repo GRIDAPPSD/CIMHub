@@ -136,7 +136,7 @@ if __name__ == '__main__':
         model_util_new = ModelUtil(dss)
         
         print('Finding Triplex nodes in the network')
-        model_util_new.find_triplex_nodes()
+        # model_util_new.find_triplex_nodes()
         ######## Temporarily reading the file to save time ######## 
         with open('../{}/xfmrs_info_temp.json'.format(feeder), "r") as read_content: 
             model_util_new.transformer = (json.load(read_content))

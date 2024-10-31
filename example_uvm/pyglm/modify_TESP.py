@@ -11,6 +11,7 @@ import copy
 import math 
 import glmanip
 from create_json_for_networkx import createJson
+import json
 
 def gld_strict_name(val):
     """ Sanitizes a name for GridLAB-D publication to FNCS
@@ -30,16 +31,18 @@ def gld_strict_name(val):
 def modify_feeder_for_TESP(model, clock, G_feeder, pos_data=[]): 
     
      ############### Clock Formatting for TESP compatibility ###############
-     clock['timestamp'] = clock['starttime']
-     del clock['starttime']
+     if 'starttime' in clock:
+         clock['timestamp'] = clock['starttime']
+         del clock['starttime']
      
      
      ############### Subsation Formatting for TESP compatibility ###############
-     source_bus = list(model['substation'].keys())[0]
-     model['node'][source_bus] = {'phases': model['substation'][source_bus]['phases'],
-                                  'bustype': model['substation'][source_bus]['bustype'],
-                                  'nominal_voltage': model['substation'][source_bus]['nominal_voltage']}
-     del model['substation']
+     if 'substation' in model:
+         source_bus = list(model['substation'].keys())[0]
+         model['node'][source_bus] = {'phases': model['substation'][source_bus]['phases'],
+                                      'bustype': model['substation'][source_bus]['bustype'],
+                                      'nominal_voltage': model['substation'][source_bus]['nominal_voltage']}
+         del model['substation']
      
      
      ############### Transformer Formatting for TESP compatibility ###############
@@ -171,10 +174,11 @@ if __name__ == '__main__':
     
     basedir = '..\\cimhub_converted\\'
     feeder_name = 'South_D1_Alburgh'
-    feeder_glm = 'run_' + feeder_name + '_clean.glm'
+    feeder_glm = feeder_name + '_clean_full.glm'
     dir_for_glm = basedir + '\\'+ feeder_glm 
     dir_for_symbols = basedir + '\\'+ feeder_glm 
     source_bus = "\"internalsouth_d1_alburgh\"";
+    TESP_compatible = True
     
     glm_lines = glmanip.read(dir_for_glm,basedir,buf=[])
     [model,clock,directives,modules,classes] = glmanip.parse(glm_lines)
@@ -185,8 +189,15 @@ if __name__ == '__main__':
     model_tesp, clock_tesp =   modify_feeder_for_TESP(model, clock, G_feeder)
     ofn = basedir + feeder_glm.replace('run_', '').split('.glm')[0] + '_mod_tesp.glm'
     glmanip.write(ofn,model_tesp,clock_tesp,directives,modules,classes)
-        
-        
+       
+    ##################  TESP Compatibility  ####################
+    if TESP_compatible: 
+        model_tesp, clock_tesp =  modify_feeder_for_TESP(model, clock, G_feeder, pos_data)
+        ofn_tesp = basedir + feeder_glm.replace('run_', '').split('.glm')[0] + '_mod_tesp_reduced.glm'
+        glmanip.write(ofn_tesp,model_tesp,clock_tesp,directives,modules,classes)
+      
+    with open(basedir + feeder_name + '_mod_tesp_pos'+ '.json', 'w') as fp:
+        json.dump(pos_data, fp)    
         
      
      
