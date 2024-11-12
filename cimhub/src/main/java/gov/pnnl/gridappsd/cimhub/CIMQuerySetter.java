@@ -152,7 +152,7 @@ public class CIMQuerySetter extends Object {
       "   ?eq a ?classraw."+
       "   bind(strafter(str(?classraw),\"CIM100#\") as ?class)}"+
       "  UNION"+
-      " { ?eq c:PowerElectronicsConnection.PowerElectronicsUnit ?unit."+
+      " { ?unit c:PowerElectronicsUnit.PowerElectronicsConnection ?eq."+
       "   ?unit c:IdentifiedObject.mRID ?id."+
       "   ?unit a ?classraw."+
       "   bind(strafter(str(?classraw),\"CIM100#\") as ?class)}"+
@@ -365,7 +365,6 @@ public class CIMQuerySetter extends Object {
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssDaily ?dssDaily.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssDuty ?dssDuty.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadCvrCurve ?dssLoadCvrCurve.}"+
-      " OPTIONAL {?ecp c:EnergyConnectionProfile.dssLoadGrowth ?dssLoadGrowth.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTDaily ?dssPVTDaily.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTDuty ?dssPVTDuty.}"+
       " OPTIONAL {?ecp c:EnergyConnectionProfile.dssPVTYearly ?dssPVTYearly.}"+
@@ -483,7 +482,9 @@ public class CIMQuerySetter extends Object {
       " ?p c:Equipment.EquipmentContainer ?fdr."+
       " ?p c:IdentifiedObject.mRID ?pid."+
       " ?end c:PowerTransformerEnd.PowerTransformer ?p."+
-      " ?adm c:TransformerCoreAdmittance.TransformerEnd ?end."+
+      " {?adm c:TransformerCoreAdmittance.TransformerEnd ?end.}"+
+      "  UNION"+
+      " {?end c:TransformerEnd.CoreAdmittance ?adm.}"+
       " ?end c:TransformerEnd.endNumber ?enum."+
       " ?adm c:TransformerCoreAdmittance.b ?b."+
       " ?adm c:TransformerCoreAdmittance.g ?g."+
@@ -623,7 +624,7 @@ public class CIMQuerySetter extends Object {
       " ?s c:IdentifiedObject.name ?name."+
       " ?s c:PowerElectronicsUnit.maxP ?maxP."+
       " ?s c:PowerElectronicsUnit.minP ?minP."+
-      " ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s."+
+      " ?s c:PowerElectronicsUnit.PowerElectronicsConnection ?pec."+
       " ?pec c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?pec c:PowerElectronicsConnection.ratedS ?ratedS."+
@@ -653,7 +654,7 @@ public class CIMQuerySetter extends Object {
       "WHERE {"+
       " ?s r:type c:BatteryUnit."+
       " ?s c:IdentifiedObject.name ?name."+
-      " ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s."+
+      " ?s c:PowerElectronicsUnit.PowerElectronicsConnection ?pec."+
       " ?pec c:Equipment.EquipmentContainer ?fdr."+
       " ?fdr c:IdentifiedObject.mRID ?fdrid."+
       " ?pec c:PowerElectronicsConnection.ratedS ?ratedS."+
