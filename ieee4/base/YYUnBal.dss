@@ -1,0 +1,33 @@
+clear
+Set DefaultBaseFrequency=60
+
+new circuit.YYBal basekV=12.47 phases=3 mvasc3=200000 200000
+
+set earthmodel=carson
+
+new wiredata.conductor Runits=mi Rac=0.306 GMRunits=ft GMRac=0.0244  Radunits=in Diam=0.721 
+new wiredata.neutral   Runits=mi Rac=0.592 GMRunits=ft GMRac=0.00814 Radunits=in Diam=0.563 
+new linegeometry.4wire nconds=4 nphases=3 reduce=yes 
+~ cond=1 wire=conductor units=ft x=-4   h=28 
+~ cond=2 wire=conductor units=ft x=-1.5 h=28 
+~ cond=3 wire=conductor units=ft x=3    h=28 
+~ cond=4 wire=neutral   units=ft x=0    h=24 
+
+new line.line1 geometry=4wire length=2000 units=ft bus1=sourcebus bus2=n2
+
+! **** 3-PHASE STEP-DOWN TRANSFORMER 12.47/4.16 KV Y-Y
+new transformer.t1 xhl=6
+~ wdg=1 bus=n2 conn=wye kV=12.47 kVA=6000 %r=0.5 
+~ wdg=2 bus=n3 conn=wye kV=4.16  kVA=6000 %r=0.5 
+
+new line.line2 bus1=n3 bus2=n4 geometry=4wire length=2500 units=ft  
+
+new load.load1a phases=1 bus1=n4.1 conn=wye kV=2.4018 kW=1275 pf=0.85  model=2
+new load.load1b phases=1 bus1=n4.2 conn=wye kV=2.4018 kW=1800 pf=0.90  model=2
+new load.load1c phases=1 bus1=n4.3 conn=wye kV=2.4018 kW=2375 pf=0.95  model=2
+
+set voltagebases=[12.47, 4.16] 
+calcvoltagebases     ! **** let DSS compute voltage bases
+set tolerance=1e-8
+solve
+

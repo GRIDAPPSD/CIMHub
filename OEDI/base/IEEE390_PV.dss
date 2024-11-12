@@ -1,0 +1,1796 @@
+clear
+set defaultbasefrequency=60.0
+new Circuit.source phases=3 bus1=p1 basekv=230.000 pu=1.05000 angle=0.00000 r0=0.08381 x0=0.25142 r1=0.06415 x1=0.25660
+set earthmodel=carson
+
+new Linecode.sec6 nphases=3 units=mi rmatrix=[0.0560320 | 0.0214300 0.0546940 | 0.0221200 0.0214300 0.0560320 ] xmatrix=[0.0850510 | 0.0447810 0.0958580 | 0.0322690 0.0447810 0.0850510 ] cmatrix=[204.520 | -72.4734 205.171 | -24.7286 -72.4734 204.520 ]
+new Linecode.sec5 nphases=3 units=mi rmatrix=[0.0672380 | 0.0257160 0.0656330 | 0.0265440 0.0257160 0.0672380 ] xmatrix=[0.102061 | 0.0537370 0.115029 | 0.0387230 0.0537370 0.102061 ] cmatrix=[170.433 | -60.3945 170.976 | -20.6072 -60.3945 170.433 ]
+new Linecode.pri1 nphases=3 units=mi rmatrix=[0.130180 | -4.14314e-06 0.130177 | -8.11898e-06 -4.14314e-06 0.130180 ] xmatrix=[0.0668195 | -0.000224891 0.0669850 | -4.28350e-05 -0.000224891 0.0668195 ] cmatrix=[566.228 | 0.00000 566.228 | 0.00000 0.00000 566.228 ]
+new Linecode.trans1 nphases=3 units=mi rmatrix=[0.145190 | 0.0925205 0.145190 | 0.0925186 0.0925205 0.145190 ] xmatrix=[1.41011 | 0.695545 1.41011 | 0.611437 0.695545 1.41011 ] cmatrix=[12.4232 | -3.11310 12.9890 | -1.63202 -3.11310 12.4232 ]
+
+new Load.1 phases=1 bus1=s193.1 conn=w kw=364.070 kvar=91.245 numcust=1 kv=0.277 model=1
+new Load.2 phases=1 bus1=s193.2 conn=w kw=413.730 kvar=150.164 numcust=1 kv=0.277 model=1
+new Load.3 phases=1 bus1=s193.3 conn=w kw=360.050 kvar=164.044 numcust=1 kv=0.277 model=1
+new Load.4 phases=1 bus1=s193.1.2 conn=d kw=96.800 kvar=67.567 numcust=1 kv=0.480 model=1
+new Load.5 phases=1 bus1=s193.2.3 conn=d kw=132.060 kvar=99.045 numcust=1 kv=0.480 model=1
+new Load.6 phases=1 bus1=s193.3.1 conn=d kw=95.210 kvar=76.385 numcust=1 kv=0.480 model=1
+new Load.7 phases=1 bus1=s198.1 conn=w kw=90.830 kvar=22.764 numcust=1 kv=0.277 model=1
+new Load.8 phases=1 bus1=s198.2 conn=w kw=97.250 kvar=19.747 numcust=1 kv=0.277 model=1
+new Load.9 phases=1 bus1=s198.3 conn=w kw=100.790 kvar=39.835 numcust=1 kv=0.277 model=1
+new Load.600 phases=1 bus1=s139.3.1 conn=d kw=35.470 kvar=27.528 numcust=1 kv=0.208 model=1
+new Load.601 phases=1 bus1=s140.1 conn=w kw=14.270 kvar=2.033 numcust=1 kv=0.120 model=1
+new Load.602 phases=1 bus1=s140.2 conn=w kw=12.090 kvar=5.150 numcust=1 kv=0.120 model=1
+new Load.603 phases=1 bus1=s140.3 conn=w kw=13.660 kvar=2.774 numcust=1 kv=0.120 model=1
+new Load.604 phases=1 bus1=s140.1.2 conn=d kw=29.390 kvar=20.514 numcust=1 kv=0.208 model=1
+new Load.605 phases=1 bus1=s140.2.3 conn=d kw=33.660 kvar=21.742 numcust=1 kv=0.208 model=1
+new Load.606 phases=1 bus1=s140.3.1 conn=d kw=29.880 kvar=20.856 numcust=1 kv=0.208 model=1
+new Load.607 phases=1 bus1=s142.1 conn=w kw=13.220 kvar=6.023 numcust=1 kv=0.120 model=1
+new Load.608 phases=1 bus1=s142.2 conn=w kw=12.400 kvar=5.282 numcust=1 kv=0.120 model=1
+new Load.609 phases=1 bus1=s142.3 conn=w kw=12.260 kvar=4.030 numcust=1 kv=0.120 model=1
+new Load.610 phases=1 bus1=s142.1.2 conn=d kw=36.880 kvar=30.560 numcust=1 kv=0.208 model=1
+new Load.611 phases=1 bus1=s142.2.3 conn=d kw=31.620 kvar=20.425 numcust=1 kv=0.208 model=1
+new Load.612 phases=1 bus1=s142.3.1 conn=d kw=36.310 kvar=31.051 numcust=1 kv=0.208 model=1
+new Load.613 phases=1 bus1=s143.1 conn=w kw=12.610 kvar=4.984 numcust=1 kv=0.120 model=1
+new Load.614 phases=1 bus1=s143.2 conn=w kw=15.460 kvar=3.875 numcust=1 kv=0.120 model=1
+new Load.615 phases=1 bus1=s143.3 conn=w kw=15.220 kvar=5.524 numcust=1 kv=0.120 model=1
+new Load.616 phases=1 bus1=s143.1.2 conn=d kw=30.620 kvar=24.566 numcust=1 kv=0.208 model=1
+new Load.617 phases=1 bus1=s143.2.3 conn=d kw=38.280 kvar=26.720 numcust=1 kv=0.208 model=1
+new Load.618 phases=1 bus1=s143.3.1 conn=d kw=29.340 kvar=19.717 numcust=1 kv=0.208 model=1
+new Load.619 phases=1 bus1=s144.1 conn=w kw=12.170 kvar=3.550 numcust=1 kv=0.120 model=1
+new Load.620 phases=1 bus1=s144.2 conn=w kw=15.530 kvar=6.138 numcust=1 kv=0.120 model=1
+new Load.500 phases=1 bus1=s120.2 conn=w kw=36.760 kvar=16.748 numcust=1 kv=0.120 model=1
+new Load.621 phases=1 bus1=s144.3 conn=w kw=14.780 kvar=3.001 numcust=1 kv=0.120 model=1
+new Load.501 phases=1 bus1=s120.3 conn=w kw=38.020 kvar=17.322 numcust=1 kv=0.120 model=1
+new Load.622 phases=1 bus1=s144.1.2 conn=d kw=28.760 kvar=23.074 numcust=1 kv=0.208 model=1
+new Load.502 phases=1 bus1=s120.1.2 conn=d kw=92.720 kvar=67.128 numcust=1 kv=0.208 model=1
+new Load.623 phases=1 bus1=s144.2.3 conn=d kw=37.850 kvar=27.403 numcust=1 kv=0.208 model=1
+new Load.503 phases=1 bus1=s120.2.3 conn=d kw=93.460 kvar=72.533 numcust=1 kv=0.208 model=1
+new Load.624 phases=1 bus1=s144.3.1 conn=d kw=29.310 kvar=20.459 numcust=1 kv=0.208 model=1
+new Load.504 phases=1 bus1=s120.3.1 conn=d kw=93.330 kvar=67.570 numcust=1 kv=0.208 model=1
+new Load.505 phases=1 bus1=s121.1 conn=w kw=35.990 kvar=5.128 numcust=1 kv=0.120 model=1
+new Load.506 phases=1 bus1=s121.2 conn=w kw=33.870 kvar=14.429 numcust=1 kv=0.120 model=1
+new Load.507 phases=1 bus1=s121.3 conn=w kw=38.450 kvar=13.955 numcust=1 kv=0.120 model=1
+new Load.508 phases=1 bus1=s121.1.2 conn=d kw=108.000 kvar=78.191 numcust=1 kv=0.208 model=1
+new Load.509 phases=1 bus1=s121.2.3 conn=d kw=87.530 kvar=67.931 numcust=1 kv=0.208 model=1
+new Load.510 phases=1 bus1=s121.3.1 conn=d kw=98.290 kvar=63.489 numcust=1 kv=0.208 model=1
+new Load.511 phases=1 bus1=s122.1 conn=w kw=45.210 kvar=20.598 numcust=1 kv=0.120 model=1
+new Load.512 phases=1 bus1=s122.2 conn=w kw=44.470 kvar=9.030 numcust=1 kv=0.120 model=1
+new Load.513 phases=1 bus1=s122.3 conn=w kw=43.610 kvar=10.930 numcust=1 kv=0.120 model=1
+new Load.514 phases=1 bus1=s122.1.2 conn=d kw=113.680 kvar=73.430 numcust=1 kv=0.208 model=1
+new Load.515 phases=1 bus1=s122.2.3 conn=d kw=92.630 kvar=69.472 numcust=1 kv=0.208 model=1
+new Load.516 phases=1 bus1=s122.3.1 conn=d kw=104.750 kvar=89.578 numcust=1 kv=0.208 model=1
+new Load.517 phases=1 bus1=s123.1 conn=w kw=13.310 kvar=4.375 numcust=1 kv=0.120 model=1
+new Load.518 phases=1 bus1=s123.2 conn=w kw=13.050 kvar=5.158 numcust=1 kv=0.120 model=1
+new Load.519 phases=1 bus1=s123.3 conn=w kw=13.710 kvar=3.999 numcust=1 kv=0.120 model=1
+new Load.520 phases=1 bus1=s123.1.2 conn=d kw=33.850 kvar=23.627 numcust=1 kv=0.208 model=1
+new Load.400 phases=1 bus1=s88.1.2 conn=d kw=130.130 kvar=104.401 numcust=1 kv=0.208 model=1
+new Load.521 phases=1 bus1=s123.2.3 conn=d kw=37.880 kvar=27.425 numcust=1 kv=0.208 model=1
+new Load.401 phases=1 bus1=s88.2.3 conn=d kw=144.170 kvar=100.631 numcust=1 kv=0.208 model=1
+new Load.522 phases=1 bus1=s123.3.1 conn=d kw=37.590 kvar=31.148 numcust=1 kv=0.208 model=1
+new Load.402 phases=1 bus1=s88.3.1 conn=d kw=140.750 kvar=98.244 numcust=1 kv=0.208 model=1
+new Load.523 phases=1 bus1=s124.1 conn=w kw=16.690 kvar=4.868 numcust=1 kv=0.120 model=1
+new Load.403 phases=1 bus1=s89.1 conn=w kw=38.000 kvar=9.524 numcust=1 kv=0.120 model=1
+new Load.524 phases=1 bus1=s124.2 conn=w kw=12.230 kvar=1.743 numcust=1 kv=0.120 model=1
+new Load.404 phases=1 bus1=s89.2 conn=w kw=49.550 kvar=7.060 numcust=1 kv=0.120 model=1
+new Load.525 phases=1 bus1=s124.3 conn=w kw=16.190 kvar=3.288 numcust=1 kv=0.120 model=1
+new Load.405 phases=1 bus1=s89.3 conn=w kw=48.750 kvar=16.023 numcust=1 kv=0.120 model=1
+new Load.526 phases=1 bus1=s124.1.2 conn=d kw=34.550 kvar=26.814 numcust=1 kv=0.208 model=1
+new Load.406 phases=1 bus1=s89.1.2 conn=d kw=121.250 kvar=81.480 numcust=1 kv=0.208 model=1
+new Load.527 phases=1 bus1=s124.2.3 conn=d kw=29.380 kvar=24.345 numcust=1 kv=0.208 model=1
+new Load.407 phases=1 bus1=s89.2.3 conn=d kw=107.770 kvar=92.161 numcust=1 kv=0.208 model=1
+new Load.528 phases=1 bus1=s124.3.1 conn=d kw=29.050 kvar=21.788 numcust=1 kv=0.208 model=1
+new Load.408 phases=1 bus1=s89.3.1 conn=d kw=125.350 kvar=84.236 numcust=1 kv=0.208 model=1
+new Load.529 phases=1 bus1=s125.1 conn=w kw=12.400 kvar=5.650 numcust=1 kv=0.120 model=1
+new Load.409 phases=1 bus1=s92.1 conn=w kw=53.370 kvar=17.542 numcust=1 kv=0.120 model=1
+new Load.530 phases=1 bus1=s125.2 conn=w kw=12.870 kvar=5.864 numcust=1 kv=0.120 model=1
+new Load.410 phases=1 bus1=s92.2 conn=w kw=49.150 kvar=12.318 numcust=1 kv=0.120 model=1
+new Load.531 phases=1 bus1=s125.3 conn=w kw=14.350 kvar=2.045 numcust=1 kv=0.120 model=1
+new Load.411 phases=1 bus1=s92.3 conn=w kw=46.060 kvar=18.204 numcust=1 kv=0.120 model=1
+new Load.532 phases=1 bus1=s125.1.2 conn=d kw=31.180 kvar=25.837 numcust=1 kv=0.208 model=1
+new Load.412 phases=1 bus1=s92.1.2 conn=d kw=114.190 kvar=94.621 numcust=1 kv=0.208 model=1
+new Load.533 phases=1 bus1=s125.2.3 conn=d kw=29.220 kvar=21.155 numcust=1 kv=0.208 model=1
+new Load.413 phases=1 bus1=s92.2.3 conn=d kw=116.180 kvar=84.113 numcust=1 kv=0.208 model=1
+new Load.534 phases=1 bus1=s125.3.1 conn=d kw=29.420 kvar=23.603 numcust=1 kv=0.208 model=1
+new Load.414 phases=1 bus1=s92.3.1 conn=d kw=111.200 kvar=77.618 numcust=1 kv=0.208 model=1
+new Load.535 phases=1 bus1=s127.1 conn=w kw=17.740 kvar=7.557 numcust=1 kv=0.120 model=1
+new Load.415 phases=1 bus1=s93.1 conn=w kw=46.310 kvar=13.507 numcust=1 kv=0.120 model=1
+new Load.536 phases=1 bus1=s127.2 conn=w kw=12.200 kvar=5.197 numcust=1 kv=0.120 model=1
+new Load.416 phases=1 bus1=s93.2 conn=w kw=54.300 kvar=7.737 numcust=1 kv=0.120 model=1
+new Load.537 phases=1 bus1=s127.3 conn=w kw=14.880 kvar=6.780 numcust=1 kv=0.120 model=1
+new Load.417 phases=1 bus1=s93.3 conn=w kw=47.130 kvar=9.570 numcust=1 kv=0.120 model=1
+new Load.538 phases=1 bus1=s127.1.2 conn=d kw=33.060 kvar=28.272 numcust=1 kv=0.208 model=1
+new Load.418 phases=1 bus1=s93.1.2 conn=d kw=108.930 kvar=76.034 numcust=1 kv=0.208 model=1
+new Load.539 phases=1 bus1=s127.2.3 conn=d kw=35.590 kvar=29.491 numcust=1 kv=0.208 model=1
+new Load.419 phases=1 bus1=s93.2.3 conn=d kw=107.460 kvar=72.214 numcust=1 kv=0.208 model=1
+new Load.540 phases=1 bus1=s127.3.1 conn=d kw=28.840 kvar=20.130 numcust=1 kv=0.208 model=1
+new Load.420 phases=1 bus1=s93.3.1 conn=d kw=105.160 kvar=73.402 numcust=1 kv=0.208 model=1
+new Load.541 phases=1 bus1=s128.1 conn=w kw=13.530 kvar=4.447 numcust=1 kv=0.120 model=1
+new Load.300 phases=1 bus1=s61.3.1 conn=d kw=70.380 kvar=49.126 numcust=1 kv=0.208 model=1
+new Load.421 phases=1 bus1=s94.1 conn=w kw=46.850 kvar=6.676 numcust=1 kv=0.120 model=1
+new Load.542 phases=1 bus1=s128.2 conn=w kw=13.650 kvar=3.981 numcust=1 kv=0.120 model=1
+new Load.301 phases=1 bus1=s62.1 conn=w kw=12.680 kvar=4.602 numcust=1 kv=0.120 model=1
+new Load.422 phases=1 bus1=s94.2 conn=w kw=47.530 kvar=13.863 numcust=1 kv=0.120 model=1
+new Load.543 phases=1 bus1=s128.3 conn=w kw=15.180 kvar=3.804 numcust=1 kv=0.120 model=1
+new Load.302 phases=1 bus1=s62.2 conn=w kw=13.220 kvar=4.798 numcust=1 kv=0.120 model=1
+new Load.423 phases=1 bus1=s94.3 conn=w kw=40.730 kvar=16.098 numcust=1 kv=0.120 model=1
+new Load.544 phases=1 bus1=s128.1.2 conn=d kw=32.540 kvar=22.713 numcust=1 kv=0.208 model=1
+new Load.303 phases=1 bus1=s62.3 conn=w kw=11.860 kvar=5.404 numcust=1 kv=0.120 model=1
+new Load.424 phases=1 bus1=s94.1.2 conn=d kw=116.000 kvar=93.065 numcust=1 kv=0.208 model=1
+new Load.545 phases=1 bus1=s128.2.3 conn=d kw=27.980 kvar=20.257 numcust=1 kv=0.208 model=1
+new Load.304 phases=1 bus1=s62.1.2 conn=d kw=32.280 kvar=22.532 numcust=1 kv=0.208 model=1
+new Load.425 phases=1 bus1=s94.2.3 conn=d kw=112.350 kvar=75.500 numcust=1 kv=0.208 model=1
+new Load.546 phases=1 bus1=s128.3.1 conn=d kw=34.210 kvar=27.446 numcust=1 kv=0.208 model=1
+new Load.305 phases=1 bus1=s62.2.3 conn=d kw=34.950 kvar=23.487 numcust=1 kv=0.208 model=1
+new Load.426 phases=1 bus1=s94.3.1 conn=d kw=105.060 kvar=87.056 numcust=1 kv=0.208 model=1
+new Load.547 phases=1 bus1=s129.1 conn=w kw=12.060 kvar=4.766 numcust=1 kv=0.120 model=1
+new Load.306 phases=1 bus1=s62.3.1 conn=d kw=29.750 kvar=23.089 numcust=1 kv=0.208 model=1
+new Load.427 phases=1 bus1=s97.1 conn=w kw=29.940 kvar=11.833 numcust=1 kv=0.120 model=1
+new Load.548 phases=1 bus1=s129.2 conn=w kw=14.890 kvar=2.122 numcust=1 kv=0.120 model=1
+new Load.307 phases=1 bus1=s63.1 conn=w kw=13.060 kvar=4.740 numcust=1 kv=0.120 model=1
+new Load.428 phases=1 bus1=s97.2 conn=w kw=34.540 kvar=7.014 numcust=1 kv=0.120 model=1
+new Load.549 phases=1 bus1=s129.3 conn=w kw=14.960 kvar=4.917 numcust=1 kv=0.120 model=1
+new Load.308 phases=1 bus1=s63.2 conn=w kw=11.520 kvar=4.907 numcust=1 kv=0.120 model=1
+new Load.429 phases=1 bus1=s97.3 conn=w kw=27.650 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.309 phases=1 bus1=s63.3 conn=w kw=15.280 kvar=6.962 numcust=1 kv=0.120 model=1
+new Load.550 phases=1 bus1=s129.1.2 conn=d kw=28.740 kvar=21.555 numcust=1 kv=0.208 model=1
+new Load.430 phases=1 bus1=s97.1.2 conn=d kw=88.650 kvar=66.487 numcust=1 kv=0.208 model=1
+new Load.551 phases=1 bus1=s129.2.3 conn=d kw=36.800 kvar=27.600 numcust=1 kv=0.208 model=1
+new Load.310 phases=1 bus1=s63.1.2 conn=d kw=35.060 kvar=29.052 numcust=1 kv=0.208 model=1
+new Load.431 phases=1 bus1=s97.2.3 conn=d kw=78.560 kvar=67.182 numcust=1 kv=0.208 model=1
+new Load.552 phases=1 bus1=s129.3.1 conn=d kw=28.390 kvar=23.525 numcust=1 kv=0.208 model=1
+new Load.311 phases=1 bus1=s63.2.3 conn=d kw=31.530 kvar=20.366 numcust=1 kv=0.208 model=1
+new Load.432 phases=1 bus1=s97.3.1 conn=d kw=76.200 kvar=63.141 numcust=1 kv=0.208 model=1
+new Load.553 phases=1 bus1=s130.1 conn=w kw=15.360 kvar=6.071 numcust=1 kv=0.120 model=1
+new Load.312 phases=1 bus1=s63.3.1 conn=d kw=32.360 kvar=22.587 numcust=1 kv=0.208 model=1
+new Load.433 phases=1 bus1=s98.1 conn=w kw=40.470 kvar=13.302 numcust=1 kv=0.120 model=1
+new Load.554 phases=1 bus1=s130.2 conn=w kw=14.860 kvar=2.117 numcust=1 kv=0.120 model=1
+new Load.313 phases=1 bus1=s64.1 conn=w kw=54.280 kvar=23.123 numcust=1 kv=0.120 model=1
+new Load.434 phases=1 bus1=s98.2 conn=w kw=36.750 kvar=12.079 numcust=1 kv=0.120 model=1
+new Load.555 phases=1 bus1=s130.3 conn=w kw=11.960 kvar=3.488 numcust=1 kv=0.120 model=1
+new Load.314 phases=1 bus1=s64.2 conn=w kw=48.220 kvar=9.791 numcust=1 kv=0.120 model=1
+new Load.435 phases=1 bus1=s98.3 conn=w kw=38.090 kvar=7.735 numcust=1 kv=0.120 model=1
+new Load.556 phases=1 bus1=s130.1.2 conn=d kw=33.060 kvar=28.272 numcust=1 kv=0.208 model=1
+new Load.315 phases=1 bus1=s64.3 conn=w kw=43.590 kvar=8.851 numcust=1 kv=0.120 model=1
+new Load.436 phases=1 bus1=s98.1.2 conn=d kw=87.210 kvar=67.682 numcust=1 kv=0.208 model=1
+new Load.557 phases=1 bus1=s130.2.3 conn=d kw=36.160 kvar=28.063 numcust=1 kv=0.208 model=1
+new Load.316 phases=1 bus1=s64.1.2 conn=d kw=125.890 kvar=91.143 numcust=1 kv=0.208 model=1
+new Load.437 phases=1 bus1=s98.2.3 conn=d kw=85.780 kvar=68.820 numcust=1 kv=0.208 model=1
+new Load.558 phases=1 bus1=s130.3.1 conn=d kw=37.310 kvar=26.043 numcust=1 kv=0.208 model=1
+new Load.317 phases=1 bus1=s64.2.3 conn=d kw=120.310 kvar=93.371 numcust=1 kv=0.208 model=1
+new Load.438 phases=1 bus1=s98.3.1 conn=d kw=91.100 kvar=70.701 numcust=1 kv=0.208 model=1
+new Load.559 phases=1 bus1=s132.1 conn=w kw=17.540 kvar=2.499 numcust=1 kv=0.120 model=1
+new Load.318 phases=1 bus1=s64.3.1 conn=d kw=122.470 kvar=85.485 numcust=1 kv=0.208 model=1
+new Load.439 phases=1 bus1=s99.1 conn=w kw=39.980 kvar=8.118 numcust=1 kv=0.120 model=1
+new Load.319 phases=1 bus1=s65.1 conn=w kw=45.340 kvar=14.903 numcust=1 kv=0.120 model=1
+new Load.560 phases=1 bus1=s132.2 conn=w kw=11.780 kvar=2.392 numcust=1 kv=0.120 model=1
+new Load.440 phases=1 bus1=s99.2 conn=w kw=35.850 kvar=8.985 numcust=1 kv=0.120 model=1
+new Load.561 phases=1 bus1=s132.3 conn=w kw=11.770 kvar=4.652 numcust=1 kv=0.120 model=1
+new Load.320 phases=1 bus1=s65.2 conn=w kw=48.490 kvar=6.909 numcust=1 kv=0.120 model=1
+new Load.441 phases=1 bus1=s99.3 conn=w kw=29.330 kvar=12.495 numcust=1 kv=0.120 model=1
+new Load.562 phases=1 bus1=s132.1.2 conn=d kw=31.170 kvar=25.828 numcust=1 kv=0.208 model=1
+new Load.200 phases=1 bus1=s37.2 conn=w kw=12.710 kvar=3.185 numcust=1 kv=0.120 model=1
+new Load.321 phases=1 bus1=s65.3 conn=w kw=54.020 kvar=7.697 numcust=1 kv=0.120 model=1
+new Load.442 phases=1 bus1=s99.1.2 conn=d kw=76.510 kvar=65.428 numcust=1 kv=0.208 model=1
+new Load.563 phases=1 bus1=s132.2.3 conn=d kw=31.460 kvar=21.959 numcust=1 kv=0.208 model=1
+new Load.201 phases=1 bus1=s37.3 conn=w kw=14.390 kvar=2.050 numcust=1 kv=0.120 model=1
+new Load.322 phases=1 bus1=s65.1.2 conn=d kw=105.360 kvar=90.100 numcust=1 kv=0.208 model=1
+new Load.443 phases=1 bus1=s99.2.3 conn=d kw=80.540 kvar=54.123 numcust=1 kv=0.208 model=1
+new Load.564 phases=1 bus1=s132.3.1 conn=d kw=38.320 kvar=25.751 numcust=1 kv=0.208 model=1
+new Load.202 phases=1 bus1=s37.1.2 conn=d kw=37.320 kvar=27.019 numcust=1 kv=0.208 model=1
+new Load.323 phases=1 bus1=s65.2.3 conn=d kw=122.000 kvar=91.500 numcust=1 kv=0.208 model=1
+new Load.444 phases=1 bus1=s99.3.1 conn=d kw=91.370 kvar=59.019 numcust=1 kv=0.208 model=1
+new Load.565 phases=1 bus1=s133.1 conn=w kw=13.140 kvar=4.769 numcust=1 kv=0.120 model=1
+new Load.203 phases=1 bus1=s37.2.3 conn=d kw=36.930 kvar=24.817 numcust=1 kv=0.208 model=1
+new Load.324 phases=1 bus1=s65.3.1 conn=d kw=124.940 kvar=90.455 numcust=1 kv=0.208 model=1
+new Load.445 phases=1 bus1=s102.1 conn=w kw=25.620 kvar=10.126 numcust=1 kv=0.120 model=1
+new Load.566 phases=1 bus1=s133.2 conn=w kw=13.400 kvar=3.908 numcust=1 kv=0.120 model=1
+new Load.204 phases=1 bus1=s37.3.1 conn=d kw=34.430 kvar=28.530 numcust=1 kv=0.208 model=1
+new Load.325 phases=1 bus1=s66.1 conn=w kw=42.670 kvar=12.445 numcust=1 kv=0.120 model=1
+new Load.446 phases=1 bus1=s102.2 conn=w kw=30.270 kvar=12.895 numcust=1 kv=0.120 model=1
+new Load.567 phases=1 bus1=s133.3 conn=w kw=14.450 kvar=5.711 numcust=1 kv=0.120 model=1
+new Load.205 phases=1 bus1=s38.1 conn=w kw=50.330 kvar=21.440 numcust=1 kv=0.120 model=1
+new Load.326 phases=1 bus1=s66.2 conn=w kw=44.750 kvar=9.087 numcust=1 kv=0.120 model=1
+new Load.447 phases=1 bus1=s102.3 conn=w kw=28.270 kvar=7.085 numcust=1 kv=0.120 model=1
+new Load.568 phases=1 bus1=s133.1.2 conn=d kw=36.680 kvar=30.394 numcust=1 kv=0.208 model=1
+new Load.206 phases=1 bus1=s38.2 conn=w kw=55.550 kvar=21.955 numcust=1 kv=0.120 model=1
+new Load.327 phases=1 bus1=s66.3 conn=w kw=53.420 kvar=15.581 numcust=1 kv=0.120 model=1
+new Load.448 phases=1 bus1=s102.1.2 conn=d kw=70.130 kvar=59.973 numcust=1 kv=0.208 model=1
+new Load.569 phases=1 bus1=s133.2.3 conn=d kw=30.050 kvar=21.756 numcust=1 kv=0.208 model=1
+new Load.207 phases=1 bus1=s38.3 conn=w kw=51.740 kvar=10.506 numcust=1 kv=0.120 model=1
+new Load.328 phases=1 bus1=s66.1.2 conn=d kw=125.460 kvar=103.960 numcust=1 kv=0.208 model=1
+new Load.449 phases=1 bus1=s102.2.3 conn=d kw=65.970 kvar=46.047 numcust=1 kv=0.208 model=1
+new Load.208 phases=1 bus1=s38.1.2 conn=d kw=111.430 kvar=86.479 numcust=1 kv=0.208 model=1
+new Load.329 phases=1 bus1=s66.2.3 conn=d kw=126.260 kvar=97.988 numcust=1 kv=0.208 model=1
+new Load.209 phases=1 bus1=s38.2.3 conn=d kw=126.130 kvar=91.317 numcust=1 kv=0.208 model=1
+new Load.570 phases=1 bus1=s133.3.1 conn=d kw=28.290 kvar=21.218 numcust=1 kv=0.208 model=1
+new Load.450 phases=1 bus1=s102.3.1 conn=d kw=63.650 kvar=46.082 numcust=1 kv=0.208 model=1
+new Load.571 phases=1 bus1=s134.1 conn=w kw=12.340 kvar=1.758 numcust=1 kv=0.120 model=1
+new Load.330 phases=1 bus1=s66.3.1 conn=d kw=115.650 kvar=77.717 numcust=1 kv=0.208 model=1
+new Load.451 phases=1 bus1=s103.1 conn=w kw=11.710 kvar=4.988 numcust=1 kv=0.120 model=1
+new Load.572 phases=1 bus1=s134.2 conn=w kw=15.770 kvar=5.183 numcust=1 kv=0.120 model=1
+new Load.210 phases=1 bus1=s38.3.1 conn=d kw=108.740 kvar=75.901 numcust=1 kv=0.208 model=1
+new Load.331 phases=1 bus1=s67.1 conn=w kw=15.890 kvar=5.767 numcust=1 kv=0.120 model=1
+new Load.452 phases=1 bus1=s103.2 conn=w kw=13.030 kvar=5.150 numcust=1 kv=0.120 model=1
+new Load.573 phases=1 bus1=s134.3 conn=w kw=15.820 kvar=4.614 numcust=1 kv=0.120 model=1
+new Load.211 phases=1 bus1=s39.1 conn=w kw=55.530 kvar=20.155 numcust=1 kv=0.120 model=1
+new Load.332 phases=1 bus1=s67.2 conn=w kw=12.320 kvar=5.248 numcust=1 kv=0.120 model=1
+new Load.453 phases=1 bus1=s103.3 conn=w kw=13.550 kvar=4.454 numcust=1 kv=0.120 model=1
+new Load.574 phases=1 bus1=s134.1.2 conn=d kw=36.870 kvar=24.777 numcust=1 kv=0.208 model=1
+new Load.212 phases=1 bus1=s39.2 conn=w kw=41.970 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.333 phases=1 bus1=s67.3 conn=w kw=13.710 kvar=5.419 numcust=1 kv=0.120 model=1
+new Load.454 phases=1 bus1=s103.1.2 conn=d kw=31.970 kvar=21.484 numcust=1 kv=0.208 model=1
+new Load.575 phases=1 bus1=s134.2.3 conn=d kw=32.500 kvar=25.223 numcust=1 kv=0.208 model=1
+new Load.213 phases=1 bus1=s39.3 conn=w kw=54.850 kvar=18.028 numcust=1 kv=0.120 model=1
+new Load.334 phases=1 bus1=s67.1.2 conn=d kw=34.860 kvar=25.238 numcust=1 kv=0.208 model=1
+new Load.455 phases=1 bus1=s103.2.3 conn=d kw=33.810 kvar=24.478 numcust=1 kv=0.208 model=1
+new Load.576 phases=1 bus1=s134.3.1 conn=d kw=35.790 kvar=29.657 numcust=1 kv=0.208 model=1
+new Load.214 phases=1 bus1=s39.1.2 conn=d kw=131.700 kvar=109.130 numcust=1 kv=0.208 model=1
+new Load.335 phases=1 bus1=s67.2.3 conn=d kw=31.690 kvar=21.296 numcust=1 kv=0.208 model=1
+new Load.456 phases=1 bus1=s103.3.1 conn=d kw=33.080 kvar=27.411 numcust=1 kv=0.208 model=1
+new Load.577 phases=1 bus1=s135.1 conn=w kw=13.530 kvar=2.747 numcust=1 kv=0.120 model=1
+new Load.215 phases=1 bus1=s39.2.3 conn=d kw=102.860 kvar=85.233 numcust=1 kv=0.208 model=1
+new Load.336 phases=1 bus1=s67.3.1 conn=d kw=35.290 kvar=25.550 numcust=1 kv=0.208 model=1
+new Load.457 phases=1 bus1=s104.1 conn=w kw=13.870 kvar=5.909 numcust=1 kv=0.120 model=1
+new Load.578 phases=1 bus1=s135.2 conn=w kw=14.580 kvar=3.654 numcust=1 kv=0.120 model=1
+new Load.216 phases=1 bus1=s39.3.1 conn=d kw=100.920 kvar=70.443 numcust=1 kv=0.208 model=1
+new Load.337 phases=1 bus1=s72.1 conn=w kw=11.810 kvar=2.960 numcust=1 kv=0.120 model=1
+new Load.458 phases=1 bus1=s104.2 conn=w kw=12.710 kvar=3.185 numcust=1 kv=0.120 model=1
+new Load.579 phases=1 bus1=s135.3 conn=w kw=14.480 kvar=2.940 numcust=1 kv=0.120 model=1
+new Load.217 phases=1 bus1=s40.1 conn=w kw=50.670 kvar=18.391 numcust=1 kv=0.120 model=1
+new Load.338 phases=1 bus1=s72.2 conn=w kw=13.580 kvar=6.187 numcust=1 kv=0.120 model=1
+new Load.459 phases=1 bus1=s104.3 conn=w kw=13.160 kvar=5.996 numcust=1 kv=0.120 model=1
+new Load.218 phases=1 bus1=s40.2 conn=w kw=51.210 kvar=12.834 numcust=1 kv=0.120 model=1
+new Load.339 phases=1 bus1=s72.3 conn=w kw=15.460 kvar=2.203 numcust=1 kv=0.120 model=1
+new Load.219 phases=1 bus1=s40.3 conn=w kw=46.990 kvar=21.409 numcust=1 kv=0.120 model=1
+new Load.580 phases=1 bus1=s135.1.2 conn=d kw=35.710 kvar=28.649 numcust=1 kv=0.208 model=1
+new Load.460 phases=1 bus1=s104.1.2 conn=d kw=30.440 kvar=24.421 numcust=1 kv=0.208 model=1
+new Load.581 phases=1 bus1=s135.2.3 conn=d kw=31.500 kvar=26.102 numcust=1 kv=0.208 model=1
+new Load.340 phases=1 bus1=s72.1.2 conn=d kw=26.980 kvar=22.356 numcust=1 kv=0.208 model=1
+new Load.461 phases=1 bus1=s104.2.3 conn=d kw=30.330 kvar=25.937 numcust=1 kv=0.208 model=1
+new Load.582 phases=1 bus1=s135.3.1 conn=d kw=33.860 kvar=28.057 numcust=1 kv=0.208 model=1
+new Load.220 phases=1 bus1=s40.1.2 conn=d kw=133.470 kvar=93.163 numcust=1 kv=0.208 model=1
+new Load.341 phases=1 bus1=s72.2.3 conn=d kw=30.490 kvar=22.867 numcust=1 kv=0.208 model=1
+new Load.462 phases=1 bus1=s104.3.1 conn=d kw=31.120 kvar=23.340 numcust=1 kv=0.208 model=1
+new Load.583 phases=1 bus1=s137.1 conn=w kw=11.960 kvar=2.997 numcust=1 kv=0.120 model=1
+new Load.100 phases=1 bus1=s11.1.2 conn=d kw=28.590 kvar=19.956 numcust=1 kv=0.208 model=1
+new Load.221 phases=1 bus1=s40.2.3 conn=d kw=137.920 kvar=92.683 numcust=1 kv=0.208 model=1
+new Load.342 phases=1 bus1=s72.3.1 conn=d kw=30.710 kvar=23.834 numcust=1 kv=0.208 model=1
+new Load.463 phases=1 bus1=s105.1 conn=w kw=41.400 kvar=17.636 numcust=1 kv=0.120 model=1
+new Load.584 phases=1 bus1=s137.2 conn=w kw=11.980 kvar=1.707 numcust=1 kv=0.120 model=1
+new Load.101 phases=1 bus1=s11.2.3 conn=d kw=35.810 kvar=26.858 numcust=1 kv=0.208 model=1
+new Load.222 phases=1 bus1=s40.3.1 conn=d kw=138.710 kvar=96.820 numcust=1 kv=0.208 model=1
+new Load.343 phases=1 bus1=s73.1 conn=w kw=12.070 kvar=1.720 numcust=1 kv=0.120 model=1
+new Load.464 phases=1 bus1=s105.2 conn=w kw=43.960 kvar=18.727 numcust=1 kv=0.120 model=1
+new Load.585 phases=1 bus1=s137.3 conn=w kw=12.320 kvar=5.613 numcust=1 kv=0.120 model=1
+new Load.102 phases=1 bus1=s11.3.1 conn=d kw=29.030 kvar=21.017 numcust=1 kv=0.208 model=1
+new Load.223 phases=1 bus1=s41.1 conn=w kw=14.480 kvar=6.597 numcust=1 kv=0.120 model=1
+new Load.344 phases=1 bus1=s73.2 conn=w kw=12.470 kvar=4.099 numcust=1 kv=0.120 model=1
+new Load.465 phases=1 bus1=s105.3 conn=w kw=33.700 kvar=15.354 numcust=1 kv=0.120 model=1
+new Load.586 phases=1 bus1=s137.1.2 conn=d kw=30.180 kvar=21.066 numcust=1 kv=0.208 model=1
+new Load.103 phases=1 bus1=s12.1 conn=w kw=15.650 kvar=7.130 numcust=1 kv=0.120 model=1
+new Load.224 phases=1 bus1=s41.2 conn=w kw=15.580 kvar=6.158 numcust=1 kv=0.120 model=1
+new Load.345 phases=1 bus1=s73.3 conn=w kw=12.480 kvar=2.534 numcust=1 kv=0.120 model=1
+new Load.466 phases=1 bus1=s105.1.2 conn=d kw=99.230 kvar=79.610 numcust=1 kv=0.208 model=1
+new Load.587 phases=1 bus1=s137.2.3 conn=d kw=35.650 kvar=28.601 numcust=1 kv=0.208 model=1
+new Load.104 phases=1 bus1=s12.2 conn=w kw=14.770 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.225 phases=1 bus1=s41.3 conn=w kw=12.830 kvar=2.605 numcust=1 kv=0.120 model=1
+new Load.346 phases=1 bus1=s73.1.2 conn=d kw=34.720 kvar=29.691 numcust=1 kv=0.208 model=1
+new Load.467 phases=1 bus1=s105.2.3 conn=d kw=82.350 kvar=61.763 numcust=1 kv=0.208 model=1
+new Load.588 phases=1 bus1=s137.3.1 conn=d kw=28.470 kvar=21.352 numcust=1 kv=0.208 model=1
+new Load.105 phases=1 bus1=s12.3 conn=w kw=11.730 kvar=2.940 numcust=1 kv=0.120 model=1
+new Load.226 phases=1 bus1=s41.1.2 conn=d kw=33.870 kvar=23.641 numcust=1 kv=0.208 model=1
+new Load.347 phases=1 bus1=s73.2.3 conn=d kw=31.960 kvar=26.483 numcust=1 kv=0.208 model=1
+new Load.468 phases=1 bus1=s105.3.1 conn=d kw=96.230 kvar=67.169 numcust=1 kv=0.208 model=1
+new Load.589 phases=1 bus1=s138.1 conn=w kw=12.850 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.106 phases=1 bus1=s12.1.2 conn=d kw=30.470 kvar=20.476 numcust=1 kv=0.208 model=1
+new Load.227 phases=1 bus1=s41.2.3 conn=d kw=32.610 kvar=21.064 numcust=1 kv=0.208 model=1
+new Load.348 phases=1 bus1=s73.3.1 conn=d kw=31.400 kvar=24.369 numcust=1 kv=0.208 model=1
+new Load.469 phases=1 bus1=s106.1 conn=w kw=40.290 kvar=8.181 numcust=1 kv=0.120 model=1
+new Load.107 phases=1 bus1=s12.2.3 conn=d kw=34.060 kvar=22.888 numcust=1 kv=0.208 model=1
+new Load.228 phases=1 bus1=s41.3.1 conn=d kw=30.700 kvar=20.631 numcust=1 kv=0.208 model=1
+new Load.349 phases=1 bus1=s78.1 conn=w kw=15.290 kvar=2.179 numcust=1 kv=0.120 model=1
+new Load.108 phases=1 bus1=s12.3.1 conn=d kw=28.340 kvar=21.255 numcust=1 kv=0.208 model=1
+new Load.229 phases=1 bus1=s42.1 conn=w kw=28.950 kvar=10.507 numcust=1 kv=0.120 model=1
+new Load.109 phases=1 bus1=s13.1 conn=w kw=15.740 kvar=5.713 numcust=1 kv=0.120 model=1
+new Load.590 phases=1 bus1=s138.2 conn=w kw=14.490 kvar=6.602 numcust=1 kv=0.120 model=1
+new Load.470 phases=1 bus1=s106.2 conn=w kw=54.790 kvar=11.126 numcust=1 kv=0.120 model=1
+new Load.591 phases=1 bus1=s138.3 conn=w kw=13.280 kvar=3.873 numcust=1 kv=0.120 model=1
+new Load.350 phases=1 bus1=s78.2 conn=w kw=14.960 kvar=6.816 numcust=1 kv=0.120 model=1
+new Load.471 phases=1 bus1=s106.3 conn=w kw=46.930 kvar=21.382 numcust=1 kv=0.120 model=1
+new Load.592 phases=1 bus1=s138.1.2 conn=d kw=37.010 kvar=30.668 numcust=1 kv=0.208 model=1
+new Load.230 phases=1 bus1=s42.2 conn=w kw=23.630 kvar=5.922 numcust=1 kv=0.120 model=1
+new Load.351 phases=1 bus1=s78.3 conn=w kw=12.600 kvar=5.741 numcust=1 kv=0.120 model=1
+new Load.472 phases=1 bus1=s106.1.2 conn=d kw=119.140 kvar=98.723 numcust=1 kv=0.208 model=1
+new Load.593 phases=1 bus1=s138.2.3 conn=d kw=26.950 kvar=17.408 numcust=1 kv=0.208 model=1
+new Load.110 phases=1 bus1=s13.2 conn=w kw=13.470 kvar=4.427 numcust=1 kv=0.120 model=1
+new Load.231 phases=1 bus1=s42.3 conn=w kw=28.130 kvar=4.008 numcust=1 kv=0.120 model=1
+new Load.352 phases=1 bus1=s78.1.2 conn=d kw=33.500 kvar=23.383 numcust=1 kv=0.208 model=1
+new Load.473 phases=1 bus1=s106.2.3 conn=d kw=118.630 kvar=82.804 numcust=1 kv=0.208 model=1
+new Load.594 phases=1 bus1=s138.3.1 conn=d kw=29.640 kvar=23.780 numcust=1 kv=0.208 model=1
+new Load.111 phases=1 bus1=s13.3 conn=w kw=15.210 kvar=5.520 numcust=1 kv=0.120 model=1
+new Load.232 phases=1 bus1=s42.1.2 conn=d kw=72.320 kvar=52.359 numcust=1 kv=0.208 model=1
+new Load.353 phases=1 bus1=s78.2.3 conn=d kw=31.460 kvar=23.595 numcust=1 kv=0.208 model=1
+new Load.474 phases=1 bus1=s106.3.1 conn=d kw=108.700 kvar=70.213 numcust=1 kv=0.208 model=1
+new Load.595 phases=1 bus1=s139.1 conn=w kw=16.220 kvar=4.065 numcust=1 kv=0.120 model=1
+new Load.112 phases=1 bus1=s13.1.2 conn=d kw=30.600 kvar=24.550 numcust=1 kv=0.208 model=1
+new Load.233 phases=1 bus1=s42.2.3 conn=d kw=60.670 kvar=50.273 numcust=1 kv=0.208 model=1
+new Load.354 phases=1 bus1=s78.3.1 conn=d kw=34.090 kvar=26.457 numcust=1 kv=0.208 model=1
+new Load.475 phases=1 bus1=s107.1 conn=w kw=53.320 kvar=13.363 numcust=1 kv=0.120 model=1
+new Load.596 phases=1 bus1=s139.2 conn=w kw=14.700 kvar=3.684 numcust=1 kv=0.120 model=1
+new Load.113 phases=1 bus1=s13.2.3 conn=d kw=33.970 kvar=21.942 numcust=1 kv=0.208 model=1
+new Load.234 phases=1 bus1=s42.3.1 conn=d kw=69.800 kvar=46.906 numcust=1 kv=0.208 model=1
+new Load.355 phases=1 bus1=s79.1 conn=w kw=39.080 kvar=12.845 numcust=1 kv=0.120 model=1
+new Load.476 phases=1 bus1=s107.2 conn=w kw=45.650 kvar=19.447 numcust=1 kv=0.120 model=1
+new Load.597 phases=1 bus1=s139.3 conn=w kw=15.300 kvar=3.107 numcust=1 kv=0.120 model=1
+new Load.114 phases=1 bus1=s13.3.1 conn=d kw=33.370 kvar=23.292 numcust=1 kv=0.208 model=1
+new Load.235 phases=1 bus1=s43.1 conn=w kw=24.590 kvar=6.163 numcust=1 kv=0.120 model=1
+new Load.356 phases=1 bus1=s79.2 conn=w kw=35.840 kvar=14.165 numcust=1 kv=0.120 model=1
+new Load.477 phases=1 bus1=s107.3 conn=w kw=48.960 kvar=20.857 numcust=1 kv=0.120 model=1
+new Load.598 phases=1 bus1=s139.1.2 conn=d kw=28.150 kvar=20.380 numcust=1 kv=0.208 model=1
+new Load.115 phases=1 bus1=s15.1 conn=w kw=16.130 kvar=4.043 numcust=1 kv=0.120 model=1
+new Load.236 phases=1 bus1=s43.2 conn=w kw=25.810 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.357 phases=1 bus1=s79.3 conn=w kw=35.530 kvar=11.678 numcust=1 kv=0.120 model=1
+new Load.478 phases=1 bus1=s107.1.2 conn=d kw=105.770 kvar=68.321 numcust=1 kv=0.208 model=1
+new Load.599 phases=1 bus1=s139.2.3 conn=d kw=36.350 kvar=30.121 numcust=1 kv=0.208 model=1
+new Load.116 phases=1 bus1=s15.2 conn=w kw=12.660 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.237 phases=1 bus1=s43.3 conn=w kw=26.970 kvar=8.865 numcust=1 kv=0.120 model=1
+new Load.358 phases=1 bus1=s79.1.2 conn=d kw=98.600 kvar=66.260 numcust=1 kv=0.208 model=1
+new Load.479 phases=1 bus1=s107.2.3 conn=d kw=126.810 kvar=95.108 numcust=1 kv=0.208 model=1
+new Load.117 phases=1 bus1=s15.3 conn=w kw=14.310 kvar=2.039 numcust=1 kv=0.120 model=1
+new Load.238 phases=1 bus1=s43.1.2 conn=d kw=64.920 kvar=43.627 numcust=1 kv=0.208 model=1
+new Load.359 phases=1 bus1=s79.2.3 conn=d kw=87.850 kvar=56.745 numcust=1 kv=0.208 model=1
+new Load.118 phases=1 bus1=s15.1.2 conn=d kw=28.370 kvar=19.065 numcust=1 kv=0.208 model=1
+new Load.239 phases=1 bus1=s43.2.3 conn=d kw=65.390 kvar=54.184 numcust=1 kv=0.208 model=1
+new Load.119 phases=1 bus1=s15.2.3 conn=d kw=33.630 kvar=22.599 numcust=1 kv=0.208 model=1
+new Load.10 phases=1 bus1=s198.1.2 conn=d kw=188.320 kvar=136.341 numcust=1 kv=0.480 model=1
+new Load.11 phases=1 bus1=s198.2.3 conn=d kw=187.950 kvar=155.741 numcust=1 kv=0.480 model=1
+new Load.12 phases=1 bus1=s198.3.1 conn=d kw=203.010 kvar=173.606 numcust=1 kv=0.480 model=1
+new Load.13 phases=1 bus1=s203.1 conn=w kw=238.820 kvar=48.494 numcust=1 kv=0.277 model=1
+new Load.14 phases=1 bus1=s203.2 conn=w kw=232.470 kvar=99.032 numcust=1 kv=0.277 model=1
+new Load.15 phases=1 bus1=s203.3 conn=w kw=228.580 kvar=0.000 numcust=1 kv=0.277 model=1
+new Load.16 phases=1 bus1=s203.1.2 conn=d kw=565.800 kvar=453.931 numcust=1 kv=0.480 model=1
+new Load.17 phases=1 bus1=s203.2.3 conn=d kw=475.550 kvar=381.525 numcust=1 kv=0.480 model=1
+new Load.18 phases=1 bus1=s203.3.1 conn=d kw=533.690 kvar=372.518 numcust=1 kv=0.480 model=1
+new Load.19 phases=1 bus1=s210.1 conn=w kw=321.650 kvar=116.743 numcust=1 kv=0.277 model=1
+new Load.480 phases=1 bus1=s107.3.1 conn=d kw=113.860 kvar=73.546 numcust=1 kv=0.208 model=1
+new Load.360 phases=1 bus1=s79.3.1 conn=d kw=94.070 kvar=80.445 numcust=1 kv=0.208 model=1
+new Load.481 phases=1 bus1=s108.1 conn=w kw=14.940 kvar=2.129 numcust=1 kv=0.120 model=1
+new Load.240 phases=1 bus1=s43.3.1 conn=d kw=63.610 kvar=42.746 numcust=1 kv=0.208 model=1
+new Load.361 phases=1 bus1=s80.1 conn=w kw=54.970 kvar=25.045 numcust=1 kv=0.120 model=1
+new Load.482 phases=1 bus1=s108.2 conn=w kw=12.380 kvar=4.069 numcust=1 kv=0.120 model=1
+new Load.120 phases=1 bus1=s15.3.1 conn=d kw=30.780 kvar=23.888 numcust=1 kv=0.208 model=1
+new Load.241 phases=1 bus1=s46.1 conn=w kw=46.340 kvar=13.516 numcust=1 kv=0.120 model=1
+new Load.362 phases=1 bus1=s80.2 conn=w kw=45.980 kvar=20.949 numcust=1 kv=0.120 model=1
+new Load.483 phases=1 bus1=s108.3 conn=w kw=12.120 kvar=4.399 numcust=1 kv=0.120 model=1
+new Load.121 phases=1 bus1=s16.1 conn=w kw=13.540 kvar=3.393 numcust=1 kv=0.120 model=1
+new Load.242 phases=1 bus1=s46.2 conn=w kw=47.650 kvar=13.898 numcust=1 kv=0.120 model=1
+new Load.363 phases=1 bus1=s80.3 conn=w kw=44.050 kvar=8.945 numcust=1 kv=0.120 model=1
+new Load.484 phases=1 bus1=s108.1.2 conn=d kw=32.700 kvar=26.235 numcust=1 kv=0.208 model=1
+new Load.122 phases=1 bus1=s16.2 conn=w kw=13.050 kvar=4.289 numcust=1 kv=0.120 model=1
+new Load.243 phases=1 bus1=s46.3 conn=w kw=45.080 kvar=14.817 numcust=1 kv=0.120 model=1
+new Load.364 phases=1 bus1=s80.1.2 conn=d kw=104.060 kvar=75.338 numcust=1 kv=0.208 model=1
+new Load.485 phases=1 bus1=s108.2.3 conn=d kw=33.050 kvar=26.515 numcust=1 kv=0.208 model=1
+new Load.123 phases=1 bus1=s16.3 conn=w kw=13.720 kvar=4.980 numcust=1 kv=0.120 model=1
+new Load.244 phases=1 bus1=s46.1.2 conn=d kw=119.880 kvar=93.037 numcust=1 kv=0.208 model=1
+new Load.365 phases=1 bus1=s80.2.3 conn=d kw=121.400 kvar=91.050 numcust=1 kv=0.208 model=1
+new Load.486 phases=1 bus1=s108.3.1 conn=d kw=31.330 kvar=23.497 numcust=1 kv=0.208 model=1
+new Load.124 phases=1 bus1=s16.1.2 conn=d kw=35.730 kvar=25.868 numcust=1 kv=0.208 model=1
+new Load.245 phases=1 bus1=s46.2.3 conn=d kw=117.600 kvar=85.141 numcust=1 kv=0.208 model=1
+new Load.366 phases=1 bus1=s80.3.1 conn=d kw=111.200 kvar=92.143 numcust=1 kv=0.208 model=1
+new Load.487 phases=1 bus1=s113.1 conn=w kw=14.060 kvar=6.406 numcust=1 kv=0.120 model=1
+new Load.125 phases=1 bus1=s16.2.3 conn=d kw=30.730 kvar=20.651 numcust=1 kv=0.208 model=1
+new Load.246 phases=1 bus1=s46.3.1 conn=d kw=112.170 kvar=78.295 numcust=1 kv=0.208 model=1
+new Load.367 phases=1 bus1=s81.1 conn=w kw=68.100 kvar=17.067 numcust=1 kv=0.120 model=1
+new Load.488 phases=1 bus1=s113.2 conn=w kw=12.100 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.126 phases=1 bus1=s16.3.1 conn=d kw=33.050 kvar=23.928 numcust=1 kv=0.208 model=1
+new Load.247 phases=1 bus1=s47.1 conn=w kw=54.560 kvar=24.858 numcust=1 kv=0.120 model=1
+new Load.368 phases=1 bus1=s81.2 conn=w kw=64.430 kvar=18.792 numcust=1 kv=0.120 model=1
+new Load.489 phases=1 bus1=s113.3 conn=w kw=14.020 kvar=6.388 numcust=1 kv=0.120 model=1
+new Load.127 phases=1 bus1=s17.1 conn=w kw=13.450 kvar=3.371 numcust=1 kv=0.120 model=1
+new Load.248 phases=1 bus1=s47.2 conn=w kw=48.850 kvar=9.919 numcust=1 kv=0.120 model=1
+new Load.369 phases=1 bus1=s81.3 conn=w kw=52.550 kvar=7.488 numcust=1 kv=0.120 model=1
+new Load.128 phases=1 bus1=s17.2 conn=w kw=11.680 kvar=2.927 numcust=1 kv=0.120 model=1
+new Load.249 phases=1 bus1=s47.3 conn=w kw=49.340 kvar=16.217 numcust=1 kv=0.120 model=1
+new Load.129 phases=1 bus1=s17.3 conn=w kw=12.860 kvar=6.228 numcust=1 kv=0.120 model=1
+new Load.20 phases=1 bus1=s210.2 conn=w kw=303.750 kvar=76.127 numcust=1 kv=0.277 model=1
+new Load.21 phases=1 bus1=s210.3 conn=w kw=303.870 kvar=88.629 numcust=1 kv=0.277 model=1
+new Load.22 phases=1 bus1=s210.1.2 conn=d kw=571.830 kvar=369.366 numcust=1 kv=0.480 model=1
+new Load.23 phases=1 bus1=s210.2.3 conn=d kw=586.560 kvar=424.662 numcust=1 kv=0.480 model=1
+new Load.24 phases=1 bus1=s210.3.1 conn=d kw=615.940 kvar=397.858 numcust=1 kv=0.480 model=1
+new Load.25 phases=1 bus1=s217.1 conn=w kw=373.140 kvar=158.957 numcust=1 kv=0.277 model=1
+new Load.26 phases=1 bus1=s217.2 conn=w kw=320.710 kvar=136.622 numcust=1 kv=0.277 model=1
+new Load.27 phases=1 bus1=s217.3 conn=w kw=345.840 kvar=136.685 numcust=1 kv=0.277 model=1
+new Load.28 phases=1 bus1=s217.1.2 conn=d kw=621.670 kvar=466.252 numcust=1 kv=0.480 model=1
+new Load.29 phases=1 bus1=s217.2.3 conn=d kw=618.180 kvar=463.635 numcust=1 kv=0.480 model=1
+new Load.490 phases=1 bus1=s113.1.2 conn=d kw=31.510 kvar=22.813 numcust=1 kv=0.208 model=1
+new Load.370 phases=1 bus1=s81.1.2 conn=d kw=138.660 kvar=103.995 numcust=1 kv=0.208 model=1
+new Load.491 phases=1 bus1=s113.2.3 conn=d kw=32.220 kvar=26.698 numcust=1 kv=0.208 model=1
+new Load.250 phases=1 bus1=s47.1.2 conn=d kw=119.480 kvar=92.727 numcust=1 kv=0.208 model=1
+new Load.371 phases=1 bus1=s81.2.3 conn=d kw=132.130 kvar=109.487 numcust=1 kv=0.208 model=1
+new Load.492 phases=1 bus1=s113.3.1 conn=d kw=30.090 kvar=24.933 numcust=1 kv=0.208 model=1
+new Load.130 phases=1 bus1=s17.1.2 conn=d kw=33.050 kvar=27.386 numcust=1 kv=0.208 model=1
+new Load.251 phases=1 bus1=s47.2.3 conn=d kw=136.410 kvar=105.866 numcust=1 kv=0.208 model=1
+new Load.372 phases=1 bus1=s81.3.1 conn=d kw=133.970 kvar=96.993 numcust=1 kv=0.208 model=1
+new Load.493 phases=1 bus1=s114.1 conn=w kw=12.170 kvar=4.417 numcust=1 kv=0.120 model=1
+new Load.131 phases=1 bus1=s17.2.3 conn=d kw=34.360 kvar=28.472 numcust=1 kv=0.208 model=1
+new Load.252 phases=1 bus1=s47.3.1 conn=d kw=126.020 kvar=87.963 numcust=1 kv=0.208 model=1
+new Load.373 phases=1 bus1=s82.1 conn=w kw=17.300 kvar=5.686 numcust=1 kv=0.120 model=1
+new Load.494 phases=1 bus1=s114.2 conn=w kw=15.600 kvar=3.168 numcust=1 kv=0.120 model=1
+new Load.132 phases=1 bus1=s17.3.1 conn=d kw=27.450 kvar=19.873 numcust=1 kv=0.208 model=1
+new Load.253 phases=1 bus1=s48.1 conn=w kw=60.610 kvar=27.615 numcust=1 kv=0.120 model=1
+new Load.374 phases=1 bus1=s82.2 conn=w kw=14.440 kvar=6.151 numcust=1 kv=0.120 model=1
+new Load.495 phases=1 bus1=s114.3 conn=w kw=14.220 kvar=3.564 numcust=1 kv=0.120 model=1
+new Load.133 phases=1 bus1=s18.1 conn=w kw=16.050 kvar=4.681 numcust=1 kv=0.120 model=1
+new Load.254 phases=1 bus1=s48.2 conn=w kw=51.620 kvar=12.937 numcust=1 kv=0.120 model=1
+new Load.375 phases=1 bus1=s82.3 conn=w kw=12.520 kvar=5.333 numcust=1 kv=0.120 model=1
+new Load.496 phases=1 bus1=s114.1.2 conn=d kw=29.890 kvar=23.197 numcust=1 kv=0.208 model=1
+new Load.134 phases=1 bus1=s18.2 conn=w kw=14.810 kvar=3.712 numcust=1 kv=0.120 model=1
+new Load.255 phases=1 bus1=s48.3 conn=w kw=53.050 kvar=13.296 numcust=1 kv=0.120 model=1
+new Load.376 phases=1 bus1=s82.1.2 conn=d kw=30.270 kvar=25.083 numcust=1 kv=0.208 model=1
+new Load.497 phases=1 bus1=s114.2.3 conn=d kw=36.290 kvar=23.441 numcust=1 kv=0.208 model=1
+new Load.135 phases=1 bus1=s18.3 conn=w kw=15.430 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.256 phases=1 bus1=s48.1.2 conn=d kw=115.730 kvar=83.787 numcust=1 kv=0.208 model=1
+new Load.377 phases=1 bus1=s82.2.3 conn=d kw=33.290 kvar=24.968 numcust=1 kv=0.208 model=1
+new Load.498 phases=1 bus1=s114.3.1 conn=d kw=31.530 kvar=23.648 numcust=1 kv=0.208 model=1
+new Load.136 phases=1 bus1=s18.1.2 conn=d kw=32.330 kvar=24.248 numcust=1 kv=0.208 model=1
+new Load.257 phases=1 bus1=s48.2.3 conn=d kw=123.570 kvar=83.040 numcust=1 kv=0.208 model=1
+new Load.378 phases=1 bus1=s82.3.1 conn=d kw=33.370 kvar=24.159 numcust=1 kv=0.208 model=1
+new Load.499 phases=1 bus1=s120.1 conn=w kw=47.360 kvar=18.718 numcust=1 kv=0.120 model=1
+new Load.137 phases=1 bus1=s18.2.3 conn=d kw=32.970 kvar=23.013 numcust=1 kv=0.208 model=1
+new Load.258 phases=1 bus1=s48.3.1 conn=d kw=131.510 kvar=98.633 numcust=1 kv=0.208 model=1
+new Load.379 phases=1 bus1=s83.1 conn=w kw=14.760 kvar=2.103 numcust=1 kv=0.120 model=1
+new Load.138 phases=1 bus1=s18.3.1 conn=d kw=29.700 kvar=24.610 numcust=1 kv=0.208 model=1
+new Load.259 phases=1 bus1=s51.1 conn=w kw=46.640 kvar=18.433 numcust=1 kv=0.120 model=1
+new Load.139 phases=1 bus1=s19.1 conn=w kw=11.350 kvar=4.486 numcust=1 kv=0.120 model=1
+new Load.30 phases=1 bus1=s217.3.1 conn=d kw=580.830 kvar=435.623 numcust=1 kv=0.480 model=1
+new Load.31 phases=1 bus1=s224.1 conn=w kw=386.890 kvar=176.272 numcust=1 kv=0.277 model=1
+new Load.32 phases=1 bus1=s224.2 conn=w kw=317.260 kvar=104.278 numcust=1 kv=0.277 model=1
+new Load.33 phases=1 bus1=s224.3 conn=w kw=282.420 kvar=70.781 numcust=1 kv=0.277 model=1
+new Load.34 phases=1 bus1=s224.1.2 conn=d kw=652.020 kvar=489.015 numcust=1 kv=0.480 model=1
+new Load.35 phases=1 bus1=s224.2.3 conn=d kw=652.910 kvar=523.818 numcust=1 kv=0.480 model=1
+new Load.36 phases=1 bus1=s224.3.1 conn=d kw=588.220 kvar=456.508 numcust=1 kv=0.480 model=1
+new Load.37 phases=1 bus1=s231.1 conn=w kw=55.670 kvar=22.002 numcust=1 kv=0.277 model=1
+new Load.38 phases=1 bus1=s231.2 conn=w kw=39.900 kvar=16.997 numcust=1 kv=0.277 model=1
+new Load.39 phases=1 bus1=s231.3 conn=w kw=52.710 kvar=22.454 numcust=1 kv=0.277 model=1
+new Load.380 phases=1 bus1=s83.2 conn=w kw=13.060 kvar=3.809 numcust=1 kv=0.120 model=1
+new Load.260 phases=1 bus1=s51.2 conn=w kw=44.820 kvar=17.714 numcust=1 kv=0.120 model=1
+new Load.381 phases=1 bus1=s83.3 conn=w kw=12.020 kvar=2.441 numcust=1 kv=0.120 model=1
+new Load.140 phases=1 bus1=s19.2 conn=w kw=14.020 kvar=3.514 numcust=1 kv=0.120 model=1
+new Load.261 phases=1 bus1=s51.3 conn=w kw=54.850 kvar=21.678 numcust=1 kv=0.120 model=1
+new Load.382 phases=1 bus1=s83.1.2 conn=d kw=35.750 kvar=26.812 numcust=1 kv=0.208 model=1
+new Load.141 phases=1 bus1=s19.3 conn=w kw=15.380 kvar=6.079 numcust=1 kv=0.120 model=1
+new Load.262 phases=1 bus1=s51.1.2 conn=d kw=109.390 kvar=82.043 numcust=1 kv=0.208 model=1
+new Load.383 phases=1 bus1=s83.2.3 conn=d kw=36.620 kvar=27.465 numcust=1 kv=0.208 model=1
+new Load.142 phases=1 bus1=s19.1.2 conn=d kw=33.610 kvar=26.965 numcust=1 kv=0.208 model=1
+new Load.263 phases=1 bus1=s51.2.3 conn=d kw=135.190 kvar=115.609 numcust=1 kv=0.208 model=1
+new Load.384 phases=1 bus1=s83.3.1 conn=d kw=29.580 kvar=22.185 numcust=1 kv=0.208 model=1
+new Load.143 phases=1 bus1=s19.2.3 conn=d kw=36.040 kvar=27.970 numcust=1 kv=0.208 model=1
+new Load.264 phases=1 bus1=s51.3.1 conn=d kw=117.660 kvar=79.068 numcust=1 kv=0.208 model=1
+new Load.385 phases=1 bus1=s84.1 conn=w kw=32.900 kvar=10.814 numcust=1 kv=0.120 model=1
+new Load.144 phases=1 bus1=s19.3.1 conn=d kw=27.900 kvar=19.474 numcust=1 kv=0.208 model=1
+new Load.265 phases=1 bus1=s52.1 conn=w kw=45.060 kvar=19.195 numcust=1 kv=0.120 model=1
+new Load.386 phases=1 bus1=s84.2 conn=w kw=46.570 kvar=13.583 numcust=1 kv=0.120 model=1
+new Load.145 phases=1 bus1=s20.1 conn=w kw=15.800 kvar=2.251 numcust=1 kv=0.120 model=1
+new Load.266 phases=1 bus1=s52.2 conn=w kw=44.960 kvar=14.778 numcust=1 kv=0.120 model=1
+new Load.387 phases=1 bus1=s84.3 conn=w kw=46.650 kvar=13.606 numcust=1 kv=0.120 model=1
+new Load.146 phases=1 bus1=s20.2 conn=w kw=13.980 kvar=6.369 numcust=1 kv=0.120 model=1
+new Load.267 phases=1 bus1=s52.3 conn=w kw=43.750 kvar=15.879 numcust=1 kv=0.120 model=1
+new Load.388 phases=1 bus1=s84.1.2 conn=d kw=91.640 kvar=75.936 numcust=1 kv=0.208 model=1
+new Load.147 phases=1 bus1=s20.3 conn=w kw=12.900 kvar=5.098 numcust=1 kv=0.120 model=1
+new Load.268 phases=1 bus1=s52.1.2 conn=d kw=118.950 kvar=83.028 numcust=1 kv=0.208 model=1
+new Load.389 phases=1 bus1=s84.2.3 conn=d kw=94.900 kvar=71.175 numcust=1 kv=0.208 model=1
+new Load.148 phases=1 bus1=s20.1.2 conn=d kw=28.110 kvar=24.039 numcust=1 kv=0.208 model=1
+new Load.269 phases=1 bus1=s52.2.3 conn=d kw=115.350 kvar=89.521 numcust=1 kv=0.208 model=1
+new Load.149 phases=1 bus1=s20.2.3 conn=d kw=31.400 kvar=25.192 numcust=1 kv=0.208 model=1
+new Load.40 phases=1 bus1=s231.1.2 conn=d kw=81.260 kvar=58.831 numcust=1 kv=0.480 model=1
+new Load.41 phases=1 bus1=s231.2.3 conn=d kw=92.160 kvar=73.938 numcust=1 kv=0.480 model=1
+new Load.42 phases=1 bus1=s231.3.1 conn=d kw=104.450 kvar=67.468 numcust=1 kv=0.480 model=1
+new Load.43 phases=1 bus1=s236.1 conn=w kw=276.920 kvar=80.768 numcust=1 kv=0.277 model=1
+new Load.44 phases=1 bus1=s236.2 conn=w kw=310.850 kvar=44.294 numcust=1 kv=0.277 model=1
+new Load.45 phases=1 bus1=s236.3 conn=w kw=312.340 kvar=133.056 numcust=1 kv=0.277 model=1
+new Load.46 phases=1 bus1=s236.1.2 conn=d kw=616.160 kvar=494.334 numcust=1 kv=0.480 model=1
+new Load.47 phases=1 bus1=s236.2.3 conn=d kw=624.230 kvar=533.818 numcust=1 kv=0.480 model=1
+new Load.48 phases=1 bus1=s236.3.1 conn=d kw=563.510 kvar=437.331 numcust=1 kv=0.480 model=1
+new Load.49 phases=1 bus1=s1.1 conn=w kw=16.110 kvar=5.295 numcust=1 kv=0.120 model=1
+new Load.390 phases=1 bus1=s84.3.1 conn=d kw=109.530 kvar=87.874 numcust=1 kv=0.208 model=1
+new Load.270 phases=1 bus1=s52.3.1 conn=d kw=118.190 kvar=85.568 numcust=1 kv=0.208 model=1
+new Load.391 phases=1 bus1=s87.1 conn=w kw=45.800 kvar=19.511 numcust=1 kv=0.120 model=1
+new Load.150 phases=1 bus1=s20.3.1 conn=d kw=34.790 kvar=24.284 numcust=1 kv=0.208 model=1
+new Load.271 phases=1 bus1=s53.1 conn=w kw=49.150 kvar=7.003 numcust=1 kv=0.120 model=1
+new Load.392 phases=1 bus1=s87.2 conn=w kw=35.410 kvar=10.328 numcust=1 kv=0.120 model=1
+new Load.151 phases=1 bus1=s21.1 conn=w kw=16.290 kvar=5.354 numcust=1 kv=0.120 model=1
+new Load.272 phases=1 bus1=s53.2 conn=w kw=51.840 kvar=22.084 numcust=1 kv=0.120 model=1
+new Load.393 phases=1 bus1=s87.3 conn=w kw=36.860 kvar=17.852 numcust=1 kv=0.120 model=1
+new Load.152 phases=1 bus1=s21.2 conn=w kw=13.810 kvar=6.292 numcust=1 kv=0.120 model=1
+new Load.273 phases=1 bus1=s53.3 conn=w kw=46.560 kvar=6.634 numcust=1 kv=0.120 model=1
+new Load.394 phases=1 bus1=s87.1.2 conn=d kw=92.240 kvar=61.986 numcust=1 kv=0.208 model=1
+new Load.153 phases=1 bus1=s21.3 conn=w kw=13.050 kvar=3.271 numcust=1 kv=0.120 model=1
+new Load.274 phases=1 bus1=s53.1.2 conn=d kw=107.230 kvar=72.059 numcust=1 kv=0.208 model=1
+new Load.395 phases=1 bus1=s87.2.3 conn=d kw=83.060 kvar=68.826 numcust=1 kv=0.208 model=1
+new Load.154 phases=1 bus1=s21.1.2 conn=d kw=30.120 kvar=20.241 numcust=1 kv=0.208 model=1
+new Load.275 phases=1 bus1=s53.2.3 conn=d kw=98.130 kvar=68.495 numcust=1 kv=0.208 model=1
+new Load.396 phases=1 bus1=s87.3.1 conn=d kw=86.450 kvar=62.589 numcust=1 kv=0.208 model=1
+new Load.155 phases=1 bus1=s21.2.3 conn=d kw=31.940 kvar=23.955 numcust=1 kv=0.208 model=1
+new Load.276 phases=1 bus1=s53.3.1 conn=d kw=108.480 kvar=84.190 numcust=1 kv=0.208 model=1
+new Load.397 phases=1 bus1=s88.1 conn=w kw=49.030 kvar=12.288 numcust=1 kv=0.120 model=1
+new Load.156 phases=1 bus1=s21.3.1 conn=d kw=36.380 kvar=29.187 numcust=1 kv=0.208 model=1
+new Load.277 phases=1 bus1=s56.1 conn=w kw=41.450 kvar=15.044 numcust=1 kv=0.120 model=1
+new Load.398 phases=1 bus1=s88.2 conn=w kw=48.290 kvar=19.085 numcust=1 kv=0.120 model=1
+new Load.157 phases=1 bus1=s22.1 conn=w kw=14.730 kvar=6.711 numcust=1 kv=0.120 model=1
+new Load.278 phases=1 bus1=s56.2 conn=w kw=52.450 kvar=22.344 numcust=1 kv=0.120 model=1
+new Load.399 phases=1 bus1=s88.3 conn=w kw=49.640 kvar=19.619 numcust=1 kv=0.120 model=1
+new Load.158 phases=1 bus1=s22.2 conn=w kw=12.070 kvar=4.770 numcust=1 kv=0.120 model=1
+new Load.279 phases=1 bus1=s56.3 conn=w kw=42.660 kvar=18.173 numcust=1 kv=0.120 model=1
+new Load.159 phases=1 bus1=s22.3 conn=w kw=13.300 kvar=2.701 numcust=1 kv=0.120 model=1
+new Load.50 phases=1 bus1=s1.2 conn=w kw=11.280 kvar=4.094 numcust=1 kv=0.120 model=1
+new Load.51 phases=1 bus1=s1.3 conn=w kw=15.300 kvar=6.518 numcust=1 kv=0.120 model=1
+new Load.52 phases=1 bus1=s1.1.2 conn=d kw=32.440 kvar=23.486 numcust=1 kv=0.208 model=1
+new Load.53 phases=1 bus1=s1.2.3 conn=d kw=34.690 kvar=29.666 numcust=1 kv=0.208 model=1
+new Load.54 phases=1 bus1=s1.3.1 conn=d kw=35.710 kvar=27.714 numcust=1 kv=0.208 model=1
+new Load.55 phases=1 bus1=s2.1 conn=w kw=12.120 kvar=4.790 numcust=1 kv=0.120 model=1
+new Load.56 phases=1 bus1=s2.2 conn=w kw=12.590 kvar=4.976 numcust=1 kv=0.120 model=1
+new Load.57 phases=1 bus1=s2.3 conn=w kw=11.450 kvar=2.325 numcust=1 kv=0.120 model=1
+new Load.58 phases=1 bus1=s2.1.2 conn=d kw=29.830 kvar=23.932 numcust=1 kv=0.208 model=1
+new Load.59 phases=1 bus1=s2.2.3 conn=d kw=34.510 kvar=23.191 numcust=1 kv=0.208 model=1
+new Load.280 phases=1 bus1=s56.1.2 conn=d kw=111.580 kvar=89.519 numcust=1 kv=0.208 model=1
+new Load.160 phases=1 bus1=s22.1.2 conn=d kw=36.120 kvar=25.212 numcust=1 kv=0.208 model=1
+new Load.281 phases=1 bus1=s56.2.3 conn=d kw=125.950 kvar=84.639 numcust=1 kv=0.208 model=1
+new Load.161 phases=1 bus1=s22.2.3 conn=d kw=33.910 kvar=26.317 numcust=1 kv=0.208 model=1
+new Load.282 phases=1 bus1=s56.3.1 conn=d kw=114.430 kvar=73.914 numcust=1 kv=0.208 model=1
+new Load.162 phases=1 bus1=s22.3.1 conn=d kw=34.940 kvar=25.296 numcust=1 kv=0.208 model=1
+new Load.283 phases=1 bus1=s57.1 conn=w kw=51.440 kvar=12.892 numcust=1 kv=0.120 model=1
+new Load.163 phases=1 bus1=s23.1 conn=w kw=41.670 kvar=10.443 numcust=1 kv=0.120 model=1
+new Load.284 phases=1 bus1=s57.2 conn=w kw=51.900 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.164 phases=1 bus1=s23.2 conn=w kw=44.080 kvar=17.422 numcust=1 kv=0.120 model=1
+new Load.285 phases=1 bus1=s57.3 conn=w kw=52.650 kvar=17.305 numcust=1 kv=0.120 model=1
+new Load.165 phases=1 bus1=s23.3 conn=w kw=34.470 kvar=6.999 numcust=1 kv=0.120 model=1
+new Load.286 phases=1 bus1=s57.1.2 conn=d kw=136.780 kvar=102.585 numcust=1 kv=0.208 model=1
+new Load.166 phases=1 bus1=s23.1.2 conn=d kw=101.570 kvar=73.535 numcust=1 kv=0.208 model=1
+new Load.287 phases=1 bus1=s57.2.3 conn=d kw=130.060 kvar=104.345 numcust=1 kv=0.208 model=1
+new Load.167 phases=1 bus1=s23.2.3 conn=d kw=113.380 kvar=79.140 numcust=1 kv=0.208 model=1
+new Load.288 phases=1 bus1=s57.3.1 conn=d kw=132.480 kvar=99.360 numcust=1 kv=0.208 model=1
+new Load.168 phases=1 bus1=s23.3.1 conn=d kw=97.230 kvar=80.568 numcust=1 kv=0.208 model=1
+new Load.289 phases=1 bus1=s58.1 conn=w kw=58.400 kvar=24.878 numcust=1 kv=0.120 model=1
+new Load.169 phases=1 bus1=s24.1 conn=w kw=34.330 kvar=12.460 numcust=1 kv=0.120 model=1
+new Load.60 phases=1 bus1=s2.3.1 conn=d kw=35.700 kvar=28.641 numcust=1 kv=0.208 model=1
+new Load.61 phases=1 bus1=s3.1 conn=w kw=15.590 kvar=7.103 numcust=1 kv=0.120 model=1
+new Load.62 phases=1 bus1=s3.2 conn=w kw=12.000 kvar=3.007 numcust=1 kv=0.120 model=1
+new Load.63 phases=1 bus1=s3.3 conn=w kw=11.900 kvar=1.696 numcust=1 kv=0.120 model=1
+new Load.64 phases=1 bus1=s3.1.2 conn=d kw=35.180 kvar=23.641 numcust=1 kv=0.208 model=1
+new Load.65 phases=1 bus1=s3.2.3 conn=d kw=30.710 kvar=23.032 numcust=1 kv=0.208 model=1
+new Load.66 phases=1 bus1=s3.3.1 conn=d kw=32.330 kvar=23.407 numcust=1 kv=0.208 model=1
+new Load.67 phases=1 bus1=s5.1 conn=w kw=16.100 kvar=6.363 numcust=1 kv=0.120 model=1
+new Load.68 phases=1 bus1=s5.2 conn=w kw=15.520 kvar=5.101 numcust=1 kv=0.120 model=1
+new Load.69 phases=1 bus1=s5.3 conn=w kw=13.300 kvar=4.827 numcust=1 kv=0.120 model=1
+new Load.290 phases=1 bus1=s58.2 conn=w kw=45.120 kvar=11.308 numcust=1 kv=0.120 model=1
+new Load.170 phases=1 bus1=s24.2 conn=w kw=42.830 kvar=14.078 numcust=1 kv=0.120 model=1
+new Load.291 phases=1 bus1=s58.3 conn=w kw=49.060 kvar=14.309 numcust=1 kv=0.120 model=1
+new Load.171 phases=1 bus1=s24.3 conn=w kw=46.080 kvar=19.630 numcust=1 kv=0.120 model=1
+new Load.292 phases=1 bus1=s58.1.2 conn=d kw=104.870 kvar=70.473 numcust=1 kv=0.208 model=1
+new Load.172 phases=1 bus1=s24.1.2 conn=d kw=84.090 kvar=71.911 numcust=1 kv=0.208 model=1
+new Load.293 phases=1 bus1=s58.2.3 conn=d kw=109.530 kvar=79.298 numcust=1 kv=0.208 model=1
+new Load.173 phases=1 bus1=s24.2.3 conn=d kw=98.490 kvar=73.868 numcust=1 kv=0.208 model=1
+new Load.294 phases=1 bus1=s58.3.1 conn=d kw=106.220 kvar=88.017 numcust=1 kv=0.208 model=1
+new Load.174 phases=1 bus1=s24.3.1 conn=d kw=85.750 kvar=66.549 numcust=1 kv=0.208 model=1
+new Load.295 phases=1 bus1=s61.1 conn=w kw=24.390 kvar=8.852 numcust=1 kv=0.120 model=1
+new Load.175 phases=1 bus1=s25.1 conn=w kw=36.480 kvar=17.668 numcust=1 kv=0.120 model=1
+new Load.296 phases=1 bus1=s61.2 conn=w kw=22.950 kvar=6.694 numcust=1 kv=0.120 model=1
+new Load.176 phases=1 bus1=s25.2 conn=w kw=47.230 kvar=9.590 numcust=1 kv=0.120 model=1
+new Load.297 phases=1 bus1=s61.3 conn=w kw=21.860 kvar=6.376 numcust=1 kv=0.120 model=1
+new Load.177 phases=1 bus1=s25.3 conn=w kw=46.740 kvar=6.660 numcust=1 kv=0.120 model=1
+new Load.298 phases=1 bus1=s61.1.2 conn=d kw=59.210 kvar=39.789 numcust=1 kv=0.208 model=1
+new Load.178 phases=1 bus1=s25.1.2 conn=d kw=101.510 kvar=70.854 numcust=1 kv=0.208 model=1
+new Load.299 phases=1 bus1=s61.2.3 conn=d kw=59.660 kvar=47.864 numcust=1 kv=0.208 model=1
+new Load.179 phases=1 bus1=s25.2.3 conn=d kw=109.370 kvar=87.746 numcust=1 kv=0.208 model=1
+new Load.70 phases=1 bus1=s5.1.2 conn=d kw=27.990 kvar=18.809 numcust=1 kv=0.208 model=1
+new Load.71 phases=1 bus1=s5.2.3 conn=d kw=34.210 kvar=27.446 numcust=1 kv=0.208 model=1
+new Load.72 phases=1 bus1=s5.3.1 conn=d kw=28.450 kvar=23.574 numcust=1 kv=0.208 model=1
+new Load.73 phases=1 bus1=s6.1 conn=w kw=15.480 kvar=3.143 numcust=1 kv=0.120 model=1
+new Load.74 phases=1 bus1=s6.2 conn=w kw=12.080 kvar=3.523 numcust=1 kv=0.120 model=1
+new Load.75 phases=1 bus1=s6.3 conn=w kw=13.380 kvar=0.000 numcust=1 kv=0.120 model=1
+new Load.76 phases=1 bus1=s6.1.2 conn=d kw=28.930 kvar=21.698 numcust=1 kv=0.208 model=1
+new Load.77 phases=1 bus1=s6.2.3 conn=d kw=31.920 kvar=26.450 numcust=1 kv=0.208 model=1
+new Load.78 phases=1 bus1=s6.3.1 conn=d kw=33.130 kvar=26.580 numcust=1 kv=0.208 model=1
+new Load.79 phases=1 bus1=s7.1 conn=w kw=12.660 kvar=5.768 numcust=1 kv=0.120 model=1
+new Load.180 phases=1 bus1=s25.3.1 conn=d kw=97.870 kvar=81.098 numcust=1 kv=0.208 model=1
+new Load.181 phases=1 bus1=s26.1 conn=w kw=16.410 kvar=6.991 numcust=1 kv=0.120 model=1
+new Load.182 phases=1 bus1=s26.2 conn=w kw=12.290 kvar=5.236 numcust=1 kv=0.120 model=1
+new Load.183 phases=1 bus1=s26.3 conn=w kw=14.770 kvar=4.855 numcust=1 kv=0.120 model=1
+new Load.184 phases=1 bus1=s26.1.2 conn=d kw=26.870 kvar=20.853 numcust=1 kv=0.208 model=1
+new Load.185 phases=1 bus1=s26.2.3 conn=d kw=31.650 kvar=25.392 numcust=1 kv=0.208 model=1
+new Load.186 phases=1 bus1=s26.3.1 conn=d kw=37.400 kvar=28.050 numcust=1 kv=0.208 model=1
+new Load.187 phases=1 bus1=s31.1 conn=w kw=13.350 kvar=2.711 numcust=1 kv=0.120 model=1
+new Load.188 phases=1 bus1=s31.2 conn=w kw=14.570 kvar=6.207 numcust=1 kv=0.120 model=1
+new Load.189 phases=1 bus1=s31.3 conn=w kw=13.730 kvar=5.849 numcust=1 kv=0.120 model=1
+new Load.80 phases=1 bus1=s7.2 conn=w kw=13.140 kvar=4.319 numcust=1 kv=0.120 model=1
+new Load.81 phases=1 bus1=s7.3 conn=w kw=13.760 kvar=1.961 numcust=1 kv=0.120 model=1
+new Load.82 phases=1 bus1=s7.1.2 conn=d kw=30.270 kvar=25.083 numcust=1 kv=0.208 model=1
+new Load.83 phases=1 bus1=s7.2.3 conn=d kw=34.890 kvar=27.078 numcust=1 kv=0.208 model=1
+new Load.84 phases=1 bus1=s7.3.1 conn=d kw=31.740 kvar=25.464 numcust=1 kv=0.208 model=1
+new Load.85 phases=1 bus1=s8.1 conn=w kw=13.930 kvar=5.505 numcust=1 kv=0.120 model=1
+new Load.86 phases=1 bus1=s8.2 conn=w kw=13.060 kvar=1.861 numcust=1 kv=0.120 model=1
+new Load.87 phases=1 bus1=s8.3 conn=w kw=14.970 kvar=6.821 numcust=1 kv=0.120 model=1
+new Load.88 phases=1 bus1=s8.1.2 conn=d kw=27.750 kvar=22.263 numcust=1 kv=0.208 model=1
+new Load.89 phases=1 bus1=s8.2.3 conn=d kw=31.780 kvar=21.356 numcust=1 kv=0.208 model=1
+new Load.190 phases=1 bus1=s31.1.2 conn=d kw=37.070 kvar=27.803 numcust=1 kv=0.208 model=1
+new Load.191 phases=1 bus1=s31.2.3 conn=d kw=33.430 kvar=21.594 numcust=1 kv=0.208 model=1
+new Load.192 phases=1 bus1=s31.3.1 conn=d kw=32.150 kvar=26.640 numcust=1 kv=0.208 model=1
+new Load.193 phases=1 bus1=s32.1 conn=w kw=11.650 kvar=4.228 numcust=1 kv=0.120 model=1
+new Load.194 phases=1 bus1=s32.2 conn=w kw=12.160 kvar=5.180 numcust=1 kv=0.120 model=1
+new Load.195 phases=1 bus1=s32.3 conn=w kw=13.060 kvar=5.564 numcust=1 kv=0.120 model=1
+new Load.196 phases=1 bus1=s32.1.2 conn=d kw=30.790 kvar=21.492 numcust=1 kv=0.208 model=1
+new Load.197 phases=1 bus1=s32.2.3 conn=d kw=30.400 kvar=23.593 numcust=1 kv=0.208 model=1
+new Load.198 phases=1 bus1=s32.3.1 conn=d kw=28.330 kvar=21.247 numcust=1 kv=0.208 model=1
+new Load.199 phases=1 bus1=s37.1 conn=w kw=14.790 kvar=6.301 numcust=1 kv=0.120 model=1
+new Load.90 phases=1 bus1=s8.3.1 conn=d kw=35.140 kvar=23.614 numcust=1 kv=0.208 model=1
+new Load.91 phases=1 bus1=s10.1 conn=w kw=12.640 kvar=3.687 numcust=1 kv=0.120 model=1
+new Load.92 phases=1 bus1=s10.2 conn=w kw=13.590 kvar=3.964 numcust=1 kv=0.120 model=1
+new Load.93 phases=1 bus1=s10.3 conn=w kw=12.040 kvar=5.486 numcust=1 kv=0.120 model=1
+new Load.94 phases=1 bus1=s10.1.2 conn=d kw=35.540 kvar=30.392 numcust=1 kv=0.208 model=1
+new Load.95 phases=1 bus1=s10.2.3 conn=d kw=34.640 kvar=24.179 numcust=1 kv=0.208 model=1
+new Load.96 phases=1 bus1=s10.3.1 conn=d kw=26.300 kvar=21.793 numcust=1 kv=0.208 model=1
+new Load.97 phases=1 bus1=s11.1 conn=w kw=11.720 kvar=2.380 numcust=1 kv=0.120 model=1
+new Load.98 phases=1 bus1=s11.2 conn=w kw=14.340 kvar=6.533 numcust=1 kv=0.120 model=1
+new Load.99 phases=1 bus1=s11.3 conn=w kw=12.570 kvar=3.666 numcust=1 kv=0.120 model=1
+
+new Line.77_sw phases=3 bus1=s234.1.2.3 bus2=s232.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.77_sw 1
+new Line.31_sw phases=3 bus1=s168.1.2.3 bus2=s69.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.31_sw 1
+new Line.58_sw phases=3 bus1=s186.1.2.3 bus2=s117.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.58_sw 1
+new Line.29_sw phases=3 bus1=s164.1.2.3 bus2=s68.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.29_sw 1
+new Line.54_sw phases=3 bus1=s178.1.2.3 bus2=s115.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.54_sw 1
+new Line.12_sw phases=3 bus1=p134.1.2.3 bus2=p135.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.12_sw 1
+new Line.48_sw phases=3 bus1=s181.1.2.3 bus2=s91.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.48_sw 1
+new Line.2_sw phases=3 bus1=p5.1.2.3 bus2=p6.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.2_sw 1
+new Line.35_sw phases=3 bus1=s176.1.2.3 bus2=s71.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.35_sw 1
+new Line.50_sw phases=3 bus1=s185.1.2.3 bus2=s96.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.50_sw 1
+new Line.41_sw phases=3 bus1=s171.1.2.3 bus2=s95.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.41_sw 1
+new Line.68_sw phases=3 bus1=s214.1.2.3 bus2=s211.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.68_sw 1
+new Line.15_sw phases=3 bus1=s152.1.2.3 bus2=s28.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.15_sw 1
+new Line.45_sw phases=3 bus1=s180.1.2.3 bus2=s109.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.45_sw 1
+new Line.6_sw phases=3 bus1=p27.1.2.3 bus2=p28.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.6_sw 1
+new Line.70_sw phases=3 bus1=s216.1.2.3 bus2=s213.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.70_sw 1
+new Line.19_sw phases=3 bus1=s160.1.2.3 bus2=s30.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.19_sw 1
+new Line.38_sw phases=3 bus1=s162.1.2.3 bus2=s74.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.38_sw 1
+new Line.64_sw phases=3 bus1=s202.1.2.3 bus2=s200.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.64_sw 1
+new Line.60_sw phases=3 bus1=s190.1.2.3 bus2=s118.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.60_sw 1
+new Line.22_sw phases=3 bus1=s146.1.2.3 bus2=s33.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.22_sw 1
+new Line.32_sw phases=3 bus1=s165.1.2.3 bus2=s50.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.32_sw 1
+new Line.78_sw phases=3 bus1=s235.1.2.3 bus2=s233.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.78_sw 1
+new Line.57_sw phases=3 bus1=s187.1.2.3 bus2=s136.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.57_sw 1
+new Line.1_sw phases=3 bus1=p3.1.2.3 bus2=p4.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.1_sw 1
+new Line.28_sw phases=3 bus1=s158.1.2.3 bus2=s36.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.28_sw 1
+new Line.49_sw phases=3 bus1=s188.1.2.3 bus2=s111.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.49_sw 1
+new Line.53_sw phases=3 bus1=s179.1.2.3 bus2=s126.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.53_sw 1
+new Line.74_sw phases=3 bus1=s228.1.2.3 bus2=s225.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.74_sw 1
+new Line.80_sw phases=3 bus1=s240.1.2.3 bus2=s239.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.80_sw 1
+new Line.36_sw phases=3 bus1=s173.1.2.3 bus2=s60.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.36_sw 1
+new Line.11_sw phases=3 bus1=p117.1.2.3 bus2=p118.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.11_sw 1
+new Line.18_sw phases=3 bus1=s153.1.2.3 bus2=s14.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.18_sw 1
+new Line.42_sw phases=3 bus1=s170.1.2.3 bus2=s76.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.42_sw 1
+new Line.67_sw phases=3 bus1=s209.1.2.3 bus2=s206.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.67_sw 1
+new Line.9_sw phases=3 bus1=p81.1.2.3 bus2=p82.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.9_sw 1
+new Line.39_sw phases=3 bus1=s167.1.2.3 bus2=s90.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.39_sw 1
+new Line.46_sw phases=3 bus1=s177.1.2.3 bus2=s86.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.46_sw 1
+new Line.5_sw phases=3 bus1=p11.1.2.3 bus2=p12.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.5_sw 1
+new Line.63_sw phases=3 bus1=s201.1.2.3 bus2=s199.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.63_sw 1
+new Line.73_sw phases=3 bus1=s223.1.2.3 bus2=s220.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.73_sw 1
+new Line.25_sw phases=3 bus1=s155.1.2.3 bus2=s54.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.25_sw 1
+new Line.21_sw phases=3 bus1=s147.1.2.3 bus2=s44.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.21_sw 1
+new Line.79_sw phases=3 bus1=s238.1.2.3 bus2=s237.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.79_sw 1
+new Line.33_sw phases=3 bus1=s172.1.2.3 bus2=s70.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.33_sw 1
+new Line.27_sw phases=3 bus1=s159.1.2.3 bus2=s59.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.27_sw 1
+new Line.52_sw phases=3 bus1=s189.1.2.3 bus2=s101.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.52_sw 1
+new Line.75_sw phases=3 bus1=s229.1.2.3 bus2=s226.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.75_sw 1
+new Line.56_sw phases=3 bus1=s182.1.2.3 bus2=s116.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.56_sw 1
+new Line.14_sw phases=3 bus1=s145.1.2.3 bus2=s4.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.14_sw 1
+new Line.10_sw phases=3 bus1=p97.1.2.3 bus2=p98.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.10_sw 1
+new Line.17_sw phases=3 bus1=s156.1.2.3 bus2=s29.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.17_sw 1
+new Line.43_sw phases=3 bus1=s175.1.2.3 bus2=s100.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.43_sw 1
+new Line.66_sw phases=3 bus1=s208.1.2.3 bus2=s205.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.66_sw 1
+new Line.8_sw phases=3 bus1=p62.1.2.3 bus2=p63.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.8_sw 1
+new Line.20_sw phases=3 bus1=s157.1.2.3 bus2=s19.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.20_sw 1
+new Line.4_sw phases=3 bus1=p9.1.2.3 bus2=p10.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.4_sw 1
+new Line.62_sw phases=3 bus1=s197.1.2.3 bus2=s195.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.62_sw 1
+new Line.47_sw phases=3 bus1=s184.1.2.3 bus2=s110.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.47_sw 1
+new Line.72_sw phases=3 bus1=s222.1.2.3 bus2=s219.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.72_sw 1
+new Line.24_sw phases=3 bus1=s150.1.2.3 bus2=s34.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.24_sw 1
+new Line.59_sw phases=3 bus1=s191.1.2.3 bus2=s141.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.59_sw 1
+new Line.30_sw phases=3 bus1=s161.1.2.3 bus2=s45.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.30_sw 1
+new Line.26_sw phases=3 bus1=s154.1.2.3 bus2=s35.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.26_sw 1
+new Line.34_sw phases=3 bus1=s169.1.2.3 bus2=s55.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.34_sw 1
+new Line.51_sw phases=3 bus1=s192.1.2.3 bus2=s112.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.51_sw 1
+new Line.76_sw phases=3 bus1=s230.1.2.3 bus2=s227.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.76_sw 1
+new Line.55_sw phases=3 bus1=s183.1.2.3 bus2=s131.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.55_sw 1
+new Line.3_sw phases=3 bus1=p7.1.2.3 bus2=p8.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.3_sw 1
+new Line.13_sw phases=3 bus1=s148.1.2.3 bus2=s27.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.13_sw 1
+new Line.16_sw phases=3 bus1=s149.1.2.3 bus2=s9.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.16_sw 1
+new Line.40_sw phases=3 bus1=s166.1.2.3 bus2=s75.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.40_sw 1
+new Line.69_sw phases=3 bus1=s215.1.2.3 bus2=s212.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.69_sw 1
+new Line.37_sw phases=3 bus1=s163.1.2.3 bus2=s85.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.37_sw 1
+new Line.44_sw phases=3 bus1=s174.1.2.3 bus2=s77.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.44_sw 1
+new Line.65_sw phases=3 bus1=s207.1.2.3 bus2=s204.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.65_sw 1
+new Line.7_sw phases=3 bus1=p45.1.2.3 bus2=p46.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.7_sw 1
+new Line.71_sw phases=3 bus1=s221.1.2.3 bus2=s218.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.71_sw 1
+new Line.61_sw phases=3 bus1=s196.1.2.3 bus2=s194.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.61_sw 1
+new Line.23_sw phases=3 bus1=s151.1.2.3 bus2=s49.1.2.3 switch=y r1=1e-4 r0=1e-4 x1=0 x0=0 c1=0 c0=0 // CIM LoadBreakSwitch
+~ normamps=400.00
+  close Line.23_sw 1
+
+new Line.230 phases=3 bus1=s138.1.2.3 bus2=s139.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.110 phases=3 bus1=p121.1.2.3 bus2=p123.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.231 phases=3 bus1=s139.1.2.3 bus2=s140.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.111 phases=3 bus1=p123.1.2.3 bus2=p124.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.232 phases=3 bus1=s140.1.2.3 bus2=s141.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.112 phases=3 bus1=p123.1.2.3 bus2=p125.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.233 phases=3 bus1=s141.1.2.3 bus2=s142.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.113 phases=3 bus1=p125.1.2.3 bus2=p126.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.234 phases=3 bus1=s142.1.2.3 bus2=s143.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.114 phases=3 bus1=p125.1.2.3 bus2=p127.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.235 phases=3 bus1=s143.1.2.3 bus2=s144.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.115 phases=3 bus1=p127.1.2.3 bus2=p128.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.236 phases=3 bus1=s1.1.2.3 bus2=s22.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.116 phases=3 bus1=p127.1.2.3 bus2=p129.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.237 phases=3 bus1=s22.1.2.3 bus2=s27.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.117 phases=3 bus1=p129.1.2.3 bus2=p130.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.238 phases=3 bus1=s27.1.2.3 bus2=s32.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.118 phases=3 bus1=p130.1.2.3 bus2=p131.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.239 phases=3 bus1=s32.1.2.3 bus2=s37.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.119 phases=3 bus1=p129.1.2.3 bus2=p132.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.10 phases=3 bus1=p10.1.2.3 bus2=p97.1.2.3 length=50.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.11 phases=3 bus1=p10.1.2.3 bus2=p116.1.2.3 length=25.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.12 phases=3 bus1=p116.1.2.3 bus2=p117.1.2.3 length=25.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.13 phases=3 bus1=p116.1.2.3 bus2=p134.1.2.3 length=25.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.14 phases=3 bus1=p12.1.2.3 bus2=p13.1.2.3 length=2500.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.15 phases=3 bus1=p13.1.2.3 bus2=p14.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.16 phases=3 bus1=p13.1.2.3 bus2=p15.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.17 phases=3 bus1=p15.1.2.3 bus2=p16.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.18 phases=3 bus1=p16.1.2.3 bus2=p17.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.19 phases=3 bus1=p15.1.2.3 bus2=p18.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.240 phases=3 bus1=s37.1.2.3 bus2=s42.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.120 phases=3 bus1=p132.1.2.3 bus2=p133.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.241 phases=3 bus1=s42.1.2.3 bus2=s63.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.121 phases=3 bus1=p135.1.2.3 bus2=p136.1.2.3 length=2500.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.242 phases=3 bus1=s63.1.2.3 bus2=s68.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.1 phases=3 bus1=p1.1.2.3 bus2=p2.1.2.3 length=150.000 linecode=trans1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.122 phases=3 bus1=p136.1.2.3 bus2=p137.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.243 phases=3 bus1=s68.1.2.3 bus2=s73.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.123 phases=3 bus1=p136.1.2.3 bus2=p138.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.2 phases=3 bus1=p2.1.2.3 bus2=p3.1.2.3 length=150.000 linecode=trans1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.244 phases=3 bus1=s73.1.2.3 bus2=s78.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.124 phases=3 bus1=p138.1.2.3 bus2=p139.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.245 phases=3 bus1=s78.1.2.3 bus2=s83.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.3 phases=3 bus1=p2.1.2.3 bus2=p7.1.2.3 length=150.000 linecode=trans1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.125 phases=3 bus1=p139.1.2.3 bus2=p140.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.246 phases=3 bus1=s83.1.2.3 bus2=s104.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.4 phases=3 bus1=p6.1.2.3 bus2=p11.1.2.3 length=50.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.126 phases=3 bus1=p138.1.2.3 bus2=p141.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.247 phases=3 bus1=s104.1.2.3 bus2=s109.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.5 phases=3 bus1=p6.1.2.3 bus2=p27.1.2.3 length=50.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.127 phases=3 bus1=p141.1.2.3 bus2=p142.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.248 phases=3 bus1=s109.1.2.3 bus2=s114.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.6 phases=3 bus1=p6.1.2.3 bus2=p44.1.2.3 length=25.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.128 phases=3 bus1=p141.1.2.3 bus2=p143.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.249 phases=3 bus1=s114.1.2.3 bus2=s119.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.7 phases=3 bus1=p44.1.2.3 bus2=p45.1.2.3 length=25.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.129 phases=3 bus1=p143.1.2.3 bus2=p144.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.8 phases=3 bus1=p44.1.2.3 bus2=p62.1.2.3 length=25.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.9 phases=3 bus1=p10.1.2.3 bus2=p81.1.2.3 length=50.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.20 phases=3 bus1=p18.1.2.3 bus2=p19.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.21 phases=3 bus1=p18.1.2.3 bus2=p20.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.22 phases=3 bus1=p20.1.2.3 bus2=p21.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.23 phases=3 bus1=p21.1.2.3 bus2=p22.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.24 phases=3 bus1=p20.1.2.3 bus2=p23.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.25 phases=3 bus1=p23.1.2.3 bus2=p24.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.26 phases=3 bus1=p23.1.2.3 bus2=p25.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.27 phases=3 bus1=p25.1.2.3 bus2=p26.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.28 phases=3 bus1=p28.1.2.3 bus2=p29.1.2.3 length=2500.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.29 phases=3 bus1=p29.1.2.3 bus2=p30.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.250 phases=3 bus1=s119.1.2.3 bus2=s124.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.130 phases=3 bus1=p144.1.2.3 bus2=p145.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.251 phases=3 bus1=s6.1.2.3 bus2=s23.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.131 phases=3 bus1=p145.1.2.3 bus2=p146.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.252 phases=3 bus1=s23.1.2.3 bus2=s28.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.132 phases=3 bus1=p143.1.2.3 bus2=p147.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.253 phases=3 bus1=s28.1.2.3 bus2=s33.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.133 phases=3 bus1=p147.1.2.3 bus2=p148.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.254 phases=3 bus1=s33.1.2.3 bus2=s38.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.134 phases=3 bus1=p147.1.2.3 bus2=p149.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.255 phases=3 bus1=s38.1.2.3 bus2=s47.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.135 phases=3 bus1=p149.1.2.3 bus2=p150.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.256 phases=3 bus1=s47.1.2.3 bus2=s64.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.136 phases=3 bus1=s194.1.2.3 bus2=s193.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.257 phases=3 bus1=s64.1.2.3 bus2=s69.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.137 phases=3 bus1=s195.1.2.3 bus2=s193.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.258 phases=3 bus1=s69.1.2.3 bus2=s74.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.138 phases=3 bus1=s199.1.2.3 bus2=s198.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.259 phases=3 bus1=s74.1.2.3 bus2=s79.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.139 phases=3 bus1=s200.1.2.3 bus2=s198.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.30 phases=3 bus1=p29.1.2.3 bus2=p31.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.31 phases=3 bus1=p31.1.2.3 bus2=p32.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.32 phases=3 bus1=p31.1.2.3 bus2=p33.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.33 phases=3 bus1=p33.1.2.3 bus2=p34.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.34 phases=3 bus1=p33.1.2.3 bus2=p35.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.35 phases=3 bus1=p35.1.2.3 bus2=p36.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.36 phases=3 bus1=p35.1.2.3 bus2=p37.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.37 phases=3 bus1=p37.1.2.3 bus2=p38.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.38 phases=3 bus1=p37.1.2.3 bus2=p39.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.39 phases=3 bus1=p39.1.2.3 bus2=p40.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.260 phases=3 bus1=s79.1.2.3 bus2=s88.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.140 phases=3 bus1=s204.1.2.3 bus2=s203.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.261 phases=3 bus1=s88.1.2.3 bus2=s105.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.141 phases=3 bus1=s205.1.2.3 bus2=s203.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.262 phases=3 bus1=s105.1.2.3 bus2=s110.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.142 phases=3 bus1=s206.1.2.3 bus2=s203.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.263 phases=3 bus1=s110.1.2.3 bus2=s115.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.143 phases=3 bus1=s211.1.2.3 bus2=s210.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.264 phases=3 bus1=s115.1.2.3 bus2=s120.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.144 phases=3 bus1=s212.1.2.3 bus2=s210.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.265 phases=3 bus1=s120.1.2.3 bus2=s129.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.145 phases=3 bus1=s213.1.2.3 bus2=s210.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.266 phases=3 bus1=s11.1.2.3 bus2=s24.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.146 phases=3 bus1=s218.1.2.3 bus2=s217.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.267 phases=3 bus1=s24.1.2.3 bus2=s29.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.147 phases=3 bus1=s219.1.2.3 bus2=s217.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.268 phases=3 bus1=s29.1.2.3 bus2=s34.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.148 phases=3 bus1=s220.1.2.3 bus2=s217.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.269 phases=3 bus1=s34.1.2.3 bus2=s39.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.149 phases=3 bus1=s225.1.2.3 bus2=s224.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.40 phases=3 bus1=p40.1.2.3 bus2=p41.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.41 phases=3 bus1=p39.1.2.3 bus2=p42.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.42 phases=3 bus1=p42.1.2.3 bus2=p43.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.43 phases=3 bus1=p46.1.2.3 bus2=p47.1.2.3 length=2500.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.44 phases=3 bus1=p47.1.2.3 bus2=p48.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.45 phases=3 bus1=p47.1.2.3 bus2=p49.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.46 phases=3 bus1=p49.1.2.3 bus2=p50.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.47 phases=3 bus1=p49.1.2.3 bus2=p51.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.48 phases=3 bus1=p51.1.2.3 bus2=p52.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.49 phases=3 bus1=p51.1.2.3 bus2=p53.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.270 phases=3 bus1=s39.1.2.3 bus2=s52.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.150 phases=3 bus1=s226.1.2.3 bus2=s224.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.271 phases=3 bus1=s52.1.2.3 bus2=s65.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.151 phases=3 bus1=s227.1.2.3 bus2=s224.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.272 phases=3 bus1=s65.1.2.3 bus2=s70.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.152 phases=3 bus1=s232.1.2.3 bus2=s231.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.273 phases=3 bus1=s70.1.2.3 bus2=s75.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.153 phases=3 bus1=s233.1.2.3 bus2=s231.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.274 phases=3 bus1=s75.1.2.3 bus2=s80.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.154 phases=3 bus1=s237.1.2.3 bus2=s236.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.275 phases=3 bus1=s80.1.2.3 bus2=s93.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.155 phases=3 bus1=s239.1.2.3 bus2=s236.1.2.3 length=10.000 linecode=sec5 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.276 phases=3 bus1=s93.1.2.3 bus2=s106.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.156 phases=3 bus1=s1.1.2.3 bus2=s2.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.277 phases=3 bus1=s106.1.2.3 bus2=s111.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.157 phases=3 bus1=s2.1.2.3 bus2=s3.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.278 phases=3 bus1=s111.1.2.3 bus2=s116.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.158 phases=3 bus1=s3.1.2.3 bus2=s4.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.279 phases=3 bus1=s116.1.2.3 bus2=s121.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.159 phases=3 bus1=s4.1.2.3 bus2=s5.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.50 phases=3 bus1=p53.1.2.3 bus2=p54.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.51 phases=3 bus1=p54.1.2.3 bus2=p55.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.52 phases=3 bus1=p55.1.2.3 bus2=p56.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.53 phases=3 bus1=p53.1.2.3 bus2=p57.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.54 phases=3 bus1=p57.1.2.3 bus2=p58.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.55 phases=3 bus1=p57.1.2.3 bus2=p59.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.56 phases=3 bus1=p59.1.2.3 bus2=p60.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.57 phases=3 bus1=p60.1.2.3 bus2=p61.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.58 phases=3 bus1=p63.1.2.3 bus2=p64.1.2.3 length=2500.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.59 phases=3 bus1=p64.1.2.3 bus2=p65.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.280 phases=3 bus1=s121.1.2.3 bus2=s134.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.160 phases=3 bus1=s5.1.2.3 bus2=s6.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.281 phases=3 bus1=s16.1.2.3 bus2=s25.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.161 phases=3 bus1=s6.1.2.3 bus2=s7.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.282 phases=3 bus1=s25.1.2.3 bus2=s30.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.162 phases=3 bus1=s7.1.2.3 bus2=s8.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.283 phases=3 bus1=s30.1.2.3 bus2=s35.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.163 phases=3 bus1=s8.1.2.3 bus2=s9.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.284 phases=3 bus1=s35.1.2.3 bus2=s40.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.164 phases=3 bus1=s9.1.2.3 bus2=s10.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.285 phases=3 bus1=s40.1.2.3 bus2=s57.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.165 phases=3 bus1=s10.1.2.3 bus2=s11.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.286 phases=3 bus1=s57.1.2.3 bus2=s66.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.166 phases=3 bus1=s11.1.2.3 bus2=s12.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.287 phases=3 bus1=s66.1.2.3 bus2=s71.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.167 phases=3 bus1=s12.1.2.3 bus2=s13.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.288 phases=3 bus1=s71.1.2.3 bus2=s76.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.168 phases=3 bus1=s13.1.2.3 bus2=s14.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.289 phases=3 bus1=s76.1.2.3 bus2=s81.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.169 phases=3 bus1=s14.1.2.3 bus2=s15.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.60 phases=3 bus1=p64.1.2.3 bus2=p66.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.61 phases=3 bus1=p66.1.2.3 bus2=p67.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.62 phases=3 bus1=p66.1.2.3 bus2=p68.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.63 phases=3 bus1=p68.1.2.3 bus2=p69.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.64 phases=3 bus1=p68.1.2.3 bus2=p70.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.65 phases=3 bus1=p70.1.2.3 bus2=p71.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.66 phases=3 bus1=p70.1.2.3 bus2=p72.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.67 phases=3 bus1=p72.1.2.3 bus2=p73.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.68 phases=3 bus1=p73.1.2.3 bus2=p74.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.69 phases=3 bus1=p72.1.2.3 bus2=p75.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.290 phases=3 bus1=s81.1.2.3 bus2=s98.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.170 phases=3 bus1=s15.1.2.3 bus2=s16.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.291 phases=3 bus1=s98.1.2.3 bus2=s107.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.171 phases=3 bus1=s16.1.2.3 bus2=s17.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.292 phases=3 bus1=s107.1.2.3 bus2=s112.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.172 phases=3 bus1=s17.1.2.3 bus2=s18.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.293 phases=3 bus1=s112.1.2.3 bus2=s117.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.173 phases=3 bus1=s18.1.2.3 bus2=s19.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.294 phases=3 bus1=s117.1.2.3 bus2=s122.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.174 phases=3 bus1=s19.1.2.3 bus2=s20.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.295 phases=3 bus1=s122.1.2.3 bus2=s139.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.175 phases=3 bus1=s20.1.2.3 bus2=s21.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.296 phases=3 bus1=s21.1.2.3 bus2=s26.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.176 phases=3 bus1=s42.1.2.3 bus2=s43.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.297 phases=3 bus1=s26.1.2.3 bus2=s31.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.177 phases=3 bus1=s43.1.2.3 bus2=s44.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.298 phases=3 bus1=s31.1.2.3 bus2=s36.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.178 phases=3 bus1=s44.1.2.3 bus2=s45.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.299 phases=3 bus1=s36.1.2.3 bus2=s41.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.179 phases=3 bus1=s45.1.2.3 bus2=s46.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.70 phases=3 bus1=p75.1.2.3 bus2=p76.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.71 phases=3 bus1=p75.1.2.3 bus2=p77.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.72 phases=3 bus1=p77.1.2.3 bus2=p78.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.73 phases=3 bus1=p77.1.2.3 bus2=p79.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.74 phases=3 bus1=p79.1.2.3 bus2=p80.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.75 phases=3 bus1=p82.1.2.3 bus2=p83.1.2.3 length=2500.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.76 phases=3 bus1=p83.1.2.3 bus2=p84.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.77 phases=3 bus1=p83.1.2.3 bus2=p85.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.78 phases=3 bus1=p85.1.2.3 bus2=p86.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.79 phases=3 bus1=p86.1.2.3 bus2=p87.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.180 phases=3 bus1=s46.1.2.3 bus2=s47.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.181 phases=3 bus1=s47.1.2.3 bus2=s48.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.182 phases=3 bus1=s48.1.2.3 bus2=s49.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.183 phases=3 bus1=s49.1.2.3 bus2=s50.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.184 phases=3 bus1=s50.1.2.3 bus2=s51.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.185 phases=3 bus1=s51.1.2.3 bus2=s52.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.186 phases=3 bus1=s52.1.2.3 bus2=s53.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.187 phases=3 bus1=s53.1.2.3 bus2=s54.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.188 phases=3 bus1=s54.1.2.3 bus2=s55.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.189 phases=3 bus1=s55.1.2.3 bus2=s56.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.80 phases=3 bus1=p85.1.2.3 bus2=p88.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.81 phases=3 bus1=p88.1.2.3 bus2=p89.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.82 phases=3 bus1=p88.1.2.3 bus2=p90.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.83 phases=3 bus1=p90.1.2.3 bus2=p91.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.84 phases=3 bus1=p91.1.2.3 bus2=p92.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.85 phases=3 bus1=p90.1.2.3 bus2=p93.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.86 phases=3 bus1=p93.1.2.3 bus2=p94.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.87 phases=3 bus1=p93.1.2.3 bus2=p95.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.88 phases=3 bus1=p95.1.2.3 bus2=p96.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.89 phases=3 bus1=p98.1.2.3 bus2=p99.1.2.3 length=2500.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.190 phases=3 bus1=s56.1.2.3 bus2=s57.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.191 phases=3 bus1=s57.1.2.3 bus2=s58.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.192 phases=3 bus1=s58.1.2.3 bus2=s59.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.193 phases=3 bus1=s59.1.2.3 bus2=s60.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.194 phases=3 bus1=s60.1.2.3 bus2=s61.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.195 phases=3 bus1=s61.1.2.3 bus2=s62.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.196 phases=3 bus1=s83.1.2.3 bus2=s84.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.197 phases=3 bus1=s84.1.2.3 bus2=s85.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.198 phases=3 bus1=s85.1.2.3 bus2=s86.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.199 phases=3 bus1=s86.1.2.3 bus2=s87.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.90 phases=3 bus1=p99.1.2.3 bus2=p100.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.91 phases=3 bus1=p99.1.2.3 bus2=p101.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.92 phases=3 bus1=p101.1.2.3 bus2=p102.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.93 phases=3 bus1=p101.1.2.3 bus2=p103.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.94 phases=3 bus1=p103.1.2.3 bus2=p104.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.95 phases=3 bus1=p103.1.2.3 bus2=p105.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.96 phases=3 bus1=p105.1.2.3 bus2=p106.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.97 phases=3 bus1=p106.1.2.3 bus2=p107.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.98 phases=3 bus1=p105.1.2.3 bus2=p108.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.99 phases=3 bus1=p108.1.2.3 bus2=p109.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.300 phases=3 bus1=s41.1.2.3 bus2=s62.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.301 phases=3 bus1=s62.1.2.3 bus2=s67.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.302 phases=3 bus1=s67.1.2.3 bus2=s72.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.303 phases=3 bus1=s72.1.2.3 bus2=s77.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.304 phases=3 bus1=s77.1.2.3 bus2=s82.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.305 phases=3 bus1=s82.1.2.3 bus2=s103.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.306 phases=3 bus1=s103.1.2.3 bus2=s108.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.307 phases=3 bus1=s108.1.2.3 bus2=s113.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.308 phases=3 bus1=s113.1.2.3 bus2=s118.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.309 phases=3 bus1=s118.1.2.3 bus2=s123.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.310 phases=3 bus1=s123.1.2.3 bus2=s144.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.200 phases=3 bus1=s87.1.2.3 bus2=s88.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.201 phases=3 bus1=s88.1.2.3 bus2=s89.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.202 phases=3 bus1=s89.1.2.3 bus2=s90.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.203 phases=3 bus1=s90.1.2.3 bus2=s91.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.204 phases=3 bus1=s91.1.2.3 bus2=s92.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.205 phases=3 bus1=s92.1.2.3 bus2=s93.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.206 phases=3 bus1=s93.1.2.3 bus2=s94.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.207 phases=3 bus1=s94.1.2.3 bus2=s95.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.208 phases=3 bus1=s95.1.2.3 bus2=s96.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.209 phases=3 bus1=s96.1.2.3 bus2=s97.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.210 phases=3 bus1=s97.1.2.3 bus2=s98.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.211 phases=3 bus1=s98.1.2.3 bus2=s99.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.212 phases=3 bus1=s99.1.2.3 bus2=s100.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.213 phases=3 bus1=s100.1.2.3 bus2=s101.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.214 phases=3 bus1=s101.1.2.3 bus2=s102.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.215 phases=3 bus1=s102.1.2.3 bus2=s103.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.216 phases=3 bus1=s124.1.2.3 bus2=s125.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.217 phases=3 bus1=s125.1.2.3 bus2=s126.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.218 phases=3 bus1=s126.1.2.3 bus2=s127.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.219 phases=3 bus1=s127.1.2.3 bus2=s128.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.220 phases=3 bus1=s128.1.2.3 bus2=s129.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.100 phases=3 bus1=p108.1.2.3 bus2=p110.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.221 phases=3 bus1=s129.1.2.3 bus2=s130.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.101 phases=3 bus1=p110.1.2.3 bus2=p111.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.222 phases=3 bus1=s130.1.2.3 bus2=s131.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.102 phases=3 bus1=p110.1.2.3 bus2=p112.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.223 phases=3 bus1=s131.1.2.3 bus2=s132.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.103 phases=3 bus1=p112.1.2.3 bus2=p113.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.224 phases=3 bus1=s132.1.2.3 bus2=s133.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.104 phases=3 bus1=p112.1.2.3 bus2=p114.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.225 phases=3 bus1=s133.1.2.3 bus2=s134.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.105 phases=3 bus1=p114.1.2.3 bus2=p115.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.226 phases=3 bus1=s134.1.2.3 bus2=s135.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.106 phases=3 bus1=p118.1.2.3 bus2=p119.1.2.3 length=2500.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.227 phases=3 bus1=s135.1.2.3 bus2=s136.1.2.3 length=100.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.107 phases=3 bus1=p119.1.2.3 bus2=p120.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.228 phases=3 bus1=s136.1.2.3 bus2=s137.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.108 phases=3 bus1=p119.1.2.3 bus2=p121.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.229 phases=3 bus1=s137.1.2.3 bus2=s138.1.2.3 length=25.000 linecode=sec6 units=ft
+~ normamps=400.00 emergamps=600.00
+new Line.109 phases=3 bus1=p121.1.2.3 bus2=p122.1.2.3 length=100.000 linecode=pri1 units=ft
+~ normamps=400.00 emergamps=600.00
+
+new Transformer.44 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p145 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s169 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.45 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p89 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s176 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.46 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p38 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s173 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.47 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p56 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s163 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.48 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p126 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s162 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.49 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p142 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s167 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.50 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p106 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s166 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.51 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p19 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s171 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.52 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p36 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s170 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.53 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p52 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s175 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.10 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=115.05 emergamps=156.89
+~ wdg=1 bus=p76 conn=d kv=13.800 kva=2500.0 %r=0.350000
+~ wdg=2 bus=s214 conn=w kv=0.480 kva=2500.0 %r=0.350000
+new Transformer.54 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p71 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s174 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.11 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=115.05 emergamps=156.89
+~ wdg=1 bus=p92 conn=d kv=13.800 kva=2500.0 %r=0.350000
+~ wdg=2 bus=s215 conn=w kv=0.480 kva=2500.0 %r=0.350000
+new Transformer.55 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p17 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s180 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.12 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=115.05 emergamps=156.89
+~ wdg=1 bus=p146 conn=d kv=13.800 kva=2500.0 %r=0.350000
+~ wdg=2 bus=s216 conn=w kv=0.480 kva=2500.0 %r=0.350000
+new Transformer.56 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p137 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s177 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.13 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p34 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s221 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.57 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p122 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s184 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.14 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p55 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s222 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.58 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p50 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s181 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.15 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p107 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s223 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.59 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p86 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s188 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.16 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=115.05 emergamps=156.89
+~ wdg=1 bus=p54 conn=d kv=13.800 kva=2500.0 %r=0.350000
+~ wdg=2 bus=s228 conn=w kv=0.480 kva=2500.0 %r=0.350000
+new Transformer.17 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=115.05 emergamps=156.89
+~ wdg=1 bus=p104 conn=d kv=13.800 kva=2500.0 %r=0.350000
+~ wdg=2 bus=s229 conn=w kv=0.480 kva=2500.0 %r=0.350000
+new Transformer.18 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=115.05 emergamps=156.89
+~ wdg=1 bus=p124 conn=d kv=13.800 kva=2500.0 %r=0.350000
+~ wdg=2 bus=s230 conn=w kv=0.480 kva=2500.0 %r=0.350000
+new Transformer.19 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p69 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s234 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.1 phases=3 windings=2 xhl=7.500000 %imag=0.000 %noloadloss=0.000
+~ normamps=138.06 emergamps=188.27
+~ wdg=1 bus=p4 conn=d kv=229.999 kva=50000.0 %r=0.375000
+~ wdg=2 bus=p5 conn=d kv=13.800 kva=50000.0 %r=0.375000
+new Transformer.2 phases=3 windings=2 xhl=7.500000 %imag=0.000 %noloadloss=0.000
+~ normamps=138.06 emergamps=188.27
+~ wdg=1 bus=p8 conn=d kv=229.999 kva=50000.0 %r=0.375000
+~ wdg=2 bus=p9 conn=d kv=13.800 kva=50000.0 %r=0.375000
+new Transformer.3 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p41 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s196 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.4 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p111 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s197 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.5 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=69.03 emergamps=94.13
+~ wdg=1 bus=p61 conn=d kv=13.800 kva=1500.0 %r=0.350000
+~ wdg=2 bus=s201 conn=w kv=0.480 kva=1500.0 %r=0.350000
+new Transformer.6 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=69.03 emergamps=94.13
+~ wdg=1 bus=p131 conn=d kv=13.800 kva=1500.0 %r=0.350000
+~ wdg=2 bus=s202 conn=w kv=0.480 kva=1500.0 %r=0.350000
+new Transformer.7 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p22 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s207 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.8 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p74 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s208 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.9 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p144 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s209 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.60 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p102 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s185 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.61 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p14 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s192 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.62 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p140 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s189 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.63 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p65 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s179 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.20 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=92.04 emergamps=125.51
+~ wdg=1 bus=p139 conn=d kv=13.800 kva=2000.0 %r=0.350000
+~ wdg=2 bus=s235 conn=w kv=0.480 kva=2000.0 %r=0.350000
+new Transformer.64 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p120 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s178 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.21 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=115.05 emergamps=156.89
+~ wdg=1 bus=p16 conn=d kv=13.800 kva=2500.0 %r=0.350000
+~ wdg=2 bus=s238 conn=w kv=0.480 kva=2500.0 %r=0.350000
+new Transformer.65 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p48 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s183 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.22 phases=3 windings=2 xhl=7.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=115.05 emergamps=156.89
+~ wdg=1 bus=p87 conn=d kv=13.800 kva=2500.0 %r=0.350000
+~ wdg=2 bus=s240 conn=w kv=0.480 kva=2500.0 %r=0.350000
+new Transformer.66 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p100 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s182 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.23 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p150 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s148 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.67 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p30 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s187 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.24 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p133 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s145 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.68 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p67 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s186 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.25 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p115 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s152 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.69 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p32 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s191 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.26 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p96 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s149 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.27 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p80 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s156 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.28 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p61 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s153 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.29 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p43 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s160 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.70 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p84 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s190 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.30 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p26 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s157 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.31 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p94 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s147 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.32 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p113 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s146 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.33 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p148 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s151 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.34 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p130 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s150 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.35 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p24 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s155 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.36 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p40 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s154 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.37 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p78 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s159 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.38 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p58 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s158 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.39 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p109 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s164 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.40 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p128 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s161 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.41 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p21 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s168 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.42 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p73 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s165 conn=w kv=0.208 kva=1000.0 %r=0.250000
+new Transformer.43 phases=3 windings=2 xhl=5.000000 %imag=0.000 %noloadloss=0.000
+~ normamps=46.02 emergamps=62.76
+~ wdg=1 bus=p91 conn=d kv=13.800 kva=1000.0 %r=0.250000
+~ wdg=2 bus=s172 conn=w kv=0.208 kva=1000.0 %r=0.250000
+
+// add some PV here
+New PVSystem.S193 phases=3 bus1=S193 kV=0.48 kVA=1095 irrad=1.0 Pmpp=1000 PF=1
+New PVSystem.S198 phases=3 bus1=S198 kV=0.48 kVA=1095 irrad=1.0 Pmpp=1000 PF=1
+New PVSystem.S203 phases=3 bus1=S203 kV=0.48 kVA=1095 irrad=1.0 Pmpp=1000 PF=1
+New PVSystem.S210 phases=3 bus1=S210 kV=0.48 kVA=1095 irrad=1.0 Pmpp=1000 PF=1
+New PVSystem.S217 phases=3 bus1=S217 kV=0.48 kVA=1095 irrad=1.0 Pmpp=1000 PF=1
+New PVSystem.S224 phases=3 bus1=S224 kV=0.48 kVA=1095 irrad=1.0 Pmpp=1000 PF=1
+New PVSystem.S231 phases=3 bus1=S231 kV=0.48 kVA=1095 irrad=1.0 Pmpp=1000 PF=1
+New PVSystem.S236 phases=3 bus1=S236 kV=0.48 kVA=1095 irrad=1.0 Pmpp=1000 PF=1
+
+set voltagebases=[230.000 0.208 13.800 0.480 ]
+
+calcv
+set loadmult = 1.0
+solve
+buscoords IEEE390_PV_XY.dat
+
+solve

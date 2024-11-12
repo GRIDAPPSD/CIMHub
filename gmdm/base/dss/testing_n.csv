@@ -1,0 +1,35 @@
+Element, Nterminals, Nconductors, Node-1, Node-2, Node-3, ...
+"Vsource.source", 2, 3, 1, 2, 3, 0, 0, 0
+"Line.g_and_g_sw", 2, 3, 2, 3, 1, 2, 3, 1
+"Line.indiv_res_sw", 2, 2, 2, 1, 2, 1
+"Line.cutout_l3", 2, 3, 2, 1, 3, 2, 1, 3
+"Line.cutout_l4", 2, 1, 2, 2
+"Line.cap_a1_fuse", 2, 3, 1, 3, 2, 1, 3, 2
+"Line.rec_a1", 2, 3, 2, 1, 3, 2, 1, 3
+"Line.fbkr_a", 2, 3, 3, 2, 1, 3, 2, 1
+"Line.l1", 2, 3, 1, 2, 3, 1, 2, 3
+"Line.l2", 2, 3, 1, 2, 3, 1, 2, 3
+"Line.l3", 2, 3, 1, 2, 3, 1, 2, 3
+"Line.l4", 2, 1, 2, 2
+"Line.l5", 2, 3, 1, 2, 3, 1, 2, 3
+"Line.l6", 2, 3, 1, 2, 3, 1, 2, 3
+"Transformer.xf3_1", 3, 4, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0
+"Transformer.xf2_1", 2, 4, 1, 2, 3, 0, 1, 2, 3, 0
+"Transformer.xf1_1", 3, 2, 2, 0, 1, 0, 0, 2
+"Transformer.xf4_ba", 2, 2, 2, 1, 2, 1
+"Transformer.xf4_cb", 3, 2, 3, 2, 3, 0, 0, 2
+"Transformer.xf6a_1", 3, 2, 1, 0, 1, 0, 0, 2
+"Transformer.xf5_3", 2, 2, 3, 0, 3, 0
+"Transformer.xf6c_1", 3, 2, 3, 0, 1, 0, 0, 2
+"Transformer.xf5_2", 2, 2, 2, 0, 2, 0
+"Transformer.xf6b_1", 3, 2, 2, 0, 1, 0, 0, 2
+"Transformer.xf5_1", 2, 2, 1, 0, 1, 0
+"Capacitor.cap_a1", 2, 3, 1, 3, 2, 0, 0, 0
+"Storage.indiv_res_battery", 1, 3, 1, 2, 0
+"Load.aggregate_c_ph_load", 1, 3, 1, 2, 0
+"Load.g_and_g_res_load", 1, 3, 2, 3, 0
+"Load.indiv_res_120/240_load", 1, 3, 1, 2, 0
+"Load.aggregate_a_ph_load", 1, 3, 2, 1, 0
+"Load.g_and_g_comm_load", 1, 3, 1, 2, 3
+"Load.aggregate_b_ph_load", 1, 3, 2, 1, 0
+"Load.box_store_load", 1, 4, 1, 2, 3, 0

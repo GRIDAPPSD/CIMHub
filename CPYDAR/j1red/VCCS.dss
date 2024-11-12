@@ -1,0 +1,4 @@
+New "VCCS.pv1" phases=3 bus1=PV1 prated=285000.00 vrated=416.00 ppct=100.00 filter=z_pll fsample=10000 rmsmode=true imaxpu=1.15 vrmstau=0.01 irmstau=0.05
+New "VCCS.pv2" phases=3 bus1=PV2 prated=190000.00 vrated=416.00 ppct=100.00 filter=z_pll fsample=10000 rmsmode=true imaxpu=1.15 vrmstau=0.01 irmstau=0.05
+New "VCCS.pv3" phases=3 bus1=PV3 prated=760000.00 vrated=416.00 ppct=100.00 filter=z_pll fsample=10000 rmsmode=true imaxpu=1.15 vrmstau=0.01 irmstau=0.05
+New "VCCS.pv4" phases=3 bus1=PV4 prated=475000.00 vrated=416.00 ppct=100.00 filter=z_pll fsample=10000 rmsmode=true imaxpu=1.15 vrmstau=0.01 irmstau=0.05

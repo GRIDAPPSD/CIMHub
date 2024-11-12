@@ -1,0 +1,6 @@
+set loadmult=1.29
+set emergvminpu=0.88
+set normvminpu=0.90
+set maxiterations=100
+set maxcontroliter=50
+set tolerance=0.0001

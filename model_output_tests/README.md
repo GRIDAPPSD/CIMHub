@@ -27,7 +27,7 @@ The CIM namespace is ***http://iec.ch/TC57/CIM100#*** and the CIM class counts f
 
 [Class Count Table](class_counts.md)
 
-Copyright (c) 2017-2020, Battelle Memorial Institute
+Copyright (c) 2017-2022, Battelle Memorial Institute
 
 
 

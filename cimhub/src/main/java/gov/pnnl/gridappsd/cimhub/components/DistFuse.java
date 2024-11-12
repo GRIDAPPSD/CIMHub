@@ -1,49 +1,58 @@
 package gov.pnnl.gridappsd.cimhub.components;
-//	----------------------------------------------------------
-//	Copyright (c) 2017, Battelle Memorial Institute
-//	All rights reserved.
-//	----------------------------------------------------------
+//  ----------------------------------------------------------
+//  Copyright (c) 2017-2022, Battelle Memorial Institute
+//  All rights reserved.
+//  ----------------------------------------------------------
 
 import org.apache.jena.query.*;
 import java.util.HashMap;
 
 public class DistFuse extends DistSwitch {
-	public static final String szCIMClass = "Fuse";
+  public static final String szCIMClass = "Fuse";
 
-	public DistFuse (ResultSet results) {
-		super (results);
-	}
+  public DistFuse (ResultSet results) {
+    super (results);
+  }
 
-	public String CIMClass() {
-		return szCIMClass;
-	}
+  public String CIMClass() {
+    return szCIMClass;
+  }
 
-	public String GetGLM () {
-		StringBuilder buf = new StringBuilder ("object fuse {\n");
+  public String GetGLM () {
+    StringBuilder buf = new StringBuilder ("object fuse {\n");
 
-		buf.append ("  name \"swt_" + name + "\";\n");
-		buf.append ("  from \"" + bus1 + "\";\n");
-		buf.append ("  to \"" + bus2 + "\";\n");
-		buf.append ("  phases " + glm_phases + ";\n");
-		buf.append ("  current_limit " + df2.format (rated) + ";\n");
-		if (open) {
-			buf.append ("  status OPEN;\n");
-		} else {
-			buf.append ("  status CLOSED;\n");
-		}
-		buf.append ("  mean_replacement_time 3600;\n");
-		AppendGLMRatings (buf, glm_phases, normalCurrentLimit, emergencyCurrentLimit);
-		buf.append("}\n");
-		return buf.toString();
-	}
+    buf.append ("  name \"" + GLMObjectPrefix ("swt_") + name + "\";\n");
+    buf.append ("  from \"" + bus1 + "\";\n");
+    buf.append ("  to \"" + bus2 + "\";\n");
+    buf.append ("  phases " + glm_phases + ";\n");
+    buf.append ("  current_limit " + df2.format (rated) + ";\n");
+    if (open) {
+      buf.append ("  status OPEN;\n");
+    } else {
+      buf.append ("  status CLOSED;\n");
+    }
+    buf.append ("  mean_replacement_time 3600;\n");
+    AppendGLMRatings (buf, glm_phases, normalCurrentLimit, emergencyCurrentLimit);
+    buf.append("}\n");
+    return buf.toString();
+  }
 
-	public String GetDSS () {
-		StringBuilder buf = new StringBuilder (super.GetDSS());
+  public String GetDSS () {
+    StringBuilder buf = new StringBuilder (super.GetDSS());
 
-		buf.append ("  new Fuse." + name + " MonitoredObj=Line." + name +
-								" RatedCurrent=" + df2.format (rated) + "\n");
-		return buf.toString();
-	}
+    buf.append ("  new Fuse." + name + " MonitoredObj=Line." + name + " RatedCurrent=" + df2.format (rated));
+    if (open) {
+      int nphase = DSSPhaseCount(phases, false);
+      buf.append (" state=[");
+      for (int i = 0; i < nphase; i++) {
+        buf.append (" open");
+      }
+      buf.append ("]\n");
+    } else {
+      buf.append("\n");
+    }
+    return buf.toString();
+  }
 }
 
 

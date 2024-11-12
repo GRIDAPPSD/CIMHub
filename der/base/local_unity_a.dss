@@ -1,0 +1,8 @@
+clear
+new circuit.local_unity_a
+redirect shared.dss
+
+New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6228 kvarMax=2940 kvarMaxAbs=1670 pf=1.00
+
+redirect postlude.dss
+

@@ -1,0 +1,34 @@
+Clear
+Set DefaultBaseFrequency=60
+
+New object=circuit.OYODUnbal basekv=12.47 pu=1.00   MVAsc1=1e6    MVAsc3=1e6
+
+set earthmodel=carson
+
+New linecode.400 nphases=3 basefreq=60 units=mi
+~ rmatrix = (.4576 | .1559 .4666 | .1535  .1580  .4615 )
+~ xmatrix = ( 1.078 | .5017 1.0482 | .3849  .4236  1.0651 )
+~ cmatrix = (15.04 | -4.8706 15.855 | -1.8655 -3.1008  14.3 )
+New linecode.300 nphases=3 basefreq=60 units=mi
+~ rmatrix = (.4013 | .0953 .4013 | .0953  .0953  .4013 )
+~ xmatrix = ( 1.4133 | .8515 1.4133 | .7266  .7802  1.4133 )
+~ cmatrix = (15.04 | -4.8706 15.855 | -1.8655 -3.1008  14.3 )
+
+New Transformer.T1 Phases=1 Windings=2 Xhl=6 ppm=0 bank=Xfmr
+~ wdg=1 bus=n2.1.0  conn=Wye   kv= 7.20 kva=2000  %r=0.5
+~ wdg=2 bus=n3.1.2  conn=Delta kv= 4.16 kva=2000  %r=0.5
+New Transformer.T2 Phases=1 Windings=2 Xhl=6 ppm=0 bank=Xfmr
+~ wdg=1 bus=n2.2.0  conn=Wye   kv= 7.20 kva=2000  %r=0.5
+~ wdg=2 bus=n3.2.3  conn=Delta kv= 4.16 kva=2000  %r=0.5
+
+New Line.Line1 Phases=3 Bus1=sourcebus  Bus2=n2  LineCode=400 Length=2.0 units=kft
+New Line.Line2 Phases=3 Bus1=n3         Bus2=n4  LineCode=300 Length=2.5 units=kft
+
+New Load.Load1 Phases=1  Bus1=n4.1.2  kW=850      PF=.85 kV=4.16 conn=delta model=2 vminpu=0.7
+New Load.Load2 Phases=1  Bus1=n4.2.3  kW=1200     PF=.90 kV=4.16 conn=delta model=2 vminpu=0.7
+New Load.Load3 Phases=1  Bus1=n4.3.1  kW=1583.33  PF=.95 kV=4.16 conn=delta model=2 vminpu=0.7
+
+Set voltagebases=(12.47, 4.16)
+Calcv
+set tolerance=1e-8
+solve

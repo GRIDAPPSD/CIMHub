@@ -1,0 +1,12 @@
+clear
+new circuit.remote_combo_b
+redirect shared.dss
+
+new Storage.der bus1=low kV=0.4 kWrated=6000 kVA=6682 kvarMax=2940 kvarMaxAbs=2940 kWhrated=48000 kWhstored=24000 kW=6000
+~ %EffCharge=91.3455 %EffDischarge=91.3455 %reserve=0 %idlingkw=0 %r=0
+New InvControl.der combimode=VV_VW voltage_curvex_ref=rated vvc_curve1=voltvar1547b 
+~ voltwatt_curve=voltwatt1547b deltaQ_factor=0.4 deltaP_factor=0.2 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+redirect monbus.dss
+
+redirect postlude.dss
+

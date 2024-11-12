@@ -1,0 +1,30 @@
+clear
+new circuit.ecp_yearly basekv=13.2 pu=1.00 r1=0.001 x1=0.001 r0=0.001 x0=0.001
+new line.thev bus1=sourcebus bus2=fdrhead r1=1.210 x1=2.834 r0=3.961 x0=3.214 c1=0 c0=0
+
+// primary feeder with sequence impedances from Kersting's example 4.1
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=fdrhead bus2=bess linecode=trunk len=0.2
+new line.seg2 bus1=bess    bus2=pv   linecode=trunk len=1.0
+new line.seg3 bus1=pv      bus2=load linecode=trunk len=1.0
+new line.seg4 bus1=load    bus2=gen  linecode=trunk len=0.5
+
+// for yearly; this one has both P and Q, each is normalized
+new loadshape.YearlyPQ npts=8760 interval=1.0 mult=(File=loadshape5_p.dat)  Qmult=(File=loadshape5_q.dat) Action=Normalize
+//plot loadshape object=YearlyPQ
+
+new load.load1 bus1=load kv=13.2 kw=2000
+new load.load2 bus1=load kv=13.2 kw=2000 yearly=YearlyPQ
+
+new monitor.pq1 load.load1 1 mode=1 ppolar=no
+new monitor.pq2 load.load2 1 mode=1 ppolar=no
+
+set Voltagebases=[13.2]
+calcv
+set maxcontroliter=100
+solve
+solve mode=yearly stepsize=1h number=8760
+
+export monitors pq1
+export monitors pq2
+
