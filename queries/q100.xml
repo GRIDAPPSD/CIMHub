@@ -1,0 +1,1350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<queries>
+<nsCIM>
+<![CDATA[
+http://iec.ch/TC57/CIM100#
+]]>
+</nsCIM>
+<nsRDF>
+<![CDATA[
+http://www.w3.org/1999/02/22-rdf-syntax-ns#
+]]>
+</nsRDF>
+<query>
+<id>DistBus</id>
+<keyfld>busname</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?feeder ?busname ?cnid ?nomv WHERE {
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?bus c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
+ ?bus r:type c:ConnectivityNode.
+ ?bus c:IdentifiedObject.name ?busname.
+ ?bus c:IdentifiedObject.mRID ?cnid.
+ ?fdr c:IdentifiedObject.name ?feeder.
+ ?trm c:Terminal.ConnectivityNode ?bus.
+ { 
+   ?trm c:Terminal.ConductingEquipment ?ce.
+   ?ce  c:ConductingEquipment.BaseVoltage ?bv.
+ } UNION { 
+   ?end c:TransformerEnd.Terminal ?trm.
+   ?end c:TransformerEnd.BaseVoltage ?bv.
+ }
+ ?bv  c:BaseVoltage.nominalVoltage ?nomv.
+}
+ORDER by ?feeder ?busname ?nomv
+]]>
+</value>
+</query>
+<query>
+<id>DistSyncMachine</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?bus (group_concat(distinct ?phs;separator="") as ?phases) ?ratedS ?ratedU ?p ?q ?id ?fdrid WHERE {
+ ?s r:type c:SynchronousMachine.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:RotatingMachine.ratedS ?ratedS.
+ ?s c:RotatingMachine.ratedU ?ratedU.
+ ?s c:RotatingMachine.p ?p.
+ ?s c:RotatingMachine.q ?q. 
+ OPTIONAL {?smp c:SynchronousMachinePhase.SynchronousMachine ?s.
+ ?smp c:SynchronousMachinePhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?p ?q ?id ?fdrid
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistLinesInstanceZ</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid WHERE {
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.r ?r.
+ ?s c:ACLineSegment.x ?x.
+ OPTIONAL {?s c:ACLineSegment.bch ?b.}
+ OPTIONAL {?s c:ACLineSegment.r0 ?r0.}
+ OPTIONAL {?s c:ACLineSegment.x0 ?x0.}
+ OPTIONAL {?s c:ACLineSegment.b0ch ?b0.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2
+}
+GROUP BY ?name ?basev ?bus1 ?bus2 ?len ?r ?x ?b ?r0 ?x0 ?b0 ?fdrid
+ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistTapeShieldCable</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?name ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?diacore ?diains 
+       ?diascreen ?diajacket ?sheathneutral ?tapelap ?tapethickness
+WHERE {
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
+ ?acp c:ACLineSegmentPhase.WireInfo ?w.
+ ?w r:type c:TapeShieldCableInfo.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:WireInfo.radius ?rad.
+ ?w c:WireInfo.gmr ?gmr.
+ OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}
+ OPTIONAL {?w c:WireInfo.rAC25 ?r25.}
+ OPTIONAL {?w c:WireInfo.rAC50 ?r50.}
+ OPTIONAL {?w c:WireInfo.rAC75 ?r75.}
+ OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}
+ OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}
+ OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw.
+     bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
+ OPTIONAL {?w c:WireInfo.insulated ?ins.}
+ OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+ OPTIONAL {?w c:CableInfo.diameterOverCore ?diacore.}
+ OPTIONAL {?w c:CableInfo.diameterOverJacket ?diajacket.}
+ OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}
+ OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}
+ OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}
+ OPTIONAL {?w c:TapeShieldCableInfo.tapeLap ?tapelap.}
+ OPTIONAL {?w c:TapeShieldCableInfo.tapeThickness ?tapethickness.}
+}
+ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistLinesCodeZ</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?basev ?bus1 ?bus2	?len ?lname ?fdrid
+     (group_concat(distinct ?seqphs;separator=":") as ?seqs) 
+     (group_concat(distinct ?phs;separator="") as ?phases) 
+#     the group_concat doesn't maintain order, so we can't rely on synchronization between the phases and sequence numbers
+WHERE {
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.PerLengthImpedance ?lcode.
+ ?lcode c:IdentifiedObject.name ?lname. 
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+   ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
+     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+     bind(concat(?seq, ?phs) as ?seqphs)}
+}
+GROUP BY ?name ?basev ?bus1 ?bus2 ?len ?lname ?fdrid
+ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistPhaseMatrix</id>
+<keyfld>name:row:col</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?name ?cnt ?row ?col ?r ?x ?b WHERE {
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.PerLengthImpedance ?s.
+ ?s r:type c:PerLengthPhaseImpedance.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PerLengthPhaseImpedance.conductorCount ?cnt.
+ ?elm c:PhaseImpedanceData.PhaseImpedance ?s.
+ ?elm c:PhaseImpedanceData.row ?row.
+ ?elm c:PhaseImpedanceData.column ?col.
+ ?elm c:PhaseImpedanceData.r ?r.
+ ?elm c:PhaseImpedanceData.x ?x.
+ ?elm c:PhaseImpedanceData.b ?b
+}
+ORDER BY ?name ?row ?col
+]]>
+</value>
+</query>
+<query>
+<id>DistSequenceMatrix</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?name ?r1 ?x1 ?b1 ?r0 ?x0 ?b0 ?fdrid WHERE {
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.PerLengthImpedance ?s.
+ ?s r:type c:PerLengthSequenceImpedance.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:PerLengthSequenceImpedance.r ?r1.
+ ?s c:PerLengthSequenceImpedance.x ?x1.
+ ?s c:PerLengthSequenceImpedance.bch ?b1.
+ ?s c:PerLengthSequenceImpedance.r0 ?r0.
+ ?s c:PerLengthSequenceImpedance.x0 ?x0.
+ ?s c:PerLengthSequenceImpedance.b0ch ?b0
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistSeriesCompensator</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid WHERE {
+ ?s r:type c:SeriesCompensator.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:SeriesCompensator.r ?r.
+ ?s c:SeriesCompensator.x ?x.
+ OPTIONAL {?s c:SeriesCompensator.r0 ?r0.}
+ OPTIONAL {?s c:SeriesCompensator.x0 ?x0.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2
+}
+GROUP BY ?name ?basev ?bus1 ?bus2 ?r ?x ?r0 ?x0 ?fdrid
+ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistPowerXfmrWinding</id>
+<keyfld>pname:enum</keyfld>
+<description>Power transformers on their own, without catalog reference.</description>
+<value>
+<![CDATA[
+SELECT ?pname ?vgrp ?enum ?bus ?basev ?conn ?ratedS ?ratedU ?r ?ang ?grounded ?rground ?xground ?fdrid WHERE {
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?end c:PowerTransformerEnd.ratedS ?ratedS.
+ ?end c:PowerTransformerEnd.ratedU ?ratedU.
+ ?end c:PowerTransformerEnd.r ?r.
+ ?end c:PowerTransformerEnd.phaseAngleClock ?ang.
+ ?end c:PowerTransformerEnd.connectionKind ?connraw.  
+  bind(strafter(str(?connraw),"WindingConnection.") as ?conn)
+ ?end c:TransformerEnd.grounded ?grounded.
+ OPTIONAL {?end c:TransformerEnd.rground ?rground.}
+ OPTIONAL {?end c:TransformerEnd.xground ?xground.}
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus.
+ ?end c:TransformerEnd.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev
+}
+ORDER BY ?pname ?enum
+]]>
+</value>
+</query>
+<query>
+<id>DistPowerXfmrCore</id>
+<keyfld>pname</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?pname ?enum ?b ?g WHERE {
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?end c:PowerTransformerEnd.PowerTransformer ?p.
+ ?adm c:TransformerCoreAdmittance.TransformerEnd ?end.
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?adm c:TransformerCoreAdmittance.b ?b.
+ ?adm c:TransformerCoreAdmittance.g ?g.
+}
+ORDER BY ?pname
+]]>
+</value>
+</query>
+<query>
+<id>DistPowerXfmrMesh</id>
+<keyfld>pname:fnum:tnum</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?pname ?fnum ?tnum ?r ?x WHERE {
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?from c:PowerTransformerEnd.PowerTransformer ?p.
+ ?imp c:TransformerMeshImpedance.FromTransformerEnd ?from.
+ ?imp c:TransformerMeshImpedance.ToTransformerEnd ?to.
+ ?imp c:TransformerMeshImpedance.r ?r.
+ ?imp c:TransformerMeshImpedance.x ?x.
+ ?from c:TransformerEnd.endNumber ?fnum.
+ ?to c:TransformerEnd.endNumber ?tnum.
+}
+ORDER BY ?pname ?fnum ?tnum
+]]>
+</value>
+</query>
+<query>
+<id>DistFeeder</id>
+<keyfld>feeder</keyfld>
+<description>list all the feeders, with substations and regions</description>
+<value>
+<![CDATA[
+SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {
+ ?s r:type c:Feeder.
+ ?s c:IdentifiedObject.name ?feeder.
+ ?s c:IdentifiedObject.mRID ?fid.
+ ?s c:Feeder.NormalEnergizingSubstation ?sub.
+ ?sub c:IdentifiedObject.name ?station.
+ ?sub c:IdentifiedObject.mRID ?sid.
+ ?sub c:Substation.Region ?sgr.
+ ?sgr c:IdentifiedObject.name ?subregion.
+ ?sgr c:IdentifiedObject.mRID ?sgrid.
+ ?sgr c:SubGeographicalRegion.Region ?rgn.
+ ?rgn c:IdentifiedObject.name ?region.
+ ?rgn c:IdentifiedObject.mRID ?rgnid.
+}
+ORDER by ?station ?feeder
+]]>
+</value>
+</query>
+<query>
+<id>DistSolar</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?id ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:PhotovoltaicUnit.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:PowerElectronicsUnit.maxP ?maxP.
+ ?s c:PowerElectronicsUnit.minP ?minP.
+ ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+ ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+ ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+ ?pec c:PowerElectronicsConnection.p ?p.
+ ?pec c:PowerElectronicsConnection.q ?q.
+ ?pec c:PowerElectronicsConnection.minQ ?minQ.
+ ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
+ {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?p ?q ?controlMode ?id ?fdrid
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistStorage</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:BatteryUnit.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+ ?pec c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+ ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+ ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+ ?s c:PowerElectronicsUnit.maxP ?maxP.
+ ?s c:PowerElectronicsUnit.minP ?minP.
+ ?s c:BatteryUnit.ratedE ?ratedE.
+ ?s c:BatteryUnit.storedE ?storedE.
+ ?s c:BatteryUnit.batteryState ?stateraw.
+   bind(strafter(str(?stateraw),"BatteryStateKind.") as ?state)
+ ?pec c:PowerElectronicsConnection.p ?p.
+ ?pec c:PowerElectronicsConnection.q ?q. 
+ ?pec c:PowerElectronicsConnection.minQ ?minQ.
+ ?pec c:PowerElectronicsConnection.maxQ ?maxQ.
+ {?pec c:PowerElectronicsConnection.controlMode ?modeRaw.
+  bind(strafter(str(?modeRaw),"ConverterControlModeKind.") as ?controlMode)}
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?ratedS ?ratedU ?maxP ?minP ?maxQ ?minQ ?ipu ?ratedE ?storedE ?state ?p ?q ?controlMode ?id ?fdrid
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistBreaker</id>
+<keyfld>name</keyfld>
+<description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:Breaker.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ OPTIONAL {?s c:Switch.ratedCurrent ?rated.}
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
+ ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistDisconnector</id>
+<keyfld>name</keyfld>
+<description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:Disconnector.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ OPTIONAL {?s c:Switch.ratedCurrent ?rated.}
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
+ ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistFuse</id>
+<keyfld>name</keyfld>
+<description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:Fuse.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ OPTIONAL {?s c:Switch.ratedCurrent ?rated.}
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
+ ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistJumper</id>
+<keyfld>name</keyfld>
+<description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:Jumper.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ OPTIONAL {?s c:Switch.ratedCurrent ?rated.}
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
+ ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistLoadBreakSwitch</id>
+<keyfld>name</keyfld>
+<description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:LoadBreakSwitch.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ OPTIONAL {?s c:Switch.ratedCurrent ?rated.}
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
+ ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistRecloser</id>
+<keyfld>name</keyfld>
+<description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:Recloser.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ OPTIONAL {?s c:Switch.ratedCurrent ?rated.}
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
+ ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistSectionaliser</id>
+<keyfld>name</keyfld>
+<description>Not handling different phases on each side, or different normalOpen values per phase. this version relies on ACDCTerminal.sequenceNumber being 1 and 2.</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus1 ?bus2 ?basev ?open ?rated ?breaking ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:Sectionaliser.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Switch.normalOpen ?open.
+ OPTIONAL {?s c:Switch.ratedCurrent ?rated.}
+ OPTIONAL {?s c:ProtectedSwitch.breakingCapacity ?breaking.}
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ OPTIONAL {?swp c:SwitchPhase.Switch ?s.
+ ?swp c:SwitchPhase.phaseSide1 ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+}
+GROUP BY ?name ?id ?basev ?bus1 ?bus2 ?open ?fdrid ?rated ?breaking
+ ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistBaseVoltage</id>
+<keyfld>vnom</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?vnom WHERE {
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ {?s c:ConductingEquipment.BaseVoltage ?lev.}
+  UNION
+ { ?end c:PowerTransformerEnd.PowerTransformer|c:TransformerTankEnd.TransformerTank ?s.
+   ?end c:TransformerEnd.BaseVoltage ?lev.}
+ ?lev r:type c:BaseVoltage.
+ ?lev c:BaseVoltage.nominalVoltage ?vnom
+}
+ORDER BY ?vnom
+]]>
+</value>
+</query>
+<query>
+<id>DistSubstation</id>
+<keyfld>name</keyfld>
+<description>EnergySource for Thevenin equivalent, not the CIM Substation</description>
+<value>
+<![CDATA[
+SELECT ?name ?fdrname ?id ?bus ?basev ?nomv ?vmag ?vang ?r1 ?x1 ?r0 ?x0 WHERE {
+ ?s r:type c:EnergySource.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?fdr c:IdentifiedObject.name ?fdrname.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:EnergySource.nominalVoltage ?nomv. 
+ ?s c:EnergySource.voltageMagnitude ?vmag. 
+ ?s c:EnergySource.voltageAngle ?vang. 
+ ?s c:EnergySource.r ?r1. 
+ ?s c:EnergySource.x ?x1. 
+ ?s c:EnergySource.r0 ?r0. 
+ ?s c:EnergySource.x0 ?x0. 
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name ?fdrname
+]]>
+</value>
+</query>
+<query>
+<id>DistCapacitor</id>
+<keyfld>name</keyfld>
+<description>Does not account for 2+ unequal phases on same LinearShuntCompensator</description>
+<value>
+<![CDATA[
+SELECT ?name ?basev ?nomu ?bsection ?bus ?conn ?grnd ?phases ?ctrlenabled ?discrete ?mode ?deadband ?setpoint ?delay ?monclass ?moneq ?monbus ?monphs ?id ?fdrid WHERE {
+ ?s r:type c:LinearShuntCompensator.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:ShuntCompensator.nomU ?nomu. 
+ ?s c:LinearShuntCompensator.bPerSection ?bsection. 
+ ?s c:ShuntCompensator.phaseConnection ?connraw.
+   bind(strafter(str(?connraw),"PhaseShuntConnectionKind.") as ?conn)
+ ?s c:ShuntCompensator.grounded ?grnd.
+ OPTIONAL {?scp c:ShuntCompensatorPhase.ShuntCompensator ?s.
+ ?scp c:ShuntCompensatorPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phases) }
+ OPTIONAL {?ctl c:RegulatingControl.RegulatingCondEq ?s.
+          ?ctl c:RegulatingControl.discrete ?discrete.
+          ?ctl c:RegulatingControl.enabled ?ctrlenabled.
+          ?ctl c:RegulatingControl.mode ?moderaw.
+           bind(strafter(str(?moderaw),"RegulatingControlModeKind.") as ?mode)
+          ?ctl c:RegulatingControl.monitoredPhase ?monraw.
+           bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+          ?ctl c:RegulatingControl.targetDeadband ?deadband.
+          ?ctl c:RegulatingControl.targetValue ?setpoint.
+          ?s c:ShuntCompensator.aVRDelay ?delay.
+          ?ctl c:RegulatingControl.Terminal ?trm.
+          ?trm c:Terminal.ConductingEquipment ?eq.
+          ?eq a ?classraw.
+           bind(strafter(str(?classraw),"CIM100#") as ?monclass)
+          ?eq c:IdentifiedObject.name ?moneq.
+          ?trm c:Terminal.ConnectivityNode ?moncn.
+          ?moncn c:IdentifiedObject.name ?monbus.
+          }
+ ?s c:IdentifiedObject.mRID ?id. 
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistLoad</id>
+<keyfld>name</keyfld>
+<description>Need to account for 2+ unequal EnergyConsumerPhases per EnergyConsumer</description>
+<value>
+<![CDATA[
+SELECT ?name ?id ?bus ?basev ?p ?q ?conn ?cnt ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?fdrid (group_concat(distinct ?phs;separator="") as ?phases) WHERE {
+ ?s r:type c:EnergyConsumer.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ OPTIONAL {?s c:EnergyConsumer.customerCount ?cnt.}
+ ?s c:EnergyConsumer.p ?p.
+ ?s c:EnergyConsumer.q ?q.
+ ?s c:EnergyConsumer.phaseConnection ?connraw.
+   bind(strafter(str(?connraw),"PhaseShuntConnectionKind.") as ?conn)
+ ?s c:EnergyConsumer.LoadResponse ?lr.
+ ?lr c:LoadResponseCharacteristic.pConstantImpedance ?pz.
+ ?lr c:LoadResponseCharacteristic.qConstantImpedance ?qz.
+ ?lr c:LoadResponseCharacteristic.pConstantCurrent ?pi.
+ ?lr c:LoadResponseCharacteristic.qConstantCurrent ?qi.
+ ?lr c:LoadResponseCharacteristic.pConstantPower ?pp.
+ ?lr c:LoadResponseCharacteristic.qConstantPower ?qp.
+ OPTIONAL {?lr c:LoadResponseCharacteristic.pVoltageExponent ?pe.}
+ OPTIONAL {?lr c:LoadResponseCharacteristic.qVoltageExponent ?qe.}
+ OPTIONAL {?ecp c:EnergyConsumerPhase.EnergyConsumer ?s.
+ ?ecp c:EnergyConsumerPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ ?t c:Terminal.ConductingEquipment ?s.
+ ?t c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP BY ?name ?id ?bus ?basev ?p ?q ?cnt ?conn ?pz ?qz ?pi ?qi ?pp ?qp ?pe ?qe ?fdrid
+ ORDER by ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistXfmrCodeRating</id>
+<keyfld>tname:enum</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?tname ?enum ?ratedS ?ratedU ?conn ?ang ?res ?id ?eid ?ename WHERE {
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?xft c:TransformerTank.PowerTransformer ?eq.
+ ?xft c:TransformerTank.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?t c:IdentifiedObject.mRID ?id.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?e c:IdentifiedObject.mRID ?eid.
+ ?e c:IdentifiedObject.name ?ename.
+ ?e c:TransformerEndInfo.endNumber ?enum.
+ ?e c:TransformerEndInfo.ratedS ?ratedS.
+ ?e c:TransformerEndInfo.ratedU ?ratedU.
+ ?e c:TransformerEndInfo.r ?res.
+ ?e c:TransformerEndInfo.phaseAngleClock ?ang.
+ ?e c:TransformerEndInfo.connectionKind ?connraw.
+   bind(strafter(str(?connraw),"WindingConnection.") as ?conn)
+}
+ORDER BY ?tname ?enum
+]]>
+</value>
+</query>
+<query>
+<id>DistXfmrCodeNLTest</id>
+<keyfld>tname</keyfld>
+<description>No-load tests actually used</description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?tname ?nll ?iexc ?vbase ?sbase WHERE {
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?xft c:TransformerTank.PowerTransformer ?eq.
+ ?xft c:TransformerTank.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?nlt c:NoLoadTest.EnergisedEnd ?e.
+ ?nlt c:NoLoadTest.loss ?nll.
+ ?nlt c:NoLoadTest.excitingCurrent ?iexc.
+ ?nlt c:NoLoadTest.energisedEndVoltage ?vbase.
+ ?nlt c:TransformerTest.basePower ?sbase
+}
+ORDER BY ?tname
+]]>
+</value>
+</query>
+<query>
+<id>DistXfmrCodeSCTest</id>
+<keyfld>tname:enum:gnum</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?tname ?enum ?gnum ?z ?ll WHERE {
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?xft c:TransformerTank.PowerTransformer ?eq.
+ ?xft c:TransformerTank.TransformerTankInfo ?t.
+ ?t c:IdentifiedObject.name ?tname.
+ ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+ ?e c:TransformerEndInfo.endNumber ?enum.
+ ?sct c:ShortCircuitTest.EnergisedEnd ?e.
+ ?sct c:ShortCircuitTest.leakageImpedance ?z.
+ ?sct c:ShortCircuitTest.loss ?ll.
+ ?sct c:ShortCircuitTest.GroundedEnds ?grnd.
+ ?grnd c:TransformerEndInfo.endNumber ?gnum.
+}
+ORDER BY ?tname ?enum ?gnum
+]]>
+</value>
+</query>
+<query>
+<id>DistXfmrTank</id>
+<keyfld>pname:tname:enum</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?pname ?tname ?xfmrcode ?vgrp ?enum ?bus ?basev ?orderedPhases ?grounded ?rground ?xground ?fdrid ?id ?infoid ?ename ?eid WHERE {
+ ?p r:type c:PowerTransformer.
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?t c:TransformerTank.PowerTransformer ?p.
+ ?t c:IdentifiedObject.name ?tname.
+ ?t c:IdentifiedObject.mRID ?id.
+ ?t c:TransformerTank.TransformerTankInfo ?inf.
+ ?inf c:IdentifiedObject.name ?xfmrcode.
+ ?inf c:IdentifiedObject.mRID ?infoid.
+ ?end c:TransformerTankEnd.TransformerTank ?t.
+ ?end c:TransformerTankEnd.orderedPhases ?phsraw.
+  bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?orderedPhases)
+ ?end c:TransformerEnd.endNumber ?enum.
+ ?end c:TransformerEnd.grounded ?grounded.
+ ?end c:IdentifiedObject.name ?ename.
+ ?end c:IdentifiedObject.mRID ?eid.
+ OPTIONAL {?end c:TransformerEnd.rground ?rground.}
+ OPTIONAL {?end c:TransformerEnd.xground ?xground.}
+ ?end c:TransformerEnd.Terminal ?trm.
+ ?trm c:Terminal.ConnectivityNode ?cn. 
+ ?cn c:IdentifiedObject.name ?bus.
+ ?end c:TransformerEnd.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev
+}
+ORDER BY ?pname ?tname ?enum
+]]>
+</value>
+</query>
+<query>
+<id>DistRegulatorBanked</id>
+<keyfld>rname</keyfld>
+<description>Regulators having PowerTransformerEnd.PowerTransformer</description>
+<value>
+<![CDATA[
+SELECT ?rname ?pname ?tname ?wnum ?incr ?mode ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+ ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode 
+ ?monphs ?ctRating ?ctRatio ?ptRatio ?id ?fdrid ?pxfid
+ WHERE {
+ ?pxf c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?rtc r:type c:RatioTapChanger.
+ ?rtc c:IdentifiedObject.name ?rname.
+ ?rtc c:IdentifiedObject.mRID ?id.
+ ?rtc c:RatioTapChanger.TransformerEnd ?end.
+ ?end c:TransformerEnd.endNumber ?wnum.
+ ?end c:PowerTransformerEnd.PowerTransformer ?pxf.
+  ?pxf c:IdentifiedObject.name ?pname.
+  ?pxf c:IdentifiedObject.mRID ?pxfid.
+  ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
+  ?rtc c:TapChanger.controlEnabled ?enabled.
+  ?rtc c:TapChanger.highStep ?highStep.
+  ?rtc c:TapChanger.initialDelay ?initDelay.
+  ?rtc c:TapChanger.lowStep ?lowStep.
+  ?rtc c:TapChanger.ltcFlag ?ltc.
+  ?rtc c:TapChanger.neutralStep ?neutralStep.
+  ?rtc c:TapChanger.neutralU ?neutralU.
+  ?rtc c:TapChanger.normalStep ?normalStep.
+  ?rtc c:TapChanger.step ?step.
+  ?rtc c:TapChanger.subsequentDelay ?subDelay.
+  ?rtc c:TapChanger.ctRating ?ctRating.
+  ?rtc c:TapChanger.ctRatio ?ctRatio.
+  ?rtc c:TapChanger.ptRatio ?ptRatio.
+  ?rtc c:TapChanger.TapChangerControl ?ctl.
+  ?ctl c:TapChangerControl.maxLimitVoltage ?vlim.
+  ?ctl c:TapChangerControl.minLimitVoltage ?vmin.
+  ?ctl c:TapChangerControl.lineDropCompensation ?ldc.
+  ?ctl c:TapChangerControl.lineDropR ?fwdR.
+  ?ctl c:TapChangerControl.lineDropX ?fwdX.
+  ?ctl c:TapChangerControl.reverseLineDropR ?revR.
+  ?ctl c:TapChangerControl.reverseLineDropX ?revX.
+  ?ctl c:RegulatingControl.discrete ?discrete.
+  ?ctl c:RegulatingControl.enabled ?ctl_enabled.
+  ?ctl c:RegulatingControl.mode ?ctlmoderaw.
+   bind(strafter(str(?ctlmoderaw),"RegulatingControlModeKind.") as ?ctlmode)
+  ?ctl c:RegulatingControl.monitoredPhase ?monraw.
+   bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+  ?ctl c:RegulatingControl.targetDeadband ?vbw.
+  ?ctl c:RegulatingControl.targetValue ?vset.
+ }
+ ORDER BY ?pname ?tname ?rname ?wnum
+]]>
+</value>
+</query>
+<query>
+<id>DistRegulatorTanked</id>
+<keyfld>rname</keyfld>
+<description>Regulators having TransformerTankEnd.TransformerTank</description>
+<value>
+<![CDATA[
+SELECT ?rname ?pname ?tname ?wnum ?orderedPhases ?incr ?enabled ?highStep ?lowStep ?neutralStep ?normalStep ?neutralU 
+ ?step ?initDelay ?subDelay ?ltc ?vlim ?vmin ?vset ?vbw ?ldc ?fwdR ?fwdX ?revR ?revX ?discrete ?ctl_enabled ?ctlmode 
+ ?monphs ?ctRating ?ctRatio ?ptRatio ?id ?fdrid ?pxfid
+ WHERE {
+ ?pxf c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?rtc r:type c:RatioTapChanger.
+ ?rtc c:IdentifiedObject.name ?rname.
+ ?rtc c:IdentifiedObject.mRID ?id.
+ ?rtc c:RatioTapChanger.TransformerEnd ?end.
+ ?end c:TransformerEnd.endNumber ?wnum.
+ ?end c:TransformerTankEnd.TransformerTank ?tank.
+ ?tank c:IdentifiedObject.name ?tname.
+ OPTIONAL {?end c:TransformerTankEnd.orderedPhases ?phsraw.
+  bind(strafter(str(?phsraw),"OrderedPhaseCodeKind.") as ?orderedPhases)}
+ ?tank c:TransformerTank.PowerTransformer ?pxf.
+  ?pxf c:IdentifiedObject.name ?pname.
+  ?pxf c:IdentifiedObject.mRID ?pxfid.
+  ?rtc c:RatioTapChanger.stepVoltageIncrement ?incr.
+  ?rtc c:TapChanger.controlEnabled ?enabled.
+  ?rtc c:TapChanger.highStep ?highStep.
+  OPTIONAL {?rtc c:TapChanger.initialDelay ?initDelay.}
+  ?rtc c:TapChanger.lowStep ?lowStep.
+  ?rtc c:TapChanger.ltcFlag ?ltc.
+  ?rtc c:TapChanger.neutralStep ?neutralStep.
+  ?rtc c:TapChanger.neutralU ?neutralU.
+  ?rtc c:TapChanger.normalStep ?normalStep.
+  ?rtc c:TapChanger.step ?step.
+  OPTIONAL {?rtc c:TapChanger.subsequentDelay ?subDelay.}
+  OPTIONAL {?rtc c:TapChanger.ctRating ?ctRating.}
+  OPTIONAL {?rtc c:TapChanger.ctRatio ?ctRatio.}
+  OPTIONAL {?rtc c:TapChanger.ptRatio ?ptRatio.}
+  OPTIONAL {?rtc c:TapChanger.TapChangerControl ?ctl.
+  ?ctl c:TapChangerControl.maxLimitVoltage ?vlim.
+  ?ctl c:TapChangerControl.minLimitVoltage ?vmin.
+  ?ctl c:TapChangerControl.lineDropCompensation ?ldc.
+  OPTIONAL {?ctl c:TapChangerControl.lineDropR ?fwdR.}
+  OPTIONAL {?ctl c:TapChangerControl.lineDropX ?fwdX.}
+  OPTIONAL {?ctl c:TapChangerControl.reverseLineDropR ?revR.}
+  OPTIONAL {?ctl c:TapChangerControl.reverseLineDropX ?revX.}
+  ?ctl c:RegulatingControl.discrete ?discrete.
+  ?ctl c:RegulatingControl.enabled ?ctl_enabled.
+  ?ctl c:RegulatingControl.mode ?ctlmoderaw.
+   bind(strafter(str(?ctlmoderaw),"RegulatingControlModeKind.") as ?ctlmode)
+  ?ctl c:RegulatingControl.monitoredPhase ?monraw.
+   bind(strafter(str(?monraw),"PhaseCode.") as ?monphs)
+  ?ctl c:RegulatingControl.targetDeadband ?vbw.
+  ?ctl c:RegulatingControl.targetValue ?vset.}
+ }
+ ORDER BY ?pname ?tname ?rname ?wnum
+]]>
+</value>
+</query>
+<query>
+<id>DistCoordinates</id>
+<description></description>
+<keyfld>class:name:seq</keyfld>
+<value>
+<![CDATA[
+SELECT ?class ?name ?seq ?x ?y WHERE {
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?eq c:PowerSystemResource.Location ?loc.
+{ ?eq c:IdentifiedObject.name ?name.
+  ?eq a ?classraw.
+  bind(strafter(str(?classraw),"CIM100#") as ?class)}
+  UNION
+{ ?eq c:PowerElectronicsConnection.PowerElectronicsUnit ?unit.
+  ?unit c:IdentifiedObject.name ?name.
+  ?unit a ?classraw.
+  bind(strafter(str(?classraw),"CIM100#") as ?class)}
+ ?pt c:PositionPoint.Location ?loc.
+ ?pt c:PositionPoint.xPosition ?x.
+ ?pt c:PositionPoint.yPosition ?y.
+ ?pt c:PositionPoint.sequenceNumber ?seq.
+ FILTER (!regex(?class, "Phase")).
+ FILTER (!regex(?class, "TapChanger")).
+ FILTER (!regex(?class, "Tank")).
+ FILTER (!regex(?class, "RegulatingControl")).
+}
+ORDER BY ?class ?name ?seq ?x ?y
+]]>
+</value>
+</query>
+<query>
+<id>DistOverheadWire</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?name ?id ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick WHERE {
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
+ ?acp c:ACLineSegmentPhase.WireInfo ?w.
+ ?w r:type c:OverheadWireInfo.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:IdentifiedObject.mRID ?id.
+ ?w c:WireInfo.radius ?rad.
+ ?w c:WireInfo.gmr ?gmr.
+ OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}
+ OPTIONAL {?w c:WireInfo.rAC25 ?r25.}
+ OPTIONAL {?w c:WireInfo.rAC50 ?r50.}
+ OPTIONAL {?w c:WireInfo.rAC75 ?r75.}
+ OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}
+ OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}
+ OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw.
+     bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
+ OPTIONAL {?w c:WireInfo.insulated ?ins.}
+ OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+}
+ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistConcentricNeutralCable</id>
+<keyfld>name</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?name ?id ?rad ?corerad ?gmr ?rdc ?r25 ?r50 ?r75 ?amps ?ins ?insmat ?insthick ?diacore ?diains ?diascreen ?diajacket ?dianeut ?sheathneutral 
+       ?strand_cnt ?strand_rad ?strand_gmr ?strand_rdc WHERE {
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?eq.
+ ?acp c:ACLineSegmentPhase.WireInfo ?w.
+ ?w r:type c:ConcentricNeutralCableInfo.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:IdentifiedObject.mRID ?id.
+ ?w c:WireInfo.radius ?rad.
+ ?w c:WireInfo.gmr ?gmr.
+ OPTIONAL {?w c:WireInfo.rDC20 ?rdc.}
+ OPTIONAL {?w c:WireInfo.rAC25 ?r25.}
+ OPTIONAL {?w c:WireInfo.rAC50 ?r50.}
+ OPTIONAL {?w c:WireInfo.rAC75 ?r75.}
+ OPTIONAL {?w c:WireInfo.coreRadius ?corerad.}
+ OPTIONAL {?w c:WireInfo.ratedCurrent ?amps.}
+ OPTIONAL {?w c:WireInfo.insulationMaterial ?insraw.
+     bind(strafter(str(?insraw),"WireInsulationKind.") as ?insmat)}
+ OPTIONAL {?w c:WireInfo.insulated ?ins.}
+ OPTIONAL {?w c:WireInfo.insulationThickness ?insthick.}
+ OPTIONAL {?w c:CableInfo.diameterOverCore ?diacore.}
+ OPTIONAL {?w c:CableInfo.diameterOverJacket ?diajacket.}
+ OPTIONAL {?w c:CableInfo.diameterOverInsulation ?diains.}
+ OPTIONAL {?w c:CableInfo.diameterOverScreen ?diascreen.}
+ OPTIONAL {?w c:CableInfo.sheathAsNeutral ?sheathneutral.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.diameterOverNeutral ?dianeut.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandCount ?strand_cnt.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandGmr ?strand_gmr.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandRadius ?strand_rad.}
+ OPTIONAL {?w c:ConcentricNeutralCableInfo.neutralStrandRDC20 ?strand_rdc.}
+}
+ORDER BY ?name
+]]>
+</value>
+</query>
+<query>
+<id>DistLineSpacing</id>
+<keyfld>name:seq</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?name ?cable ?usage ?bundle_count ?bundle_sep ?id ?seq ?x ?y WHERE {
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.WireSpacingInfo ?w.
+ ?w c:IdentifiedObject.name ?name.
+ ?w c:IdentifiedObject.mRID ?id.
+ ?pos c:WirePosition.WireSpacingInfo ?w.
+ ?pos c:WirePosition.xCoord ?x.
+ ?pos c:WirePosition.yCoord ?y.
+ ?pos c:WirePosition.sequenceNumber ?seq.
+ ?w c:WireSpacingInfo.isCable ?cable.
+ ?w c:WireSpacingInfo.phaseWireCount ?bundle_count.
+ ?w c:WireSpacingInfo.phaseWireSpacing ?bundle_sep.
+ ?w c:WireSpacingInfo.usage ?useraw.
+   bind(strafter(str(?useraw),"WireUsageKind.") as ?usage).
+}
+ORDER BY ?name ?seq
+]]>
+</value>
+</query>
+<query>
+<id>DistLinesSpacingZ</id>
+<keyfld>name:seq</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?name ?seq ?phs ?id ?basev ?bus1 ?bus2 ?fdrid ?len ?spacing ?phname ?phclass
+    WHERE {
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?id.
+ ?s c:ConductingEquipment.BaseVoltage ?bv.
+ ?bv c:BaseVoltage.nominalVoltage ?basev.
+ ?s c:Conductor.length ?len.
+ ?s c:ACLineSegment.WireSpacingInfo ?inf.
+ ?inf c:IdentifiedObject.name ?spacing.
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:Terminal.ConnectivityNode ?cn1.
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?cn1 c:IdentifiedObject.name ?bus1.
+ ?t2 c:Terminal.ConductingEquipment ?s.
+ ?t2 c:Terminal.ConnectivityNode ?cn2.
+ ?t2 c:ACDCTerminal.sequenceNumber "2".
+ ?cn2 c:IdentifiedObject.name ?bus2.
+ ?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+ ?acp c:ACLineSegmentPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)
+ ?acp c:ACLineSegmentPhase.WireInfo ?phinf.
+ ?acp c:ACLineSegmentPhase.sequenceNumber ?seq.
+ ?phinf c:IdentifiedObject.name ?phname.
+ ?phinf a ?phclassraw.
+   bind(strafter(str(?phclassraw),"CIM100#") as ?phclass)
+}
+ORDER BY ?name ?seq ?phs
+]]>
+</value>
+</query>
+<query>
+<id>DistXfmrBank</id>
+<keyfld>pname:tname</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT DISTINCT ?pname ?vgrp ?tname ?id ?fdrid WHERE {
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?p c:IdentifiedObject.mRID ?id.
+ ?p c:PowerTransformer.vectorGroup ?vgrp.
+ ?t c:TransformerTank.PowerTransformer ?p.
+ ?t c:IdentifiedObject.name ?tname
+}
+ORDER BY ?pname ?tname
+]]>
+</value>
+</query>
+<query>
+<id>CountLinePhases</id>
+<keyfld>key</keyfld>
+<description>for DistLineSegment</description>
+<value>
+<![CDATA[
+SELECT ?key (count(?phs) as ?count) WHERE {
+  SELECT DISTINCT ?key ?phs WHERE {
+ ?s r:type c:ACLineSegment.
+ ?s c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?s c:IdentifiedObject.name ?key.
+ OPTIONAL {?acp c:ACLineSegmentPhase.ACLineSegment ?s.
+   ?acp c:ACLineSegmentPhase.phase ?phsraw.
+     bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs)}
+  }
+}
+GROUP BY ?key ORDER BY ?key
+]]>
+</value>
+</query>
+<query>
+<id>CountXfmrCodeRatings</id>
+<keyfld>key</keyfld>
+<description>for DistXfmrCodeRating</description>
+<value>
+<![CDATA[
+SELECT ?key (count(?enum) as ?count) WHERE {
+  SELECT DISTINCT ?key ?enum WHERE {
+   ?eq c:Equipment.EquipmentContainer ?fdr.
+   ?fdr c:IdentifiedObject.mRID ?fdrid.
+   ?xft c:TransformerTank.PowerTransformer ?eq.
+   ?xft c:TransformerTank.TransformerTankInfo ?t.
+   ?t c:IdentifiedObject.name ?key.
+   ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+   ?e c:TransformerEndInfo.endNumber ?enum.
+  }
+}
+GROUP BY ?key ORDER BY ?key
+]]>
+</value>
+</query>
+<query>
+<id>CountSpacingXY</id>
+<keyfld>key</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?key (count(?seq) as ?count) WHERE {
+  SELECT DISTINCT ?key ?seq WHERE {
+ ?eq r:type c:ACLineSegment.
+ ?eq c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?eq c:ACLineSegment.WireSpacingInfo ?w.
+ ?w c:IdentifiedObject.name ?key.
+ ?pos c:WirePosition.WireSpacingInfo ?w.
+ ?pos c:WirePosition.phase ?seq.
+}}
+GROUP BY ?key ORDER BY ?key
+]]>
+</value>
+</query>
+<query>
+<id>CountBankTanks</id>
+<keyfld>key</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?key (count(?tank) as ?count) WHERE {
+ ?pxf c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?tank c:TransformerTank.PowerTransformer ?pxf.
+ ?pxf c:IdentifiedObject.name ?key
+}
+GROUP BY ?key ORDER BY ?key
+]]>
+</value>
+</query>
+<query>
+<id>CountXfmrCodeSCTests</id>
+<keyfld>key</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?key (count(?sct) as ?count) WHERE {
+  SELECT DISTINCT ?key ?sct WHERE {
+   ?eq c:Equipment.EquipmentContainer ?fdr.
+   ?fdr c:IdentifiedObject.mRID ?fdrid.
+   ?xft c:TransformerTank.PowerTransformer ?eq.
+   ?xft c:TransformerTank.TransformerTankInfo ?t.
+   ?t c:IdentifiedObject.name ?key.
+   ?e c:TransformerEndInfo.TransformerTankInfo ?t.
+   ?sct c:ShortCircuitTest.EnergisedEnd ?e.
+  }
+}
+GROUP BY ?key ORDER BY ?key
+]]>
+</value>
+</query>
+<query>
+<id>CountTankEnds</id>
+<keyfld>key</keyfld>
+<description></description>
+<value>
+<![CDATA[
+SELECT ?key (count (?p) as ?count) WHERE {
+ ?p c:Equipment.EquipmentContainer ?fdr.
+ ?fdr c:IdentifiedObject.mRID ?fdrid.
+ ?p r:type c:PowerTransformer.
+ ?p c:IdentifiedObject.name ?pname.
+ ?t c:TransformerTank.PowerTransformer ?p.
+ ?t c:IdentifiedObject.name ?key.
+ ?end c:TransformerTankEnd.TransformerTank ?t
+}
+GROUP BY ?key ORDER BY ?key
+]]>
+</value>
+</query>
+</queries>

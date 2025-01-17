@@ -1,0 +1,9 @@
+uuid_file,ieee123_profiles_uuid.dat
+feederID,CBE09B55-091B-4BB0-95DA-392237B12640
+//
+// name,tokenized list of profiles,comma-separated list of loads
+//   profile tokens can be dssDaily, gldSchedule
+//   last token must be loads=CSV, where CSV is a comma-separated
+//     list of EnergyConsumer (load) names
+//
+Spot,dssDaily=default,gldSchedule=office_plugs,loads=s35a,s47,s48,s65a,s65b,s65c,s76a,s76b,s76c

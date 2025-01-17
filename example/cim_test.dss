@@ -1,13 +1,13 @@
 redirect IEEE13_CDPSM.dss
 solve
-uuids file=IEEE13Nodeckt_Base_UUIDS.dat
+uuids file=ieee13nodeckt_base_uuids.dat
 export cim100 substation=subname geo=region subgeo=subregion file=ieee13cdpsm.xml
 export cim100fragments substation=subname geo=region subgeo=subregion file=ieee13cdpsm
-export uuids
+export uuids ieee13nodeckt_base_uuids.dat
 
 redirect IEEE13_Assets.dss
 solve
-uuids file=IEEE13NodecktAssets_Base_UUIDS.dat
+uuids file=ieee13nodecktassets_base_uuids.dat
 export cim100 substation=subname geo=region subgeo=subregion file=ieee13assets.xml
 export cim100fragments substation=subname geo=region subgeo=subregion file=ieee13assets
-export uuids
+export uuids ieee13nodecktassets_base_uuids.dat

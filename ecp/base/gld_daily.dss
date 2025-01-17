@@ -1,0 +1,71 @@
+clear
+new circuit.gld_daily basekv=13.2 pu=1.00 r1=0.001 x1=0.001 r0=0.001 x0=0.001
+new line.thev bus1=sourcebus bus2=fdrhead r1=1.210 x1=2.834 r0=3.961 x0=3.214 c1=0 c0=0
+
+// primary feeder with sequence impedances from Kersting's example 4.1
+new linecode.trunk nphases=3 units=mi r1=0.3061 x1=0.6270 r0=0.7735 x0=1.9373 c1=0 c0=0
+new line.seg1 bus1=fdrhead bus2=bess linecode=trunk len=0.2
+new line.seg2 bus1=bess    bus2=pv   linecode=trunk len=1.0
+new line.seg3 bus1=pv      bus2=load linecode=trunk len=1.0
+new line.seg4 bus1=load    bus2=gen  linecode=trunk len=0.5
+
+// switches for separate metering of loads and DER in GridLAB-D
+new line.pv1   phases=3 bus1=pv   bus2=pv1   switch=yes
+new line.pv2   phases=3 bus1=pv   bus2=pv2   switch=yes
+new line.bess1 phases=3 bus1=bess bus2=bess1 switch=yes
+new line.bess2 phases=3 bus1=bess bus2=bess2 switch=yes
+new line.load1 phases=3 bus1=load bus2=load1 switch=yes
+new line.load2 phases=3 bus1=load bus2=load2 switch=yes
+new line.gen1  phases=3 bus1=gen  bus2=gen1  switch=yes
+new line.gen2  phases=3 bus1=gen  bus2=gen2  switch=yes
+
+// for daily PV fluctuations
+New Loadshape.Cloud npts=86401 sinterval=1 csvfile=pcloud.dat action=normalize
+New Loadshape.Clear npts=86401 sinterval=1 csvfile=pclear.dat action=normalize
+New Loadshape.cycle npts=10 interval=0 hour=[0.0,4.0,4.1,8.0,8.1,16.0,16.1,20.0,20.1,24.0] 
+~                                      mult=[0.0,0.0,1.0,1.0,0.0, 0.0,-1.0,-1.0, 0.0, 0.0]
+New Loadshape.bump npts=6 interval=0 hour=[0.0,6.0,7.0,19.0,20.0,24.0] 
+~                                    mult=[0.0,0.0,1.0, 1.0, 0.0, 0.0]
+New Loadshape.peaking npts=6 interval=0 hour=[0.0,12.0,12.1,17.0,17.1,24.0] 
+~                                       mult=[0.0, 0.0, 1.0, 1.0, 0.0, 0.0]
+
+new storage.bess1 bus1=bess1 kv=13.2 kWrated=500 kva=625 kWhrated=4000 kWhstored=2000 kw=250 %reserve=5 dispmode=follow daily=clear
+new storage.bess2 bus1=bess2 kv=13.2 like=bess1 daily=cycle
+
+New PVSystem.pv1 bus1=pv1 kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00 daily=bump
+New PVSystem.pv2 bus1=pv2 kV=13.2 irradiance=1.0 pmpp=1000 kVA=1000 pf=1.00 daily=cloud
+
+new load.load1 bus1=load1 kv=13.2 kw=1200 daily=bump
+new load.load2 bus1=load2 kv=13.2 kw=1200 daily=default
+
+new generator.gen1 bus1=gen1 kv=13.2 kw=500 daily=peaking
+new generator.gen2 bus1=gen2 kv=13.2 kw=500 daily=default
+
+new monitor.bess1 storage.bess1 1 mode=1 ppolar=no
+new monitor.bess2 storage.bess2 1 mode=1 ppolar=no
+new monitor.bess1s storage.bess1 1 mode=3
+new monitor.bess2s storage.bess2 1 mode=3
+new monitor.pv1 pvsystem.pv1 1 mode=1 ppolar=no
+new monitor.pv2 pvsystem.pv2 1 mode=1 ppolar=no
+new monitor.load1 load.load1 1 mode=1 ppolar=no
+new monitor.load2 load.load2 1 mode=1 ppolar=no
+new monitor.gen1 generator.gen1 1 mode=1 ppolar=no
+new monitor.gen2 generator.gen2 1 mode=1 ppolar=no
+
+set Voltagebases=[13.2]
+calcv
+set maxcontroliter=100
+solve
+solve mode=daily stepsize=1s number=86400
+
+batchedit storage..* kWhstored=2000 // set initial condition for CIM export
+
+export monitors gen1
+export monitors gen2
+export monitors pv1
+export monitors pv2
+export monitors load1
+export monitors load2
+export monitors bess1
+export monitors bess2
+

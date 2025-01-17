@@ -1,0 +1,570 @@
+#define INTERVAL=3
+#set minimum_timestep=3
+#set complex_output_format=RECT  // compatible with Python and Pandas
+#set relax_naming_rules=1
+#set profiler=1
+#set warn=0
+
+clock {
+	timezone CST+6CDT;
+  // run a day to warm up the houses, and a second day for the data to use
+  // July 28 is a full-sun day, August 11 has a cloud transient
+	starttime '2013-08-10 00:00:00';
+	stoptime '2013-08-12 00:01:00'; // make sure end-of-day is output
+};
+
+module powerflow {
+  solver_method NR;
+  line_capacitance TRUE;
+};
+module climate;
+module generators;
+module tape;
+module reliability {
+  report_event_log false;
+};
+
+object climate {
+  name localWeather;
+  tmyfile "../support/TX-Austin_Mueller_Municipal_Ap_Ut.tmy3";
+  interpolate QUADRATIC;
+};
+
+module residential;
+#include "../support/appliance_schedules.glm";
+#include "../support/commercial_schedules.glm";
+#define VSOURCE=2401.78
+#include "glm/ieee123ecp_base.glm";
+#ifdef WANT_VI_DUMP
+object voltdump {
+  filename climate_volt.csv;
+  mode POLAR;
+};
+object currdump {
+  filename climate_curr.csv;
+  mode POLAR;
+};
+#endif
+
+// recorders for imputed data
+object recorder {
+	parent localWeather;
+	property temperature,humidity,solar_flux,pressure,wind_speed;
+	interval ${INTERVAL};
+	file weather.csv;
+}
+object recorder {
+	parent 150;
+	property distribution_load,positive_sequence_voltage;
+	interval ${INTERVAL};
+	file substation.csv;
+}
+object recorder {
+	parent line_l115;
+	property power_in,current_in_A,current_in_B,current_in_C;
+	interval ${INTERVAL};
+	file feeder_head.csv;
+}
+object multi_recorder {
+  file pv_meters.csv;
+	interval ${INTERVAL};
+  property 7_pvmtr:measured_power,17_pvmtr:measured_power,29_pvmtr:measured_power,43_pvmtr:measured_power,49_pvmtr:measured_power,55_pvmtr:measured_power,63_pvmtr:measured_power,68_pvmtr:measured_power,75_pvmtr:measured_power,80_pvmtr:measured_power,87_pvmtr:measured_power,96_pvmtr:measured_power,104_pvmtr:measured_power,113_pvmtr:measured_power;
+}
+object multi_recorder {
+  file prim_loads.csv;
+	interval ${INTERVAL};
+  property ld_s35a:measured_power,ld_s47:measured_power,ld_s48:measured_power,ld_s65a:measured_power,ld_s76a:measured_power;
+}
+object recorder {
+  parent xf_xfs49a;
+  file xf_xfs49a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs69a;
+  file xf_xfs69a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs29a;
+  file xf_xfs29a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs77b;
+  file xf_xfs77b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs9a;
+  file xf_xfs9a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs109a;
+  file xf_xfs109a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs53a;
+  file xf_xfs53a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs33a;
+  file xf_xfs33a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs45a;
+  file xf_xfs45a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs49c;
+  file xf_xfs49c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs17c;
+  file xf_xfs17c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs37a;
+  file xf_xfs37a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs49b;
+  file xf_xfs49b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs60a;
+  file xf_xfs60a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs113a;
+  file xf_xfs113a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs5c;
+  file xf_xfs5c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs96b;
+  file xf_xfs96b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs84c;
+  file xf_xfs84c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs80b;
+  file xf_xfs80b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs92c;
+  file xf_xfs92c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs1a;
+  file xf_xfs1a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs98a;
+  file xf_xfs98a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs66c;
+  file xf_xfs66c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs86b;
+  file xf_xfs86b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs42a;
+  file xf_xfs42a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs10a;
+  file xf_xfs10a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs22b;
+  file xf_xfs22b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs34c;
+  file xf_xfs34c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs46a;
+  file xf_xfs46a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs58b;
+  file xf_xfs58b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs38b;
+  file xf_xfs38b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs112a;
+  file xf_xfs112a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs100c;
+  file xf_xfs100c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs104c;
+  file xf_xfs104c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs41c;
+  file xf_xfs41c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs6c;
+  file xf_xfs6c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs85c;
+  file xf_xfs85c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs73c;
+  file xf_xfs73c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs2b;
+  file xf_xfs2b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs39b;
+  file xf_xfs39b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs79a;
+  file xf_xfs79a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs19a;
+  file xf_xfs19a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs7a;
+  file xf_xfs7a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs99b;
+  file xf_xfs99b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs87b;
+  file xf_xfs87b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs63a;
+  file xf_xfs63a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs43b;
+  file xf_xfs43b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs107b;
+  file xf_xfs107b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs11a;
+  file xf_xfs11a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs55a;
+  file xf_xfs55a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs59b;
+  file xf_xfs59b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs111a;
+  file xf_xfs111a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs103c;
+  file xf_xfs103c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs50c;
+  file xf_xfs50c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs62c;
+  file xf_xfs62c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs30c;
+  file xf_xfs30c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs74c;
+  file xf_xfs74c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs94a;
+  file xf_xfs94a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs82a;
+  file xf_xfs82a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs70a;
+  file xf_xfs70a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs90b;
+  file xf_xfs90b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs28a;
+  file xf_xfs28a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs68a;
+  file xf_xfs68a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs88a;
+  file xf_xfs88a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs32c;
+  file xf_xfs32c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs52a;
+  file xf_xfs52a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs64b;
+  file xf_xfs64b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs20a;
+  file xf_xfs20a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs12b;
+  file xf_xfs12b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs24c;
+  file xf_xfs24c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs56b;
+  file xf_xfs56b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs16c;
+  file xf_xfs16c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs102c;
+  file xf_xfs102c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs106b;
+  file xf_xfs106b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs114a;
+  file xf_xfs114a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs31c;
+  file xf_xfs31c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs51a;
+  file xf_xfs51a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs75c;
+  file xf_xfs75c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs95b;
+  file xf_xfs95b.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs71a;
+  file xf_xfs71a.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs83c;
+  file xf_xfs83c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+object recorder {
+  parent xf_xfs4c;
+  file xf_xfs4c.csv;
+  interval ${INTERVAL};
+  property power_in;
+}
+

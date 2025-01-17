@@ -1,0 +1,2 @@
+include PYPIDESC.md
+include src_python/cimhub/eia_recs/*.json

@@ -1,0 +1,10 @@
+clear
+new circuit.local_combo_b
+redirect shared.dss
+
+New PVSystem.der bus1=low kV=0.4 irradiance=1.0 pmpp=6000 kVA=6682 kvarMax=2940 kvarMaxAbs=2940
+New InvControl.der combimode=VV_VW voltage_curvex_ref=rated vvc_curve1=voltvar1547b 
+~ voltwatt_curve=voltwatt1547b deltaQ_factor=0.4 deltaP_factor=0.2 VV_RefReactivePower=VARMAX_VARS // eventlog=yes
+
+redirect postlude.dss
+

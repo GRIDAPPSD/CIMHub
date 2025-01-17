@@ -1,0 +1,115 @@
+[
+ {
+  "dssname": "Master.dss",
+  "root": "ieee13x",
+  "dss_controls": true,
+  "mRID": "4BE6DD69-8FE9-4C9F-AD44-B327D5623974",
+  "glmvsrc": 66395.28,
+  "substation":"sub1",
+  "region":"geo1",
+  "subregion":"subgeo1",
+  "bases": [
+   115000.0,
+   4160.0
+  ],
+  "inpath_dss": "./ieee13x/",
+  "export_options": " -e=carson",
+  "check_branches": [
+   {
+    "dss_link": "LINE.650632",
+    "dss_bus": "RG60",
+    "gld_link": "LINE_650632",
+    "gld_bus": "RG60"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": "./csv/"
+ },
+ {
+  "dssname": "Master.dss",
+  "root": "ieee123x",
+  "dss_controls": true,
+  "mRID": "4C4E3E2C-6332-4DCB-8425-26B628178374",
+  "glmvsrc": 2401.78,
+  "substation":"sub1",
+  "region":"geo1",
+  "subregion":"subgeo1",
+  "bases": [
+   4160.0
+  ],
+  "inpath_dss": "./ieee123x/",
+  "export_options": " -e=carson",
+  "check_branches": [
+   {
+    "dss_link": "TRANSFORMER.REG1A",
+    "dss_bus": "150",
+    "gld_link": "REG_REG1A",
+    "gld_bus": "150"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": "./csv/"
+ },
+ {
+  "dssname": "Master.dss",
+  "root": "j1red",
+  "mRID": "1C9727D2-E4D2-4084-B612-90A44E1810FD",
+  "glmvsrc": 39837.17,
+  "substation":"sub1",
+  "region":"geo1",
+  "subregion":"subgeo1",
+  "bases": [
+   69000.0,
+   12470.0,
+   416.0
+  ],
+  "inpath_dss": "./j1red/",
+  "export_options": " -e=carson -l=1.29",
+  "check_branches": [
+   {
+    "dss_link": "LINE.FEEDER",
+    "dss_bus": "FDR_BUS",
+    "gld_link": "SWT_FEEDER",
+    "gld_bus": "FDR_BUS"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": "./csv/"
+ },
+ {
+  "dssname": "ACEP_PSIL.dss",
+  "root": "ACEP_PSIL",
+  "mRID": "77966920-E1EC-EE8A-23EE-4EFD23B205BD",
+  "glmvsrc": 277.13,
+  "substation":"UAF",
+  "region":"Alaska",
+  "subregion":"Fairbanks",
+  "substationID": "22B12048-23DF-007B-9291-826A16DBCB21",
+  "regionID": "96465E7A-6EC3-ECCA-BC27-31B53F05C96E",
+  "subregionID": "2F8FC9BF-FF32-A197-D541-0A2529D04DF7",
+  "bases": [
+   318.0,
+   480.0
+  ],
+  "inpath_dss": "../../Powergrid-Models/platform/dss/UAF/",
+  "export_options": " -e=carson",
+  "check_branches": [
+   {
+    "dss_link": "LINE.SEG4",
+    "dss_bus": "BATT",
+    "gld_link": "LINE_SEG4",
+    "gld_bus": "BATT"
+   }
+  ],
+  "path_xml": "./xml/",
+  "outpath_dss": "./dss/",
+  "outpath_glm": "./glm/",
+  "outpath_csv": "./csv/"
+ }
+]
