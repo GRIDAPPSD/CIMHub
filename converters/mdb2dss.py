@@ -577,7 +577,7 @@ def ConvertMDB(cfg):
       x1 = float (row['possequencereactance'])
       r0 = float (row['zerosequenceresistance'])
       x0 = float (row['zerosequencereactance'])
-      vpu = float (row['busvoltagelevel']) / 120.0
+      vpu = float(row['busvoltagelevel']) / 120.0
       sourcef.write('new circuit.' + mdbname + ' bus1=sourcebus phases=3 basekv=' + str(basekv) + '\n')
       sourcef.write('~ r1=' + '{:.4f}'.format(r1) + ' x1=' + '{:.4f}'.format(x1) +
                     ' r0=' + '{:.4f}'.format(r0) + ' x0=' + '{:.4f}'.format(x0) + ' pu=' + '{:.4f}'.format(vpu) + '\n')

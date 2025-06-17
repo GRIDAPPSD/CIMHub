@@ -22,6 +22,9 @@ import json
 import sys
 import os
 
+# custom imports
+import converters._helperDB as _helperDB
+
 # to make DSS names
 intab =  "[]{}()|,.=~/!?\'$ "
 outtab = "-----------------"
@@ -30,9 +33,11 @@ dsstab = str.maketrans(intab, outtab)
 
 # the catalog tables need to be global; some are written only if used
 OHConductorTable = {}
+CableConductorTable = {}
 LineSpacingTable = {}
 LineConfigTable = {}
-CableConfigTable = {}
+UGConfigTable = {}
+SRConfigTable = {}
 XfmrConfigTable = {}
 FuseConfigTable = {}
 RegConfigTable = {}
@@ -63,17 +68,19 @@ def CollectLoadPQ (child):
     QB = 0
     QC = 0
     xstr = 'CustomerLoads/CustomerLoad/CustomerLoadModels/CustomerLoadModel/CustomerLoadValues/CustomerLoadValue'
+    namespace = {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
     for CustomerLoadValue in child.findall(xstr):
         phs = CustomerLoadValue.find('Phase').text
         for LoadValue in CustomerLoadValue.findall('LoadValue'):
-            if LoadValue.attrib['Type'] == 'LoadValueKW_KVAR':
+            attrib = LoadValue.get('{http://www.w3.org/2001/XMLSchema-instance}type')
+            if attrib == 'LoadValueKW_KVAR':
                 P = float(LoadValue.find('KW').text)
                 Q = float(LoadValue.find('KVAR').text)
-            elif LoadValue.attrib['Type'] == 'LoadValueKW_PF':
+            elif attrib == 'LoadValueKW_PF':
                 P = float(LoadValue.find('KW').text)
                 PF = float(LoadValue.find('PF').text)/100
                 Q = P * math.tan(math.acos(PF))
-            elif LoadValue.attrib['Type'] == 'LoadValueKVA_PF':
+            elif attrib == 'LoadValueKVA_PF':
                 KVA = float(LoadValue.find('KVA').text)
                 PF = float(LoadValue.find('PF').text)/100
                 P = KVA * PF
@@ -277,7 +284,7 @@ def CreateByPhase(f,Name,row):
 
 # LineConfigTable[EquipmentID] = [nphases,r1,x1,r0,x0,b1,b0,NominalRating,use]
 # OHLineTable[SectionID] = [LineFromNode,LineToNode,Phase,DeviceLength,LineConfig]
-# CableConfigTable[EquipmentID] = [nphases,r1,x1,r0,x0,b1,b0,NominalRating,use]
+# UGConfigTable[EquipmentID] = [nphases,r1,x1,r0,x0,b1,b0,NominalRating,use]
 # UGLineTable[SectionID] = [LineFromNode,LineToNode,Phase,DeviceLength,LineConfig]
 
 def CreateMatrixLine(f,Name,row,cfg):
@@ -300,6 +307,8 @@ def CreateMatrixLine(f,Name,row,cfg):
         rm = (cfg[10] + cfg[11] + cfg[12]) * CYMEtoDSSLineCode / 3.0
         xm = (cfg[13] + cfg[14] + cfg[15]) * CYMEtoDSSLineCode / 3.0
         bm = (cfg[16] + cfg[17] + cfg[18]) * CYMEtoDSSLineCode / 3.0
+        cs = (cfg[6] + cfg[5] + cfg[5]) * CYMEtoDSSLineCode / 3.0 / 0.377  # uS ==> nF
+        cm = (cfg[6] - cfg[5]) * CYMEtoDSSLineCode / 3.0 / 0.377
         if nphs == 1:
             f.write(' rmatrix=[' + '{:.6f}'.format(rs) + '] xmatrix=[' + '{:.6f}'.format(xs) + ']')
             f.write(' cmatrix=[' + '{:.4f}'.format(cs) + ']')
@@ -378,6 +387,19 @@ def CreateSwitch(f,Name,row):
     else:
         f.write('  open line.' + Name + ' 1\n')
     return
+
+def CreateSeriesReactor(f, Name, row, cfg):
+    # SRTable[DeviceNumber] = [LineFromNode,LineToNode,Phase,DeviceID]
+    nphs = ParseNPhases(row[2])
+    phs = ParseTerminals(row[2])
+    f.write('new reactor.' + Name)
+    f.write(' bus1=' + row[0] + phs)
+    f.write(' bus2=' + row[1] + phs)
+    f.write(' phases=' + str(nphs))
+    f.write(' r=' + str(0))
+    f.write(' x=' + str(float(cfg[0])))
+    f.write(' normamps=' + str(cfg[1]))
+    f.write('\n')
 
 # [SwtFromNode,SwtToNode,Phase,SectionStatus,DeviceID,End,enabled]
 def CreateRecloser(f,Name,row):
@@ -578,7 +600,10 @@ def CreateRegulator(f,Name,row):
         f.write('new transformer.{:s} phases={:d} windings=2 buses=({:s},{:s})'.format(Name, nPhs, row[0]+allPhs, row[1]+allPhs))
         f.write(' kvas=({:.2f},{:.2f}) kvs=({:.3f},{:.3f}) conns=({:s},{:s}) xhl=1 enabled={:s}\n'.format(kva3,kva3,kvLL,kvLL,row[4],row[4],row[11]))
         f.write('new regcontrol.{:s} transformer={:s} winding=2 vreg={:.2f}'.format(Name,Name,row[7]))
-        f.write(' band={:.2f} ptratio={:.1f} ctprim={:.1f} enabled={:s}\n'.format(row[8],row[9],row[10],row[11]))
+        f.write(' band={:.2f} ptratio={:.1f} ctprim={:.1f} enabled={:s}'.format(row[8],row[9],row[10],row[11]))
+        if row[12] == 'FixedTap':
+            f.write(f' tapnum={row[13]}\n')
+            f.write('Set Controlmode=OFF')
         f.write('\n')
     else: # indepdendent
         for phs in phases:
@@ -598,7 +623,12 @@ def CreateRegulator(f,Name,row):
             f.write(' band=' + str(row[8]))
             f.write(' ptratio=' + str(row[9]))
             f.write(' ctprim=' + str(row[10]))
-            f.write(' enabled=' + row[11] + '\n')
+            f.write(' enabled=' + row[11])
+            if row[12] == 'FixedTap':
+                f.write(f' tapnum={row[13][phases.index(phs)]}')
+            f.write('\n')
+        if row[12] == 'FixedTap':
+            f.write('Set Controlmode=OFF')
         f.write('\n')
     return
 
@@ -705,33 +735,39 @@ def CreateLoad(f,Name,row):
     Pc = row[3][4]
     Qc = row[3][5]
     cls = row[4]
-    if (len(phs) == 2 and 1 == 2): # single-phase delta connection, bypass for SCE (TODO)
+    con_config = row[5]
+    if con_config == 'D':
+        connection = 'delta'
+    else:
+        connection = 'wye'
+    if len(phs) == 2: # single-phase delta connection, bypass for SCE (TODO)
         Pa += Pb + Pc
         Qa += Qb + Qc
         kv = DefaultBaseVoltage
         if phs == 'AB':
-            WriteOneLoad (f, Name + '_ab', bus + '.1.2', Pa, Qa, kv, cls, 'delta')
+            WriteOneLoad (f, Name + '_ab', bus + '.1.2', Pa, Qa, kv, cls, connection)
         elif phs == 'BC':
-            WriteOneLoad (f, Name + '_bc', bus + '.2.3', Pa, Qa, kv, cls, 'delta')
+            WriteOneLoad (f, Name + '_bc', bus + '.2.3', Pa, Qa, kv, cls, connection)
         else:
-            WriteOneLoad (f, Name + '_ac', bus + '.1.3', Pa, Qa, kv, cls, 'delta')
-    elif (len(phs) == 3): # for SCE, we "know" the load is balanced, but wye or delta?
-        WriteBalancedLoad (f, Name, bus, Pa+Pb+Pc, Qa+Qb+Qc, DefaultBaseVoltage, cls, 'wye')
+            WriteOneLoad (f, Name + '_ac', bus + '.1.3', Pa, Qa, kv, cls, connection)
+    elif len(phs) == 3 and (Pa == Pb and Pa == Pc): # for SCE, we "know" the load is balanced, but wye or delta?
+        WriteBalancedLoad (f, Name, bus, Pa+Pb+Pc, Qa+Qb+Qc, DefaultBaseVoltage, cls, connection)
     else:  # wye connection, written independently
         kv /= math.sqrt(3.0)
         if ((Pa != 0) or (Qa != 0)) and (phs.find('A') >= 0):
-            WriteOneLoad (f, Name + '_a', bus + '.1', Pa, Qa, kv, cls, 'wye')
+            WriteOneLoad (f, Name + '_a', bus + '.1', Pa, Qa, kv, cls, connection)
         if ((Pb != 0) or (Qb != 0)) and (phs.find('B') >= 0):
-            WriteOneLoad (f, Name + '_b', bus + '.2', Pb, Qb, kv, cls, 'wye')
+            WriteOneLoad (f, Name + '_b', bus + '.2', Pb, Qb, kv, cls, connection)
         if ((Pc != 0) or (Qc != 0)) and (phs.find('C') >= 0):
-            WriteOneLoad (f, Name + '_c', bus + '.3', Pc, Qc, kv, cls, 'wye')
+            WriteOneLoad (f, Name + '_c', bus + '.3', Pc, Qc, kv, cls, connection)
     return
 
 def BuildCatalog(root):
-    # Extract info for OH Conductor, create a dictionary
+    # Extract wire data for OH Conductor, create a dictionary
     print ('Parsing the feeder model...')
     for ConductorDB in root.findall('./Equipments/Equipments/EquipmentDBs/ConductorDB'):
         EquipmentID = 'OH_'+ConductorDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         if CYMEVersion <= 7.1:
             FirstResistance = float(ConductorDB.find('FirstResistance').text)    # ohm/km
             SecondResistance = float(ConductorDB.find('SecondResistance').text)  # ohm/km
@@ -743,10 +779,11 @@ def BuildCatalog(root):
         NominalRating = float(ConductorDB.find('NominalRating').text)
         OHConductorTable[EquipmentID] = [SecondResistance,GMR,OutsideDiameter,NominalRating] 
 
-    # Extract info for line spacing objects, create a dictionary
+    # Extract info for OH line spacing objects, create a dictionary
     bWarnedAverageGeo = False
     for SpacingDB in root.findall('./Equipments/Equipments/EquipmentDBs/OverheadSpacingOfConductorDB'):
         EquipmentID = 'OH_'+SpacingDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         for GeometricalArrangement in SpacingDB.findall('GeometricalArrangement'):
             # all length units are m
             nphases = int(GeometricalArrangement.find('NbPhasesPerCircuit').text)
@@ -806,6 +843,7 @@ def BuildCatalog(root):
     # Extract info for OH line config objects, create a dictionary
     for OverheadLineDB in root.findall('./Equipments/Equipments/EquipmentDBs/OverheadLineDB'):
         EquipmentID = 'OH_'+OverheadLineDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         SpacingID = OverheadLineDB.find('ConductorSpacingID').text
         if SpacingID.find('-1PH-') >= 0:
             nphases = 1
@@ -832,6 +870,7 @@ def BuildCatalog(root):
 
     for MatrixDB in root.findall('./Equipments/Equipments/EquipmentDBs/OverheadLineUnbalancedDB'):
         EquipmentID = "ZM_" + MatrixDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         nphases = 3 # TODO - how to find 1-phase and 2-phase matrices; could be the existence of phase conductors
         NominalRating = float(MatrixDB.find('NominalRatingA').text)
         Raa = float(MatrixDB.find('SelfResistanceA').text)
@@ -857,6 +896,7 @@ def BuildCatalog(root):
 
     for CableDB in root.findall('./Equipments/Equipments/EquipmentDBs/CableDB'):
         EquipmentID = "UG_" + CableDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         nphases = 3 # TODO - how to find 1-phase cables?
         r1 = float(CableDB.find('PositiveSequenceResistance').text)
         x1 = float(CableDB.find('PositiveSequenceReactance').text)
@@ -873,11 +913,20 @@ def BuildCatalog(root):
             x0 = x1
         if b0 <= 0:
             b0 = b1
-        CableConfigTable[EquipmentID] = [nphases,r1,x1,r0,x0,b1,b0,NominalRating,0]
+        UGConfigTable[EquipmentID] = [nphases,r1,x1,r0,x0,b1,b0,NominalRating,0]
+
+    # Extract data from series reactors and create a dictionary
+    for SRDB in root.findall('./Equipments/Equipments/EquipmentDBs/SeriesReactorDB'):
+        EquipmentID = "SR_" + SRDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
+        rated_current = float(SRDB.find('RatedCurrent').text)
+        x_ohms = float(SRDB.find('ReactanceOhms').text)
+        SRConfigTable[EquipmentID] = [x_ohms, rated_current, 0]
 
     # Extract Transformer Codes and create a dictionary
     for XfDB in root.findall('./Equipments/Equipments/EquipmentDBs/TransformerDB'):
         EquipmentID = XfDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         kva = float(XfDB.find('NominalRatingKVA').text)
         kv1 = float(XfDB.find('PrimaryVoltage').text) # new TransfoVoltageUnit
         kv2 = float(XfDB.find('SecondaryVoltage').text)
@@ -916,16 +965,18 @@ def BuildCatalog(root):
     # Extract FusedB and make a dictionary for internal reference; not written to catalog
     for FuseDB in root.findall('./Equipments/Equipments/EquipmentDBs/FuseDB'):
         ID = FuseDB.find('EquipmentID').text.translate(dsstab)
+        ID = ID.replace(" ", "_")
         amps = float(FuseDB.find('FirstRatedCurrent').text)
         if ID.find('KLINK') >= 0:
             curve = 'Klink'
         else:
             curve = 'Tlink'
-        FuseConfigTable[ID]= [amps,curve]
+        FuseConfigTable[ID] = [amps,curve]
 
     # Extract RegulatorDB and make a dictionary for internal reference; not written to catalog
     for RegDB in root.findall('./Equipments/Equipments/EquipmentDBs/RegulatorDB'):
         ID = RegDB.find('EquipmentID').text.translate(dsstab)
+        ID = ID.replace(" ", "_")
         typ = RegDB.find('Type').text
         kva = float(RegDB.find('RatedKVA').text)
         kvln = float(RegDB.find('RatedKVLN').text)
@@ -943,6 +994,7 @@ def BuildCatalog(root):
 
     for ECGDB in root.findall('./Equipments/Equipments/EquipmentDBs/ElectronicConverterGeneratorDB'):
         EquipmentID = ECGDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         RatedKVA = float(ECGDB.find('RatedKVA').text)
         RatedKVLL = float(ECGDB.find('RatedKVLL').text)
         FaultPU = float(ECGDB.find('FaultContribution').text) / 100
@@ -950,12 +1002,14 @@ def BuildCatalog(root):
 
     for PhotovoltaicDB in root.findall('./Equipments/Equipments/EquipmentDBs/PhotovoltaicDB'):
         EquipmentID = PhotovoltaicDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         CellKVA = 0.001 * float(PhotovoltaicDB.find('MPPCurrent').text) * float(PhotovoltaicDB.find('MPPVoltage').text)
         CellFaultPU = float(PhotovoltaicDB.find('SCCurrent').text) / float(PhotovoltaicDB.find('MPPCurrent').text)
-        PhotovoltaicTable[EquipmentID] = [CellKVA,CellFaultPU] 
+        PhotovoltaicTable[EquipmentID] = [CellKVA,CellFaultPU]
 
     for BESSDB in root.findall('./Equipments/Equipments/EquipmentDBs/BESSDB'):
         EquipmentID = BESSDB.find('EquipmentID').text.translate(dsstab)
+        EquipmentID = EquipmentID.replace(" ", "_")
         RatedStorage = float(BESSDB.find('RatedStorageEnergy').text)
         BESSTable[EquipmentID] = [RatedStorage] # max powers, efficiencies, losses also available
 
@@ -983,8 +1037,8 @@ def WriteCatalog(filename):
         CreateLineCode(fcatalog,key,LineConfigTable[key])
     fcatalog.write('\n')
 
-    for key in CableConfigTable:
-        CreateLineCode(fcatalog,key,CableConfigTable[key])
+    for key in UGConfigTable:
+        CreateLineCode(fcatalog,key,UGConfigTable[key])
     fcatalog.write('\n')
 
     for key in MatrixTable:
@@ -1005,6 +1059,7 @@ def BuildInitialCoordinates(root):
     Ymax = Xmax
     for Node in root.findall('./Networks/Network/Nodes/Node'):
         ID = Node.find('NodeID').text.translate(dsstab)
+        ID = ID.replace(" ", "_")
         X = float(Node.find('Connectors').find('Point').find('X').text)
         Y = float(Node.find('Connectors').find('Point').find('Y').text)
         if X < Xmin:
@@ -1032,6 +1087,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
     OHLineTable = {}
     ZMLineTable = {}
     OHPhaseTable = {}
+    SRTable = {}
     LoadTable = {}
     UGLineTable = {}
     SwitchTable = {}
@@ -1051,40 +1107,66 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
     xstr = ".//*[NetworkID='" + OwnerID + "']/Sources/Source"
     print(xstr)
     for Source in root.findall(xstr):
-        for SourceSetting in Source.findall('SourceSettings'):
-            SourceID = SourceSetting.find('SourceID').text.translate(dsstab)
+        if Source.find('SourceSettings/SourceNodeID'):
+            SourceNodeID = Source.find('SourceSettings/SourceNodeID').text.translate(dsstab)
+        else:
             SourceNodeID = Source.find('SourceNodeID').text.translate(dsstab)
-            DeviceNumber = SourceSetting.find('DeviceNumber').text.translate(dsstab)
-            print ('source ' + SourceID + ' ' + SourceNodeID)
-            for ESModels in Source.findall('EquivalentSourceModels'):
-                for ESModel in ESModels.findall('EquivalentSourceModel'):
-                    for EquivalentSource in ESModel.findall('EquivalentSource'):
-                        SourceBaseVoltage = float(EquivalentSource.find('KVLL').text)
-                        ActualVoltage = float(EquivalentSource.find('OperatingVoltage1').text)*math.sqrt(3.0)
-                        pu = round (ActualVoltage / SourceBaseVoltage, 4)
-                        ang = float(EquivalentSource.find('OperatingAngle1').text)
-                        try:
-                            r1 = float(EquivalentSource.find('PositiveSequenceResistance').text)
-                        except AttributeError:
-                            r1 = float(EquivalentSource.find('FirstLevelR1').text)
-                        try:
-                            x1 = float(EquivalentSource.find('PositiveSequenceReactance').text)
-                        except AttributeError:
-                            x1 = float(EquivalentSource.find('FirstLevelX1').text)
-                        try:
-                            r0 = float(EquivalentSource.find('ZeroSequenceResistance').text)
-                        except AttributeError:
-                            r0 = float(EquivalentSource.find('FirstLevelR0').text)
-                        try:
-                            x0 = float(EquivalentSource.find('ZeroSequenceReactance').text)
-                        except AttributeError:
-                            x0 = float(EquivalentSource.find('FirstLevelX0').text)
-                        if EquivalentSource.find('ImpedanceUnit').text == 'PU': # 'Ohms':
-                            r1 *= Zbase
-                            x1 *= Zbase
-                            r0 *= Zbase
-                            x0 *= Zbase
-                        SourceTable[SourceID] = [SourceBaseVoltage,pu,ang,r1,x1,r0,x0,SourceNodeID,DeviceNumber]
+        if Source.find('SourceSettings/SourceID'):
+            SourceID = Source.find('SourceSettings/SourceID').text.translate(dsstab)
+        elif Source.find('SourceID'):
+            SourceID = Source.find('SourceID').text.translate(dsstab)
+        else:
+            SourceID = SourceNodeID
+        if Source.find('SourceSettings/DeviceNumber'):
+            DeviceNumber = Source.find('SourceSettings/DeviceNumber').text.translate(dsstab)
+        elif Source.find('DeviceNumber'):
+            DeviceNumber = Source.find('DeviceNumber').text.translate(dsstab)
+        else:
+            DeviceNumber = SourceNodeID
+
+        # for SourceSetting in Source.findall('SourceSettings'):
+        #     SourceID = SourceSetting.find('SourceID').text.translate(dsstab)
+        #     SourceID = SourceID.replace(" ", "_")
+        #     SourceNodeID = Source.find('SourceNodeID').text.translate(dsstab)
+        #     SourceNodeID = SourceNodeID.replace(" ", "_")
+        #     DeviceNumber = SourceSetting.find('DeviceNumber').text.translate(dsstab)
+        #     DeviceNumber = DeviceNumber.replace(" ", "_")
+        # if not Source.findall('SourceSettings'):
+        #     SourceNodeID = Source.find('SourceNodeID').text.translate(dsstab)
+        #     SourceNodeID = SourceNodeID.replace(" ", "_")
+        #     DeviceNumber = SourceNodeID
+        #     SourceID = SourceNodeID
+
+        print('source ' + SourceID + ' ' + SourceNodeID)
+        for ESModels in Source.findall('EquivalentSourceModels'):
+            for ESModel in ESModels.findall('EquivalentSourceModel'):
+                for EquivalentSource in ESModel.findall('EquivalentSource'):
+                    SourceBaseVoltage = float(EquivalentSource.find('KVLL').text)
+                    ActualVoltage = float(EquivalentSource.find('OperatingVoltage1').text)*math.sqrt(3.0)
+                    pu = round (ActualVoltage / SourceBaseVoltage, 4)
+                    ang = float(EquivalentSource.find('OperatingAngle1').text)
+                    try:
+                        r1 = float(EquivalentSource.find('PositiveSequenceResistance').text)
+                    except AttributeError:
+                        r1 = float(EquivalentSource.find('FirstLevelR1').text)
+                    try:
+                        x1 = float(EquivalentSource.find('PositiveSequenceReactance').text)
+                    except AttributeError:
+                        x1 = float(EquivalentSource.find('FirstLevelX1').text)
+                    try:
+                        r0 = float(EquivalentSource.find('ZeroSequenceResistance').text)
+                    except AttributeError:
+                        r0 = float(EquivalentSource.find('FirstLevelR0').text)
+                    try:
+                        x0 = float(EquivalentSource.find('ZeroSequenceReactance').text)
+                    except AttributeError:
+                        x0 = float(EquivalentSource.find('FirstLevelX0').text)
+                    if EquivalentSource.find('ImpedanceUnit').text == 'PU': # 'Ohms':
+                        r1 *= Zbase
+                        x1 *= Zbase
+                        r0 *= Zbase
+                        x0 *= Zbase
+                    SourceTable[SourceID] = [SourceBaseVoltage,pu,ang,r1,x1,r0,x0,SourceNodeID,DeviceNumber]
 
     #xstr = './Networks/Network/Sections/Section'
     #xstr = ".//*[NetworkID='" + OwnerID + "']/Sources/Source"
@@ -1092,7 +1174,9 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
     print (xstr)
     for Section in root.findall(xstr):
         FromNodeID = Section.find('FromNodeID').text.translate(dsstab)
+        FromNodeID = FromNodeID.replace(" ", "_")
         ToNodeID = Section.find('ToNodeID').text.translate(dsstab)
+        ToNodeID = ToNodeID.replace(" ", "_")
         LineFromNode = FromNodeID
         LineToNode = ToNodeID
         SwtFromNode = FromNodeID
@@ -1101,6 +1185,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
         XfmrToNode = ToNodeID
         Phase = Section.find('Phase').text
         SectionID = Section.find('SectionID').text.translate(dsstab)
+        SectionID = SectionID.replace(" ", "_")
         for Devices in Section.findall('Devices'):
             SectionStatus = 'Closed' # initialize to closed
 
@@ -1112,12 +1197,13 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
             for child in Devices:
                 DeviceType = child.tag
                 AllDeviceTypes.add (DeviceType)
-                if DeviceType in ('OverheadLine', 'OverheadByPhase', 'Underground', 'Cable'):
+                if DeviceType in ['OverheadLine', 'OverheadByPhase', 'Underground', 'Cable', 'SeriesReactor']:
                     SectionLine = 'Yes'
                     LineName = child.find('DeviceNumber').text.translate(dsstab)
-                if DeviceType in ('Transformer', 'Regulator'):
+                    LineName = LineName.replace(" ", "_")
+                elif DeviceType in ['Transformer', 'Regulator']:
                     SectionXfmr = 'Yes'
-                if DeviceType in ('Switch', 'Fuse', 'Breaker', 'Recloser', 'Sectionalizer'):
+                elif DeviceType in ['Switch', 'Fuse', 'Breaker', 'Recloser', 'Sectionalizer']:
                     SectionSwitch = 'Yes'
                     NormalStatus = child.find('NormalStatus').text
                     ClosedPhase = child.find('ClosedPhase').text
@@ -1129,6 +1215,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                 DeviceType = child.tag
                 AllDeviceTypes.add (DeviceType)
                 DeviceNumber = child.find('DeviceNumber').text.translate(dsstab)
+                DeviceNumber = DeviceNumber.replace(" ", "_")
                 if DeviceType in ('Transformer', 'Regulator') and (SectionLine == 'Yes'):
                     MidNodeID = SectionID + '-xf'
                     print('Xfmr/Reg and Line on', SectionID, 'inserting', MidNodeID)
@@ -1181,10 +1268,12 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                 DeviceType = child.tag
                 AllDeviceTypes.add (DeviceType)
                 DeviceNumber = child.find('DeviceNumber').text.translate(dsstab)
+                DeviceNumber = DeviceNumber.replace(" ", "_")
                 if DeviceType == 'OverheadLine':
                     DeviceLength = float(child.find('Length').text)
                     if DeviceLength > 0.0:
                         LineConfig = 'OH_' + child.find('LineID').text.translate(dsstab)
+                        LineConfig = LineConfig.replace(" ", "_")
                         OHLineTable[DeviceNumber] = [LineFromNode,LineToNode,Phase,DeviceLength,LineConfig]
                         LineConfigTable[LineConfig][8] = 1 # flag to write only the ones we use
                     else:
@@ -1194,6 +1283,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     DeviceLength = float(child.find('Length').text)
                     if DeviceLength > 0.0:
                         LineConfig = 'ZM_' + child.find('LineID').text.translate(dsstab)
+                        LineConfig = LineConfig.replace(" ", "_")
                         ZMLineTable[DeviceNumber] = [LineFromNode,LineToNode,Phase,DeviceLength,LineConfig]
                         MatrixTable[LineConfig][20] = 1 # flag to write only the ones we use
                     else:
@@ -1203,6 +1293,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     DeviceLength = float(child.find('Length').text)
                     if DeviceLength > 0.0:
                         LineSpacing = 'OH_' + child.find('ConductorSpacingID').text.translate(dsstab)
+                        LineSpacing = LineSpacing.replace(" ", "_")
                         WireA = 'OH_' + child.find('PhaseConductorIDA').text.translate(dsstab)
                         WireB = 'OH_' + child.find('PhaseConductorIDB').text.translate(dsstab)
                         WireC = 'OH_' + child.find('PhaseConductorIDC').text.translate(dsstab)
@@ -1221,11 +1312,25 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     DeviceLength = float(child.find('Length').text)
                     if DeviceLength > 0.0:
                         LineConfig = "UG_" + child.find('CableID').text.translate(dsstab)
+                        LineConfig = LineConfig.replace(" ", "_")
                         UGLineTable[DeviceNumber] = [LineFromNode,LineToNode,Phase,DeviceLength,LineConfig]
-                        CableConfigTable[LineConfig][8] = 1 # flag to write only the ones we use
+                        try:
+                            UGConfigTable[LineConfig][8] = 1 # flag to write only the ones we use
+                        except KeyError:
+                            if len(Phase) == 3:
+                                UGConfigTable[LineConfig] = _helperDB.UGConfigTable[
+                                    'UG_OKONITE-2-4KV-MV90-750KCMIL-1C-CU']
+                            else:
+                                UGConfigTable[LineConfig] = _helperDB.UGConfigTable['UG_OKONITE-15KV-MV105-250KCMIL-1C-CU']
+                            UGConfigTable[LineConfig][8] = 1
                     else:
                         # add a switch matching SectionStatus
                         SwitchTable[DeviceNumber] = [LineFromNode,LineToNode,Phase,SectionStatus,DeviceType]
+                elif DeviceType == 'SeriesReactor':
+                    SRConfig = "SR_" + child.find('DeviceID').text.translate(dsstab)
+                    SRConfig = SRConfig.replace(" ", "_")
+                    SRTable[DeviceNumber] = [LineFromNode,LineToNode,Phase,SRConfig]
+                    SRConfigTable[SRConfig][2] = 1 # flag to write only the ones we use
                 elif DeviceType == 'Recloser':
                     if child.find('Location').text == 'To':
                         End = 2
@@ -1234,8 +1339,10 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     enabled = Connected(child)
                     switch = SectionStatus # child.find('NormalStatus').text
                     DeviceID = child.find('DeviceID').text.translate(dsstab)
+                    DeviceID = DeviceID.replace(" ", "_")
                     if SectionID == DeviceNumber:
                         DeviceNumber = 'Recloser_' + SectionID
+                        DeviceNumber = DeviceNumber.replace(" ", "_")
 #                    RecloserTable[DeviceNumber] = [SectionID,End,DeviceID,switch,enabled]
 #                    print('WARNING: recloser in ' + SectionID + ' will be a closed switch')
 #                        SwitchTable[DeviceNumber] = [SwtFromNode,SwtToNode,Phase,"Closed",DeviceID]
@@ -1249,6 +1356,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     switch = SectionStatus  # child.find('NormalStatus').text
                     closedPhases = child.find('ClosedPhase').text
                     DeviceID = child.find('DeviceID').text.translate(dsstab)
+                    DeviceID = DeviceID.replace(" ", "_")
                     if child.find('ConnectionStatus').text == 'Connected':
                         enabled = 'yes'
                         if closedPhases == 'None':
@@ -1275,8 +1383,13 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     enabled = Connected(child)
                     switch = SectionStatus # child.find('NormalStatus').text
                     DeviceID = child.find('DeviceID').text.translate(dsstab)
-                    amps = FuseConfigTable[DeviceID][0]
-                    curve = FuseConfigTable[DeviceID][1]
+                    DeviceID = DeviceID.replace(" ", "_")
+                    try:
+                        amps = FuseConfigTable[DeviceID][0]
+                        curve = FuseConfigTable[DeviceID][1]
+                    except:
+                        amps = FuseConfigTable['S&C_25KV_SM-5_100E'][0]
+                        curve = FuseConfigTable['S&C_25KV_SM-5_100E'][1]
                     if SectionID == DeviceNumber:
                         DeviceNumber = 'Fuse_' + SectionID
 #                        FuseTable[DeviceNumber] = [DeviceNumber,End,DeviceID,switch,enabled,amps,curve,LineName,Phase]
@@ -1286,6 +1399,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
 #                        print ('Fuse', FuseTable[DeviceNumber])
                 elif DeviceType == 'Transformer':
                     XfmrCode = child.find('DeviceID').text.translate(dsstab)
+                    XfmrCode = XfmrCode.replace(" ", "_")
                     tap1 = 0.01 * float(child.find('PrimaryTapSettingPercent').text)
                     tap2 = 0.01 * float(child.find('SecondaryTapSettingPercent').text)
                     enabled = Connected(child)
@@ -1303,7 +1417,9 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     enabled = Connected(child)
                     TransformerPhaseTable[DeviceNumber] = [XfmrFromNode,XfmrToNode,Phase,XfmrCode1,XfmrCode2,XfmrCode3,enabled]
                 elif DeviceType == 'Regulator':
+                    taps = []
                     RegCode = child.find('DeviceID').text.translate(dsstab)
+                    RegCode = RegCode.replace(" ", "_")
                     monPhs = child.find('ControlStatus').text
                     if child.find('ConnectionConfiguration').text.find('Delta') > 0:
                         conn = 'delta'
@@ -1327,9 +1443,23 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     kv = RegConfigTable[RegCode][2]
                     if child.find('ReverseSensingMode').text != 'NoReverse':
                         print('WARNING: unhandled ReverseSensingMode for regulator ' + DeviceNumber + ': ' + child.find('ReverseSensingMode').text)
-                    if child.find('SettingOption').text != 'LoadCenter':
+                    set_opt = child.find('SettingOption').text
+                    if set_opt not in ['LoadCenter', 'FixedTap', 'Terminal']:
                         print('WARNING: unhandled SettingOption for regulator ' + DeviceNumber + ': ' + child.find('SettingOption').text)
-                    RegulatorTable[DeviceNumber] = [XfmrFromNode,XfmrToNode,Phase,monPhs,conn,kva,kv,vreg,bw,pt,ct,enabled]
+                    try:
+                        tap_a = child.find('TapPositionA').text
+                    except:
+                        tap_a = None
+                    try:
+                        tap_b = child.find('TapPositionB').text
+                    except:
+                        tap_b = None
+                    try:
+                        tap_c = child.find('TapPositionC').text
+                    except:
+                        tap_c = None
+                    taps = [tap_a, tap_b, tap_c]
+                    RegulatorTable[DeviceNumber] = [XfmrFromNode,XfmrToNode,Phase,monPhs,conn,kva,kv,vreg,bw,pt,ct,enabled, set_opt, taps]
                 elif DeviceType == 'ShuntCapacitor':
                     if child.find('Location').text == 'To':
                         CapBus = ToNodeID
@@ -1364,11 +1494,25 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     enabled = Connected(child)
                     ActiveGen = float(child.find('GenerationModels/DGGenerationModel/ActiveGeneration').text)
                     pf = 0.01 * float(child.find('GenerationModels/DGGenerationModel/PowerFactor').text)
-                    PVCode = child.find('DeviceID').text.translate(dsstab)
-                    kva = PhotovoltaicTable[PVCode][0] * float(child.find('Ns').text) * float(child.find('Np').text)
+                    try:
+                        PVCode = child.find('DeviceID').text.translate(dsstab)
+                    except AttributeError:
+                        PVCode = child.find('DCPhotovoltaicSettings/MPPTChannels/MPPTChannelDetailed/PhotovoltaicID').text.translate(dsstab)
+                    try:
+                        kva = PhotovoltaicTable[PVCode][0] * float(child.find('Ns').text) * float(child.find('Np').text)
+                    except AttributeError:
+                        kva = PhotovoltaicTable[PVCode][0] * \
+                              float(child.find('DCPhotovoltaicSettings/MPPTChannels/MPPTChannelDetailed/Ns').text) * \
+                              float(child.find('DCPhotovoltaicSettings/MPPTChannels/MPPTChannelDetailed/Np').text)
                     pufault = PhotovoltaicTable[PVCode][1]
-                    if child.find('FaultContributionUnit').text == 'Percent':
-                        pufault = 0.01 * float(child.find('FaultContribution').text)
+                    try:
+                        fcu = child.find('FaultContributionUnit').text
+                        fc = float(child.find('FaultContribution').text)
+                    except AttributeError:
+                        fcu = child.find('Inverter/FaultContribution/FaultContributionUnit').text
+                        fc = float(child.find('Inverter/FaultContribution/FaultContribution').text)
+                    if fcu == 'Percent':
+                        pufault = 0.01 * fc
                     DGTable[DeviceNumber] = [GenBus,PhasesConnected,ActiveGen,pf,kva,pufault]
                 elif DeviceType == 'BESS':
                     if child.find('Location').text == 'To':
@@ -1382,6 +1526,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     TotalGen = float(child.find('Converter/ConverterRating').text)
                     pf = 1.0
                     BESSCode = child.find('DeviceID').text.translate(dsstab)
+                    BESSCode = BESSCode.replace(" ", "_")
                     kwh = BESSTable[BESSCode][0]
                     pufault = 1.1
                     if child.find('FaultContributionUnit').text == 'Percent':
@@ -1397,6 +1542,7 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     ActiveGen = float(child.find('GenerationModels/DGGenerationModel/ActiveGeneration').text)
                     pf = 0.01 * float(child.find('GenerationModels/DGGenerationModel/PowerFactor').text)
                     ECGCode = child.find('DeviceID').text.translate(dsstab)
+                    ECGCode = ECGCode.replace(" ", "_")
                     kva = ECGTable[ECGCode][0]
                     pufault = ECGTable[ECGCode][2]
                     DGTable[DeviceNumber] = [GenBus,PhasesConnected,ActiveGen,pf,kva,pufault]
@@ -1410,17 +1556,20 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                 DeviceType = child.tag
                 AllDeviceTypes.add (DeviceType)
                 DeviceNumber = child.find('DeviceNumber').text
+                DeviceNumber = DeviceNumber.replace(" ", "_")
                 if DeviceType == 'SpotLoad':
+                    ConConfig = child.find('ConnectionConfiguration').text
                     if child.find('Location').text == 'To':
                         LoadNodeID = ToNodeID
                     else:
                         LoadNodeID = FromNodeID
                     Sload = CollectLoadPQ(child)
-                    LoadTable[DeviceNumber] = [LoadNodeID,Phase,DefaultBaseVoltage,Sload,1]
+                    LoadTable[DeviceNumber] = [LoadNodeID,Phase,DefaultBaseVoltage,Sload,1,ConConfig]
                 elif DeviceType == 'DistributedLoad':
+                    ConConfig = child.find('ConnectionConfiguration').text
                     LoadNodeID = ToNodeID #TODO - split the load?
                     Sload = CollectLoadPQ(child)
-                    LoadTable[DeviceNumber] = [LoadNodeID,Phase,DefaultBaseVoltage,Sload,2]
+                    LoadTable[DeviceNumber] = [LoadNodeID,Phase,DefaultBaseVoltage,Sload,2, ConConfig]
 
     print (AllDeviceTypes)
     #add Loads to Buses
@@ -1477,13 +1626,24 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
     offset_val += 1
 
     for key in UGLineTable:
-        cfg = CableConfigTable[UGLineTable[key][4]]
+        cfg = UGConfigTable[UGLineTable[key][4]]
         if key in unique_objs:
             name = key + f'_{offset_val}'
         else:
             name = key
         unique_objs.append(name)
         CreateLine(fnetwork,name,UGLineTable[key],cfg)
+    fnetwork.write('\n')
+    offset_val += 1
+
+    for key in SRTable:
+        cfg = SRConfigTable[SRTable[key][3]]
+        if key in unique_objs:
+            name = key + f'_{offset_val}'
+        else:
+            name = key
+        unique_objs.append(name)
+        CreateSeriesReactor(fnetwork, name, SRTable[key], cfg)
     fnetwork.write('\n')
     offset_val += 1
 
@@ -1638,6 +1798,8 @@ def ConvertSXST(cfg):
     print ('Version {:.2f}'.format(CYMEVersion))
 
     print ('Writing to DSS files...')
+    RootName = RootName.replace(" ", "_")
+    SubName = SubName.replace(" ", "_")
     masterfilename = RootName + '_master.dss'
     catalogfilename = RootName + '_catalog.dss'
     xyfilename = RootName + '_xy.dat'
@@ -1651,7 +1813,9 @@ def ConvertSXST(cfg):
     offset_val = 0
     for OwnerID in OwnerIDs:
         networkfilename = OwnerID + '_network.dss'
+        networkfilename = networkfilename.replace(" ", "_")
         loadfilename = OwnerID + '_loads.dss'
+        loadfilename = loadfilename.replace(" ", "_")
         fmaster.write('redirect ' + networkfilename + '\n')
         fmaster.write('redirect ' + loadfilename + '\n')
         offset_val = WriteFeeder (root, OwnerID, outpath + networkfilename, outpath + loadfilename, offset_val)
@@ -1688,6 +1852,15 @@ def ConvertSXST(cfg):
         print('new circuit.{:s} bus1={:s} basekv={:.3f} pu=1 ang=0 r1=0 x1=0.001 r0=0 x0=0.001'.format(
             RootName, 'sourcebus', DefaultBaseVoltage), file=sp)
         for key, row in SourceTable.items():
+            # Check for zero impedance
+            if row[3] == 0:
+                row[3] = 1e-6
+            if row[4] == 0:
+                row[4] = 1e-6
+            if row[5] == 0:
+                row[5] = 1e-6
+            if row[6] == 0:
+                row[6] = 1e-6
             sp.write('// Use this source impedance as the starting point for {:s}\n'.format(SubName))
             sp.write('new vsource.' + str(row[8]))
             sp.write(' bus1=' + row[7])
@@ -1710,4 +1883,4 @@ if __name__ == '__main__':
         usage()
         sys.exit()
     lp = open (sys.argv[1]).read()
-    ConvertSXST (json.loads(lp))
+    ConvertSXST(json.loads(lp))
