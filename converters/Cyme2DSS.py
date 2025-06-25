@@ -1848,9 +1848,11 @@ def ConvertSXST(cfg):
     // You may also add transmission lines, substation switchgear, substation regulator, 
     //  energy meter, or other components before the feeder backbone is included.
     // This file is not over-written if you run the converter again.""", file=sp)
-        print('// Placeholder source:', file=sp)
-        print('new circuit.{:s} bus1={:s} basekv={:.3f} pu=1 ang=0 r1=0 x1=0.001 r0=0 x0=0.001'.format(
-            RootName, 'sourcebus', DefaultBaseVoltage), file=sp)
+        if not SourceTable:
+            # Write
+            print('// Placeholder source:', file=sp)
+            print('new circuit.{:s} bus1={:s} basekv={:.3f} pu=1 ang=0 r1=0 x1=0.001 r0=0 x0=0.001'.format(
+                RootName, 'sourcebus', DefaultBaseVoltage), file=sp)
         for key, row in SourceTable.items():
             # Check for zero impedance
             if row[3] == 0:
@@ -1862,7 +1864,10 @@ def ConvertSXST(cfg):
             if row[6] == 0:
                 row[6] = 1e-6
             sp.write('// Use this source impedance as the starting point for {:s}\n'.format(SubName))
-            sp.write('new vsource.' + str(row[8]))
+            if list(SourceTable.keys()).index(key) == 0:
+                sp.write('new circuit.' + str(row[8]))
+            else:
+                sp.write('new vsource.' + str(row[8]))
             sp.write(' bus1=' + row[7])
             sp.write(' basekv=' + str(row[0]))
             sp.write(' pu=' + str(row[1]))
