@@ -21,6 +21,7 @@ import xml.etree.ElementTree as ET
 import json
 import sys
 import os
+from difflib import SequenceMatcher
 
 # custom imports
 import converters._helperDB as _helperDB
@@ -100,8 +101,9 @@ def CollectLoadPQ (child):
     return [PA*LoadScale,QA*LoadScale,PB*LoadScale,QB*LoadScale,PC*LoadScale,QC*LoadScale]
 
 def CreateWireData(f,Name,row):
-    if row[0] <= 0.00001 or row[2] <= 0.00001:
-        f.write('// ')
+    if row[0] == 0.0:
+        row[0] = 0.0001
+        # f.write('// ')
     f.write('new wiredata.' + Name)
     f.write(' rac=' + '{:.5f}'.format(row[0]))
     f.write(' gmrac=' + '{:.5f}'.format(row[1]))
@@ -348,7 +350,12 @@ def CreateLine(f,Name,row,cfg):
             rs = (r0 + r1 + r1) / 3.0
             xs = (x0 + x1 + x1) / 3.0
             cs = (b0 + b1 + b1) / 3.0 / 0.377 # uS ==> nF
-#            cs = 0.0
+            if rs <= 1e-4:
+                rs = 1e-4
+            if xs <= 1e-4:
+                xs = 1e-4
+            if cs <= 1e-4:
+                cs = 1e-4
             f.write(' rmatrix=[' + '{:.6f}'.format(rs) + '] xmatrix=[' + '{:.6f}'.format(xs) + ']')
             f.write(' cmatrix=[' + '{:.4f}'.format(cs) + ']')
         elif nphs == 2:
@@ -358,6 +365,16 @@ def CreateLine(f,Name,row,cfg):
             rm = (r0 - r1) / 3.0
             xm = (x0 - x1) / 3.0
             cm = (b0 - b1) / 3.0 / 0.377
+            if rs <= 1e-4:
+                rs = 1e-4
+            if xs <= 1e-4:
+                xs = 1e-4
+            if cs <= 1e-4:
+                cs = 1e-4
+            if xm <= 1e-4:
+                xm = 1e-4
+            if cm <= 1e-4:
+                cm = 1e-4
 #            cs = 0.0
 #            cm = 0.0
             f.write(' rmatrix=[' + '{:.6f}'.format(rs) + '|' + '{:.6f}'.format(rm) + ' ' + '{:.6f}'.format(rs) + ']')
@@ -777,7 +794,11 @@ def BuildCatalog(root):
         GMR = float(ConductorDB.find('GMR').text)                            # cm
         OutsideDiameter = float(ConductorDB.find('OutsideDiameter').text)    # cm
         NominalRating = float(ConductorDB.find('NominalRating').text)
-        OHConductorTable[EquipmentID] = [SecondResistance,GMR,OutsideDiameter,NominalRating] 
+        if GMR == 0.0 or OutsideDiameter == 0.0:
+            closest_match = _get_close_match(EquipmentID, list(_helperDB.OHConductorTable.keys()))
+            OHConductorTable[EquipmentID] = _helperDB.OHConductorTable[closest_match]
+        else:
+            OHConductorTable[EquipmentID] = [SecondResistance,GMR,OutsideDiameter,NominalRating]
 
     # Extract info for OH line spacing objects, create a dictionary
     bWarnedAverageGeo = False
@@ -905,13 +926,17 @@ def BuildCatalog(root):
         b1 = float(CableDB.find('PositiveSequenceShuntSusceptance').text)
         b0 = float(CableDB.find('ZeroSequenceShuntSusceptance').text)
         NominalRating = float(CableDB.find('NominalRating').text)
-        if r1 <= 0 and x1 <= 0:
+        if r1 == 0.0:
             r1 = 0.0001
+        if x1 == 0.0:
             x1 = 0.0001
-        if r0 <= 0 and x0 <= 0:
+        if b1 == 0.0:
+            b1 = 0.0001
+        if r0 == 0.0:
             r0 = r1
+        if x0 == 0.0:
             x0 = x1
-        if b0 <= 0:
+        if b0 == 0.0:
             b0 = b1
         UGConfigTable[EquipmentID] = [nphases,r1,x1,r0,x0,b1,b0,NominalRating,0]
 
@@ -1020,17 +1045,8 @@ def WriteCatalog(filename):
         CreateWireData(fcatalog,key,OHConductorTable[key])
     fcatalog.write('\n')
 
-    # TODO - generalize this, 1st suffix is # of conductors, 2nd suffix is # of phases
-    LineSpacingTable['OH_DEFAULT21'] = [2,1,'[0.0 0.2]', '[11.4 8.7]']
-    LineSpacingTable['OH_UNKNOWN21'] = [2,1,'[0.0 0.2]', '[11.4 8.7]']
-    LineSpacingTable['OH_DEFAULT32'] = [3,2,'[-1.1 1.1 0.2]', '[11.0 11.0 8.7]']
-    LineSpacingTable['OH_UNKNOWN32'] = [3,2,'[-1.1 1.1 0.2]', '[11.0 11.0 8.7]']
-    LineSpacingTable['OH_DEFAULT11'] = [1,1,'[0.0]', '[11.4]']
-    LineSpacingTable['OH_UNKNOWN11'] = [1,1,'[0.0]', '[11.4]']
-    LineSpacingTable['OH_DEFAULT22'] = [2,2,'[-1.1 1.1]', '[11.0 11.0]']
-    LineSpacingTable['OH_UNKNOWN22'] = [2,2,'[-1.1 1.1]', '[11.0 11.0]']
-    for key in LineSpacingTable:
-        CreateLineSpacing(fcatalog,key,LineSpacingTable[key])
+    for key in _helperDB.LineSpacingTable.keys():
+        CreateLineSpacing(fcatalog,key,_helperDB.LineSpacingTable[key])
     fcatalog.write('\n')
 
     for key in LineConfigTable:
@@ -1317,11 +1333,13 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                         try:
                             UGConfigTable[LineConfig][8] = 1 # flag to write only the ones we use
                         except KeyError:
-                            if len(Phase) == 3:
-                                UGConfigTable[LineConfig] = _helperDB.UGConfigTable[
-                                    'UG_OKONITE-2-4KV-MV90-750KCMIL-1C-CU']
-                            else:
-                                UGConfigTable[LineConfig] = _helperDB.UGConfigTable['UG_OKONITE-15KV-MV105-250KCMIL-1C-CU']
+                            # Check if it exists in the internal database
+                            try:
+                                UGConfigTable[LineConfig] = _helperDB.UGConfigTable[LineConfig]
+                            except KeyError:
+                                # cable doesn't exist in internal database, replace with closest match
+                                closest_match = _get_close_match(LineConfig, list(_helperDB.UGConfigTable.keys()))
+                                UGConfigTable[LineConfig] = _helperDB.UGConfigTable[closest_match]
                             UGConfigTable[LineConfig][8] = 1
                     else:
                         # add a switch matching SectionStatus
@@ -1387,9 +1405,16 @@ def WriteFeeder(root, OwnerID, networkfilename, loadfilename, offset_val):
                     try:
                         amps = FuseConfigTable[DeviceID][0]
                         curve = FuseConfigTable[DeviceID][1]
-                    except:
-                        amps = FuseConfigTable['S&C_25KV_SM-5_100E'][0]
-                        curve = FuseConfigTable['S&C_25KV_SM-5_100E'][1]
+                    except KeyError:
+                        # Check if it exists in the internal database
+                        try:
+                            amps = _helperDB.FuseConfigTable[DeviceID][0]
+                            curve = _helperDB.FuseConfigTable[DeviceID][1]
+                        except KeyError:
+                            # cable doesn't exist in internal database, replace with closest match
+                            closest_match = _get_close_match(DeviceID, list(_helperDB.FuseConfigTable.keys()))
+                            amps = _helperDB.FuseConfigTable[closest_match][0]
+                            curve = _helperDB.FuseConfigTable[closest_match][1]
                     if SectionID == DeviceNumber:
                         DeviceNumber = 'Fuse_' + SectionID
 #                        FuseTable[DeviceNumber] = [DeviceNumber,End,DeviceID,switch,enabled,amps,curve,LineName,Phase]
@@ -1879,6 +1904,20 @@ def ConvertSXST(cfg):
             sp.write(' // ' + key + '\n')
         sp.close()
     #print('wrote total load = ' + "{:3}".format(TotalP) + ' + j' + "{:3}".format(TotalQ) + ' [kVA]')
+
+
+def _get_close_match(string, list_of_strings):
+    # Calculate similarities
+    similarities = []
+    for s in list_of_strings:
+        matcher = SequenceMatcher(None, string, s)
+        similarities.append(matcher.ratio())
+
+    # find the highest match
+    highest_match = similarities.index(max(similarities))
+    return list_of_strings[highest_match]
+
+
 
 def usage():
     print("usage: python Cyme2DSS.py <full path to JSON configuration>")
