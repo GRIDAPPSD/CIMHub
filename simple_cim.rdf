@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:cim="http://iec.ch/TC57/2013/CIM-schema-cim16#">
+
+  <!-- BaseVoltages -->
+  <cim:BaseVoltage rdf:about="#BV_12kV">
+    <cim:IdentifiedObject.name>12.47 kV</cim:IdentifiedObject.name>
+    <cim:BaseVoltage.nominalVoltage>12.47</cim:BaseVoltage.nominalVoltage>
+  </cim:BaseVoltage>
+
+  <cim:BaseVoltage rdf:about="#BV_4kV">
+    <cim:IdentifiedObject.name>4.16 kV</cim:IdentifiedObject.name>
+    <cim:BaseVoltage.nominalVoltage>4.16</cim:BaseVoltage.nominalVoltage>
+  </cim:BaseVoltage>
+
+  <!-- Connectivity Nodes (3 buses) -->
+  <cim:ConnectivityNode rdf:about="#BusHV">
+    <cim:IdentifiedObject.name>Bus HV</cim:IdentifiedObject.name>
+  </cim:ConnectivityNode>
+
+  <cim:ConnectivityNode rdf:about="#BusMV">
+    <cim:IdentifiedObject.name>Bus MV</cim:IdentifiedObject.name>
+  </cim:ConnectivityNode>
+
+  <cim:ConnectivityNode rdf:about="#BusLV">
+    <cim:IdentifiedObject.name>Bus LV</cim:IdentifiedObject.name>
+  </cim:ConnectivityNode>
+
+  <!-- Power Transformer -->
+  <cim:PowerTransformer rdf:about="#TX1">
+    <cim:IdentifiedObject.name>TX1</cim:IdentifiedObject.name>
+    <cim:PowerTransformer.vectorGroup>Dyn1</cim:PowerTransformer.vectorGroup>
+  </cim:PowerTransformer>
+
+  <!-- Transformer Ends (2-winding) -->
+  <cim:TransformerEnd rdf:about="#TX1_HV">
+    <cim:IdentifiedObject.name>TX1 HV End</cim:IdentifiedObject.name>
+    <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
+    <cim:TransformerEnd.ratedU>12.47</cim:TransformerEnd.ratedU>
+    <cim:TransformerEnd.BaseVoltage rdf:resource="#BV_12kV"/>
+    <cim:TransformerEnd.PowerTransformer rdf:resource="#TX1"/>
+  </cim:TransformerEnd>
+
+  <cim:TransformerEnd rdf:about="#TX1_LV">
+    <cim:IdentifiedObject.name>TX1 LV End</cim:IdentifiedObject.name>
+    <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
+    <cim:TransformerEnd.ratedU>4.16</cim:TransformerEnd.ratedU>
+    <cim:TransformerEnd.BaseVoltage rdf:resource="#BV_4kV"/>
+    <cim:TransformerEnd.PowerTransformer rdf:resource="#TX1"/>
+  </cim:TransformerEnd>
+
+  <!-- Ratio Tap Changer on HV side -->
+  <cim:RatioTapChanger rdf:about="#RTC_TX1_HV">
+    <cim:IdentifiedObject.name>RTC on TX1 HV</cim:IdentifiedObject.name>
+    <cim:TapChanger.highStep>8</cim:TapChanger.highStep>
+    <cim:TapChanger.lowStep>-8</cim:TapChanger.lowStep>
+    <cim:TapChanger.neutralStep>0</cim:TapChanger.neutralStep>
+    <cim:TapChanger.step>0</cim:TapChanger.step>
+    <cim:TapChanger.TransformerEnd rdf:resource="#TX1_HV"/>
+  </cim:RatioTapChanger>
+
+  <!-- Transformer Mesh Impedance between HV and LV -->
+  <cim:TransformerMeshImpedance rdf:about="#TX1_Z_HV_LV">
+    <cim:IdentifiedObject.name>Z(HV,LV)</cim:IdentifiedObject.name>
+    <!-- r and x in per-unit on transformer base (example values) -->
+    <cim:TransformerMeshImpedance.r>0.004</cim:TransformerMeshImpedance.r>
+    <cim:TransformerMeshImpedance.x>0.04</cim:TransformerMeshImpedance.x>
+    <cim:TransformerMeshImpedance.fromTransformerEnd rdf:resource="#TX1_HV"/>
+    <cim:TransformerMeshImpedance.toTransformerEnd rdf:resource="#TX1_LV"/>
+  </cim:TransformerMeshImpedance>
+
+  <!-- Terminals for transformer ends -->
+  <cim:Terminal rdf:about="#T_TX1_HV">
+    <cim:IdentifiedObject.name>T TX1 HV</cim:IdentifiedObject.name>
+    <cim:Terminal.ConductingEquipment rdf:resource="#TX1"/>
+    <cim:Terminal.ConnectivityNode rdf:resource="#BusHV"/>
+  </cim:Terminal>
+
+  <cim:Terminal rdf:about="#T_TX1_LV">
+    <cim:IdentifiedObject.name>T TX1 LV</cim:IdentifiedObject.name>
+    <cim:Terminal.ConductingEquipment rdf:resource="#TX1"/>
+    <cim:Terminal.ConnectivityNode rdf:resource="#BusMV"/>
+  </cim:Terminal>
+
+  <!-- A line from MV to LV -->
+  <cim:ACLineSegment rdf:about="#L1">
+    <cim:IdentifiedObject.name>L1 MV->LV</cim:IdentifiedObject.name>
+  </cim:ACLineSegment>
+
+  <!-- Terminals for the line -->
+  <cim:Terminal rdf:about="#T_L1_1">
+    <cim:IdentifiedObject.name>T L1 end 1</cim:IdentifiedObject.name>
+    <cim:Terminal.ConductingEquipment rdf:resource="#L1"/>
+    <cim:Terminal.ConnectivityNode rdf:resource="#BusMV"/>
+  </cim:Terminal>
+
+  <cim:Terminal rdf:about="#T_L1_2">
+    <cim:IdentifiedObject.name>T L1 end 2</cim:IdentifiedObject.name>
+    <cim:Terminal.ConductingEquipment rdf:resource="#L1"/>
+    <cim:Terminal.ConnectivityNode rdf:resource="#BusLV"/>
+  </cim:Terminal>
+
+  <!-- A simple load on LV bus -->
+  <cim:EnergyConsumer rdf:about="#Load1">
+    <cim:IdentifiedObject.name>Load1</cim:IdentifiedObject.name>
+  </cim:EnergyConsumer>
+
+  <cim:Terminal rdf:about="#T_Load1">
+    <cim:IdentifiedObject.name>T Load1</cim:IdentifiedObject.name>
+    <cim:Terminal.ConductingEquipment rdf:resource="#Load1"/>
+    <cim:Terminal.ConnectivityNode rdf:resource="#BusLV"/>
+  </cim:Terminal>
+
+</rdf:RDF>
