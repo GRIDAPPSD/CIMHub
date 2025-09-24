@@ -12,7 +12,7 @@ def list_bes (cfg_file=None):
   sparql.setQuery(CIMHubConfig.prefix + 
       """
       SELECT ?name ?id WHERE {
-       ?s r:type c:ConnectivityNodeContainer.
+       ?s r:type c:EquipmentContainer.
        ?s c:IdentifiedObject.name ?name.
        ?s c:IdentifiedObject.mRID ?id.
       }
